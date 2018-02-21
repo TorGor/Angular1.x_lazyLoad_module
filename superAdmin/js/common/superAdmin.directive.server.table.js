@@ -121,7 +121,7 @@
                     $scope.TemDraw++;
                     service[$scope.serviceNameAttr](temAoData,{}).$promise.then(function (data){
                         console.log(data, '----ServerPaging')
-                        if($scope.pageMessage.draw){
+                        if(data.data && data.data.draw && $scope.pageMessage.draw){
                             if(parseInt($scope.pageMessage.draw)<=parseInt(data.data.draw)){
                                 $scope.pageMessage.count=angular.copy(data.data.totalSize);
                                 $scope.pageTotle=angular.copy(data.data.totalPage);

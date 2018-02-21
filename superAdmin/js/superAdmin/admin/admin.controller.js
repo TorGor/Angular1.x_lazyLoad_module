@@ -39,14 +39,14 @@
         $scope.$watch('searchTimeStart+searchTimeEnd',function (newValue, oldValue) {
             if(newValue !== oldValue){
                 if($scope.searchTimeStart){
-                    $scope.adminsAoData.start = $scope.searchTimeStart.format('YYYYMMDD') + ' 00:00:00';
+                    $scope.adminsAoData.start = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
                 }else{
                     if($scope.adminsAoData.start){
                         delete $scope.adminsAoData.start;
                     }
                 }
                 if($scope.searchTimeEnd){
-                    $scope.adminsAoData.start = $scope.searchTimeEnd.format('YYYYMMDD') + ' 23:59:59';
+                    $scope.adminsAoData.start = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
                 }else{
                     if($scope.adminsAoData.end){
                         delete $scope.adminsAoData.end;

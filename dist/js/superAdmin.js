@@ -184,7 +184,7 @@
                     $scope.TemDraw++;
                     service[$scope.serviceNameAttr](temAoData,{}).$promise.then(function (data){
                         console.log(data, '----ServerPaging')
-                        if($scope.pageMessage.draw){
+                        if(data.data && data.data.draw && $scope.pageMessage.draw){
                             if(parseInt($scope.pageMessage.draw)<=parseInt(data.data.draw)){
                                 $scope.pageMessage.count=angular.copy(data.data.totalSize);
                                 $scope.pageTotle=angular.copy(data.data.totalPage);
@@ -681,14 +681,14 @@
         $scope.$watch('searchTimeStart+searchTimeEnd',function (newValue, oldValue) {
             if(newValue !== oldValue){
                 if($scope.searchTimeStart){
-                    $scope.adminsAoData.start = $scope.searchTimeStart.format('YYYYMMDD') + ' 00:00:00';
+                    $scope.adminsAoData.start = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
                 }else{
                     if($scope.adminsAoData.start){
                         delete $scope.adminsAoData.start;
                     }
                 }
                 if($scope.searchTimeEnd){
-                    $scope.adminsAoData.start = $scope.searchTimeEnd.format('YYYYMMDD') + ' 23:59:59';
+                    $scope.adminsAoData.start = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
                 }else{
                     if($scope.adminsAoData.end){
                         delete $scope.adminsAoData.end;

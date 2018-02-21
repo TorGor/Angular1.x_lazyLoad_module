@@ -51,7 +51,7 @@
                            <span editable-text="item.password" e-name="password" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.password || '' }}</span>
                         </td>
                         <td>
-                           <span>{{ item.createTime.substring(0,8) || '' }}</span>
+                           <span>{{ item.createTime.substring(0,10) || '' }}</span>
                         </td>
                         <td>
                            <span editable-select="item.status" e-name="status" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in superAdminSelect012.options">
