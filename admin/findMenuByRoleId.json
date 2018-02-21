@@ -1,0 +1,105 @@
+{
+  "success": true,
+  "msg": "find userInfo success!",
+  "data": [
+    {
+      "id": "1",
+      "menuName": "食物",
+      "menuCode": "a",
+      "menuType": "1",
+      "menuStatus": "1",
+      "menuUrl": "1",
+      "menuSortNo": 1,
+      "parentId": "root",
+      "checked": true
+    },
+    {
+      "id": "13",
+      "menuName": "食品类",
+      "menuCode": "8",
+      "menuType": null,
+      "menuStatus": null,
+      "menuUrl": null,
+      "menuSortNo": 5,
+      "parentId": "1",
+      "checked": true
+    },
+    {
+      "id": "16",
+      "menuName": "干粮类",
+      "menuCode": "5",
+      "menuType": null,
+      "menuStatus": null,
+      "menuUrl": null,
+      "menuSortNo": 4,
+      "parentId": "1",
+      "checked": true
+    },
+    {
+      "id": "17",
+      "menuName": "绿色食品",
+      "menuCode": "6",
+      "menuType": null,
+      "menuStatus": null,
+      "menuUrl": null,
+      "menuSortNo": 10,
+      "parentId": "1",
+      "checked": false
+    },
+    {
+      "id": "2",
+      "menuName": "书籍",
+      "menuCode": "1",
+      "menuType": "1",
+      "menuStatus": "1",
+      "menuUrl": "1",
+      "menuSortNo": 2,
+      "parentId": "root",
+      "checked": false
+    },
+    {
+      "id": "21",
+      "menuName": "文学类",
+      "menuCode": null,
+      "menuType": null,
+      "menuStatus": null,
+      "menuUrl": null,
+      "menuSortNo": 1,
+      "parentId": "2",
+      "checked": false
+    },
+    {
+      "id": "40280981617542530161754630130001",
+      "menuName": "11111",
+      "menuCode": null,
+      "menuType": null,
+      "menuStatus": null,
+      "menuUrl": null,
+      "menuSortNo": 7,
+      "parentId": "1",
+      "checked": false
+    },
+    {
+      "id": "4028098161758e6701617591caf10001",
+      "menuName": "2222",
+      "menuCode": null,
+      "menuType": null,
+      "menuStatus": null,
+      "menuUrl": null,
+      "menuSortNo": 2,
+      "parentId": "2",
+      "checked": false
+    },
+    {
+      "id": "4028098161758e670161759294350002",
+      "menuName": "3333",
+      "menuCode": null,
+      "menuType": null,
+      "menuStatus": null,
+      "menuUrl": null,
+      "menuSortNo": 5,
+      "parentId": "2",
+      "checked": false
+    }
+  ]
+}

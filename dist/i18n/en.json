@@ -1,0 +1,39 @@
+{
+  "dashboard": {
+    "WELCOME": "Welcome to {{appName}}"
+  },
+  "offsidebar": {
+    "setting": {
+      "SETTINGS": "Settings",
+      "LANGUAGE": "Language",
+      "THEMES": "Themes",
+      "LAYOUT": "layout",
+      "ASIDE": "Aside",
+      "layout": {
+        "FIXED": "Fixed"
+      },
+      "aside":{
+        "COLLAPSED": "Collapsed",
+        "COLLAPSED_TEXT": "Collapsed Text",
+        "FLOAT": "Float",
+        "HOVER": "Hover",
+        "SHOW_SCROLLBAR": "Show Scrollbar"
+      }
+    }
+  },
+  "sidebar": {
+    "nav": {
+      "super_admin": {
+        "MENU_MANAGE": "Menu Manage",
+        "MENU_MAINTAIN": "Menu Maintain",
+        "BUTTON_MAINTAIN": "Button Maintain",
+        "ROLE_MAINTAIN": "Role Maintain",
+        "ROLE_INFO_MAINTAIN": "Role Info",
+        "ROLE_RELATE_MENU": "Role Relate Menu",
+        "ADMIN_AND_ROLE": "Admin And Role",
+        "ADMIN_INFO": "Admin Info",
+        "ADMIN_RELATE_ROLE": "Admin Relate Role"
+      }
+    }
+  }
+}

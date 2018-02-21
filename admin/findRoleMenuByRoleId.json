@@ -1,0 +1,70 @@
+{
+  "success": true,
+  "msg": "find userInfo success!",
+  "data": [
+    {
+      "name": "食物",
+      "data": [
+        {
+          "name": "食品类",
+          "data": [
+        {
+          "id": "40280981617a9cf101617aa426db0001",
+          "btnName": "新增",
+          "btnType": null,
+          "btnCode": null,
+          "btnUrl": null,
+          "btnStatus": null,
+          "createTime": null,
+          "optTime": null,
+          "menuId": "13"
+        },
+        {
+          "id": "40280981617a9cf101617aa4a1080002",
+          "btnName": "删除",
+          "btnType": null,
+          "btnCode": null,
+          "btnUrl": null,
+          "btnStatus": null,
+          "createTime": null,
+          "optTime": null,
+          "menuId": "13"
+        }
+      ]
+    }
+  ]
+},
+{
+"name": "书籍",
+"data": [
+{
+"name": "文学类",
+"data": [
+{
+"id": "40280981617a9cf101617aa426db0003",
+"btnName": "新增",
+"btnType": "",
+"btnCode": "",
+"btnUrl": "",
+"btnStatus": "",
+"createTime": "",
+"optTime": "",
+"menuId": "21"
+},
+{
+"id": "40280981617a9cf101617aa426db0004",
+"btnName": "更新",
+"btnType": "",
+"btnCode": "",
+"btnUrl": "",
+"btnStatus": "",
+"createTime": "",
+"optTime": "",
+"menuId": "21"
+}
+]
+}
+]
+}
+]
+}

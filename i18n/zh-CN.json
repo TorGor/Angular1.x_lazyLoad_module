@@ -1,0 +1,39 @@
+{
+  "dashboard": {
+    "WELCOME": "Welcome to {{appName}}"
+  },
+  "offsidebar": {
+    "setting": {
+      "SETTINGS": "设置",
+      "LANGUAGE": "语言",
+      "THEMES": "主题",
+      "LAYOUT": "布局",
+      "ASIDE": "导航",
+      "layout": {
+        "FIXED": "固定"
+      },
+      "aside":{
+        "COLLAPSED": "折叠菜单",
+        "COLLAPSED_TEXT": "折叠文字",
+        "FLOAT": "浮动",
+        "HOVER": "鼠标悬浮",
+        "SHOW_SCROLLBAR": "滚动条"
+      }
+    }
+  },
+  "sidebar": {
+    "nav": {
+      "super_admin": {
+        "MENU_MANAGE": "菜单管理",
+        "MENU_MAINTAIN": "菜单维护",
+        "BUTTON_MAINTAIN": "按钮维护",
+        "ROLE_MAINTAIN": "角色维护",
+        "ROLE_INFO_MAINTAIN": "角色信息维护",
+        "ROLE_RELATE_MENU": "角色关联菜单",
+        "ADMIN_AND_ROLE": "管理员和角色",
+        "ADMIN_INFO": "管理员信息维护",
+        "ADMIN_RELATE_ROLE": "管理员关联角色"
+      }
+    }
+  }
+}
