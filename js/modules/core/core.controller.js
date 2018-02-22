@@ -64,6 +64,19 @@
             SweetAlert.error('error message', msg)
         };
 
+
+        $rootScope.dateOptionsYYYMMDD={
+            useCurrent: false,
+            locale: 'zh-cn',
+            format: 'YYYY-MM-DD'
+        };
+
+        $rootScope.dateOptionsYYYMMDDHHMM={
+            useCurrent: false,
+            locale: 'zh-cn',
+            format: 'YYYY-MM-DD HH:MM'
+        };
+
         /**
          *
          * @param callback 回调函数

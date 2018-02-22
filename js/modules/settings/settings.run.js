@@ -17,16 +17,6 @@
         job:      'ng-developer'
       };
 
-      $rootScope.dateOptionsYYYMMDD={
-          locale: 'zh-cn',
-          format:"YYYY-MM-DD"
-      };
-
-      $rootScope.dateOptionsYYYMMDDHHMM={
-          locale: 'zh-cn',
-          format:"YYYY-MM-DD HH:MM"
-      };
-
       // Hides/show user avatar on sidebar from any element
       $rootScope.toggleUserBlock = function(){
         $rootScope.$broadcast('toggleUserBlock');
