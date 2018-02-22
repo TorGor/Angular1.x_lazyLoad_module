@@ -35,53 +35,27 @@
 
         // 初始化一级菜单
         $scope.initOneLevelMenus = function () {
-            superAdminService.getFindRootMenuInfo({},{},function (data) {
+            superAdminService.getFindAllMenuInfo({},{},function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
-                        var tempData = data.data;
-                        tempData.forEach(function ( oneLevelMenusItem ) {
-                            oneLevelMenusItem['secondLevelMenus'] = [];
-                            oneLevelMenusItem['showSecond'] = false;
+                        var allMenus = angular.copy(data.data);
+                        $scope.oneLevelMenus = allMenus.filter(function (allMenusItem) {
+                            return allMenusItem.parentId == 'root';
                         });
-                        $scope.oneLevelMenus = angular.copy(data.data);
+                        $scope.oneLevelMenus = angular.copy($scope.oneLevelMenus);
+                        $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
+                            oneLevelMenusItem.showSecond = false;
+                            oneLevelMenusItem.secondLevelMenus = angular.copy(allMenus.filter(function (allMenusItem) {
+                                return allMenusItem.parentId == oneLevelMenusItem.id;
+                            }));
+                        });
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
                     }
                 }
             });
         };
-
-        // 获取二级菜单,初始化列表数据
-        /**
-         * @param oneLevelMenu 一级菜单对象
-         * @return null
-         */
-        $scope.getSecondLevelMenu = function ( oneLevelMenu ) {
-            console.log(oneLevelMenu,'oneLevelMenu');
-            if(oneLevelMenu['showSecond']){
-                oneLevelMenu['showSecond'] = false;
-                return;
-            }
-            $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
-                oneLevelMenusItem['showSecond'] = false;
-            });
-            if(oneLevelMenu.id){
-                oneLevelMenu['showSecond'] = !oneLevelMenu['showSecond'];
-                $scope.twoLevelMenus = [];
-                superAdminService.getFindSecMenuInfo({"parentid":oneLevelMenu.id,"pageSize":50,"curPage":1},{},function ( data ) {
-                    console.log(data)
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            oneLevelMenu['secondLevelMenus'] = angular.copy(data.data.list);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                })
-            }
-        };
-
 
         // 获取buttons
         /**

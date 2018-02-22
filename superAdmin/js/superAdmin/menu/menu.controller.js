@@ -45,25 +45,6 @@
 
         $scope.currentSelectMenu = {};
 
-        // 初始化一级菜单
-        $scope.initOneLevelMenus = function () {
-            superAdminService.getFindRootMenuInfo({},{},function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        var tempData = data.data;
-                        tempData.forEach(function ( oneLevelMenusItem ) {
-                            oneLevelMenusItem['secondLevelMenus'] = [];
-                            oneLevelMenusItem['showSecond'] = false;
-                        });
-                        $scope.oneLevelMenus = angular.copy(data.data);
-                    } else {
-                        $rootScope.alertErrorMsg(data.msg);
-                    }
-                }
-            });
-        };
-
         // 添加一级菜单
         $scope.addOneLevelMenu  = function () {
             var modalInstance = $uibModal.open({
@@ -115,9 +96,10 @@
                         if (data.success) {
                             oneLevelMenu['secondLevelMenus'] = angular.copy(data.data.list);
                             $scope.twoLevelMenus = angular.copy(data.data.list);
-                            $scope.twoLevelMenus.forEach(function (twoLevelMenusItem) {
-                                twoLevelMenusItem.isShowTrEdit = false;
-                            });
+                            $scope.twoLevelMenusAoData = {
+                                menuName: '',
+                                menuStatus: ''
+                            };
                         } else {
                             $rootScope.alertErrorMsg(data.msg);
                         }
@@ -133,14 +115,14 @@
          * @return null
          */
         $scope.saveSecondLevelMenu = function (secondLevelMenu, item) {
-            console.log(secondLevelMenu, 'secondLevelMenu')
-            console.log(item, 'secondLevelMenuItem')
+            console.log(secondLevelMenu, 'secondLevelMenu');
+            console.log(item, 'secondLevelMenuItem');
             var tempData = angular.extend({}, secondLevelMenu, item);
             if(!tempData.id){
                 delete tempData.id
             }
             superAdminService.postSaveMenuInfo({},tempData,function ( data ) {
-                console.log(data)
+                console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
                         $scope.getSecondLevelMenu($scope.currentSelectMenu);
@@ -190,11 +172,11 @@
          */
         $scope.deleteOneLevelMenu = function ( oneLevelMenu, $event) {
             console.log(oneLevelMenu,'oneLevelMenu');
-            $event.stopPropagation()
+            $event.stopPropagation();
             if(oneLevelMenu.id){
                 $rootScope.alertConfirm(function () {
                     superAdminService.getDeleteMenuInfoById({"id":oneLevelMenu.id},{},function ( data ) {
-                        console.log(data)
+                        console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
                                 $scope.initOneLevelMenus();
@@ -230,6 +212,29 @@
                     })
                 })
             }
+        };
+
+        // 初始化一级菜单
+        $scope.initOneLevelMenus = function () {
+            superAdminService.getFindRootMenuInfo({},{},function (data) {
+                console.log(data);
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+                        var tempData = data.data;
+                        tempData.forEach(function ( oneLevelMenusItem ) {
+                            oneLevelMenusItem['secondLevelMenus'] = [];
+                            oneLevelMenusItem['showSecond'] = false;
+                        });
+                        $scope.oneLevelMenus = angular.copy(data.data);
+                        if($scope.oneLevelMenus[0]){
+                            $scope.currentSelectMenu = angular.copy($scope.oneLevelMenus[0]);
+                            $scope.getSecondLevelMenu($scope.currentSelectMenu);
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(data.msg);
+                    }
+                }
+            });
         };
 
         // 编辑一级菜单

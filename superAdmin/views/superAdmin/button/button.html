@@ -4,7 +4,7 @@
             <div class="panel-wrapper">
                 <div class="panel-body">
                     <div ng-repeat="oneLevelMenu in oneLevelMenus">
-                        <div class="self-nav-tree-padding" ng-click="getSecondLevelMenu(oneLevelMenu)" >
+                        <div class="self-nav-tree-padding" ng-click="oneLevelMenu.showSecond=!oneLevelMenu.showSecond" >
                             <em ng-class="oneLevelMenu.showSecond?'icon-minus':'icon-plus'" ></em>
                             <span>{{oneLevelMenu.menuName}}</span>
                         </div>
