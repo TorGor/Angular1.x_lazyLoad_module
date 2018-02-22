@@ -53,6 +53,17 @@
                             if(isClick){
                                 $scope.currentSecondLevelMenu = {};
                                 $scope.buttons = [];
+                            }else{
+                                if(!$scope.currentSecondLevelMenu.id){
+                                    for(var i = 0, j = $scope.oneLevelMenus.length;i < j;i++){
+                                        if($scope.oneLevelMenus[i]['secondLevelMenus'][0]){
+                                            $scope.oneLevelMenus[i]['showSecond'] = true;
+                                            $scope.currentSecondLevelMenu = angualr.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
+                                            $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
+                                            break;
+                                        }
+                                    }
+                                }
                             }
                         } else {
                             $rootScope.alertErrorMsg(data.msg);
@@ -64,11 +75,15 @@
 
         // 初始化role数据
         $scope.initRolesData = function () {
-            superAdminService.getFindPageRoleInfo({"pageSize":50,"curPage":1},{},function (data) {
+            superAdminService.getFindRoleInfoList({"pageSize":50,"curPage":1},{},function (data) {
                 console.log(data,'initRolesData');
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
                         $scope.roles = angular.copy(data.data.list);
+                        if($scope.roles[0]){
+                            $scope.currentRole = angular.copy($scope.roles[0]);
+                            $scope.getRoleRelationById($scope.currentRole, false);
+                        }
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
                     }
@@ -130,6 +145,7 @@
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
+                                $scope.getRoleRelationById($scope.currentRole, false);
                                 $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
                                 $rootScope.toasterSuccess(data.msg);
                             } else {
@@ -146,6 +162,7 @@
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
+                                $scope.getRoleRelationById($scope.currentRole, false);
                                 $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
                                 $rootScope.toasterSuccess(data.msg);
                             } else {

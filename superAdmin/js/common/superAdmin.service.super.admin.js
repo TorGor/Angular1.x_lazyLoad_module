@@ -107,6 +107,13 @@
                 // 角色维护模块
 
                 // 3.1 查询角色
+                getFindPageRoleInfo: {
+                    method:'GET',
+                    params:{
+                        action:'findPageRoleInfo' + EVN.suffix
+                    }
+                },
+                // 3.1 查询未删除的角色
                 getFindRoleInfoList: {
                     method:'GET',
                     params:{
