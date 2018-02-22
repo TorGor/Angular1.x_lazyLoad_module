@@ -58,7 +58,7 @@
                                     for(var i = 0, j = $scope.oneLevelMenus.length;i < j;i++){
                                         if($scope.oneLevelMenus[i]['secondLevelMenus'][0]){
                                             $scope.oneLevelMenus[i]['showSecond'] = true;
-                                            $scope.currentSecondLevelMenu = angualr.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
+                                            $scope.currentSecondLevelMenu = angular.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
                                             $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
                                             break;
                                         }

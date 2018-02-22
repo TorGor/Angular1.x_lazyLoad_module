@@ -36,7 +36,7 @@
     'use strict';
 
     angular
-        .module('superAdmin.role', [
+        .module('superAdmin.menu', [
             'app.core',
             /*...*/
         ]);
@@ -45,7 +45,7 @@
     'use strict';
 
     angular
-        .module('superAdmin.menu', [
+        .module('superAdmin.role', [
             'app.core',
             /*...*/
         ]);
@@ -57,8 +57,8 @@
         .module('superAdmin')
         .constant('EVN', {
             suffix: '.json',
-            server: 'http://madmin.nat123.net'
-            // server: ''
+            // server: 'http://madmin.nat123.net'
+            server: ''
         })
 })();
 (function (angular) {
@@ -109,11 +109,19 @@
                     }
                 },
 
-                // 3.5 删除菜单
+                // 3.5 删除一级菜单
                 getDeleteMenuInfoById: {
                     method:'GET',
                     params:{
                         action:'deleteMenuInfoById' + EVN.suffix
+                    }
+                },
+
+                // 3.5 删除二级菜单
+                getDeleteSecondMenuInfoById: {
+                    method:'GET',
+                    params:{
+                        action:'deleteSecMenuInfoById' + EVN.suffix
                     }
                 },
 
@@ -166,6 +174,13 @@
                     method:'GET',
                     params:{
                         action:'findPageRoleInfo' + EVN.suffix
+                    }
+                },
+                // 3.1 查询未删除的角色
+                getFindRoleInfoList: {
+                    method:'GET',
+                    params:{
+                        action:'findRoleInfoList' + EVN.suffix
                     }
                 },
 
@@ -452,7 +467,7 @@
         $scope.roleMenuAndBtn = [];
 
         $scope.initRolesData = function () {
-            superAdminService.getFindPageRoleInfo({"pageSize":50,"curPage":1},{},function (data) {
+            superAdminService.getFindRoleInfoList({"pageSize":100,"curPage":1},{},function (data) {
                 console.log(data,'initRolesData');
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -465,7 +480,7 @@
         };
 
         $scope.initAdminsData = function () {
-            superAdminService.getFindUserInfo({"pageSize":100,"curPage":1},{},function (data) {
+            superAdminService.getFindUserInfo({"pageSize":100,"curPage":1,"status":1},{},function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -586,53 +601,27 @@
 
         // 初始化一级菜单
         $scope.initOneLevelMenus = function () {
-            superAdminService.getFindRootMenuInfo({},{},function (data) {
+            superAdminService.getFindAllMenuInfo({},{},function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
-                        var tempData = data.data;
-                        tempData.forEach(function ( oneLevelMenusItem ) {
-                            oneLevelMenusItem['secondLevelMenus'] = [];
-                            oneLevelMenusItem['showSecond'] = false;
+                        var allMenus = angular.copy(data.data);
+                        $scope.oneLevelMenus = allMenus.filter(function (allMenusItem) {
+                            return allMenusItem.parentId == 'root';
                         });
-                        $scope.oneLevelMenus = angular.copy(data.data);
+                        $scope.oneLevelMenus = angular.copy($scope.oneLevelMenus);
+                        $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
+                            oneLevelMenusItem.showSecond = false;
+                            oneLevelMenusItem.secondLevelMenus = angular.copy(allMenus.filter(function (allMenusItem) {
+                                return allMenusItem.parentId == oneLevelMenusItem.id;
+                            }));
+                        });
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
                     }
                 }
             });
         };
-
-        // 获取二级菜单,初始化列表数据
-        /**
-         * @param oneLevelMenu 一级菜单对象
-         * @return null
-         */
-        $scope.getSecondLevelMenu = function ( oneLevelMenu ) {
-            console.log(oneLevelMenu,'oneLevelMenu');
-            if(oneLevelMenu['showSecond']){
-                oneLevelMenu['showSecond'] = false;
-                return;
-            }
-            $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
-                oneLevelMenusItem['showSecond'] = false;
-            });
-            if(oneLevelMenu.id){
-                oneLevelMenu['showSecond'] = !oneLevelMenu['showSecond'];
-                $scope.twoLevelMenus = [];
-                superAdminService.getFindSecMenuInfo({"parentid":oneLevelMenu.id,"pageSize":50,"curPage":1},{},function ( data ) {
-                    console.log(data)
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            oneLevelMenu['secondLevelMenus'] = angular.copy(data.data.list);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                })
-            }
-        };
-
 
         // 获取buttons
         /**
@@ -753,6 +742,399 @@
         // 页面加载执行的函数
 
         $scope.initOneLevelMenus();
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('superAdmin.menu')
+        .constant('superAdminSelect012',{
+            // 0-禁用；1-启用；2-删除；
+            options:[
+                {
+                    label: '禁用',
+                    value: '0'
+                },
+                {
+                    label: '启用',
+                    value: '1'
+                },
+                {
+                    label: '删除',
+                    value: '2'
+                }
+            ]
+        });
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('superAdmin.menu')
+        .controller('SuperAdminMenuController', SuperAdminMenuController);
+
+    SuperAdminMenuController.$inject = [
+        '$scope',
+        '$rootScope',
+        'superAdminService',
+        'superAdminSelect012',
+        '$sce',
+        '$uibModal'
+    ];
+
+    function SuperAdminMenuController(
+        $scope,
+        $rootScope,
+        superAdminService,
+        superAdminSelect012,
+        $sce,
+        $uibModal
+    ) {
+
+        $scope.superAdminSelect012 = superAdminSelect012;
+
+        $scope.superAdminSelectSearchOptions = angular.copy(superAdminSelect012.options);
+        $scope.superAdminSelectSearchOptions.push({
+            label: '全部',
+            value: ''
+        });
+
+        $scope.oneLevelMenus = [];
+
+        // 原始的二级数据
+        $scope.twoLevelMenus = [];
+
+        // 过滤出来的二级数据
+        $scope.twoLevelMenusShow = [];
+        $scope.twoLevelMenusShowReload = 1;
+        $scope.twoLevelMenusAoData = {
+            menuStatus: ''
+        };
+
+        $scope.currentSelectMenu = {};
+
+        // 添加一级菜单
+        $scope.addOneLevelMenu  = function () {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'views/superAdmin/menu/menu-add-modal.html',
+                controller: 'OneLevelMenusModalController',
+                resolve: {
+                    modalData: function () {
+                        return {};
+                    },
+                    isAdd:true
+                }
+            });
+            modalInstance.result.then(function (data) {
+                if(data === 'neededUploadOneLevelMenus'){
+                    $scope.initOneLevelMenus()
+                }
+            }, function (cancel) {
+
+            });
+        };
+
+        // 获取二级菜单,初始化列表数据
+        /**
+         * @param oneLevelMenu 一级菜单对象
+         * @return null
+         */
+        $scope.getSecondLevelMenu = function ( oneLevelMenu ) {
+            $scope.currentSelectMenu = angular.copy(oneLevelMenu);
+            if($scope.currentSelectMenu['showSecond'] !== undefined){
+                delete $scope.currentSelectMenu['showSecond']
+            }
+            if(oneLevelMenu['showSecond']){
+                oneLevelMenu['showSecond'] = false;
+                return;
+            }
+            console.log(oneLevelMenu,'oneLevelMenu');
+            $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
+                oneLevelMenusItem['showSecond'] = false;
+            });
+            if(oneLevelMenu.id){
+                oneLevelMenu['showSecond'] = !oneLevelMenu['showSecond'];
+                $scope.twoLevelMenus = [];
+                superAdminService.getFindSecMenuInfo({"parentid":oneLevelMenu.id,"pageSize":50,"curPage":1},{},function ( data ) {
+                    console.log(data)
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            oneLevelMenu['secondLevelMenus'] = angular.copy(data.data.list);
+                            $scope.twoLevelMenus = angular.copy(data.data.list);
+                            $scope.twoLevelMenusAoData = {
+                                menuName: '',
+                                menuStatus: ''
+                            };
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                })
+            }
+        };
+
+        // 保存二级菜单
+        /**
+         * @param secondLevelMenu 二级菜单对象
+         * @param item 输入的对象
+         * @return null
+         */
+        $scope.saveSecondLevelMenu = function (secondLevelMenu, item) {
+            console.log(secondLevelMenu, 'secondLevelMenu');
+            console.log(item, 'secondLevelMenuItem');
+            var tempData = angular.extend({}, secondLevelMenu, item);
+            if(!tempData.id){
+                delete tempData.id
+            }
+            superAdminService.postSaveMenuInfo({},tempData,function ( data ) {
+                console.log(data);
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+                        $scope.getSecondLevelMenu($scope.currentSelectMenu);
+                        $rootScope.toasterSuccess(data.msg);
+                    } else {
+                        $rootScope.alertErrorMsg(data.msg);
+                    }
+                }
+            })
+        };
+
+        // 添加二级菜单
+        $scope.addSecondLevelMenu = function () {
+            if($scope.currentSelectMenu.id){
+                $scope.twoLevelMenusAoData = {};
+                $scope.twoLevelMenus.unshift({
+                    "id": null,
+                    "menuName": "",
+                    "menuCode": "",
+                    "menuType": null,
+                    "menuStatus": "1",
+                    "menuUrl": "",
+                    "menuSortNo": 0,
+                    "parentId": $scope.currentSelectMenu.id,
+                    "isShowTrEdit": true
+                })
+            }
+        };
+
+        /**
+         *
+         * @param item 添加的对象
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if(item.id == null){
+                $scope.twoLevelMenus.splice(index, 1)
+            }
+        };
+
+        // 删除一级菜单
+        /**
+         * @param oneLevelMenu 一级菜单对象
+         * @param $event 事件对象
+         * @return null
+         */
+        $scope.deleteOneLevelMenu = function ( oneLevelMenu, $event) {
+            console.log(oneLevelMenu,'oneLevelMenu');
+            $event.stopPropagation();
+            if(oneLevelMenu.id){
+                $rootScope.alertConfirm(function () {
+                    superAdminService.getDeleteMenuInfoById({"id":oneLevelMenu.id},{},function ( data ) {
+                        console.log(data);
+                        if (typeof data.success === 'boolean') {
+                            if (data.success) {
+                                $scope.initOneLevelMenus();
+                                $rootScope.toasterSuccess(data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(data.msg);
+                            }
+                        }
+                    })
+                })
+            }
+        };
+
+        // 删除二级菜单
+        /**
+         * @param secondLevelMenu 二级菜单对象
+         * @return null
+         */
+        $scope.deleteSecondLevelMenu = function ( secondLevelMenu) {
+            console.log(secondLevelMenu,'secondLevelMenu');
+            if(secondLevelMenu.id){
+                $rootScope.alertConfirm(function () {
+                    superAdminService.getDeleteSecondMenuInfoById({"id":secondLevelMenu.id},{},function ( data ) {
+                        console.log(data)
+                        if (typeof data.success === 'boolean') {
+                            if (data.success) {
+                                $scope.getSecondLevelMenu($scope.currentSelectMenu);
+                                $rootScope.toasterSuccess(data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(data.msg);
+                            }
+                        }
+                    })
+                })
+            }
+        };
+
+        // 初始化一级菜单
+        $scope.initOneLevelMenus = function () {
+            superAdminService.getFindRootMenuInfo({},{},function (data) {
+                console.log(data);
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+                        var tempData = data.data;
+                        tempData.forEach(function ( oneLevelMenusItem ) {
+                            oneLevelMenusItem['secondLevelMenus'] = [];
+                            oneLevelMenusItem['showSecond'] = false;
+                        });
+                        $scope.oneLevelMenus = angular.copy(data.data);
+                        if($scope.oneLevelMenus[0]){
+                            $scope.currentSelectMenu = angular.copy($scope.oneLevelMenus[0]);
+                            $scope.getSecondLevelMenu($scope.currentSelectMenu);
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(data.msg);
+                    }
+                }
+            });
+        };
+
+        // 编辑一级菜单
+        /**
+         * @param oneLevelMenu 一级菜单对象
+         * @return null
+         */
+        $scope.editOneLevelMenu = function ( oneLevelMenu, $event) {
+            console.log(oneLevelMenu,'editOneLevelMenu');
+            $event.stopPropagation()
+            if(oneLevelMenu.id){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: 'views/superAdmin/menu/menu-add-modal.html',
+                    controller: 'OneLevelMenusModalController',
+                    resolve: {
+                        modalData: function () {
+                            return oneLevelMenu;
+                        },
+                        isAdd:false
+                    }
+                });
+                modalInstance.result.then(function (data) {
+                    if(data === 'neededUploadOneLevelMenus'){
+                        $scope.initOneLevelMenus()
+                    }
+                }, function (cancel) {
+
+                });
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initOneLevelMenus()
+    }
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('superAdmin.menu')
+        .controller('OneLevelMenusModalController', OneLevelMenusModalController);
+
+    OneLevelMenusModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'modalData',
+        'isAdd',
+        'superAdminService',
+        'superAdminSelect012',
+    ];
+
+    function OneLevelMenusModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        modalData,
+        isAdd,
+        superAdminService,
+        superAdminSelect012
+    ) {
+
+        $scope.oneLevelMenusModal = {};
+
+        $scope.isAdd = isAdd;
+
+        $scope.superAdminSelect012 = superAdminSelect012;
+
+        if(isAdd){
+            $scope.oneLevelMenusModal['menuStatus'] = '1';
+        }else{
+            $scope.oneLevelMenusModal = angular.copy(modalData)
+        }
+
+        $scope.confirm = function () {
+            if(isAdd){
+                var tempAddOneLevelMenus = {
+                    // "id": "1",
+                    "menuName": $scope.oneLevelMenusModal.menuName || "",
+                    "menuCode": "",
+                    "menuType": "",
+                    "menuStatus": $scope.oneLevelMenusModal.menuStatus,
+                    "menuUrl": "",
+                    "menuSortNo": $scope.oneLevelMenusModal.menuSortNo || "",
+                    "parentId": "root",
+                };
+                superAdminService.postSaveMenuInfo({},tempAddOneLevelMenus,function ( data ) {
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.oneLevelMenusModal = {};
+                            $rootScope.toasterSuccess(data.msg);
+                            $uibModalInstance.close('neededUploadOneLevelMenus');
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                })
+            }else{
+                var tempUpdateOneLevelMenus = {
+                    "id": $scope.oneLevelMenusModal.id,
+                    "menuName": $scope.oneLevelMenusModal.menuName || "",
+                    "menuCode": $scope.oneLevelMenusModal.menuCode || "",
+                    "menuType": $scope.oneLevelMenusModal.menuType,
+                    "menuStatus": $scope.oneLevelMenusModal.menuStatus,
+                    "menuUrl": $scope.oneLevelMenusModal.menuUrl,
+                    "menuSortNo": $scope.oneLevelMenusModal.menuSortNo,
+                    "parentId": "root",
+                };
+                superAdminService.postUpdateMenuInfo({},tempUpdateOneLevelMenus,function ( data ) {
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.oneLevelMenusModal = {};
+                            $rootScope.toasterSuccess(data.msg);
+                            $uibModalInstance.close('neededUploadOneLevelMenus');
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                })
+            }
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
     }
 })();
 
@@ -948,6 +1330,17 @@
                             if(isClick){
                                 $scope.currentSecondLevelMenu = {};
                                 $scope.buttons = [];
+                            }else{
+                                if(!$scope.currentSecondLevelMenu.id){
+                                    for(var i = 0, j = $scope.oneLevelMenus.length;i < j;i++){
+                                        if($scope.oneLevelMenus[i]['secondLevelMenus'][0]){
+                                            $scope.oneLevelMenus[i]['showSecond'] = true;
+                                            $scope.currentSecondLevelMenu = angular.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
+                                            $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
+                                            break;
+                                        }
+                                    }
+                                }
                             }
                         } else {
                             $rootScope.alertErrorMsg(data.msg);
@@ -959,11 +1352,15 @@
 
         // 初始化role数据
         $scope.initRolesData = function () {
-            superAdminService.getFindPageRoleInfo({"pageSize":50,"curPage":1},{},function (data) {
+            superAdminService.getFindRoleInfoList({"pageSize":50,"curPage":1},{},function (data) {
                 console.log(data,'initRolesData');
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
                         $scope.roles = angular.copy(data.data.list);
+                        if($scope.roles[0]){
+                            $scope.currentRole = angular.copy($scope.roles[0]);
+                            $scope.getRoleRelationById($scope.currentRole, false);
+                        }
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
                     }
@@ -1025,6 +1422,7 @@
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
+                                $scope.getRoleRelationById($scope.currentRole, false);
                                 $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
                                 $rootScope.toasterSuccess(data.msg);
                             } else {
@@ -1041,6 +1439,7 @@
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
+                                $scope.getRoleRelationById($scope.currentRole, false);
                                 $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
                                 $rootScope.toasterSuccess(data.msg);
                             } else {
@@ -1056,391 +1455,5 @@
         // 页面加载执行的函数
 
         $scope.initRolesData();
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('superAdmin.menu')
-        .constant('superAdminSelect012',{
-            // 0-禁用；1-启用；2-删除；
-            options:[
-                {
-                    label: '禁用',
-                    value: '0'
-                },
-                {
-                    label: '启用',
-                    value: '1'
-                },
-                {
-                    label: '删除',
-                    value: '2'
-                }
-            ]
-        });
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('superAdmin.menu')
-        .controller('SuperAdminMenuController', SuperAdminMenuController);
-
-    SuperAdminMenuController.$inject = [
-        '$scope',
-        '$rootScope',
-        'superAdminService',
-        'superAdminSelect012',
-        '$sce',
-        '$uibModal'
-    ];
-
-    function SuperAdminMenuController(
-        $scope,
-        $rootScope,
-        superAdminService,
-        superAdminSelect012,
-        $sce,
-        $uibModal
-    ) {
-
-        $scope.superAdminSelect012 = superAdminSelect012;
-
-        $scope.superAdminSelectSearchOptions = angular.copy(superAdminSelect012.options);
-        $scope.superAdminSelectSearchOptions.push({
-            label: '全部',
-            value: ''
-        });
-
-        $scope.oneLevelMenus = [];
-
-        // 原始的二级数据
-        $scope.twoLevelMenus = [];
-
-        // 过滤出来的二级数据
-        $scope.twoLevelMenusShow = [];
-        $scope.twoLevelMenusShowReload = 1;
-        $scope.twoLevelMenusAoData = {
-            menuStatus: ''
-        };
-
-        $scope.currentSelectMenu = {};
-
-        // 初始化一级菜单
-        $scope.initOneLevelMenus = function () {
-            superAdminService.getFindRootMenuInfo({},{},function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        var tempData = data.data;
-                        tempData.forEach(function ( oneLevelMenusItem ) {
-                            oneLevelMenusItem['secondLevelMenus'] = [];
-                            oneLevelMenusItem['showSecond'] = false;
-                        });
-                        $scope.oneLevelMenus = angular.copy(data.data);
-                    } else {
-                        $rootScope.alertErrorMsg(data.msg);
-                    }
-                }
-            });
-        };
-
-        // 添加一级菜单
-        $scope.addOneLevelMenu  = function () {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/superAdmin/menu/menu-add-modal.html',
-                controller: 'OneLevelMenusModalController',
-                resolve: {
-                    modalData: function () {
-                        return {};
-                    },
-                    isAdd:true
-                }
-            });
-            modalInstance.result.then(function (data) {
-                if(data === 'neededUploadOneLevelMenus'){
-                    $scope.initOneLevelMenus()
-                }
-            }, function (cancel) {
-
-            });
-        };
-
-        // 获取二级菜单,初始化列表数据
-        /**
-         * @param oneLevelMenu 一级菜单对象
-         * @return null
-         */
-        $scope.getSecondLevelMenu = function ( oneLevelMenu ) {
-            $scope.currentSelectMenu = angular.copy(oneLevelMenu);
-            if($scope.currentSelectMenu['showSecond'] !== undefined){
-                delete $scope.currentSelectMenu['showSecond']
-            }
-            if(oneLevelMenu['showSecond']){
-                oneLevelMenu['showSecond'] = false;
-                return;
-            }
-            console.log(oneLevelMenu,'oneLevelMenu');
-            $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
-                oneLevelMenusItem['showSecond'] = false;
-            });
-            if(oneLevelMenu.id){
-                oneLevelMenu['showSecond'] = !oneLevelMenu['showSecond'];
-                $scope.twoLevelMenus = [];
-                superAdminService.getFindSecMenuInfo({"parentid":oneLevelMenu.id,"pageSize":50,"curPage":1},{},function ( data ) {
-                    console.log(data)
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            oneLevelMenu['secondLevelMenus'] = angular.copy(data.data.list);
-                            $scope.twoLevelMenus = angular.copy(data.data.list);
-                            $scope.twoLevelMenus.forEach(function (twoLevelMenusItem) {
-                                twoLevelMenusItem.isShowTrEdit = false;
-                            });
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                })
-            }
-        };
-
-        // 保存二级菜单
-        /**
-         * @param secondLevelMenu 二级菜单对象
-         * @param item 输入的对象
-         * @return null
-         */
-        $scope.saveSecondLevelMenu = function (secondLevelMenu, item) {
-            console.log(secondLevelMenu, 'secondLevelMenu')
-            console.log(item, 'secondLevelMenuItem')
-            var tempData = angular.extend({}, secondLevelMenu, item);
-            if(!tempData.id){
-                delete tempData.id
-            }
-            superAdminService.postSaveMenuInfo({},tempData,function ( data ) {
-                console.log(data)
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.getSecondLevelMenu($scope.currentSelectMenu);
-                        $rootScope.toasterSuccess(data.msg);
-                    } else {
-                        $rootScope.alertErrorMsg(data.msg);
-                    }
-                }
-            })
-        };
-
-        // 删除二级菜单
-        /**
-         * @param secondLevelMenu 二级菜单对象
-         * @return null
-         */
-        $scope.deleteSecondLevelMenu = function (secondLevelMenu) {
-            if(secondLevelMenu.id){
-                $rootScope.alertConfirm(function () {
-                    superAdminService.getDeleteMenuInfoById({id:secondLevelMenu.id},{},function ( data ) {
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
-                                $scope.getSecondLevelMenu($scope.currentSelectMenu);
-                                $rootScope.toasterSuccess(data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(data.msg);
-                            }
-                        }
-                    })
-                })
-            }
-        };
-
-        // 添加二级菜单
-        $scope.addSecondLevelMenu = function () {
-            if($scope.currentSelectMenu.id){
-                $scope.twoLevelMenusAoData = {};
-                $scope.twoLevelMenus.unshift({
-                    "id": null,
-                    "menuName": "",
-                    "menuCode": "",
-                    "menuType": null,
-                    "menuStatus": "1",
-                    "menuUrl": "",
-                    "menuSortNo": 0,
-                    "parentId": $scope.currentSelectMenu.id,
-                    "isShowTrEdit": true
-                })
-            }
-        };
-
-        /**
-         *
-         * @param item 添加的对象
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if(item.id == null){
-                $scope.twoLevelMenus.splice(index, 1)
-            }
-        };
-
-        // 删除一级菜单
-        /**
-         * @param oneLevelMenu 一级菜单对象
-         * @param $event 事件对象
-         * @return null
-         */
-        $scope.deleteOneLevelMenu = function ( oneLevelMenu, $event) {
-            console.log(oneLevelMenu,'oneLevelMenu');
-            $event.stopPropagation()
-            if(oneLevelMenu.id){
-                $rootScope.alertConfirm(function () {
-                    superAdminService.getDeleteMenuInfoById({"id":oneLevelMenu.id},{},function ( data ) {
-                        console.log(data)
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
-                                $scope.initOneLevelMenus();
-                                $rootScope.toasterSuccess(data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(data.msg);
-                            }
-                        }
-                    })
-                })
-            }
-        };
-
-        // 编辑一级菜单
-        /**
-         * @param oneLevelMenu 一级菜单对象
-         * @return null
-         */
-        $scope.editOneLevelMenu = function ( oneLevelMenu, $event) {
-            console.log(oneLevelMenu,'editOneLevelMenu');
-            $event.stopPropagation()
-            if(oneLevelMenu.id){
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    ariaLabelledBy: 'modal-title',
-                    ariaDescribedBy: 'modal-body',
-                    templateUrl: 'views/superAdmin/menu/menu-add-modal.html',
-                    controller: 'OneLevelMenusModalController',
-                    resolve: {
-                        modalData: function () {
-                            return oneLevelMenu;
-                        },
-                        isAdd:false
-                    }
-                });
-                modalInstance.result.then(function (data) {
-                    if(data === 'neededUploadOneLevelMenus'){
-                        $scope.initOneLevelMenus()
-                    }
-                }, function (cancel) {
-
-                });
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initOneLevelMenus()
-    }
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('superAdmin.menu')
-        .controller('OneLevelMenusModalController', OneLevelMenusModalController);
-
-    OneLevelMenusModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'modalData',
-        'isAdd',
-        'superAdminService',
-        'superAdminSelect012',
-    ];
-
-    function OneLevelMenusModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        modalData,
-        isAdd,
-        superAdminService,
-        superAdminSelect012
-    ) {
-
-        $scope.oneLevelMenusModal = {};
-
-        $scope.isAdd = isAdd;
-
-        $scope.superAdminSelect012 = superAdminSelect012;
-
-        if(isAdd){
-            $scope.oneLevelMenusModal['menuStatus'] = '1';
-        }else{
-            $scope.oneLevelMenusModal = angular.copy(modalData)
-        }
-
-        $scope.confirm = function () {
-            if(isAdd){
-                var tempAddOneLevelMenus = {
-                    // "id": "1",
-                    "menuName": $scope.oneLevelMenusModal.menuName || "",
-                    "menuCode": "",
-                    "menuType": "",
-                    "menuStatus": $scope.oneLevelMenusModal.menuStatus,
-                    "menuUrl": "",
-                    "menuSortNo": $scope.oneLevelMenusModal.menuSortNo || "",
-                    "parentId": "root",
-                };
-                superAdminService.postSaveMenuInfo({},tempAddOneLevelMenus,function ( data ) {
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $scope.oneLevelMenusModal = {};
-                            $rootScope.toasterSuccess(data.msg);
-                            $uibModalInstance.close('neededUploadOneLevelMenus');
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                })
-            }else{
-                var tempUpdateOneLevelMenus = {
-                    "id": $scope.oneLevelMenusModal.id,
-                    "menuName": $scope.oneLevelMenusModal.menuName || "",
-                    "menuCode": $scope.oneLevelMenusModal.menuCode || "",
-                    "menuType": $scope.oneLevelMenusModal.menuType,
-                    "menuStatus": $scope.oneLevelMenusModal.menuStatus,
-                    "menuUrl": $scope.oneLevelMenusModal.menuUrl,
-                    "menuSortNo": $scope.oneLevelMenusModal.menuSortNo,
-                    "parentId": "root",
-                };
-                superAdminService.postUpdateMenuInfo({},tempUpdateOneLevelMenus,function ( data ) {
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $scope.oneLevelMenusModal = {};
-                            $rootScope.toasterSuccess(data.msg);
-                            $uibModalInstance.close('neededUploadOneLevelMenus');
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                })
-            }
-        };
-
-        $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
     }
 })();
