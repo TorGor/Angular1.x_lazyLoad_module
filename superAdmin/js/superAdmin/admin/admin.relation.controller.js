@@ -30,7 +30,7 @@
         $scope.roleMenuAndBtn = [];
 
         $scope.initRolesData = function () {
-            superAdminService.getFindPageRoleInfo({"pageSize":50,"curPage":1},{},function (data) {
+            superAdminService.getFindRoleInfoList({"pageSize":100,"curPage":1},{},function (data) {
                 console.log(data,'initRolesData');
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -43,7 +43,7 @@
         };
 
         $scope.initAdminsData = function () {
-            superAdminService.getFindUserInfo({"pageSize":100,"curPage":1},{},function (data) {
+            superAdminService.getFindUserInfo({"pageSize":100,"curPage":1,"status":1},{},function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {

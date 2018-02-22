@@ -152,28 +152,6 @@
             })
         };
 
-        // 删除二级菜单
-        /**
-         * @param secondLevelMenu 二级菜单对象
-         * @return null
-         */
-        $scope.deleteSecondLevelMenu = function (secondLevelMenu) {
-            if(secondLevelMenu.id){
-                $rootScope.alertConfirm(function () {
-                    superAdminService.getDeleteMenuInfoById({id:secondLevelMenu.id},{},function ( data ) {
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
-                                $scope.getSecondLevelMenu($scope.currentSelectMenu);
-                                $rootScope.toasterSuccess(data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(data.msg);
-                            }
-                        }
-                    })
-                })
-            }
-        };
-
         // 添加二级菜单
         $scope.addSecondLevelMenu = function () {
             if($scope.currentSelectMenu.id){
@@ -220,6 +198,30 @@
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
                                 $scope.initOneLevelMenus();
+                                $rootScope.toasterSuccess(data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(data.msg);
+                            }
+                        }
+                    })
+                })
+            }
+        };
+
+        // 删除二级菜单
+        /**
+         * @param secondLevelMenu 二级菜单对象
+         * @return null
+         */
+        $scope.deleteSecondLevelMenu = function ( secondLevelMenu) {
+            console.log(secondLevelMenu,'secondLevelMenu');
+            if(secondLevelMenu.id){
+                $rootScope.alertConfirm(function () {
+                    superAdminService.getDeleteSecondMenuInfoById({"id":secondLevelMenu.id},{},function ( data ) {
+                        console.log(data)
+                        if (typeof data.success === 'boolean') {
+                            if (data.success) {
+                                $scope.getSecondLevelMenu($scope.currentSelectMenu);
                                 $rootScope.toasterSuccess(data.msg);
                             } else {
                                 $rootScope.alertErrorMsg(data.msg);

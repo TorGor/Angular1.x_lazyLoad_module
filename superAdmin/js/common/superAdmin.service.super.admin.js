@@ -46,11 +46,19 @@
                     }
                 },
 
-                // 3.5 删除菜单
+                // 3.5 删除一级菜单
                 getDeleteMenuInfoById: {
                     method:'GET',
                     params:{
                         action:'deleteMenuInfoById' + EVN.suffix
+                    }
+                },
+
+                // 3.5 删除二级菜单
+                getDeleteSecondMenuInfoById: {
+                    method:'GET',
+                    params:{
+                        action:'deleteSecMenuInfoById' + EVN.suffix
                     }
                 },
 
@@ -99,10 +107,10 @@
                 // 角色维护模块
 
                 // 3.1 查询角色
-                getFindPageRoleInfo: {
+                getFindRoleInfoList: {
                     method:'GET',
                     params:{
-                        action:'findPageRoleInfo' + EVN.suffix
+                        action:'findRoleInfoList' + EVN.suffix
                     }
                 },
 
