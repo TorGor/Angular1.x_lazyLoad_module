@@ -32,10 +32,6 @@
                             <em ng-class="oneLevelMenu.showSecond?'icon-minus':'icon-plus'" ></em>
                             <span>
                                 {{oneLevelMenu.menuName}}
-                                <em ng-show="oneLevelMenu.checked"
-                                    class="fa fa-check text-success"
-                                >
-                                </em>
                             </span>
                         </div>
                         <div ng-show="oneLevelMenu.showSecond">
@@ -45,13 +41,13 @@
                                     ng-click="getSecondLevelButtons(secondLevelMenu, $event)"
                                     ng-class="{'active': secondLevelMenu.id == currentSecondLevelMenu.id}"
                                 >
-                                    <em class="glyphicon glyphicon-file"></em>
+                                    <em ng-show="secondLevelMenu.checked"
+                                        class="fa fa-check"
+                                    >
+                                    </em>
+                                    <em ng-show="!secondLevelMenu.checked" class="glyphicon glyphicon-file"></em>
                                     <span>
                                         {{secondLevelMenu.menuName}}
-                                        <em ng-show="secondLevelMenu.checked"
-                                            class="fa fa-check text-success"
-                                        >
-                                        </em>
                                     </span>
                                 </div>
                             </div>
