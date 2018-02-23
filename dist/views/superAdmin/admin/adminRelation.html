@@ -4,6 +4,14 @@
          <div class="panel-heading">管理员</div>
          <div class="panel-wrapper">
             <div class="panel-body">
+               <form class="" role="form">
+                  <div style="position: relative" class="form-group">
+                     <span style="position: absolute;left: 4px;top: 6px">
+                        <em class="fa fa-search"></em>
+                     </span>
+                     <input class="form-control" type="text" ng-model="userName" placeholder="账户">
+                  </div>
+               </form>
                <div ng-repeat="admin in admins">
                   <div ng-click="setCurrentAdmin(admin)" title="admin" class="self-nav-tree-padding" ng-class="{'active': currentAdmin.id == admin.id}">
                      <span>

@@ -9,6 +9,7 @@
         '$scope',
         '$rootScope',
         'superAdminService',
+        '$timeout',
         'superAdminSelect012'
     ];
 
@@ -16,6 +17,7 @@
         $scope,
         $rootScope,
         superAdminService,
+        $timeout,
         superAdminSelect012
     ){
 
@@ -34,7 +36,7 @@
                 console.log(data,'initRolesData');
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
-                        $scope.roles = angular.copy(data.data.list);
+                        $scope.roles = angular.copy(data.data);
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
                     }
@@ -42,8 +44,8 @@
             });
         };
 
-        $scope.initAdminsData = function () {
-            superAdminService.getFindUserInfo({"pageSize":100,"curPage":1,"status":1},{},function (data) {
+        $scope.initAdminsData = function (userName) {
+            superAdminService.getFindUserInfo({"pageSize":100,"curPage":1,"status":1, "userName":userName||''},{},function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -118,6 +120,19 @@
                 return
             }
         };
+
+        var timer = null;
+
+        $scope.$watch('userName',function (newValue, oldValue) {
+            if(newValue != oldValue){
+                if (timer) {
+                    $timeout.cancel(timer)
+                }
+                timer = $timeout(function(){
+                    $scope.initAdminsData($scope.userName)
+                }, 200);
+            }
+        });
 
         // 页面加载执行的函数
 

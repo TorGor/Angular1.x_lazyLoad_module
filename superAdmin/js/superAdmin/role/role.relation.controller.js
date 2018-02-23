@@ -79,7 +79,7 @@
                 console.log(data,'initRolesData');
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
-                        $scope.roles = angular.copy(data.data.list);
+                        $scope.roles = angular.copy(data.data);
                         if($scope.roles[0]){
                             $scope.currentRole = angular.copy($scope.roles[0]);
                             $scope.getRoleRelationById($scope.currentRole, false);
@@ -145,7 +145,7 @@
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
-                                $scope.getRoleRelationById($scope.currentRole, false);
+                                // $scope.getRoleRelationById($scope.currentRole, false);
                                 $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
                                 $rootScope.toasterSuccess(data.msg);
                             } else {
@@ -162,7 +162,7 @@
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
-                                $scope.getRoleRelationById($scope.currentRole, false);
+                                // $scope.getRoleRelationById($scope.currentRole, false);
                                 $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
                                 $rootScope.toasterSuccess(data.msg);
                             } else {
