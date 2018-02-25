@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-4 col-xs-12">
         <div class="panel panel-info">
-            <div class="panel-heading">角色</div>
+            <div class="panel-heading">{{'panel_tile.role' | translate}}</div>
             <div class="panel-wrapper">
                 <div class="panel-body">
                     <div ng-repeat="role in roles">
@@ -9,7 +9,6 @@
                             class="self-nav-tree-padding"
                             ng-click="getRoleRelationById(role, true)"
                             ng-class="{'active': role.id == currentRole.id}"
-                            title="角色"
                         >
                             <span>{{role.roleName}}</span>
                         </div>
@@ -21,7 +20,7 @@
     </div>
     <div class="col-md-4 col-xs-12">
         <div class="panel panel-info">
-            <div class="panel-heading">菜单</div>
+            <div class="panel-heading">{{'panel_tile.menu' | translate}}</div>
             <div class="panel-wrapper">
                 <div class="panel-body">
                     <div ng-repeat="oneLevelMenu in oneLevelMenus">
@@ -60,7 +59,7 @@
     </div>
     <div class="col-md-4 col-xs-12">
         <div class="panel panel-info">
-            <div class="panel-heading">按钮</div>
+            <div class="panel-heading">{{'panel_tile.buttons' | translate}}</div>
             <div class="panel-wrapper">
                 <div class="panel-body">
                     <div ng-repeat="button in buttons">
