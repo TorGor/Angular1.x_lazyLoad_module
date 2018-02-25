@@ -108,7 +108,7 @@
             if(secondLevelMenu.id){
                 $scope.buttons = [];
                 superAdminService.getFindButtonInfoList({
-                    "roleid":$scope.currentRole.id,
+                    "roleId":$scope.currentRole.id,
                     "menuId":secondLevelMenu.id
                 },{},function ( data ) {
                     console.log(data)

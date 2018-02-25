@@ -29,7 +29,7 @@
                   <input class="form-control" type="text" ng-model="adminsAoData.userName" placeholder="账户">
                </div>
                <div class="form-group">
-                  <select class="form-control" ng-model="adminsAoData.status" ng-options="option.value as option.label for option in superAdminSelectSearchOptions">
+                  <select class="form-control" ng-model="adminsAoData.status" ng-options="option.value as option.label for option in superAdminSelect012.optionsSearch">
                   </select>
                </div>
             </form>
@@ -48,7 +48,7 @@
                            <span editable-text="item.username" e-name="username" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.username || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.password" e-name="password" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.password || '' }}</span>
+                           <span editable-text="item.password" e-name="password" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-type="password" e-required="">{{ replaceStr(item.password) }}</span>
                         </td>
                         <td>
                            <span>{{ item.createTime.substring(0,10) || '' }}</span>

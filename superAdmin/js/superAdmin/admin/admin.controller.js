@@ -21,12 +21,6 @@
 
         $scope.superAdminSelect012 = superAdminSelect012;
 
-        $scope.superAdminSelectSearchOptions = angular.copy(superAdminSelect012.options);
-        $scope.superAdminSelectSearchOptions.push({
-            label: '全部',
-            value: ''
-        });
-
         // 原始的二级数据
         $scope.admins = [];
 
@@ -35,6 +29,19 @@
         $scope.adminsAoData = {
             status: ''
         };
+        
+        /**
+         * 传入的字符串全部替换成*
+         * 
+         * @param {any} str 字符串
+         */
+        $scope.replaceStr = function(str){
+            if(typeof str === 'string'){
+                return (str).replace(/[\w\W]/g, "*")
+            }else{
+                return '';
+            }
+        }
 
         $scope.$watch('searchTimeStart+searchTimeEnd',function (newValue, oldValue) {
             if(newValue !== oldValue){

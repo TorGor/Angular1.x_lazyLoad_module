@@ -25,12 +25,6 @@
 
         $scope.superAdminSelect012 = superAdminSelect012;
 
-        $scope.superAdminSelectSearchOptions = angular.copy(superAdminSelect012.options);
-        $scope.superAdminSelectSearchOptions.push({
-            label: '全部',
-            value: ''
-        });
-
         $scope.oneLevelMenus = [];
 
         // 原始的二级数据
