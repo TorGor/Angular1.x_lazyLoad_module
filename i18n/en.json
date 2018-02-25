@@ -35,5 +35,46 @@
         "ADMIN_RELATE_ROLE": "Admin Relate Role"
       }
     }
-  }
+  },
+  "table":{
+      "no_date":"No Data",
+      "button":{
+          "add":"Add",
+          "save":"Save",
+          "edit":"Edit",
+          "remove":"Remove",
+          "cancel":"Cancel",
+          "operation":"Operation"
+      },
+      "menu":{
+          "th1":"Sort No",
+          "th2":"Menu Name",
+          "th3":"URL",
+          "th4":"Status"
+      },
+      "role":{
+          "th1":"Role",
+          "th2":"Status"
+      },
+      "admin":{
+          "th1":"Username",
+          "th2":"Password",
+          "th3":"Create Time",
+          "th4":"Status"
+      }
+  },
+  "panel_tile":{
+      "menu":"Menu",
+      "role":"Role",
+      "admin":"Admin",
+      "buttons":"Buttons",
+      "configure":"Configure"
+  },
+  "alert_confirm":{
+      "success":"success",
+      "error":"error",
+      "text":"Deleted data will not be able to recover!",
+      "confirmButtonText":"Yes, delete it!"
+  },
+  "required_message":"is required"
 }

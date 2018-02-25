@@ -29,9 +29,9 @@
                   <div ng-show="oneLevelMenu.showSecond">
                      <div ng-repeat="secondLevelMenu in oneLevelMenu['secondLevelMenus']">
                         <div class="self-second-level-padding" ng-click="getSecondLevelButtons(secondLevelMenu, $event)" ng-class="{'active': secondLevelMenu.id == currentSecondLevelMenu.id}">
-                           <em ng-show="secondLevelMenu.checked" class="fa fa-check">
+                           <em ng-show="secondLevelMenu.checked" class="fa fa-check-square-o">
                            </em>
-                           <em ng-show="!secondLevelMenu.checked" class="glyphicon glyphicon-file"></em>
+                           <em ng-show="!secondLevelMenu.checked" class="fa fa-square-o"></em>
                            <span>
                               {{secondLevelMenu.menuName}}
                            </span>

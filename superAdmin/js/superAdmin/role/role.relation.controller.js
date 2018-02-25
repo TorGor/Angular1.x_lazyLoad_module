@@ -44,7 +44,7 @@
                             });
                             $scope.oneLevelMenus = angular.copy($scope.oneLevelMenus);
                             $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
-                                oneLevelMenusItem.showSecond = false;
+                                oneLevelMenusItem.showSecond = true;
                                 oneLevelMenusItem.secondLevelMenus = angular.copy(allMenus.filter(function (allMenusItem) {
                                     return allMenusItem.parentId == oneLevelMenusItem.id;
                                 }));
@@ -145,7 +145,7 @@
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
-                                // $scope.getRoleRelationById($scope.currentRole, false);
+                                $scope.getRoleRelationById($scope.currentRole, false);
                                 $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
                                 $rootScope.toasterSuccess(data.msg);
                             } else {
@@ -162,7 +162,7 @@
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
-                                // $scope.getRoleRelationById($scope.currentRole, false);
+                                $scope.getRoleRelationById($scope.currentRole, false);
                                 $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
                                 $rootScope.toasterSuccess(data.msg);
                             } else {

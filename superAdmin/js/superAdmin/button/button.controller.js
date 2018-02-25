@@ -50,6 +50,16 @@
                                 return allMenusItem.parentId == oneLevelMenusItem.id;
                             }));
                         });
+                        if(!$scope.currentSelectMenu.id){
+                            for(var i = 0, j = $scope.oneLevelMenus.length;i < j;i++){
+                                if($scope.oneLevelMenus[i]['secondLevelMenus'][0]){
+                                    $scope.oneLevelMenus[i]['showSecond'] = true;
+                                    $scope.currentSelectMenu = angular.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
+                                    $scope.getSecondLevelButtons($scope.currentSelectMenu);
+                                    break;
+                                }
+                            }
+                        }
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
                     }
