@@ -5,9 +5,9 @@
         .module('app.translate')
         .run(translateRun)
         ;
-    translateRun.$inject = ['$rootScope', '$translate'];
+    translateRun.$inject = ['$rootScope', '$translate', '$window'];
     
-    function translateRun($rootScope, $translate){
+    function translateRun($rootScope, $translate, $window){
         // Internationalization
         // ----------------------
 
@@ -23,6 +23,8 @@
                 $translate.use(localeId);
                 // save a reference for the current language
                 $rootScope.language.selected = localeId;
+
+                $window.location.reload();
             }
         };
 

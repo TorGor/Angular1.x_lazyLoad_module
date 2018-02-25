@@ -67,13 +67,13 @@
 
         $rootScope.dateOptionsYYYMMDD={
             useCurrent: false,
-            locale: 'zh-cn',
+            locale: $rootScope.language.selected || 'en',
             format: 'YYYY-MM-DD'
         };
 
         $rootScope.dateOptionsYYYMMDDHHMM={
             useCurrent: false,
-            locale: 'zh-cn',
+            locale: $rootScope.language.selected || 'en',
             format: 'YYYY-MM-DD HH:MM'
         };
 
