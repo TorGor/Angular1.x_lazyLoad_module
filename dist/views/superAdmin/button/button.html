@@ -35,11 +35,11 @@
                   <table width="100%" class="table table-bordered table-hover bg-white">
                      <tbody>
                         <tr style="font-weight: bold;">
-                           <td style="width: 18%" ao-data="buttonsAoData" web-data-table-sort="btnName">按钮名称</td>
-                           <td style="width: 18%" ao-data="buttonsAoData" web-data-table-sort="btnType">按钮类型</td>
-                           <td style="width: 30%" ao-data="buttonsAoData" web-data-table-sort="btnUrl">URL</td>
-                           <td style="width: 13%" ao-data="buttonsAoData" web-data-table-sort="btnStatus">状态</td>
-                           <td style="width: 17%">操作</td>
+                           <td style="width: 18%" ao-data="buttonsAoData" web-data-table-sort="btnName">{{'table.button_manage.th1' | translate}}</td>
+                           <td style="width: 18%" ao-data="buttonsAoData" web-data-table-sort="btnType">{{'table.button_manage.th2' | translate}}</td>
+                           <td style="width: 30%" ao-data="buttonsAoData" web-data-table-sort="btnUrl">{{'table.button_manage.th3' | translate}}</td>
+                           <td style="width: 13%" ao-data="buttonsAoData" web-data-table-sort="btnStatus">{{'table.button_manage.th4' | translate}}</td>
+                           <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                         </tr>
                         <tr ng-repeat="item in showButtons">
                            <td>
@@ -58,25 +58,25 @@
                            </td>
                            <td style="white-space: nowrap;">
                               <form class="form-buttons form-inline" editable-form name="rowform" onbeforesave="saveButton(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
-                                 <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="Save">
+                                 <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                     <em class="fa fa-save"></em>
                                  </button>
-                                 <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSave(item,$index)" title="Cancel">
+                                 <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSave(item,$index)" title="{{'table.button.cancel' | translate}}">
                                     <em class="fa fa-times"></em>
                                  </button>
                               </form>
                               <div class="buttons" ng-show="!rowform.$visible">
-                                 <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="Edit">
+                                 <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
                                     <em class="fa fa-pencil"></em>
                                  </button>
-                                 <button class="btn btn-sm btn-danger" ng-click="deleteButton(item)" title="Delete">
+                                 <button class="btn btn-sm btn-danger" ng-click="deleteButton(item)" title="{{'table.button.delete' | translate}}">
                                     <em class="fa fa-trash"></em>
                                  </button>
                               </div>
                            </td>
                         </tr>
                         <tr ng-show="showButtons.length==0">
-                           <td colspan="5" class="">查询结果数据为空</td>
+                           <td colspan="5" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                      </tbody>
                   </table>

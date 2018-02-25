@@ -53,6 +53,12 @@
           "th4":"Status",
           "modal_title":" Root Menu"
       },
+      "button_manage":{
+          "th1":"Button Name",
+          "th2":"Button Type",
+          "th3":"URL",
+          "th4":"Status"
+      },
       "role":{
           "th1":"Role",
           "th2":"Status"
