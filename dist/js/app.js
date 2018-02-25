@@ -1190,7 +1190,7 @@
           suffix : '.json'
       });
 
-      $translateProvider.preferredLanguage(window.navigator.language || window.navigator.language || 'en');
+      $translateProvider.preferredLanguage((window.navigator.language || window.navigator.language).indexOf('zh') !== -1 ? 'zh-CN' : 'en');
       $translateProvider.useLocalStorage();
       $translateProvider.usePostCompiling(true);
       $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
