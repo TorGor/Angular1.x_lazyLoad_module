@@ -8,6 +8,7 @@
     MainController.$inject = [
         '$scope',
         '$rootScope',
+        '$translate',
         'SweetAlert',
         'toaster'
     ];
@@ -15,6 +16,7 @@
     function MainController(
         $scope,
         $rootScope,
+        $translate,
         SweetAlert,
         toaster
     ) {
@@ -28,11 +30,11 @@
         // 0-禁用；1-启用；2-删除；
         $scope.filter012OptionsValue = function (value) {
             if(value == 0){
-                return '<div class="label label-warning">禁用</div>';
+                return '<div class="label label-warning">'+ $translate.instant('options.forbid') +'</div>';
             }else if(value == 1){
-                return '<div class="label label-success">启用</div>';
+                return '<div class="label label-success">'+ $translate.instant('options.enable') +'</div>';
             }else if(value == 2){
-                return '<div class="label label-danger">删除</div>';
+                return '<div class="label label-danger">'+ $translate.instant('options.delete') +'</div>';
             }else{
                 return '';
             }
@@ -46,7 +48,7 @@
 
         $scope.checkRequiredData = function(data){
             if(!data){
-                return 'is required';
+                return $translate.instant('alert_confirm.required_message');
             }
         };
 
@@ -57,11 +59,11 @@
 
         // 全局报错机制成功
         $rootScope.toasterSuccess = function (msg) {
-            toaster.pop('success', 'success', msg);
+            toaster.pop('success', $translate.instant('alert_confirm.success'), msg);
         };
 
         $rootScope.alertErrorMsg = function (msg) {
-            SweetAlert.error('error message', msg)
+            SweetAlert.error($translate.instant('alert_confirm.error'), msg)
         };
 
 
@@ -85,12 +87,13 @@
         // 删除确认
         $rootScope.alertConfirm = function (callback) {
             SweetAlert.swal({
-                title: 'Are you sure?',
-                text: 'Deleted data will not be able to recover!',
+                title: $translate.instant('alert_confirm.title'),
+                text: $translate.instant('alert_confirm.text'),
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Yes, delete it!',
+                confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
+                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
                 closeOnConfirm: true
             }, function(yes){
                 if(yes){

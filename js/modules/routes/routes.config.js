@@ -33,37 +33,37 @@
           })
           .state('superAdmin.menuManage', {
               url: '/menu/manage',
-              title: '菜单维护',
+              title: 'Menu Manage',
               controller: 'SuperAdminMenuController',
               templateUrl: RouteHelpersProvider.basepath('superAdmin/menu/menu.html'),
           })
           .state('superAdmin.buttonManage', {
               url: '/button/manage',
-              title: '按钮维护',
+              title: 'Button Manage',
               templateUrl: RouteHelpersProvider.basepath('superAdmin/button/button.html'),
               controller: 'SuperAdminButtonController',
           })
           .state('superAdmin.roleInfoManage', {
               url: '/role/manage',
-              title: '角色信息维护',
+              title: 'Role Manage',
               templateUrl: RouteHelpersProvider.basepath('superAdmin/role/role.html'),
               controller: 'SuperAdminRoleController',
           })
           .state('superAdmin.roleRelationManage', {
               url: '/roleRelation/manage',
-              title: '角色信息维护',
+              title: 'RoleRelation Manage',
               templateUrl: RouteHelpersProvider.basepath('superAdmin/role/roleRelation.html'),
               controller: 'SuperAdminRoleRelationController',
           })
           .state('superAdmin.adminInfoManage', {
               url: '/admin/manage',
-              title: '管理员信息维护',
+              title: 'Admin Manage',
               templateUrl: RouteHelpersProvider.basepath('superAdmin/admin/admin.html'),
               controller: 'SuperAdminAdminController',
           })
           .state('superAdmin.adminRelationManage', {
               url: '/adminRelation/manage',
-              title: '管理员关联角色',
+              title: 'AdminRelation Manage',
               templateUrl: RouteHelpersProvider.basepath('superAdmin/admin/adminRelation.html'),
               controller: 'SuperAdminAdminRelationController',
           })

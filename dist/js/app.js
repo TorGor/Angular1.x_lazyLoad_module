@@ -243,6 +243,7 @@
     MainController.$inject = [
         '$scope',
         '$rootScope',
+        '$translate',
         'SweetAlert',
         'toaster'
     ];
@@ -250,6 +251,7 @@
     function MainController(
         $scope,
         $rootScope,
+        $translate,
         SweetAlert,
         toaster
     ) {
@@ -263,11 +265,11 @@
         // 0-禁用；1-启用；2-删除；
         $scope.filter012OptionsValue = function (value) {
             if(value == 0){
-                return '<div class="label label-warning">禁用</div>';
+                return '<div class="label label-warning">'+ $translate.instant('options.forbid') +'</div>';
             }else if(value == 1){
-                return '<div class="label label-success">启用</div>';
+                return '<div class="label label-success">'+ $translate.instant('options.enable') +'</div>';
             }else if(value == 2){
-                return '<div class="label label-danger">删除</div>';
+                return '<div class="label label-danger">'+ $translate.instant('options.delete') +'</div>';
             }else{
                 return '';
             }
@@ -281,7 +283,7 @@
 
         $scope.checkRequiredData = function(data){
             if(!data){
-                return 'is required';
+                return $translate.instant('alert_confirm.required_message');
             }
         };
 
@@ -292,11 +294,11 @@
 
         // 全局报错机制成功
         $rootScope.toasterSuccess = function (msg) {
-            toaster.pop('success', 'success', msg);
+            toaster.pop('success', $translate.instant('alert_confirm.success'), msg);
         };
 
         $rootScope.alertErrorMsg = function (msg) {
-            SweetAlert.error('error message', msg)
+            SweetAlert.error($translate.instant('alert_confirm.error'), msg)
         };
 
 
@@ -320,12 +322,13 @@
         // 删除确认
         $rootScope.alertConfirm = function (callback) {
             SweetAlert.swal({
-                title: 'Are you sure?',
-                text: 'Deleted data will not be able to recover!',
+                title: $translate.instant('alert_confirm.title'),
+                text: $translate.instant('alert_confirm.text'),
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Yes, delete it!',
+                confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
+                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
                 closeOnConfirm: true
             }, function(yes){
                 if(yes){
@@ -999,37 +1002,37 @@
           })
           .state('superAdmin.menuManage', {
               url: '/menu/manage',
-              title: '菜单维护',
+              title: 'Menu Manage',
               controller: 'SuperAdminMenuController',
               templateUrl: RouteHelpersProvider.basepath('superAdmin/menu/menu.html'),
           })
           .state('superAdmin.buttonManage', {
               url: '/button/manage',
-              title: '按钮维护',
+              title: 'Button Manage',
               templateUrl: RouteHelpersProvider.basepath('superAdmin/button/button.html'),
               controller: 'SuperAdminButtonController',
           })
           .state('superAdmin.roleInfoManage', {
               url: '/role/manage',
-              title: '角色信息维护',
+              title: 'Role Manage',
               templateUrl: RouteHelpersProvider.basepath('superAdmin/role/role.html'),
               controller: 'SuperAdminRoleController',
           })
           .state('superAdmin.roleRelationManage', {
               url: '/roleRelation/manage',
-              title: '角色信息维护',
+              title: 'RoleRelation Manage',
               templateUrl: RouteHelpersProvider.basepath('superAdmin/role/roleRelation.html'),
               controller: 'SuperAdminRoleRelationController',
           })
           .state('superAdmin.adminInfoManage', {
               url: '/admin/manage',
-              title: '管理员信息维护',
+              title: 'Admin Manage',
               templateUrl: RouteHelpersProvider.basepath('superAdmin/admin/admin.html'),
               controller: 'SuperAdminAdminController',
           })
           .state('superAdmin.adminRelationManage', {
               url: '/adminRelation/manage',
-              title: '管理员关联角色',
+              title: 'AdminRelation Manage',
               templateUrl: RouteHelpersProvider.basepath('superAdmin/admin/adminRelation.html'),
               controller: 'SuperAdminAdminRelationController',
           })
@@ -1187,7 +1190,7 @@
           suffix : '.json'
       });
 
-      $translateProvider.preferredLanguage('en');
+      $translateProvider.preferredLanguage(window.navigator.language || window.navigator.language || 'en');
       $translateProvider.useLocalStorage();
       $translateProvider.usePostCompiling(true);
       $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
@@ -1892,21 +1895,20 @@
                 <div ng-transclude></div>\
                 <div class="table-bottom-notice">\
                     <span class="pull-left" style="margin-bottom: 15px">\
-                        每页\
+                        {{"table.common.per_page" | translate}}\
                         <select  class="form-control" style="display: inline;width: auto"  ng-model="pageNumber"  ng-options="pageNumber as pageNumber for pageNumber in [10,25,50,100]"></select>\
-                        项结果,</span>\
-                    <span class="pull-left" ng-show="items.length==0">共 {{pageMessage.count||0}} 项</span>\
-                    <span class="pull-left" ng-hide="items.length==0">显示第 {{(currentPage-1)*pageNumber+1||0}} 至 {{currentPage*pageNumber>=pageMessage.count?pageMessage.count:currentPage*pageNumber}} 项结果，共 {{pageMessage.count||0}} 项</span><span class="" ng-show="false">（由{{pageMessage.total}}项滤出）</span>\
+                    </span>\
+                    <span class="pull-left">{{"table.common.showing_item_to" | translate:{from:(currentPage-1)*pageNumber+1||0,to:currentPage*pageNumber>=pageMessage.count?pageMessage.count:currentPage*pageNumber,totalItem:pageMessage.count||0 } }}</span>\
                     <span class="pull-right">\
-                        <button type="button" class="btn btn-default" ng-click="currentPage=currentPage-1" ng-hide="currentPage<=1||items.length==0">\
-                        <span class="glyphicon glyphicon-arrow-left" ></span>\
+                        <button style="position: relative;top: -2px" type="button" class="btn btn-default" ng-click="currentPage=currentPage-1" ng-hide="currentPage<=1||items.length==0">\
+                            <span class="glyphicon glyphicon-arrow-left" ></span>\
                         </button>\
-                        <span ng-hide="items.length==0">第</span><input ng-hide="items.length==0" class="form-control" type="number"  ng-model="currentPage" style="display: inline;max-width: 150px!important;" ng-style="{width:currentPage.toString().length*6+55+\'px\'}"><span ng-hide="items.length==0">页</span>\
-                        <button type="button" class="btn btn-default" ng-click="currentPage=currentPage+1" ng-hide="currentPage>=pageTotle||items.length==0">\
-                        <span class="glyphicon glyphicon-arrow-right" ></span>\
+                        <span ng-hide="items.length==0">{{"table.common.cur_page_first" | translate}}</span><input ng-hide="items.length==0" class="form-control" type="number"  ng-model="currentPage" style="display: inline;max-width: 150px!important;" ng-style="{width:currentPage.toString().length*6+55+\'px\'}"><span ng-hide="items.length==0">{{"table.common.cur_page_last" | translate}}</span>\
+                        <button style="position: relative;top: -2px" type="button" class="btn btn-default" ng-click="currentPage=currentPage+1" ng-hide="currentPage>=pageTotle||items.length==0">\
+                            <span class="glyphicon glyphicon-arrow-right" ></span>\
                         </button>\
-                        <span ng-if="items.length!==0">|共<span ng-bind="pageTotle"></span>页| </span>\
-                        <span ng-if="items.length==0">|共1页| </span>\
+                        <span ng-if="items.length!==0">|{{"table.common.total_page" | translate:{totalPage:pageTotle} }}| </span>\
+                        <span ng-if="items.length==0">|{{"table.common.total_page" | translate:{totalPage:1} }}| </span>\
                     </span>\
                 </div>',
             controller: ["$scope", "$element", "$attrs", "$transclude", function ($scope, $element, $attrs, $transclude) {
@@ -2202,24 +2204,22 @@
                 <div ng-transclude></div>\
                 <div class="table-bottom-notice">\
                     <span class="pull-left" style="margin-bottom: 15px">\
-                    每页\
-                    <select  class="form-control" style="display: inline;width: auto"   ng-model="pageNumber"  ng-options="pageNumber as pageNumber for pageNumber in [10,25,50,100]"></select>\
-                    项结果,\
+                    {{"table.common.per_page" | translate}}\
+                        <select  class="form-control" style="display: inline;width: auto"   ng-model="pageNumber"  ng-options="pageNumber as pageNumber for pageNumber in [10,25,50,100]"></select>\
                     </span>\
-                    <span class="pull-left" ng-show="items.length==0">共 {{filterItems.length||0}} 项</span>\
                     <span class="pull-left" \
                         ng-hide="items.length==0">\
-                        显示第 {{(currentPage-1)*pageNumber+1||0}} 至 {{currentPage*pageNumber>=filterItems.length?filterItems.length:currentPage*pageNumber}} 项结果，共 {{filterItems.length||0}} 项</span><span class="" ng-show="filterItems.length!=items.length">（由{{items.length}}项滤出）</span>\
+                        {{"table.common.showing_item_to" | translate:{from:(currentPage-1)*pageNumber+1||0,to:currentPage*pageNumber>=filterItems.length?filterItems.length:currentPage*pageNumber,totalItem:filterItems.length||0 } }}</span>\
                     <span class="pull-right">\
                         <button style="position: relative;top: -2px" type="button" class="btn btn-default" ng-click="currentPage=currentPage-1" ng-hide="currentPage<=1||items.length==0">\
-                        <span class="fa fa-chevron-left" ></span>\
+                            <span class="glyphicon glyphicon-arrow-left" ></span>\
                         </button>\
-                        <span ng-hide="items.length==0">第</span><input ng-hide="items.length==0" class="form-control" type="number"  ng-model="currentPage" style="display: inline;max-width: 150px!important;" ng-style="{width:currentPage.toString().length*6+55+\'px\'}"><span ng-hide="items.length==0">页</span>\
+                        <span>{{"table.common.cur_page_first" | translate}}</span><input ng-hide="items.length==0" class="form-control" type="number"  ng-model="currentPage" style="display: inline;max-width: 150px!important;" ng-style="{width:currentPage.toString().length*6+55+\'px\'}"><span ng-hide="items.length==0">{{"table.common.cur_page_last" | translate}}</span>\
                         <button style="position: relative;top: -2px" type="button" class="btn btn-default" ng-click="currentPage=currentPage+1" ng-hide="currentPage>=pageTotle||items.length==0">\
-                        <span class="fa fa-chevron-right" ></span>\
+                            <span class="glyphicon glyphicon-arrow-right" ></span>\
                         </button>\
-                        <span ng-if="items.length!==0">|共<span ng-bind="pageTotle"></span>页| </span>\
-                        <span ng-if="items.length==0">|共1页| </span>\
+                        <span ng-if="items.length!==0">|{{"table.common.total_page" | translate:{totalPage:pageTotle} }}| </span>\
+                        <span ng-if="items.length==0">|{{"table.common.total_page" | translate:{totalPage:1} }}| </span>\
                     </span>\
                 </div>',
             controller: ["$scope", "$element", "$attrs", "$transclude", function ($scope, $element, $attrs, $transclude) {

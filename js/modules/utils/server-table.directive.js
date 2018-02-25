@@ -30,21 +30,20 @@
                 <div ng-transclude></div>\
                 <div class="table-bottom-notice">\
                     <span class="pull-left" style="margin-bottom: 15px">\
-                        每页\
+                        {{"table.common.per_page" | translate}}\
                         <select  class="form-control" style="display: inline;width: auto"  ng-model="pageNumber"  ng-options="pageNumber as pageNumber for pageNumber in [10,25,50,100]"></select>\
-                        项结果,</span>\
-                    <span class="pull-left" ng-show="items.length==0">共 {{pageMessage.count||0}} 项</span>\
-                    <span class="pull-left" ng-hide="items.length==0">显示第 {{(currentPage-1)*pageNumber+1||0}} 至 {{currentPage*pageNumber>=pageMessage.count?pageMessage.count:currentPage*pageNumber}} 项结果，共 {{pageMessage.count||0}} 项</span><span class="" ng-show="false">（由{{pageMessage.total}}项滤出）</span>\
+                    </span>\
+                    <span class="pull-left">{{"table.common.showing_item_to" | translate:{from:(currentPage-1)*pageNumber+1||0,to:currentPage*pageNumber>=pageMessage.count?pageMessage.count:currentPage*pageNumber,totalItem:pageMessage.count||0 } }}</span>\
                     <span class="pull-right">\
-                        <button type="button" class="btn btn-default" ng-click="currentPage=currentPage-1" ng-hide="currentPage<=1||items.length==0">\
-                        <span class="glyphicon glyphicon-arrow-left" ></span>\
+                        <button style="position: relative;top: -2px" type="button" class="btn btn-default" ng-click="currentPage=currentPage-1" ng-hide="currentPage<=1||items.length==0">\
+                            <span class="glyphicon glyphicon-arrow-left" ></span>\
                         </button>\
-                        <span ng-hide="items.length==0">第</span><input ng-hide="items.length==0" class="form-control" type="number"  ng-model="currentPage" style="display: inline;max-width: 150px!important;" ng-style="{width:currentPage.toString().length*6+55+\'px\'}"><span ng-hide="items.length==0">页</span>\
-                        <button type="button" class="btn btn-default" ng-click="currentPage=currentPage+1" ng-hide="currentPage>=pageTotle||items.length==0">\
-                        <span class="glyphicon glyphicon-arrow-right" ></span>\
+                        <span ng-hide="items.length==0">{{"table.common.cur_page_first" | translate}}</span><input ng-hide="items.length==0" class="form-control" type="number"  ng-model="currentPage" style="display: inline;max-width: 150px!important;" ng-style="{width:currentPage.toString().length*6+55+\'px\'}"><span ng-hide="items.length==0">{{"table.common.cur_page_last" | translate}}</span>\
+                        <button style="position: relative;top: -2px" type="button" class="btn btn-default" ng-click="currentPage=currentPage+1" ng-hide="currentPage>=pageTotle||items.length==0">\
+                            <span class="glyphicon glyphicon-arrow-right" ></span>\
                         </button>\
-                        <span ng-if="items.length!==0">|共<span ng-bind="pageTotle"></span>页| </span>\
-                        <span ng-if="items.length==0">|共1页| </span>\
+                        <span ng-if="items.length!==0">|{{"table.common.total_page" | translate:{totalPage:pageTotle} }}| </span>\
+                        <span ng-if="items.length==0">|{{"table.common.total_page" | translate:{totalPage:1} }}| </span>\
                     </span>\
                 </div>',
             controller: function ($scope, $element, $attrs, $transclude) {
