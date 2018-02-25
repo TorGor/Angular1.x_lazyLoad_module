@@ -1,12 +1,12 @@
 <div class="modal-header">
-    <h3 class="modal-title">{{isAdd?'创建一级菜单':'修改一级菜单'}}</h3>
+    <h3 class="modal-title">{{(isAdd?('table.button.add' | translate):('table.button.edit' | translate)) + ('table.menu.modal_title' | translate)}}</h3>
 </div>
 
 <div class="modal-body">
     <form class="form-horizontal ng-pristine ng-valid">
         <fieldset>
             <div class="form-group">
-                <label class="col-sm-3 control-label">菜单组名称</label>
+                <label class="col-sm-3 control-label">{{'table.menu.th2' | translate}}</label>
                 <div class="col-sm-8">
                     <input class="form-control" type="text" required="" ng-model="oneLevelMenusModal.menuName">
                 </div>
@@ -14,7 +14,7 @@
         </fieldset>
         <fieldset>
             <div class="form-group">
-                <label class="col-sm-3 control-label">菜单组序号</label>
+                <label class="col-sm-3 control-label">{{'table.menu.th1' | translate}}</label>
                 <div class="col-sm-8">
                     <input class="form-control" type="text" required="" ng-model="oneLevelMenusModal.menuSortNo">
                 </div>
@@ -22,7 +22,7 @@
         </fieldset>
         <fieldset>
             <div class="form-group">
-                <label class="col-sm-3 control-label">菜单状态</label>
+                <label class="col-sm-3 control-label">{{'table.menu.th4' | translate}}</label>
                 <div class="col-sm-8">
                     <select
                             class="form-control"
@@ -37,6 +37,6 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-disabled="!oneLevelMenusModal.menuName || !oneLevelMenusModal.menuSortNo || !oneLevelMenusModal.menuStatus" ng-click="confirm()">确定</button>
-    <button class="btn btn-default" type="button" ng-click="cancel()">取消</button>
+    <button class="btn btn-primary" type="button" ng-disabled="!oneLevelMenusModal.menuName || !oneLevelMenusModal.menuSortNo || !oneLevelMenusModal.menuStatus" ng-click="confirm()">{{'table.button.save' | translate}}</button>
+    <button class="btn btn-default" type="button" ng-click="cancel()">{{'table.button.cancel' | translate}}</button>
 </div>

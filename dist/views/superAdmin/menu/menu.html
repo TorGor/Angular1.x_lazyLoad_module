@@ -4,7 +4,7 @@
          <div class="panel-wrapper">
             <div class="panel-body">
                <div>
-                  <button class="mb-sm btn btn-primary btn-sm" ng-click="addOneLevelMenu()" type="button">
+                  <button class="mb-sm btn btn-primary btn-sm" ng-click="addOneLevelMenu()" type="button" translate="table.button.add">
                      新增
                   </button>
                </div>
@@ -31,7 +31,7 @@
          <div class="panel-wrapper">
             <div class="panel-body">
                <span class="form-group add-button-class">
-                  <button class="btn btn-primary" ng-click="addSecondLevelMenu()" ng-disabled="!currentSelectMenu.id" type="button">
+                  <button class="btn btn-primary" ng-click="addSecondLevelMenu()" ng-disabled="!currentSelectMenu.id" type="button" translate="table.button.add">
                      新增
                   </button>
                </span>
@@ -40,7 +40,7 @@
                      <span style="position: absolute;left: 4px;top: 6px">
                         <em class="fa fa-search"></em>
                      </span>
-                     <input class="form-control" type="text" ng-model="twoLevelMenusAoData.menuName" placeholder="名称">
+                     <input class="form-control" type="text" ng-model="twoLevelMenusAoData.menuName" placeholder="{{'table.menu.th1' | translate}}">
                   </div>
                   <div class="form-group">
                      <select class="form-control" ng-model="twoLevelMenusAoData.menuStatus" ng-options="option.value as option.label for option in superAdminSelect012.optionsSearch">
@@ -51,11 +51,11 @@
                   <table width="100%" class="table table-bordered table-hover bg-white">
                      <tbody>
                         <tr style="font-weight: bold;">
-                           <td style="width: 10%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuSortNo">序号</td>
-                           <td style="width: 20%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuName">菜单名称</td>
-                           <td style="width: 30%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuUrl">URL</td>
-                           <td style="width: 13%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuStatus">状态</td>
-                           <td style="width: 17%">操作</td>
+                           <td style="width: 10%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuSortNo">{{'table.menu.th1' | translate}}</td>
+                           <td style="width: 20%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuName">{{'table.menu.th2' | translate}}</td>
+                           <td style="width: 30%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuUrl">{{'table.menu.th3' | translate}}</td>
+                           <td style="width: 13%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuStatus">{{'table.menu.th4' | translate}}</td>
+                           <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                         </tr>
                         <tr ng-repeat="item in twoLevelMenusShow">
                            <td>
@@ -74,25 +74,25 @@
                            </td>
                            <td style="white-space: nowrap;">
                               <form class="form-buttons form-inline" editable-form name="rowform" onbeforesave="saveSecondLevelMenu(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
-                                 <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="Save">
+                                 <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                     <em class="fa fa-save"></em>
                                  </button>
-                                 <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSave(item,$index)" title="Cancel">
+                                 <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSave(item,$index)" title="{{'table.button.cancel' | translate}}">
                                     <em class="fa fa-times"></em>
                                  </button>
                               </form>
                               <div class="buttons" ng-show="!rowform.$visible">
-                                 <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="Edit">
+                                 <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
                                     <em class="fa fa-pencil"></em>
                                  </button>
-                                 <button class="btn btn-sm btn-danger" ng-click="deleteSecondLevelMenu(item)" title="Delete">
+                                 <button class="btn btn-sm btn-danger" ng-click="deleteSecondLevelMenu(item)" title="{{'table.button.delete' | translate}}">
                                     <em class="fa fa-trash"></em>
                                  </button>
                               </div>
                            </td>
                         </tr>
                         <tr ng-show="twoLevelMenusShow.length==0">
-                           <td colspan="5" class="">查询结果数据为空</td>
+                           <td colspan="5" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                      </tbody>
                   </table>

@@ -42,7 +42,7 @@
           "add":"Add",
           "save":"Save",
           "edit":"Edit",
-          "remove":"Remove",
+          "delete":"Delete",
           "cancel":"Cancel",
           "operation":"Operation"
       },
@@ -50,7 +50,8 @@
           "th1":"Sort No",
           "th2":"Menu Name",
           "th3":"URL",
-          "th4":"Status"
+          "th4":"Status",
+          "modal_title":" Root Menu"
       },
       "role":{
           "th1":"Role",
