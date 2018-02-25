@@ -93,11 +93,6 @@
               title: 'Recover',
               templateUrl: 'pages/recover.html'
           })
-          .state('page.lock', {
-              url: '/lock',
-              title: 'Lock',
-              templateUrl: 'pages/lock.html'
-          })
           .state('page.404', {
               url: '/404',
               title: 'Not Found',
