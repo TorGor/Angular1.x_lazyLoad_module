@@ -11,8 +11,7 @@
         '$uibModalInstance',
         'modalData',
         'isAdd',
-        'superAdminService',
-        'superAdminSelect012',
+        'superAdminService'
     ];
 
     function OneLevelMenusModalController(
@@ -21,15 +20,14 @@
         $uibModalInstance,
         modalData,
         isAdd,
-        superAdminService,
-        superAdminSelect012
+        superAdminService
     ) {
 
         $scope.oneLevelMenusModal = {};
 
         $scope.isAdd = isAdd;
 
-        $scope.superAdminSelect012 = superAdminSelect012;
+        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
 
         if(isAdd){
             $scope.oneLevelMenusModal['menuStatus'] = '1';

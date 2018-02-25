@@ -9,7 +9,6 @@
         '$scope',
         '$rootScope',
         'superAdminService',
-        'superAdminSelect012',
         '$sce',
         '$uibModal'
     ];
@@ -18,12 +17,11 @@
         $scope,
         $rootScope,
         superAdminService,
-        superAdminSelect012,
         $sce,
         $uibModal
     ) {
 
-        $scope.superAdminSelect012 = superAdminSelect012;
+        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
 
         $scope.oneLevelMenus = [];
 

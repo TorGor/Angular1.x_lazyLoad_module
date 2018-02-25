@@ -37,7 +37,14 @@
     }
   },
   "table":{
-      "no_date":"No Data",
+      "common":{
+          "per_page":"Per page",
+          "showing_item_to":"Showing page {{ from }} of {{ to }},total {{ totalItem }}",
+          "cur_page_first":"Cur page",
+          "cur_page_last":"",
+          "total_page":"Total page {{ totalPage }}"
+      },
+      "no_date":"Nothing Found",
       "button":{
           "add":"Add",
           "save":"Save",
@@ -49,6 +56,13 @@
       "menu":{
           "th1":"Sort No",
           "th2":"Menu Name",
+          "th3":"URL",
+          "th4":"Status",
+          "modal_title":" Root Menu"
+      },
+      "button_manage":{
+          "th1":"Button Name",
+          "th2":"Button Type",
           "th3":"URL",
           "th4":"Status"
       },
@@ -73,8 +87,16 @@
   "alert_confirm":{
       "success":"success",
       "error":"error",
+      "title":"Are you sure?",
       "text":"Deleted data will not be able to recover!",
+      "cancelButtonText":"cancel",
       "confirmButtonText":"Yes, delete it!"
   },
-  "required_message":"is required"
+  "required_message":"is required",
+  "options":{
+      "all":"All",
+      "forbid":"Forbid",
+      "delete":"Delete",
+      "enable":"Enable"
+  }
 }

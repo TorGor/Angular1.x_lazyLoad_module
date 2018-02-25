@@ -9,19 +9,15 @@
         '$scope',
         '$rootScope',
         'superAdminService',
-        '$timeout',
-        'superAdminSelect012'
+        '$timeout'
     ];
 
     function SuperAdminAdminRelationController(
         $scope,
         $rootScope,
         superAdminService,
-        $timeout,
-        superAdminSelect012
+        $timeout
     ){
-
-        $scope.superAdminSelect012 = superAdminSelect012;
 
         $scope.roles = [];
 

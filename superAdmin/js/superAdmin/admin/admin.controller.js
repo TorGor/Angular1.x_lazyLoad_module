@@ -8,18 +8,16 @@
     SuperAdminAdminController.$inject = [
         '$scope',
         '$rootScope',
-        'superAdminService',
-        'superAdminSelect012'
+        'superAdminService'
     ];
 
     function SuperAdminAdminController(
         $scope,
         $rootScope,
-        superAdminService,
-        superAdminSelect012
+        superAdminService
     ){
 
-        $scope.superAdminSelect012 = superAdminSelect012;
+        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
 
         // 原始的二级数据
         $scope.admins = [];

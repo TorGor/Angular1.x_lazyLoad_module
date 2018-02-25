@@ -37,7 +37,14 @@
     }
   },
   "table":{
-        "no_date":"查询结果数据为空",
+        "common":{
+            "per_page":"每页",
+            "showing_item_to":"展示第 {{ from }} 至 {{ to }} 项结果,共 {{ totalItem }} 项",
+            "cur_page_first":"第",
+            "cur_page_last":"页",
+            "total_page":"共{{ totalPage }}页"
+        },
+        "no_date":"没有数据",
         "button":{
             "add":"添加",
             "save":"保存",
@@ -49,6 +56,13 @@
         "menu":{
             "th1":"序号",
             "th2":"菜单名称",
+            "th3":"URL",
+            "th4":"状态",
+            "modal_title":"一级菜单"
+        },
+        "button_manage":{
+            "th1":"按钮名称",
+            "th2":"按钮类型",
             "th3":"URL",
             "th4":"状态"
         },
@@ -73,8 +87,16 @@
     "alert_confirm":{
         "success":"成功",
         "error":"错误",
+        "title":"确认删除?",
         "text":"删除后可能无法恢复",
+        "cancelButtonText":"取消",
         "confirmButtonText":"确认删除"
     },
-    "required_message":"该字段必填"
+    "required_message":"该字段必填",
+    "options":{
+        "all":"全部",
+        "forbid":"禁止",
+        "delete":"删除",
+        "enable":"启用"
+    }
 }
