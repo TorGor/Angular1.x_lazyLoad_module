@@ -138,6 +138,7 @@ gulp.task('scripts:superAdmin', function() {
         .pipe($.concat('superAdmin.js'))
         .pipe($.ngAnnotate())
         .on('error', handleError)
+        .pipe($.if(isProduction, $.stripDebug()))
         .pipe($.if(isProduction, $.uglify({
             preserveComments: 'some'
         })))
@@ -160,6 +161,7 @@ gulp.task('scripts:app', function() {
         .pipe($.concat('app.js'))
         .pipe($.ngAnnotate())
         .on('error', handleError)
+        .pipe($.if(isProduction, $.stripDebug()))
         .pipe($.if(isProduction, $.uglify({
             preserveComments: 'some'
         })))

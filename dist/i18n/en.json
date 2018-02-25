@@ -39,7 +39,7 @@
   "table":{
       "common":{
           "per_page":"Per page",
-          "showing_item_to":"Showing page {{ from }} of {{ to }},total {{ totalItem }}",
+          "showing_item_to":"Showing items {{ from }} to {{ to }},total {{ totalItem }}",
           "cur_page_first":"Cur page",
           "cur_page_last":"",
           "total_page":"Total page {{ totalPage }}"

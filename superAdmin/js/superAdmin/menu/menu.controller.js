@@ -43,7 +43,7 @@
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: 'views/superAdmin/menu/menu-add-modal.html',
+                templateUrl: '/views/superAdmin/menu/menu-add-modal.html',
                 controller: 'OneLevelMenusModalController',
                 resolve: {
                     modalData: function () {
@@ -242,7 +242,7 @@
                     animation: true,
                     ariaLabelledBy: 'modal-title',
                     ariaDescribedBy: 'modal-body',
-                    templateUrl: 'views/superAdmin/menu/menu-add-modal.html',
+                    templateUrl: '/views/superAdmin/menu/menu-add-modal.html',
                     controller: 'OneLevelMenusModalController',
                     resolve: {
                         modalData: function () {
