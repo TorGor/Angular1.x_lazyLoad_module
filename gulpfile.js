@@ -56,13 +56,13 @@ var source = {
         paths.superAdmin + '**/*.module.js',
         paths.superAdmin + '**/*.js'
     ],
-    routes: [paths.scripts + 'modules/routes/*.router.config.js'],
+    routes: [paths.scripts + 'modules/routes/*.routes.config.js'],
     scripts: [
         paths.scripts + 'app.module.js',
         // template modules
         paths.scripts + 'modules/**/*.module.js',
         paths.scripts + 'modules/**/*.js',
-        '!' + paths.scripts + 'modules/routes/*.router.config.js',
+        '!' + paths.scripts + 'modules/routes/*.routes.config.js',
     ],
     templates: {
         index: [paths.markup + '*.html'],
@@ -157,7 +157,9 @@ gulp.task('scripts:superAdmin', function() {
 gulp.task('scripts:routes', function() {
     log('Building scripts routes..');
     // Minify and copy all JavaScript (except vendor scripts)
-    return gulp.src(source.routes)
+    return gulp.src(source.routes, {
+        base: 'js/modules/routes'
+    })
         .pipe($.jsvalidate())
         .on('error', handleError)
         .pipe($.if(useSourceMaps, $.sourcemaps.init()))
