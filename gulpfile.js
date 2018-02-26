@@ -51,19 +51,22 @@ var vendor = {
 
 // SOURCES CONFIG
 var source = {
-    superAdmin:[
+    superAdmin: [
         // custom modules
         paths.superAdmin + '**/*.module.js',
         paths.superAdmin + '**/*.js'
     ],
-    scripts: [paths.scripts + 'app.module.js',
+    routes: [paths.scripts + 'modules/routes/*.router.config.js'],
+    scripts: [
+        paths.scripts + 'app.module.js',
         // template modules
         paths.scripts + 'modules/**/*.module.js',
         paths.scripts + 'modules/**/*.js',
+        '!' + paths.scripts + 'modules/routes/*.router.config.js',
     ],
     templates: {
-        index: [paths.markup + 'index.html'],
-        views: [paths.markup + '**/*.html',paths.superAdmin + '**/**.html', '!' + paths.markup + 'index.html']
+        index: [paths.markup + '*.html'],
+        views: [paths.markup + '**/*.html', paths.superAdmin + '**/**.html', '!' + paths.markup + '*.html']
     },
     styles: {
         app: [paths.styles + '*.*'],
@@ -79,7 +82,7 @@ var build = {
     templates: {
         index: './dist',
         views: paths.app,
-        cache: paths.app + 'js/' + 'templates.js',
+        cache: paths.app + 'js/templates.js',
     }
 };
 
@@ -100,7 +103,7 @@ var vendorUglifyOpts = {
 var tplCacheOptions = {
     root: 'app',
     filename: 'templates.js',
-    //standalone: true,
+    // standalone: true,
     module: 'app.core',
     base: function(file) {
         return file.path.split('pug')[1];
@@ -114,18 +117,18 @@ var injectOptions = {
             filepath.substr(filepath.indexOf('app')) +
             '\')';
     }
-}
+};
 
 var cssnanoOpts = {
     safe: true,
     discardUnused: false, // no remove @font-face
     reduceIdents: false, // no change on @keyframes names
     zindex: false // no change z-index
-}
+};
 
-//---------------
+// ---------------
 // TASKS
-//---------------
+// ---------------
 
 // JS APP
 gulp.task('scripts:superAdmin', function() {
@@ -150,8 +153,30 @@ gulp.task('scripts:superAdmin', function() {
         }));
 });
 
+// JS routes
+gulp.task('scripts:routes', function() {
+    log('Building scripts routes..');
+    // Minify and copy all JavaScript (except vendor scripts)
+    return gulp.src(source.routes)
+        .pipe($.jsvalidate())
+        .on('error', handleError)
+        .pipe($.if(useSourceMaps, $.sourcemaps.init()))
+        .pipe($.ngAnnotate())
+        .on('error', handleError)
+        .pipe($.if(isProduction, $.stripDebug()))
+        .pipe($.if(isProduction, $.uglify({
+            preserveComments: 'some'
+        })))
+        .on('error', handleError)
+        .pipe($.if(useSourceMaps, $.sourcemaps.write()))
+        .pipe(gulp.dest(build.scripts))
+        .pipe(reload({
+            stream: true
+        }));
+});
+
 // JS APP
-gulp.task('scripts:app', function() {
+gulp.task('scripts:app', ['scripts:routes'], function() {
     log('Building scripts..');
     // Minify and copy all JavaScript (except vendor scripts)
     return gulp.src(source.scripts)
@@ -185,8 +210,8 @@ gulp.task('vendor:app', function() {
     });
 
     return gulp.src(vendor.app.source, {
-            base: 'bower_components'
-        })
+        base: 'bower_components'
+    })
         .pipe($.expectFile(vendor.app.source))
         .pipe(jsFilter)
         .pipe($.if(isProduction, $.uglify(vendorUglifyOpts)))
@@ -220,8 +245,7 @@ gulp.task('vendor:base', function() {
         .pipe($.concat(vendor.base.css))
         .pipe($.if(isProduction, $.cssnano(cssnanoOpts)))
         .pipe(gulp.dest(build.styles))
-        .pipe(cssFilter.restore)
-        ;
+        .pipe(cssFilter.restore);
 });
 
 // VENDOR BUILD
@@ -253,7 +277,7 @@ gulp.task('styles:app:rtl', function() {
         .pipe($.if(isProduction, $.cssnano(cssnanoOpts)))
         .pipe($.if(useSourceMaps, $.sourcemaps.write()))
         .pipe($.rename(function(path) {
-            path.basename += "-rtl";
+            path.basename += '-rtl';
             return path;
         }))
         .pipe(gulp.dest(build.styles))
@@ -283,7 +307,6 @@ gulp.task('templates:index', ['templates:views'], function() {
     });
     return gulp.src(source.templates.index)
         .pipe($.if(useCache, $.inject(tplscript, injectOptions))) // inject the templates.js into index
-        // .pipe($.pug())
         .on('error', handleError)
         .pipe($.htmlPrettify(prettifyOpts))
         .pipe(gulp.dest(build.templates.index))
@@ -299,7 +322,6 @@ gulp.task('templates:views', function() {
     if (useCache) {
 
         return gulp.src(source.templates.views)
-            // .pipe($.pug())
             .on('error', handleError)
             .pipe($.angularTemplatecache(tplCacheOptions))
             .pipe($.if(isProduction, $.uglify({
@@ -318,7 +340,6 @@ gulp.task('templates:views', function() {
             .pipe($.if(!isProduction, $.changed(build.templates.views, {
                 extension: '.html'
             })))
-            // .pipe($.pug())
             .on('error', handleError)
             .pipe($.htmlPrettify(prettifyOpts))
             .pipe(gulp.dest(build.templates.views))
@@ -328,9 +349,9 @@ gulp.task('templates:views', function() {
     }
 });
 
-//---------------
+// ---------------
 // WATCH
-//---------------
+// ---------------
 
 // Rerun the task when a file changes
 gulp.task('watch', function() {
@@ -386,12 +407,12 @@ gulp.task('clean', function(done) {
     // force: clean files outside current directory
     del(delconfig, {
         force: true
-    }).then(function() { done(); });
+    }).then(function() { done() });
 });
 
-//---------------
+// ---------------
 // MAIN TASKS
-//---------------
+// ---------------
 
 // build for production (minify)
 gulp.task('build', gulpsync.sync([
@@ -439,7 +460,6 @@ gulp.task('assets', [
     'templates:index',
     'templates:views'
 ]);
-
 
 
 
