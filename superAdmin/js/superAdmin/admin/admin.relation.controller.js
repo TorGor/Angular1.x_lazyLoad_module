@@ -1,5 +1,4 @@
 (function() {
-    'use strict';
 
     angular
         .module('superAdmin.admin')
@@ -17,7 +16,7 @@
         $rootScope,
         superAdminService,
         $timeout
-    ){
+    ) {
 
         $scope.roles = [];
 
@@ -28,8 +27,8 @@
         $scope.roleMenuAndBtn = [];
 
         $scope.initRolesData = function () {
-            superAdminService.getFindRoleInfoList({"pageSize":100,"curPage":1},{},function (data) {
-                console.log(data,'initRolesData');
+            superAdminService.getFindRoleInfoList({ 'pageSize': 100, 'curPage': 1 }, {}, function (data) {
+                console.log(data, 'initRolesData');
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
                         $scope.roles = angular.copy(data.data);
@@ -41,7 +40,7 @@
         };
 
         $scope.initAdminsData = function (userName) {
-            superAdminService.getFindUserInfo({"pageSize":100,"curPage":1,"status":1, "userName":userName||''},{},function (data) {
+            superAdminService.getFindUserInfo({ 'pageSize': 100, 'curPage': 1, 'status': 1, 'userName': userName || '' }, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -59,9 +58,9 @@
          * @return null
          */
         $scope.getRoleMenuAndBtn = function (id) {
-            if(id){
+            if (id) {
                 $scope.roleMenuAndBtn = [];
-                superAdminService.getFindRoleMenuByRoleId({"roleId":id},{},function (data) {
+                superAdminService.getFindRoleMenuByRoleId({ 'roleId': id }, {}, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -81,8 +80,8 @@
          */
         $scope.setCurrentAdmin = function (admin) {
             $scope.currentAdmin = angular.copy(admin);
-            if(admin.roleId){
-                $scope.getRoleMenuAndBtn(admin.roleId)
+            if (admin.roleId) {
+                $scope.getRoleMenuAndBtn(admin.roleId);
             }
         };
 
@@ -92,16 +91,16 @@
          * @return null
          */
         $scope.setAdminRoleId = function (role) {
-            if($scope.currentAdmin.id){
+            if ($scope.currentAdmin.id) {
                 var tempData = angular.copy($scope.currentAdmin);
                 tempData.roleId = role.id;
-                superAdminService.postUpdateUserInfo({},tempData,function (data) {
+                superAdminService.postUpdateUserInfo({}, tempData, function (data) {
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $rootScope.toasterSuccess(data.msg);
                             $scope.currentAdmin.roleId = role.id;
-                            $scope.admins.forEach(function ( admin ) {
-                                if(admin.id == $scope.currentAdmin.id){
+                            $scope.admins.forEach(function (admin) {
+                                if (admin.id == $scope.currentAdmin.id) {
                                     admin.roleId = role.id;
                                 }
                             });
@@ -111,21 +110,21 @@
                         }
                     }
                 });
-            }else{
+            } else {
                 $rootScope.alertErrorMsg('select admin first!');
-                return
+                return;
             }
         };
 
         var timer = null;
 
-        $scope.$watch('userName',function (newValue, oldValue) {
-            if(newValue != oldValue){
+        $scope.$watch('userName', function (newValue, oldValue) {
+            if (newValue != oldValue) {
                 if (timer) {
-                    $timeout.cancel(timer)
+                    $timeout.cancel(timer);
                 }
-                timer = $timeout(function(){
-                    $scope.initAdminsData($scope.userName)
+                timer = $timeout(function() {
+                    $scope.initAdminsData($scope.userName);
                 }, 200);
             }
         });
@@ -134,6 +133,6 @@
 
         $scope.initRolesData();
 
-        $scope.initAdminsData()
+        $scope.initAdminsData();
     }
 })();

@@ -1,5 +1,4 @@
 (function() {
-    'use strict';
 
     angular
         .module('superAdmin.role')
@@ -15,7 +14,7 @@
         $scope,
         $rootScope,
         superAdminService
-    ){
+    ) {
 
         $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
 
@@ -29,7 +28,7 @@
 
         // 初始化table数据
         $scope.initRolesData = function () {
-            superAdminService.getFindPageRoleInfo({"pageSize":50,"curPage":1},{},function (data) {
+            superAdminService.getFindPageRoleInfo({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -50,10 +49,10 @@
          */
         $scope.saveRole = function (role, item) {
             var tempData = angular.extend({}, role, item);
-            if(!tempData.id){
+            if (!tempData.id) {
                 delete tempData.id;
-                superAdminService.postSaveRoleInfo({},tempData,function ( data ) {
-                    console.log(data)
+                superAdminService.postSaveRoleInfo({}, tempData, function (data) {
+                    console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.initRolesData();
@@ -62,10 +61,10 @@
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
-                })
-            } else if (tempData.id){
-                superAdminService.postUpdateRoleInfo({},tempData,function ( data ) {
-                    console.log(data)
+                });
+            } else if (tempData.id) {
+                superAdminService.postUpdateRoleInfo({}, tempData, function (data) {
+                    console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.initRolesData();
@@ -74,7 +73,7 @@
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
-                })
+                });
             }
 
         };
@@ -85,9 +84,9 @@
          * @return null
          */
         $scope.deleteRole = function (role) {
-            if(role.id){
+            if (role.id) {
                 $rootScope.alertConfirm(function () {
-                    superAdminService.getDeleteRoleInfoById({id:role.id},{},function ( data ) {
+                    superAdminService.getDeleteRoleInfoById({ id: role.id }, {}, function (data) {
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
                                 $scope.initRolesData();
@@ -96,8 +95,8 @@
                                 $rootScope.alertErrorMsg(data.msg);
                             }
                         }
-                    })
-                })
+                    });
+                });
             }
         };
 
@@ -105,14 +104,14 @@
         $scope.addRoles = function () {
             $scope.rolesAoData = {};
             $scope.roles.unshift({
-                "id": null,
-                "roleName": "",
-                "roleType": "",
-                "roleStatus": "1",
-                "createTime": null,
-                "optTime": null,
-                "isShowTrEdit": true
-            })
+                'id': null,
+                'roleName': '',
+                'roleType': '',
+                'roleStatus': '1',
+                'createTime': null,
+                'optTime': null,
+                'isShowTrEdit': true
+            });
         };
 
         /**
@@ -122,13 +121,13 @@
          */
 
         $scope.cancelSave = function (item, index) {
-            if(item.id == null){
-                $scope.roles.splice(index, 1)
+            if (item.id == null) {
+                $scope.roles.splice(index, 1);
             }
         };
 
         // 页面加载执行的函数
 
-        $scope.initRolesData()
+        $scope.initRolesData();
     }
 })();

@@ -1,5 +1,4 @@
 (function() {
-    'use strict';
 
     angular
         .module('superAdmin', [
@@ -7,7 +6,6 @@
             'angle',
             // or just modules
             'app.core',
-            /*...*/
             'superAdmin.menu',
             'superAdmin.button',
             'superAdmin.role',

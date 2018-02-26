@@ -1,5 +1,4 @@
 (function() {
-    'use strict';
 
     angular
         .module('superAdmin.button')
@@ -33,7 +32,7 @@
 
         // 初始化一级菜单
         $scope.initOneLevelMenus = function () {
-            superAdminService.getFindAllMenuInfo({},{},function (data) {
+            superAdminService.getFindAllMenuInfo({}, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -48,9 +47,9 @@
                                 return allMenusItem.parentId == oneLevelMenusItem.id;
                             }));
                         });
-                        if(!$scope.currentSelectMenu.id){
-                            for(var i = 0, j = $scope.oneLevelMenus.length;i < j;i++){
-                                if($scope.oneLevelMenus[i]['secondLevelMenus'][0]){
+                        if (!$scope.currentSelectMenu.id) {
+                            for (var i = 0, j = $scope.oneLevelMenus.length; i < j; i++) {
+                                if ($scope.oneLevelMenus[i]['secondLevelMenus'][0]) {
                                     $scope.oneLevelMenus[i]['showSecond'] = true;
                                     $scope.currentSelectMenu = angular.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
                                     $scope.getSecondLevelButtons($scope.currentSelectMenu);
@@ -70,16 +69,16 @@
          * @param secondLevelMenu 二级菜单对象
          * @return null
          */
-        $scope.getSecondLevelButtons = function (secondLevelMenu, $event){
-            if($event){
+        $scope.getSecondLevelButtons = function (secondLevelMenu, $event) {
+            if ($event) {
                 $event.stopPropagation();
             }
-            console.log(secondLevelMenu, 'getSecondLevelButtons')
+            console.log(secondLevelMenu, 'getSecondLevelButtons');
             $scope.currentSelectMenu = angular.copy(secondLevelMenu);
-            if(secondLevelMenu.id){
+            if (secondLevelMenu.id) {
                 $scope.buttons = [];
-                superAdminService.getFindButtonInfoByMenuId({"menuId":secondLevelMenu.id},{},function ( data ) {
-                    console.log(data)
+                superAdminService.getFindButtonInfoByMenuId({ 'menuId': secondLevelMenu.id }, {}, function (data) {
+                    console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.buttons = angular.copy(data.data);
@@ -87,7 +86,7 @@
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
-                })
+                });
             }
         };
 
@@ -99,10 +98,10 @@
          */
         $scope.saveButton = function (button, item) {
             var tempData = angular.extend({}, button, item);
-            if(!tempData.id){
+            if (!tempData.id) {
                 delete tempData.id;
-                superAdminService.postSaveButtonInfo({},tempData,function ( data ) {
-                    console.log(data)
+                superAdminService.postSaveButtonInfo({}, tempData, function (data) {
+                    console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.getSecondLevelButtons($scope.currentSelectMenu);
@@ -111,10 +110,10 @@
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
-                })
-            } else if (tempData.id){
-                superAdminService.postUpdateButtonInfo({},tempData,function ( data ) {
-                    console.log(data)
+                });
+            } else if (tempData.id) {
+                superAdminService.postUpdateButtonInfo({}, tempData, function (data) {
+                    console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.getSecondLevelButtons($scope.currentSelectMenu);
@@ -123,7 +122,7 @@
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
-                })
+                });
             }
 
         };
@@ -134,9 +133,9 @@
          * @return null
          */
         $scope.deleteButton = function (button) {
-            if(button.id){
+            if (button.id) {
                 $rootScope.alertConfirm(function () {
-                    superAdminService.getDeleteButtonInfoById({id:button.id},{},function ( data ) {
+                    superAdminService.getDeleteButtonInfoById({ id: button.id }, {}, function (data) {
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
                                 $scope.getSecondLevelButtons($scope.currentSelectMenu);
@@ -145,27 +144,27 @@
                                 $rootScope.alertErrorMsg(data.msg);
                             }
                         }
-                    })
+                    });
                 });
             }
         };
 
         // 添加按钮
         $scope.addButtons = function () {
-            if($scope.currentSelectMenu.id){
+            if ($scope.currentSelectMenu.id) {
                 $scope.buttonsAoData = {};
                 $scope.buttons.unshift({
-                    "id": null,
-                    "btnName": "",
-                    "btnType": "",
-                    "btnCode": "",
-                    "btnUrl": "",
-                    "btnStatus": "1",
-                    "createTime": null,
-                    "optTime": null,
-                    "menuId": $scope.currentSelectMenu.id,
-                    "isShowTrEdit": true
-                })
+                    'id': null,
+                    'btnName': '',
+                    'btnType': '',
+                    'btnCode': '',
+                    'btnUrl': '',
+                    'btnStatus': '1',
+                    'createTime': null,
+                    'optTime': null,
+                    'menuId': $scope.currentSelectMenu.id,
+                    'isShowTrEdit': true
+                });
             }
         };
 
@@ -176,8 +175,8 @@
          */
 
         $scope.cancelSave = function (item, index) {
-            if(item.id == null){
-                $scope.buttons.splice(index, 1)
+            if (item.id == null) {
+                $scope.buttons.splice(index, 1);
             }
         };
 

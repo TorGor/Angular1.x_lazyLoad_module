@@ -1,5 +1,4 @@
 (function() {
-    'use strict';
 
     angular
         .module('superAdmin.role')
@@ -15,7 +14,7 @@
         $scope,
         $rootScope,
         superAdminService
-    ){
+    ) {
 
         $scope.roles = [];
         $scope.oneLevelMenus = [];
@@ -33,9 +32,9 @@
          */
         $scope.getRoleRelationById = function (role, isClick) {
             $scope.currentRole = angular.copy(role);
-            if(role.id){
-                superAdminService.getFindMenuByRoleId({"roleId":role.id},{},function (data) {
-                    console.log(data,'getRoleRelationById');
+            if (role.id) {
+                superAdminService.getFindMenuByRoleId({ 'roleId': role.id }, {}, function (data) {
+                    console.log(data, 'getRoleRelationById');
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             var allMenus = angular.copy(data.data);
@@ -49,14 +48,14 @@
                                     return allMenusItem.parentId == oneLevelMenusItem.id;
                                 }));
                             });
-                            console.log($scope.oneLevelMenus,'$scope.oneLevelMenus')
-                            if(isClick){
+                            console.log($scope.oneLevelMenus, '$scope.oneLevelMenus');
+                            if (isClick) {
                                 $scope.currentSecondLevelMenu = {};
                                 $scope.buttons = [];
-                            }else{
-                                if(!$scope.currentSecondLevelMenu.id){
-                                    for(var i = 0, j = $scope.oneLevelMenus.length;i < j;i++){
-                                        if($scope.oneLevelMenus[i]['secondLevelMenus'][0]){
+                            } else {
+                                if (!$scope.currentSecondLevelMenu.id) {
+                                    for (var i = 0, j = $scope.oneLevelMenus.length; i < j; i++) {
+                                        if ($scope.oneLevelMenus[i]['secondLevelMenus'][0]) {
                                             $scope.oneLevelMenus[i]['showSecond'] = true;
                                             $scope.currentSecondLevelMenu = angular.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
                                             $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
@@ -75,12 +74,12 @@
 
         // 初始化role数据
         $scope.initRolesData = function () {
-            superAdminService.getFindRoleInfoList({"pageSize":50,"curPage":1},{},function (data) {
-                console.log(data,'initRolesData');
+            superAdminService.getFindRoleInfoList({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
+                console.log(data, 'initRolesData');
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
                         $scope.roles = angular.copy(data.data);
-                        if($scope.roles[0]){
+                        if ($scope.roles[0]) {
                             $scope.currentRole = angular.copy($scope.roles[0]);
                             $scope.getRoleRelationById($scope.currentRole, false);
                         }
@@ -96,22 +95,22 @@
          * @param secondLevelMenu 二级菜单对象
          * @return null
          */
-        $scope.getSecondLevelButtons = function (secondLevelMenu, $event){
-            if($event){
+        $scope.getSecondLevelButtons = function (secondLevelMenu, $event) {
+            if ($event) {
                 $event.stopPropagation();
             }
-            if(!$scope.currentRole.id){
+            if (!$scope.currentRole.id) {
                 $rootScope.alertErrorMsg('select role first!');
-                return
+                return;
             }
             $scope.currentSecondLevelMenu = angular.copy(secondLevelMenu);
-            if(secondLevelMenu.id){
+            if (secondLevelMenu.id) {
                 $scope.buttons = [];
                 superAdminService.getFindButtonInfoList({
-                    "roleId":$scope.currentRole.id,
-                    "menuId":secondLevelMenu.id
-                },{},function ( data ) {
-                    console.log(data)
+                    'roleId': $scope.currentRole.id,
+                    'menuId': secondLevelMenu.id
+                }, {}, function (data) {
+                    console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.buttons = angular.copy(data.data);
@@ -119,7 +118,7 @@
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
-                })
+                });
             }
         };
 
@@ -130,18 +129,18 @@
          */
         $scope.handelClickButton = function (button, $event) {
             $event.preventDefault();
-            if(!$scope.currentRole.id || !$scope.currentSecondLevelMenu.id){
+            if (!$scope.currentRole.id || !$scope.currentSecondLevelMenu.id) {
                 $rootScope.alertErrorMsg('select role and menu first!');
-                return
+                return;
             }
-            if(button.id){
+            if (button.id) {
                 console.log(button, 'button');
-                if(button.checked){
-                    superAdminService.postAddRoleAndMenuAndBtn({},{
-                        "roleId":$scope.currentRole.id,
-                        "btnId":button.id,
-                        "menuId":$scope.currentSecondLevelMenu.id
-                    },function ( data ) {
+                if (button.checked) {
+                    superAdminService.postAddRoleAndMenuAndBtn({}, {
+                        'roleId': $scope.currentRole.id,
+                        'btnId': button.id,
+                        'menuId': $scope.currentSecondLevelMenu.id
+                    }, function (data) {
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
@@ -152,13 +151,13 @@
                                 $rootScope.alertErrorMsg(data.msg);
                             }
                         }
-                    })
-                }else{
+                    });
+                } else {
                     superAdminService.getDeleteRoleAndMenuAndBtn({
-                        "roleId":$scope.currentRole.id,
-                        "btnId":button.id,
-                        "menuId":$scope.currentSecondLevelMenu.id
-                    },{},function ( data ) {
+                        'roleId': $scope.currentRole.id,
+                        'btnId': button.id,
+                        'menuId': $scope.currentSecondLevelMenu.id
+                    }, {}, function (data) {
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
@@ -169,7 +168,7 @@
                                 $rootScope.alertErrorMsg(data.msg);
                             }
                         }
-                    })
+                    });
                 }
             }
         };

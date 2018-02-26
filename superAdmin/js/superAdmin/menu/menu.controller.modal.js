@@ -1,5 +1,4 @@
 (function() {
-    'use strict';
 
     angular
         .module('superAdmin.menu')
@@ -29,25 +28,25 @@
 
         $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
 
-        if(isAdd){
+        if (isAdd) {
             $scope.oneLevelMenusModal['menuStatus'] = '1';
-        }else{
-            $scope.oneLevelMenusModal = angular.copy(modalData)
+        } else {
+            $scope.oneLevelMenusModal = angular.copy(modalData);
         }
 
         $scope.confirm = function () {
-            if(isAdd){
+            if (isAdd) {
                 var tempAddOneLevelMenus = {
                     // "id": "1",
-                    "menuName": $scope.oneLevelMenusModal.menuName || "",
-                    "menuCode": "",
-                    "menuType": "",
-                    "menuStatus": $scope.oneLevelMenusModal.menuStatus,
-                    "menuUrl": "",
-                    "menuSortNo": $scope.oneLevelMenusModal.menuSortNo || "",
-                    "parentId": "root",
+                    'menuName': $scope.oneLevelMenusModal.menuName || '',
+                    'menuCode': '',
+                    'menuType': '',
+                    'menuStatus': $scope.oneLevelMenusModal.menuStatus,
+                    'menuUrl': '',
+                    'menuSortNo': $scope.oneLevelMenusModal.menuSortNo || '',
+                    'parentId': 'root',
                 };
-                superAdminService.postSaveMenuInfo({},tempAddOneLevelMenus,function ( data ) {
+                superAdminService.postSaveMenuInfo({}, tempAddOneLevelMenus, function (data) {
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.oneLevelMenusModal = {};
@@ -57,19 +56,19 @@
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
-                })
-            }else{
+                });
+            } else {
                 var tempUpdateOneLevelMenus = {
-                    "id": $scope.oneLevelMenusModal.id,
-                    "menuName": $scope.oneLevelMenusModal.menuName || "",
-                    "menuCode": $scope.oneLevelMenusModal.menuCode || "",
-                    "menuType": $scope.oneLevelMenusModal.menuType,
-                    "menuStatus": $scope.oneLevelMenusModal.menuStatus,
-                    "menuUrl": $scope.oneLevelMenusModal.menuUrl,
-                    "menuSortNo": $scope.oneLevelMenusModal.menuSortNo,
-                    "parentId": "root",
+                    'id': $scope.oneLevelMenusModal.id,
+                    'menuName': $scope.oneLevelMenusModal.menuName || '',
+                    'menuCode': $scope.oneLevelMenusModal.menuCode || '',
+                    'menuType': $scope.oneLevelMenusModal.menuType,
+                    'menuStatus': $scope.oneLevelMenusModal.menuStatus,
+                    'menuUrl': $scope.oneLevelMenusModal.menuUrl,
+                    'menuSortNo': $scope.oneLevelMenusModal.menuSortNo,
+                    'parentId': 'root',
                 };
-                superAdminService.postUpdateMenuInfo({},tempUpdateOneLevelMenus,function ( data ) {
+                superAdminService.postUpdateMenuInfo({}, tempUpdateOneLevelMenus, function (data) {
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.oneLevelMenusModal = {};
@@ -79,7 +78,7 @@
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
-                })
+                });
             }
         };
 
