@@ -29,7 +29,8 @@ var paths = {
     markup: 'pug/',
     styles: 'less/',
     scripts: 'js/',
-    superAdmin: 'superAdmin/'
+    superAdmin: 'superAdmin/',
+    login: 'login/'
 };
 
 
@@ -55,6 +56,11 @@ var source = {
         // custom modules
         paths.superAdmin + '**/*.module.js',
         paths.superAdmin + '**/*.js'
+    ],
+    login: [
+        // custom modules
+        paths.login + '**/*.module.js',
+        paths.login + '**/*.js'
     ],
     routes: [paths.scripts + 'modules/routes/*.routes.config.js'],
     scripts: [
@@ -129,6 +135,29 @@ var cssnanoOpts = {
 // ---------------
 // TASKS
 // ---------------
+
+// JS login
+gulp.task('scripts:login', function() {
+    log('Building scripts login..');
+    // Minify and copy all JavaScript (except vendor scripts)
+    return gulp.src(source.login)
+        .pipe($.jsvalidate())
+        .on('error', handleError)
+        .pipe($.if(useSourceMaps, $.sourcemaps.init()))
+        .pipe($.concat('login.js'))
+        .pipe($.ngAnnotate())
+        .on('error', handleError)
+        .pipe($.if(isProduction, $.stripDebug()))
+        .pipe($.if(isProduction, $.uglify({
+            preserveComments: 'some'
+        })))
+        .on('error', handleError)
+        .pipe($.if(useSourceMaps, $.sourcemaps.write()))
+        .pipe(gulp.dest(build.scripts))
+        .pipe(reload({
+            stream: true
+        }));
+});
 
 // JS APP
 gulp.task('scripts:superAdmin', function() {
@@ -361,6 +390,7 @@ gulp.task('watch', function() {
 
     gulp.watch(source.scripts, ['scripts:app']);
     gulp.watch(source.superAdmin, ['scripts:superAdmin']);
+    gulp.watch(source.login, ['scripts:login']);
     gulp.watch(source.styles.watch, ['styles:app', 'styles:app:rtl']);
     gulp.watch(source.styles.themes, ['styles:themes']);
     gulp.watch(source.templates.views, ['templates:views']);
@@ -456,6 +486,7 @@ gulp.task('default', gulpsync.sync([
 gulp.task('assets', [
     'scripts:app',
     'scripts:superAdmin',
+    'scripts:login',
     'styles:app',
     'styles:app:rtl',
     'styles:themes',

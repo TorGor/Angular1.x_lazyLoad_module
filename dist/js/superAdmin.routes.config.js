@@ -28,7 +28,7 @@
                 url: '/superAdmin',
                 abstract: true,
                 templateUrl: RouteHelpersProvider.basepath('app.html'),
-                resolve: RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'ui.select', 'xeditable', 'datetimepicker', 'superAdmin')
+                resolve: RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'datetimepicker', 'superAdmin')
             })
             .state('superAdmin.menuManage', {
                 url: '/menu/manage',

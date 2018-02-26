@@ -1,19 +1,19 @@
-/*!
- * 
+/* !
+ *
  * Angle - Bootstrap Admin App + AngularJS
- * 
+ *
  * Version: 3.8.3
  * Author: @themicon_co
  * Website: http://themicon.co
  * License: https://wrapbootstrap.com/help/licenses
- * 
+ *
  */
 
 // APP START
-// ----------------------------------- 
+// -----------------------------------
 
 (function() {
-    'use strict';
+    
 
     angular
         .module('angle', [
@@ -24,7 +24,6 @@
             'app.loadingbar',
             'app.translate',
             'app.settings',
-            'app.pages',
             'app.utils',
         ]);
 })();
@@ -69,12 +68,6 @@
 
     angular
         .module('app.loadingbar', []);
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.pages', []);
 })();
 (function() {
     'use strict';
@@ -534,7 +527,7 @@
 
 })();
 (function() {
-    'use strict';
+
 
     angular
         .module('app.core')
@@ -598,7 +591,7 @@
 
         // Hook not found
         $rootScope.$on('$stateNotFound',
-            function(event, unfoundState /*, fromState, fromParams*/ ) {
+            function(event, unfoundState /* , fromState, fromParams */) {
                 console.log(unfoundState.to); // "lazy.state"
                 console.log(unfoundState.toParams); // {a:1, b:2}
                 console.log(unfoundState.options); // {inherit:false} + default options
@@ -610,7 +603,7 @@
             });
         // Hook success
         $rootScope.$on('$stateChangeSuccess',
-            function( event, toState, toParams, fromState, fromParams ) {
+            function(event, toState, toParams, fromState, fromParams) {
                 // display new view from top
                 $window.scrollTo(0, 0);
                 // Save the route title
@@ -626,7 +619,7 @@
         //     return title;
         // };
 
-        $window.document.title = ''
+        $window.document.title = '';
 
     }
 
@@ -675,120 +668,6 @@
     }
 
 })();
-/**=========================================================
- * Module: access-login.js
- * Demo for login api
- =========================================================*/
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.pages')
-        .controller('LoginFormController', LoginFormController);
-
-    LoginFormController.$inject = ['$http', '$state'];
-    function LoginFormController($http, $state) {
-        var vm = this;
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-          // bind here all data from the form
-          vm.account = {};
-          // place the message if something goes wrong
-          vm.authMsg = '';
-
-          vm.login = function() {
-            vm.authMsg = '';
-
-            if(vm.loginForm.$valid) {
-
-              $http
-                .post('api/account/login', {email: vm.account.email, password: vm.account.password})
-                .then(function(response) {
-                  // assumes if ok, response is an object with some data, if not, a string with error
-                  // customize according to your api
-                  if ( !response.account ) {
-                    vm.authMsg = 'Incorrect credentials.';
-                  }else{
-                    $state.go('app.dashboard');
-                  }
-                }, function() {
-                  vm.authMsg = 'Server Request Error';
-                });
-            }
-            else {
-              // set as dirty if the user click directly to login so we show the validation messages
-              /*jshint -W106*/
-              vm.loginForm.account_email.$dirty = true;
-              vm.loginForm.account_password.$dirty = true;
-            }
-          };
-        }
-    }
-})();
-
-/**=========================================================
- * Module: access-register.js
- * Demo for register account api
- =========================================================*/
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.pages')
-        .controller('RegisterFormController', RegisterFormController);
-
-    RegisterFormController.$inject = ['$http', '$state'];
-    function RegisterFormController($http, $state) {
-        var vm = this;
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-          // bind here all data from the form
-          vm.account = {};
-          // place the message if something goes wrong
-          vm.authMsg = '';
-            
-          vm.register = function() {
-            vm.authMsg = '';
-
-            if(vm.registerForm.$valid) {
-
-              $http
-                .post('api/account/register', {email: vm.account.email, password: vm.account.password})
-                .then(function(response) {
-                  // assumes if ok, response is an object with some data, if not, a string with error
-                  // customize according to your api
-                  if ( !response.account ) {
-                    vm.authMsg = response;
-                  }else{
-                    $state.go('app.dashboard');
-                  }
-                }, function() {
-                  vm.authMsg = 'Server Request Error';
-                });
-            }
-            else {
-              // set as dirty if the user click directly to login so we show the validation messages
-              /*jshint -W106*/
-              vm.registerForm.account_email.$dirty = true;
-              vm.registerForm.account_password.$dirty = true;
-              vm.registerForm.account_agreed.$dirty = true;
-              
-            }
-          };
-        }
-    }
-})();
-
 (function() {
     'use strict';
 
