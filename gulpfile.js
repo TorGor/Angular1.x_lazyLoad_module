@@ -30,7 +30,8 @@ var paths = {
     styles: 'less/',
     scripts: 'js/',
     superAdmin: 'superAdmin/',
-    login: 'login/'
+    login: 'login/',
+    changePassword: 'changePassword/'
 };
 
 
@@ -58,6 +59,11 @@ var source = {
         paths.superAdmin + '**/*.js'
     ],
     login: [
+        // custom modules
+        paths.login + '**/*.module.js',
+        paths.login + '**/*.js'
+    ],
+    changePassword: [
         // custom modules
         paths.login + '**/*.module.js',
         paths.login + '**/*.js'
@@ -159,6 +165,29 @@ gulp.task('scripts:login', function() {
         }));
 });
 
+// JS changePassword
+gulp.task('scripts:changePassword', function() {
+    log('Building scripts changePassword..');
+    // Minify and copy all JavaScript (except vendor scripts)
+    return gulp.src(source.changePassword)
+        .pipe($.jsvalidate())
+        .on('error', handleError)
+        .pipe($.if(useSourceMaps, $.sourcemaps.init()))
+        .pipe($.concat('changePassword.js'))
+        .pipe($.ngAnnotate())
+        .on('error', handleError)
+        .pipe($.if(isProduction, $.stripDebug()))
+        .pipe($.if(isProduction, $.uglify({
+            preserveComments: 'some'
+        })))
+        .on('error', handleError)
+        .pipe($.if(useSourceMaps, $.sourcemaps.write()))
+        .pipe(gulp.dest(build.scripts))
+        .pipe(reload({
+            stream: true
+        }));
+});
+
 // JS APP
 gulp.task('scripts:superAdmin', function() {
     log('Building scripts superAdmin..');
@@ -207,7 +236,7 @@ gulp.task('scripts:routes', function() {
 });
 
 // JS APP
-gulp.task('scripts:app', ['scripts:routes'], function() {
+gulp.task('scripts:app', function() {
     log('Building scripts..');
     // Minify and copy all JavaScript (except vendor scripts)
     return gulp.src(source.scripts)
@@ -391,6 +420,8 @@ gulp.task('watch', function() {
     gulp.watch(source.scripts, ['scripts:app']);
     gulp.watch(source.superAdmin, ['scripts:superAdmin']);
     gulp.watch(source.login, ['scripts:login']);
+    gulp.watch(source.changePassword, ['scripts:changePassword']);
+    gulp.watch(source.routes, ['scripts:routes']);
     gulp.watch(source.styles.watch, ['styles:app', 'styles:app:rtl']);
     gulp.watch(source.styles.themes, ['styles:themes']);
     gulp.watch(source.templates.views, ['templates:views']);
@@ -487,6 +518,8 @@ gulp.task('assets', [
     'scripts:app',
     'scripts:superAdmin',
     'scripts:login',
+    'scripts:changePassword',
+    'scripts:routes',
     'styles:app',
     'styles:app:rtl',
     'styles:themes',

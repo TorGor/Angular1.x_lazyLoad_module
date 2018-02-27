@@ -18,7 +18,7 @@
         $locationProvider.html5Mode(false);
 
         // defaults to dashboard
-        $urlRouterProvider.otherwise('/page/login');
+        $urlRouterProvider.otherwise('/page/changePassword');
 
         // Application Routes
         // -----------------------------------
@@ -26,12 +26,12 @@
             .state('page', {
                 url: '/page',
                 templateUrl: 'pages/page.html',
-                resolve: RouteHelpersProvider.resolveFor('modernizr', 'icons', 'login')
+                resolve: RouteHelpersProvider.resolveFor('modernizr', 'icons', 'changePassword')
             })
-            .state('page.login', {
-                url: '/login',
-                title: 'Login',
-                templateUrl: 'pages/login.html'
+            .state('page.changePassword', {
+                url: '/changePassword',
+                title: 'changePassword',
+                templateUrl: 'pages/changePassword.html'
             });
     } // routesConfig
 
