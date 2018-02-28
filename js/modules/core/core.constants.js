@@ -15,7 +15,7 @@
         })
         .constant('EVN', {
             suffix: '.json',
-            // server: 'http://madmin.ngrok.xiaomiqiu.cn'
-            server: ''
+            // server: ''
+            server: 'http://madmin.ngrok.xiaomiqiu.cn'
         });
 })();

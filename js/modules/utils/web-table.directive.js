@@ -2,9 +2,9 @@
  * Created by wlwang on 2017/2/23.
  */
 
-//隐藏左侧导航
+// 隐藏左侧导航
 (function (angular) {
-    'use strict';
+
 
     angular
         .module('app.utils')
@@ -21,6 +21,7 @@
             scope: {
                 aoData: '=aoData',
                 items: '=items',
+                search: '=search',
                 showItems: '=showItems',
                 reload: '=reload',
             },
@@ -50,128 +51,132 @@
                     </span>\
                 </div>',
             controller: function ($scope, $element, $attrs, $transclude) {
-                $scope.pageNumber=10;
-                $scope.currentPage=1;
+                $scope.pageNumber = 10;
+                $scope.currentPage = 1;
 
-                if(!$scope.aoData){
-                    $scope.aoData={}
+                if (!$scope.aoData) {
+                    $scope.aoData = {};
                     // throw new Error('没有填写输入搜索条件')
                 }
 
-                $scope.pageNeedChange=false;
-                $scope.$watch('[currentPage+pageNumber+showItems.length]',function(newValue,oldValue){
-                    if (newValue!=oldValue){
-                        $scope.pageTotle=Math.ceil($scope.filterItems.length/$scope.pageNumber);
+                if (!$scope.search) {
+                    $scope.search = '';
+                }
+
+                $scope.pageNeedChange = false;
+                $scope.$watch('[currentPage+pageNumber+showItems.length]', function(newValue, oldValue) {
+                    if (newValue != oldValue) {
+                        $scope.pageTotle = Math.ceil($scope.filterItems.length / $scope.pageNumber);
                     }
-                    if($scope.currentPage>=$scope.pageTotle)$scope.currentPage=$scope.pageTotle;
-                    if($scope.currentPage<=0)$scope.currentPage=1;
-                    $scope.pageNeedChange=true;
+                    if ($scope.currentPage >= $scope.pageTotle)$scope.currentPage = $scope.pageTotle;
+                    if ($scope.currentPage <= 0)$scope.currentPage = 1;
+                    $scope.pageNeedChange = true;
                     $scope.ServerPaging();
                 });
 
                 var timeout = null;
-                $scope.$watch('aoData',function(newVal,oldVal){
-                    if (newVal!=oldVal) {
-                        console.log($scope.aoData, '$scope.aoData')
-                        if($scope.pageNeedChange||$scope.currentPage==1){
+                $scope.$watch('aoData', function(newVal, oldVal) {
+                    if (newVal != oldVal) {
+                        console.log($scope.aoData, '$scope.aoData');
+                        if ($scope.pageNeedChange || $scope.currentPage == 1) {
 
-                        }else{
-                            $scope.currentPage=1;
-                            return
+                        } else {
+                            $scope.currentPage = 1;
+                            return;
                         }
                         if (timeout) {
-                            $timeout.cancel(timeout)
+                            $timeout.cancel(timeout);
                         }
-                        timeout = $timeout(function(){
+                        timeout = $timeout(function() {
                             $scope.ServerPaging();
-                            $scope.pageNeedChange=false
+                            $scope.pageNeedChange = false;
                         }, 200);
-                    }else{
-                        timeout = $timeout(function(){
+                    } else {
+                        timeout = $timeout(function() {
                             $scope.ServerPaging();
-                            $scope.pageNeedChange=false
+                            $scope.pageNeedChange = false;
                         }, 0);
                     }
-                },true);
-                $scope.$watch('[reload + items.length]',function(newVal,oldVal){
-                    if (newVal!=oldVal) {
-                        if($scope.pageNeedChange||$scope.currentPage==1){
+                }, true);
+                $scope.$watch('[reload + items.length+search]', function(newVal, oldVal) {
+                    if (newVal != oldVal) {
+                        if ($scope.pageNeedChange || $scope.currentPage == 1) {
 
-                        }else{
-                            $scope.currentPage=1;
-                            return
+                        } else {
+                            $scope.currentPage = 1;
+                            return;
                         }
                         if (timeout) {
-                            $timeout.cancel(timeout)
+                            $timeout.cancel(timeout);
                         }
-                        timeout = $timeout(function(){
-                            $scope.ServerPaging()
+                        timeout = $timeout(function() {
+                            $scope.ServerPaging();
                         }, 200);
                     }
                 });
-                $scope.ServerPaging=function(){
-                    var temAoData=angular.copy($scope.aoData);
+                $scope.ServerPaging = function() {
+                    var temAoData = angular.copy($scope.aoData);
                     var sortCol = '';
-                    if(temAoData.sort_col !== undefined){
+                    if (temAoData.sort_col !== undefined) {
                         sortCol = temAoData.sort_col;
                         delete temAoData.sort_col;
                     }
-                    if(temAoData.sort_dir !== undefined){
-                        if(temAoData.sort_dir){
+                    if (temAoData.sort_dir !== undefined) {
+                        if (temAoData.sort_dir) {
                             sortCol = '-' + sortCol;
                         }
                         delete temAoData.sort_dir;
                     }
-                    var tempFilterData = $filter('filter')(angular.copy($scope.items),temAoData);
-                    $scope.filterItems = $filter('orderBy')(tempFilterData,sortCol);
-                    $scope.showItems = $filter('limitTo')($scope.filterItems, $scope.pageNumber, ($scope.currentPage-1)*$scope.pageNumber);
-                }
+                    var tempFilterData = $filter('filter')($filter('filter')(angular.copy($scope.items), temAoData), $scope.search);
+                    $scope.filterItems = $filter('orderBy')(tempFilterData, sortCol);
+                    $scope.showItems = $filter('limitTo')($scope.filterItems, $scope.pageNumber, ($scope.currentPage - 1) * $scope.pageNumber);
+                };
             }
-        }
+        };
     }
 
     webDataTableSort.$inject = [];
-    function webDataTableSort(){
+    function webDataTableSort() {
         return {
             restrict: 'AE',
             scope: {
                 aoData: '=aoData',
                 webDataTableSort: '@webDataTableSort',
             },
-            controller: function ($scope,$element,$attrs) {
-                angular.element($element).on('click',function(){
-                    $scope.sortValue($scope.webDataTableSort)
-                }).append('<i style="position: absolute;top: 12px;right: 4px"></i>').css('position','relative');
+            controller: function ($scope, $element, $attrs) {
+                angular.element($element).on('click', function() {
+                    $scope.sortValue($scope.webDataTableSort);
+                }).append('<i style="position: absolute;top: 12px;right: 4px"></i>').css('position', 'relative');
 
-                $scope.sortValue=function(name){
-                    if($scope.aoData.sort_col==name){
-                        if($scope.aoData.sort_dir==true){
-                            $scope.aoData.sort_dir=false
-                        }else {
-                            $scope.aoData.sort_dir=true
+                $scope.sortValue = function(name) {
+                    if ($scope.aoData.sort_col == name) {
+                        if ($scope.aoData.sort_dir == true) {
+                            $scope.aoData.sort_dir = false;
+                        } else {
+                            $scope.aoData.sort_dir = true;
                         }
-                    }else{
-                        $scope.aoData.sort_dir=true
+                    } else {
+                        $scope.aoData.sort_dir = true;
                     }
-                    $scope.aoData.sort_col=name;
+                    $scope.aoData.sort_col = name;
                     $scope.$parent.$apply();
                 };
 
-                $scope.$watch('aoData.sort_dir+aoData.sort_col',function(){
-                    var className=''
-                    if($scope.aoData.sort_col==$scope.webDataTableSort){
-                        if($scope.aoData.sort_dir){
-                            className='glyphicon glyphicon-sort-by-attributes-alt pull-right'
-                        }else{
-                            className='glyphicon glyphicon-sort-by-attributes pull-right'
+                $scope.$watch('aoData.sort_dir+aoData.sort_col', function() {
+                    var className = '';
+                    if ($scope.aoData.sort_col == $scope.webDataTableSort) {
+                        if ($scope.aoData.sort_dir) {
+                            className = 'glyphicon glyphicon-sort-by-attributes-alt pull-right';
+                        } else {
+                            className = 'glyphicon glyphicon-sort-by-attributes pull-right';
                         }
-                    }else{
-                        className='glyphicon glyphicon-sort pull-right'
+                    } else {
+                        className = 'glyphicon glyphicon-sort pull-right';
                     }
-                    angular.element($element).find('i').removeClass().addClass(className)
-                })
+                    angular.element($element).find('i').removeClass().addClass(className);
+                });
             }
-        }
+        };
     }
 
 })(angular);

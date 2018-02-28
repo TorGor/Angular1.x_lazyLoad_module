@@ -67,16 +67,16 @@
     'use strict';
 
     angular
-        .module('app.preloader', []);
+        .module('app.loadingbar', []);
 })();
-
-
 (function() {
     'use strict';
 
     angular
-        .module('app.loadingbar', []);
+        .module('app.preloader', []);
 })();
+
+
 (function() {
 
     angular
@@ -223,12 +223,12 @@
         })
         .constant('EVN', {
             suffix: '.json',
-            // server: 'http://madmin.ngrok.xiaomiqiu.cn'
-            server: ''
+            // server: ''
+            server: 'http://madmin.ngrok.xiaomiqiu.cn'
         });
 })();
 (function() {
-    'use strict';
+
 
     angular
         .module('app.core')
@@ -258,16 +258,31 @@
 
         // 0-禁用；1-启用；2-删除；
         $scope.filter012OptionsValue = function (value) {
-            if(value == 0){
-                return '<div class="label label-warning">'+ $translate.instant('options.forbid') +'</div>';
-            }else if(value == 1){
-                return '<div class="label label-success">'+ $translate.instant('options.enable') +'</div>';
-            }else if(value == 2){
-                return '<div class="label label-danger">'+ $translate.instant('options.delete') +'</div>';
-            }else{
+            if (value == 0) {
+                return '<div class="label label-warning">' + $translate.instant('options.forbid') + '</div>';
+            } else if (value == 1) {
+                return '<div class="label label-success">' + $translate.instant('options.enable') + '</div>';
+            } else if (value == 2) {
+                return '<div class="label label-danger">' + $translate.instant('options.delete') + '</div>';
+            } else {
                 return '';
             }
         };
+
+
+        $scope.searchPlaceholder = function(param) {
+            if (window.Array.isArray(param)) {
+                var tempArr = param.map(function(item) {
+                    return $translate.instant(item);
+                });
+                return tempArr.join('/');
+            }
+            if (typeof param === 'string') {
+                return $translate.instant(param);
+            }
+            return '';
+        };
+
 
         /**
          *
@@ -275,8 +290,8 @@
          * @return {string}
          */
 
-        $scope.checkRequiredData = function(data){
-            if(!data){
+        $scope.checkRequiredData = function(data) {
+            if (!data) {
                 return $translate.instant('alert_confirm.required_message');
             }
         };
@@ -292,17 +307,17 @@
         };
 
         $rootScope.alertErrorMsg = function (msg) {
-            SweetAlert.error($translate.instant('alert_confirm.error'), msg)
+            SweetAlert.error($translate.instant('alert_confirm.error'), msg);
         };
 
 
-        $rootScope.dateOptionsYYYMMDD={
+        $rootScope.dateOptionsYYYMMDD = {
             useCurrent: false,
             locale: $rootScope.language.selected || 'en',
             format: 'YYYY-MM-DD'
         };
 
-        $rootScope.dateOptionsYYYMMDDHHMM={
+        $rootScope.dateOptionsYYYMMDDHHMM = {
             useCurrent: false,
             locale: $rootScope.language.selected || 'en',
             format: 'YYYY-MM-DD HH:MM'
@@ -324,9 +339,9 @@
                 confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
                 cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
                 closeOnConfirm: true
-            }, function(yes){
-                if(yes){
-                    callback()
+            }, function(yes) {
+                if (yes) {
+                    callback();
                 }
             });
         };
@@ -794,6 +809,50 @@
     'use strict';
 
     angular
+        .module('app.loadingbar')
+        .config(loadingbarConfig)
+        ;
+    loadingbarConfig.$inject = ['cfpLoadingBarProvider'];
+    function loadingbarConfig(cfpLoadingBarProvider){
+      cfpLoadingBarProvider.includeBar = true;
+      cfpLoadingBarProvider.includeSpinner = false;
+      cfpLoadingBarProvider.latencyThreshold = 500;
+      cfpLoadingBarProvider.parentSelector = '.wrapper > section';
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.loadingbar')
+        .run(loadingbarRun)
+        ;
+    loadingbarRun.$inject = ['$rootScope', '$timeout', 'cfpLoadingBar'];
+    function loadingbarRun($rootScope, $timeout, cfpLoadingBar){
+
+      // Loading bar transition
+      // ----------------------------------- 
+      var thBar;
+      $rootScope.$on('$stateChangeStart', function() {
+          if($('.wrapper > section').length) // check if bar container exists
+            thBar = $timeout(function() {
+              cfpLoadingBar.start();
+            }, 0); // sets a latency Threshold
+      });
+      $rootScope.$on('$stateChangeSuccess', function(event) {
+          event.targetScope.$watch('$viewContentLoaded', function () {
+            $timeout.cancel(thBar);
+            cfpLoadingBar.complete();
+          });
+      });
+
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
         .module('app.preloader')
         .directive('preloader', preloader);
 
@@ -884,50 +943,6 @@
     }
 
 })();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.loadingbar')
-        .config(loadingbarConfig)
-        ;
-    loadingbarConfig.$inject = ['cfpLoadingBarProvider'];
-    function loadingbarConfig(cfpLoadingBarProvider){
-      cfpLoadingBarProvider.includeBar = true;
-      cfpLoadingBarProvider.includeSpinner = false;
-      cfpLoadingBarProvider.latencyThreshold = 500;
-      cfpLoadingBarProvider.parentSelector = '.wrapper > section';
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.loadingbar')
-        .run(loadingbarRun)
-        ;
-    loadingbarRun.$inject = ['$rootScope', '$timeout', 'cfpLoadingBar'];
-    function loadingbarRun($rootScope, $timeout, cfpLoadingBar){
-
-      // Loading bar transition
-      // ----------------------------------- 
-      var thBar;
-      $rootScope.$on('$stateChangeStart', function() {
-          if($('.wrapper > section').length) // check if bar container exists
-            thBar = $timeout(function() {
-              cfpLoadingBar.start();
-            }, 0); // sets a latency Threshold
-      });
-      $rootScope.$on('$stateChangeSuccess', function(event) {
-          event.targetScope.$watch('$viewContentLoaded', function () {
-            $timeout.cancel(thBar);
-            cfpLoadingBar.complete();
-          });
-      });
-
-    }
-
-})();
 /** =========================================================
  * Module: helpers.js
  * Provides helper functions for routes definition
@@ -1013,7 +1028,7 @@
 
 
 (function() {
-    'use strict';
+
 
     angular
         .module('app.settings')
@@ -1021,62 +1036,61 @@
 
     settingsRun.$inject = ['$rootScope', '$localStorage', '$translate'];
 
-    function settingsRun($rootScope, $localStorage, $translate){
+    function settingsRun($rootScope, $localStorage, $translate) {
 
 
-      // User Settings
-      // -----------------------------------
-      $rootScope.user = {
-        name:     'John',
-        job:      'ng-developer'
-      };
+        // User Settings
+        // -----------------------------------
+        $rootScope.user = {
+            name: 'John',
+            job: 'ng-developer'
+        };
 
-      // Hides/show user avatar on sidebar from any element
-      $rootScope.toggleUserBlock = function(){
-        $rootScope.$broadcast('toggleUserBlock');
-      };
+        // Hides/show user avatar on sidebar from any element
+        $rootScope.toggleUserBlock = function() {
+            $rootScope.$broadcast('toggleUserBlock');
+        };
 
-      // Global Settings
-      // -----------------------------------
-      $rootScope.app = {
-        name: 'Angle',
-        year: ((new Date()).getFullYear()),
-        layout: {
-          isFixed: true,
-          isCollapsed: false,
-          isBoxed: false,
-          isRTL: false,
-          horizontal: false,
-          isFloat: false,
-          asideHover: false,
-          theme: null,
-          asideScrollbar: false,
-          isCollapsedText: false
-        },
-        useFullLayout: false,
-        hiddenFooter: false,
-        offsidebarOpen: false,
-        asideToggled: false,
-      };
+        // Global Settings
+        // -----------------------------------
+        $rootScope.app = {
+            name: 'Angle',
+            year: ((new Date()).getFullYear()),
+            layout: {
+                isFixed: true,
+                isCollapsed: false,
+                isBoxed: false,
+                isRTL: false,
+                horizontal: false,
+                isFloat: false,
+                asideHover: false,
+                theme: 'css/theme-e.css',
+                asideScrollbar: false,
+                isCollapsedText: false
+            },
+            useFullLayout: false,
+            hiddenFooter: false,
+            offsidebarOpen: false,
+            asideToggled: false,
+        };
 
-      // Setup the layout mode
-      $rootScope.app.layout.horizontal = ( $rootScope.$stateParams.layout === 'app-h') ;
+        console.log($rootScope.app.layout, '$rootScope.app.layout');
 
-      // Restore layout settings
-      if( angular.isDefined($localStorage.layout) )
-        $rootScope.app.layout = $localStorage.layout;
-      else
-        $localStorage.layout = $rootScope.app.layout;
+        // Setup the layout mode
+        $rootScope.app.layout.horizontal = ($rootScope.$stateParams.layout === 'app-h');
 
-      $rootScope.$watch('app.layout', function () {
-        $localStorage.layout = $rootScope.app.layout;
-      }, true);
+        // Restore layout settings
+        if (angular.isDefined($localStorage.layout)) { $rootScope.app.layout = $localStorage.layout }
+        else { $localStorage.layout = $rootScope.app.layout }
 
-      // Close submenu when sidebar change from collapsed to normal
-      $rootScope.$watch('app.layout.isCollapsed', function(newValue) {
-        if( newValue === false )
-          $rootScope.$broadcast('closeSidebarMenu');
-      });
+        $rootScope.$watch('app.layout', function () {
+            $localStorage.layout = $rootScope.app.layout;
+        }, true);
+
+        // Close submenu when sidebar change from collapsed to normal
+        $rootScope.$watch('app.layout.isCollapsed', function(newValue) {
+            if (newValue === false) { $rootScope.$broadcast('closeSidebarMenu') }
+        });
 
     }
 
@@ -2082,9 +2096,9 @@
  * Created by wlwang on 2017/2/23.
  */
 
-//隐藏左侧导航
+// 隐藏左侧导航
 (function (angular) {
-    'use strict';
+
 
     angular
         .module('app.utils')
@@ -2101,6 +2115,7 @@
             scope: {
                 aoData: '=aoData',
                 items: '=items',
+                search: '=search',
                 showItems: '=showItems',
                 reload: '=reload',
             },
@@ -2130,128 +2145,132 @@
                     </span>\
                 </div>',
             controller: ["$scope", "$element", "$attrs", "$transclude", function ($scope, $element, $attrs, $transclude) {
-                $scope.pageNumber=10;
-                $scope.currentPage=1;
+                $scope.pageNumber = 10;
+                $scope.currentPage = 1;
 
-                if(!$scope.aoData){
-                    $scope.aoData={}
+                if (!$scope.aoData) {
+                    $scope.aoData = {};
                     // throw new Error('没有填写输入搜索条件')
                 }
 
-                $scope.pageNeedChange=false;
-                $scope.$watch('[currentPage+pageNumber+showItems.length]',function(newValue,oldValue){
-                    if (newValue!=oldValue){
-                        $scope.pageTotle=Math.ceil($scope.filterItems.length/$scope.pageNumber);
+                if (!$scope.search) {
+                    $scope.search = '';
+                }
+
+                $scope.pageNeedChange = false;
+                $scope.$watch('[currentPage+pageNumber+showItems.length]', function(newValue, oldValue) {
+                    if (newValue != oldValue) {
+                        $scope.pageTotle = Math.ceil($scope.filterItems.length / $scope.pageNumber);
                     }
-                    if($scope.currentPage>=$scope.pageTotle)$scope.currentPage=$scope.pageTotle;
-                    if($scope.currentPage<=0)$scope.currentPage=1;
-                    $scope.pageNeedChange=true;
+                    if ($scope.currentPage >= $scope.pageTotle)$scope.currentPage = $scope.pageTotle;
+                    if ($scope.currentPage <= 0)$scope.currentPage = 1;
+                    $scope.pageNeedChange = true;
                     $scope.ServerPaging();
                 });
 
                 var timeout = null;
-                $scope.$watch('aoData',function(newVal,oldVal){
-                    if (newVal!=oldVal) {
-                        console.log($scope.aoData, '$scope.aoData')
-                        if($scope.pageNeedChange||$scope.currentPage==1){
+                $scope.$watch('aoData', function(newVal, oldVal) {
+                    if (newVal != oldVal) {
+                        console.log($scope.aoData, '$scope.aoData');
+                        if ($scope.pageNeedChange || $scope.currentPage == 1) {
 
-                        }else{
-                            $scope.currentPage=1;
-                            return
+                        } else {
+                            $scope.currentPage = 1;
+                            return;
                         }
                         if (timeout) {
-                            $timeout.cancel(timeout)
+                            $timeout.cancel(timeout);
                         }
-                        timeout = $timeout(function(){
+                        timeout = $timeout(function() {
                             $scope.ServerPaging();
-                            $scope.pageNeedChange=false
+                            $scope.pageNeedChange = false;
                         }, 200);
-                    }else{
-                        timeout = $timeout(function(){
+                    } else {
+                        timeout = $timeout(function() {
                             $scope.ServerPaging();
-                            $scope.pageNeedChange=false
+                            $scope.pageNeedChange = false;
                         }, 0);
                     }
-                },true);
-                $scope.$watch('[reload + items.length]',function(newVal,oldVal){
-                    if (newVal!=oldVal) {
-                        if($scope.pageNeedChange||$scope.currentPage==1){
+                }, true);
+                $scope.$watch('[reload + items.length+search]', function(newVal, oldVal) {
+                    if (newVal != oldVal) {
+                        if ($scope.pageNeedChange || $scope.currentPage == 1) {
 
-                        }else{
-                            $scope.currentPage=1;
-                            return
+                        } else {
+                            $scope.currentPage = 1;
+                            return;
                         }
                         if (timeout) {
-                            $timeout.cancel(timeout)
+                            $timeout.cancel(timeout);
                         }
-                        timeout = $timeout(function(){
-                            $scope.ServerPaging()
+                        timeout = $timeout(function() {
+                            $scope.ServerPaging();
                         }, 200);
                     }
                 });
-                $scope.ServerPaging=function(){
-                    var temAoData=angular.copy($scope.aoData);
+                $scope.ServerPaging = function() {
+                    var temAoData = angular.copy($scope.aoData);
                     var sortCol = '';
-                    if(temAoData.sort_col !== undefined){
+                    if (temAoData.sort_col !== undefined) {
                         sortCol = temAoData.sort_col;
                         delete temAoData.sort_col;
                     }
-                    if(temAoData.sort_dir !== undefined){
-                        if(temAoData.sort_dir){
+                    if (temAoData.sort_dir !== undefined) {
+                        if (temAoData.sort_dir) {
                             sortCol = '-' + sortCol;
                         }
                         delete temAoData.sort_dir;
                     }
-                    var tempFilterData = $filter('filter')(angular.copy($scope.items),temAoData);
-                    $scope.filterItems = $filter('orderBy')(tempFilterData,sortCol);
-                    $scope.showItems = $filter('limitTo')($scope.filterItems, $scope.pageNumber, ($scope.currentPage-1)*$scope.pageNumber);
-                }
+                    var tempFilterData = $filter('filter')($filter('filter')(angular.copy($scope.items), temAoData), $scope.search);
+                    $scope.filterItems = $filter('orderBy')(tempFilterData, sortCol);
+                    $scope.showItems = $filter('limitTo')($scope.filterItems, $scope.pageNumber, ($scope.currentPage - 1) * $scope.pageNumber);
+                };
             }]
-        }
+        };
     }
 
     webDataTableSort.$inject = [];
-    function webDataTableSort(){
+    function webDataTableSort() {
         return {
             restrict: 'AE',
             scope: {
                 aoData: '=aoData',
                 webDataTableSort: '@webDataTableSort',
             },
-            controller: ["$scope", "$element", "$attrs", function ($scope,$element,$attrs) {
-                angular.element($element).on('click',function(){
-                    $scope.sortValue($scope.webDataTableSort)
-                }).append('<i style="position: absolute;top: 12px;right: 4px"></i>').css('position','relative');
+            controller: ["$scope", "$element", "$attrs", function ($scope, $element, $attrs) {
+                angular.element($element).on('click', function() {
+                    $scope.sortValue($scope.webDataTableSort);
+                }).append('<i style="position: absolute;top: 12px;right: 4px"></i>').css('position', 'relative');
 
-                $scope.sortValue=function(name){
-                    if($scope.aoData.sort_col==name){
-                        if($scope.aoData.sort_dir==true){
-                            $scope.aoData.sort_dir=false
-                        }else {
-                            $scope.aoData.sort_dir=true
+                $scope.sortValue = function(name) {
+                    if ($scope.aoData.sort_col == name) {
+                        if ($scope.aoData.sort_dir == true) {
+                            $scope.aoData.sort_dir = false;
+                        } else {
+                            $scope.aoData.sort_dir = true;
                         }
-                    }else{
-                        $scope.aoData.sort_dir=true
+                    } else {
+                        $scope.aoData.sort_dir = true;
                     }
-                    $scope.aoData.sort_col=name;
+                    $scope.aoData.sort_col = name;
                     $scope.$parent.$apply();
                 };
 
-                $scope.$watch('aoData.sort_dir+aoData.sort_col',function(){
-                    var className=''
-                    if($scope.aoData.sort_col==$scope.webDataTableSort){
-                        if($scope.aoData.sort_dir){
-                            className='glyphicon glyphicon-sort-by-attributes-alt pull-right'
-                        }else{
-                            className='glyphicon glyphicon-sort-by-attributes pull-right'
+                $scope.$watch('aoData.sort_dir+aoData.sort_col', function() {
+                    var className = '';
+                    if ($scope.aoData.sort_col == $scope.webDataTableSort) {
+                        if ($scope.aoData.sort_dir) {
+                            className = 'glyphicon glyphicon-sort-by-attributes-alt pull-right';
+                        } else {
+                            className = 'glyphicon glyphicon-sort-by-attributes pull-right';
                         }
-                    }else{
-                        className='glyphicon glyphicon-sort pull-right'
+                    } else {
+                        className = 'glyphicon glyphicon-sort pull-right';
                     }
-                    angular.element($element).find('i').removeClass().addClass(className)
-                })
+                    angular.element($element).find('i').removeClass().addClass(className);
+                });
             }]
-        }
+        };
     }
 
 })(angular);

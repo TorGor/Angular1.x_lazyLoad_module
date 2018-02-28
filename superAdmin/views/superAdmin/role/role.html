@@ -16,16 +16,19 @@
                         web-data-table
                         items="roles"
                         ao-data="rolesAoData"
+                        search="rolesSearch"
                         reload="rolesAoData"
                         show-items="showRoles"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
+                        <thead>
+                            <tr class="bg-gray-light text-bold">
+                                <td style="width: 40%" ao-data="rolesAoData" web-data-table-sort="roleName">{{'table.role.th1' | translate}}</td>
+                                <td style="width: 40%" ao-data="rolesAoData" web-data-table-sort="roleStatus">{{'table.role.th2' | translate}}</td>
+                                <td style="width: 17%" >{{'table.button.operation' | translate}}</td>
+                            </tr>
+                        </thead>
                         <tbody>
-                        <tr style="font-weight: bold;">
-                            <th style="width: 40%" ao-data="rolesAoData" web-data-table-sort="roleName">{{'table.role.th1' | translate}}</th>
-                            <th style="width: 40%" ao-data="rolesAoData" web-data-table-sort="roleStatus">{{'table.role.th2' | translate}}</th>
-                            <td style="width: 17%" >{{'table.button.operation' | translate}}</td>
-                        </tr>
                         <tr ng-repeat="item in showRoles">
                             <td>
                                 <span editable-text="item.roleName" e-name="roleName" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.roleName || '' }}</span>

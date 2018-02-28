@@ -46,18 +46,21 @@
                             web-data-table
                             items="buttons"
                             ao-data="buttonsAoData"
+                            search="buttonsSearch"
                             reload="buttonsReload"
                             show-items="showButtons"
                     >
                         <table width="100%" class="table table-bordered table-hover bg-white">
+                            <thead>
+                                <tr class="bg-gray-light text-bold">
+                                    <td style="width: 18%" ao-data="buttonsAoData" web-data-table-sort="btnName">{{'table.button_manage.th1' | translate}}</td>
+                                    <td style="width: 18%" ao-data="buttonsAoData" web-data-table-sort="btnType">{{'table.button_manage.th2' | translate}}</td>
+                                    <td style="width: 30%" ao-data="buttonsAoData" web-data-table-sort="btnUrl">{{'table.button_manage.th3' | translate}}</td>
+                                    <td style="width: 13%" ao-data="buttonsAoData" web-data-table-sort="btnStatus">{{'table.button_manage.th4' | translate}}</td>
+                                    <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                                </tr>
+                            </thead>
                             <tbody>
-                            <tr style="font-weight: bold;">
-                                <td style="width: 18%" ao-data="buttonsAoData" web-data-table-sort="btnName">{{'table.button_manage.th1' | translate}}</td>
-                                <td style="width: 18%" ao-data="buttonsAoData" web-data-table-sort="btnType">{{'table.button_manage.th2' | translate}}</td>
-                                <td style="width: 30%" ao-data="buttonsAoData" web-data-table-sort="btnUrl">{{'table.button_manage.th3' | translate}}</td>
-                                <td style="width: 13%" ao-data="buttonsAoData" web-data-table-sort="btnStatus">{{'table.button_manage.th4' | translate}}</td>
-                                <td style="width: 17%" >{{'table.button.operation' | translate}}</td>
-                            </tr>
                             <tr ng-repeat="item in showButtons">
                                 <td>
                                     <span editable-text="item.btnName" e-name="btnName" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.btnName || '' }}</span>

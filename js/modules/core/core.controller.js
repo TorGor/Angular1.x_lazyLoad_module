@@ -1,5 +1,5 @@
 (function() {
-    'use strict';
+
 
     angular
         .module('app.core')
@@ -29,16 +29,31 @@
 
         // 0-禁用；1-启用；2-删除；
         $scope.filter012OptionsValue = function (value) {
-            if(value == 0){
-                return '<div class="label label-warning">'+ $translate.instant('options.forbid') +'</div>';
-            }else if(value == 1){
-                return '<div class="label label-success">'+ $translate.instant('options.enable') +'</div>';
-            }else if(value == 2){
-                return '<div class="label label-danger">'+ $translate.instant('options.delete') +'</div>';
-            }else{
+            if (value == 0) {
+                return '<div class="label label-warning">' + $translate.instant('options.forbid') + '</div>';
+            } else if (value == 1) {
+                return '<div class="label label-success">' + $translate.instant('options.enable') + '</div>';
+            } else if (value == 2) {
+                return '<div class="label label-danger">' + $translate.instant('options.delete') + '</div>';
+            } else {
                 return '';
             }
         };
+
+
+        $scope.searchPlaceholder = function(param) {
+            if (window.Array.isArray(param)) {
+                var tempArr = param.map(function(item) {
+                    return $translate.instant(item);
+                });
+                return tempArr.join('/');
+            }
+            if (typeof param === 'string') {
+                return $translate.instant(param);
+            }
+            return '';
+        };
+
 
         /**
          *
@@ -46,8 +61,8 @@
          * @return {string}
          */
 
-        $scope.checkRequiredData = function(data){
-            if(!data){
+        $scope.checkRequiredData = function(data) {
+            if (!data) {
                 return $translate.instant('alert_confirm.required_message');
             }
         };
@@ -63,17 +78,17 @@
         };
 
         $rootScope.alertErrorMsg = function (msg) {
-            SweetAlert.error($translate.instant('alert_confirm.error'), msg)
+            SweetAlert.error($translate.instant('alert_confirm.error'), msg);
         };
 
 
-        $rootScope.dateOptionsYYYMMDD={
+        $rootScope.dateOptionsYYYMMDD = {
             useCurrent: false,
             locale: $rootScope.language.selected || 'en',
             format: 'YYYY-MM-DD'
         };
 
-        $rootScope.dateOptionsYYYMMDDHHMM={
+        $rootScope.dateOptionsYYYMMDDHHMM = {
             useCurrent: false,
             locale: $rootScope.language.selected || 'en',
             format: 'YYYY-MM-DD HH:MM'
@@ -95,9 +110,9 @@
                 confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
                 cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
                 closeOnConfirm: true
-            }, function(yes){
-                if(yes){
-                    callback()
+            }, function(yes) {
+                if (yes) {
+                    callback();
                 }
             });
         };

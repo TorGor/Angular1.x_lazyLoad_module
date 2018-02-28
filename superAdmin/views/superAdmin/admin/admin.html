@@ -59,14 +59,16 @@
                         service-name-attr="getFindUserInfo"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
+                        <thead>
+                            <tr class="bg-gray-light text-bold">
+                                <td style="width: 25%">{{'table.admin.th1' | translate}}</td>
+                                <td style="width: 25%">{{'table.admin.th2' | translate}}</td>
+                                <td style="width: 20%">{{'table.admin.th3' | translate}}</td>
+                                <td style="width: 10%">{{'table.admin.th4' | translate}}</td>
+                                <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                            </tr>
+                        </thead>
                         <tbody>
-                        <tr style="font-weight: bold;">
-                            <td style="width: 25%">{{'table.admin.th1' | translate}}</td>
-                            <td style="width: 25%">{{'table.admin.th2' | translate}}</td>
-                            <td style="width: 20%">{{'table.admin.th3' | translate}}</td>
-                            <td style="width: 10%">{{'table.admin.th4' | translate}}</td>
-                            <td style="width: 17%">{{'table.button.operation' | translate}}</td>
-                        </tr>
                         <tr ng-repeat="item in admins">
                             <td>
                                 <span editable-text="item.username" e-name="username" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.username || '' }}</span>

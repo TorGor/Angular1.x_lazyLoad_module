@@ -519,6 +519,12 @@
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
                         $scope.admins = angular.copy(data.data.list);
+                        if (!$scope.currentAdmin.id) {
+                            if ($scope.admins.length > 0) {
+                                $scope.currentAdmin = angular.copy($scope.admins[0]);
+                                $scope.getRoleMenuAndBtn($scope.currentAdmin.roleId);
+                            }
+                        }
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
                     }
@@ -535,7 +541,7 @@
             if (id) {
                 $scope.roleMenuAndBtn = [];
                 superAdminService.getFindRoleMenuByRoleId({ 'roleId': id }, {}, function (data) {
-                    console.log(data);
+                    console.log(data, 'getRoleMenuAndBtn');
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.roleMenuAndBtn = angular.copy(data.data);

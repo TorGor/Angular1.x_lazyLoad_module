@@ -1,5 +1,5 @@
 (function() {
-    'use strict';
+
 
     angular
         .module('app.settings')
@@ -7,62 +7,61 @@
 
     settingsRun.$inject = ['$rootScope', '$localStorage', '$translate'];
 
-    function settingsRun($rootScope, $localStorage, $translate){
+    function settingsRun($rootScope, $localStorage, $translate) {
 
 
-      // User Settings
-      // -----------------------------------
-      $rootScope.user = {
-        name:     'John',
-        job:      'ng-developer'
-      };
+        // User Settings
+        // -----------------------------------
+        $rootScope.user = {
+            name: 'John',
+            job: 'ng-developer'
+        };
 
-      // Hides/show user avatar on sidebar from any element
-      $rootScope.toggleUserBlock = function(){
-        $rootScope.$broadcast('toggleUserBlock');
-      };
+        // Hides/show user avatar on sidebar from any element
+        $rootScope.toggleUserBlock = function() {
+            $rootScope.$broadcast('toggleUserBlock');
+        };
 
-      // Global Settings
-      // -----------------------------------
-      $rootScope.app = {
-        name: 'Angle',
-        year: ((new Date()).getFullYear()),
-        layout: {
-          isFixed: true,
-          isCollapsed: false,
-          isBoxed: false,
-          isRTL: false,
-          horizontal: false,
-          isFloat: false,
-          asideHover: false,
-          theme: null,
-          asideScrollbar: false,
-          isCollapsedText: false
-        },
-        useFullLayout: false,
-        hiddenFooter: false,
-        offsidebarOpen: false,
-        asideToggled: false,
-      };
+        // Global Settings
+        // -----------------------------------
+        $rootScope.app = {
+            name: 'Angle',
+            year: ((new Date()).getFullYear()),
+            layout: {
+                isFixed: true,
+                isCollapsed: false,
+                isBoxed: false,
+                isRTL: false,
+                horizontal: false,
+                isFloat: false,
+                asideHover: false,
+                theme: 'css/theme-e.css',
+                asideScrollbar: false,
+                isCollapsedText: false
+            },
+            useFullLayout: false,
+            hiddenFooter: false,
+            offsidebarOpen: false,
+            asideToggled: false,
+        };
 
-      // Setup the layout mode
-      $rootScope.app.layout.horizontal = ( $rootScope.$stateParams.layout === 'app-h') ;
+        console.log($rootScope.app.layout, '$rootScope.app.layout');
 
-      // Restore layout settings
-      if( angular.isDefined($localStorage.layout) )
-        $rootScope.app.layout = $localStorage.layout;
-      else
-        $localStorage.layout = $rootScope.app.layout;
+        // Setup the layout mode
+        $rootScope.app.layout.horizontal = ($rootScope.$stateParams.layout === 'app-h');
 
-      $rootScope.$watch('app.layout', function () {
-        $localStorage.layout = $rootScope.app.layout;
-      }, true);
+        // Restore layout settings
+        if (angular.isDefined($localStorage.layout)) { $rootScope.app.layout = $localStorage.layout }
+        else { $localStorage.layout = $rootScope.app.layout }
 
-      // Close submenu when sidebar change from collapsed to normal
-      $rootScope.$watch('app.layout.isCollapsed', function(newValue) {
-        if( newValue === false )
-          $rootScope.$broadcast('closeSidebarMenu');
-      });
+        $rootScope.$watch('app.layout', function () {
+            $localStorage.layout = $rootScope.app.layout;
+        }, true);
+
+        // Close submenu when sidebar change from collapsed to normal
+        $rootScope.$watch('app.layout.isCollapsed', function(newValue) {
+            if (newValue === false) { $rootScope.$broadcast('closeSidebarMenu') }
+        });
 
     }
 
