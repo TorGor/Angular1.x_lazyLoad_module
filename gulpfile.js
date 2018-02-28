@@ -149,8 +149,7 @@ var cssnanoOpts = {
 // copy Static
 gulp.task('scripts:static', function() {
     log('copy static file..');
-    // Minify and copy all JavaScript (except vendor scripts)
-    return gulp.src(source.static)
+    return gulp.src(source.static, { base: '.' })
         .on('error', handleError)
         .pipe(gulp.dest(paths.app))
         .pipe(reload({
@@ -436,6 +435,7 @@ gulp.task('watch', function() {
     gulp.watch(source.scripts, ['scripts:app']);
     gulp.watch(source.superAdmin, ['scripts:superAdmin']);
     gulp.watch(source.login, ['scripts:login']);
+    gulp.watch(source.static, ['scripts:static']);
     gulp.watch(source.changePassword, ['scripts:changePassword']);
     gulp.watch(source.routes, ['scripts:routes']);
     gulp.watch(source.styles.watch, ['styles:app', 'styles:app:rtl']);
@@ -535,6 +535,7 @@ gulp.task('assets', [
     'scripts:app',
     'scripts:superAdmin',
     'scripts:login',
+    'scripts:static',
     'scripts:changePassword',
     'scripts:routes',
     'styles:app',
