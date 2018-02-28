@@ -152,7 +152,7 @@ gulp.task('scripts:static', function() {
     // Minify and copy all JavaScript (except vendor scripts)
     return gulp.src(source.static)
         .on('error', handleError)
-        .pipe(gulp.dest(build.scripts))
+        .pipe(gulp.dest(paths.app))
         .pipe(reload({
             stream: true
         }));
