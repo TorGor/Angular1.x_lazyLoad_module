@@ -82,7 +82,7 @@
         "role":"角色",
         "admin":"管理员",
         "buttons":"按钮",
-        "configure":"配置"
+        "configure":"权限一览"
     },
     "alert_confirm":{
         "success":"成功",

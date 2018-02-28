@@ -31,7 +31,8 @@ var paths = {
     scripts: 'js/',
     superAdmin: 'superAdmin/',
     login: 'login/',
-    changePassword: 'changePassword/'
+    changePassword: 'changePassword/',
+    static: ['i18n/', 'admin/', 'img/', 'fonts/']
 };
 
 
@@ -58,6 +59,9 @@ var source = {
         paths.superAdmin + '**/*.module.js',
         paths.superAdmin + '**/*.js'
     ],
+    static: paths.static.map(function(staticItem) {
+        return staticItem + '**/**.*';
+    }),
     login: [
         // custom modules
         paths.login + '**/*.module.js',
@@ -141,6 +145,18 @@ var cssnanoOpts = {
 // ---------------
 // TASKS
 // ---------------
+
+// copy Static
+gulp.task('scripts:static', function() {
+    log('copy static file..');
+    // Minify and copy all JavaScript (except vendor scripts)
+    return gulp.src(source.static)
+        .on('error', handleError)
+        .pipe(gulp.dest(build.scripts))
+        .pipe(reload({
+            stream: true
+        }));
+});
 
 // JS login
 gulp.task('scripts:login', function() {
@@ -437,7 +453,8 @@ gulp.task('browsersync', function() {
         notify: false,
         port: 3010,
         server: {
-            baseDir: './dist'
+            baseDir: './dist',
+            directory: true
         },
         middleware: [require('connect-history-api-fallback')()]
     });

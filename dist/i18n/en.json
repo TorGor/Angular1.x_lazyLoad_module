@@ -82,7 +82,7 @@
       "role":"Role",
       "admin":"Admin",
       "buttons":"Buttons",
-      "configure":"Configure"
+      "configure":"Power Overview"
   },
   "alert_confirm":{
       "success":"success",
