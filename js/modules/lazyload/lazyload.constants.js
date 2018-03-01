@@ -261,7 +261,7 @@
                 },
                 {
                     name: 'superAdmin',
-                    files: ['js/superAdmin.js'],
+                    files: ['js/admin.js'],
                     serie: true
                 },
                 {

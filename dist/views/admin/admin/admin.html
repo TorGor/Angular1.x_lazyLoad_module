@@ -1,0 +1,91 @@
+<div class="row">
+   <div class="panel panel-default">
+      <div class="panel-wrapper">
+         <div class="panel-body">
+            <span class="form-group add-button-class">
+               <button class="btn btn-primary" ng-click="addAdmins()" type="button" translate="table.button.add">
+                  新增
+               </button>
+            </span>
+            <form class="form-inline pull-right" role="form">
+               从
+               <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeStart">
+                  <input type="text" class="form-control" placeholder="" />
+                  <span class="input-group-addon" style="background:none">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+               </div>
+               至
+               <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeEnd">
+                  <input type="text" class="form-control" placeholder="" />
+                  <span class="input-group-addon" style="background:none">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+               </div>
+               <div style="position: relative" class="form-group">
+                  <span style="position: absolute;left: 4px;top: 6px">
+                     <em class="fa fa-search"></em>
+                  </span>
+                  <input class="form-control" type="text" ng-model="adminsAoData.userName" placeholder="{{'table.admin.th1' | translate}}">
+               </div>
+               <div class="form-group">
+                  <select class="form-control" ng-model="adminsAoData.status" ng-options="option.value as option.label for option in adminSelect012.optionsSearch">
+                  </select>
+               </div>
+            </form>
+            <div server-data-table items="admins" ao-data="adminsAoData" reload="adminsReload" service-name="adminService" service-name-attr="getFindUserInfo">
+               <table width="100%" class="table table-bordered table-hover bg-white">
+                  <thead>
+                     <tr class="bg-gray-light text-bold">
+                        <td style="width: 25%">{{'table.admin.th1' | translate}}</td>
+                        <td style="width: 25%">{{'table.admin.th2' | translate}}</td>
+                        <td style="width: 20%">{{'table.admin.th3' | translate}}</td>
+                        <td style="width: 10%">{{'table.admin.th4' | translate}}</td>
+                        <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng-repeat="item in admins">
+                        <td>
+                           <span editable-text="item.username" e-name="username" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.username || '' }}</span>
+                        </td>
+                        <td>
+                           <span editable-text="item.password" e-name="password" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-type="password" e-required="">{{ replaceStr(item.password) }}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.createTime.substring(0,10) || '' }}</span>
+                        </td>
+                        <td>
+                           <span editable-select="item.status" e-name="status" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in adminSelect012.options">
+                              <span ng-bind-html="filter012OptionsValue(item.status)"></span>
+                           </span>
+                        </td>
+                        <td style="white-space: nowrap;">
+                           <form class="form-buttons form-inline" editable-form name="rowform" onbeforesave="saveAdmin(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
+                              <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
+                                 <em class="fa fa-save"></em>
+                              </button>
+                              <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSave(item,$index)" title="{{'table.button.cancel' | translate}}">
+                                 <em class="fa fa-times"></em>
+                              </button>
+                           </form>
+                           <div class="buttons" ng-show="!rowform.$visible">
+                              <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                 <em class="fa fa-pencil"></em>
+                              </button>
+                              <button class="btn btn-sm btn-danger" ng-click="deleteAdmin(item)" title="{{'table.button.delete' | translate}}">
+                                 <em class="fa fa-trash"></em>
+                              </button>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr ng-show="admins.length==0">
+                        <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

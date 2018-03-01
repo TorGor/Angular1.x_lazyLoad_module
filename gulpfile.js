@@ -29,7 +29,7 @@ var paths = {
     markup: 'pug/',
     styles: 'less/',
     scripts: 'js/',
-    superAdmin: 'superAdmin/',
+    superAdmin: 'admin/',
     login: 'login/',
     changePassword: 'changePassword/',
     static: ['static/i18n/', 'static/admin/', 'static/img/', 'static/fonts/']
@@ -69,8 +69,8 @@ var source = {
     ],
     changePassword: [
         // custom modules
-        paths.login + '**/*.module.js',
-        paths.login + '**/*.js'
+        paths.changePassword + '**/*.module.js',
+        paths.changePassword + '**/*.js'
     ],
     routes: [paths.scripts + 'modules/routes/*.routes.config.js'],
     scripts: [

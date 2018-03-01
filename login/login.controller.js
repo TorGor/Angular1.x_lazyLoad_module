@@ -3,41 +3,47 @@
  * Demo for login api
  ========================================================= */
 
-(function() {
+(function () {
 
     angular
         .module('login')
         .controller('LoginFormController', LoginFormController);
 
-    LoginFormController.$inject = ['$scope', 'loginService', '$state'];
-    function LoginFormController($scope, loginService, $state) {
+    LoginFormController.$inject = ['$scope', 'loginService', '$state', '$timeout'];
+
+    function LoginFormController($scope, loginService, $state, $timeout) {
         // bind here all data from the form
         $scope.account = {
             username: '',
-            passsword: '',
+            password: '',
             isSuper: 0
         };
         // place the message if something goes wrong
         $scope.authMsg = '';
 
-        $scope.login = function() {
+        $timeout(function () {
+            $scope.$apply()
+        },300)
+
+        $scope.login = function () {
             $scope.authMsg = '';
             if ($scope.loginForm.$valid) {
                 loginService.userLogin({}, {
                     username: $scope.account.username,
                     password: $scope.account.password,
                     isSuper: $scope.account.isSuper
-                }, function(response) {
-                    if (response.success) {
-                        if ($scope.account.isSuper == 1) {
-                            window.location.href = '/superAdmin.html';
-                        } else {
-                            window.location.href = '/admin.html';
-                        }
+                }, function (response) {
+                    console.log(response, 'response');
+                    if (response.success && response.data == 'true') {
+                        // if ($scope.account.isSuper == 1) {
+                        //     window.location.href = '/admin.html';
+                        // } else {
+                        //     window.location.href = '/admin.html';
+                        // }
                     } else {
                         $scope.authMsg = response.msg;
                     }
-                }, function() {
+                }, function () {
                     $scope.authMsg = 'Server Request Error';
                 });
             }

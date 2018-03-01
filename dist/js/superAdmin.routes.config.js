@@ -18,14 +18,14 @@
         $locationProvider.html5Mode(false);
 
         // defaults to dashboard
-        $urlRouterProvider.otherwise('/superAdmin/menu/manage');
+        $urlRouterProvider.otherwise('/admin/menu/manage');
 
         //
         // Application Routes
         // -----------------------------------
         $stateProvider
             .state('superAdmin', {
-                url: '/superAdmin',
+                url: '/admin',
                 abstract: true,
                 templateUrl: RouteHelpersProvider.basepath('app.html'),
                 resolve: RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'datetimepicker', 'superAdmin')
@@ -34,36 +34,36 @@
                 url: '/menu/manage',
                 title: 'Menu Manage',
                 controller: 'SuperAdminMenuController',
-                templateUrl: RouteHelpersProvider.basepath('superAdmin/menu/menu.html'),
+                templateUrl: RouteHelpersProvider.basepath('admin/menu/menu.html'),
             })
             .state('superAdmin.buttonManage', {
                 url: '/button/manage',
                 title: 'Button Manage',
-                templateUrl: RouteHelpersProvider.basepath('superAdmin/button/button.html'),
+                templateUrl: RouteHelpersProvider.basepath('admin/button/button.html'),
                 controller: 'SuperAdminButtonController',
             })
             .state('superAdmin.roleInfoManage', {
                 url: '/role/manage',
                 title: 'Role Manage',
-                templateUrl: RouteHelpersProvider.basepath('superAdmin/role/role.html'),
+                templateUrl: RouteHelpersProvider.basepath('admin/role/role.html'),
                 controller: 'SuperAdminRoleController',
             })
             .state('superAdmin.roleRelationManage', {
                 url: '/roleRelation/manage',
                 title: 'RoleRelation Manage',
-                templateUrl: RouteHelpersProvider.basepath('superAdmin/role/roleRelation.html'),
+                templateUrl: RouteHelpersProvider.basepath('admin/role/roleRelation.html'),
                 controller: 'SuperAdminRoleRelationController',
             })
             .state('superAdmin.adminInfoManage', {
                 url: '/admin/manage',
                 title: 'Admin Manage',
-                templateUrl: RouteHelpersProvider.basepath('superAdmin/admin/admin.html'),
+                templateUrl: RouteHelpersProvider.basepath('admin/admin/admin.html'),
                 controller: 'SuperAdminAdminController',
             })
             .state('superAdmin.adminRelationManage', {
                 url: '/adminRelation/manage',
                 title: 'AdminRelation Manage',
-                templateUrl: RouteHelpersProvider.basepath('superAdmin/admin/adminRelation.html'),
+                templateUrl: RouteHelpersProvider.basepath('admin/admin/adminRelation.html'),
                 controller: 'SuperAdminAdminRelationController',
             })
         //
@@ -77,25 +77,10 @@
                     $rootScope.app.layout.isBoxed = false;
                 }]
             })
-            .state('page.login', {
-                url: '/login',
-                title: 'Login',
-                templateUrl: 'pages/login.html'
-            })
-            .state('page.register', {
-                url: '/register',
-                title: 'Register',
-                templateUrl: 'pages/register.html'
-            })
-            .state('page.recover', {
-                url: '/recover',
-                title: 'Recover',
-                templateUrl: 'pages/recover.html'
-            })
-            .state('page.404', {
-                url: '/404',
-                title: 'Not Found',
-                templateUrl: 'pages/404.html'
+            .state('page.403', {
+                url: '/403',
+                title: 'Permission denied',
+                templateUrl: 'pages/403.html'
             })
             .state('page.500', {
                 url: '/500',

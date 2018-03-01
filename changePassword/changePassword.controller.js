@@ -3,44 +3,42 @@
  * Demo for login api
  ========================================================= */
 
-(function() {
+(function () {
 
     angular
         .module('changePassword')
         .controller('ChangePasswordFormController', ChangePasswordFormController);
 
-    ChangePasswordFormController.$inject = ['$scope', '$http', '$state'];
-    function ChangePasswordFormController($scope, $http, $state) {
-        // bind here all data from the form
-        $scope.account = {};
-        // place the message if something goes wrong
-        $scope.authMsg = '';
+    ChangePasswordFormController.$inject = ['$scope', 'changePasswordService', '$state'];
 
-        $scope.changePassword = function() {
-            $scope.authMsg = '';
+    function ChangePasswordFormController($scope, changePasswordService, $state) {
+        $scope.account = {
+            oldPassword: '',
+            password0: '',
+            password1: '',
+        };
+        $scope.oldPasswordMsg = '';
+        $scope.updatePasswordMsg = '';
 
-            if ($scope.changePassword.$valid) {
+        $scope.changePassword = function () {
 
-                $http
-                    .post('api/account/login', { email: $scope.account.email, password: $scope.account.password })
-                    .then(function(response) {
-                        // assumes if ok, response is an object with some data, if not, a string with error
-                        // customize according to your api
-                        if (!response.account) {
-                            $scope.authMsg = 'Incorrect credentials.';
+            $scope.oldPasswordMsg = '';
+            $scope.updatePasswordMsg = '';
+
+            changePasswordService.postVerificationPassWord({}, {password: $scope.account.oldPassword}, function (data) {
+                if (data.success) {
+                    changePasswordService.postUpdatePassWord({}, {password: $scope.account.password0}, function (data) {
+                        if (data.success) {
+                            // window.location.href = '/login.html';
                         } else {
-                            $state.go('app.dashboard');
+                            $scope.updatePasswordMsg = data.msg || '';
                         }
-                    }, function() {
-                        $scope.authMsg = 'Server Request Error';
                     });
-            }
-            else {
-                // set as dirty if the user click directly to login so we show the validation messages
-                /* jshint -W106 */
-                $scope.changePassword.account_email.$dirty = true;
-                $scope.changePassword.account_password.$dirty = true;
-            }
+                } else {
+                    $scope.oldPasswordMsg = data.msg || '';
+                }
+            });
+
         };
     }
 })();

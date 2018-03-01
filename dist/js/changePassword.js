@@ -1,57 +1,49 @@
 (function() {
 
     angular
-        .module('login', []);
+        .module('changePassword', []);
 })();
 /** =========================================================
  * Module: access-login.js
  * Demo for login api
  ========================================================= */
 
-(function() {
+(function () {
 
     angular
-        .module('login')
-        .controller('LoginFormController', LoginFormController);
+        .module('changePassword')
+        .controller('ChangePasswordFormController', ChangePasswordFormController);
 
-    LoginFormController.$inject = ['$scope', 'loginService', '$state'];
-    function LoginFormController($scope, loginService, $state) {
-        // bind here all data from the form
+    ChangePasswordFormController.$inject = ['$scope', 'changePasswordService', '$state'];
+
+    function ChangePasswordFormController($scope, changePasswordService, $state) {
         $scope.account = {
-            username: '',
-            passsword: '',
-            isSuper: 0
+            oldPassword: '',
+            password0: '',
+            password1: '',
         };
-        // place the message if something goes wrong
-        $scope.authMsg = '';
+        $scope.oldPasswordMsg = '';
+        $scope.updatePasswordMsg = '';
 
-        $scope.login = function() {
-            $scope.authMsg = '';
-            if ($scope.loginForm.$valid) {
-                loginService.userLogin({}, {
-                    username: $scope.account.username,
-                    password: $scope.account.password,
-                    isSuper: $scope.account.isSuper
-                }, function(response) {
-                    if (response.success) {
-                        if ($scope.account.isSuper == 1) {
-                            window.location.href = '/superAdmin.html';
+        $scope.changePassword = function () {
+
+            $scope.oldPasswordMsg = '';
+            $scope.updatePasswordMsg = '';
+
+            changePasswordService.postVerificationPassWord({}, {password: $scope.account.oldPassword}, function (data) {
+                if (data.success) {
+                    changePasswordService.postUpdatePassWord({}, {password: $scope.account.password0}, function (data) {
+                        if (data.success) {
+                            // window.location.href = '/login.html';
                         } else {
-                            window.location.href = '/admin.html';
+                            $scope.updatePasswordMsg = data.msg || '';
                         }
-                    } else {
-                        $scope.authMsg = response.msg;
-                    }
-                }, function() {
-                    $scope.authMsg = 'Server Request Error';
-                });
-            }
-            else {
-                // set as dirty if the user click directly to login so we show the validation messages
-                /* jshint -W106 */
-                $scope.loginForm.account_email.$dirty = true;
-                $scope.loginForm.account_password.$dirty = true;
-            }
+                    });
+                } else {
+                    $scope.oldPasswordMsg = data.msg || '';
+                }
+            });
+
         };
     }
 })();
@@ -60,21 +52,28 @@
 
 
     angular
-        .module('login')
-        .factory('loginService', loginService);
+        .module('changePassword')
+        .factory('changePasswordService', changePasswordService);
 
-    loginService.$inject = ['$resource', 'EVN'];
+    changePasswordService.$inject = ['$resource', 'EVN'];
 
     /* @ngInject */
-    function loginService($resource, EVN) {
-        return $resource(EVN.server + '/login/:action',
+    function changePasswordService($resource, EVN) {
+        return $resource(EVN.server + '/admin/:action',
             {},
             {
-                // 登录
-                userLogin: {
+                // 检验密码
+                postVerificationPassWord: {
                     method: 'POST',
                     params: {
-                        action: 'userLogin' + EVN.suffix
+                        action: 'VerificationPassWord' + EVN.suffix
+                    }
+                },
+                // 更新密码
+                postUpdatePassWord: {
+                    method: 'POST',
+                    params: {
+                        action: 'updateUserPassWord' + EVN.suffix
                     }
                 },
 
