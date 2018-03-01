@@ -29,7 +29,8 @@ var paths = {
     markup: 'pug/',
     styles: 'less/',
     scripts: 'js/',
-    superAdmin: 'admin/',
+    superAdmin: 'superAdmin/',
+    admin: 'admin/',
     login: 'login/',
     changePassword: 'changePassword/',
     static: ['static/i18n/', 'static/admin/', 'static/img/', 'static/fonts/']
@@ -59,7 +60,12 @@ var source = {
         paths.superAdmin + '**/*.module.js',
         paths.superAdmin + '**/*.js'
     ],
-    static: paths.static.map(function(staticItem) {
+    admin: [
+        // custom modules
+        paths.admin + '**/*.module.js',
+        paths.admin + '**/*.js'
+    ],
+    static: paths.static.map(function (staticItem) {
         return staticItem + '**/**.*';
     }),
     login: [
@@ -82,7 +88,7 @@ var source = {
     ],
     templates: {
         index: [paths.markup + '*.html'],
-        views: [paths.markup + '**/*.html', paths.superAdmin + '**/**.html', '!' + paths.markup + '*.html']
+        views: [paths.markup + '**/*.html', paths.superAdmin + '**/**.html', paths.admin + '**/**.html', '!' + paths.markup + '*.html']
     },
     styles: {
         app: [paths.styles + '*.*'],
@@ -121,14 +127,14 @@ var tplCacheOptions = {
     filename: 'templates.js',
     // standalone: true,
     module: 'app.core',
-    base: function(file) {
+    base: function (file) {
         return file.path.split('pug')[1];
     }
 };
 
 var injectOptions = {
     name: 'templates',
-    transform: function(filepath) {
+    transform: function (filepath) {
         return 'script(src=\'' +
             filepath.substr(filepath.indexOf('app')) +
             '\')';
@@ -147,9 +153,9 @@ var cssnanoOpts = {
 // ---------------
 
 // copy Static
-gulp.task('scripts:static', function() {
+gulp.task('scripts:static', function () {
     log('copy static file..');
-    return gulp.src(source.static, { base: 'static/' })
+    return gulp.src(source.static, {base: 'static/'})
         .on('error', handleError)
         .pipe(gulp.dest(paths.app))
         .pipe(reload({
@@ -158,7 +164,7 @@ gulp.task('scripts:static', function() {
 });
 
 // JS login
-gulp.task('scripts:login', function() {
+gulp.task('scripts:login', function () {
     log('Building scripts login..');
     // Minify and copy all JavaScript (except vendor scripts)
     return gulp.src(source.login)
@@ -181,7 +187,7 @@ gulp.task('scripts:login', function() {
 });
 
 // JS changePassword
-gulp.task('scripts:changePassword', function() {
+gulp.task('scripts:changePassword', function () {
     log('Building scripts changePassword..');
     // Minify and copy all JavaScript (except vendor scripts)
     return gulp.src(source.changePassword)
@@ -204,7 +210,7 @@ gulp.task('scripts:changePassword', function() {
 });
 
 // JS APP
-gulp.task('scripts:superAdmin', function() {
+gulp.task('scripts:superAdmin', function () {
     log('Building scripts superAdmin..');
     // Minify and copy all JavaScript (except vendor scripts)
     return gulp.src(source.superAdmin)
@@ -226,8 +232,31 @@ gulp.task('scripts:superAdmin', function() {
         }));
 });
 
+// JS APP
+gulp.task('scripts:admin', function () {
+    log('Building scripts admin..');
+    // Minify and copy all JavaScript (except vendor scripts)
+    return gulp.src(source.admin)
+        .pipe($.jsvalidate())
+        .on('error', handleError)
+        .pipe($.if(useSourceMaps, $.sourcemaps.init()))
+        .pipe($.concat('admin.js'))
+        .pipe($.ngAnnotate())
+        .on('error', handleError)
+        .pipe($.if(isProduction, $.stripDebug()))
+        .pipe($.if(isProduction, $.uglify({
+            preserveComments: 'some'
+        })))
+        .on('error', handleError)
+        .pipe($.if(useSourceMaps, $.sourcemaps.write()))
+        .pipe(gulp.dest(build.scripts))
+        .pipe(reload({
+            stream: true
+        }));
+});
+
 // JS routes
-gulp.task('scripts:routes', function() {
+gulp.task('scripts:routes', function () {
     log('Building scripts routes..');
     // Minify and copy all JavaScript (except vendor scripts)
     return gulp.src(source.routes, {
@@ -251,7 +280,7 @@ gulp.task('scripts:routes', function() {
 });
 
 // JS APP
-gulp.task('scripts:app', function() {
+gulp.task('scripts:app', function () {
     log('Building scripts..');
     // Minify and copy all JavaScript (except vendor scripts)
     return gulp.src(source.scripts)
@@ -274,7 +303,7 @@ gulp.task('scripts:app', function() {
 });
 
 // copy file from bower folder into the app vendor folder
-gulp.task('vendor:app', function() {
+gulp.task('vendor:app', function () {
     log('Copying vendor assets..');
 
     var jsFilter = $.filter('**/*.js', {
@@ -299,7 +328,7 @@ gulp.task('vendor:app', function() {
 });
 
 // Build the base script to start the application from vendor assets
-gulp.task('vendor:base', function() {
+gulp.task('vendor:base', function () {
     log('Copying base vendor assets..');
 
     var jsFilter = $.filter('**/*.js', {
@@ -327,7 +356,7 @@ gulp.task('vendor:base', function() {
 gulp.task('vendor', gulpsync.sync(['vendor:base', 'vendor:app']));
 
 // APP LESS
-gulp.task('styles:app', function() {
+gulp.task('styles:app', function () {
     log('Building application styles..');
     return gulp.src(source.styles.app)
         .pipe($.if(useSourceMaps, $.sourcemaps.init()))
@@ -342,7 +371,7 @@ gulp.task('styles:app', function() {
 });
 
 // APP RTL
-gulp.task('styles:app:rtl', function() {
+gulp.task('styles:app:rtl', function () {
     log('Building application RTL styles..');
     return gulp.src(source.styles.app)
         .pipe($.if(useSourceMaps, $.sourcemaps.init()))
@@ -351,7 +380,7 @@ gulp.task('styles:app:rtl', function() {
         .pipe($.rtlcss()) /* RTL Magic ! */
         .pipe($.if(isProduction, $.cssnano(cssnanoOpts)))
         .pipe($.if(useSourceMaps, $.sourcemaps.write()))
-        .pipe($.rename(function(path) {
+        .pipe($.rename(function (path) {
             path.basename += '-rtl';
             return path;
         }))
@@ -362,7 +391,7 @@ gulp.task('styles:app:rtl', function() {
 });
 
 // LESS THEMES
-gulp.task('styles:themes', function() {
+gulp.task('styles:themes', function () {
     log('Building application theme styles..');
     return gulp.src(source.styles.themes)
         .pipe($.less())
@@ -374,7 +403,7 @@ gulp.task('styles:themes', function() {
 });
 
 // PUG (ex JADE)
-gulp.task('templates:index', ['templates:views'], function() {
+gulp.task('templates:index', ['templates:views'], function () {
     log('Building index..');
 
     var tplscript = gulp.src(build.templates.cache, {
@@ -391,7 +420,7 @@ gulp.task('templates:index', ['templates:views'], function() {
 });
 
 // PUG (ex JADE)
-gulp.task('templates:views', function() {
+gulp.task('templates:views', function () {
     log('Building views.. ' + (useCache ? 'using cache' : ''));
 
     if (useCache) {
@@ -429,11 +458,12 @@ gulp.task('templates:views', function() {
 // ---------------
 
 // Rerun the task when a file changes
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     log('Watching source files..');
 
     gulp.watch(source.scripts, ['scripts:app']);
     gulp.watch(source.superAdmin, ['scripts:superAdmin']);
+    gulp.watch(source.superAdmin, ['scripts:admin']);
     gulp.watch(source.login, ['scripts:login']);
     gulp.watch(source.static, ['scripts:static']);
     gulp.watch(source.changePassword, ['scripts:changePassword']);
@@ -446,7 +476,7 @@ gulp.task('watch', function() {
 });
 
 // Serve files with auto reaload
-gulp.task('browsersync', function() {
+gulp.task('browsersync', function () {
     log('Starting BrowserSync..');
 
     browserSync({
@@ -462,7 +492,7 @@ gulp.task('browsersync', function() {
 });
 
 // lint javascript
-gulp.task('lint', function() {
+gulp.task('lint', function () {
     return gulp
         .src(source.scripts)
         .pipe($.jshint())
@@ -473,7 +503,7 @@ gulp.task('lint', function() {
 });
 
 // Remove all files from the build paths
-gulp.task('clean', function(done) {
+gulp.task('clean', function (done) {
     var delconfig = [].concat(
         build.styles,
         build.scripts,
@@ -487,7 +517,9 @@ gulp.task('clean', function(done) {
     // force: clean files outside current directory
     del(delconfig, {
         force: true
-    }).then(function() { done() });
+    }).then(function () {
+        done();
+    });
 });
 
 // ---------------
@@ -501,7 +533,7 @@ gulp.task('build', gulpsync.sync([
     'assets'
 ]));
 
-gulp.task('prod', function() {
+gulp.task('prod', function () {
     log('Starting production build...');
     isProduction = true;
 });
@@ -520,7 +552,7 @@ gulp.task('serve-prod', gulpsync.sync([
 
 // build with sourcemaps (no minify)
 gulp.task('sourcemaps', ['usesources', 'default']);
-gulp.task('usesources', function() {
+gulp.task('usesources', function () {
     useSourceMaps = true;
 });
 
@@ -534,6 +566,7 @@ gulp.task('default', gulpsync.sync([
 gulp.task('assets', [
     'scripts:app',
     'scripts:superAdmin',
+    'scripts:admin',
     'scripts:login',
     'scripts:static',
     'scripts:changePassword',
@@ -544,7 +577,6 @@ gulp.task('assets', [
     'templates:index',
     'templates:views'
 ]);
-
 
 
 function done() {
