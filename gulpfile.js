@@ -32,7 +32,7 @@ var paths = {
     superAdmin: 'superAdmin/',
     login: 'login/',
     changePassword: 'changePassword/',
-    static: ['i18n/', 'admin/', 'img/', 'fonts/']
+    static: ['static/i18n/', 'static/admin/', 'static/img/', 'static/fonts/']
 };
 
 
@@ -149,7 +149,7 @@ var cssnanoOpts = {
 // copy Static
 gulp.task('scripts:static', function() {
     log('copy static file..');
-    return gulp.src(source.static, { base: '.' })
+    return gulp.src(source.static, { base: 'static/' })
         .on('error', handleError)
         .pipe(gulp.dest(paths.app))
         .pipe(reload({

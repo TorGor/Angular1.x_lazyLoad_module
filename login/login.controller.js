@@ -9,31 +9,37 @@
         .module('login')
         .controller('LoginFormController', LoginFormController);
 
-    LoginFormController.$inject = ['$scope', '$http', '$state'];
-    function LoginFormController($scope, $http, $state) {
+    LoginFormController.$inject = ['$scope', 'loginService', '$state'];
+    function LoginFormController($scope, loginService, $state) {
         // bind here all data from the form
-        $scope.account = {};
+        $scope.account = {
+            username: '',
+            passsword: '',
+            isSuper: 0
+        };
         // place the message if something goes wrong
         $scope.authMsg = '';
 
         $scope.login = function() {
             $scope.authMsg = '';
-
             if ($scope.loginForm.$valid) {
-
-                $http
-                    .post('api/account/login', { email: $scope.account.email, password: $scope.account.password })
-                    .then(function(response) {
-                        // assumes if ok, response is an object with some data, if not, a string with error
-                        // customize according to your api
-                        if (!response.account) {
-                            $scope.authMsg = 'Incorrect credentials.';
+                loginService.userLogin({}, {
+                    username: $scope.account.username,
+                    password: $scope.account.password,
+                    isSuper: $scope.account.isSuper
+                }, function(response) {
+                    if (response.success) {
+                        if ($scope.account.isSuper == 1) {
+                            window.location.href = '/superAdmin.html';
                         } else {
-                            $state.go('app.dashboard');
+                            window.location.href = '/admin.html';
                         }
-                    }, function() {
-                        $scope.authMsg = 'Server Request Error';
-                    });
+                    } else {
+                        $scope.authMsg = response.msg;
+                    }
+                }, function() {
+                    $scope.authMsg = 'Server Request Error';
+                });
             }
             else {
                 // set as dirty if the user click directly to login so we show the validation messages

@@ -18,53 +18,68 @@
         $locationProvider.html5Mode(false);
 
         // defaults to dashboard
-        $urlRouterProvider.otherwise('/superAdmin/menu/manage');
+        $urlRouterProvider.otherwise('/admin/menu/manage');
 
         //
         // Application Routes
         // -----------------------------------
         $stateProvider
-            .state('superAdmin', {
-                url: '/superAdmin',
+            .state('admin', {
+                url: '/admin',
                 abstract: true,
                 templateUrl: RouteHelpersProvider.basepath('app.html'),
-                resolve: RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'datetimepicker', 'superAdmin')
+                resolve: angular.extend(
+                    RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'datetimepicker', 'admin'), {
+                        // YOUR RESOLVES GO HERE
+                        userInfo: ['$http', 'EVN', '$timeout', function($http, EVN, $timeout) {
+                            $http.get(EVN.server + '/user/getUserInfo' + EVN.suffix, {}).then(function(data) {
+                                window.userInfo = angular.copy(data.data);
+                                return angular.copy(data.data);
+                            }, function(error) {
+                                $timeout(function() {
+                                    window.location.href = '/login.html';
+                                }, 10);
+                                return '';
+                            });
+                        }]
+                    }
+                )
             })
-            .state('superAdmin.menuManage', {
+            .state('admin.menuManage', {
                 url: '/menu/manage',
                 title: 'Menu Manage',
-                controller: 'SuperAdminMenuController',
-                templateUrl: RouteHelpersProvider.basepath('superAdmin/menu/menu.html'),
+                controller: 'adminMenuController',
+                templateUrl: RouteHelpersProvider.basepath('admin/menu/menu.html'),
             })
-            .state('superAdmin.buttonManage', {
+            .state('admin.buttonManage', {
                 url: '/button/manage',
                 title: 'Button Manage',
-                templateUrl: RouteHelpersProvider.basepath('superAdmin/button/button.html'),
-                controller: 'SuperAdminButtonController',
+                templateUrl: RouteHelpersProvider.basepath('admin/button/button.html'),
+                controller: 'adminButtonController',
             })
-            .state('superAdmin.roleInfoManage', {
+            .state('admin.roleInfoManage', {
                 url: '/role/manage',
                 title: 'Role Manage',
-                templateUrl: RouteHelpersProvider.basepath('superAdmin/role/role.html'),
-                controller: 'SuperAdminRoleController',
+                templateUrl: RouteHelpersProvider.basepath('admin/role/role.html'),
+                controller: 'adminRoleController',
             })
-            .state('superAdmin.roleRelationManage', {
+            .state('admin.roleRelationManage', {
                 url: '/roleRelation/manage',
                 title: 'RoleRelation Manage',
-                templateUrl: RouteHelpersProvider.basepath('superAdmin/role/roleRelation.html'),
-                controller: 'SuperAdminRoleRelationController',
+                templateUrl: RouteHelpersProvider.basepath('admin/role/roleRelation.html'),
+                controller: 'adminRoleRelationController',
             })
-            .state('superAdmin.adminInfoManage', {
+            .state('admin.adminInfoManage', {
                 url: '/admin/manage',
                 title: 'Admin Manage',
-                templateUrl: RouteHelpersProvider.basepath('superAdmin/admin/admin.html'),
-                controller: 'SuperAdminAdminController',
+                templateUrl: RouteHelpersProvider.basepath('admin/admin/admin.html'),
+                controller: 'adminAdminController',
             })
-            .state('superAdmin.adminRelationManage', {
+            .state('admin.adminRelationManage', {
                 url: '/adminRelation/manage',
                 title: 'AdminRelation Manage',
-                templateUrl: RouteHelpersProvider.basepath('superAdmin/admin/adminRelation.html'),
-                controller: 'SuperAdminAdminRelationController',
+                templateUrl: RouteHelpersProvider.basepath('admin/admin/adminRelation.html'),
+                controller: 'adminAdminRelationController',
             })
         //
         // Single Page Routes
