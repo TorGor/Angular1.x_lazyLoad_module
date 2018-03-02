@@ -551,7 +551,7 @@ gulp.task('addNewModuleRenameMove', function () {
     for (j in REG) {
         REG[j] = new RegExp(j, 'g');
     }
-    return gulp.src(['./commonModuleManage/**.**'], {base: './commonModuleManage'})
+    return gulp.src(['./commonModuleManage/**/.*'], {base: './commonModuleManage'})
         .pipe($.replace(REG['commonModule'], needRepalce['commonModule']))
         .pipe($.replace(REG['CommonModule'], needRepalce['CommonModule']))
         .pipe($.replace(REG['common-module'], needRepalce['common-module']))
