@@ -2,13 +2,13 @@
     
 
     angular
-        .module('admin')
-        .factory('adminService', adminService);
+        .module('admin.commonModule')
+        .factory('adminCommonModuleService', adminCommonModuleService);
 
-    adminService.$inject = ['$resource', 'EVN'];
+    adminCommonModuleService.$inject = ['$resource', 'EVN'];
 
     /* @ngInject */
-    function adminService($resource, EVN) {
+    function adminCommonModuleService($resource, EVN) {
         return $resource(EVN.server + '/admin/:action',
             {},
             {

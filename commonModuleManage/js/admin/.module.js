@@ -1,7 +1,7 @@
 (function() {
 
     angular
-        .module('admin.localLanguage', [
+        .module('admin.commonModule', [
             'app.core',
         ]);
 })();
