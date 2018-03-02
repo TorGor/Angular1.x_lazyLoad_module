@@ -1,0 +1,102 @@
+{
+  "dashboard": {
+    "WELCOME": "Welcome to {{appName}}"
+  },
+  "offsidebar": {
+    "setting": {
+      "SETTINGS": "Settings",
+      "LANGUAGE": "Language",
+      "THEMES": "Themes",
+      "LAYOUT": "layout",
+      "ASIDE": "Aside",
+      "layout": {
+        "FIXED": "Fixed"
+      },
+      "aside":{
+        "COLLAPSED": "Collapsed",
+        "COLLAPSED_TEXT": "Collapsed Text",
+        "FLOAT": "Float",
+        "HOVER": "Hover",
+        "SHOW_SCROLLBAR": "Show Scrollbar"
+      }
+    }
+  },
+  "sidebar": {
+    "nav": {
+      "super_admin": {
+        "MENU_MANAGE": "Menu Manage",
+        "MENU_MAINTAIN": "Menu Maintain",
+        "BUTTON_MAINTAIN": "Button Maintain",
+        "ROLE_MAINTAIN": "Role Maintain",
+        "ROLE_INFO_MAINTAIN": "Role Info",
+        "ROLE_RELATE_MENU": "Role Relate Menu",
+        "ADMIN_AND_ROLE": "Admin And Role",
+        "ADMIN_INFO": "Admin Info",
+        "ADMIN_RELATE_ROLE": "Admin Relate Role"
+      }
+    }
+  },
+  "table":{
+      "common":{
+          "per_page":"Per page",
+          "showing_item_to":"Showing items {{ from }} to {{ to }},total {{ totalItem }}",
+          "cur_page_first":"Cur page",
+          "cur_page_last":"",
+          "total_page":"Total page {{ totalPage }}"
+      },
+      "no_date":"Nothing Found",
+      "button":{
+          "add":"Add",
+          "save":"Save",
+          "edit":"Edit",
+          "delete":"Delete",
+          "cancel":"Cancel",
+          "operation":"Operation"
+      },
+      "menu":{
+          "th1":"Sort No",
+          "th2":"Menu Name",
+          "th3":"URL",
+          "th4":"Status",
+          "modal_title":" Root Menu"
+      },
+      "button_manage":{
+          "th1":"Button Name",
+          "th2":"Button Type",
+          "th3":"URL",
+          "th4":"Status"
+      },
+      "role":{
+          "th1":"Role",
+          "th2":"Status"
+      },
+      "admin":{
+          "th1":"Username",
+          "th2":"Password",
+          "th3":"Create Time",
+          "th4":"Status"
+      }
+  },
+  "panel_tile":{
+      "menu":"Menu",
+      "role":"Role",
+      "admin":"Admin",
+      "buttons":"Buttons",
+      "configure":"Power Overview"
+  },
+  "alert_confirm":{
+      "success":"success",
+      "error":"error",
+      "title":"Are you sure?",
+      "text":"Deleted data will not be able to recover!",
+      "cancelButtonText":"cancel",
+      "confirmButtonText":"Yes, delete it!"
+  },
+  "required_message":"is required",
+  "options":{
+      "all":"All",
+      "forbid":"Forbid",
+      "delete":"Delete",
+      "enable":"Enable"
+  }
+}

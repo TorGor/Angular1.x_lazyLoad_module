@@ -6,7 +6,9 @@ var args = require('yargs').argv,
     browserSync = require('browser-sync'),
     reload = browserSync.reload,
     del = require('del'),
-    express = require('express');
+    express = require('express'),
+    moduleSetting = require('./commonModuleManage'),
+    needRepalce = {};
 
 // production mode (see build task)
 var isProduction = false;
@@ -520,6 +522,65 @@ gulp.task('clean', function (done) {
     }).then(function () {
         done();
     });
+});
+
+
+gulp.task('addNewModuleInitial', function () {
+    for (i in moduleSetting) {
+        moduleSetting[i] = moduleSetting[i].toLowerCase();
+    }
+    needRepalce = {
+        commonModule: moduleSetting.common + ucfirst(moduleSetting.module),
+        CommonModule: ucfirst(moduleSetting.common) + ucfirst(moduleSetting.module),
+        'common-module': moduleSetting.common + '-' + moduleSetting.module,
+        '/common/module/': '/' + moduleSetting.common + '/' + moduleSetting.module + '/',
+        COMMONMODULETITLE: moduleSetting.title
+    };
+    needRepalce.path = needRepalce.commonModule;
+});
+
+gulp.task('addNewModuleRenameMove', function () {
+    var REG = {
+        commonModule: '',
+        CommonModule: '',
+        'common-module': '',
+        '/common/module/': '',
+        COMMONMODULETITLE: ''
+    };
+    for (j in REG) {
+        REG[j] = new RegExp(j, 'g');
+    }
+    return gulp.src(['./commonModuleManage/**.**'], {base: './commonModuleManage'})
+        .pipe($.replace(REG['commonModule'], needRepalce['commonModule']))
+        .pipe($.replace(REG['CommonModule'], needRepalce['CommonModule']))
+        .pipe($.replace(REG['common-module'], needRepalce['common-module']))
+        .pipe($.replace(REG['/common/module/'], needRepalce['/common/module/']))
+        .pipe($.replace(REG['COMMONMODULETITLE'], needRepalce['COMMONMODULETITLE']))
+        .pipe($.rename({
+            dirname: needRepalce.path,
+            prefix: needRepalce['common-module'],
+        }))
+        .pipe(gulp.dest('./admin'));
+});
+
+
+gulp.task('addModuleNameToAppModule', function () {
+    var str = '//new module name will be append here';
+    return gulp.src(['./admin/admin.module.js'], {base: './admin'})
+        .pipe($.replace(new RegExp(str, 'g'), '\'' + 'admin.' +needRepalce['commonModule'] + '\',' + '\n\t\t\t\t' + str))
+        .pipe(gulp.dest('./admin'));
+});
+
+function ucfirst(str) {
+    var str = str.toLowerCase();
+    str = str.replace(/\b\w+\b/g, function (word) {
+        return word.substring(0, 1).toUpperCase() + word.substring(1);
+    });
+    return str;
+}
+
+gulp.task('addNewModule', function () {
+    runSequence(['addNewModuleInitial'], ['addNewModuleRenameMove'], ['addModuleNameToAppModule']);
 });
 
 // ---------------
