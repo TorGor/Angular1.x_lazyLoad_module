@@ -46,6 +46,7 @@
     "karma-phantomjs-launcher": "1.0.4",
     "marked": "0.3.6",
     "phantomjs-prebuilt": "2.1.14",
+    "run-sequence": "^2.2.1",
     "through2": "2.0.3",
     "yargs": "7.0.2"
   },
