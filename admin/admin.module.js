@@ -7,7 +7,7 @@
             // or just modules
             'app.core',
             'admin.localLanguage',
-            //new module name will be append here
+			//new module name will be append here
 
         ]);
 })();
