@@ -13,11 +13,35 @@
             {},
             {
 
-                // 3.1 查询一级菜单
-                getFindRootMenuInfo: {
+                // 查询COMMONMODULETITLE
+                getCommonModuleInfo: {
                     method: 'GET',
                     params: {
-                        action: 'findRootMenuInfo' + EVN.suffix
+                        action: '' + EVN.suffix
+                    }
+                },
+
+                // 添加COMMONMODULETITLE
+                postSaveCommonModuleInfo: {
+                    method: 'POST',
+                    params: {
+                        action: '' + EVN.suffix
+                    }
+                },
+
+                // 修改COMMONMODULETITLE
+                postUpdateCommonModuleInfo: {
+                    method: 'PUT',
+                    params: {
+                        action: '' + EVN.suffix
+                    }
+                },
+
+                // 删除COMMONMODULETITLE
+                getDeleteCommonModuleInfoById: {
+                    method: 'GET',
+                    params: {
+                        action: '' + EVN.suffix
                     }
                 },
 
