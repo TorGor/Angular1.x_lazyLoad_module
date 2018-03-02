@@ -558,8 +558,7 @@ gulp.task('addNewModuleRenameMove', function () {
         .pipe($.replace(REG['/common/module/'], needRepalce['/common/module/']))
         .pipe($.replace(REG['COMMONMODULETITLE'], needRepalce['COMMONMODULETITLE']))
         .pipe($.rename({
-            dirname: needRepalce.path,
-            prefix: needRepalce['common-module'],
+            prefix:'/'+ needRepalce['commonModule'] + '/' + needRepalce['commonModule'],
         }))
         .pipe(gulp.dest('./admin'));
 });
