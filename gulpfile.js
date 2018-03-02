@@ -581,7 +581,10 @@ gulp.task('addModuleNameToAppRoute', function () {
                 controller: '${needRepalce['CommonModule']}Controller',
                 templateUrl: RouteHelpersProvider.basepath('admin/${needRepalce['commonModule']}/${needRepalce['commonModule']}.html'),
                 permission: ''
-            })` + str))
+            })
+            
+            //new route name will be append here
+            `))
         .pipe(gulp.dest('.'));
 });
 
