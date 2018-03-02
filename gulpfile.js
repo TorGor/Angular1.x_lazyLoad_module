@@ -568,7 +568,7 @@ gulp.task('addNewModuleRenameMove', function () {
 gulp.task('addModuleNameToAppModule', function () {
     var str = '//new module name will be append here';
     return gulp.src(['./admin/admin.module.js'], {base: './admin'})
-        .pipe($.replace(new RegExp(str, 'g'), '\'' + 'admin.' +needRepalce['commonModule'] + '\',' + '\n\t\t\t\t' + str))
+        .pipe($.replace(new RegExp(str, 'g'), '\'' + 'admin.' +needRepalce['commonModule'] + '\',' + '\n\t\t' + str))
         .pipe(gulp.dest('./admin'));
 });
 
