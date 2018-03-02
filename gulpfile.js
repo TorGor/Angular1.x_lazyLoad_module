@@ -5,7 +5,7 @@ var args = require('yargs').argv,
     gulpsync = $.sync(gulp),
     browserSync = require('browser-sync'),
     reload = browserSync.reload,
-    runSequence   = require('run-sequence'),
+    runSequence = require('run-sequence'),
     del = require('del'),
     express = require('express'),
     moduleSetting = require('./commonModuleManage'),
@@ -558,7 +558,7 @@ gulp.task('addNewModuleRenameMove', function () {
         .pipe($.replace(REG['/common/module/'], needRepalce['/common/module/']))
         .pipe($.replace(REG['COMMONMODULETITLE'], needRepalce['COMMONMODULETITLE']))
         .pipe($.rename({
-            prefix:'/'+ needRepalce['commonModule'] + '/' + needRepalce['commonModule'],
+            prefix: '/' + needRepalce['commonModule'] + '/' + needRepalce['commonModule'],
         }))
         .pipe(gulp.dest('./admin'));
 });
@@ -567,8 +567,22 @@ gulp.task('addNewModuleRenameMove', function () {
 gulp.task('addModuleNameToAppModule', function () {
     var str = '//new module name will be append here';
     return gulp.src(['./admin/admin.module.js'], {base: './admin'})
-        .pipe($.replace(new RegExp(str, 'g'), '\'' + 'admin.' +needRepalce['commonModule'] + '\',' + '\n\t\t\t' + str))
+        .pipe($.replace(new RegExp(str, 'g'), '\'' + 'admin.' + needRepalce['commonModule'] + '\',' + '\n\t\t\t' + str))
         .pipe(gulp.dest('./admin'));
+});
+
+gulp.task('addModuleNameToAppRoute', function () {
+    var str = '//new route name will be append here';
+    return gulp.src(['./js/modules/routes/admin.routes.config.js'], {base: '.'})
+        .pipe($.replace(new RegExp(str, 'g'),
+            `.state('admin.${needRepalce['commonModule']}', {
+                url: '/${needRepalce['commonModule']}/manage',
+                title: '${needRepalce['commonModule']} Manage',
+                controller: '${needRepalce['CommonModule']}Controller',
+                templateUrl: RouteHelpersProvider.basepath('admin/${needRepalce['commonModule']}/${needRepalce['commonModule']}.html'),
+                permission: ''
+            })` + str))
+        .pipe(gulp.dest('.'));
 });
 
 function ucfirst(str) {
@@ -580,7 +594,7 @@ function ucfirst(str) {
 }
 
 gulp.task('addNewModule', function () {
-    runSequence(['addNewModuleInitial'], ['addNewModuleRenameMove'], ['addModuleNameToAppModule']);
+    runSequence(['addNewModuleInitial'], ['addNewModuleRenameMove'], ['addModuleNameToAppRoute', 'addModuleNameToAppModule']);
 });
 
 // ---------------

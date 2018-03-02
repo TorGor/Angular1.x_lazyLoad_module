@@ -53,6 +53,9 @@
                 templateUrl: RouteHelpersProvider.basepath('admin/localLanguage/localLanguage.html'),
                 permission: ''
             })
+
+            //new route name will be append here
+
             .state('admin.buttonManage', {
                 url: '/button/manage',
                 title: 'Button Manage',
