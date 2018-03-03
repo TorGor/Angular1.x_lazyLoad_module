@@ -79,6 +79,15 @@
           "th3":"Supported",
           "th3ShowTrue":"Yes",
           "th3ShowFalse":"No"
+      },
+      "countriesManage":{
+          "th1":"iso",
+          "th2":"ios3",
+          "th3":"name",
+          "th4":"niceName",
+          "th5":"numCode",
+          "th6":"phoneCode",
+          "th7":"currency"
       }
   },
   "panel_tile":{

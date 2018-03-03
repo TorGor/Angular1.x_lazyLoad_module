@@ -28,11 +28,14 @@
         // 初始化table数据
         $scope.initCountriesManageData = function () {
             $scope.countriesManage = [];
-            adminCountriesManageService.getCountriesManageList({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
+            adminCountriesManageService.getCountriesManageList({}, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
-                        $scope.countriesManage = angular.copy(data.data.list);
+                        $scope.countriesManage = angular.copy(data.data);
+                        $scope.countriesManage.forEach(function (countriesManageItem, countriesManageIndex) {
+                            countriesManageItem.id = countriesManageIndex + 1;
+                        })
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
                     }
@@ -85,9 +88,9 @@
          * @return null
          */
         $scope.deleteCountriesManage = function (countriesManage) {
-            if (countriesManage.id) {
+            if (countriesManage.iso) {
                 $rootScope.alertConfirm(function () {
-                    adminCountriesManageService.updateCountriesManageInfo({ id: countriesManage.id }, {}, function (data) {
+                    adminCountriesManageService.updateCountriesManageInfo({ iso: countriesManage.iso }, {}, function (data) {
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
                                 $scope.initCountriesManageData();
@@ -107,13 +110,14 @@
             $scope.countriesManageAoData = {};
             $scope.countriesManageSearch = '';
             $scope.countriesManage.unshift({
-                'id': null,
-                'countriesManageName': '',
-                'countriesManageType': '',
-                'countriesManageStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                "id": null,
+                "iso": "",
+                "iso3": "",
+                "numCode": '',
+                "name": "",
+                "phoneCode": '',
+                "currency": '',
+                "niceName": "",
             });
         };
 

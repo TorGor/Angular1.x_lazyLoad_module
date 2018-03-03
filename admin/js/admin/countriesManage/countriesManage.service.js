@@ -17,7 +17,7 @@
                 getCountriesManageList: {
                     method: 'GET',
                     params: {
-                        action: '' + EVN.suffix
+                        action: 'getCountries' + EVN.suffix
                     }
                 },
 
@@ -25,23 +25,23 @@
                 saveCountriesManageInfo: {
                     method: 'POST',
                     params: {
-                        action: '' + EVN.suffix
+                        action: 'postCountries' + EVN.suffix
                     }
                 },
 
                 // 修改国家管理
                 updateCountriesManageInfo: {
-                    method: 'PUT',
+                    method: 'PATCH',
                     params: {
-                        action: '' + EVN.suffix
+                        action: 'patchCountries' + EVN.suffix
                     }
                 },
 
                 // 删除国家管理
                 deleteCountriesManageInfoById: {
-                    method: 'GET',
+                    method: 'DELETE',
                     params: {
-                        action: '' + EVN.suffix
+                        action: 'deleteCountries' + EVN.suffix
                     }
                 },
 
