@@ -9,7 +9,7 @@
 
     /* @ngInject */
     function adminCommonModuleService($resource, EVN) {
-        return $resource(EVN.server + '/admin/:action',
+        return $resource(EVN.server + '/rest/:action',
             {},
             {
 

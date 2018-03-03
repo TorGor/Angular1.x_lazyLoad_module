@@ -1,0 +1,6591 @@
+{
+  "success": true,
+  "msg": "查询成功",
+  "data": [
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Andorra"
+            }
+          ]
+        }
+      ],
+      "iso": "AD",
+      "numCode": 20,
+      "name": "ANDORRA",
+      "phoneCode": 376,
+      "currency": null,
+      "niceName": "Andorra",
+      "iso3": "AND"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Dubai"
+            }
+          ]
+        }
+      ],
+      "iso": "AE",
+      "numCode": 784,
+      "name": "UNITED ARAB EMIRATES",
+      "phoneCode": 971,
+      "currency": null,
+      "niceName": "United Arab Emirates",
+      "iso3": "ARE"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+04:30",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Kabul"
+            }
+          ]
+        }
+      ],
+      "iso": "AF",
+      "numCode": 4,
+      "name": "AFGHANISTAN",
+      "phoneCode": 93,
+      "currency": null,
+      "niceName": "Afghanistan",
+      "iso3": "AFG"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Antigua"
+            }
+          ]
+        }
+      ],
+      "iso": "AG",
+      "numCode": 28,
+      "name": "ANTIGUA AND BARBUDA",
+      "phoneCode": 1268,
+      "currency": null,
+      "niceName": "Antigua and Barbuda",
+      "iso3": "ATG"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Anguilla"
+            }
+          ]
+        }
+      ],
+      "iso": "AI",
+      "numCode": 660,
+      "name": "ANGUILLA",
+      "phoneCode": 1264,
+      "currency": null,
+      "niceName": "Anguilla",
+      "iso3": "AIA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Tirane"
+            }
+          ]
+        }
+      ],
+      "iso": "AL",
+      "numCode": 8,
+      "name": "ALBANIA",
+      "phoneCode": 355,
+      "currency": null,
+      "niceName": "Albania",
+      "iso3": "ALB"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Yerevan"
+            }
+          ]
+        }
+      ],
+      "iso": "AM",
+      "numCode": 51,
+      "name": "ARMENIA",
+      "phoneCode": 374,
+      "currency": null,
+      "niceName": "Armenia",
+      "iso3": "ARM"
+    },
+    {
+      "timezones": [],
+      "iso": "AN",
+      "numCode": 530,
+      "name": "NETHERLANDS ANTILLES",
+      "phoneCode": 599,
+      "currency": null,
+      "niceName": "Netherlands Antilles",
+      "iso3": "ANT"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Luanda"
+            }
+          ]
+        }
+      ],
+      "iso": "AO",
+      "numCode": 24,
+      "name": "ANGOLA",
+      "phoneCode": 244,
+      "currency": null,
+      "niceName": "Angola",
+      "iso3": "AGO"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Antarctica/Casey"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Antarctica/Davis"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+10:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Antarctica/DumontDUrville"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Antarctica/Mawson"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+13:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Antarctica/McMurdo"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Antarctica/Palmer"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Antarctica/Rothera"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Antarctica/Syowa"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Antarctica/Troll"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Antarctica/Vostok"
+            }
+          ]
+        }
+      ],
+      "iso": "AQ",
+      "numCode": 10,
+      "name": "ANTARCTICA",
+      "phoneCode": 672,
+      "currency": null,
+      "niceName": "Antarctica",
+      "iso3": "ATA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Argentina/Buenos_Aires"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Argentina/Catamarca"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Argentina/Cordoba"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Argentina/Jujuy"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Argentina/La_Rioja"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Argentina/Mendoza"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Argentina/Rio_Gallegos"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Argentina/Salta"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Argentina/San_Juan"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Argentina/San_Luis"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Argentina/Tucuman"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Argentina/Ushuaia"
+            }
+          ]
+        }
+      ],
+      "iso": "AR",
+      "numCode": 32,
+      "name": "ARGENTINA",
+      "phoneCode": 54,
+      "currency": null,
+      "niceName": "Argentina",
+      "iso3": "ARG"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Pago_Pago"
+            }
+          ]
+        }
+      ],
+      "iso": "AS",
+      "numCode": 16,
+      "name": "AMERICAN SAMOA",
+      "phoneCode": 1684,
+      "currency": null,
+      "niceName": "American Samoa",
+      "iso3": "ASM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Vienna"
+            }
+          ]
+        }
+      ],
+      "iso": "AT",
+      "numCode": 40,
+      "name": "AUSTRIA",
+      "phoneCode": 43,
+      "currency": null,
+      "niceName": "Austria",
+      "iso3": "AUT"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Antarctica/Macquarie"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+10:30",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Australia/Adelaide"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+10:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Australia/Brisbane"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+10:30",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Australia/Broken_Hill"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Australia/Currie"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+09:30",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Australia/Darwin"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+08:45",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Australia/Eucla"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Australia/Hobart"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+10:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Australia/Lindeman"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Australia/Lord_Howe"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Australia/Melbourne"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Australia/Perth"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Australia/Sydney"
+            }
+          ]
+        }
+      ],
+      "iso": "AU",
+      "numCode": 36,
+      "name": "AUSTRALIA",
+      "phoneCode": 61,
+      "currency": null,
+      "niceName": "Australia",
+      "iso3": "AUS"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Aruba"
+            }
+          ]
+        }
+      ],
+      "iso": "AW",
+      "numCode": 533,
+      "name": "ARUBA",
+      "phoneCode": 297,
+      "currency": null,
+      "niceName": "Aruba",
+      "iso3": "ABW"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Mariehamn"
+            }
+          ]
+        }
+      ],
+      "iso": "AX",
+      "numCode": 248,
+      "name": "ÅLAND ISLANDS",
+      "phoneCode": 358,
+      "currency": null,
+      "niceName": "Åland Islands",
+      "iso3": "ALA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Baku"
+            }
+          ]
+        }
+      ],
+      "iso": "AZ",
+      "numCode": 31,
+      "name": "AZERBAIJAN",
+      "phoneCode": 994,
+      "currency": null,
+      "niceName": "Azerbaijan",
+      "iso3": "AZE"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Sarajevo"
+            }
+          ]
+        }
+      ],
+      "iso": "BA",
+      "numCode": 70,
+      "name": "BOSNIA AND HERZEGOVINA",
+      "phoneCode": 387,
+      "currency": null,
+      "niceName": "Bosnia and Herzegovina",
+      "iso3": "BIH"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Barbados"
+            }
+          ]
+        }
+      ],
+      "iso": "BB",
+      "numCode": 52,
+      "name": "BARBADOS",
+      "phoneCode": 1246,
+      "currency": null,
+      "niceName": "Barbados",
+      "iso3": "BRB"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Dhaka"
+            }
+          ]
+        }
+      ],
+      "iso": "BD",
+      "numCode": 50,
+      "name": "BANGLADESH",
+      "phoneCode": 880,
+      "currency": null,
+      "niceName": "Bangladesh",
+      "iso3": "BGD"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Brussels"
+            }
+          ]
+        }
+      ],
+      "iso": "BE",
+      "numCode": 56,
+      "name": "BELGIUM",
+      "phoneCode": 32,
+      "currency": null,
+      "niceName": "Belgium",
+      "iso3": "BEL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Ouagadougou"
+            }
+          ]
+        }
+      ],
+      "iso": "BF",
+      "numCode": 854,
+      "name": "BURKINA FASO",
+      "phoneCode": 226,
+      "currency": null,
+      "niceName": "Burkina Faso",
+      "iso3": "BFA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Sofia"
+            }
+          ]
+        }
+      ],
+      "iso": "BG",
+      "numCode": 100,
+      "name": "BULGARIA",
+      "phoneCode": 359,
+      "currency": null,
+      "niceName": "Bulgaria",
+      "iso3": "BGR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Bahrain"
+            }
+          ]
+        }
+      ],
+      "iso": "BH",
+      "numCode": 48,
+      "name": "BAHRAIN",
+      "phoneCode": 973,
+      "currency": null,
+      "niceName": "Bahrain",
+      "iso3": "BHR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Bujumbura"
+            }
+          ]
+        }
+      ],
+      "iso": "BI",
+      "numCode": 108,
+      "name": "BURUNDI",
+      "phoneCode": 257,
+      "currency": null,
+      "niceName": "Burundi",
+      "iso3": "BDI"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Porto-Novo"
+            }
+          ]
+        }
+      ],
+      "iso": "BJ",
+      "numCode": 204,
+      "name": "BENIN",
+      "phoneCode": 229,
+      "currency": null,
+      "niceName": "Benin",
+      "iso3": "BEN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/St_Barthelemy"
+            }
+          ]
+        }
+      ],
+      "iso": "BL",
+      "numCode": 652,
+      "name": "SAINT BARTHÉLEMY",
+      "phoneCode": 590,
+      "currency": null,
+      "niceName": "Saint Barthélemy",
+      "iso3": "BLM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Atlantic/Bermuda"
+            }
+          ]
+        }
+      ],
+      "iso": "BM",
+      "numCode": 60,
+      "name": "BERMUDA",
+      "phoneCode": 1441,
+      "currency": null,
+      "niceName": "Bermuda",
+      "iso3": "BMU"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Brunei"
+            }
+          ]
+        }
+      ],
+      "iso": "BN",
+      "numCode": 96,
+      "name": "BRUNEI DARUSSALAM",
+      "phoneCode": 673,
+      "currency": null,
+      "niceName": "Brunei Darussalam",
+      "iso3": "BRN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/La_Paz"
+            }
+          ]
+        }
+      ],
+      "iso": "BO",
+      "numCode": 68,
+      "name": "BOLIVIA",
+      "phoneCode": 591,
+      "currency": null,
+      "niceName": "Bolivia",
+      "iso3": "BOL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Kralendijk"
+            }
+          ]
+        }
+      ],
+      "iso": "BQ",
+      "numCode": 535,
+      "name": "BONAIRE, SINT EUSTATIUS AND SABA",
+      "phoneCode": 599,
+      "currency": null,
+      "niceName": "Bonaire, Sint Eustatius and Saba",
+      "iso3": "BES"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Araguaina"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Bahia"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Belem"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Boa_Vista"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Campo_Grande"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Cuiaba"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Eirunepe"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Fortaleza"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Maceio"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Manaus"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Noronha"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Porto_Velho"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Recife"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Rio_Branco"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Santarem"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Sao_Paulo"
+            }
+          ]
+        }
+      ],
+      "iso": "BR",
+      "numCode": 76,
+      "name": "BRAZIL",
+      "phoneCode": 55,
+      "currency": null,
+      "niceName": "Brazil",
+      "iso3": "BRA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Nassau"
+            }
+          ]
+        }
+      ],
+      "iso": "BS",
+      "numCode": 44,
+      "name": "BAHAMAS",
+      "phoneCode": 1242,
+      "currency": null,
+      "niceName": "Bahamas",
+      "iso3": "BHS"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Thimphu"
+            }
+          ]
+        }
+      ],
+      "iso": "BT",
+      "numCode": 64,
+      "name": "BHUTAN",
+      "phoneCode": 975,
+      "currency": null,
+      "niceName": "Bhutan",
+      "iso3": "BTN"
+    },
+    {
+      "timezones": [],
+      "iso": "BV",
+      "numCode": 74,
+      "name": "BOUVET ISLAND",
+      "phoneCode": 47,
+      "currency": null,
+      "niceName": "Bouvet Island",
+      "iso3": "BVT"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Gaborone"
+            }
+          ]
+        }
+      ],
+      "iso": "BW",
+      "numCode": 72,
+      "name": "BOTSWANA",
+      "phoneCode": 267,
+      "currency": null,
+      "niceName": "Botswana",
+      "iso3": "BWA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Minsk"
+            }
+          ]
+        }
+      ],
+      "iso": "BY",
+      "numCode": 112,
+      "name": "BELARUS",
+      "phoneCode": 375,
+      "currency": null,
+      "niceName": "Belarus",
+      "iso3": "BLR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Belize"
+            }
+          ]
+        }
+      ],
+      "iso": "BZ",
+      "numCode": 84,
+      "name": "BELIZE",
+      "phoneCode": 501,
+      "currency": null,
+      "niceName": "Belize",
+      "iso3": "BLZ"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Atikokan"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Blanc-Sablon"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Cambridge_Bay"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Creston"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Dawson"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Dawson_Creek"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Edmonton"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Fort_Nelson"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Glace_Bay"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Goose_Bay"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Halifax"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Inuvik"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Iqaluit"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Moncton"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Nipigon"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Pangnirtung"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Rainy_River"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Rankin_Inlet"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Regina"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Resolute"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:30",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/St_Johns"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Swift_Current"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Thunder_Bay"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Toronto"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Vancouver"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Whitehorse"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Winnipeg"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Yellowknife"
+            }
+          ]
+        }
+      ],
+      "iso": "CA",
+      "numCode": 124,
+      "name": "CANADA",
+      "phoneCode": 1,
+      "currency": null,
+      "niceName": "Canada",
+      "iso3": "CAN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+06:30",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Indian/Cocos"
+            }
+          ]
+        }
+      ],
+      "iso": "CC",
+      "numCode": 166,
+      "name": "COCOS (KEELING) ISLANDS",
+      "phoneCode": 61,
+      "currency": null,
+      "niceName": "Cocos (Keeling) Islands",
+      "iso3": "CCK"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Kinshasa"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Lubumbashi"
+            }
+          ]
+        }
+      ],
+      "iso": "CD",
+      "numCode": 180,
+      "name": "CONGO, THE DEMOCRATIC REPUBLIC OF THE",
+      "phoneCode": 242,
+      "currency": null,
+      "niceName": "Congo, the Democratic Republic of the",
+      "iso3": "COD"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Bangui"
+            }
+          ]
+        }
+      ],
+      "iso": "CF",
+      "numCode": 140,
+      "name": "CENTRAL AFRICAN REPUBLIC",
+      "phoneCode": 236,
+      "currency": null,
+      "niceName": "Central African Republic",
+      "iso3": "CAF"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Brazzaville"
+            }
+          ]
+        }
+      ],
+      "iso": "CG",
+      "numCode": 178,
+      "name": "CONGO",
+      "phoneCode": 242,
+      "currency": null,
+      "niceName": "Congo",
+      "iso3": "COG"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Zurich"
+            }
+          ]
+        }
+      ],
+      "iso": "CH",
+      "numCode": 756,
+      "name": "SWITZERLAND",
+      "phoneCode": 41,
+      "currency": null,
+      "niceName": "Switzerland",
+      "iso3": "CHE"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Abidjan"
+            }
+          ]
+        }
+      ],
+      "iso": "CI",
+      "numCode": 384,
+      "name": "COTE D'IVOIRE",
+      "phoneCode": 225,
+      "currency": null,
+      "niceName": "Cote D'Ivoire",
+      "iso3": "CIV"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-10:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Rarotonga"
+            }
+          ]
+        }
+      ],
+      "iso": "CK",
+      "numCode": 184,
+      "name": "COOK ISLANDS",
+      "phoneCode": 682,
+      "currency": null,
+      "niceName": "Cook Islands",
+      "iso3": "COK"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Punta_Arenas"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Santiago"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Easter"
+            }
+          ]
+        }
+      ],
+      "iso": "CL",
+      "numCode": 152,
+      "name": "CHILE",
+      "phoneCode": 56,
+      "currency": null,
+      "niceName": "Chile",
+      "iso3": "CHL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Douala"
+            }
+          ]
+        }
+      ],
+      "iso": "CM",
+      "numCode": 120,
+      "name": "CAMEROON",
+      "phoneCode": 237,
+      "currency": null,
+      "niceName": "Cameroon",
+      "iso3": "CMR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Shanghai"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Urumqi"
+            }
+          ]
+        }
+      ],
+      "iso": "CN",
+      "numCode": 156,
+      "name": "CHINA",
+      "phoneCode": 86,
+      "currency": {
+        "symbol": "¥",
+        "code": "CNY",
+        "name": "Yuan (Chinese) Renminbi",
+        "symbolAfter": false,
+        "supported": true
+      },
+      "niceName": "China",
+      "iso3": "CHN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Bogota"
+            }
+          ]
+        }
+      ],
+      "iso": "CO",
+      "numCode": 170,
+      "name": "COLOMBIA",
+      "phoneCode": 57,
+      "currency": null,
+      "niceName": "Colombia",
+      "iso3": "COL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Costa_Rica"
+            }
+          ]
+        }
+      ],
+      "iso": "CR",
+      "numCode": 188,
+      "name": "COSTA RICA",
+      "phoneCode": 506,
+      "currency": null,
+      "niceName": "Costa Rica",
+      "iso3": "CRI"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Havana"
+            }
+          ]
+        }
+      ],
+      "iso": "CU",
+      "numCode": 192,
+      "name": "CUBA",
+      "phoneCode": 53,
+      "currency": null,
+      "niceName": "Cuba",
+      "iso3": "CUB"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Atlantic/Cape_Verde"
+            }
+          ]
+        }
+      ],
+      "iso": "CV",
+      "numCode": 132,
+      "name": "CAPE VERDE",
+      "phoneCode": 238,
+      "currency": null,
+      "niceName": "Cape Verde",
+      "iso3": "CPV"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Curacao"
+            }
+          ]
+        }
+      ],
+      "iso": "CW",
+      "numCode": 531,
+      "name": "CURAÇAO",
+      "phoneCode": 599,
+      "currency": null,
+      "niceName": "Curaçao",
+      "iso3": "CUW"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Indian/Christmas"
+            }
+          ]
+        }
+      ],
+      "iso": "CX",
+      "numCode": 162,
+      "name": "CHRISTMAS ISLAND",
+      "phoneCode": 61,
+      "currency": null,
+      "niceName": "Christmas Island",
+      "iso3": "CXR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Famagusta"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Nicosia"
+            }
+          ]
+        }
+      ],
+      "iso": "CY",
+      "numCode": 196,
+      "name": "CYPRUS",
+      "phoneCode": 357,
+      "currency": null,
+      "niceName": "Cyprus",
+      "iso3": "CYP"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Prague"
+            }
+          ]
+        }
+      ],
+      "iso": "CZ",
+      "numCode": 203,
+      "name": "CZECH REPUBLIC",
+      "phoneCode": 420,
+      "currency": null,
+      "niceName": "Czech Republic",
+      "iso3": "CZE"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Berlin"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Busingen"
+            }
+          ]
+        }
+      ],
+      "iso": "DE",
+      "numCode": 276,
+      "name": "GERMANY",
+      "phoneCode": 49,
+      "currency": null,
+      "niceName": "Germany",
+      "iso3": "DEU"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Djibouti"
+            }
+          ]
+        }
+      ],
+      "iso": "DJ",
+      "numCode": 262,
+      "name": "DJIBOUTI",
+      "phoneCode": 253,
+      "currency": null,
+      "niceName": "Djibouti",
+      "iso3": "DJI"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Copenhagen"
+            }
+          ]
+        }
+      ],
+      "iso": "DK",
+      "numCode": 208,
+      "name": "DENMARK",
+      "phoneCode": 45,
+      "currency": null,
+      "niceName": "Denmark",
+      "iso3": "DNK"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Dominica"
+            }
+          ]
+        }
+      ],
+      "iso": "DM",
+      "numCode": 212,
+      "name": "DOMINICA",
+      "phoneCode": 1767,
+      "currency": null,
+      "niceName": "Dominica",
+      "iso3": "DMA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Santo_Domingo"
+            }
+          ]
+        }
+      ],
+      "iso": "DO",
+      "numCode": 214,
+      "name": "DOMINICAN REPUBLIC",
+      "phoneCode": 1809,
+      "currency": null,
+      "niceName": "Dominican Republic",
+      "iso3": "DOM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Algiers"
+            }
+          ]
+        }
+      ],
+      "iso": "DZ",
+      "numCode": 12,
+      "name": "ALGERIA",
+      "phoneCode": 213,
+      "currency": null,
+      "niceName": "Algeria",
+      "iso3": "DZA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Guayaquil"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Galapagos"
+            }
+          ]
+        }
+      ],
+      "iso": "EC",
+      "numCode": 218,
+      "name": "ECUADOR",
+      "phoneCode": 593,
+      "currency": null,
+      "niceName": "Ecuador",
+      "iso3": "ECU"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Tallinn"
+            }
+          ]
+        }
+      ],
+      "iso": "EE",
+      "numCode": 233,
+      "name": "ESTONIA",
+      "phoneCode": 372,
+      "currency": null,
+      "niceName": "Estonia",
+      "iso3": "EST"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Cairo"
+            }
+          ]
+        }
+      ],
+      "iso": "EG",
+      "numCode": 818,
+      "name": "EGYPT",
+      "phoneCode": 20,
+      "currency": null,
+      "niceName": "Egypt",
+      "iso3": "EGY"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/El_Aaiun"
+            }
+          ]
+        }
+      ],
+      "iso": "EH",
+      "numCode": 732,
+      "name": "WESTERN SAHARA",
+      "phoneCode": 212,
+      "currency": null,
+      "niceName": "Western Sahara",
+      "iso3": "ESH"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Asmara"
+            }
+          ]
+        }
+      ],
+      "iso": "ER",
+      "numCode": 232,
+      "name": "ERITREA",
+      "phoneCode": 291,
+      "currency": null,
+      "niceName": "Eritrea",
+      "iso3": "ERI"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Ceuta"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Atlantic/Canary"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Madrid"
+            }
+          ]
+        }
+      ],
+      "iso": "ES",
+      "numCode": 724,
+      "name": "SPAIN",
+      "phoneCode": 34,
+      "currency": null,
+      "niceName": "Spain",
+      "iso3": "ESP"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Addis_Ababa"
+            }
+          ]
+        }
+      ],
+      "iso": "ET",
+      "numCode": 231,
+      "name": "ETHIOPIA",
+      "phoneCode": 251,
+      "currency": null,
+      "niceName": "Ethiopia",
+      "iso3": "ETH"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Helsinki"
+            }
+          ]
+        }
+      ],
+      "iso": "FI",
+      "numCode": 246,
+      "name": "FINLAND",
+      "phoneCode": 358,
+      "currency": null,
+      "niceName": "Finland",
+      "iso3": "FIN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+12:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Fiji"
+            }
+          ]
+        }
+      ],
+      "iso": "FJ",
+      "numCode": 242,
+      "name": "FIJI",
+      "phoneCode": 679,
+      "currency": null,
+      "niceName": "Fiji",
+      "iso3": "FJI"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Atlantic/Stanley"
+            }
+          ]
+        }
+      ],
+      "iso": "FK",
+      "numCode": 238,
+      "name": "FALKLAND ISLANDS (MALVINAS)",
+      "phoneCode": 500,
+      "currency": null,
+      "niceName": "Falkland Islands (Malvinas)",
+      "iso3": "FLK"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+10:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Chuuk"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Kosrae"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Pohnpei"
+            }
+          ]
+        }
+      ],
+      "iso": "FM",
+      "numCode": 583,
+      "name": "MICRONESIA, FEDERATED STATES OF",
+      "phoneCode": 691,
+      "currency": null,
+      "niceName": "Micronesia, Federated States of",
+      "iso3": "FSM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Atlantic/Faroe"
+            }
+          ]
+        }
+      ],
+      "iso": "FO",
+      "numCode": 234,
+      "name": "FAROE ISLANDS",
+      "phoneCode": 298,
+      "currency": null,
+      "niceName": "Faroe Islands",
+      "iso3": "FRO"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Paris"
+            }
+          ]
+        }
+      ],
+      "iso": "FR",
+      "numCode": 250,
+      "name": "FRANCE",
+      "phoneCode": 33,
+      "currency": null,
+      "niceName": "France",
+      "iso3": "FRA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Libreville"
+            }
+          ]
+        }
+      ],
+      "iso": "GA",
+      "numCode": 266,
+      "name": "GABON",
+      "phoneCode": 241,
+      "currency": null,
+      "niceName": "Gabon",
+      "iso3": "GAB"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/London"
+            }
+          ]
+        }
+      ],
+      "iso": "GB",
+      "numCode": 826,
+      "name": "UNITED KINGDOM",
+      "phoneCode": 44,
+      "currency": null,
+      "niceName": "United Kingdom",
+      "iso3": "GBR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Grenada"
+            }
+          ]
+        }
+      ],
+      "iso": "GD",
+      "numCode": 308,
+      "name": "GRENADA",
+      "phoneCode": 1473,
+      "currency": null,
+      "niceName": "Grenada",
+      "iso3": "GRD"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Tbilisi"
+            }
+          ]
+        }
+      ],
+      "iso": "GE",
+      "numCode": 268,
+      "name": "GEORGIA",
+      "phoneCode": 995,
+      "currency": null,
+      "niceName": "Georgia",
+      "iso3": "GEO"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Cayenne"
+            }
+          ]
+        }
+      ],
+      "iso": "GF",
+      "numCode": 254,
+      "name": "FRENCH GUIANA",
+      "phoneCode": 594,
+      "currency": null,
+      "niceName": "French Guiana",
+      "iso3": "GUF"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Guernsey"
+            }
+          ]
+        }
+      ],
+      "iso": "GG",
+      "numCode": 831,
+      "name": "GUERNSEY",
+      "phoneCode": 44,
+      "currency": null,
+      "niceName": "Guernsey",
+      "iso3": "GGY"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Accra"
+            }
+          ]
+        }
+      ],
+      "iso": "GH",
+      "numCode": 288,
+      "name": "GHANA",
+      "phoneCode": 233,
+      "currency": null,
+      "niceName": "Ghana",
+      "iso3": "GHA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Gibraltar"
+            }
+          ]
+        }
+      ],
+      "iso": "GI",
+      "numCode": 292,
+      "name": "GIBRALTAR",
+      "phoneCode": 350,
+      "currency": null,
+      "niceName": "Gibraltar",
+      "iso3": "GIB"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Danmarkshavn"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Godthab"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Scoresbysund"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Thule"
+            }
+          ]
+        }
+      ],
+      "iso": "GL",
+      "numCode": 304,
+      "name": "GREENLAND",
+      "phoneCode": 299,
+      "currency": null,
+      "niceName": "Greenland",
+      "iso3": "GRL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Banjul"
+            }
+          ]
+        }
+      ],
+      "iso": "GM",
+      "numCode": 270,
+      "name": "GAMBIA",
+      "phoneCode": 220,
+      "currency": null,
+      "niceName": "Gambia",
+      "iso3": "GMB"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Conakry"
+            }
+          ]
+        }
+      ],
+      "iso": "GN",
+      "numCode": 324,
+      "name": "GUINEA",
+      "phoneCode": 224,
+      "currency": null,
+      "niceName": "Guinea",
+      "iso3": "GIN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Guadeloupe"
+            }
+          ]
+        }
+      ],
+      "iso": "GP",
+      "numCode": 312,
+      "name": "GUADELOUPE",
+      "phoneCode": 590,
+      "currency": null,
+      "niceName": "Guadeloupe",
+      "iso3": "GLP"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Malabo"
+            }
+          ]
+        }
+      ],
+      "iso": "GQ",
+      "numCode": 226,
+      "name": "EQUATORIAL GUINEA",
+      "phoneCode": 240,
+      "currency": null,
+      "niceName": "Equatorial Guinea",
+      "iso3": "GNQ"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Athens"
+            }
+          ]
+        }
+      ],
+      "iso": "GR",
+      "numCode": 300,
+      "name": "GREECE",
+      "phoneCode": 30,
+      "currency": null,
+      "niceName": "Greece",
+      "iso3": "GRC"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Atlantic/South_Georgia"
+            }
+          ]
+        }
+      ],
+      "iso": "GS",
+      "numCode": 239,
+      "name": "SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS",
+      "phoneCode": 500,
+      "currency": null,
+      "niceName": "South Georgia and the South Sandwich Islands",
+      "iso3": "SGS"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Guatemala"
+            }
+          ]
+        }
+      ],
+      "iso": "GT",
+      "numCode": 320,
+      "name": "GUATEMALA",
+      "phoneCode": 502,
+      "currency": null,
+      "niceName": "Guatemala",
+      "iso3": "GTM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+10:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Guam"
+            }
+          ]
+        }
+      ],
+      "iso": "GU",
+      "numCode": 316,
+      "name": "GUAM",
+      "phoneCode": 1671,
+      "currency": null,
+      "niceName": "Guam",
+      "iso3": "GUM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Bissau"
+            }
+          ]
+        }
+      ],
+      "iso": "GW",
+      "numCode": 624,
+      "name": "GUINEA-BISSAU",
+      "phoneCode": 245,
+      "currency": null,
+      "niceName": "Guinea-Bissau",
+      "iso3": "GNB"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Guyana"
+            }
+          ]
+        }
+      ],
+      "iso": "GY",
+      "numCode": 328,
+      "name": "GUYANA",
+      "phoneCode": 592,
+      "currency": null,
+      "niceName": "Guyana",
+      "iso3": "GUY"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Hong_Kong"
+            }
+          ]
+        }
+      ],
+      "iso": "HK",
+      "numCode": 344,
+      "name": "HONG KONG",
+      "phoneCode": 852,
+      "currency": null,
+      "niceName": "Hong Kong",
+      "iso3": "HKG"
+    },
+    {
+      "timezones": [],
+      "iso": "HM",
+      "numCode": 334,
+      "name": "HEARD ISLAND AND MCDONALD ISLANDS",
+      "phoneCode": 672,
+      "currency": null,
+      "niceName": "Heard Island and Mcdonald Islands",
+      "iso3": "HMD"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Tegucigalpa"
+            }
+          ]
+        }
+      ],
+      "iso": "HN",
+      "numCode": 340,
+      "name": "HONDURAS",
+      "phoneCode": 504,
+      "currency": null,
+      "niceName": "Honduras",
+      "iso3": "HND"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Zagreb"
+            }
+          ]
+        }
+      ],
+      "iso": "HR",
+      "numCode": 191,
+      "name": "CROATIA",
+      "phoneCode": 385,
+      "currency": null,
+      "niceName": "Croatia",
+      "iso3": "HRV"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Port-au-Prince"
+            }
+          ]
+        }
+      ],
+      "iso": "HT",
+      "numCode": 332,
+      "name": "HAITI",
+      "phoneCode": 509,
+      "currency": null,
+      "niceName": "Haiti",
+      "iso3": "HTI"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Budapest"
+            }
+          ]
+        }
+      ],
+      "iso": "HU",
+      "numCode": 348,
+      "name": "HUNGARY",
+      "phoneCode": 36,
+      "currency": null,
+      "niceName": "Hungary",
+      "iso3": "HUN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Jakarta"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+09:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Jayapura"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Makassar"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Pontianak"
+            }
+          ]
+        }
+      ],
+      "iso": "ID",
+      "numCode": 360,
+      "name": "INDONESIA",
+      "phoneCode": 62,
+      "currency": null,
+      "niceName": "Indonesia",
+      "iso3": "IDN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Dublin"
+            }
+          ]
+        }
+      ],
+      "iso": "IE",
+      "numCode": 372,
+      "name": "IRELAND",
+      "phoneCode": 353,
+      "currency": null,
+      "niceName": "Ireland",
+      "iso3": "IRL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Jerusalem"
+            }
+          ]
+        }
+      ],
+      "iso": "IL",
+      "numCode": 376,
+      "name": "ISRAEL",
+      "phoneCode": 972,
+      "currency": null,
+      "niceName": "Israel",
+      "iso3": "ISR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Isle_of_Man"
+            }
+          ]
+        }
+      ],
+      "iso": "IM",
+      "numCode": 833,
+      "name": "ISLE OF MAN",
+      "phoneCode": 44,
+      "currency": null,
+      "niceName": "Isle of Man",
+      "iso3": "IMN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+05:30",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Kolkata"
+            }
+          ]
+        }
+      ],
+      "iso": "IN",
+      "numCode": 356,
+      "name": "INDIA",
+      "phoneCode": 91,
+      "currency": null,
+      "niceName": "India",
+      "iso3": "IND"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Indian/Chagos"
+            }
+          ]
+        }
+      ],
+      "iso": "IO",
+      "numCode": 86,
+      "name": "BRITISH INDIAN OCEAN TERRITORY",
+      "phoneCode": 246,
+      "currency": null,
+      "niceName": "British Indian Ocean Territory",
+      "iso3": "IOT"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Baghdad"
+            }
+          ]
+        }
+      ],
+      "iso": "IQ",
+      "numCode": 368,
+      "name": "IRAQ",
+      "phoneCode": 964,
+      "currency": null,
+      "niceName": "Iraq",
+      "iso3": "IRQ"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:30",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Tehran"
+            }
+          ]
+        }
+      ],
+      "iso": "IR",
+      "numCode": 364,
+      "name": "IRAN, ISLAMIC REPUBLIC OF",
+      "phoneCode": 98,
+      "currency": null,
+      "niceName": "Iran, Islamic Republic of",
+      "iso3": "IRN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Atlantic/Reykjavik"
+            }
+          ]
+        }
+      ],
+      "iso": "IS",
+      "numCode": 352,
+      "name": "ICELAND",
+      "phoneCode": 354,
+      "currency": null,
+      "niceName": "Iceland",
+      "iso3": "ISL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Rome"
+            }
+          ]
+        }
+      ],
+      "iso": "IT",
+      "numCode": 380,
+      "name": "ITALY",
+      "phoneCode": 39,
+      "currency": null,
+      "niceName": "Italy",
+      "iso3": "ITA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Jersey"
+            }
+          ]
+        }
+      ],
+      "iso": "JE",
+      "numCode": 832,
+      "name": "JERSEY",
+      "phoneCode": 44,
+      "currency": null,
+      "niceName": "Jersey",
+      "iso3": "JEY"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Jamaica"
+            }
+          ]
+        }
+      ],
+      "iso": "JM",
+      "numCode": 388,
+      "name": "JAMAICA",
+      "phoneCode": 1876,
+      "currency": null,
+      "niceName": "Jamaica",
+      "iso3": "JAM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Amman"
+            }
+          ]
+        }
+      ],
+      "iso": "JO",
+      "numCode": 400,
+      "name": "JORDAN",
+      "phoneCode": 962,
+      "currency": null,
+      "niceName": "Jordan",
+      "iso3": "JOR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+09:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Tokyo"
+            }
+          ]
+        }
+      ],
+      "iso": "JP",
+      "numCode": 392,
+      "name": "JAPAN",
+      "phoneCode": 81,
+      "currency": null,
+      "niceName": "Japan",
+      "iso3": "JPN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Nairobi"
+            }
+          ]
+        }
+      ],
+      "iso": "KE",
+      "numCode": 404,
+      "name": "KENYA",
+      "phoneCode": 254,
+      "currency": null,
+      "niceName": "Kenya",
+      "iso3": "KEN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Bishkek"
+            }
+          ]
+        }
+      ],
+      "iso": "KG",
+      "numCode": 417,
+      "name": "KYRGYZSTAN",
+      "phoneCode": 996,
+      "currency": null,
+      "niceName": "Kyrgyzstan",
+      "iso3": "KGZ"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Phnom_Penh"
+            }
+          ]
+        }
+      ],
+      "iso": "KH",
+      "numCode": 116,
+      "name": "CAMBODIA",
+      "phoneCode": 855,
+      "currency": null,
+      "niceName": "Cambodia",
+      "iso3": "KHM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+13:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Enderbury"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+14:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Kiritimati"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+12:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Tarawa"
+            }
+          ]
+        }
+      ],
+      "iso": "KI",
+      "numCode": 296,
+      "name": "KIRIBATI",
+      "phoneCode": 686,
+      "currency": null,
+      "niceName": "Kiribati",
+      "iso3": "KIR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Indian/Comoro"
+            }
+          ]
+        }
+      ],
+      "iso": "KM",
+      "numCode": 174,
+      "name": "COMOROS",
+      "phoneCode": 269,
+      "currency": null,
+      "niceName": "Comoros",
+      "iso3": "COM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/St_Kitts"
+            }
+          ]
+        }
+      ],
+      "iso": "KN",
+      "numCode": 659,
+      "name": "SAINT KITTS AND NEVIS",
+      "phoneCode": 1869,
+      "currency": null,
+      "niceName": "Saint Kitts and Nevis",
+      "iso3": "KNA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+08:30",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Pyongyang"
+            }
+          ]
+        }
+      ],
+      "iso": "KP",
+      "numCode": 408,
+      "name": "KOREA, DEMOCRATIC PEOPLE'S REPUBLIC OF",
+      "phoneCode": 850,
+      "currency": null,
+      "niceName": "Korea, Democratic People's Republic of",
+      "iso3": "PRK"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+09:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Seoul"
+            }
+          ]
+        }
+      ],
+      "iso": "KR",
+      "numCode": 410,
+      "name": "KOREA, REPUBLIC OF",
+      "phoneCode": 82,
+      "currency": null,
+      "niceName": "Korea, Republic of",
+      "iso3": "KOR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Kuwait"
+            }
+          ]
+        }
+      ],
+      "iso": "KW",
+      "numCode": 414,
+      "name": "KUWAIT",
+      "phoneCode": 965,
+      "currency": null,
+      "niceName": "Kuwait",
+      "iso3": "KWT"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Cayman"
+            }
+          ]
+        }
+      ],
+      "iso": "KY",
+      "numCode": 136,
+      "name": "CAYMAN ISLANDS",
+      "phoneCode": 1345,
+      "currency": null,
+      "niceName": "Cayman Islands",
+      "iso3": "CYM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Almaty"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Aqtau"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Aqtobe"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Atyrau"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Oral"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Qyzylorda"
+            }
+          ]
+        }
+      ],
+      "iso": "KZ",
+      "numCode": 398,
+      "name": "KAZAKHSTAN",
+      "phoneCode": 7,
+      "currency": null,
+      "niceName": "Kazakhstan",
+      "iso3": "KAZ"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Vientiane"
+            }
+          ]
+        }
+      ],
+      "iso": "LA",
+      "numCode": 418,
+      "name": "LAO PEOPLE'S DEMOCRATIC REPUBLIC",
+      "phoneCode": 856,
+      "currency": null,
+      "niceName": "Lao People's Democratic Republic",
+      "iso3": "LAO"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Beirut"
+            }
+          ]
+        }
+      ],
+      "iso": "LB",
+      "numCode": 422,
+      "name": "LEBANON",
+      "phoneCode": 961,
+      "currency": null,
+      "niceName": "Lebanon",
+      "iso3": "LBN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/St_Lucia"
+            }
+          ]
+        }
+      ],
+      "iso": "LC",
+      "numCode": 662,
+      "name": "SAINT LUCIA",
+      "phoneCode": 1758,
+      "currency": null,
+      "niceName": "Saint Lucia",
+      "iso3": "LCA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Vaduz"
+            }
+          ]
+        }
+      ],
+      "iso": "LI",
+      "numCode": 438,
+      "name": "LIECHTENSTEIN",
+      "phoneCode": 423,
+      "currency": null,
+      "niceName": "Liechtenstein",
+      "iso3": "LIE"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+05:30",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Colombo"
+            }
+          ]
+        }
+      ],
+      "iso": "LK",
+      "numCode": 144,
+      "name": "SRI LANKA",
+      "phoneCode": 94,
+      "currency": null,
+      "niceName": "Sri Lanka",
+      "iso3": "LKA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Monrovia"
+            }
+          ]
+        }
+      ],
+      "iso": "LR",
+      "numCode": 430,
+      "name": "LIBERIA",
+      "phoneCode": 231,
+      "currency": null,
+      "niceName": "Liberia",
+      "iso3": "LBR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Maseru"
+            }
+          ]
+        }
+      ],
+      "iso": "LS",
+      "numCode": 426,
+      "name": "LESOTHO",
+      "phoneCode": 266,
+      "currency": null,
+      "niceName": "Lesotho",
+      "iso3": "LSO"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Vilnius"
+            }
+          ]
+        }
+      ],
+      "iso": "LT",
+      "numCode": 440,
+      "name": "LITHUANIA",
+      "phoneCode": 370,
+      "currency": null,
+      "niceName": "Lithuania",
+      "iso3": "LTU"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Luxembourg"
+            }
+          ]
+        }
+      ],
+      "iso": "LU",
+      "numCode": 442,
+      "name": "LUXEMBOURG",
+      "phoneCode": 352,
+      "currency": null,
+      "niceName": "Luxembourg",
+      "iso3": "LUX"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Riga"
+            }
+          ]
+        }
+      ],
+      "iso": "LV",
+      "numCode": 428,
+      "name": "LATVIA",
+      "phoneCode": 371,
+      "currency": null,
+      "niceName": "Latvia",
+      "iso3": "LVA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Tripoli"
+            }
+          ]
+        }
+      ],
+      "iso": "LY",
+      "numCode": 434,
+      "name": "LIBYAN ARAB JAMAHIRIYA",
+      "phoneCode": 218,
+      "currency": null,
+      "niceName": "Libyan Arab Jamahiriya",
+      "iso3": "LBY"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Casablanca"
+            }
+          ]
+        }
+      ],
+      "iso": "MA",
+      "numCode": 504,
+      "name": "MOROCCO",
+      "phoneCode": 212,
+      "currency": null,
+      "niceName": "Morocco",
+      "iso3": "MAR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Monaco"
+            }
+          ]
+        }
+      ],
+      "iso": "MC",
+      "numCode": 492,
+      "name": "MONACO",
+      "phoneCode": 377,
+      "currency": null,
+      "niceName": "Monaco",
+      "iso3": "MCO"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Chisinau"
+            }
+          ]
+        }
+      ],
+      "iso": "MD",
+      "numCode": 498,
+      "name": "MOLDOVA, REPUBLIC OF",
+      "phoneCode": 373,
+      "currency": null,
+      "niceName": "Moldova, Republic of",
+      "iso3": "MDA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Podgorica"
+            }
+          ]
+        }
+      ],
+      "iso": "ME",
+      "numCode": 499,
+      "name": "MONTENEGRO",
+      "phoneCode": 382,
+      "currency": null,
+      "niceName": "Montenegro",
+      "iso3": "MNE"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Marigot"
+            }
+          ]
+        }
+      ],
+      "iso": "MF",
+      "numCode": 663,
+      "name": "SAINT MARTIN (FRENCH PART)",
+      "phoneCode": 590,
+      "currency": null,
+      "niceName": "Saint Martin (French part)",
+      "iso3": "MAF"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Indian/Antananarivo"
+            }
+          ]
+        }
+      ],
+      "iso": "MG",
+      "numCode": 450,
+      "name": "MADAGASCAR",
+      "phoneCode": 261,
+      "currency": null,
+      "niceName": "Madagascar",
+      "iso3": "MDG"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+12:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Kwajalein"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+12:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Majuro"
+            }
+          ]
+        }
+      ],
+      "iso": "MH",
+      "numCode": 584,
+      "name": "MARSHALL ISLANDS",
+      "phoneCode": 692,
+      "currency": null,
+      "niceName": "Marshall Islands",
+      "iso3": "MHL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Skopje"
+            }
+          ]
+        }
+      ],
+      "iso": "MK",
+      "numCode": 807,
+      "name": "MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF",
+      "phoneCode": 389,
+      "currency": null,
+      "niceName": "Macedonia, the Former Yugoslav Republic of",
+      "iso3": "MKD"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Bamako"
+            }
+          ]
+        }
+      ],
+      "iso": "ML",
+      "numCode": 466,
+      "name": "MALI",
+      "phoneCode": 223,
+      "currency": null,
+      "niceName": "Mali",
+      "iso3": "MLI"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+06:30",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Yangon"
+            }
+          ]
+        }
+      ],
+      "iso": "MM",
+      "numCode": 104,
+      "name": "MYANMAR",
+      "phoneCode": 95,
+      "currency": null,
+      "niceName": "Myanmar",
+      "iso3": "MMR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Choibalsan"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Hovd"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Ulaanbaatar"
+            }
+          ]
+        }
+      ],
+      "iso": "MN",
+      "numCode": 496,
+      "name": "MONGOLIA",
+      "phoneCode": 976,
+      "currency": null,
+      "niceName": "Mongolia",
+      "iso3": "MNG"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Macau"
+            }
+          ]
+        }
+      ],
+      "iso": "MO",
+      "numCode": 446,
+      "name": "MACAO",
+      "phoneCode": 853,
+      "currency": null,
+      "niceName": "Macao",
+      "iso3": "MAC"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+10:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Saipan"
+            }
+          ]
+        }
+      ],
+      "iso": "MP",
+      "numCode": 580,
+      "name": "NORTHERN MARIANA ISLANDS",
+      "phoneCode": 1670,
+      "currency": null,
+      "niceName": "Northern Mariana Islands",
+      "iso3": "MNP"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Martinique"
+            }
+          ]
+        }
+      ],
+      "iso": "MQ",
+      "numCode": 474,
+      "name": "MARTINIQUE",
+      "phoneCode": 596,
+      "currency": null,
+      "niceName": "Martinique",
+      "iso3": "MTQ"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Nouakchott"
+            }
+          ]
+        }
+      ],
+      "iso": "MR",
+      "numCode": 478,
+      "name": "MAURITANIA",
+      "phoneCode": 222,
+      "currency": null,
+      "niceName": "Mauritania",
+      "iso3": "MRT"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Montserrat"
+            }
+          ]
+        }
+      ],
+      "iso": "MS",
+      "numCode": 500,
+      "name": "MONTSERRAT",
+      "phoneCode": 1664,
+      "currency": null,
+      "niceName": "Montserrat",
+      "iso3": "MSR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Malta"
+            }
+          ]
+        }
+      ],
+      "iso": "MT",
+      "numCode": 470,
+      "name": "MALTA",
+      "phoneCode": 356,
+      "currency": null,
+      "niceName": "Malta",
+      "iso3": "MLT"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Indian/Mauritius"
+            }
+          ]
+        }
+      ],
+      "iso": "MU",
+      "numCode": 480,
+      "name": "MAURITIUS",
+      "phoneCode": 230,
+      "currency": null,
+      "niceName": "Mauritius",
+      "iso3": "MUS"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Indian/Maldives"
+            }
+          ]
+        }
+      ],
+      "iso": "MV",
+      "numCode": 462,
+      "name": "MALDIVES",
+      "phoneCode": 960,
+      "currency": null,
+      "niceName": "Maldives",
+      "iso3": "MDV"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Blantyre"
+            }
+          ]
+        }
+      ],
+      "iso": "MW",
+      "numCode": 454,
+      "name": "MALAWI",
+      "phoneCode": 265,
+      "currency": null,
+      "niceName": "Malawi",
+      "iso3": "MWI"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Bahia_Banderas"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Cancun"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Chihuahua"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Hermosillo"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Matamoros"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Mazatlan"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Merida"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Mexico_City"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Monterrey"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Ojinaga"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Tijuana"
+            }
+          ]
+        }
+      ],
+      "iso": "MX",
+      "numCode": 484,
+      "name": "MEXICO",
+      "phoneCode": 52,
+      "currency": null,
+      "niceName": "Mexico",
+      "iso3": "MEX"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Kuala_Lumpur"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Kuching"
+            }
+          ]
+        }
+      ],
+      "iso": "MY",
+      "numCode": 458,
+      "name": "MALAYSIA",
+      "phoneCode": 60,
+      "currency": null,
+      "niceName": "Malaysia",
+      "iso3": "MYS"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Maputo"
+            }
+          ]
+        }
+      ],
+      "iso": "MZ",
+      "numCode": 508,
+      "name": "MOZAMBIQUE",
+      "phoneCode": 258,
+      "currency": null,
+      "niceName": "Mozambique",
+      "iso3": "MOZ"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Windhoek"
+            }
+          ]
+        }
+      ],
+      "iso": "NA",
+      "numCode": 516,
+      "name": "NAMIBIA",
+      "phoneCode": 264,
+      "currency": null,
+      "niceName": "Namibia",
+      "iso3": "NAM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Noumea"
+            }
+          ]
+        }
+      ],
+      "iso": "NC",
+      "numCode": 540,
+      "name": "NEW CALEDONIA",
+      "phoneCode": 687,
+      "currency": null,
+      "niceName": "New Caledonia",
+      "iso3": "NCL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Niamey"
+            }
+          ]
+        }
+      ],
+      "iso": "NE",
+      "numCode": 562,
+      "name": "NIGER",
+      "phoneCode": 227,
+      "currency": null,
+      "niceName": "Niger",
+      "iso3": "NER"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Norfolk"
+            }
+          ]
+        }
+      ],
+      "iso": "NF",
+      "numCode": 574,
+      "name": "NORFOLK ISLAND",
+      "phoneCode": 672,
+      "currency": null,
+      "niceName": "Norfolk Island",
+      "iso3": "NFK"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Lagos"
+            }
+          ]
+        }
+      ],
+      "iso": "NG",
+      "numCode": 566,
+      "name": "NIGERIA",
+      "phoneCode": 234,
+      "currency": null,
+      "niceName": "Nigeria",
+      "iso3": "NGA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Managua"
+            }
+          ]
+        }
+      ],
+      "iso": "NI",
+      "numCode": 558,
+      "name": "NICARAGUA",
+      "phoneCode": 505,
+      "currency": null,
+      "niceName": "Nicaragua",
+      "iso3": "NIC"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Amsterdam"
+            }
+          ]
+        }
+      ],
+      "iso": "NL",
+      "numCode": 528,
+      "name": "NETHERLANDS",
+      "phoneCode": 31,
+      "currency": null,
+      "niceName": "Netherlands",
+      "iso3": "NLD"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Oslo"
+            }
+          ]
+        }
+      ],
+      "iso": "NO",
+      "numCode": 578,
+      "name": "NORWAY",
+      "phoneCode": 47,
+      "currency": null,
+      "niceName": "Norway",
+      "iso3": "NOR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+05:45",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Kathmandu"
+            }
+          ]
+        }
+      ],
+      "iso": "NP",
+      "numCode": 524,
+      "name": "NEPAL",
+      "phoneCode": 977,
+      "currency": null,
+      "niceName": "Nepal",
+      "iso3": "NPL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+12:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Nauru"
+            }
+          ]
+        }
+      ],
+      "iso": "NR",
+      "numCode": 520,
+      "name": "NAURU",
+      "phoneCode": 674,
+      "currency": null,
+      "niceName": "Nauru",
+      "iso3": "NRU"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Niue"
+            }
+          ]
+        }
+      ],
+      "iso": "NU",
+      "numCode": 570,
+      "name": "NIUE",
+      "phoneCode": 683,
+      "currency": null,
+      "niceName": "Niue",
+      "iso3": "NIU"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+13:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Auckland"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+13:45",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Chatham"
+            }
+          ]
+        }
+      ],
+      "iso": "NZ",
+      "numCode": 554,
+      "name": "NEW ZEALAND",
+      "phoneCode": 64,
+      "currency": null,
+      "niceName": "New Zealand",
+      "iso3": "NZL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Muscat"
+            }
+          ]
+        }
+      ],
+      "iso": "OM",
+      "numCode": 512,
+      "name": "OMAN",
+      "phoneCode": 968,
+      "currency": null,
+      "niceName": "Oman",
+      "iso3": "OMN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Panama"
+            }
+          ]
+        }
+      ],
+      "iso": "PA",
+      "numCode": 591,
+      "name": "PANAMA",
+      "phoneCode": 507,
+      "currency": null,
+      "niceName": "Panama",
+      "iso3": "PAN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Lima"
+            }
+          ]
+        }
+      ],
+      "iso": "PE",
+      "numCode": 604,
+      "name": "PERU",
+      "phoneCode": 51,
+      "currency": null,
+      "niceName": "Peru",
+      "iso3": "PER"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-09:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Gambier"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-10:30",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Marquesas"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-10:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Tahiti"
+            }
+          ]
+        }
+      ],
+      "iso": "PF",
+      "numCode": 258,
+      "name": "FRENCH POLYNESIA",
+      "phoneCode": 689,
+      "currency": null,
+      "niceName": "French Polynesia",
+      "iso3": "PYF"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Bougainville"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+10:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Port_Moresby"
+            }
+          ]
+        }
+      ],
+      "iso": "PG",
+      "numCode": 598,
+      "name": "PAPUA NEW GUINEA",
+      "phoneCode": 675,
+      "currency": null,
+      "niceName": "Papua New Guinea",
+      "iso3": "PNG"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Manila"
+            }
+          ]
+        }
+      ],
+      "iso": "PH",
+      "numCode": 608,
+      "name": "PHILIPPINES",
+      "phoneCode": 63,
+      "currency": null,
+      "niceName": "Philippines",
+      "iso3": "PHL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Karachi"
+            }
+          ]
+        }
+      ],
+      "iso": "PK",
+      "numCode": 586,
+      "name": "PAKISTAN",
+      "phoneCode": 92,
+      "currency": null,
+      "niceName": "Pakistan",
+      "iso3": "PAK"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Warsaw"
+            }
+          ]
+        }
+      ],
+      "iso": "PL",
+      "numCode": 616,
+      "name": "POLAND",
+      "phoneCode": 48,
+      "currency": null,
+      "niceName": "Poland",
+      "iso3": "POL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Miquelon"
+            }
+          ]
+        }
+      ],
+      "iso": "PM",
+      "numCode": 666,
+      "name": "SAINT PIERRE AND MIQUELON",
+      "phoneCode": 508,
+      "currency": null,
+      "niceName": "Saint Pierre and Miquelon",
+      "iso3": "SPM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Pitcairn"
+            }
+          ]
+        }
+      ],
+      "iso": "PN",
+      "numCode": 612,
+      "name": "PITCAIRN",
+      "phoneCode": 64,
+      "currency": null,
+      "niceName": "Pitcairn",
+      "iso3": "PCN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Puerto_Rico"
+            }
+          ]
+        }
+      ],
+      "iso": "PR",
+      "numCode": 630,
+      "name": "PUERTO RICO",
+      "phoneCode": 1787,
+      "currency": null,
+      "niceName": "Puerto Rico",
+      "iso3": "PRI"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Gaza"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Hebron"
+            }
+          ]
+        }
+      ],
+      "iso": "PS",
+      "numCode": 275,
+      "name": "PALESTINIAN TERRITORY, OCCUPIED",
+      "phoneCode": 970,
+      "currency": null,
+      "niceName": "Palestinian Territory, Occupied",
+      "iso3": "PSE"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Atlantic/Azores"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Atlantic/Madeira"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Lisbon"
+            }
+          ]
+        }
+      ],
+      "iso": "PT",
+      "numCode": 620,
+      "name": "PORTUGAL",
+      "phoneCode": 351,
+      "currency": null,
+      "niceName": "Portugal",
+      "iso3": "PRT"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+09:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Palau"
+            }
+          ]
+        }
+      ],
+      "iso": "PW",
+      "numCode": 585,
+      "name": "PALAU",
+      "phoneCode": 680,
+      "currency": null,
+      "niceName": "Palau",
+      "iso3": "PLW"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Asuncion"
+            }
+          ]
+        }
+      ],
+      "iso": "PY",
+      "numCode": 600,
+      "name": "PARAGUAY",
+      "phoneCode": 595,
+      "currency": null,
+      "niceName": "Paraguay",
+      "iso3": "PRY"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Qatar"
+            }
+          ]
+        }
+      ],
+      "iso": "QA",
+      "numCode": 634,
+      "name": "QATAR",
+      "phoneCode": 974,
+      "currency": null,
+      "niceName": "Qatar",
+      "iso3": "QAT"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Indian/Reunion"
+            }
+          ]
+        }
+      ],
+      "iso": "RE",
+      "numCode": 638,
+      "name": "REUNION",
+      "phoneCode": 262,
+      "currency": null,
+      "niceName": "Reunion",
+      "iso3": "REU"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Bucharest"
+            }
+          ]
+        }
+      ],
+      "iso": "RO",
+      "numCode": 642,
+      "name": "ROMANIA",
+      "phoneCode": 40,
+      "currency": null,
+      "niceName": "Romania",
+      "iso3": "ROM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Belgrade"
+            }
+          ]
+        }
+      ],
+      "iso": "RS",
+      "numCode": 688,
+      "name": "SERBIA",
+      "phoneCode": 381,
+      "currency": null,
+      "niceName": "Serbia",
+      "iso3": "SRB"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+12:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Anadyr"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Barnaul"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+09:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Chita"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Irkutsk"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+12:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Kamchatka"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+09:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Khandyga"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Krasnoyarsk"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Magadan"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Novokuznetsk"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Novosibirsk"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Omsk"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Sakhalin"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Srednekolymsk"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Tomsk"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+10:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Ust-Nera"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+10:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Vladivostok"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+09:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Yakutsk"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Yekaterinburg"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Astrakhan"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Kaliningrad"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Kirov"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Moscow"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Samara"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Saratov"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Simferopol"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Ulyanovsk"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Volgograd"
+            }
+          ]
+        }
+      ],
+      "iso": "RU",
+      "numCode": 643,
+      "name": "RUSSIAN FEDERATION",
+      "phoneCode": 70,
+      "currency": null,
+      "niceName": "Russian Federation",
+      "iso3": "RUS"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Kigali"
+            }
+          ]
+        }
+      ],
+      "iso": "RW",
+      "numCode": 646,
+      "name": "RWANDA",
+      "phoneCode": 250,
+      "currency": null,
+      "niceName": "Rwanda",
+      "iso3": "RWA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Riyadh"
+            }
+          ]
+        }
+      ],
+      "iso": "SA",
+      "numCode": 682,
+      "name": "SAUDI ARABIA",
+      "phoneCode": 966,
+      "currency": null,
+      "niceName": "Saudi Arabia",
+      "iso3": "SAU"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Guadalcanal"
+            }
+          ]
+        }
+      ],
+      "iso": "SB",
+      "numCode": 90,
+      "name": "SOLOMON ISLANDS",
+      "phoneCode": 677,
+      "currency": null,
+      "niceName": "Solomon Islands",
+      "iso3": "SLB"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Indian/Mahe"
+            }
+          ]
+        }
+      ],
+      "iso": "SC",
+      "numCode": 690,
+      "name": "SEYCHELLES",
+      "phoneCode": 248,
+      "currency": null,
+      "niceName": "Seychelles",
+      "iso3": "SYC"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Khartoum"
+            }
+          ]
+        }
+      ],
+      "iso": "SD",
+      "numCode": 736,
+      "name": "SUDAN",
+      "phoneCode": 249,
+      "currency": null,
+      "niceName": "Sudan",
+      "iso3": "SDN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Stockholm"
+            }
+          ]
+        }
+      ],
+      "iso": "SE",
+      "numCode": 752,
+      "name": "SWEDEN",
+      "phoneCode": 46,
+      "currency": null,
+      "niceName": "Sweden",
+      "iso3": "SWE"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Singapore"
+            }
+          ]
+        }
+      ],
+      "iso": "SG",
+      "numCode": 702,
+      "name": "SINGAPORE",
+      "phoneCode": 65,
+      "currency": null,
+      "niceName": "Singapore",
+      "iso3": "SGP"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Atlantic/St_Helena"
+            }
+          ]
+        }
+      ],
+      "iso": "SH",
+      "numCode": 654,
+      "name": "SAINT HELENA",
+      "phoneCode": 290,
+      "currency": null,
+      "niceName": "Saint Helena",
+      "iso3": "SHN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Ljubljana"
+            }
+          ]
+        }
+      ],
+      "iso": "SI",
+      "numCode": 705,
+      "name": "SLOVENIA",
+      "phoneCode": 386,
+      "currency": null,
+      "niceName": "Slovenia",
+      "iso3": "SVN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Arctic/Longyearbyen"
+            }
+          ]
+        }
+      ],
+      "iso": "SJ",
+      "numCode": 744,
+      "name": "SVALBARD AND JAN MAYEN",
+      "phoneCode": 47,
+      "currency": null,
+      "niceName": "Svalbard and Jan Mayen",
+      "iso3": "SJM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Bratislava"
+            }
+          ]
+        }
+      ],
+      "iso": "SK",
+      "numCode": 703,
+      "name": "SLOVAKIA",
+      "phoneCode": 421,
+      "currency": null,
+      "niceName": "Slovakia",
+      "iso3": "SVK"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Freetown"
+            }
+          ]
+        }
+      ],
+      "iso": "SL",
+      "numCode": 694,
+      "name": "SIERRA LEONE",
+      "phoneCode": 232,
+      "currency": null,
+      "niceName": "Sierra Leone",
+      "iso3": "SLE"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/San_Marino"
+            }
+          ]
+        }
+      ],
+      "iso": "SM",
+      "numCode": 674,
+      "name": "SAN MARINO",
+      "phoneCode": 378,
+      "currency": null,
+      "niceName": "San Marino",
+      "iso3": "SMR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Dakar"
+            }
+          ]
+        }
+      ],
+      "iso": "SN",
+      "numCode": 686,
+      "name": "SENEGAL",
+      "phoneCode": 221,
+      "currency": null,
+      "niceName": "Senegal",
+      "iso3": "SEN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Mogadishu"
+            }
+          ]
+        }
+      ],
+      "iso": "SO",
+      "numCode": 706,
+      "name": "SOMALIA",
+      "phoneCode": 252,
+      "currency": null,
+      "niceName": "Somalia",
+      "iso3": "SOM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Paramaribo"
+            }
+          ]
+        }
+      ],
+      "iso": "SR",
+      "numCode": 740,
+      "name": "SURINAME",
+      "phoneCode": 597,
+      "currency": null,
+      "niceName": "Suriname",
+      "iso3": "SUR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Juba"
+            }
+          ]
+        }
+      ],
+      "iso": "SS",
+      "numCode": 728,
+      "name": "South Sudan",
+      "phoneCode": 211,
+      "currency": null,
+      "niceName": "South Sudan",
+      "iso3": "SSD"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Sao_Tome"
+            }
+          ]
+        }
+      ],
+      "iso": "ST",
+      "numCode": 678,
+      "name": "SAO TOME AND PRINCIPE",
+      "phoneCode": 239,
+      "currency": null,
+      "niceName": "Sao Tome and Principe",
+      "iso3": "STP"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/El_Salvador"
+            }
+          ]
+        }
+      ],
+      "iso": "SV",
+      "numCode": 222,
+      "name": "EL SALVADOR",
+      "phoneCode": 503,
+      "currency": null,
+      "niceName": "El Salvador",
+      "iso3": "SLV"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Lower_Princes"
+            }
+          ]
+        }
+      ],
+      "iso": "SX",
+      "numCode": 534,
+      "name": "SINT MAARTEN (DUTCH PART)",
+      "phoneCode": 1,
+      "currency": null,
+      "niceName": "Sint Maarten (Dutch part)",
+      "iso3": "SXM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Damascus"
+            }
+          ]
+        }
+      ],
+      "iso": "SY",
+      "numCode": 760,
+      "name": "SYRIAN ARAB REPUBLIC",
+      "phoneCode": 963,
+      "currency": null,
+      "niceName": "Syrian Arab Republic",
+      "iso3": "SYR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Mbabane"
+            }
+          ]
+        }
+      ],
+      "iso": "SZ",
+      "numCode": 748,
+      "name": "SWAZILAND",
+      "phoneCode": 268,
+      "currency": null,
+      "niceName": "Swaziland",
+      "iso3": "SWZ"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Grand_Turk"
+            }
+          ]
+        }
+      ],
+      "iso": "TC",
+      "numCode": 796,
+      "name": "TURKS AND CAICOS ISLANDS",
+      "phoneCode": 1649,
+      "currency": null,
+      "niceName": "Turks and Caicos Islands",
+      "iso3": "TCA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Ndjamena"
+            }
+          ]
+        }
+      ],
+      "iso": "TD",
+      "numCode": 148,
+      "name": "CHAD",
+      "phoneCode": 235,
+      "currency": null,
+      "niceName": "Chad",
+      "iso3": "TCD"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Indian/Kerguelen"
+            }
+          ]
+        }
+      ],
+      "iso": "TF",
+      "numCode": 260,
+      "name": "FRENCH SOUTHERN TERRITORIES",
+      "phoneCode": 262,
+      "currency": null,
+      "niceName": "French Southern Territories",
+      "iso3": "ATF"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+00:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Lome"
+            }
+          ]
+        }
+      ],
+      "iso": "TG",
+      "numCode": 768,
+      "name": "TOGO",
+      "phoneCode": 228,
+      "currency": null,
+      "niceName": "Togo",
+      "iso3": "TGO"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Bangkok"
+            }
+          ]
+        }
+      ],
+      "iso": "TH",
+      "numCode": 764,
+      "name": "THAILAND",
+      "phoneCode": 66,
+      "currency": null,
+      "niceName": "Thailand",
+      "iso3": "THA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Dushanbe"
+            }
+          ]
+        }
+      ],
+      "iso": "TJ",
+      "numCode": 762,
+      "name": "TAJIKISTAN",
+      "phoneCode": 992,
+      "currency": null,
+      "niceName": "Tajikistan",
+      "iso3": "TJK"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+13:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Fakaofo"
+            }
+          ]
+        }
+      ],
+      "iso": "TK",
+      "numCode": 772,
+      "name": "TOKELAU",
+      "phoneCode": 690,
+      "currency": null,
+      "niceName": "Tokelau",
+      "iso3": "TKL"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+09:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Dili"
+            }
+          ]
+        }
+      ],
+      "iso": "TL",
+      "numCode": 626,
+      "name": "TIMOR-LESTE",
+      "phoneCode": 670,
+      "currency": null,
+      "niceName": "Timor-Leste",
+      "iso3": "TLS"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Ashgabat"
+            }
+          ]
+        }
+      ],
+      "iso": "TM",
+      "numCode": 795,
+      "name": "TURKMENISTAN",
+      "phoneCode": 7370,
+      "currency": null,
+      "niceName": "Turkmenistan",
+      "iso3": "TKM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+01:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Tunis"
+            }
+          ]
+        }
+      ],
+      "iso": "TN",
+      "numCode": 788,
+      "name": "TUNISIA",
+      "phoneCode": 216,
+      "currency": null,
+      "niceName": "Tunisia",
+      "iso3": "TUN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+13:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Tongatapu"
+            }
+          ]
+        }
+      ],
+      "iso": "TO",
+      "numCode": 776,
+      "name": "TONGA",
+      "phoneCode": 676,
+      "currency": null,
+      "niceName": "Tonga",
+      "iso3": "TON"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Istanbul"
+            }
+          ]
+        }
+      ],
+      "iso": "TR",
+      "numCode": 792,
+      "name": "TURKEY",
+      "phoneCode": 90,
+      "currency": null,
+      "niceName": "Turkey",
+      "iso3": "TUR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Port_of_Spain"
+            }
+          ]
+        }
+      ],
+      "iso": "TT",
+      "numCode": 780,
+      "name": "TRINIDAD AND TOBAGO",
+      "phoneCode": 1868,
+      "currency": null,
+      "niceName": "Trinidad and Tobago",
+      "iso3": "TTO"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+12:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Funafuti"
+            }
+          ]
+        }
+      ],
+      "iso": "TV",
+      "numCode": 798,
+      "name": "TUVALU",
+      "phoneCode": 688,
+      "currency": null,
+      "niceName": "Tuvalu",
+      "iso3": "TUV"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Taipei"
+            }
+          ]
+        }
+      ],
+      "iso": "TW",
+      "numCode": 158,
+      "name": "TAIWAN, PROVINCE OF CHINA",
+      "phoneCode": 886,
+      "currency": null,
+      "niceName": "Taiwan, Province of China",
+      "iso3": "TWN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Dar_es_Salaam"
+            }
+          ]
+        }
+      ],
+      "iso": "TZ",
+      "numCode": 834,
+      "name": "TANZANIA, UNITED REPUBLIC OF",
+      "phoneCode": 255,
+      "currency": null,
+      "niceName": "Tanzania, United Republic of",
+      "iso3": "TZA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Kiev"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Uzhgorod"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Zaporozhye"
+            }
+          ]
+        }
+      ],
+      "iso": "UA",
+      "numCode": 804,
+      "name": "UKRAINE",
+      "phoneCode": 380,
+      "currency": null,
+      "niceName": "Ukraine",
+      "iso3": "UKR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Kampala"
+            }
+          ]
+        }
+      ],
+      "iso": "UG",
+      "numCode": 800,
+      "name": "UGANDA",
+      "phoneCode": 256,
+      "currency": null,
+      "niceName": "Uganda",
+      "iso3": "UGA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Midway"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+12:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Wake"
+            }
+          ]
+        }
+      ],
+      "iso": "UM",
+      "numCode": 581,
+      "name": "UNITED STATES MINOR OUTLYING ISLANDS",
+      "phoneCode": 1,
+      "currency": null,
+      "niceName": "United States Minor Outlying Islands",
+      "iso3": "UMI"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-09:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Adak"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Anchorage"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Boise"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Chicago"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-06:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Denver"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Detroit"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Indiana/Indianapolis"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Indiana/Knox"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Indiana/Marengo"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Indiana/Petersburg"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Indiana/Tell_City"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Indiana/Vevay"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Indiana/Vincennes"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Indiana/Winamac"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Juneau"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Kentucky/Louisville"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Kentucky/Monticello"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Los_Angeles"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Menominee"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Metlakatla"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/New_York"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Nome"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/North_Dakota/Beulah"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/North_Dakota/Center"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/North_Dakota/New_Salem"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Phoenix"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Sitka"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-08:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Yakutat"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "-10:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Honolulu"
+            }
+          ]
+        }
+      ],
+      "iso": "US",
+      "numCode": 840,
+      "name": "UNITED STATES",
+      "phoneCode": 1,
+      "currency": null,
+      "niceName": "United States",
+      "iso3": "USA"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Montevideo"
+            }
+          ]
+        }
+      ],
+      "iso": "UY",
+      "numCode": 858,
+      "name": "URUGUAY",
+      "phoneCode": 598,
+      "currency": null,
+      "niceName": "Uruguay",
+      "iso3": "URY"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Samarkand"
+            }
+          ]
+        },
+        {
+          "gmtOffset": "+05:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Tashkent"
+            }
+          ]
+        }
+      ],
+      "iso": "UZ",
+      "numCode": 860,
+      "name": "UZBEKISTAN",
+      "phoneCode": 998,
+      "currency": null,
+      "niceName": "Uzbekistan",
+      "iso3": "UZB"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Europe/Vatican"
+            }
+          ]
+        }
+      ],
+      "iso": "VA",
+      "numCode": 336,
+      "name": "HOLY SEE (VATICAN CITY STATE)",
+      "phoneCode": 39,
+      "currency": null,
+      "niceName": "Holy See (Vatican City State)",
+      "iso3": "VAT"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/St_Vincent"
+            }
+          ]
+        }
+      ],
+      "iso": "VC",
+      "numCode": 670,
+      "name": "SAINT VINCENT AND THE GRENADINES",
+      "phoneCode": 1784,
+      "currency": null,
+      "niceName": "Saint Vincent and the Grenadines",
+      "iso3": "VCT"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Caracas"
+            }
+          ]
+        }
+      ],
+      "iso": "VE",
+      "numCode": 862,
+      "name": "VENEZUELA",
+      "phoneCode": 58,
+      "currency": null,
+      "niceName": "Venezuela",
+      "iso3": "VEN"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/Tortola"
+            }
+          ]
+        }
+      ],
+      "iso": "VG",
+      "numCode": 92,
+      "name": "VIRGIN ISLANDS, BRITISH",
+      "phoneCode": 1284,
+      "currency": null,
+      "niceName": "Virgin Islands, British",
+      "iso3": "VGB"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "-04:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "America/St_Thomas"
+            }
+          ]
+        }
+      ],
+      "iso": "VI",
+      "numCode": 850,
+      "name": "VIRGIN ISLANDS, U.S.",
+      "phoneCode": 1340,
+      "currency": null,
+      "niceName": "Virgin Islands, U.s.",
+      "iso3": "VIR"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+07:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Ho_Chi_Minh"
+            }
+          ]
+        }
+      ],
+      "iso": "VN",
+      "numCode": 704,
+      "name": "VIET NAM",
+      "phoneCode": 84,
+      "currency": null,
+      "niceName": "Viet Nam",
+      "iso3": "VNM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+11:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Efate"
+            }
+          ]
+        }
+      ],
+      "iso": "VU",
+      "numCode": 548,
+      "name": "VANUATU",
+      "phoneCode": 678,
+      "currency": null,
+      "niceName": "Vanuatu",
+      "iso3": "VUT"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+12:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Wallis"
+            }
+          ]
+        }
+      ],
+      "iso": "WF",
+      "numCode": 876,
+      "name": "WALLIS AND FUTUNA",
+      "phoneCode": 681,
+      "currency": null,
+      "niceName": "Wallis and Futuna",
+      "iso3": "WLF"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+14:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Pacific/Apia"
+            }
+          ]
+        }
+      ],
+      "iso": "WS",
+      "numCode": 882,
+      "name": "SAMOA",
+      "phoneCode": 684,
+      "currency": null,
+      "niceName": "Samoa",
+      "iso3": "WSM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Asia/Aden"
+            }
+          ]
+        }
+      ],
+      "iso": "YE",
+      "numCode": 887,
+      "name": "YEMEN",
+      "phoneCode": 967,
+      "currency": null,
+      "niceName": "Yemen",
+      "iso3": "YEM"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+03:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Indian/Mayotte"
+            }
+          ]
+        }
+      ],
+      "iso": "YT",
+      "numCode": 175,
+      "name": "MAYOTTE",
+      "phoneCode": 262,
+      "currency": null,
+      "niceName": "Mayotte",
+      "iso3": "MYT"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Johannesburg"
+            }
+          ]
+        }
+      ],
+      "iso": "ZA",
+      "numCode": 710,
+      "name": "SOUTH AFRICA",
+      "phoneCode": 27,
+      "currency": null,
+      "niceName": "South Africa",
+      "iso3": "ZAF"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Lusaka"
+            }
+          ]
+        }
+      ],
+      "iso": "ZM",
+      "numCode": 894,
+      "name": "ZAMBIA",
+      "phoneCode": 260,
+      "currency": null,
+      "niceName": "Zambia",
+      "iso3": "ZMB"
+    },
+    {
+      "timezones": [
+        {
+          "gmtOffset": "+02:00",
+          "name": [
+            {
+              "locale": "en-GB",
+              "value": "Africa/Harare"
+            }
+          ]
+        }
+      ],
+      "iso": "ZW",
+      "numCode": 716,
+      "name": "ZIMBABWE",
+      "phoneCode": 263,
+      "currency": null,
+      "niceName": "Zimbabwe",
+      "iso3": "ZWE"
+    },
+    {
+      "timezones": [],
+      "iso": "ZZ",
+      "numCode": 123,
+      "name": "ATEST",
+      "phoneCode": 86,
+      "currency": {
+        "symbol": "¥",
+        "code": "CNY",
+        "name": "Yuan (Chinese) Renminbi",
+        "symbolAfter": false,
+        "supported": true
+      },
+      "niceName": "Atest",
+      "iso3": "ATT"
+    }
+  ]
+}
