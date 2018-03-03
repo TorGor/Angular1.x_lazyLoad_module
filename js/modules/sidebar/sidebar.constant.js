@@ -63,7 +63,7 @@
                     "text": "未找到",
                     "sref": "page.403",
                     "icon": "glyphicon glyphicon-th-large",
-                }
+                }//new sidebar name will be append here
             ]
 
         });
