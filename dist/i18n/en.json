@@ -1,7 +1,4 @@
 {
-  "dashboard": {
-    "WELCOME": "Welcome to {{appName}}"
-  },
   "offsidebar": {
     "setting": {
       "SETTINGS": "Settings",

@@ -588,6 +588,19 @@ gulp.task('addModuleNameToAppRoute', function () {
         .pipe(gulp.dest('.'));
 });
 
+gulp.task('addModuleNameToAppSidebar', function () {
+    var str = '//new sidebar name will be append here';
+    return gulp.src(['./js/modules/sidebar/sidebar.constant.js'], {base: '.'})
+        .pipe($.replace(new RegExp(str, 'g'),
+            `,{
+                "text": "${needRepalce['COMMONMODULETITLE']}",
+                "sref": "admin.${needRepalce['commonModule']}",
+                "icon": "glyphicon glyphicon-th-large",
+               }//new sidebar name will be append here
+            `))
+        .pipe(gulp.dest('.'));
+});
+
 function ucfirst(str) {
     var str = str.toLowerCase();
     str = str.replace(/\b\w+\b/g, function (word) {
@@ -597,7 +610,7 @@ function ucfirst(str) {
 }
 
 gulp.task('addNewModule', function () {
-    runSequence(['addNewModuleInitial'], ['addNewModuleRenameMove'], ['addModuleNameToAppRoute', 'addModuleNameToAppModule']);
+    runSequence(['addNewModuleInitial'], ['addNewModuleRenameMove'], ['addModuleNameToAppRoute', 'addModuleNameToAppModule', 'addModuleNameToAppSidebar']);
 });
 
 // ---------------

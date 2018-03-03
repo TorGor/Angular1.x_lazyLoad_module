@@ -1,13 +1,13 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('app.translate')
-        .run(translateRun)
-        ;
+        .run(translateRun);
+
     translateRun.$inject = ['$rootScope', '$translate', '$window'];
-    
-    function translateRun($rootScope, $translate, $window){
+
+    function translateRun($rootScope, $translate, $window) {
         // Internationalization
         // ----------------------
 

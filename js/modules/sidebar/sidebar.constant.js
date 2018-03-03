@@ -57,6 +57,13 @@
                     ],
                     "translate": "sidebar.nav.super_admin.ADMIN_AND_ROLE"
                 },
+            ],
+            admin: [
+                {
+                    "text": "未找到",
+                    "sref": "page.403",
+                    "icon": "glyphicon glyphicon-th-large",
+                }
             ]
 
         });
