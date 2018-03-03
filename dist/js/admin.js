@@ -99,7 +99,7 @@
 
         // 初始化table数据
         $scope.initLocaleLanguageData = function () {
-            adminLocaleLanguageService.getLocaleLanguageInfo({}, {}, function (data) {
+            adminLocaleLanguageService.getLocaleLanguageList({}, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -121,7 +121,7 @@
 
         $scope.saveLocaleLanguage = function (localeLanguage, item) {
             var tempData = angular.extend({}, localeLanguage, item);
-            if (!tempData.id) {
+            if (!tempData.code) {
                 delete tempData.id;
                 adminLocaleLanguageService.postSaveLocaleLanguageInfo({}, tempData, function (data) {
                     console.log(data);
@@ -134,8 +134,8 @@
                         }
                     }
                 });
-            } else if (tempData.id) {
-                adminLocaleLanguageService.postUpdateLocaleLanguageInfo({}, tempData, function (data) {
+            } else if (tempData.code) {
+                adminLocaleLanguageService.patchUpdateLocaleLanguageInfo({}, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -156,9 +156,9 @@
          * @return null
          */
         $scope.deleteLocaleLanguage = function (localeLanguage) {
-            if (localeLanguage.id) {
+            if (localeLanguage.code) {
                 $rootScope.alertConfirm(function () {
-                    adminLocaleLanguageService.getDeleteLocaleLanguageInfoById({ id: localeLanguage.id }, {}, function (data) {
+                    adminLocaleLanguageService.deleteLocaleLanguage({ code: localeLanguage.code }, {}, function (data) {
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
                                 $scope.initLocaleLanguageData();
@@ -172,18 +172,15 @@
             }
         };
 
-        // 添加按钮
+        // 添加的本地语言
         $scope.addLocaleLanguage = function () {
             $scope.localeLanguageAoData = {};
-            $scope.localeLanguage.unshift({
-                'id': null,
-                'localeLanguageName': '',
-                'localeLanguageType': '',
-                'localeLanguageStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
-            });
+            $scope.localeLanguageSearch = '';
+            $scope.localeLanguage.push({
+                "code": "",
+                "name": "",
+                "supported": true
+            })
         };
 
         /**
@@ -193,7 +190,7 @@
          */
 
         $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
+            if (item.code === '') {
                 $scope.localeLanguage.splice(index, 1);
             }
         };
@@ -220,7 +217,7 @@
             {
 
                 // 查询本地语言
-                getLocaleLanguageInfo: {
+                getLocaleLanguageList: {
                     method: 'GET',
                     params: {
                         action: 'getLocales' + EVN.suffix
@@ -236,7 +233,7 @@
                 },
 
                 // 修改本地语言
-                postUpdateLocaleLanguageInfo: {
+                patchUpdateLocaleLanguageInfo: {
                     method: 'PATCH',
                     params: {
                         action: 'patchLocales' + EVN.suffix
@@ -244,7 +241,7 @@
                 },
 
                 // 删除本地语言
-                getDeleteLocaleLanguageInfoById: {
+                deleteLocaleLanguage: {
                     method: 'delete',
                     params: {
                         action: 'deleteLocales' + EVN.suffix

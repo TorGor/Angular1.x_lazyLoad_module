@@ -223,8 +223,8 @@
         })
         .constant('EVN', {
             suffix: '.json',
-            server: ''
-            // server: 'http://madmin.ngrok.xiaomiqiu.cn'
+            // server: ''
+            server: 'http://madmin.ngrok.xiaomiqiu.cn'
         });
 })();
 (function() {
@@ -291,7 +291,7 @@
          */
 
         $scope.checkRequiredData = function(data) {
-            if (!data) {
+            if (data === '') {
                 return $translate.instant('alert_confirm.required_message');
             }
         };
