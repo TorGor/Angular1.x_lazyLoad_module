@@ -27,7 +27,7 @@
 
         // 初始化table数据
         $scope.initCommonModuleData = function () {
-            adminCommonModuleService.getCommonModuleInfo({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
+            adminCommonModuleService.getCommonModuleList({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -51,7 +51,7 @@
             var tempData = angular.extend({}, commonModule, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminCommonModuleService.postSaveCommonModuleInfo({}, tempData, function (data) {
+                adminCommonModuleService.saveCommonModuleInfo({}, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -63,7 +63,7 @@
                     }
                 });
             } else if (tempData.id) {
-                adminCommonModuleService.postUpdateCommonModuleInfo({}, tempData, function (data) {
+                adminCommonModuleService.updateCommonModuleInfo({}, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -86,7 +86,7 @@
         $scope.deleteCommonModule = function (commonModule) {
             if (commonModule.id) {
                 $rootScope.alertConfirm(function () {
-                    adminCommonModuleService.getDeleteCommonModuleInfoById({ id: commonModule.id }, {}, function (data) {
+                    adminCommonModuleService.deleteCommonModuleInfo({ id: commonModule.id }, {}, function (data) {
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
                                 $scope.initCommonModuleData();

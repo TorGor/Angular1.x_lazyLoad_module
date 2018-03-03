@@ -68,26 +68,28 @@
             var tempData = angular.extend({}, localeLanguage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminLocaleLanguageService.postSaveLocaleLanguageInfo({}, tempData, function (data) {
+                adminLocaleLanguageService.postSaveLocaleLanguageInfo(tempData, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.initLocaleLanguageData();
                             $rootScope.toasterSuccess(data.msg);
                         } else {
+                            $scope.initLocaleLanguageData();
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
                 });
             } else if (tempData.id) {
                 delete tempData.id;
-                adminLocaleLanguageService.patchUpdateLocaleLanguageInfo({}, tempData, function (data) {
+                adminLocaleLanguageService.patchUpdateLocaleLanguageInfo(tempData, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.initLocaleLanguageData();
                             $rootScope.toasterSuccess(data.msg);
                         } else {
+                            $scope.initLocaleLanguageData();
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }

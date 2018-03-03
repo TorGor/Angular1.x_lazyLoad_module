@@ -38,7 +38,7 @@
                 },
 
                 // 删除COMMONMODULETITLE
-                deleteCommonModuleInfoById: {
+                deleteCommonModuleInfo: {
                     method: 'GET',
                     params: {
                         action: '' + EVN.suffix

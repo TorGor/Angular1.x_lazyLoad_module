@@ -45,7 +45,7 @@
                             </td>
                             <td>
                                 <span editable-select="item.supported" e-name="supported"  e-form="rowform" e-required=""  e-ng-options="option.value as option.label for option in options">
-                                    {{ item.supported?('table.localeLanguage.th3ShowTrue' | translate):('table.localeLanguage.th3ShowFalse' | translate) }}
+                                    {{ item.supported == 1 ? ('table.localeLanguage.th3ShowTrue' | translate):('table.localeLanguage.th3ShowFalse' | translate) }}
                                 </span>
                             </td>
                             <td style="white-space: nowrap;">

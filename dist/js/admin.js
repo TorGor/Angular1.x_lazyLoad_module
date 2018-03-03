@@ -107,7 +107,7 @@
 
         // 初始化table数据
         $scope.initCountriesManageData = function () {
-            adminCountriesManageService.getCountriesManageInfo({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
+            adminCountriesManageService.getCountriesManageList({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -131,7 +131,7 @@
             var tempData = angular.extend({}, countriesManage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminCountriesManageService.postSaveCountriesManageInfo({}, tempData, function (data) {
+                adminCountriesManageService.saveCountriesManageInfo({}, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -143,7 +143,7 @@
                     }
                 });
             } else if (tempData.id) {
-                adminCountriesManageService.postUpdateCountriesManageInfo({}, tempData, function (data) {
+                adminCountriesManageService.updateCountriesManageInfo({}, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -166,7 +166,7 @@
         $scope.deleteCountriesManage = function (countriesManage) {
             if (countriesManage.id) {
                 $rootScope.alertConfirm(function () {
-                    adminCountriesManageService.getDeleteCountriesManageInfoById({ id: countriesManage.id }, {}, function (data) {
+                    adminCountriesManageService.updateCountriesManageInfo({ id: countriesManage.id }, {}, function (data) {
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
                                 $scope.initCountriesManageData();
@@ -337,26 +337,28 @@
             var tempData = angular.extend({}, localeLanguage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminLocaleLanguageService.postSaveLocaleLanguageInfo({}, tempData, function (data) {
+                adminLocaleLanguageService.postSaveLocaleLanguageInfo(tempData, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.initLocaleLanguageData();
                             $rootScope.toasterSuccess(data.msg);
                         } else {
+                            $scope.initLocaleLanguageData();
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
                 });
             } else if (tempData.id) {
                 delete tempData.id;
-                adminLocaleLanguageService.patchUpdateLocaleLanguageInfo({}, tempData, function (data) {
+                adminLocaleLanguageService.patchUpdateLocaleLanguageInfo(tempData, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.initLocaleLanguageData();
                             $rootScope.toasterSuccess(data.msg);
                         } else {
+                            $scope.initLocaleLanguageData();
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
