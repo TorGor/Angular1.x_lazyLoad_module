@@ -34,11 +34,11 @@
                         // YOUR RESOLVES GO HERE
                         userInfo: ['userSelfService', 'EVN', '$timeout','$rootScope', function (userSelfService, EVN, $timeout,$rootScope) {
                             userSelfService.getUserSelfInfo({},{},function (data) {
-                                console.log(data,'---------')
-                                // $rootScope.user = {
-                                //     name: 'admin',
-                                //     job: 'welcome'
-                                // };
+                                window.userInfo = angular.copy(data.data);
+                                $rootScope.user = {
+                                    system: 'admin',
+                                    name: data.data && data.data.name
+                                };
                             },function (error) {
                                 $timeout(function() {
                                     window.location.href = '/login.html';

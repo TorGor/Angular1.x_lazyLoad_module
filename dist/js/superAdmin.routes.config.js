@@ -28,7 +28,26 @@
                 url: '/superAdmin',
                 abstract: true,
                 templateUrl: RouteHelpersProvider.basepath('app.html'),
-                resolve: RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'datetimepicker', 'superAdmin')
+                resolve: angular.extend(
+                    RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'datetimepicker', 'superAdmin'), {
+                        // YOUR RESOLVES GO HERE
+                        userInfo: ['userSelfService', 'EVN', '$timeout','$rootScope', function (userSelfService, EVN, $timeout,$rootScope) {
+                            userSelfService.getUserSelfInfo({},{},function (data) {
+                                window.userInfo = angular.copy(data.data);
+                                $rootScope.user = {
+                                    system: 'superAdmin',
+                                    name: data.data && data.data.name || ''
+                                };
+                                return true;
+                            },function (error) {
+                                $timeout(function() {
+                                    window.location.href = '/login.html';
+                                }, 10);
+                                return 'get User Info failed';
+                            });
+                        }]
+                    }
+                )
             })
             .state('superAdmin.menuManage', {
                 url: '/menu/manage',

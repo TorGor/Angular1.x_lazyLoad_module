@@ -13,8 +13,8 @@
         // User Settings
         // -----------------------------------
         $rootScope.user = {
-            name: 'admin',
-            job: 'welcome'
+            system: 'admin',
+            name: 'welcome'
         };
 
         // Hides/show user avatar on sidebar from any element
