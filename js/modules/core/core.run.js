@@ -61,6 +61,15 @@
         // Hooks Example
         // -----------------------------------
 
+        // Hook not start
+        $rootScope.$on('$stateChangeStart',
+            function(event, toState, toParams, fromState, fromParams) {
+                if(toState.permission){
+                    console.log(toState.permission, 'toState.permission')
+                }
+
+            });
+
         // Hook not found
         $rootScope.$on('$stateNotFound',
             function(event, unfoundState /* , fromState, fromParams */) {
