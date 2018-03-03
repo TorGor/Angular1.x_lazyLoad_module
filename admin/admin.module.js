@@ -8,6 +8,7 @@
             'app.core',
 			'admin.localeLanguage',
 			'admin.countriesManage',
+			'admin.userLevel',
 			//new module name will be append here
 
         ]);

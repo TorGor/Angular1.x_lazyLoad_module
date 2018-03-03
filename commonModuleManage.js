@@ -3,10 +3,10 @@
  */
 var moduleSetting = {
     //模块主要名称
-    common: 'Countries',
+    common: 'user',
     //模块主要名称2
-    module: 'Manage',
+    module: 'level',
     //模块标题
-    title: '国家管理',
+    title: '用户等级',
 };
 module.exports = moduleSetting;

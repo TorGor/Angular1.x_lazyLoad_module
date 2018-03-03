@@ -66,7 +66,16 @@
                 permission: 'countriesManage'
             })
             
+            .state('admin.userLevel', {
+                url: '/userLevel/manage',
+                title: 'userLevel Manage',
+                controller: 'UserLevelController',
+                templateUrl: RouteHelpersProvider.basepath('admin/userLevel/userLevel.html'),
+                permission: 'userLevel'
+            })
+            
             //new route name will be append here
+            
             
 
 

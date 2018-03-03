@@ -88,6 +88,12 @@
     'use strict';
 
     angular
+        .module('app.sidebar', []);
+})();
+(function() {
+    'use strict';
+
+    angular
         .module('app.settings', []);
 })();
 (function() {
@@ -95,12 +101,6 @@
 
     angular
         .module('app.translate', []);
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.sidebar', []);
 })();
 (function() {
     'use strict';
@@ -537,7 +537,7 @@
         .constant('EVN', {
             suffix: '.json',
             server: '',
-            server: 'http://madmin.ngrok.xiaomiqiu.cn',
+            // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             // server: 'http://mysqlserver.free.ngrok.cc'
         });
 })();
@@ -1292,131 +1292,6 @@
 
 
 (function() {
-
-
-    angular
-        .module('app.settings')
-        .run(settingsRun);
-
-    settingsRun.$inject = ['$rootScope', '$localStorage', '$translate'];
-
-    function settingsRun($rootScope, $localStorage, $translate) {
-
-
-        // User Settings
-        // -----------------------------------
-        $rootScope.user = {
-            system: 'admin',
-            name: 'welcome'
-        };
-
-        // Hides/show user avatar on sidebar from any element
-        $rootScope.toggleUserBlock = function() {
-            $rootScope.$broadcast('toggleUserBlock');
-        };
-
-        // Global Settings
-        // -----------------------------------
-        $rootScope.app = {
-            name: 'Angle',
-            year: ((new Date()).getFullYear()),
-            layout: {
-                isFixed: true,
-                isCollapsed: false,
-                isBoxed: false,
-                isRTL: false,
-                horizontal: false,
-                isFloat: false,
-                asideHover: false,
-                theme: 'css/theme-e.css',
-                asideScrollbar: false,
-                isCollapsedText: false
-            },
-            useFullLayout: false,
-            hiddenFooter: false,
-            offsidebarOpen: false,
-            asideToggled: false,
-        };
-
-        console.log($rootScope.app.layout, '$rootScope.app.layout');
-
-        // Setup the layout mode
-        $rootScope.app.layout.horizontal = ($rootScope.$stateParams.layout === 'app-h');
-
-        // Restore layout settings
-        if (angular.isDefined($localStorage.layout)) { $rootScope.app.layout = $localStorage.layout }
-        else { $localStorage.layout = $rootScope.app.layout }
-
-        $rootScope.$watch('app.layout', function () {
-            $localStorage.layout = $rootScope.app.layout;
-        }, true);
-
-        // Close submenu when sidebar change from collapsed to normal
-        $rootScope.$watch('app.layout.isCollapsed', function(newValue) {
-            if (newValue === false) { $rootScope.$broadcast('closeSidebarMenu') }
-        });
-
-    }
-
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.translate')
-        .config(translateConfig)
-        ;
-    translateConfig.$inject = ['$translateProvider'];
-    function translateConfig($translateProvider){
-
-      $translateProvider.useStaticFilesLoader({
-          prefix : 'i18n/',
-          suffix : '.json'
-      });
-
-      $translateProvider.preferredLanguage((window.navigator.language || window.navigator.language).indexOf('zh') !== -1 ? 'zh-CN' : 'en');
-      $translateProvider.useLocalStorage();
-      $translateProvider.usePostCompiling(true);
-      $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
-
-    }
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('app.translate')
-        .run(translateRun);
-
-    translateRun.$inject = ['$rootScope', '$translate', '$window'];
-
-    function translateRun($rootScope, $translate, $window) {
-        // Internationalization
-        // ----------------------
-
-        $rootScope.language = {
-            // display always the current ui language
-            init: function () {
-                var proposedLanguage = $translate.proposedLanguage() || $translate.use();
-                var preferredLanguage = $translate.preferredLanguage(); // we know we have set a preferred one in app.config
-                $rootScope.language.selected = proposedLanguage || preferredLanguage;
-            },
-            set: function (localeId) {
-                // Set the new idiom
-                $translate.use(localeId);
-                // save a reference for the current language
-                $rootScope.language.selected = localeId;
-
-                $window.location.reload();
-            }
-        };
-
-        $rootScope.language.init();
-
-    }
-})();
-(function() {
     'use strict';
 
     angular
@@ -1486,7 +1361,13 @@
                     "text": "国家管理",
                     "sref": "admin.countriesManage",
                     "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "用户等级",
+                    "sref": "admin.userLevel",
+                    "icon": "glyphicon glyphicon-th-large",
                 }//new sidebar name will be append here
+            
             
             
             ]
@@ -1829,6 +1710,131 @@
     }
 })();
 
+(function() {
+
+
+    angular
+        .module('app.settings')
+        .run(settingsRun);
+
+    settingsRun.$inject = ['$rootScope', '$localStorage', '$translate'];
+
+    function settingsRun($rootScope, $localStorage, $translate) {
+
+
+        // User Settings
+        // -----------------------------------
+        $rootScope.user = {
+            system: 'admin',
+            name: 'welcome'
+        };
+
+        // Hides/show user avatar on sidebar from any element
+        $rootScope.toggleUserBlock = function() {
+            $rootScope.$broadcast('toggleUserBlock');
+        };
+
+        // Global Settings
+        // -----------------------------------
+        $rootScope.app = {
+            name: 'Angle',
+            year: ((new Date()).getFullYear()),
+            layout: {
+                isFixed: true,
+                isCollapsed: false,
+                isBoxed: false,
+                isRTL: false,
+                horizontal: false,
+                isFloat: false,
+                asideHover: false,
+                theme: 'css/theme-e.css',
+                asideScrollbar: false,
+                isCollapsedText: false
+            },
+            useFullLayout: false,
+            hiddenFooter: false,
+            offsidebarOpen: false,
+            asideToggled: false,
+        };
+
+        console.log($rootScope.app.layout, '$rootScope.app.layout');
+
+        // Setup the layout mode
+        $rootScope.app.layout.horizontal = ($rootScope.$stateParams.layout === 'app-h');
+
+        // Restore layout settings
+        if (angular.isDefined($localStorage.layout)) { $rootScope.app.layout = $localStorage.layout }
+        else { $localStorage.layout = $rootScope.app.layout }
+
+        $rootScope.$watch('app.layout', function () {
+            $localStorage.layout = $rootScope.app.layout;
+        }, true);
+
+        // Close submenu when sidebar change from collapsed to normal
+        $rootScope.$watch('app.layout.isCollapsed', function(newValue) {
+            if (newValue === false) { $rootScope.$broadcast('closeSidebarMenu') }
+        });
+
+    }
+
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.translate')
+        .config(translateConfig)
+        ;
+    translateConfig.$inject = ['$translateProvider'];
+    function translateConfig($translateProvider){
+
+      $translateProvider.useStaticFilesLoader({
+          prefix : 'i18n/',
+          suffix : '.json'
+      });
+
+      $translateProvider.preferredLanguage((window.navigator.language || window.navigator.language).indexOf('zh') !== -1 ? 'zh-CN' : 'en');
+      $translateProvider.useLocalStorage();
+      $translateProvider.usePostCompiling(true);
+      $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
+
+    }
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('app.translate')
+        .run(translateRun);
+
+    translateRun.$inject = ['$rootScope', '$translate', '$window'];
+
+    function translateRun($rootScope, $translate, $window) {
+        // Internationalization
+        // ----------------------
+
+        $rootScope.language = {
+            // display always the current ui language
+            init: function () {
+                var proposedLanguage = $translate.proposedLanguage() || $translate.use();
+                var preferredLanguage = $translate.preferredLanguage(); // we know we have set a preferred one in app.config
+                $rootScope.language.selected = proposedLanguage || preferredLanguage;
+            },
+            set: function (localeId) {
+                // Set the new idiom
+                $translate.use(localeId);
+                // save a reference for the current language
+                $rootScope.language.selected = localeId;
+
+                $window.location.reload();
+            }
+        };
+
+        $rootScope.language.init();
+
+    }
+})();
 /**=========================================================
  * Module: animate-enabled.js
  * Enable or disables ngAnimate for element with directive

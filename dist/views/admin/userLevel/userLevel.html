@@ -1,0 +1,97 @@
+<div class="row">
+   <div class="panel panel-default">
+      <div class="panel-wrapper">
+         <div class="panel-body">
+            <span class="form-group add-button-class">
+               <button class="btn btn-primary" ng-click="addUserLevel()" type="button" translate="table.button.add">
+                  新增
+               </button>
+            </span>
+            <form class="form-inline pull-right add-button-class" role="form">
+               <div style="position: relative" class="form-group">
+                  <span style="position: absolute;left: 4px;top: 6px">
+                     <em class="fa fa-search"></em>
+                  </span>
+                  <input class="form-control" type="text" ng-model="userLevelSearch" placeholder="{{searchPlaceholder(['table.userLevel.th1', 'table.userLevel.th2', 'table.userLevel.th3'])}}">
+               </div>
+            </form>
+            <div web-data-table items="userLevel" ao-data="userLevelAoData" search="userLevelSearch" reload="userLevelReload" show-items="showUserLevel">
+               <table width="100%" class="table table-bordered table-hover bg-white">
+                  <thead>
+                     <tr class="bg-gray-light text-bold">
+                        <td style="width: 12%" ao-data="userLevelAoData" web-data-table-sort="code">
+                           {{'table.userLevel.th1' | translate}}
+                        </td>
+                        <td style="width: 12%" ao-data="userLevelAoData" web-data-table-sort="default">
+                           {{'table.userLevel.th2' | translate}}
+                        </td>
+                        <td style="width: 12%" ao-data="userLevelAoData" web-data-table-sort="level">
+                           {{'table.userLevel.th3' | translate}}
+                        </td>
+                        <td style="width: 12%">
+                           {{'table.userLevel.th4' | translate}}
+                        </td>
+                        <td style="width: 12%">
+                           {{'table.userLevel.th5' | translate}}
+                        </td>
+                        <td style="width: 12%">
+                           {{'table.userLevel.th6' | translate}}
+                        </td>
+                        <td style="width: 15%">{{'table.button.operation' | translate}}</td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng-repeat="item in showUserLevel">
+                        <td>
+                           <span editable-text="item.code" e-name="code" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
+                        </td>
+                        <td>
+                           <span editable-text="item.default" e-name="default" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.default || '' }}</span>
+                        </td>
+                        <td>
+                           <span editable-text="item.level" e-name="level" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.level || '' }}</span>
+                        </td>
+                        <td>
+                           <span>
+                              <button class="btn btn-sm btn-info" ng-click="">明细</button>
+                           </span>
+                        </td>
+                        <td>
+                           <span>
+                              <button class="btn btn-sm btn-info" ng-click="">明细</button>
+                           </span>
+                        </td>
+                        <td>
+                           <span>
+                              <button class="btn btn-sm btn-info" ng-click="">明细</button>
+                           </span>
+                        </td>
+                        <td style="white-space: nowrap;">
+                           <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveUserLevel(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
+                              <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
+                                 <em class="fa fa-save"></em>
+                              </button>
+                              <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSave(item,$index)" title="{{'table.button.cancel' | translate}}">
+                                 <em class="fa fa-times"></em>
+                              </button>
+                           </form>
+                           <div class="buttons" ng-show="!rowform.$visible">
+                              <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                 <em class="fa fa-pencil"></em>
+                              </button>
+                              <button class="btn btn-sm btn-danger" ng-click="deleteUserLevel(item)" title="{{'table.button.delete' | translate}}">
+                                 <em class="fa fa-trash"></em>
+                              </button>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr ng-show="showUserLevel.length==0">
+                        <td colspan="7" class="">{{'table.no_date' | translate}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

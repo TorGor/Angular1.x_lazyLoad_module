@@ -1,38 +1,41 @@
 (function() {
 
     angular
-        .module('admin.commonModule')
-        .controller('CommonModuleController', CommonModuleController);
+        .module('admin.userLevel')
+        .controller('UserLevelController', UserLevelController);
 
-    CommonModuleController.$inject = [
+    UserLevelController.$inject = [
         '$scope',
         '$rootScope',
-        'adminCommonModuleService'
+        'adminUserLevelService'
     ];
 
-    function CommonModuleController(
+    function UserLevelController(
         $scope,
         $rootScope,
-        adminCommonModuleService
+        adminUserLevelService
     ) {
 
         // 原始的数据
-        $scope.commonModule = [];
+        $scope.userLevel = [];
 
         // 过滤出来的数据
-        $scope.showCommonModule = [];
-        $scope.commonModuleReload = 1;
-        $scope.commonModuleAoData = {};
-        $scope.commonModuleSearch = '';
+        $scope.showUserLevel = [];
+        $scope.userLevelReload = 1;
+        $scope.userLevelAoData = {};
+        $scope.userLevelSearch = '';
 
         // 初始化table数据
-        $scope.initCommonModuleData = function () {
-            $scope.commonModule = [];
-            adminCommonModuleService.getCommonModuleList({}, {}, function (data) {
+        $scope.initUserLevelData = function () {
+            $scope.userLevel = [];
+            adminUserLevelService.getUserLevelList({}, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
-                        $scope.commonModule = angular.copy(data.data);
+                        $scope.userLevel = angular.copy(data.data);
+                        $scope.userLevel.forEach(function (userLevelItem, userLevelIndex) {
+                            userLevelItem.id = userLevelIndex +1
+                        })
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
                     }
@@ -44,19 +47,19 @@
         // 保存
         /**
          *
-         * @param commonModule COMMONMODULETITLE数据对象
+         * @param userLevel 用户等级数据对象
          * @param item
          */
 
-        $scope.saveCommonModule = function (commonModule, item) {
-            var tempData = angular.extend({}, commonModule, item);
+        $scope.saveUserLevel = function (userLevel, item) {
+            var tempData = angular.extend({}, userLevel, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminCommonModuleService.saveCommonModuleInfo({}, tempData, function (data) {
+                adminUserLevelService.saveUserLevelInfo({}, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
-                            $scope.initCommonModuleData();
+                            $scope.initUserLevelData();
                             $rootScope.toasterSuccess(data.msg);
                         } else {
                             $rootScope.alertErrorMsg(data.msg);
@@ -64,11 +67,11 @@
                     }
                 });
             } else if (tempData.id) {
-                adminCommonModuleService.updateCommonModuleInfo({}, tempData, function (data) {
+                adminUserLevelService.updateUserLevelInfo({}, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
-                            $scope.initCommonModuleData();
+                            $scope.initUserLevelData();
                             $rootScope.toasterSuccess(data.msg);
                         } else {
                             $rootScope.alertErrorMsg(data.msg);
@@ -79,18 +82,18 @@
             return '';
         };
 
-        // 删除commonModule
+        // 删除userLevel
         /**
-         * @param commonModule COMMONMODULETITLE数据对象
+         * @param userLevel 用户等级数据对象
          * @return null
          */
-        $scope.deleteCommonModule = function (commonModule) {
-            if (commonModule.id) {
+        $scope.deleteUserLevel = function (userLevel) {
+            if (userLevel.id) {
                 $rootScope.alertConfirm(function () {
-                    adminCommonModuleService.deleteCommonModuleInfo({ id: commonModule.id }, {}, function (data) {
+                    adminUserLevelService.deleteUserLevelInfo({ id: userLevel.id }, {}, function (data) {
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
-                                $scope.initCommonModuleData();
+                                $scope.initUserLevelData();
                                 $rootScope.toasterSuccess(data.msg);
                             } else {
                                 $rootScope.alertErrorMsg(data.msg);
@@ -103,34 +106,40 @@
         };
 
         // 添加按钮
-        $scope.addCommonModule = function () {
-            $scope.commonModuleAoData = {};
-            $scope.commonModuleSearch = '';
-            $scope.commonModule.unshift({
+        $scope.addUserLevel = function () {
+            if(!$scope.userLevel.every(function (userLevelItem) {
+                    return userLevelItem.id
+                })){
+                $rootScope.alertErrorMsg('current item needed save');
+                return;
+            }
+            $scope.userLevelAoData = {};
+            $scope.userLevelSearch = '';
+            $scope.userLevel.unshift({
                 'id': null,
-                'commonModuleName': '',
-                'commonModuleType': '',
-                'commonModuleStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                'code': '',
+                'default': 1,
+                'level': '1',
+                'conditions': [],
+                'treatments': [],
+                'rebates': []
             });
         };
 
         /**
          *
-         * @param item 添加的COMMONMODULETITLE
+         * @param item 添加的用户等级
          * @param index 添加的index
          */
 
         $scope.cancelSave = function (item, index) {
             if (item.id == null) {
-                $scope.commonModule.splice(index, 1);
+                $scope.userLevel.splice(index, 1);
             }
         };
 
         // 页面加载执行的函数
 
-        $scope.initCommonModuleData();
+        $scope.initUserLevelData();
     }
 })();

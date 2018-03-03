@@ -68,7 +68,13 @@
                     "text": "国家管理",
                     "sref": "admin.countriesManage",
                     "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "用户等级",
+                    "sref": "admin.userLevel",
+                    "icon": "glyphicon glyphicon-th-large",
                 }//new sidebar name will be append here
+            
             
             
             ]
