@@ -56,7 +56,16 @@
                 permission: 'localeLanguage'
             })
 
+            .state('admin.countriesManage', {
+                url: '/countriesManage/manage',
+                title: 'countriesManage Manage',
+                controller: 'CountriesManageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/countriesManage/countriesManage.html'),
+                permission: 'countriesManage'
+            })
+            
             //new route name will be append here
+            
 
 
             .state('admin.buttonManage', {

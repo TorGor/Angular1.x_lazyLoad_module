@@ -40,11 +40,11 @@
                 }, function (response) {
                     console.log(response, 'response');
                     if (response.success && response.data == 'true') {
-                        // if ($scope.account.isSuper == 1) {
-                        //     window.location.href = '/admin.html';
-                        // } else {
-                        //     window.location.href = '/admin.html';
-                        // }
+                        if ($scope.account.isSuper == '1') {
+                            window.location.href = '/superAdmin.html';
+                        } else {
+                            window.location.href = '/admin.html';
+                        }
                     } else {
                         $scope.authMsg = response.msg;
                     }

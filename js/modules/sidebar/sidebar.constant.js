@@ -68,7 +68,13 @@
                     "text": "本地语言",
                     "sref": "admin.localeLanguage",
                     "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "国家管理",
+                    "sref": "admin.countriesManage",
+                    "icon": "glyphicon glyphicon-th-large",
                 }//new sidebar name will be append here
+            
             
             ]
 

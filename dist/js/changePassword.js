@@ -34,7 +34,7 @@
                 if (data.success) {
                     changePasswordService.postUpdatePassWord({}, {password: $scope.account.password0}, function (data) {
                         if (data.success) {
-                            // window.location.href = '/login.html';
+                            window.location.href = '/login.html';
                         } else {
                             $scope.updatePasswordMsg = data.msg || '';
                         }
