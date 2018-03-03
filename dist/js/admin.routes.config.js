@@ -42,6 +42,7 @@
                             //     }, 10);
                             //     return '';
                             // });
+                            window.userInfo = 'wangjinyang'
                             return '';
                         }]
                     }
