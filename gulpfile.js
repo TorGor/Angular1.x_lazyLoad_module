@@ -593,11 +593,11 @@ gulp.task('addModuleNameToAppSidebar', function () {
     return gulp.src(['./js/modules/sidebar/sidebar.constant.js'], {base: '.'})
         .pipe($.replace(new RegExp(str, 'g'),
             `,
-            {
-                "text": "${needRepalce['COMMONMODULETITLE']}",
-                "sref": "admin.${needRepalce['commonModule']}",
-                "icon": "glyphicon glyphicon-th-large",
-            }//new sidebar name will be append here
+                {
+                    "text": "${needRepalce['COMMONMODULETITLE']}",
+                    "sref": "admin.${needRepalce['commonModule']}",
+                    "icon": "glyphicon glyphicon-th-large",
+                }//new sidebar name will be append here
             `))
         .pipe(gulp.dest('.'));
 });
