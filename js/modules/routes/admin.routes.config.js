@@ -32,18 +32,19 @@
                 resolve: angular.extend(
                     RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'datetimepicker', 'admin'), {
                         // YOUR RESOLVES GO HERE
-                        userInfo: ['$http', 'EVN', '$timeout', function ($http, EVN, $timeout) {
-                            // $http.get(EVN.server + '/user/getUserInfo' + EVN.suffix, {}).then(function(data) {
-                            //     window.userInfo = angular.copy(data.data);
-                            //     return angular.copy(data.data);
-                            // }, function(error) {
-                            //     $timeout(function() {
-                            //         window.location.href = '/login.html';
-                            //     }, 10);
-                            //     return '';
-                            // });
-                            window.userInfo = 'wangjinyang'
-                            return '';
+                        userInfo: ['userSelfService', 'EVN', '$timeout','$rootScope', function (userSelfService, EVN, $timeout,$rootScope) {
+                            userSelfService.getUserSelfInfo({},{},function (data) {
+                                console.log(data,'---------')
+                                // $rootScope.user = {
+                                //     name: 'admin',
+                                //     job: 'welcome'
+                                // };
+                            },function (error) {
+                                $timeout(function() {
+                                    window.location.href = '/login.html';
+                                }, 10);
+                                return 'get User Info failed';
+                            });
                         }]
                     }
                 )

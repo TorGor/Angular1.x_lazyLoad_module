@@ -60,11 +60,6 @@
             ],
             admin: [
                 {
-                    "text": "未找到",
-                    "sref": "page.403",
-                    "icon": "glyphicon glyphicon-th-large",
-                },
-                {
                     "text": "本地语言",
                     "sref": "admin.localeLanguage",
                     "icon": "glyphicon glyphicon-th-large",

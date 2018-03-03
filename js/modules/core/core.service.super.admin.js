@@ -2,8 +2,9 @@
     
 
     angular
-        .module('superAdmin')
-        .factory('superAdminService', superAdminService);
+        .module('app.core')
+        .factory('superAdminService', superAdminService)
+        .factory('userSelfService', userSelfService);
 
     superAdminService.$inject = ['$resource', 'EVN'];
 
@@ -218,6 +219,27 @@
                         action: 'findRoleMenuByRoleId' + EVN.suffix
                     }
                 },
+            }
+        );
+    }
+
+    userSelfService.$inject = ['$resource', 'EVN'];
+
+    /* @ngInject */
+    function userSelfService($resource, EVN) {
+        return $resource(EVN.server + '/user/:action',
+            {},
+            {
+                // 菜单维护模块
+
+                // 3.1 查询一级菜单
+                getUserSelfInfo: {
+                    method: 'GET',
+                    params: {
+                        action: 'getUserInfo' + EVN.suffix
+                    }
+                },
+
             }
         );
     }
