@@ -466,7 +466,7 @@ gulp.task('watch', function () {
 
     gulp.watch(source.scripts, ['scripts:app']);
     gulp.watch(source.superAdmin, ['scripts:superAdmin']);
-    gulp.watch(source.superAdmin, ['scripts:admin']);
+    gulp.watch(source.admin, ['scripts:admin']);
     gulp.watch(source.login, ['scripts:login']);
     gulp.watch(source.static, ['scripts:static']);
     gulp.watch(source.changePassword, ['scripts:changePassword']);

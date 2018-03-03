@@ -12,16 +12,16 @@
                   <span style="position: absolute;left: 4px;top: 6px">
                      <em class="fa fa-search"></em>
                   </span>
-                  <input class="form-control" type="text" ng-model="localeLanguageSearch" placeholder="{{searchPlaceholder(['table.localeLanguage.th1', 'table.localeLanguage.th2', 'table.localeLanguage.th3'])}}">
+                  <input class="form-control" type="text" ng-model="localeLanguageSearch" placeholder="{{searchPlaceholder(['table.localeLanguage.th1', 'table.localeLanguage.th2'])}}">
                </div>
             </form>
             <div web-data-table items="localeLanguage" ao-data="localeLanguageAoData" search="localeLanguageSearch" reload="localeLanguageReload" show-items="showLocaleLanguage">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
-                        <td style="width: 40%" ao-data="localeLanguageAoData" web-data-table-sort="code">{{'table.localeLanguage.th1' | translate}}</td>
-                        <td style="width: 40%" ao-data="localeLanguageAoData" web-data-table-sort="name">{{'table.localeLanguage.th2' | translate}}</td>
-                        <td style="width: 40%" ao-data="localeLanguageAoData" web-data-table-sort="supported">{{'table.localeLanguage.th3' | translate}}</td>
+                        <td style="width: 30%" ao-data="localeLanguageAoData" web-data-table-sort="code">{{'table.localeLanguage.th1' | translate}}</td>
+                        <td style="width: 30%" ao-data="localeLanguageAoData" web-data-table-sort="name">{{'table.localeLanguage.th2' | translate}}</td>
+                        <td style="width: 10%" ao-data="localeLanguageAoData" web-data-table-sort="supported">{{'table.localeLanguage.th3' | translate}}</td>
                         <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
@@ -34,12 +34,12 @@
                            <span editable-text="item.name" e-name="name" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
                         </td>
                         <td>
-                           <span editable-select="item.roleStatus" e-name="supported" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in [{value:false,label:'false'},{value:true,label:'true'}]">
-                              {{ item.supported }}
+                           <span editable-select="item.supported" e-name="supported" e-form="rowform" e-required="" e-ng-options="option.value as option.label for option in options">
+                              {{ item.supported?('table.localeLanguage.th3ShowTrue' | translate):('table.localeLanguage.th3ShowFalse' | translate) }}
                            </span>
                         </td>
                         <td style="white-space: nowrap;">
-                           <form class="form-buttons form-inline" editable-form name="rowform" onbeforesave="saveLocaleLanguage(item, $data)" ng-show="rowform.$visible" shown="item.code == null">
+                           <form class="form-buttons form-inline" editable-form name="rowform" onbeforesave="saveLocaleLanguage(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
                               <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                  <em class="fa fa-save"></em>
                               </button>
@@ -57,7 +57,7 @@
                            </div>
                         </td>
                      </tr>
-                     <tr ng-show="showRoles.length==0">
+                     <tr ng-show="showLocaleLanguage.length==0">
                         <td colspan="4" class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>

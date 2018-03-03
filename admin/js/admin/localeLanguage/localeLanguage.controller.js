@@ -7,17 +7,30 @@
     LocaleLanguageController.$inject = [
         '$scope',
         '$rootScope',
-        'adminLocaleLanguageService'
+        'adminLocaleLanguageService',
+        '$translate'
     ];
 
     function LocaleLanguageController(
         $scope,
         $rootScope,
-        adminLocaleLanguageService
+        adminLocaleLanguageService,
+        $translate
     ) {
 
         // 原始的数据
         $scope.localeLanguage = [];
+
+        $scope.options = [
+            {
+                value:'0',
+                label:$translate.instant('table.localeLanguage.th3ShowFalse')
+            },
+            {
+                value:'1',
+                label:$translate.instant('table.localeLanguage.th3ShowTrue')
+            }
+        ];
 
         // 过滤出来的数据
         $scope.showLocaleLanguage = [];
@@ -32,6 +45,10 @@
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
                         $scope.localeLanguage = angular.copy(data.data);
+                        $scope.localeLanguage.forEach(function (localeLanguageItem, localeLanguageIndex) {
+                            localeLanguageItem.id = localeLanguageIndex +1;
+                            localeLanguageItem.supported = localeLanguageItem.supported ? '1' : '0';
+                        });
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
                     }
@@ -49,7 +66,7 @@
 
         $scope.saveLocaleLanguage = function (localeLanguage, item) {
             var tempData = angular.extend({}, localeLanguage, item);
-            if (!tempData.code) {
+            if (!tempData.id) {
                 delete tempData.id;
                 adminLocaleLanguageService.postSaveLocaleLanguageInfo({}, tempData, function (data) {
                     console.log(data);
@@ -62,7 +79,8 @@
                         }
                     }
                 });
-            } else if (tempData.code) {
+            } else if (tempData.id) {
+                delete tempData.id;
                 adminLocaleLanguageService.patchUpdateLocaleLanguageInfo({}, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
@@ -104,10 +122,11 @@
         $scope.addLocaleLanguage = function () {
             $scope.localeLanguageAoData = {};
             $scope.localeLanguageSearch = '';
-            $scope.localeLanguage.push({
+            $scope.localeLanguage.unshift({
+                "id": null,
                 "code": "",
                 "name": "",
-                "supported": true
+                "supported": '1'
             })
         };
 
@@ -118,7 +137,7 @@
          */
 
         $scope.cancelSave = function (item, index) {
-            if (item.code === '') {
+            if (item.id == null) {
                 $scope.localeLanguage.splice(index, 1);
             }
         };

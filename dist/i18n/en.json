@@ -72,6 +72,13 @@
           "th2":"Password",
           "th3":"Create Time",
           "th4":"Status"
+      },
+      "localeLanguage":{
+          "th1":"Code",
+          "th2":"Name",
+          "th3":"Supported",
+          "th3ShowTrue":"Yes",
+          "th3ShowFalse":"No"
       }
   },
   "panel_tile":{
