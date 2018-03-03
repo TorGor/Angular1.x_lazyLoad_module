@@ -39,7 +39,7 @@
                            </span>
                         </td>
                         <td style="white-space: nowrap;">
-                           <form class="form-buttons form-inline" editable-form name="rowform" onbeforesave="saveLocaleLanguage(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
+                           <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveLocaleLanguage(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
                               <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                  <em class="fa fa-save"></em>
                               </button>

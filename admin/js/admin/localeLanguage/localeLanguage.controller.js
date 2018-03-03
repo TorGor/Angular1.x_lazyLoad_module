@@ -40,6 +40,7 @@
 
         // 初始化table数据
         $scope.initLocaleLanguageData = function () {
+            $scope.localeLanguage = [];
             adminLocaleLanguageService.getLocaleLanguageList({}, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
@@ -75,7 +76,6 @@
                             $scope.initLocaleLanguageData();
                             $rootScope.toasterSuccess(data.msg);
                         } else {
-                            $scope.initLocaleLanguageData();
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
@@ -89,13 +89,13 @@
                             $scope.initLocaleLanguageData();
                             $rootScope.toasterSuccess(data.msg);
                         } else {
-                            $scope.initLocaleLanguageData();
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
                 });
             }
 
+            return '';
         };
 
         // 删除localeLanguage

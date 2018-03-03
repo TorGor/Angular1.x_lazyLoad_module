@@ -27,6 +27,7 @@
 
         // 初始化table数据
         $scope.initCommonModuleData = function () {
+            $scope.commonModule = [];
             adminCommonModuleService.getCommonModuleList({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
@@ -75,7 +76,7 @@
                     }
                 });
             }
-
+            return '';
         };
 
         // 删除commonModule
@@ -93,6 +94,7 @@
                                 $rootScope.toasterSuccess(data.msg);
                             } else {
                                 $rootScope.alertErrorMsg(data.msg);
+                                return '';
                             }
                         }
                     });

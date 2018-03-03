@@ -72,10 +72,10 @@
                 delete tempData.id;
                 superAdminService.postSaveUserInfo({}, tempData, function (data) {
                     console.log(data);
+                    $scope.adminsReload++;
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $rootScope.toasterSuccess(data.msg);
-                            $scope.adminsReload++;
                         } else {
                             $rootScope.alertErrorMsg(data.msg);
                         }
@@ -84,16 +84,17 @@
             } else if (tempData.id) {
                 superAdminService.postUpdateUserInfo({}, tempData, function (data) {
                     console.log(data);
+                    $scope.adminsReload++;
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $rootScope.toasterSuccess(data.msg);
-                            $scope.adminsReload++;
                         } else {
                             $rootScope.alertErrorMsg(data.msg);
                         }
                     }
                 });
             }
+            return '';
 
         };
 

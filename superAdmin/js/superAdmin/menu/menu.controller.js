@@ -66,6 +66,7 @@
          * @return null
          */
         $scope.getSecondLevelMenu = function (oneLevelMenu) {
+            $scope.twoLevelMenus = [];
             $scope.currentSelectMenu = angular.copy(oneLevelMenu);
             if ($scope.currentSelectMenu['showSecond'] !== undefined) {
                 delete $scope.currentSelectMenu['showSecond'];
@@ -123,6 +124,7 @@
                     }
                 }
             });
+            return '';
         };
 
         // 添加二级菜单

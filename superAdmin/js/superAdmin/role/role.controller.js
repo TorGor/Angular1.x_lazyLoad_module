@@ -28,6 +28,7 @@
 
         // 初始化table数据
         $scope.initRolesData = function () {
+            $scope.roles = [];
             superAdminService.getFindPageRoleInfo({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
@@ -75,7 +76,7 @@
                     }
                 });
             }
-
+            return '';
         };
 
         // 删除role

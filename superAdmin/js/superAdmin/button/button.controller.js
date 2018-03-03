@@ -73,6 +73,7 @@
             if ($event) {
                 $event.stopPropagation();
             }
+            $scope.buttons = [];
             console.log(secondLevelMenu, 'getSecondLevelButtons');
             $scope.currentSelectMenu = angular.copy(secondLevelMenu);
             if (secondLevelMenu.id) {
@@ -124,7 +125,7 @@
                     }
                 });
             }
-
+            return '';
         };
 
         // 删除按钮

@@ -60,7 +60,7 @@
                             </td>
                             <td style="white-space: nowrap;">
                                 <form class="form-buttons form-inline" editable-form name="rowform"
-                                      onbeforesave="saveCommonModule(item, $data)" ng-show="rowform.$visible"
+                                      onaftersave="saveCommonModule(item, $data)" ng-show="rowform.$visible"
                                       shown="item.id == null">
                                     <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
                                             title="{{'table.button.save' | translate}}">
