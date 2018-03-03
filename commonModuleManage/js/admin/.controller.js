@@ -103,6 +103,7 @@
         // 添加按钮
         $scope.addCommonModule = function () {
             $scope.commonModuleAoData = {};
+            $scope.commonModuleSearch = '';
             $scope.commonModule.unshift({
                 'id': null,
                 'commonModuleName': '',

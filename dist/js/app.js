@@ -39,18 +39,6 @@
     'use strict';
 
     angular
-        .module('app.lazyload', []);
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.loadingbar', []);
-})();
-(function() {
-    'use strict';
-
-    angular
         .module('app.core', [
             'ngRoute',
             'ngAnimate',
@@ -73,10 +61,29 @@
     'use strict';
 
     angular
+        .module('app.lazyload', []);
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.loadingbar', []);
+})();
+(function() {
+    'use strict';
+
+    angular
         .module('app.preloader', []);
 })();
 
 
+(function() {
+
+    angular
+        .module('app.routes', [
+            'app.lazyload'
+        ]);
+})();
 (function() {
     'use strict';
 
@@ -88,13 +95,6 @@
 
     angular
         .module('app.translate', []);
-})();
-(function() {
-
-    angular
-        .module('app.routes', [
-            'app.lazyload'
-        ]);
 })();
 (function() {
     'use strict';
@@ -161,6 +161,351 @@
 
 })();
 
+(function() {
+    'use strict';
+
+    angular
+        .module('app.core')
+        .config(coreConfig);
+
+    coreConfig.$inject = [
+        '$controllerProvider',
+        '$compileProvider',
+        '$filterProvider',
+        '$provide',
+        '$httpProvider',
+        '$animateProvider'
+    ];
+    function coreConfig(
+        $controllerProvider,
+        $compileProvider,
+        $filterProvider,
+        $provide,
+        $httpProvider,
+        $animateProvider
+    ){
+
+      var core = angular.module('app.core');
+      // registering components after bootstrap
+      core.controller = $controllerProvider.register;
+      core.directive  = $compileProvider.directive;
+      core.filter     = $filterProvider.register;
+      core.factory    = $provide.factory;
+      core.service    = $provide.service;
+      core.constant   = $provide.constant;
+      core.value      = $provide.value;
+
+      // Disables animation on items with class .ng-no-animation
+      $animateProvider.classNameFilter(/^((?!(ng-no-animation)).)*$/);
+
+      // Improve performance disabling debugging features
+      // $compileProvider.debugInfoEnabled(false);
+
+      $httpProvider.interceptors.push('customeInterceptor');
+
+    }
+
+})();
+/** =========================================================
+ * Module: constants.js
+ * Define constants to inject across the application
+ ========================================================= */
+
+(function() {
+
+    angular
+        .module('app.core')
+        .constant('APP_MEDIAQUERY', {
+            'desktopLG': 1200,
+            'desktop': 992,
+            'tablet': 768,
+            'mobile': 480
+        })
+        .constant('EVN', {
+            suffix: '.json',
+            server: ''
+            // server: 'http://madmin.ngrok.xiaomiqiu.cn'
+        });
+})();
+(function() {
+
+
+    angular
+        .module('app.core')
+        .controller('MainController', MainController);
+
+    MainController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$translate',
+        'SweetAlert',
+        'toaster'
+    ];
+
+    function MainController(
+        $scope,
+        $rootScope,
+        $translate,
+        SweetAlert,
+        toaster
+    ) {
+
+        /**
+         *
+         * @param value 0-禁用；1-启用；2-删除；
+         * @return {*}
+         */
+
+        // 0-禁用；1-启用；2-删除；
+        $scope.filter012OptionsValue = function (value) {
+            if (value == 0) {
+                return '<div class="label label-warning">' + $translate.instant('options.forbid') + '</div>';
+            } else if (value == 1) {
+                return '<div class="label label-success">' + $translate.instant('options.enable') + '</div>';
+            } else if (value == 2) {
+                return '<div class="label label-danger">' + $translate.instant('options.delete') + '</div>';
+            } else {
+                return '';
+            }
+        };
+
+
+        $scope.searchPlaceholder = function(param) {
+            if (window.Array.isArray(param)) {
+                var tempArr = param.map(function(item) {
+                    return $translate.instant(item);
+                });
+                return tempArr.join('/');
+            }
+            if (typeof param === 'string') {
+                return $translate.instant(param);
+            }
+            return '';
+        };
+
+
+        /**
+         *
+         * @param data 传入的值是否为空
+         * @return {string}
+         */
+
+        $scope.checkRequiredData = function(data) {
+            if (!data) {
+                return $translate.instant('alert_confirm.required_message');
+            }
+        };
+
+        /**
+         *
+         * @param msg string
+         */
+
+        // 全局报错机制成功
+        $rootScope.toasterSuccess = function (msg) {
+            toaster.pop('success', $translate.instant('alert_confirm.success'), msg);
+        };
+
+        $rootScope.alertErrorMsg = function (msg) {
+            SweetAlert.error($translate.instant('alert_confirm.error'), msg);
+        };
+
+
+        $rootScope.dateOptionsYYYMMDD = {
+            useCurrent: false,
+            locale: $rootScope.language.selected || 'en',
+            format: 'YYYY-MM-DD'
+        };
+
+        $rootScope.dateOptionsYYYMMDDHHMM = {
+            useCurrent: false,
+            locale: $rootScope.language.selected || 'en',
+            format: 'YYYY-MM-DD HH:MM'
+        };
+
+        /**
+         *
+         * @param callback 回调函数
+         */
+
+        // 删除确认
+        $rootScope.alertConfirm = function (callback) {
+            SweetAlert.swal({
+                title: $translate.instant('alert_confirm.title'),
+                text: $translate.instant('alert_confirm.text'),
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
+                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
+                closeOnConfirm: true
+            }, function(yes) {
+                if (yes) {
+                    callback();
+                }
+            });
+        };
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.core')
+        .factory('customeInterceptor', customeInterceptor);
+
+    customeInterceptor.$inject = ['$rootScope', '$timeout', '$injector', '$q','$window'];
+
+    function customeInterceptor($rootScope, $timeout, $injector, $q, $window) {
+        var requestInitiated;
+
+        function showLoadingText() {
+            $rootScope.isShowLoadingSpinner = true;
+        };
+
+        function hideLoadingText() {
+            $rootScope.isShowLoadingSpinner = false;
+        };
+
+        return {
+            request: function (config) {
+                requestInitiated = true;
+                showLoadingText();
+                return config;
+            },
+            response: function (response) {
+                requestInitiated = false;
+
+                // Show delay of 300ms so the popup will not appear for multiple http request
+                $timeout(function () {
+
+                    if (requestInitiated) return;
+                    hideLoadingText();
+
+                }, 300);
+
+                return response;
+            },
+            requestError: function (err) {
+                hideLoadingText();
+                return err;
+            },
+            responseError: function (err) {
+                hideLoadingText();
+                return $q.reject(err);
+            }
+        }
+    }
+
+})();
+(function() {
+
+
+    angular
+        .module('app.core')
+        .run(appRun);
+
+    appRun.$inject = [
+        '$rootScope',
+        '$state',
+        '$stateParams',
+        '$window',
+        '$templateCache',
+        'Colors',
+        'SweetAlert',
+        'toaster'
+    ];
+
+    function appRun(
+        $rootScope,
+        $state,
+        $stateParams,
+        $window,
+        $templateCache,
+        Colors,
+        SweetAlert,
+        toaster
+    ) {
+
+        // Hook into ocLazyLoad to setup AngularGrid before inject into the app
+        // See "Creating the AngularJS Module" at
+        // https://www.ag-grid.com/best-angularjs-data-grid/index.php
+        var offevent = $rootScope.$on('ocLazyLoad.fileLoaded', function(e, file) {
+            if (file.indexOf('ag-grid.js') > -1) {
+                agGrid.initialiseAgGridWithAngular1(angular);
+                offevent();
+            }
+        });
+
+        // Set reference to access them from any scope
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+        $rootScope.$storage = $window.localStorage;
+
+        // Uncomment this to disable template cache
+        // $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        //     if (typeof(toState) !== 'undefined'){
+        //       $templateCache.remove(toState.templateUrl);
+        //     }
+        // });
+
+        // Allows to use branding color with interpolation
+        // {{ colorByName('primary') }}
+        $rootScope.colorByName = Colors.byName;
+
+        // cancel click event easily
+        $rootScope.cancel = function($event) {
+            $event.stopPropagation();
+        };
+
+        // Hooks Example
+        // -----------------------------------
+
+        // Hook not start
+        $rootScope.$on('$stateChangeStart',
+            function(event, toState, toParams, fromState, fromParams) {
+                if(toState.permission){
+                    console.log(toState.permission, 'toState.permission')
+                }
+
+            });
+
+        // Hook not found
+        $rootScope.$on('$stateNotFound',
+            function(event, unfoundState /* , fromState, fromParams */) {
+                console.log(unfoundState.to); // "lazy.state"
+                console.log(unfoundState.toParams); // {a:1, b:2}
+                console.log(unfoundState.options); // {inherit:false} + default options
+            });
+        // Hook error
+        $rootScope.$on('$stateChangeError',
+            function(event, toState, toParams, fromState, fromParams, error) {
+                console.log(error);
+            });
+        // Hook success
+        $rootScope.$on('$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams) {
+                // display new view from top
+                $window.scrollTo(0, 0);
+                // Save the route title
+                // $rootScope.currTitle = $state.current.title;
+                $window.document.title = $state.current.title;
+            });
+
+        // Load a title dynamically
+        // $rootScope.currTitle = $state.current.title;
+        // $rootScope.pageTitle = function() {
+        //     var title = $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
+        //     document.title = title;
+        //     return title;
+        // };
+
+        $window.document.title = '';
+
+    }
+
+})();
 (function() {
     'use strict';
 
@@ -522,351 +867,6 @@
     'use strict';
 
     angular
-        .module('app.core')
-        .config(coreConfig);
-
-    coreConfig.$inject = [
-        '$controllerProvider',
-        '$compileProvider',
-        '$filterProvider',
-        '$provide',
-        '$httpProvider',
-        '$animateProvider'
-    ];
-    function coreConfig(
-        $controllerProvider,
-        $compileProvider,
-        $filterProvider,
-        $provide,
-        $httpProvider,
-        $animateProvider
-    ){
-
-      var core = angular.module('app.core');
-      // registering components after bootstrap
-      core.controller = $controllerProvider.register;
-      core.directive  = $compileProvider.directive;
-      core.filter     = $filterProvider.register;
-      core.factory    = $provide.factory;
-      core.service    = $provide.service;
-      core.constant   = $provide.constant;
-      core.value      = $provide.value;
-
-      // Disables animation on items with class .ng-no-animation
-      $animateProvider.classNameFilter(/^((?!(ng-no-animation)).)*$/);
-
-      // Improve performance disabling debugging features
-      // $compileProvider.debugInfoEnabled(false);
-
-      $httpProvider.interceptors.push('customeInterceptor');
-
-    }
-
-})();
-/** =========================================================
- * Module: constants.js
- * Define constants to inject across the application
- ========================================================= */
-
-(function() {
-
-    angular
-        .module('app.core')
-        .constant('APP_MEDIAQUERY', {
-            'desktopLG': 1200,
-            'desktop': 992,
-            'tablet': 768,
-            'mobile': 480
-        })
-        .constant('EVN', {
-            suffix: '.json',
-            server: ''
-            // server: 'http://madmin.ngrok.xiaomiqiu.cn'
-        });
-})();
-(function() {
-
-
-    angular
-        .module('app.core')
-        .controller('MainController', MainController);
-
-    MainController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$translate',
-        'SweetAlert',
-        'toaster'
-    ];
-
-    function MainController(
-        $scope,
-        $rootScope,
-        $translate,
-        SweetAlert,
-        toaster
-    ) {
-
-        /**
-         *
-         * @param value 0-禁用；1-启用；2-删除；
-         * @return {*}
-         */
-
-        // 0-禁用；1-启用；2-删除；
-        $scope.filter012OptionsValue = function (value) {
-            if (value == 0) {
-                return '<div class="label label-warning">' + $translate.instant('options.forbid') + '</div>';
-            } else if (value == 1) {
-                return '<div class="label label-success">' + $translate.instant('options.enable') + '</div>';
-            } else if (value == 2) {
-                return '<div class="label label-danger">' + $translate.instant('options.delete') + '</div>';
-            } else {
-                return '';
-            }
-        };
-
-
-        $scope.searchPlaceholder = function(param) {
-            if (window.Array.isArray(param)) {
-                var tempArr = param.map(function(item) {
-                    return $translate.instant(item);
-                });
-                return tempArr.join('/');
-            }
-            if (typeof param === 'string') {
-                return $translate.instant(param);
-            }
-            return '';
-        };
-
-
-        /**
-         *
-         * @param data 传入的值是否为空
-         * @return {string}
-         */
-
-        $scope.checkRequiredData = function(data) {
-            if (!data) {
-                return $translate.instant('alert_confirm.required_message');
-            }
-        };
-
-        /**
-         *
-         * @param msg string
-         */
-
-        // 全局报错机制成功
-        $rootScope.toasterSuccess = function (msg) {
-            toaster.pop('success', $translate.instant('alert_confirm.success'), msg);
-        };
-
-        $rootScope.alertErrorMsg = function (msg) {
-            SweetAlert.error($translate.instant('alert_confirm.error'), msg);
-        };
-
-
-        $rootScope.dateOptionsYYYMMDD = {
-            useCurrent: false,
-            locale: $rootScope.language.selected || 'en',
-            format: 'YYYY-MM-DD'
-        };
-
-        $rootScope.dateOptionsYYYMMDDHHMM = {
-            useCurrent: false,
-            locale: $rootScope.language.selected || 'en',
-            format: 'YYYY-MM-DD HH:MM'
-        };
-
-        /**
-         *
-         * @param callback 回调函数
-         */
-
-        // 删除确认
-        $rootScope.alertConfirm = function (callback) {
-            SweetAlert.swal({
-                title: $translate.instant('alert_confirm.title'),
-                text: $translate.instant('alert_confirm.text'),
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
-                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
-                closeOnConfirm: true
-            }, function(yes) {
-                if (yes) {
-                    callback();
-                }
-            });
-        };
-    }
-
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.core')
-        .factory('customeInterceptor', customeInterceptor);
-
-    customeInterceptor.$inject = ['$rootScope', '$timeout', '$injector', '$q','$window'];
-
-    function customeInterceptor($rootScope, $timeout, $injector, $q, $window) {
-        var requestInitiated;
-
-        function showLoadingText() {
-            $rootScope.isShowLoadingSpinner = true;
-        };
-
-        function hideLoadingText() {
-            $rootScope.isShowLoadingSpinner = false;
-        };
-
-        return {
-            request: function (config) {
-                requestInitiated = true;
-                showLoadingText();
-                return config;
-            },
-            response: function (response) {
-                requestInitiated = false;
-
-                // Show delay of 300ms so the popup will not appear for multiple http request
-                $timeout(function () {
-
-                    if (requestInitiated) return;
-                    hideLoadingText();
-
-                }, 300);
-
-                return response;
-            },
-            requestError: function (err) {
-                hideLoadingText();
-                return err;
-            },
-            responseError: function (err) {
-                hideLoadingText();
-                return $q.reject(err);
-            }
-        }
-    }
-
-})();
-(function() {
-
-
-    angular
-        .module('app.core')
-        .run(appRun);
-
-    appRun.$inject = [
-        '$rootScope',
-        '$state',
-        '$stateParams',
-        '$window',
-        '$templateCache',
-        'Colors',
-        'SweetAlert',
-        'toaster'
-    ];
-
-    function appRun(
-        $rootScope,
-        $state,
-        $stateParams,
-        $window,
-        $templateCache,
-        Colors,
-        SweetAlert,
-        toaster
-    ) {
-
-        // Hook into ocLazyLoad to setup AngularGrid before inject into the app
-        // See "Creating the AngularJS Module" at
-        // https://www.ag-grid.com/best-angularjs-data-grid/index.php
-        var offevent = $rootScope.$on('ocLazyLoad.fileLoaded', function(e, file) {
-            if (file.indexOf('ag-grid.js') > -1) {
-                agGrid.initialiseAgGridWithAngular1(angular);
-                offevent();
-            }
-        });
-
-        // Set reference to access them from any scope
-        $rootScope.$state = $state;
-        $rootScope.$stateParams = $stateParams;
-        $rootScope.$storage = $window.localStorage;
-
-        // Uncomment this to disable template cache
-        // $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        //     if (typeof(toState) !== 'undefined'){
-        //       $templateCache.remove(toState.templateUrl);
-        //     }
-        // });
-
-        // Allows to use branding color with interpolation
-        // {{ colorByName('primary') }}
-        $rootScope.colorByName = Colors.byName;
-
-        // cancel click event easily
-        $rootScope.cancel = function($event) {
-            $event.stopPropagation();
-        };
-
-        // Hooks Example
-        // -----------------------------------
-
-        // Hook not start
-        $rootScope.$on('$stateChangeStart',
-            function(event, toState, toParams, fromState, fromParams) {
-                if(toState.permission){
-                    console.log(toState.permission, 'toState.permission')
-                }
-
-            });
-
-        // Hook not found
-        $rootScope.$on('$stateNotFound',
-            function(event, unfoundState /* , fromState, fromParams */) {
-                console.log(unfoundState.to); // "lazy.state"
-                console.log(unfoundState.toParams); // {a:1, b:2}
-                console.log(unfoundState.options); // {inherit:false} + default options
-            });
-        // Hook error
-        $rootScope.$on('$stateChangeError',
-            function(event, toState, toParams, fromState, fromParams, error) {
-                console.log(error);
-            });
-        // Hook success
-        $rootScope.$on('$stateChangeSuccess',
-            function(event, toState, toParams, fromState, fromParams) {
-                // display new view from top
-                $window.scrollTo(0, 0);
-                // Save the route title
-                // $rootScope.currTitle = $state.current.title;
-                $window.document.title = $state.current.title;
-            });
-
-        // Load a title dynamically
-        // $rootScope.currTitle = $state.current.title;
-        // $rootScope.pageTitle = function() {
-        //     var title = $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
-        //     document.title = title;
-        //     return title;
-        // };
-
-        $window.document.title = '';
-
-    }
-
-})();
-(function() {
-    'use strict';
-
-    angular
         .module('app.preloader')
         .directive('preloader', preloader);
 
@@ -957,6 +957,90 @@
     }
 
 })();
+/** =========================================================
+ * Module: helpers.js
+ * Provides helper functions for routes definition
+ ========================================================= */
+
+(function() {
+
+    angular
+        .module('app.routes')
+        .provider('RouteHelpers', RouteHelpersProvider);
+
+    RouteHelpersProvider.$inject = ['APP_REQUIRES'];
+    function RouteHelpersProvider(APP_REQUIRES) {
+
+        /* jshint validthis:true */
+        return {
+        // provider access level
+            basepath: basepath,
+            resolveFor: resolveFor,
+            // controller access level
+            $get: function() {
+                return {
+                    basepath: basepath,
+                    resolveFor: resolveFor
+                };
+            }
+        };
+
+        // Set here the base of the relative path
+        // for all app views
+        function basepath(uri) {
+            return 'views/' + uri;
+        }
+
+        // Generates a resolve object by passing script names
+        // previously configured in constant.APP_REQUIRES
+        function resolveFor() {
+            var _args = arguments;
+            return {
+                deps: ['$ocLazyLoad', '$q', function ($ocLazyLoad, $q) {
+                    // Creates a promise chain for each argument
+                    var promise = $q.when(1); // empty promise
+                    for (var i = 0, len = _args.length; i < len; i++) {
+                        promise = andThen(_args[i]);
+                    }
+                    return promise;
+
+                    // creates promise to chain dynamically
+                    function andThen(_arg) {
+                        // also support a function that returns a promise
+                        if (typeof _arg === 'function') { return promise.then(_arg) }
+                        else { return promise.then(function() {
+                            // if is a module, pass the name. If not, pass the array
+                            var whatToLoad = getRequired(_arg);
+                            // simple error check
+                            if (!whatToLoad) return $.error('Route resolve: Bad resource name [' + _arg + ']');
+                            // finally, return a promise
+                            return $ocLazyLoad.load(whatToLoad);
+                        }); }
+                    }
+                    // check and returns required data
+                    // analyze module items with the form [name: '', files: []]
+                    // and also simple array of script files (for not angular js)
+                    function getRequired(name) {
+                        if (APP_REQUIRES.modules) {
+                            for (var m in APP_REQUIRES.modules) {
+                                if (APP_REQUIRES.modules[m].name && APP_REQUIRES.modules[m].name === name) {
+                                    return APP_REQUIRES.modules[m];
+                                }
+                            }
+                        }
+                        return APP_REQUIRES.scripts && APP_REQUIRES.scripts[name];
+                    }
+
+                }]
+            };
+        } // resolveFor
+
+    }
+
+
+})();
+
+
 (function() {
 
 
@@ -1082,90 +1166,6 @@
 
     }
 })();
-/** =========================================================
- * Module: helpers.js
- * Provides helper functions for routes definition
- ========================================================= */
-
-(function() {
-
-    angular
-        .module('app.routes')
-        .provider('RouteHelpers', RouteHelpersProvider);
-
-    RouteHelpersProvider.$inject = ['APP_REQUIRES'];
-    function RouteHelpersProvider(APP_REQUIRES) {
-
-        /* jshint validthis:true */
-        return {
-        // provider access level
-            basepath: basepath,
-            resolveFor: resolveFor,
-            // controller access level
-            $get: function() {
-                return {
-                    basepath: basepath,
-                    resolveFor: resolveFor
-                };
-            }
-        };
-
-        // Set here the base of the relative path
-        // for all app views
-        function basepath(uri) {
-            return 'views/' + uri;
-        }
-
-        // Generates a resolve object by passing script names
-        // previously configured in constant.APP_REQUIRES
-        function resolveFor() {
-            var _args = arguments;
-            return {
-                deps: ['$ocLazyLoad', '$q', function ($ocLazyLoad, $q) {
-                    // Creates a promise chain for each argument
-                    var promise = $q.when(1); // empty promise
-                    for (var i = 0, len = _args.length; i < len; i++) {
-                        promise = andThen(_args[i]);
-                    }
-                    return promise;
-
-                    // creates promise to chain dynamically
-                    function andThen(_arg) {
-                        // also support a function that returns a promise
-                        if (typeof _arg === 'function') { return promise.then(_arg) }
-                        else { return promise.then(function() {
-                            // if is a module, pass the name. If not, pass the array
-                            var whatToLoad = getRequired(_arg);
-                            // simple error check
-                            if (!whatToLoad) return $.error('Route resolve: Bad resource name [' + _arg + ']');
-                            // finally, return a promise
-                            return $ocLazyLoad.load(whatToLoad);
-                        }); }
-                    }
-                    // check and returns required data
-                    // analyze module items with the form [name: '', files: []]
-                    // and also simple array of script files (for not angular js)
-                    function getRequired(name) {
-                        if (APP_REQUIRES.modules) {
-                            for (var m in APP_REQUIRES.modules) {
-                                if (APP_REQUIRES.modules[m].name && APP_REQUIRES.modules[m].name === name) {
-                                    return APP_REQUIRES.modules[m];
-                                }
-                            }
-                        }
-                        return APP_REQUIRES.scripts && APP_REQUIRES.scripts[name];
-                    }
-
-                }]
-            };
-        } // resolveFor
-
-    }
-
-
-})();
-
-
 (function() {
     'use strict';
 
@@ -1231,7 +1231,13 @@
                     "text": "未找到",
                     "sref": "page.403",
                     "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "本地语言",
+                    "sref": "admin.localeLanguage",
+                    "icon": "glyphicon glyphicon-th-large",
                 }//new sidebar name will be append here
+            
             ]
 
         });
@@ -1273,7 +1279,7 @@
                 console.log(window.location.pathname, 'window.location.pathname')
                 $scope.menuItems = SidebarMenuData.superUser;
             } else {
-                $scope.menuItems = SidebarMenuData.superUser;
+                $scope.menuItems = SidebarMenuData.admin;
             }
 
             // Handle sidebar and collapse items

@@ -4,13 +4,14 @@
  ========================================================= */
 
 
-(function() {
+(function () {
 
     angular
         .module('app.routes')
         .config(routesConfig);
 
     routesConfig.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteHelpersProvider'];
+
     function routesConfig($stateProvider, $locationProvider, $urlRouterProvider, RouteHelpersProvider) {
 
         // Set the following to true to enable the HTML5 Mode
@@ -18,7 +19,7 @@
         $locationProvider.html5Mode(false);
 
         // defaults to dashboard
-        $urlRouterProvider.otherwise('/admin/localLanguage/manage');
+        $urlRouterProvider.otherwise('/admin/localeLanguage/manage');
 
         //
         // Application Routes
@@ -31,7 +32,7 @@
                 resolve: angular.extend(
                     RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'datetimepicker', 'admin'), {
                         // YOUR RESOLVES GO HERE
-                        userInfo: ['$http', 'EVN', '$timeout', function($http, EVN, $timeout) {
+                        userInfo: ['$http', 'EVN', '$timeout', function ($http, EVN, $timeout) {
                             // $http.get(EVN.server + '/user/getUserInfo' + EVN.suffix, {}).then(function(data) {
                             //     window.userInfo = angular.copy(data.data);
                             //     return angular.copy(data.data);
@@ -41,13 +42,22 @@
                             //     }, 10);
                             //     return '';
                             // });
-                            return ''
+                            return '';
                         }]
                     }
                 )
             })
-            
+
+            .state('admin.localeLanguage', {
+                url: '/localeLanguage/manage',
+                title: 'localeLanguage Manage',
+                controller: 'LocaleLanguageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/localeLanguage/localeLanguage.html'),
+                permission: 'localeLanguage'
+            })
+
             //new route name will be append here
+
 
             .state('admin.buttonManage', {
                 url: '/button/manage',
@@ -79,9 +89,9 @@
                 templateUrl: RouteHelpersProvider.basepath('admin/admin/adminRelation.html'),
                 controller: 'adminAdminRelationController',
             })
-        //
-        // Single Page Routes
-        // -----------------------------------
+            //
+            // Single Page Routes
+            // -----------------------------------
             .state('page', {
                 url: '/page',
                 templateUrl: 'pages/page.html',

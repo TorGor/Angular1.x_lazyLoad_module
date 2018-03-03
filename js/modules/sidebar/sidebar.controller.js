@@ -34,7 +34,7 @@
                 console.log(window.location.pathname, 'window.location.pathname')
                 $scope.menuItems = SidebarMenuData.superUser;
             } else {
-                $scope.menuItems = SidebarMenuData.superUser;
+                $scope.menuItems = SidebarMenuData.admin;
             }
 
             // Handle sidebar and collapse items

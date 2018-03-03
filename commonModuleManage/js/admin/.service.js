@@ -14,7 +14,7 @@
             {
 
                 // 查询COMMONMODULETITLE
-                getCommonModuleInfo: {
+                getCommonModuleList: {
                     method: 'GET',
                     params: {
                         action: '' + EVN.suffix
@@ -22,7 +22,7 @@
                 },
 
                 // 添加COMMONMODULETITLE
-                postSaveCommonModuleInfo: {
+                saveCommonModuleInfo: {
                     method: 'POST',
                     params: {
                         action: '' + EVN.suffix
@@ -30,7 +30,7 @@
                 },
 
                 // 修改COMMONMODULETITLE
-                postUpdateCommonModuleInfo: {
+                updateCommonModuleInfo: {
                     method: 'PUT',
                     params: {
                         action: '' + EVN.suffix
@@ -38,7 +38,7 @@
                 },
 
                 // 删除COMMONMODULETITLE
-                getDeleteCommonModuleInfoById: {
+                deleteCommonModuleInfoById: {
                     method: 'GET',
                     params: {
                         action: '' + EVN.suffix

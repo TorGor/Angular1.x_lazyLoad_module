@@ -3,34 +3,40 @@
         <div class="panel-wrapper">
             <div class="panel-body">
                 <span class="form-group add-button-class">
-                        <button
-                                class="btn btn-primary"
-                                ng-click="addRoles()"
-                                type="button"
-                                translate="table.button.add"
-                        >
-                            新增
-                        </button>
-                    </span>
+                    <button
+                            class="btn btn-primary"
+                            ng-click="addLocaleLanguage()"
+                            type="button"
+                            translate="table.button.add"
+                    >
+                        新增
+                    </button>
+                </span>
+                <form class="form-inline pull-right add-button-class" role="form">
+                    <div style="position: relative" class="form-group">
+                        <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
+                        <input class="form-control" type="text" ng-model="localeLanguageSearch" placeholder="{{searchPlaceholder(['table.localeLanguage.th1', 'table.localeLanguage.th2', 'table.localeLanguage.th3'])}}">
+                    </div>
+                </form>
                 <div
                         web-data-table
-                        items="roles"
-                        ao-data="rolesAoData"
-                        search="rolesSearch"
-                        reload="rolesAoData"
-                        show-items="showRoles"
+                        items="localeLanguage"
+                        ao-data="localeLanguageAoData"
+                        search="localeLanguageSearch"
+                        reload="localeLanguageReload"
+                        show-items="showLocaleLanguage"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                             <tr class="bg-gray-light text-bold">
-                                <td style="width: 40%" ao-data="rolesAoData" web-data-table-sort="roleName">{{'table.role.th1' | translate}}</td>
-                                <td style="width: 40%" ao-data="rolesAoData" web-data-table-sort="roleName">{{'table.role.th1' | translate}}</td>
-                                <td style="width: 40%" ao-data="rolesAoData" web-data-table-sort="roleStatus">{{'table.role.th2' | translate}}</td>
+                                <td style="width: 40%" ao-data="localeLanguageAoData" web-data-table-sort="code">{{'table.localeLanguage.th1' | translate}}</td>
+                                <td style="width: 40%" ao-data="localeLanguageAoData" web-data-table-sort="name">{{'table.localeLanguage.th2' | translate}}</td>
+                                <td style="width: 40%" ao-data="localeLanguageAoData" web-data-table-sort="supported">{{'table.localeLanguage.th3' | translate}}</td>
                                 <td style="width: 17%" >{{'table.button.operation' | translate}}</td>
                             </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in showRoles">
+                        <tr ng-repeat="item in showLocaleLanguage">
                             <td>
                                 <span editable-text="item.code" e-name="code" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
                             </td>
@@ -38,12 +44,12 @@
                                 <span editable-text="item.name" e-name="name" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
                             </td>
                             <td>
-                                    <span editable-select="item.roleStatus" e-name="roleStatus"  e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in adminSelect012.options">
-                                        <span ng-bind-html="filter012OptionsValue(item.roleStatus)"></span>
-                                    </span>
+                                <span editable-select="item.roleStatus" e-name="supported"  e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in [{value:false,label:'false'},{value:true,label:'true'}]">
+                                    {{ item.supported }}
+                                </span>
                             </td>
                             <td style="white-space: nowrap;">
-                                <form class="form-buttons form-inline" editable-form name="rowform" onbeforesave="saveRole(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
+                                <form class="form-buttons form-inline" editable-form name="rowform" onbeforesave="saveLocaleLanguage(item, $data)" ng-show="rowform.$visible" shown="item.code == null">
                                     <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                         <em class="fa fa-save"></em>
                                     </button>
@@ -55,14 +61,14 @@
                                     <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" ng-click="deleteRole(item)" title="{{'table.button.delete' | translate}}">
+                                    <button class="btn btn-sm btn-danger" ng-click="deleteLocaleLanguage(item)" title="{{'table.button.delete' | translate}}">
                                         <em class="fa fa-trash"></em>
                                     </button>
                                 </div>
                             </td>
                         </tr>
                         <tr ng-show="showRoles.length==0">
-                            <td colspan="3" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan="4" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

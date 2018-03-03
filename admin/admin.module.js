@@ -6,7 +6,7 @@
             'angle',
             // or just modules
             'app.core',
-            'admin.localLanguage',
+			'admin.localeLanguage',
 			//new module name will be append here
 
         ]);

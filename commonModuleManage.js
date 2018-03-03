@@ -3,10 +3,10 @@
  */
 var moduleSetting = {
     //模块主要名称
-    common: 'aaaaaaa',
+    common: 'Locale',
     //模块主要名称2
-    module: 'bbbbb',
+    module: 'Language',
     //模块标题
-    title: '组装任务',
+    title: '本地语言',
 };
 module.exports = moduleSetting;
