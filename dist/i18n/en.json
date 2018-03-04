@@ -44,6 +44,7 @@
       "no_date":"Nothing Found",
       "button":{
           "add":"Add",
+          "search":"Search",
           "save":"Save",
           "edit":"Edit",
           "delete":"Delete",
@@ -88,6 +89,14 @@
           "th5":"numCode",
           "th6":"phoneCode",
           "th7":"currency"
+      },
+      "userLevel":{
+          "th1":"code",
+          "th2":"default",
+          "th3":"level",
+          "th4":"conditions",
+          "th5":"treatments",
+          "th6":"rebates"
       }
   },
   "panel_tile":{

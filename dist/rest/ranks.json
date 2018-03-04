@@ -1,0 +1,486 @@
+{
+  "success": true,
+  "msg": "Read Success",
+  "data": [
+    {
+      "isDefault": true,
+      "rebates": {
+        "CNY": [
+          {
+            "product": "SLOTS",
+            "brands": [
+              {
+                "rate": 0.008,
+                "currency": "CNY",
+                "brand": "PT"
+              },
+              {
+                "rate": 0.011,
+                "currency": "CNY",
+                "brand": "BBIN"
+              },
+              {
+                "rate": 0.009,
+                "currency": "CNY",
+                "brand": "MG"
+              },
+              {
+                "rate": 0.009,
+                "currency": "CNY",
+                "brand": "PNG"
+              },
+              {
+                "rate": 0.009,
+                "currency": "CNY",
+                "brand": "HABA"
+              },
+              {
+                "rate": 0.009,
+                "currency": "CNY",
+                "brand": "AG"
+              }
+            ],
+            "max": 8888,
+            "days": 3
+          }
+        ]
+      },
+      "code": "DEFAULT",
+      "isDeleted": false,
+      "level": 0,
+      "timestamps": {
+        "createdAt": "2017-09-12T11:52:05+00:00",
+        "deletedAt": null,
+        "updatedAt": "2017-09-12T11:52:05+00:00"
+      },
+      "conditions": [],
+      "treatments": []
+    },
+    {
+      "isDefault": false,
+      "rebates": {
+        "CNY": [
+          {
+            "product": "SLOTS",
+            "brands": [
+              {
+                "rate": 0.009,
+                "currency": "CNY",
+                "brand": "PT"
+              },
+              {
+                "rate": 0.01,
+                "currency": "CNY",
+                "brand": "MG"
+              },
+              {
+                "rate": 0.01,
+                "currency": "CNY",
+                "brand": "PNG"
+              },
+              {
+                "rate": 0.01,
+                "currency": "CNY",
+                "brand": "AG"
+              },
+              {
+                "rate": 0.01,
+                "currency": "CNY",
+                "brand": "HABA"
+              },
+              {
+                "rate": 0.012,
+                "currency": "CNY",
+                "brand": "BBIN"
+              }
+            ],
+            "max": 10000,
+            "days": 3
+          }
+        ]
+      },
+      "code": "AMBER",
+      "isDeleted": false,
+      "level": 1,
+      "timestamps": {
+        "createdAt": "2017-09-12T11:52:05+00:00",
+        "deletedAt": null,
+        "updatedAt": "2017-09-12T11:52:05+00:00"
+      },
+      "conditions": {
+        "CNY": {
+          "upgrading": [
+            {
+              "comparison": "gte",
+              "currency": "CNY",
+              "designation": "deposit",
+              "type": "upgrading",
+              "value": 20000,
+              "logicality": "AND"
+            },
+            {
+              "comparison": "gte",
+              "currency": "CNY",
+              "designation": "bets",
+              "type": "upgrading",
+              "value": 500000,
+              "logicality": "AND"
+            }
+          ],
+          "grading": [
+            {
+              "comparison": "gte",
+              "currency": "CNY",
+              "designation": "deposit",
+              "type": "grading",
+              "value": 20000,
+              "logicality": "AND"
+            },
+            {
+              "comparison": "gte",
+              "currency": "CNY",
+              "designation": "bets",
+              "type": "grading",
+              "value": 500000,
+              "logicality": "AND"
+            }
+          ]
+        }
+      },
+      "treatments": {
+        "CNY": [
+          {
+            "currency": "CNY",
+            "designation": "member-card",
+            "type": "boolean",
+            "value": "false"
+          },
+          {
+            "currency": "CNY",
+            "designation": "upgrading-bonus",
+            "type": "amount",
+            "value": "399"
+          },
+          {
+            "currency": "CNY",
+            "designation": "monthly-free-bets",
+            "type": "amount",
+            "value": "399"
+          },
+          {
+            "currency": "CNY",
+            "designation": "weekly-deposit-bonus",
+            "type": "coupon",
+            "value": "69"
+          },
+          {
+            "currency": "CNY",
+            "designation": "birthday-bonus",
+            "type": "amount",
+            "value": "399"
+          },
+          {
+            "currency": "CNY",
+            "designation": "birthday-party",
+            "type": "boolean",
+            "value": "false"
+          },
+          {
+            "currency": "CNY",
+            "designation": "cs",
+            "type": "string",
+            "value": "representative"
+          },
+          {
+            "currency": "CNY",
+            "designation": "daily-withdraw-limit",
+            "type": "amount",
+            "value": "150000"
+          },
+          {
+            "currency": "CNY",
+            "designation": "big-prize-bonus",
+            "type": "amount",
+            "value": "9999"
+          },
+          {
+            "currency": "CNY",
+            "designation": "holiday-gift",
+            "type": "boolean",
+            "value": "false"
+          },
+          {
+            "currency": "CNY",
+            "designation": "quarterly-travel-benefit",
+            "type": "boolean",
+            "value": "false"
+          }
+        ]
+      }
+    },
+    {
+      "isDefault": false,
+      "rebates": {
+        "CNY": [
+          {
+            "product": "SLOTS",
+            "brands": [
+              {
+                "rate": 0.01,
+                "currency": "CNY",
+                "brand": "PT"
+              },
+              {
+                "rate": 0.012,
+                "currency": "CNY",
+                "brand": "BBIN"
+              },
+              {
+                "rate": 0.011,
+                "currency": "CNY",
+                "brand": "MG"
+              },
+              {
+                "rate": 0.011,
+                "currency": "CNY",
+                "brand": "PNG"
+              },
+              {
+                "rate": 0.011,
+                "currency": "CNY",
+                "brand": "HABA"
+              },
+              {
+                "rate": 0.011,
+                "currency": "CNY",
+                "brand": "AG"
+              }
+            ],
+            "max": 18888,
+            "days": 3
+          }
+        ]
+      },
+      "code": "SAPPHIRE",
+      "isDeleted": false,
+      "level": 2,
+      "timestamps": {
+        "createdAt": "2017-10-19T13:32:28+00:00",
+        "deletedAt": null,
+        "updatedAt": "2017-10-19T13:32:28+00:00"
+      },
+      "conditions": {
+        "CNY": {
+          "upgrading": [
+            {
+              "comparison": "gte",
+              "currency": "CNY",
+              "designation": "deposit",
+              "type": "upgrading",
+              "value": 100000,
+              "logicality": "AND"
+            },
+            {
+              "comparison": "gte",
+              "currency": "CNY",
+              "designation": "bets",
+              "type": "upgrading",
+              "value": 2000000,
+              "logicality": "AND"
+            }
+          ],
+          "grading": [
+            {
+              "comparison": "gte",
+              "currency": "CNY",
+              "designation": "deposit",
+              "type": "grading",
+              "value": 50000,
+              "logicality": "AND"
+            },
+            {
+              "comparison": "gte",
+              "currency": "CNY",
+              "designation": "bets",
+              "type": "grading",
+              "value": 1000000,
+              "logicality": "AND"
+            }
+          ]
+        }
+      },
+      "treatments": {
+        "CNY": [
+          {
+            "currency": "CNY",
+            "designation": "member-card",
+            "type": "boolean",
+            "value": "true"
+          },
+          {
+            "currency": "CNY",
+            "designation": "upgrading-bonus",
+            "type": "amount",
+            "value": "999"
+          },
+          {
+            "currency": "CNY",
+            "designation": "monthly-free-bets",
+            "type": "amount",
+            "value": "999"
+          },
+          {
+            "currency": "CNY",
+            "designation": "weekly-deposit-bonus",
+            "type": "coupon",
+            "value": "79"
+          },
+          {
+            "currency": "CNY",
+            "designation": "birthday-bonus",
+            "type": "amount",
+            "value": "999"
+          },
+          {
+            "currency": "CNY",
+            "designation": "birthday-party",
+            "type": "boolean",
+            "value": "false"
+          },
+          {
+            "currency": "CNY",
+            "designation": "cs",
+            "type": "string",
+            "value": "representative"
+          },
+          {
+            "currency": "CNY",
+            "designation": "daily-withdraw-limit",
+            "type": "amount",
+            "value": "300000"
+          },
+          {
+            "currency": "CNY",
+            "designation": "big-prize-bonus",
+            "type": "amount",
+            "value": "9999"
+          },
+          {
+            "currency": "CNY",
+            "designation": "holiday-gift",
+            "type": "boolean",
+            "value": "true"
+          },
+          {
+            "currency": "CNY",
+            "designation": "quarterly-travel-benefit",
+            "type": "boolean",
+            "value": "true"
+          }
+        ]
+      }
+    },
+    {
+      "isDefault": false,
+      "rebates": {
+        "CNY": [
+          {
+            "product": "SLOTS",
+            "brands": [
+              {
+                "rate": 0.2,
+                "currency": "CNY",
+                "brand": "A"
+              }
+            ],
+            "max": 0,
+            "days": 1
+          }
+        ]
+      },
+      "code": "TT",
+      "isDeleted": true,
+      "level": 88,
+      "timestamps": {
+        "createdAt": "2018-03-04T07:13:44+00:00",
+        "deletedAt": "2018-03-04T07:26:39+00:00",
+        "updatedAt": "2018-03-04T07:26:39+00:00"
+      },
+      "conditions": {
+        "CNY": {
+          "grading": [
+            {
+              "comparison": "eq",
+              "currency": "CNY",
+              "designation": "deposit",
+              "type": "grading",
+              "value": 1,
+              "logicality": "AND"
+            }
+          ]
+        }
+      },
+      "treatments": {
+        "CNY": [
+          {
+            "currency": "CNY",
+            "designation": "member-card",
+            "type": "string",
+            "value": "aaa"
+          }
+        ]
+      }
+    },
+    {
+      "isDefault": false,
+      "rebates": {
+        "CNY": [
+          {
+            "product": "SLOTS",
+            "brands": [
+              {
+                "rate": 0.22,
+                "currency": "CNY",
+                "brand": "A"
+              }
+            ],
+            "max": 0,
+            "days": 1
+          }
+        ]
+      },
+      "code": "TTT",
+      "isDeleted": false,
+      "level": 251,
+      "timestamps": {
+        "createdAt": "2018-03-04T07:52:42+00:00",
+        "deletedAt": null,
+        "updatedAt": "2018-03-04T08:24:11+00:00"
+      },
+      "conditions": {
+        "CNY": {
+          "grading": [
+            {
+              "comparison": "eq",
+              "currency": "CNY",
+              "designation": "deposit",
+              "type": "grading",
+              "value": 1,
+              "logicality": "AND"
+            }
+          ]
+        }
+      },
+      "treatments": {
+        "CNY": [
+          {
+            "currency": "CNY",
+            "designation": "member-card",
+            "type": "string",
+            "value": "aaa"
+          }
+        ]
+      }
+    }
+  ]
+}

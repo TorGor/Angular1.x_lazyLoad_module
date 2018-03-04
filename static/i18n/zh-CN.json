@@ -44,6 +44,7 @@
     "no_date": "没有数据",
     "button": {
       "add": "添加",
+      "search": "查找",
       "save": "保存",
       "edit": "编辑",
       "delete": "删除",
@@ -83,11 +84,19 @@
     "countriesManage":{
       "th1":"iso",
       "th2":"ios3",
-      "th3":"name",
-      "th4":"niceName",
-      "th5":"numCode",
-      "th6":"phoneCode",
-      "th7":"currency"
+      "th3":"名称",
+      "th4":"别名",
+      "th5":"编码",
+      "th6":"区号",
+      "th7":"货币"
+    },
+    "userLevel":{
+      "th1":"编码",
+      "th2":"默认值",
+      "th3":"等级",
+      "th4":"条件",
+      "th5":"处理",
+      "th6":"折扣"
     }
   },
   "panel_tile": {

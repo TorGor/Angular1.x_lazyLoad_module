@@ -35,8 +35,8 @@
                             userSelfService.getUserSelfInfo({},{},function (data) {
                                 window.userInfo = angular.copy(data.data);
                                 $rootScope.user = {
-                                    system: 'superAdmin',
-                                    name: data.data && data.data.name || ''
+                                    system: 'super',
+                                    name: data.data && data.data.username || ''
                                 };
                                 return true;
                             },function (error) {

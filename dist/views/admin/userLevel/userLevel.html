@@ -22,7 +22,7 @@
                         <td style="width: 12%" ao-data="userLevelAoData" web-data-table-sort="code">
                            {{'table.userLevel.th1' | translate}}
                         </td>
-                        <td style="width: 12%" ao-data="userLevelAoData" web-data-table-sort="default">
+                        <td style="width: 12%" ao-data="userLevelAoData" web-data-table-sort="isDefault">
                            {{'table.userLevel.th2' | translate}}
                         </td>
                         <td style="width: 12%" ao-data="userLevelAoData" web-data-table-sort="level">
@@ -46,7 +46,7 @@
                            <span editable-text="item.code" e-name="code" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.default" e-name="default" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.default || '' }}</span>
+                           <span editable-text="item.isDefault" e-name="isDefault" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.isDefault}}</span>
                         </td>
                         <td>
                            <span editable-text="item.level" e-name="level" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.level || '' }}</span>

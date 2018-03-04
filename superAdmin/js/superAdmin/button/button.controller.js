@@ -7,14 +7,50 @@
     SuperAdminButtonController.$inject = [
         '$scope',
         '$rootScope',
+        '$translate',
         'superAdminService'
     ];
 
     function SuperAdminButtonController(
         $scope,
         $rootScope,
+        $translate,
         superAdminService
     ) {
+
+        $scope.buttonsOptions = [
+            {
+                label: $translate.instant('table.button.search'),
+                value: '1'
+            },
+            {
+                label: $translate.instant('table.button.add'),
+                value: '2'
+            },
+            {
+                label: $translate.instant('table.button.edit'),
+                value: '3'
+            },
+            {
+                label: $translate.instant('table.button.delete'),
+                value: '4'
+            }
+        ];
+
+        /**
+         *
+         * @param btnType 1234数字
+         * @returns {string} 显示的内容
+         */
+        $scope.showBtnType = function (btnType) {
+            var tempBtnArray = $scope.buttonsOptions.filter(function (optionsItem) {
+                return optionsItem.value == btnType;
+            });
+            if(tempBtnArray.length){
+                return tempBtnArray[0].label;
+            }
+            return '';
+        };
 
         $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
 

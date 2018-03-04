@@ -6,6 +6,6 @@
         .constant('URL',{
             COUNTRIESMANAGE:'/rest/countries' + suffix,
             LOCALELANGUAGE:'/rest/locales' + suffix,
-            USERLEVEL:'' + suffix,
+            USERLEVEL:'/rest/ranks' + suffix,
         });
 })();

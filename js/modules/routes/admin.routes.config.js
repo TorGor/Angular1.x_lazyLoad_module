@@ -37,7 +37,7 @@
                                 window.userInfo = angular.copy(data.data);
                                 $rootScope.user = {
                                     system: 'admin',
-                                    name: data.data && data.data.name
+                                    name: data.data && data.data.username || ''
                                 };
                             },function (error) {
                                 $timeout(function() {

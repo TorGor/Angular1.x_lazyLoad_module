@@ -5,7 +5,7 @@
     {
       "id": "40280981617a9cf101617aa426db0001",
       "btnName": "新增",
-      "btnType": "顶置按钮",
+      "btnType": "1",
       "btnCode": 1,
       "btnUrl": "66666",
       "btnStatus": "0",
@@ -16,7 +16,7 @@
     {
       "id": "40280981617a9cf101617aa4a1080002",
       "btnName": "删除",
-      "btnType": "列表按钮",
+      "btnType": "2",
       "btnCode": 2,
       "btnUrl": "777777",
       "btnStatus": "1",
@@ -27,7 +27,7 @@
     {
       "id": "40280981617a9cf101617aa4a1080003",
       "btnName": "修改",
-      "btnType": "列表按钮",
+      "btnType": "3",
       "btnCode": 3,
       "btnUrl": 888888,
       "btnStatus": "2",

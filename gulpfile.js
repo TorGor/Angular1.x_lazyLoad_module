@@ -36,7 +36,7 @@ var paths = {
     admin: 'admin/',
     login: 'login/',
     changePassword: 'changePassword/',
-    static: ['static/i18n/', 'static/admin/', 'static/img/', 'static/fonts/']
+    static: ['static/i18n/', 'static/admin/', 'static/img/', 'static/fonts/', 'static/rest/', 'static/user/']
 };
 
 

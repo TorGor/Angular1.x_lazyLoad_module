@@ -66,7 +66,9 @@
                                     <span editable-text="item.btnName" e-name="btnName" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.btnName || '' }}</span>
                                 </td>
                                 <td>
-                                    <span editable-text="item.btnType" e-name="btnType" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.btnType || '' }}</span>
+                                    <span editable-select="item.btnType" e-name="btnType"  e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in buttonsOptions">
+                                        {{ showBtnType(item.btnType)}}
+                                    </span>
                                 </td>
                                 <td>
                                     <span editable-text="item.btnUrl" e-name="btnUrl" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.btnUrl || '' }}</span>
