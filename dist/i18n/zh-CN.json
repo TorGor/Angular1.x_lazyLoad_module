@@ -83,19 +83,11 @@
     "countriesManage":{
       "th1":"iso",
       "th2":"ios3",
-      "th3":"名称",
-      "th4":"别名",
-      "th5":"号码",
-      "th6":"区号",
-      "th7":"货币"
-    },
-    "userLevel":{
-      "th1":"代码",
-      "th2":"默认",
-      "th3":"等级",
-      "th4":"条件",
-      "th5":"处理",
-      "th6":"折扣"
+      "th3":"name",
+      "th4":"niceName",
+      "th5":"numCode",
+      "th6":"phoneCode",
+      "th7":"currency"
     }
   },
   "panel_tile": {

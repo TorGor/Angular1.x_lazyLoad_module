@@ -74,7 +74,34 @@
                 permission: 'userLevel'
             })
             
+            .state('admin.conditionsModal', {
+                url: '/conditionsModal/manage',
+                title: 'conditionsModal Manage',
+                controller: 'ConditionsModalController',
+                templateUrl: RouteHelpersProvider.basepath('admin/conditionsModal/conditionsModal.html'),
+                permission: 'conditionsModal'
+            })
+            
+            .state('admin.treatmentsModal', {
+                url: '/treatmentsModal/manage',
+                title: 'treatmentsModal Manage',
+                controller: 'TreatmentsModalController',
+                templateUrl: RouteHelpersProvider.basepath('admin/treatmentsModal/treatmentsModal.html'),
+                permission: 'treatmentsModal'
+            })
+            
+            .state('admin.rebatesModal', {
+                url: '/rebatesModal/manage',
+                title: 'rebatesModal Manage',
+                controller: 'RebatesModalController',
+                templateUrl: RouteHelpersProvider.basepath('admin/rebatesModal/rebatesModal.html'),
+                permission: 'rebatesModal'
+            })
+            
             //new route name will be append here
+            
+            
+            
             
             
 

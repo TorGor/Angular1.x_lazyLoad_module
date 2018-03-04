@@ -7,13 +7,15 @@
     CountriesManageController.$inject = [
         '$scope',
         '$rootScope',
-        'adminCountriesManageService'
+        'URL',
+        'adminService'
     ];
 
     function CountriesManageController(
         $scope,
         $rootScope,
-        adminCountriesManageService
+        URL,
+        adminService
     ) {
 
         // 原始的数据
@@ -28,16 +30,16 @@
         // 初始化table数据
         $scope.initCountriesManageData = function () {
             $scope.countriesManage = [];
-            adminCountriesManageService.getCountriesManageList({}, {}, function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.countriesManage = angular.copy(data.data);
+            adminService.getReq(URL.COUNTRIESMANAGE).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.countriesManage = angular.copy(res.data.data);
                         $scope.countriesManage.forEach(function (countriesManageItem, countriesManageIndex) {
                             countriesManageItem.id = countriesManageIndex + 1;
                         })
                     } else {
-                        $rootScope.alertErrorMsg(data.msg);
+                        $rootScope.alertErrorMsg(res.data.msg);
                     }
                 }
             });
@@ -55,26 +57,27 @@
             var tempData = angular.extend({}, countriesManage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminCountriesManageService.saveCountriesManageInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+                adminService.postReq(URL.COUNTRIESMANAGE,tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initCountriesManageData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
-            } else if (tempData.id) {
-                adminCountriesManageService.updateCountriesManageInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+            } else if (tempData.id && countriesManage.iso) {
+                delete tempData.id;
+                adminService.patchReq(URL.COUNTRIESMANAGE+'/'+countriesManage.iso, tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initCountriesManageData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
@@ -90,13 +93,13 @@
         $scope.deleteCountriesManage = function (countriesManage) {
             if (countriesManage.iso) {
                 $rootScope.alertConfirm(function () {
-                    adminCountriesManageService.updateCountriesManageInfo({ iso: countriesManage.iso }, {}, function (data) {
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
+                    adminService.deleteReq(URL.COUNTRIESMANAGE+'/'+countriesManage.iso, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
                                 $scope.initCountriesManageData();
-                                $rootScope.toasterSuccess(data.msg);
+                                $rootScope.toasterSuccess(res.data.msg);
                             } else {
-                                $rootScope.alertErrorMsg(data.msg);
+                                $rootScope.alertErrorMsg(res.data.msg);
                                 return '';
                             }
                         }

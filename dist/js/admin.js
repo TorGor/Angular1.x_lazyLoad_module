@@ -36,6 +36,17 @@
 })();
 (function() {
 
+    var suffix = '.json';
+    angular
+        .module('admin')
+        .constant('URL',{
+            COUNTRIESMANAGE:'/rest/countries' + suffix,
+            LOCALELANGUAGE:'/rest/locales' + suffix,
+            USERLEVEL:'' + suffix,
+        });
+})();
+(function() {
+
     angular
         .module('admin')
         .run(appRun);
@@ -86,6 +97,96 @@
     }
 
 })();
+(function (angular) {
+
+
+    angular
+        .module('admin')
+        .factory('adminService', adminService);
+
+    adminService.$inject = ['$http', 'EVN'];
+
+    /* @ngInject */
+    function adminService($http, EVN) {
+        return {
+
+            // 所有get请求
+            /**
+             *
+             * @param url 请求的url
+             * @param params 请求的参数
+             * @param data 请求的数据
+             * @returns $promise
+             */
+            getReq: function (url, params, data) {
+                return $http({
+                    method: 'GET',
+                    url: url,
+                    params: params||{},
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: data||{}
+                })
+            },
+
+            // 所有添加请求
+            /**
+             *
+             * @param url 请求的url
+             * @param params 请求的参数
+             * @param data 请求的数据
+             * @returns $promise
+             */
+            postReq: function (url, params, data) {
+                return $http({
+                    method: 'POST',
+                    url: url,
+                    params: params||{},
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: data||{}
+                });
+            },
+
+            // 所有修改请求
+            /**
+             *
+             * @param url 请求的url
+             * @param params 请求的参数
+             * @param data 请求的数据
+             * @returns $promise
+             */
+            patchReq: function (url, params, data) {
+                return $http({
+                    method: 'PATCH',
+                    url: url,
+                    params: params||{},
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: data||{}
+                });
+            },
+
+            // 所有删除请求
+            /**
+             *
+             * @param url 请求的url
+             * @param params 请求的参数
+             * @param data 请求的数据
+             * @returns $promise
+             */
+            deleteReq: function (url, params, data) {
+                return $http({
+                    method: 'DELETE',
+                    url: url,
+                    params: params||{},
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: data ||{}
+                });
+            },
+        };
+    }
+
+})(angular);
+
+
 (function() {
 
     angular
@@ -95,13 +196,15 @@
     CountriesManageController.$inject = [
         '$scope',
         '$rootScope',
-        'adminCountriesManageService'
+        'URL',
+        'adminService'
     ];
 
     function CountriesManageController(
         $scope,
         $rootScope,
-        adminCountriesManageService
+        URL,
+        adminService
     ) {
 
         // 原始的数据
@@ -116,16 +219,16 @@
         // 初始化table数据
         $scope.initCountriesManageData = function () {
             $scope.countriesManage = [];
-            adminCountriesManageService.getCountriesManageList({}, {}, function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.countriesManage = angular.copy(data.data);
+            adminService.getReq(URL.COUNTRIESMANAGE).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.countriesManage = angular.copy(res.data.data);
                         $scope.countriesManage.forEach(function (countriesManageItem, countriesManageIndex) {
                             countriesManageItem.id = countriesManageIndex + 1;
                         })
                     } else {
-                        $rootScope.alertErrorMsg(data.msg);
+                        $rootScope.alertErrorMsg(res.data.msg);
                     }
                 }
             });
@@ -143,26 +246,27 @@
             var tempData = angular.extend({}, countriesManage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminCountriesManageService.saveCountriesManageInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+                adminService.postReq(URL.COUNTRIESMANAGE,tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initCountriesManageData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
-            } else if (tempData.id) {
-                adminCountriesManageService.updateCountriesManageInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+            } else if (tempData.id && countriesManage.iso) {
+                delete tempData.id;
+                adminService.patchReq(URL.COUNTRIESMANAGE+'/'+countriesManage.iso, tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initCountriesManageData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
@@ -178,13 +282,13 @@
         $scope.deleteCountriesManage = function (countriesManage) {
             if (countriesManage.iso) {
                 $rootScope.alertConfirm(function () {
-                    adminCountriesManageService.updateCountriesManageInfo({ iso: countriesManage.iso }, {}, function (data) {
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
+                    adminService.deleteReq(URL.COUNTRIESMANAGE+'/'+countriesManage.iso, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
                                 $scope.initCountriesManageData();
-                                $rootScope.toasterSuccess(data.msg);
+                                $rootScope.toasterSuccess(res.data.msg);
                             } else {
-                                $rootScope.alertErrorMsg(data.msg);
+                                $rootScope.alertErrorMsg(res.data.msg);
                                 return '';
                             }
                         }
@@ -227,60 +331,6 @@
     }
 })();
 
-(function (angular) {
-    
-
-    angular
-        .module('admin.countriesManage')
-        .factory('adminCountriesManageService', adminCountriesManageService);
-
-    adminCountriesManageService.$inject = ['$resource', 'EVN'];
-
-    /* @ngInject */
-    function adminCountriesManageService($resource, EVN) {
-        return $resource(EVN.server + '/rest/:action',
-            {},
-            {
-
-                // 查询国家管理
-                getCountriesManageList: {
-                    method: 'GET',
-                    params: {
-                        action: 'getCountries' + EVN.suffix
-                    }
-                },
-
-                // 添加国家管理
-                saveCountriesManageInfo: {
-                    method: 'POST',
-                    params: {
-                        action: 'postCountries' + EVN.suffix
-                    }
-                },
-
-                // 修改国家管理
-                updateCountriesManageInfo: {
-                    method: 'PATCH',
-                    params: {
-                        action: 'patchCountries' + EVN.suffix
-                    }
-                },
-
-                // 删除国家管理
-                deleteCountriesManageInfoById: {
-                    method: 'DELETE',
-                    params: {
-                        action: 'deleteCountries' + EVN.suffix
-                    }
-                },
-
-            }
-        );
-    }
-
-})(angular);
-
-
 (function() {
 
     angular
@@ -290,14 +340,16 @@
     LocaleLanguageController.$inject = [
         '$scope',
         '$rootScope',
-        'adminLocaleLanguageService',
+        'adminService',
+        'URL',
         '$translate'
     ];
 
     function LocaleLanguageController(
         $scope,
         $rootScope,
-        adminLocaleLanguageService,
+        adminService,
+        URL,
         $translate
     ) {
 
@@ -324,17 +376,17 @@
         // 初始化table数据
         $scope.initLocaleLanguageData = function () {
             $scope.localeLanguage = [];
-            adminLocaleLanguageService.getLocaleLanguageList({}, {}, function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.localeLanguage = angular.copy(data.data);
+            adminService.getReq(URL.LOCALELANGUAGE, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.localeLanguage = angular.copy(res.data.data);
                         $scope.localeLanguage.forEach(function (localeLanguageItem, localeLanguageIndex) {
                             localeLanguageItem.id = localeLanguageIndex +1;
                             localeLanguageItem.supported = localeLanguageItem.supported ? '1' : '0';
                         });
                     } else {
-                        $rootScope.alertErrorMsg(data.msg);
+                        $rootScope.alertErrorMsg(res.data.msg);
                     }
                 }
             });
@@ -352,27 +404,27 @@
             var tempData = angular.extend({}, localeLanguage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminLocaleLanguageService.postSaveLocaleLanguageInfo(tempData, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+                adminService.postReq(URL.LOCALELANGUAGE, tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initLocaleLanguageData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
-            } else if (tempData.id) {
+            } else if (tempData.id && localeLanguage.code) {
                 delete tempData.id;
-                adminLocaleLanguageService.patchUpdateLocaleLanguageInfo(tempData, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+                adminService.patchReq(URL.LOCALELANGUAGE+'/'+localeLanguage.code, tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initLocaleLanguageData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
@@ -389,13 +441,13 @@
         $scope.deleteLocaleLanguage = function (localeLanguage) {
             if (localeLanguage.code) {
                 $rootScope.alertConfirm(function () {
-                    adminLocaleLanguageService.deleteLocaleLanguage({ code: localeLanguage.code }, {}, function (data) {
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
+                    adminService.deleteReq(URL.LOCALELANGUAGE+'/'+localeLanguage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
                                 $scope.initLocaleLanguageData();
-                                $rootScope.toasterSuccess(data.msg);
+                                $rootScope.toasterSuccess(res.data.msg);
                             } else {
-                                $rootScope.alertErrorMsg(data.msg);
+                                $rootScope.alertErrorMsg(res.data.msg);
                             }
                         }
                     });
@@ -433,59 +485,257 @@
     }
 })();
 
-(function (angular) {
-    
+(function() {
 
     angular
-        .module('admin.localeLanguage')
-        .factory('adminLocaleLanguageService', adminLocaleLanguageService);
+        .module('admin.userLevel')
+        .controller('UserLevelConditionsModalController', UserLevelConditionsModalController);
 
-    adminLocaleLanguageService.$inject = ['$resource', 'EVN'];
+    UserLevelConditionsModalController.$inject = [
+        '$scope',
+        '$rootScope'
+    ];
 
-    /* @ngInject */
-    function adminLocaleLanguageService($resource, EVN) {
-        return $resource(EVN.server + '/rest/:action',
-            {},
-            {
+    function UserLevelConditionsModalController(
+        $scope,
+        $rootScope
+    ) {
 
-                // 查询本地语言
-                getLocaleLanguageList: {
-                    method: 'GET',
-                    params: {
-                        action: 'getLocales' + EVN.suffix
-                    }
-                },
+        // 原始的数据
+        $scope.conditionsModal = [];
 
-                // 添加本地语言
-                postSaveLocaleLanguageInfo: {
-                    method: 'POST',
-                    params: {
-                        action: 'postLocales' + EVN.suffix
-                    }
-                },
+        // 过滤出来的数据
+        $scope.showConditionsModal = [];
+        $scope.conditionsModalReload = 1;
+        $scope.conditionsModalAoData = {};
+        $scope.conditionsModalSearch = '';
 
-                // 修改本地语言
-                patchUpdateLocaleLanguageInfo: {
-                    method: 'PATCH',
-                    params: {
-                        action: 'patchLocales' + EVN.suffix
-                    }
-                },
+        // 初始化table数据
+        $scope.initConditionsModalData = function () {
+            $scope.conditionsModal = [];
+        };
 
-                // 删除本地语言
-                deleteLocaleLanguage: {
-                    method: 'delete',
-                    params: {
-                        action: 'deleteLocales' + EVN.suffix
-                    }
-                },
 
+        // 保存
+        /**
+         *
+         * @param conditionsModal 用户等级数据对象
+         * @param item
+         */
+
+        $scope.saveConditionsModal = function (conditionsModal, item) {
+            var tempData = angular.extend({}, conditionsModal, item);
+            return '';
+        };
+
+        // 删除conditionsModal
+        /**
+         * @param conditionsModal 用户等级数据对象
+         * @return null
+         */
+        $scope.deleteConditionsModal = function (conditionsModal) {
+        };
+
+        // 添加按钮
+        $scope.addConditionsModal = function () {
+            $scope.conditionsModalAoData = {};
+            $scope.conditionsModalSearch = '';
+            $scope.conditionsModal.unshift({
+                'id': null,
+                'conditionsModalName': '',
+                'conditionsModalType': '',
+                'conditionsModalStatus': '1',
+                'createTime': null,
+                'optTime': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的用户等级
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.conditionsModal.splice(index, 1);
             }
-        );
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initConditionsModalData();
     }
+})();
 
-})(angular);
+(function() {
 
+    angular
+        .module('admin.userLevel')
+        .controller('UserLevelRebatesModalController', UserLevelRebatesModalController);
+
+    UserLevelRebatesModalController.$inject = [
+        '$scope',
+        '$rootScope'
+    ];
+
+    function UserLevelRebatesModalController(
+        $scope,
+        $rootScope
+    ) {
+
+        // 原始的数据
+        $scope.rebatesModal = [];
+
+        // 过滤出来的数据
+        $scope.showRebatesModal = [];
+        $scope.rebatesModalReload = 1;
+        $scope.rebatesModalAoData = {};
+        $scope.rebatesModalSearch = '';
+
+        // 初始化table数据
+        $scope.initRebatesModalData = function () {
+            $scope.rebatesModal = [];
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param rebatesModal 用户等级数据对象
+         * @param item
+         */
+
+        $scope.saveRebatesModal = function (rebatesModal, item) {
+            var tempData = angular.extend({}, rebatesModal, item);
+            return '';
+        };
+
+        // 删除rebatesModal
+        /**
+         * @param rebatesModal 用户等级数据对象
+         * @return null
+         */
+        $scope.deleteRebatesModal = function (rebatesModal) {
+        };
+
+        // 添加按钮
+        $scope.addRebatesModal = function () {
+            $scope.rebatesModalAoData = {};
+            $scope.rebatesModalSearch = '';
+            $scope.rebatesModal.unshift({
+                'id': null,
+                'rebatesModalName': '',
+                'rebatesModalType': '',
+                'rebatesModalStatus': '1',
+                'createTime': null,
+                'optTime': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的用户等级
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.rebatesModal.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initRebatesModalData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.userLevel')
+        .controller('UserLevelTreatmentsModalController', UserLevelTreatmentsModalController);
+
+    UserLevelTreatmentsModalController.$inject = [
+        '$scope',
+        '$rootScope'
+    ];
+
+    function UserLevelTreatmentsModalController(
+        $scope,
+        $rootScope
+    ) {
+
+        // 原始的数据
+        $scope.treatmentsModal = [];
+
+        // 过滤出来的数据
+        $scope.showTreatmentsModal = [];
+        $scope.treatmentsModalReload = 1;
+        $scope.treatmentsModalAoData = {};
+        $scope.treatmentsModalSearch = '';
+
+        // 初始化table数据
+        $scope.initTreatmentsModalData = function () {
+            $scope.treatmentsModal = [];
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param treatmentsModal 用户等级数据对象
+         * @param item
+         */
+
+        $scope.saveTreatmentsModal = function (treatmentsModal, item) {
+            var tempData = angular.extend({}, treatmentsModal, item);
+            return '';
+        };
+
+        // 删除treatmentsModal
+        /**
+         * @param treatmentsModal 用户等级数据对象
+         * @return null
+         */
+        $scope.deleteTreatmentsModal = function (treatmentsModal) {
+        };
+
+        // 添加按钮
+        $scope.addTreatmentsModal = function () {
+            $scope.treatmentsModalAoData = {};
+            $scope.treatmentsModalSearch = '';
+            $scope.treatmentsModal.unshift({
+                'id': null,
+                'treatmentsModalName': '',
+                'treatmentsModalType': '',
+                'treatmentsModalStatus': '1',
+                'createTime': null,
+                'optTime': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的用户等级
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.treatmentsModal.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initTreatmentsModalData();
+    }
+})();
 
 (function() {
 
@@ -496,13 +746,15 @@
     UserLevelController.$inject = [
         '$scope',
         '$rootScope',
-        'adminUserLevelService'
+        'URL',
+        'adminService'
     ];
 
     function UserLevelController(
         $scope,
         $rootScope,
-        adminUserLevelService
+        URL,
+        adminService
     ) {
 
         // 原始的数据
@@ -517,16 +769,16 @@
         // 初始化table数据
         $scope.initUserLevelData = function () {
             $scope.userLevel = [];
-            adminUserLevelService.getUserLevelList({}, {}, function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.userLevel = angular.copy(data.data);
+            adminService.getReq(URL.USERLEVEL, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.userLevel = angular.copy(res.data.data);
                         $scope.userLevel.forEach(function (userLevelItem, userLevelIndex) {
                             userLevelItem.id = userLevelIndex +1
                         })
                     } else {
-                        $rootScope.alertErrorMsg(data.msg);
+                        $rootScope.alertErrorMsg(res.data.msg);
                     }
                 }
             });
@@ -544,26 +796,26 @@
             var tempData = angular.extend({}, userLevel, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminUserLevelService.saveUserLevelInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+                adminService.postReq(URL.USERLEVEL, tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initUserLevelData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
             } else if (tempData.id) {
-                adminUserLevelService.updateUserLevelInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+                adminService.patchReq(URL.USERLEVEL,tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initUserLevelData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
@@ -579,13 +831,13 @@
         $scope.deleteUserLevel = function (userLevel) {
             if (userLevel.id) {
                 $rootScope.alertConfirm(function () {
-                    adminUserLevelService.deleteUserLevelInfo({ id: userLevel.id }, {}, function (data) {
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
+                    adminService.deleteReq(URL.USERLEVEL, {id: userLevel.id}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
                                 $scope.initUserLevelData();
-                                $rootScope.toasterSuccess(data.msg);
+                                $rootScope.toasterSuccess(res.data.msg);
                             } else {
-                                $rootScope.alertErrorMsg(data.msg);
+                                $rootScope.alertErrorMsg(res.data.msg);
                                 return '';
                             }
                         }
@@ -632,57 +884,3 @@
         $scope.initUserLevelData();
     }
 })();
-
-(function (angular) {
-    
-
-    angular
-        .module('admin.userLevel')
-        .factory('adminUserLevelService', adminUserLevelService);
-
-    adminUserLevelService.$inject = ['$resource', 'EVN'];
-
-    /* @ngInject */
-    function adminUserLevelService($resource, EVN) {
-        return $resource(EVN.server + '/rest/:action',
-            {},
-            {
-
-                // 查询用户等级
-                getUserLevelList: {
-                    method: 'GET',
-                    params: {
-                        action: 'userLevel' + EVN.suffix
-                    }
-                },
-
-                // 添加用户等级
-                saveUserLevelInfo: {
-                    method: 'POST',
-                    params: {
-                        action: '' + EVN.suffix
-                    }
-                },
-
-                // 修改用户等级
-                updateUserLevelInfo: {
-                    method: 'PUT',
-                    params: {
-                        action: '' + EVN.suffix
-                    }
-                },
-
-                // 删除用户等级
-                deleteUserLevelInfo: {
-                    method: 'GET',
-                    params: {
-                        action: '' + EVN.suffix
-                    }
-                },
-
-            }
-        );
-    }
-
-})(angular);
-

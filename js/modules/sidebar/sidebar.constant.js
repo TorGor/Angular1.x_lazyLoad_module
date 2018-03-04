@@ -73,7 +73,10 @@
                     "text": "用户等级",
                     "sref": "admin.userLevel",
                     "icon": "glyphicon glyphicon-th-large",
-                }//new sidebar name will be append here
+                }, //new sidebar name will be append here
+            
+            
+            
             
             
             

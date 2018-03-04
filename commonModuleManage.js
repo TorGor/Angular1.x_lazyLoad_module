@@ -3,9 +3,9 @@
  */
 var moduleSetting = {
     //模块主要名称
-    common: 'user',
+    common: 'rebates',
     //模块主要名称2
-    module: 'level',
+    module: 'modal',
     //模块标题
     title: '用户等级',
 };

@@ -7,13 +7,15 @@
     UserLevelController.$inject = [
         '$scope',
         '$rootScope',
-        'adminUserLevelService'
+        'URL',
+        'adminService'
     ];
 
     function UserLevelController(
         $scope,
         $rootScope,
-        adminUserLevelService
+        URL,
+        adminService
     ) {
 
         // 原始的数据
@@ -28,16 +30,16 @@
         // 初始化table数据
         $scope.initUserLevelData = function () {
             $scope.userLevel = [];
-            adminUserLevelService.getUserLevelList({}, {}, function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.userLevel = angular.copy(data.data);
+            adminService.getReq(URL.USERLEVEL, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.userLevel = angular.copy(res.data.data);
                         $scope.userLevel.forEach(function (userLevelItem, userLevelIndex) {
                             userLevelItem.id = userLevelIndex +1
                         })
                     } else {
-                        $rootScope.alertErrorMsg(data.msg);
+                        $rootScope.alertErrorMsg(res.data.msg);
                     }
                 }
             });
@@ -55,26 +57,26 @@
             var tempData = angular.extend({}, userLevel, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminUserLevelService.saveUserLevelInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+                adminService.postReq(URL.USERLEVEL, tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initUserLevelData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
             } else if (tempData.id) {
-                adminUserLevelService.updateUserLevelInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+                adminService.patchReq(URL.USERLEVEL,tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initUserLevelData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
@@ -90,13 +92,13 @@
         $scope.deleteUserLevel = function (userLevel) {
             if (userLevel.id) {
                 $rootScope.alertConfirm(function () {
-                    adminUserLevelService.deleteUserLevelInfo({ id: userLevel.id }, {}, function (data) {
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
+                    adminService.deleteReq(URL.USERLEVEL, {id: userLevel.id}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
                                 $scope.initUserLevelData();
-                                $rootScope.toasterSuccess(data.msg);
+                                $rootScope.toasterSuccess(res.data.msg);
                             } else {
-                                $rootScope.alertErrorMsg(data.msg);
+                                $rootScope.alertErrorMsg(res.data.msg);
                                 return '';
                             }
                         }

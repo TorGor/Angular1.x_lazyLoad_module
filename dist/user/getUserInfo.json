@@ -1,1 +1,52 @@
-{"success":true,"msg":"find success!","data":{"id":"4028098161b8a3040161b8a4475c0000","username":"admin","password":"96e79218965eb72c92a549dd5a330112","status":"1","level":null,"createTime":"2018-02-21 21:53:49","optTime":"2018-02-25 20:52:16","roleId":"4028098161c2a7ef0161c2d3b62d0004"}}
+{
+  "success": true,
+  "msg": "find success!",
+  "data": {
+    "roleId": "40280981619f095901619f1795c3000a",
+    "roles": [
+      {
+        "name": "配置信息",
+        "data": [
+          {
+            "name": "语言",
+            "data": [
+              {
+                "id": "4028098161adaa000161adab3b690001",
+                "btnName": "删除",
+                "btnType": "2",
+                "btnCode": "",
+                "btnUrl": "www.baidu.com",
+                "btnStatus": "1",
+                "createTime": "2018-02-19 18:45:35",
+                "optTime": null,
+                "menuId": "40280981619f095901619f0d46d90007"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "优惠券",
+        "data": [
+          {
+            "name": "配置优惠卷",
+            "data": [
+              {
+                "id": "4028098161eb758e0161ec0737cd0000",
+                "btnName": "新增",
+                "btnType": "1",
+                "btnCode": "",
+                "btnUrl": "www.baidu.com",
+                "btnStatus": "1",
+                "createTime": "2018-03-03 21:22:31",
+                "optTime": null,
+                "menuId": "4028098161cb9a130161cba9aa5d0000"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "username": "admin"
+  }
+}

@@ -7,13 +7,13 @@
     CommonModuleController.$inject = [
         '$scope',
         '$rootScope',
-        'adminCommonModuleService'
+        'adminService'
     ];
 
     function CommonModuleController(
         $scope,
         $rootScope,
-        adminCommonModuleService
+        adminService
     ) {
 
         // 原始的数据
@@ -28,13 +28,13 @@
         // 初始化table数据
         $scope.initCommonModuleData = function () {
             $scope.commonModule = [];
-            adminCommonModuleService.getCommonModuleList({}, {}, function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.commonModule = angular.copy(data.data);
+            adminService.getReq(URL.COMMONMODULE, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.commonModule = angular.copy(data.res.data);
                     } else {
-                        $rootScope.alertErrorMsg(data.msg);
+                        $rootScope.alertErrorMsg(res.data.msg);
                     }
                 }
             });
@@ -52,26 +52,26 @@
             var tempData = angular.extend({}, commonModule, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminCommonModuleService.saveCommonModuleInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+                adminService.postReq(URL.COMMONMODULE, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initCommonModuleData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
-            } else if (tempData.id) {
-                adminCommonModuleService.updateCommonModuleInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+            } else if (tempData.id && commonModule.id) {
+                adminService.patchReq(URL.COMMONMODULE+'/'+commonModule.id, tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initCommonModuleData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
@@ -87,13 +87,13 @@
         $scope.deleteCommonModule = function (commonModule) {
             if (commonModule.id) {
                 $rootScope.alertConfirm(function () {
-                    adminCommonModuleService.deleteCommonModuleInfo({ id: commonModule.id }, {}, function (data) {
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
+                    adminService.deleteReq(URL.COMMONMODULE+'/'+commonModule.id, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
                                 $scope.initCommonModuleData();
-                                $rootScope.toasterSuccess(data.msg);
+                                $rootScope.toasterSuccess(res.data.msg);
                             } else {
-                                $rootScope.alertErrorMsg(data.msg);
+                                $rootScope.alertErrorMsg(res.data.msg);
                                 return '';
                             }
                         }

@@ -7,14 +7,16 @@
     LocaleLanguageController.$inject = [
         '$scope',
         '$rootScope',
-        'adminLocaleLanguageService',
+        'adminService',
+        'URL',
         '$translate'
     ];
 
     function LocaleLanguageController(
         $scope,
         $rootScope,
-        adminLocaleLanguageService,
+        adminService,
+        URL,
         $translate
     ) {
 
@@ -41,17 +43,17 @@
         // 初始化table数据
         $scope.initLocaleLanguageData = function () {
             $scope.localeLanguage = [];
-            adminLocaleLanguageService.getLocaleLanguageList({}, {}, function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.localeLanguage = angular.copy(data.data);
+            adminService.getReq(URL.LOCALELANGUAGE, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.localeLanguage = angular.copy(res.data.data);
                         $scope.localeLanguage.forEach(function (localeLanguageItem, localeLanguageIndex) {
                             localeLanguageItem.id = localeLanguageIndex +1;
                             localeLanguageItem.supported = localeLanguageItem.supported ? '1' : '0';
                         });
                     } else {
-                        $rootScope.alertErrorMsg(data.msg);
+                        $rootScope.alertErrorMsg(res.data.msg);
                     }
                 }
             });
@@ -69,27 +71,27 @@
             var tempData = angular.extend({}, localeLanguage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminLocaleLanguageService.postSaveLocaleLanguageInfo(tempData, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+                adminService.postReq(URL.LOCALELANGUAGE, tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initLocaleLanguageData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
-            } else if (tempData.id) {
+            } else if (tempData.id && localeLanguage.code) {
                 delete tempData.id;
-                adminLocaleLanguageService.patchUpdateLocaleLanguageInfo(tempData, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
+                adminService.patchReq(URL.LOCALELANGUAGE+'/'+localeLanguage.code, tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
                             $scope.initLocaleLanguageData();
-                            $rootScope.toasterSuccess(data.msg);
+                            $rootScope.toasterSuccess(res.data.msg);
                         } else {
-                            $rootScope.alertErrorMsg(data.msg);
+                            $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
@@ -106,13 +108,13 @@
         $scope.deleteLocaleLanguage = function (localeLanguage) {
             if (localeLanguage.code) {
                 $rootScope.alertConfirm(function () {
-                    adminLocaleLanguageService.deleteLocaleLanguage({ code: localeLanguage.code }, {}, function (data) {
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
+                    adminService.deleteReq(URL.LOCALELANGUAGE+'/'+localeLanguage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
                                 $scope.initLocaleLanguageData();
-                                $rootScope.toasterSuccess(data.msg);
+                                $rootScope.toasterSuccess(res.data.msg);
                             } else {
-                                $rootScope.alertErrorMsg(data.msg);
+                                $rootScope.alertErrorMsg(res.data.msg);
                             }
                         }
                     });
