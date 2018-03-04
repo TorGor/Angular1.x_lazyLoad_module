@@ -6,12 +6,16 @@
 
     UserLevelRebatesModalController.$inject = [
         '$scope',
-        '$rootScope'
+        '$rootScope',
+        '$uibModalInstance',
+        'item'
     ];
 
     function UserLevelRebatesModalController(
         $scope,
-        $rootScope
+        $rootScope,
+        $uibModalInstance,
+        item
     ) {
 
         // 原始的数据

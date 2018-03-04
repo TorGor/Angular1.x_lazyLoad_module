@@ -6,12 +6,16 @@
 
     UserLevelTreatmentsModalController.$inject = [
         '$scope',
-        '$rootScope'
+        '$rootScope',
+        '$uibModalInstance',
+        'item'
     ];
 
     function UserLevelTreatmentsModalController(
         $scope,
-        $rootScope
+        $rootScope,
+        $uibModalInstance,
+        item
     ) {
 
         // 原始的数据

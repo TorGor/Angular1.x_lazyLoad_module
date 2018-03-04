@@ -6,12 +6,16 @@
 
     UserLevelConditionsModalController.$inject = [
         '$scope',
-        '$rootScope'
+        '$rootScope',
+        '$uibModalInstance',
+        'item'
     ];
 
     function UserLevelConditionsModalController(
         $scope,
-        $rootScope
+        $rootScope,
+        $uibModalInstance,
+        item
     ) {
 
         // 原始的数据

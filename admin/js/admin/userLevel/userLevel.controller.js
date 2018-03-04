@@ -8,6 +8,7 @@
         '$scope',
         '$rootScope',
         'URL',
+        '$uibModal',
         'adminService'
     ];
 
@@ -15,6 +16,7 @@
         $scope,
         $rootScope,
         URL,
+        $uibModal,
         adminService
     ) {
 
@@ -42,6 +44,41 @@
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
                 }
+            });
+        };
+
+
+        $scope.showEditModal = function (modal,item) {
+            var templateName = '';
+            var controllerName = '';
+            if(modal == 'conditions'){
+                templateName = 'conditionsModal';
+                controllerName = 'UserLevelConditionsModalController';
+            }else if(modal == 'treatments'){
+                templateName = 'treatmentsModal';
+                controllerName = 'UserLevelTreatmentsModalController';
+            }else if(modal == 'rebates'){
+                templateName = 'rebatesModal';
+                controllerName = 'UserLevelRebatesModalController';
+            }else{
+                return;
+            }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/userLevel/'+templateName+'.html',
+                controller: controllerName,
+                resolve: {
+                    item: item
+                }
+            });
+            modalInstance.result.then(function (data) {
+                if (data === 'neededUploadOneLevelMenus') {
+                    $scope.initOneLevelMenus();
+                }
+            }, function (cancel) {
+
             });
         };
 

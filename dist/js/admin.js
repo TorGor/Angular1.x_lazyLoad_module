@@ -23,14 +23,14 @@
 (function() {
 
     angular
-        .module('admin.userLevel', [
+        .module('admin.localeLanguage', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.localeLanguage', [
+        .module('admin.userLevel', [
             'app.core',
         ]);
 })();
@@ -334,406 +334,6 @@
 (function() {
 
     angular
-        .module('admin.userLevel')
-        .controller('UserLevelConditionsModalController', UserLevelConditionsModalController);
-
-    UserLevelConditionsModalController.$inject = [
-        '$scope',
-        '$rootScope'
-    ];
-
-    function UserLevelConditionsModalController(
-        $scope,
-        $rootScope
-    ) {
-
-        // 原始的数据
-        $scope.conditionsModal = [];
-
-        // 过滤出来的数据
-        $scope.showConditionsModal = [];
-        $scope.conditionsModalReload = 1;
-        $scope.conditionsModalAoData = {};
-        $scope.conditionsModalSearch = '';
-
-        // 初始化table数据
-        $scope.initConditionsModalData = function () {
-            $scope.conditionsModal = [];
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param conditionsModal 用户等级数据对象
-         * @param item
-         */
-
-        $scope.saveConditionsModal = function (conditionsModal, item) {
-            var tempData = angular.extend({}, conditionsModal, item);
-            return '';
-        };
-
-        // 删除conditionsModal
-        /**
-         * @param conditionsModal 用户等级数据对象
-         * @return null
-         */
-        $scope.deleteConditionsModal = function (conditionsModal) {
-        };
-
-        // 添加按钮
-        $scope.addConditionsModal = function () {
-            $scope.conditionsModalAoData = {};
-            $scope.conditionsModalSearch = '';
-            $scope.conditionsModal.unshift({
-                'id': null,
-                'conditionsModalName': '',
-                'conditionsModalType': '',
-                'conditionsModalStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的用户等级
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.conditionsModal.splice(index, 1);
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initConditionsModalData();
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.userLevel')
-        .controller('UserLevelRebatesModalController', UserLevelRebatesModalController);
-
-    UserLevelRebatesModalController.$inject = [
-        '$scope',
-        '$rootScope'
-    ];
-
-    function UserLevelRebatesModalController(
-        $scope,
-        $rootScope
-    ) {
-
-        // 原始的数据
-        $scope.rebatesModal = [];
-
-        // 过滤出来的数据
-        $scope.showRebatesModal = [];
-        $scope.rebatesModalReload = 1;
-        $scope.rebatesModalAoData = {};
-        $scope.rebatesModalSearch = '';
-
-        // 初始化table数据
-        $scope.initRebatesModalData = function () {
-            $scope.rebatesModal = [];
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param rebatesModal 用户等级数据对象
-         * @param item
-         */
-
-        $scope.saveRebatesModal = function (rebatesModal, item) {
-            var tempData = angular.extend({}, rebatesModal, item);
-            return '';
-        };
-
-        // 删除rebatesModal
-        /**
-         * @param rebatesModal 用户等级数据对象
-         * @return null
-         */
-        $scope.deleteRebatesModal = function (rebatesModal) {
-        };
-
-        // 添加按钮
-        $scope.addRebatesModal = function () {
-            $scope.rebatesModalAoData = {};
-            $scope.rebatesModalSearch = '';
-            $scope.rebatesModal.unshift({
-                'id': null,
-                'rebatesModalName': '',
-                'rebatesModalType': '',
-                'rebatesModalStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的用户等级
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.rebatesModal.splice(index, 1);
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initRebatesModalData();
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.userLevel')
-        .controller('UserLevelTreatmentsModalController', UserLevelTreatmentsModalController);
-
-    UserLevelTreatmentsModalController.$inject = [
-        '$scope',
-        '$rootScope'
-    ];
-
-    function UserLevelTreatmentsModalController(
-        $scope,
-        $rootScope
-    ) {
-
-        // 原始的数据
-        $scope.treatmentsModal = [];
-
-        // 过滤出来的数据
-        $scope.showTreatmentsModal = [];
-        $scope.treatmentsModalReload = 1;
-        $scope.treatmentsModalAoData = {};
-        $scope.treatmentsModalSearch = '';
-
-        // 初始化table数据
-        $scope.initTreatmentsModalData = function () {
-            $scope.treatmentsModal = [];
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param treatmentsModal 用户等级数据对象
-         * @param item
-         */
-
-        $scope.saveTreatmentsModal = function (treatmentsModal, item) {
-            var tempData = angular.extend({}, treatmentsModal, item);
-            return '';
-        };
-
-        // 删除treatmentsModal
-        /**
-         * @param treatmentsModal 用户等级数据对象
-         * @return null
-         */
-        $scope.deleteTreatmentsModal = function (treatmentsModal) {
-        };
-
-        // 添加按钮
-        $scope.addTreatmentsModal = function () {
-            $scope.treatmentsModalAoData = {};
-            $scope.treatmentsModalSearch = '';
-            $scope.treatmentsModal.unshift({
-                'id': null,
-                'treatmentsModalName': '',
-                'treatmentsModalType': '',
-                'treatmentsModalStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的用户等级
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.treatmentsModal.splice(index, 1);
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initTreatmentsModalData();
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.userLevel')
-        .controller('UserLevelController', UserLevelController);
-
-    UserLevelController.$inject = [
-        '$scope',
-        '$rootScope',
-        'URL',
-        'adminService'
-    ];
-
-    function UserLevelController(
-        $scope,
-        $rootScope,
-        URL,
-        adminService
-    ) {
-
-        // 原始的数据
-        $scope.userLevel = [];
-
-        // 过滤出来的数据
-        $scope.showUserLevel = [];
-        $scope.userLevelReload = 1;
-        $scope.userLevelAoData = {};
-        $scope.userLevelSearch = '';
-
-        // 初始化table数据
-        $scope.initUserLevelData = function () {
-            $scope.userLevel = [];
-            adminService.getReq(URL.USERLEVEL, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.userLevel = angular.copy(res.data.data);
-                        $scope.userLevel.forEach(function (userLevelItem, userLevelIndex) {
-                            userLevelItem.id = userLevelIndex +1
-                        })
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param userLevel 用户等级数据对象
-         * @param item
-         */
-
-        $scope.saveUserLevel = function (userLevel, item) {
-            var tempData = angular.extend({}, userLevel, item);
-            if (!tempData.id) {
-                delete tempData.id;
-                adminService.postReq(URL.USERLEVEL, tempData, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initUserLevelData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (tempData.id) {
-                adminService.patchReq(URL.USERLEVEL,tempData, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initUserLevelData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
-        // 删除userLevel
-        /**
-         * @param userLevel 用户等级数据对象
-         * @return null
-         */
-        $scope.deleteUserLevel = function (userLevel) {
-            if (userLevel.id) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq(URL.USERLEVEL, {id: userLevel.id}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initUserLevelData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 添加按钮
-        $scope.addUserLevel = function () {
-            if(!$scope.userLevel.every(function (userLevelItem) {
-                    return userLevelItem.id
-                })){
-                $rootScope.alertErrorMsg('current item needed save');
-                return;
-            }
-            $scope.userLevelAoData = {};
-            $scope.userLevelSearch = '';
-            $scope.userLevel.unshift({
-                'id': null,
-                'code': '',
-                'default': 1,
-                'level': '1',
-                'conditions': [],
-                'treatments': [],
-                'rebates': []
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的用户等级
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.userLevel.splice(index, 1);
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initUserLevelData();
-    }
-})();
-
-(function() {
-
-    angular
         .module('admin.localeLanguage')
         .controller('LocaleLanguageController', LocaleLanguageController);
 
@@ -882,5 +482,454 @@
         // 页面加载执行的函数
 
         $scope.initLocaleLanguageData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.userLevel')
+        .controller('UserLevelConditionsModalController', UserLevelConditionsModalController);
+
+    UserLevelConditionsModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'item'
+    ];
+
+    function UserLevelConditionsModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        item
+    ) {
+
+        // 原始的数据
+        $scope.conditionsModal = [];
+
+        // 过滤出来的数据
+        $scope.showConditionsModal = [];
+        $scope.conditionsModalReload = 1;
+        $scope.conditionsModalAoData = {};
+        $scope.conditionsModalSearch = '';
+
+        // 初始化table数据
+        $scope.initConditionsModalData = function () {
+            $scope.conditionsModal = [];
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param conditionsModal 用户等级数据对象
+         * @param item
+         */
+
+        $scope.saveConditionsModal = function (conditionsModal, item) {
+            var tempData = angular.extend({}, conditionsModal, item);
+            return '';
+        };
+
+        // 删除conditionsModal
+        /**
+         * @param conditionsModal 用户等级数据对象
+         * @return null
+         */
+        $scope.deleteConditionsModal = function (conditionsModal) {
+        };
+
+        // 添加按钮
+        $scope.addConditionsModal = function () {
+            $scope.conditionsModalAoData = {};
+            $scope.conditionsModalSearch = '';
+            $scope.conditionsModal.unshift({
+                'id': null,
+                'conditionsModalName': '',
+                'conditionsModalType': '',
+                'conditionsModalStatus': '1',
+                'createTime': null,
+                'optTime': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的用户等级
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.conditionsModal.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initConditionsModalData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.userLevel')
+        .controller('UserLevelRebatesModalController', UserLevelRebatesModalController);
+
+    UserLevelRebatesModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'item'
+    ];
+
+    function UserLevelRebatesModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        item
+    ) {
+
+        // 原始的数据
+        $scope.rebatesModal = [];
+
+        // 过滤出来的数据
+        $scope.showRebatesModal = [];
+        $scope.rebatesModalReload = 1;
+        $scope.rebatesModalAoData = {};
+        $scope.rebatesModalSearch = '';
+
+        // 初始化table数据
+        $scope.initRebatesModalData = function () {
+            $scope.rebatesModal = [];
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param rebatesModal 用户等级数据对象
+         * @param item
+         */
+
+        $scope.saveRebatesModal = function (rebatesModal, item) {
+            var tempData = angular.extend({}, rebatesModal, item);
+            return '';
+        };
+
+        // 删除rebatesModal
+        /**
+         * @param rebatesModal 用户等级数据对象
+         * @return null
+         */
+        $scope.deleteRebatesModal = function (rebatesModal) {
+        };
+
+        // 添加按钮
+        $scope.addRebatesModal = function () {
+            $scope.rebatesModalAoData = {};
+            $scope.rebatesModalSearch = '';
+            $scope.rebatesModal.unshift({
+                'id': null,
+                'rebatesModalName': '',
+                'rebatesModalType': '',
+                'rebatesModalStatus': '1',
+                'createTime': null,
+                'optTime': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的用户等级
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.rebatesModal.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initRebatesModalData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.userLevel')
+        .controller('UserLevelTreatmentsModalController', UserLevelTreatmentsModalController);
+
+    UserLevelTreatmentsModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'item'
+    ];
+
+    function UserLevelTreatmentsModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        item
+    ) {
+
+        // 原始的数据
+        $scope.treatmentsModal = [];
+
+        // 过滤出来的数据
+        $scope.showTreatmentsModal = [];
+        $scope.treatmentsModalReload = 1;
+        $scope.treatmentsModalAoData = {};
+        $scope.treatmentsModalSearch = '';
+
+        // 初始化table数据
+        $scope.initTreatmentsModalData = function () {
+            $scope.treatmentsModal = [];
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param treatmentsModal 用户等级数据对象
+         * @param item
+         */
+
+        $scope.saveTreatmentsModal = function (treatmentsModal, item) {
+            var tempData = angular.extend({}, treatmentsModal, item);
+            return '';
+        };
+
+        // 删除treatmentsModal
+        /**
+         * @param treatmentsModal 用户等级数据对象
+         * @return null
+         */
+        $scope.deleteTreatmentsModal = function (treatmentsModal) {
+        };
+
+        // 添加按钮
+        $scope.addTreatmentsModal = function () {
+            $scope.treatmentsModalAoData = {};
+            $scope.treatmentsModalSearch = '';
+            $scope.treatmentsModal.unshift({
+                'id': null,
+                'treatmentsModalName': '',
+                'treatmentsModalType': '',
+                'treatmentsModalStatus': '1',
+                'createTime': null,
+                'optTime': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的用户等级
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.treatmentsModal.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initTreatmentsModalData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.userLevel')
+        .controller('UserLevelController', UserLevelController);
+
+    UserLevelController.$inject = [
+        '$scope',
+        '$rootScope',
+        'URL',
+        '$uibModal',
+        'adminService'
+    ];
+
+    function UserLevelController(
+        $scope,
+        $rootScope,
+        URL,
+        $uibModal,
+        adminService
+    ) {
+
+        // 原始的数据
+        $scope.userLevel = [];
+
+        // 过滤出来的数据
+        $scope.showUserLevel = [];
+        $scope.userLevelReload = 1;
+        $scope.userLevelAoData = {};
+        $scope.userLevelSearch = '';
+
+        // 初始化table数据
+        $scope.initUserLevelData = function () {
+            $scope.userLevel = [];
+            adminService.getReq(URL.USERLEVEL, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.userLevel = angular.copy(res.data.data);
+                        $scope.userLevel.forEach(function (userLevelItem, userLevelIndex) {
+                            userLevelItem.id = userLevelIndex +1
+                        })
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        $scope.showEditModal = function (modal,item) {
+            var templateName = '';
+            var controllerName = '';
+            if(modal == 'conditions'){
+                templateName = 'conditionsModal';
+                controllerName = 'UserLevelConditionsModalController';
+            }else if(modal == 'treatments'){
+                templateName = 'treatmentsModal';
+                controllerName = 'UserLevelTreatmentsModalController';
+            }else if(modal == 'rebates'){
+                templateName = 'rebatesModal';
+                controllerName = 'UserLevelRebatesModalController';
+            }else{
+                return;
+            }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/userLevel/'+templateName+'.html',
+                controller: controllerName,
+                resolve: {
+                    item: item
+                }
+            });
+            modalInstance.result.then(function (data) {
+                if (data === 'neededUploadOneLevelMenus') {
+                    $scope.initOneLevelMenus();
+                }
+            }, function (cancel) {
+
+            });
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param userLevel 用户等级数据对象
+         * @param item
+         */
+
+        $scope.saveUserLevel = function (userLevel, item) {
+            var tempData = angular.extend({}, userLevel, item);
+            if (!tempData.id) {
+                delete tempData.id;
+                adminService.postReq(URL.USERLEVEL, tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initUserLevelData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (tempData.id) {
+                adminService.patchReq(URL.USERLEVEL,tempData, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initUserLevelData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+        };
+
+        // 删除userLevel
+        /**
+         * @param userLevel 用户等级数据对象
+         * @return null
+         */
+        $scope.deleteUserLevel = function (userLevel) {
+            if (userLevel.id) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq(URL.USERLEVEL, {id: userLevel.id}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initUserLevelData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 添加按钮
+        $scope.addUserLevel = function () {
+            if(!$scope.userLevel.every(function (userLevelItem) {
+                    return userLevelItem.id
+                })){
+                $rootScope.alertErrorMsg('current item needed save');
+                return;
+            }
+            $scope.userLevelAoData = {};
+            $scope.userLevelSearch = '';
+            $scope.userLevel.unshift({
+                'id': null,
+                'code': '',
+                'default': 1,
+                'level': '1',
+                'conditions': [],
+                'treatments': [],
+                'rebates': []
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的用户等级
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.userLevel.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initUserLevelData();
     }
 })();
