@@ -69,6 +69,7 @@
                 ariaDescribedBy: 'modal-body',
                 templateUrl: '/views/admin/userLevel/'+templateName+'.html',
                 controller: controllerName,
+                size: 'lg',
                 resolve: {
                     item: item
                 }
