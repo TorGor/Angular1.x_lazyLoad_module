@@ -8,6 +8,7 @@
         '$scope',
         '$rootScope',
         '$uibModalInstance',
+        '$translate',
         'item'
     ];
 
@@ -15,8 +16,39 @@
         $scope,
         $rootScope,
         $uibModalInstance,
+        $translate,
         item
     ) {
+
+        $scope.currencyOptions = [
+            {
+                label: '1',
+                value: '1'
+            },
+            {
+                label: '2',
+                value: '2'
+            }
+        ];
+
+        $scope.productOptions = [
+            {
+                label: 'SLOTS',
+                value: 'SLOTS'
+            },
+            {
+                label: 'LIVE',
+                value: 'LIVE'
+            },
+            {
+                label: 'SPORTS',
+                value: 'SPORTS'
+            },
+            {
+                label: 'LOTTERY',
+                value: 'LOTTERY'
+            }
+        ];
 
         // 原始的数据
         $scope.rebatesModal = [];

@@ -47,6 +47,18 @@
             });
         };
 
+        $scope.showOptionsValue = function (str, arr) {
+            if(str && arr.length){
+                var tempBtnArray = arr.filter(function (optionsItem) {
+                    return optionsItem.value == str;
+                });
+                if(tempBtnArray.length){
+                    return tempBtnArray[0].label;
+                }
+            }
+            return '';
+        };
+
 
         $scope.showEditModal = function (modal,item) {
             var templateName = '';
@@ -70,6 +82,7 @@
                 templateUrl: '/views/admin/userLevel/'+templateName+'.html',
                 controller: controllerName,
                 size: 'lg',
+                scope:$scope,
                 resolve: {
                     item: item
                 }
