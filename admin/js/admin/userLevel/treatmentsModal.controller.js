@@ -109,6 +109,9 @@
         // 初始化table数据
         $scope.initTreatmentsModalData = function () {
             $scope.treatmentsModal = [];
+            if(item['treatments'].length){
+                $scope.treatmentsModal = item['treatments'];
+            }
         };
 
 

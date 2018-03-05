@@ -2,9 +2,9 @@
 
     angular
         .module('admin.userLevel')
-        .controller('UserLevelRebatesModalController', UserLevelRebatesModalController);
+        .controller('UserLevelRebatesBrandsModalController', UserLevelRebatesBrandsModalController);
 
-    UserLevelRebatesModalController.$inject = [
+    UserLevelRebatesBrandsModalController.$inject = [
         '$scope',
         '$rootScope',
         '$uibModalInstance',
@@ -12,7 +12,7 @@
         'item'
     ];
 
-    function UserLevelRebatesModalController(
+    function UserLevelRebatesBrandsModalController(
         $scope,
         $rootScope,
         $uibModalInstance,
@@ -51,19 +51,19 @@
         ];
 
         // 原始的数据
-        $scope.rebatesModal = [];
+        $scope.rebatesBrandsModal = [];
 
         // 过滤出来的数据
-        $scope.showRebatesModal = [];
-        $scope.rebatesModalReload = 1;
-        $scope.rebatesModalAoData = {};
-        $scope.rebatesModalSearch = '';
+        $scope.showRebatesBrandsModal = [];
+        $scope.rebatesBrandsModalReload = 1;
+        $scope.rebatesBrandsModalAoData = {};
+        $scope.rebatesBrandsModalSearch = '';
 
         // 初始化table数据
-        $scope.initRebatesModalData = function () {
-            $scope.rebatesModal = [];
-            if(item['rebates'].length){
-                $scope.rebatesModal = item['rebates'];
+        $scope.initRebatesBrandsModalData = function () {
+            $scope.rebatesBrandsModal = [];
+            if(item['brands'].length){
+                $scope.rebatesBrandsModal = item['brands'];
             }
         };
 
@@ -71,28 +71,28 @@
         // 保存
         /**
          *
-         * @param rebatesModal 用户等级数据对象
+         * @param rebatesBrandsModal 用户等级数据对象
          * @param item
          */
 
-        $scope.saveRebatesModal = function (rebatesModal, item) {
-            var tempData = angular.extend({}, rebatesModal, item);
+        $scope.saveRebatesBrandsModal = function (rebatesBrandsModal, item) {
+            var tempData = angular.extend({}, rebatesBrandsModal, item);
             return '';
         };
 
         // 删除rebatesModal
         /**
-         * @param rebatesModal 用户等级数据对象
+         * @param rebatesBrandsModal 用户等级数据对象
          * @return null
          */
-        $scope.deleteRebatesModal = function (rebatesModal) {
+        $scope.deleteRebatesBrandsModal = function (rebatesBrandsModal) {
         };
 
         // 添加按钮
-        $scope.addRebatesModal = function () {
-            $scope.rebatesModalAoData = {};
-            $scope.rebatesModalSearch = '';
-            $scope.rebatesModal.unshift({
+        $scope.addRebatesBrandsModal = function () {
+            $scope.rebatesBrandsModalAoData = {};
+            $scope.rebatesBrandsModalSearch = '';
+            $scope.rebatesBrandsModal.unshift({
                 'id': null,
                 'rebatesModalName': '',
                 'rebatesModalType': '',
@@ -111,12 +111,12 @@
 
         $scope.cancelSave = function (item, index) {
             if (item.id == null) {
-                $scope.rebatesModal.splice(index, 1);
+                $scope.rebatesBrandsModal.splice(index, 1);
             }
         };
 
         // 页面加载执行的函数
 
-        $scope.initRebatesModalData();
+        $scope.initRebatesBrandsModalData();
     }
 })();

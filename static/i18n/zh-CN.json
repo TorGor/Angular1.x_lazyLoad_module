@@ -106,13 +106,13 @@
       "th5":"type",
       "th6":"logicality"
     },
-    "treatments":{
+    "treatmentsModal":{
       "th1":"currency",
       "th2":"designation",
       "th3":"type",
       "th4":"value"
     },
-    "rebates":{
+    "rebatesModal":{
       "th1":"currency",
       "th2":"product",
       "th3":"max",

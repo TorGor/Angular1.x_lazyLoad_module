@@ -101,6 +101,9 @@
         // 初始化table数据
         $scope.initConditionsModalData = function () {
             $scope.conditionsModal = [];
+            if(item['conditions'].length){
+                $scope.conditionsModal = item['conditions'];
+            }
         };
 
 
