@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">7777</h3>
+    <h3 class="modal-title">{{'table.userLevel.th6' | translate}}</h3>
 </div>
 
 <div class="modal-body">
@@ -34,14 +34,20 @@
                         <table width="100%" class="table table-bordered table-hover bg-white">
                             <thead>
                             <tr class="bg-gray-light text-bold">
-                                <td style="width: 40%" ao-data="rebatesModalAoData" web-data-table-sort="roleName">
+                                <td style="width: 15%" ao-data="rebatesModalAoData" web-data-table-sort="currency">
                                     {{'table.rebatesModal.th1' | translate}}
                                 </td>
-                                <td style="width: 40%" ao-data="rebatesModalAoData" web-data-table-sort="roleName">
-                                    {{'table.rebatesModal.th1' | translate}}
-                                </td>
-                                <td style="width: 40%" ao-data="rebatesModalAoData" web-data-table-sort="roleStatus">
+                                <td style="width: 15%" ao-data="rebatesModalAoData" web-data-table-sort="product">
                                     {{'table.rebatesModal.th2' | translate}}
+                                </td>
+                                <td style="width: 15%" ao-data="rebatesModalAoData" web-data-table-sort="max">
+                                    {{'table.rebatesModal.th3' | translate}}
+                                </td>
+                                <td style="width: 15%" ao-data="rebatesModalAoData" web-data-table-sort="days">
+                                    {{'table.rebatesModal.th4' | translate}}
+                                </td>
+                                <td style="width: 15%">
+                                    {{'table.rebatesModal.th4' | translate}}
                                 </td>
                                 <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                             </tr>
@@ -49,19 +55,29 @@
                             <tbody>
                             <tr ng-repeat="item in showRebatesModal">
                                 <td>
-                                <span editable-text="item.code" e-name="code" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
-                                </td>
-                                <td>
-                                <span editable-text="item.name" e-name="name" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
-                                </td>
-                                <td>
-                                    <span editable-select="item.roleStatus" e-name="roleStatus" e-form="rowform"
+                                    <span editable-select="item.currency" e-name="currency" e-form="rowform"
                                           onbeforesave="checkRequiredData($data)"
-                                          e-ng-options="option.value as option.label for option in adminSelect012.options">
-                                        <span ng-bind-html="filter012OptionsValue(item.roleStatus)"></span>
+                                          e-ng-options="option.value as option.label for option in currencyOptions">
+                                        {{showOptionsValue(item.currency,currencyOptions)}}}
                                     </span>
+                                </td>
+                                <td>
+                                    <span editable-select="item.product" e-name="product" e-form="rowform"
+                                          onbeforesave="checkRequiredData($data)"
+                                          e-ng-options="option.value as option.label for option in productOptions">
+                                        {{showOptionsValue(item.product,productOptions)}}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span editable-text="item.max" e-name="max" e-formclass="xeditable-sm"
+                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.max || '' }}</span>
+                                </td>
+                                <td>
+                                    <span editable-text="item.days" e-name="days" e-formclass="xeditable-sm"
+                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.days || '' }}</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" ng-click="showEditModal('conditions', item)">明细</button>
                                 </td>
                                 <td style="white-space: nowrap;">
                                     <form class="form-buttons form-inline" editable-form name="rowform"
