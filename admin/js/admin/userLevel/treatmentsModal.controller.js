@@ -162,6 +162,14 @@
             }
         };
 
+        $scope.confirmModal = function () {
+            $uibModalInstance.close('neededUpdateUserLevel');
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
         // 页面加载执行的函数
 
         $scope.initTreatmentsModalData();

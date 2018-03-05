@@ -101,6 +101,7 @@
         // 初始化table数据
         $scope.initConditionsModalData = function () {
             $scope.conditionsModal = [];
+            console.log(item, '--------')
             if(item['conditions'].length){
                 $scope.conditionsModal = item['conditions'];
             }
@@ -152,6 +153,14 @@
             if (item.id == null) {
                 $scope.conditionsModal.splice(index, 1);
             }
+        };
+
+        $scope.confirmModal = function () {
+            $uibModalInstance.close('neededUpdateUserLevel');
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
         };
 
         // 页面加载执行的函数

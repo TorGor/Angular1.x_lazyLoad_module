@@ -34,20 +34,11 @@
                         <table width="100%" class="table table-bordered table-hover bg-white">
                             <thead>
                             <tr class="bg-gray-light text-bold">
-                                <td style="width: 15%" ao-data="rebatesBrandsModalAoData" web-data-table-sort="currency">
+                                <td style="width: 40%" ao-data="rebatesBrandsModalAoData" web-data-table-sort="currency">
                                     {{'table.rebatesBrandsModal.th1' | translate}}
                                 </td>
-                                <td style="width: 15%" ao-data="rebatesBrandsModalAoData" web-data-table-sort="product">
+                                <td style="width: 40%" ao-data="rebatesBrandsModalAoData" web-data-table-sort="product">
                                     {{'table.rebatesBrandsModal.th2' | translate}}
-                                </td>
-                                <td style="width: 15%" ao-data="rebatesBrandsModalAoData" web-data-table-sort="max">
-                                    {{'table.rebatesBrandsModal.th3' | translate}}
-                                </td>
-                                <td style="width: 15%" ao-data="rebatesBrandsModalAoData" web-data-table-sort="days">
-                                    {{'table.rebatesBrandsModal.th4' | translate}}
-                                </td>
-                                <td style="width: 15%">
-                                    {{'table.rebatesBrandsModal.th4' | translate}}
                                 </td>
                                 <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                             </tr>
@@ -55,29 +46,12 @@
                             <tbody>
                             <tr ng-repeat="item in showRebatesBrandsModal">
                                 <td>
-                                    <span editable-select="item.currency" e-name="currency" e-form="rowform"
-                                          onbeforesave="checkRequiredData($data)"
-                                          e-ng-options="option.value as option.label for option in currencyOptions">
-                                        {{showOptionsValue(item.currency,currencyOptions)}}}
-                                    </span>
+                                    <span editable-text="item.brand" e-name="brand" e-formclass="xeditable-md"
+                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.brand || '' }}</span>
                                 </td>
                                 <td>
-                                    <span editable-select="item.product" e-name="product" e-form="rowform"
-                                          onbeforesave="checkRequiredData($data)"
-                                          e-ng-options="option.value as option.label for option in productOptions">
-                                        {{showOptionsValue(item.product,productOptions)}}}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span editable-text="item.max" e-name="max" e-formclass="xeditable-sm"
-                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.max || '' }}</span>
-                                </td>
-                                <td>
-                                    <span editable-text="item.days" e-name="days" e-formclass="xeditable-sm"
-                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.days || '' }}</span>
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" ng-click="showEditModal('conditions', item)">明细</button>
+                                    <span editable-text="item.rate" e-name="rate" e-formclass="xeditable-sm"
+                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.rate || '' }}</span>
                                 </td>
                                 <td style="white-space: nowrap;">
                                     <form class="form-buttons form-inline" editable-form name="rowform"
@@ -106,7 +80,7 @@
                                 </td>
                             </tr>
                             <tr ng-show="showRebatesbrandsModal.length==0">
-                                <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                                <td colspan="6" class="">{{'table.no_date' | translate}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -118,7 +92,7 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-disabled="!oneLevelMenusModal.menuName || !oneLevelMenusModal.menuSortNo || !oneLevelMenusModal.menuStatus" ng-click="confirm()">{{'table.button.save' | translate}}</button>
-    <button class="btn btn-default" type="button" ng-click="cancel()">{{'table.button.cancel' | translate}}</button>
+    <button class="btn btn-primary" type="button" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
 </div>
 

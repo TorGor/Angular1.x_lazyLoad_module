@@ -47,7 +47,7 @@
                                     {{'table.rebatesModal.th4' | translate}}
                                 </td>
                                 <td style="width: 15%">
-                                    {{'table.rebatesModal.th4' | translate}}
+                                    {{'table.rebatesModal.th5' | translate}}
                                 </td>
                                 <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                             </tr>
@@ -106,7 +106,7 @@
                                 </td>
                             </tr>
                             <tr ng-show="showRebatesModal.length==0">
-                                <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                                <td colspan="3" class="">{{'table.no_date' | translate}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -118,7 +118,7 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-disabled="!oneLevelMenusModal.menuName || !oneLevelMenusModal.menuSortNo || !oneLevelMenusModal.menuStatus" ng-click="confirm()">{{'table.button.save' | translate}}</button>
-    <button class="btn btn-default" type="button" ng-click="cancel()">{{'table.button.cancel' | translate}}</button>
+    <button class="btn btn-primary" type="button" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
 </div>
 

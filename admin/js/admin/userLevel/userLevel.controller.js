@@ -88,7 +88,7 @@
                 }
             });
             modalInstance.result.then(function (data) {
-                if (data === 'neededUploadOneLevelMenus') {
+                if (data === 'neededUpdateUserLevel') {
                     $scope.initOneLevelMenus();
                 }
             }, function (cancel) {

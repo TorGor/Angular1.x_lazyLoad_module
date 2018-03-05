@@ -97,6 +97,31 @@
       "th4":"条件",
       "th5":"处理",
       "th6":"折扣"
+    },
+    "conditionsModal":{
+      "th1":"currency",
+      "th2":"designation",
+      "th3":"comparison",
+      "th4":"value",
+      "th5":"type",
+      "th6":"logicality"
+    },
+    "treatmentsModal":{
+      "th1":"currency",
+      "th2":"designation",
+      "th3":"type",
+      "th4":"value"
+    },
+    "rebatesModal":{
+      "th1":"currency",
+      "th2":"product",
+      "th3":"max",
+      "th4":"days",
+      "th5":"brand",
+      "brands":{
+        "th1":"brand",
+        "th2":"rate"
+      }
     }
   },
   "panel_tile": {
