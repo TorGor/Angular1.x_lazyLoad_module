@@ -22,9 +22,9 @@
             getReq: function (url, params, data) {
                 return $http({
                     method: 'GET',
-                    url: url,
+                    url: EVN.debug ? (EVN.server + url + EVN.suffix) : url,
                     params: params||{},
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     data: data||{}
                 })
             },
@@ -40,9 +40,9 @@
             postReq: function (url, params, data) {
                 return $http({
                     method: 'POST',
-                    url: url,
+                    url: EVN.debug ? (EVN.server + url + EVN.suffix) : url,
                     params: params||{},
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     data: data||{}
                 });
             },
@@ -58,9 +58,9 @@
             patchReq: function (url, params, data) {
                 return $http({
                     method: 'PATCH',
-                    url: url,
+                    url: EVN.debug ? (EVN.server + url + EVN.suffix) : url,
                     params: params||{},
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     data: data||{}
                 });
             },
@@ -76,9 +76,9 @@
             deleteReq: function (url, params, data) {
                 return $http({
                     method: 'DELETE',
-                    url: url,
+                    url: EVN.debug ? (EVN.server + url + EVN.suffix) : url,
                     params: params||{},
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     data: data ||{}
                 });
             },
