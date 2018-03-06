@@ -73,7 +73,19 @@
                     "text": "用户等级",
                     "sref": "admin.userLevel",
                     "icon": "glyphicon glyphicon-th-large",
-                }, //new sidebar name will be append here
+                }, ,
+                {
+                    "text": "财务明细",
+                    "sref": "admin.transactionsDetail",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "货币管理",
+                    "sref": "admin.currenciesManage",
+                    "icon": "glyphicon glyphicon-th-large",
+                }//new sidebar name will be append here
+            
+            
             
             
             

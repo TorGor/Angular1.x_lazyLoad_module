@@ -50,7 +50,7 @@
                            <span editable-text="item.username" e-name="username" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.username || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.password" e-name="password" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-type="password" e-required="">{{ replaceStr(item.password) }}</span>
+                           <span editable-text="item.password" e-name="password" e-formclass="xeditable-md" onbeforesave="checkPassword($data)" e-form="rowform" e-type="password" e-required="">******</span>
                         </td>
                         <td>
                            <span>{{ item.createTime.substring(0,10) || '' }}</span>

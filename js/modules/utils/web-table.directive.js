@@ -33,7 +33,7 @@
                 <div class="table-bottom-notice">\
                     <span class="pull-left" style="margin-bottom: 15px">\
                     {{"table.common.per_page" | translate}}\
-                        <select  class="form-control" style="display: inline;width: auto"   ng-model="pageNumber"  ng-options="pageNumber as pageNumber for pageNumber in [10,25,50,100]"></select>\
+                        <select  class="form-control" style="display: inline;width: auto"   ng-model="pageNumber"  ng-options="pageNumber as pageNumber for pageNumber in [25,50,100]"></select>\
                     </span>\
                     <span class="pull-left" \
                         ng-hide="items.length==0">\
@@ -51,7 +51,7 @@
                     </span>\
                 </div>',
             controller: function ($scope, $element, $attrs, $transclude) {
-                $scope.pageNumber = 10;
+                $scope.pageNumber = 25;
                 $scope.currentPage = 1;
 
                 if (!$scope.aoData) {

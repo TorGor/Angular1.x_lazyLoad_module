@@ -8,21 +8,21 @@
     UserBlockController.$inject = ['$scope'];
     function UserBlockController($scope) {
 
-        activate();
-
-        ////////////////
-
-        function activate() {
-
-          $scope.userBlockVisible = true;
-
-          var detach = $scope.$on('toggleUserBlock', function(/*event, args*/) {
-
-            $scope.userBlockVisible = ! $scope.userBlockVisible;
-
-          });
-
-          $scope.$on('$destroy', detach);
-        }
+        // activate();
+        //
+        // ////////////////
+        //
+        // function activate() {
+        //
+        //   $scope.userBlockVisible = true;
+        //
+        //   var detach = $scope.$on('toggleUserBlock', function(/*event, args*/) {
+        //
+        //     $scope.userBlockVisible = ! $scope.userBlockVisible;
+        //
+        //   });
+        //
+        //   $scope.$on('$destroy', detach);
+        // }
     }
 })();

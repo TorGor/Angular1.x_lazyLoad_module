@@ -9,6 +9,8 @@
 			'admin.localeLanguage',
 			'admin.countriesManage',
 			'admin.userLevel',
+			'admin.transactionsDetail',
+			'admin.currenciesManage',
 			//new module name will be append here
 
         ]);

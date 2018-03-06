@@ -124,16 +124,21 @@
         };
 
         /**
-         * 传入的字符串全部替换成*
+         * 校验密码长度
          *
          * @param {any} str 字符串
          */
-        $scope.replaceStr = function(str) {
+        $scope.checkPassword = function(str) {
             if (typeof str === 'string') {
-                return (str).replace(/[\w\W]/g, '*');
-            } else {
-                return '';
+                var tempStr = $scope.checkRequiredData(str);
+                if(typeof tempStr === 'string' && tempStr.length){
+                    return tempStr;
+                }
+                if(str.length<6 || str.length>16){
+                    return 'password length should be between 6 and 16!';
+                }
             }
+            return 'password should be string';
         };
 
         $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
@@ -1148,6 +1153,7 @@
             if (role.id) {
                 superAdminService.getFindMenuByRoleId({ 'roleId': role.id }, {}, function (data) {
                     console.log(data, 'getRoleRelationById');
+                    $scope.buttons = [];
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             var allMenus = angular.copy(data.data);
@@ -1164,7 +1170,6 @@
                             console.log($scope.oneLevelMenus, '$scope.oneLevelMenus');
                             if (isClick) {
                                 $scope.currentSecondLevelMenu = {};
-                                $scope.buttons = [];
                             } else {
                                 if (!$scope.currentSecondLevelMenu.id) {
                                     for (var i = 0, j = $scope.oneLevelMenus.length; i < j; i++) {

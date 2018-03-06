@@ -98,7 +98,25 @@
                 permission: 'rebatesModal'
             })
             
+            .state('admin.transactionsDetail', {
+                url: '/transactionsDetail/manage',
+                title: 'transactionsDetail Manage',
+                controller: 'TransactionsDetailController',
+                templateUrl: RouteHelpersProvider.basepath('admin/transactionsDetail/transactionsDetail.html'),
+                permission: 'transactionsDetail'
+            })
+            
+            .state('admin.currenciesManage', {
+                url: '/currenciesManage/manage',
+                title: 'currenciesManage Manage',
+                controller: 'CurrenciesManageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/currenciesManage/currenciesManage.html'),
+                permission: 'currenciesManage'
+            })
+            
             //new route name will be append here
+            
+            
             
             
             

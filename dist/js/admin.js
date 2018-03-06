@@ -9,6 +9,8 @@
 			'admin.localeLanguage',
 			'admin.countriesManage',
 			'admin.userLevel',
+			'admin.transactionsDetail',
+			'admin.currenciesManage',
 			//new module name will be append here
 
         ]);
@@ -23,7 +25,21 @@
 (function() {
 
     angular
+        .module('admin.currenciesManage', [
+            'app.core',
+        ]);
+})();
+(function() {
+
+    angular
         .module('admin.localeLanguage', [
+            'app.core',
+        ]);
+})();
+(function() {
+
+    angular
+        .module('admin.transactionsDetail', [
             'app.core',
         ]);
 })();
@@ -42,6 +58,8 @@
             COUNTRIESMANAGE:'/rest/countries',
             LOCALELANGUAGE:'/rest/locales',
             USERLEVEL:'/rest/ranks',
+            TRANSACTIONSDETAIL:'/rest/currencies',
+            CURRENCIESMANAGE:'/rest/transactions',
         });
 })();
 (function() {
@@ -333,6 +351,143 @@
 (function() {
 
     angular
+        .module('admin.currenciesManage')
+        .controller('CurrenciesManageController', CurrenciesManageController);
+
+    CurrenciesManageController.$inject = [
+        '$scope',
+        '$rootScope',
+        'adminService'
+    ];
+
+    function CurrenciesManageController(
+        $scope,
+        $rootScope,
+        adminService
+    ) {
+
+        // 原始的数据
+        $scope.currenciesManage = [];
+
+        // 过滤出来的数据
+        $scope.showCurrenciesManage = [];
+        $scope.currenciesManageReload = 1;
+        $scope.currenciesManageAoData = {};
+        $scope.currenciesManageSearch = '';
+
+        // 初始化table数据
+        $scope.initCurrenciesManageData = function () {
+            $scope.currenciesManage = [];
+            adminService.getReq(URL.COMMONMODULE, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.currenciesManage = angular.copy(data.res.data);
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param currenciesManage 货币管理数据对象
+         * @param item
+         */
+
+        $scope.saveCurrenciesManage = function (currenciesManage, item) {
+            var tempData = angular.extend({}, currenciesManage, item);
+            if (!tempData.id) {
+                delete tempData.id;
+                adminService.postReq(URL.COMMONMODULE, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initCurrenciesManageData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (tempData.id && currenciesManage.id) {
+                adminService.patchReq(URL.COMMONMODULE+'/'+currenciesManage.id, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initCurrenciesManageData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+        };
+
+        // 删除currenciesManage
+        /**
+         * @param currenciesManage 货币管理数据对象
+         * @return null
+         */
+        $scope.deleteCurrenciesManage = function (currenciesManage) {
+            if (currenciesManage.id) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq(URL.COMMONMODULE+'/'+currenciesManage.id, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initCurrenciesManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 添加按钮
+        $scope.addCurrenciesManage = function () {
+            $scope.currenciesManageAoData = {};
+            $scope.currenciesManageSearch = '';
+            $scope.currenciesManage.unshift({
+                'id': null,
+                'currenciesManageName': '',
+                'currenciesManageType': '',
+                'currenciesManageStatus': '1',
+                'createTime': null,
+                'optTime': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的货币管理
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.currenciesManage.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initCurrenciesManageData();
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.localeLanguage')
         .controller('LocaleLanguageController', LocaleLanguageController);
 
@@ -481,6 +636,143 @@
         // 页面加载执行的函数
 
         $scope.initLocaleLanguageData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.transactionsDetail')
+        .controller('TransactionsDetailController', TransactionsDetailController);
+
+    TransactionsDetailController.$inject = [
+        '$scope',
+        '$rootScope',
+        'adminService'
+    ];
+
+    function TransactionsDetailController(
+        $scope,
+        $rootScope,
+        adminService
+    ) {
+
+        // 原始的数据
+        $scope.transactionsDetail = [];
+
+        // 过滤出来的数据
+        $scope.showTransactionsDetail = [];
+        $scope.transactionsDetailReload = 1;
+        $scope.transactionsDetailAoData = {};
+        $scope.transactionsDetailSearch = '';
+
+        // 初始化table数据
+        $scope.initTransactionsDetailData = function () {
+            $scope.transactionsDetail = [];
+            adminService.getReq(URL.COMMONMODULE, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.transactionsDetail = angular.copy(data.res.data);
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param transactionsDetail 财务明细数据对象
+         * @param item
+         */
+
+        $scope.saveTransactionsDetail = function (transactionsDetail, item) {
+            var tempData = angular.extend({}, transactionsDetail, item);
+            if (!tempData.id) {
+                delete tempData.id;
+                adminService.postReq(URL.COMMONMODULE, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initTransactionsDetailData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (tempData.id && transactionsDetail.id) {
+                adminService.patchReq(URL.COMMONMODULE+'/'+transactionsDetail.id, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initTransactionsDetailData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+        };
+
+        // 删除transactionsDetail
+        /**
+         * @param transactionsDetail 财务明细数据对象
+         * @return null
+         */
+        $scope.deleteTransactionsDetail = function (transactionsDetail) {
+            if (transactionsDetail.id) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq(URL.COMMONMODULE+'/'+transactionsDetail.id, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initTransactionsDetailData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 添加按钮
+        $scope.addTransactionsDetail = function () {
+            $scope.transactionsDetailAoData = {};
+            $scope.transactionsDetailSearch = '';
+            $scope.transactionsDetail.unshift({
+                'id': null,
+                'transactionsDetailName': '',
+                'transactionsDetailType': '',
+                'transactionsDetailStatus': '1',
+                'createTime': null,
+                'optTime': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的财务明细
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.transactionsDetail.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initTransactionsDetailData();
     }
 })();
 

@@ -3,10 +3,10 @@
  */
 var moduleSetting = {
     //模块主要名称
-    common: 'rebates',
+    common: 'currencies',
     //模块主要名称2
-    module: 'modal',
+    module: 'manage',
     //模块标题
-    title: '用户等级',
+    title: '货币管理',
 };
 module.exports = moduleSetting;

@@ -31,7 +31,6 @@
             $scope.menuItems = [];
 
             if (window.location.pathname.indexOf('superAdmin') !== -1) {
-                console.log(window.location.pathname, 'window.location.pathname')
                 $scope.menuItems = SidebarMenuData.superUser;
             } else {
                 $scope.menuItems = SidebarMenuData.admin;
