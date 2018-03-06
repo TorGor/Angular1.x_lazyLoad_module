@@ -71,7 +71,7 @@
             var tempData = angular.extend({}, localeLanguage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq(URL.LOCALELANGUAGE, tempData, tempData).then(function (res) {
+                adminService.postReq(URL.LOCALELANGUAGE, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -84,7 +84,7 @@
                 });
             } else if (tempData.id && localeLanguage.code) {
                 delete tempData.id;
-                adminService.patchReq(URL.LOCALELANGUAGE+'/'+localeLanguage.code, tempData, tempData).then(function (res) {
+                adminService.patchReq(URL.LOCALELANGUAGE+'/'+localeLanguage.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
