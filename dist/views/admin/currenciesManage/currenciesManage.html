@@ -19,14 +19,20 @@
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
-                        <td style="width: 40%" ao-data="currenciesManageAoData" web-data-table-sort="roleName">
+                        <td style="width: 15%" ao-data="currenciesManageAoData" web-data-table-sort="code">
                            {{'table.currenciesManage.th1' | translate}}
                         </td>
-                        <td style="width: 40%" ao-data="currenciesManageAoData" web-data-table-sort="roleName">
-                           {{'table.currenciesManage.th1' | translate}}
-                        </td>
-                        <td style="width: 40%" ao-data="currenciesManageAoData" web-data-table-sort="roleStatus">
+                        <td style="width: 25%" ao-data="currenciesManageAoData" web-data-table-sort="name">
                            {{'table.currenciesManage.th2' | translate}}
+                        </td>
+                        <td style="width: 15%" ao-data="currenciesManageAoData" web-data-table-sort="symbol">
+                           {{'table.currenciesManage.th3' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="currenciesManageAoData" web-data-table-sort="symbolAfter">
+                           {{'table.currenciesManage.th4' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="currenciesManageAoData" web-data-table-sort="support">
+                           {{'table.currenciesManage.th5' | translate}}
                         </td>
                         <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                      </tr>
@@ -34,14 +40,22 @@
                   <tbody>
                      <tr ng-repeat="item in showCurrenciesManage">
                         <td>
-                           <span editable-text="item.code" e-name="code" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
+                           <span editable-text="item.code" e-name="code" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.name" e-name="name" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
+                           <span editable-text="item.name" e-name="name" e-formclass="xeditable-lg" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
                         </td>
                         <td>
-                           <span editable-select="item.roleStatus" e-name="roleStatus" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in adminSelect012.options">
-                              <span ng-bind-html="filter012OptionsValue(item.roleStatus)"></span>
+                           <span editable-text="item.symbol" e-name="symbol" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.symbol || '' }}</span>
+                        </td>
+                        <td>
+                           <span editable-select="item.symbolAfter" e-name="symbolAfter" e-form="rowform" e-required="" e-ng-options="option.value as option.label for option in options">
+                              {{ item.symbolAfter == 1 ? ('table.localeLanguage.th3ShowTrue' | translate):('table.localeLanguage.th3ShowFalse' | translate) }}
+                           </span>
+                        </td>
+                        <td>
+                           <span editable-select="item.supported" e-name="supported" e-form="rowform" e-required="" e-ng-options="option.value as option.label for option in options">
+                              {{ item.supported == 1 ? ('table.localeLanguage.th3ShowTrue' | translate):('table.localeLanguage.th3ShowFalse' | translate) }}
                            </span>
                         </td>
                         <td style="white-space: nowrap;">
@@ -64,7 +78,7 @@
                         </td>
                      </tr>
                      <tr ng-show="showCurrenciesManage.length==0">
-                        <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan="6" class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

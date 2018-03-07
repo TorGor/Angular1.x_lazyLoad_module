@@ -73,7 +73,7 @@
                     "text": "用户等级",
                     "sref": "admin.userLevel",
                     "icon": "glyphicon glyphicon-th-large",
-                }, ,
+                },
                 {
                     "text": "财务明细",
                     "sref": "admin.transactionsDetail",

@@ -533,6 +533,7 @@ gulp.task('addNewModuleInitial', function () {
     needRepalce = {
         commonModule: moduleSetting.common + ucfirst(moduleSetting.module),
         CommonModule: ucfirst(moduleSetting.common) + ucfirst(moduleSetting.module),
+        COMMONMODULE: moduleSetting.common.toUpperCase() + moduleSetting.module.toUpperCase(),
         'common-module': moduleSetting.common + '-' + moduleSetting.module,
         '/common/module/': '/' + moduleSetting.common + '/' + moduleSetting.module + '/',
         COMMONMODULETITLE: moduleSetting.title
@@ -544,6 +545,7 @@ gulp.task('addNewModuleRenameMove', function () {
     var REG = {
         commonModule: '',
         CommonModule: '',
+        COMMONMODULE: '',
         'common-module': '',
         '/common/module/': '',
         COMMONMODULETITLE: ''
@@ -554,6 +556,7 @@ gulp.task('addNewModuleRenameMove', function () {
     return gulp.src(['./commonModuleManage/**/.*'], {base: './commonModuleManage'})
         .pipe($.replace(REG['commonModule'], needRepalce['commonModule']))
         .pipe($.replace(REG['CommonModule'], needRepalce['CommonModule']))
+        .pipe($.replace(REG['COMMONMODULE'], needRepalce['COMMONMODULE']))
         .pipe($.replace(REG['common-module'], needRepalce['common-module']))
         .pipe($.replace(REG['/common/module/'], needRepalce['/common/module/']))
         .pipe($.replace(REG['COMMONMODULETITLE'], needRepalce['COMMONMODULETITLE']))

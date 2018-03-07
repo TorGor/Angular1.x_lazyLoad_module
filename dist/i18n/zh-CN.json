@@ -122,6 +122,13 @@
         "th1":"brand",
         "th2":"rate"
       }
+    },
+    "currenciesManage":{
+      "th1":"代码",
+      "th2":"名称",
+      "th3":"符号",
+      "th4":"符号置后",
+      "th5":"支持"
     }
   },
   "panel_tile": {

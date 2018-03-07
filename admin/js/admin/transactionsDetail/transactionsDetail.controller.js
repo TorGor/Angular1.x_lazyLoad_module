@@ -7,12 +7,14 @@
     TransactionsDetailController.$inject = [
         '$scope',
         '$rootScope',
+        'URL',
         'adminService'
     ];
 
     function TransactionsDetailController(
         $scope,
         $rootScope,
+        URL,
         adminService
     ) {
 

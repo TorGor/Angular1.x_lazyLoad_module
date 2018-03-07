@@ -58,8 +58,8 @@
             COUNTRIESMANAGE:'/rest/countries',
             LOCALELANGUAGE:'/rest/locales',
             USERLEVEL:'/rest/ranks',
-            TRANSACTIONSDETAIL:'/rest/currencies',
-            CURRENCIESMANAGE:'/rest/transactions',
+            TRANSACTIONSDETAIL:'/rest/transactions',
+            CURRENCIESMANAGE:'/rest/currencies',
         });
 })();
 (function() {
@@ -357,14 +357,29 @@
     CurrenciesManageController.$inject = [
         '$scope',
         '$rootScope',
+        'URL',
+        '$translate',
         'adminService'
     ];
 
     function CurrenciesManageController(
         $scope,
         $rootScope,
+        URL,
+        $translate,
         adminService
     ) {
+
+        $scope.options = [
+            {
+                value:'0',
+                label:$translate.instant('table.localeLanguage.th3ShowFalse')
+            },
+            {
+                value:'1',
+                label:$translate.instant('table.localeLanguage.th3ShowTrue')
+            }
+        ];
 
         // 原始的数据
         $scope.currenciesManage = [];
@@ -378,11 +393,16 @@
         // 初始化table数据
         $scope.initCurrenciesManageData = function () {
             $scope.currenciesManage = [];
-            adminService.getReq(URL.COMMONMODULE, {}, {}).then(function (res) {
+            adminService.getReq(URL.CURRENCIESMANAGE, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
-                        $scope.currenciesManage = angular.copy(data.res.data);
+                        $scope.currenciesManage = angular.copy(res.data.data);
+                        $scope.currenciesManage.forEach(function (currenciesManageItem, currenciesManageIndex) {
+                            currenciesManageItem.id = currenciesManageIndex +1;
+                            currenciesManageItem.supported = currenciesManageItem.supported ? '1' : '0';
+                            currenciesManageItem.symbolAfter = currenciesManageItem.symbolAfter ? '1' : '0';
+                        });
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
@@ -402,7 +422,7 @@
             var tempData = angular.extend({}, currenciesManage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq(URL.COMMONMODULE, {}, tempData).then(function (res) {
+                adminService.postReq(URL.CURRENCIESMANAGE, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -413,8 +433,9 @@
                         }
                     }
                 });
-            } else if (tempData.id && currenciesManage.id) {
-                adminService.patchReq(URL.COMMONMODULE+'/'+currenciesManage.id, {}, tempData).then(function (res) {
+            } else if (currenciesManage.id) {
+                delete tempData.id;
+                adminService.patchReq(URL.CURRENCIESMANAGE+'/'+currenciesManage.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -437,7 +458,7 @@
         $scope.deleteCurrenciesManage = function (currenciesManage) {
             if (currenciesManage.id) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq(URL.COMMONMODULE+'/'+currenciesManage.id, {}, {}).then(function (res) {
+                    adminService.deleteReq(URL.CURRENCIESMANAGE+'/'+currenciesManage.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initCurrenciesManageData();
@@ -458,12 +479,11 @@
             $scope.currenciesManageSearch = '';
             $scope.currenciesManage.unshift({
                 'id': null,
-                'currenciesManageName': '',
-                'currenciesManageType': '',
-                'currenciesManageStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                'code': '',
+                'name': '',
+                'symbol': '',
+                'symbolAfter': '0',
+                'supported': '1'
             });
         };
 
@@ -648,12 +668,14 @@
     TransactionsDetailController.$inject = [
         '$scope',
         '$rootScope',
+        'URL',
         'adminService'
     ];
 
     function TransactionsDetailController(
         $scope,
         $rootScope,
+        URL,
         adminService
     ) {
 

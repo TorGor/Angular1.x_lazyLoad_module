@@ -82,46 +82,53 @@
           "th3ShowFalse":"No"
       },
       "countriesManage":{
-          "th1":"iso",
-          "th2":"ios3",
-          "th3":"name",
-          "th4":"niceName",
-          "th5":"numCode",
-          "th6":"phoneCode",
-          "th7":"currency"
+          "th1":"Iso",
+          "th2":"Ios3",
+          "th3":"Name",
+          "th4":"NiceName",
+          "th5":"NumCode",
+          "th6":"PhoneCode",
+          "th7":"Currency"
       },
       "userLevel":{
-          "th1":"code",
-          "th2":"default",
-          "th3":"level",
-          "th4":"conditions",
-          "th5":"treatments",
-          "th6":"rebates"
+          "th1":"Code",
+          "th2":"Default",
+          "th3":"Level",
+          "th4":"Conditions",
+          "th5":"Treatments",
+          "th6":"Rebates"
       },
       "conditionsModal":{
-          "th1":"currency",
-          "th2":"designation",
-          "th3":"comparison",
-          "th4":"value",
-          "th5":"type",
-          "th6":"logicality"
+          "th1":"Currency",
+          "th2":"Designation",
+          "th3":"Comparison",
+          "th4":"Value",
+          "th5":"Type",
+          "th6":"Logicality"
       },
       "treatmentsModal":{
-          "th1":"currency",
-          "th2":"designation",
-          "th3":"type",
-          "th4":"value"
+          "th1":"Currency",
+          "th2":"Designation",
+          "th3":"Type",
+          "th4":"Value"
       },
       "rebatesModal":{
-          "th1":"currency",
-          "th2":"product",
-          "th3":"max",
-          "th4":"days",
-          "th5":"brand",
+          "th1":"Currency",
+          "th2":"Product",
+          "th3":"Max",
+          "th4":"Days",
+          "th5":"Brand",
           "brands":{
-            "th1":"brand",
-            "th2":"rate"
+            "th1":"Crand",
+            "th2":"Rate"
           }
+      },
+      "currenciesManage":{
+        "th1":"Code",
+        "th2":"Name",
+        "th3":"Symbol",
+        "th4":"Symbol After",
+        "th5":"Support"
       }
   },
   "panel_tile":{
