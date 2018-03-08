@@ -32,14 +32,14 @@
 (function() {
 
     angular
-        .module('admin.localeLanguage', [
+        .module('admin.transactionsDetail', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.transactionsDetail', [
+        .module('admin.localeLanguage', [
             'app.core',
         ]);
 })();
@@ -508,6 +508,36 @@
 (function() {
 
     angular
+        .module('admin.transactionsDetail')
+        .controller('TransactionsDetailController', TransactionsDetailController);
+
+    TransactionsDetailController.$inject = [
+        '$scope',
+        '$rootScope',
+        'URL',
+        'adminService'
+    ];
+
+    function TransactionsDetailController(
+        $scope,
+        $rootScope,
+        URL,
+        adminService
+    ) {
+
+        $scope.transactionsDetail = [];
+        $scope.transactionsDetailReload = 1;
+        $scope.transactionsDetailAoData = {
+            timezone: "+10:00"
+        };
+        $scope.transactionsUrl = URL.TRANSACTIONSDETAIL;
+
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.localeLanguage')
         .controller('LocaleLanguageController', LocaleLanguageController);
 
@@ -656,36 +686,6 @@
         // 页面加载执行的函数
 
         $scope.initLocaleLanguageData();
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.transactionsDetail')
-        .controller('TransactionsDetailController', TransactionsDetailController);
-
-    TransactionsDetailController.$inject = [
-        '$scope',
-        '$rootScope',
-        'URL',
-        'adminService'
-    ];
-
-    function TransactionsDetailController(
-        $scope,
-        $rootScope,
-        URL,
-        adminService
-    ) {
-
-        $scope.transactionsDetail = [];
-        $scope.transactionsDetailReload = 1;
-        $scope.transactionsDetailAoData = {
-            timezone: "+10:00"
-        };
-        $scope.transactionsUrl = URL.TRANSACTIONSDETAIL;
-
     }
 })();
 
@@ -1330,6 +1330,54 @@
         $scope.userLevelAoData = {};
         $scope.userLevelSearch = '';
 
+        /**
+         * 格式化userLevel数据
+         * @param userLevelItem 数组中的每一项
+         */
+        $scope.formatUserLevelData = function (userLevelItem) {
+            var conditions = [];
+            var treatments = [];
+            var rebates = [];
+            if(userLevelItem['conditions']){
+                window.Object.keys(userLevelItem['conditions']).map(function (key) {
+                    window.Object.keys(userLevelItem['conditions'][key]).map(function (keyItem) {
+                        conditions = conditions.concat(userLevelItem['conditions'][key][keyItem])
+                    })
+                })
+            }
+            console.log(conditions, '------------conditions---------')
+            if(userLevelItem['treatments']){
+                window.Object.keys(userLevelItem['treatments']).map(function (key) {
+                    treatments = treatments.concat(userLevelItem['treatments'][key])
+                })
+            }
+            console.log(treatments, '------------treatments---------')
+            if(userLevelItem['rebates']){
+                window.Object.keys(userLevelItem['rebates']).map(function (key) {
+                    userLevelItem['rebates'][key].map(function (keyItem) {
+                        var product = keyItem['product'];
+                        var max = keyItem['max'];
+                        var days = keyItem['days'];
+                        if(window.Array.isArray(keyItem['brands'])){
+                            keyItem['brands'].map(function (brandsItem) {
+                                var tempObj = angular.copy(brandsItem);
+                                tempObj.product = product;
+                                tempObj.max = max;
+                                tempObj.days = days;
+                                rebates.push(tempObj)
+                            })
+                        }
+                    })
+                })
+            }
+            console.log(rebates, '------------rebates---------')
+            return {
+                conditions:conditions,
+                treatments:treatments,
+                rebates:rebates
+            };
+        };
+
         // 初始化table数据
         $scope.initUserLevelData = function () {
             $scope.userLevel = [];
@@ -1339,8 +1387,9 @@
                     if (res.data.success) {
                         $scope.userLevel = angular.copy(res.data.data);
                         $scope.userLevel.forEach(function (userLevelItem, userLevelIndex) {
-                            userLevelItem.id = userLevelIndex +1
-                        })
+                            userLevelItem.id = userLevelIndex +1;
+                            window.Object.assign(userLevelItem, $scope.formatUserLevelData(userLevelItem))
+                        });
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
