@@ -129,6 +129,17 @@
       "th3":"符号",
       "th4":"符号置后",
       "th5":"支持"
+    },
+    "transactionsDetail":{
+      "th1":"User Id",
+      "th2":"Affiliate Id",
+      "th3":"Service Id",
+      "th4":"service",
+      "th5":"amount",
+      "th6":"preBalance",
+      "th7":"postBalance",
+      "th8":"walletCode",
+      "th9":"description"
     }
   },
   "panel_tile": {

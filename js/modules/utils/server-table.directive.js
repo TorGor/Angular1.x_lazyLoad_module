@@ -21,6 +21,7 @@
             scope: {
                 aoData: '=aoData',
                 items: '=items',
+                url: '=url',
                 serviceName: '@serviceName',
                 serviceNameAttr: '@serviceNameAttr',
                 reload: '=reload',
@@ -115,25 +116,50 @@
                     }
                 });
                 $scope.ServerPaging=function(){
+                    console.log($scope.url, 66666)
                     var temAoData=angular.copy($scope.aoData);
+                    if(temAoData.curPage){
+                        temAoData.page = temAoData.curPage;
+                        delete temAoData.curPage;
+                    }
                     temAoData.draw=$scope.TemDraw;
                     $scope.TemDraw++;
-                    service[$scope.serviceNameAttr](temAoData,{}).$promise.then(function (data){
-                        console.log(data, '----ServerPaging')
-                        if(data.data && data.data.draw && $scope.pageMessage.draw){
-                            if(parseInt($scope.pageMessage.draw)<=parseInt(data.data.draw)){
+                    if($scope.url){
+                        console.log($scope.url, 66666)
+                        service[$scope.serviceNameAttr]($scope.url,temAoData,{}).then(function (data){
+                            console.log(data, '----ServerPaging URL')
+                            if(data.data && data.data.draw && $scope.pageMessage.draw){
+                                if(parseInt($scope.pageMessage.draw)<=parseInt(data.data.draw)){
+                                    $scope.pageMessage.count=angular.copy(data.data.totalSize);
+                                    $scope.pageTotle=angular.copy(data.data.totalPage);
+                                    $scope.items=angular.copy(data.data.list);
+                                }
+                            }else{
+                                $scope.pageMessage.draw=angular.copy(data.data.draw||1);
                                 $scope.pageMessage.count=angular.copy(data.data.totalSize);
                                 $scope.pageTotle=angular.copy(data.data.totalPage);
                                 $scope.items=angular.copy(data.data.list);
+                                console.log($scope.pageMessage,'$scope.pageMessage')
                             }
-                        }else{
-                            $scope.pageMessage.draw=angular.copy(data.data.draw||1);
-                            $scope.pageMessage.count=angular.copy(data.data.totalSize);
-                            $scope.pageTotle=angular.copy(data.data.totalPage);
-                            $scope.items=angular.copy(data.data.list);
-                            console.log($scope.pageMessage,'$scope.pageMessage')
-                        }
-                    });
+                        });
+                    }else{
+                        service[$scope.serviceNameAttr](temAoData,{}).$promise.then(function (data){
+                            console.log(data, '----ServerPaging')
+                            if(data.data && data.data.draw && $scope.pageMessage.draw){
+                                if(parseInt($scope.pageMessage.draw)<=parseInt(data.data.draw)){
+                                    $scope.pageMessage.count=angular.copy(data.data.totalSize);
+                                    $scope.pageTotle=angular.copy(data.data.totalPage);
+                                    $scope.items=angular.copy(data.data.list);
+                                }
+                            }else{
+                                $scope.pageMessage.draw=angular.copy(data.data.draw||1);
+                                $scope.pageMessage.count=angular.copy(data.data.totalSize);
+                                $scope.pageTotle=angular.copy(data.data.totalPage);
+                                $scope.items=angular.copy(data.data.list);
+                                console.log($scope.pageMessage,'$scope.pageMessage')
+                            }
+                        });
+                    }
                 }
             }
         }

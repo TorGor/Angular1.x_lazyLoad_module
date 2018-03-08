@@ -129,6 +129,17 @@
         "th3":"Symbol",
         "th4":"Symbol After",
         "th5":"Support"
+      },
+      "transactionsDetail":{
+        "th1":"User Id",
+        "th2":"Affiliate Id",
+        "th3":"Service Id",
+        "th4":"service",
+        "th5":"amount",
+        "th6":"preBalance",
+        "th7":"postBalance",
+        "th8":"walletCode",
+        "th9":"description"
       }
   },
   "panel_tile":{
