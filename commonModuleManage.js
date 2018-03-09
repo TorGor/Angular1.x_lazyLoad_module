@@ -3,12 +3,12 @@
  */
 var moduleSetting = {
     //模块主要名称
-    common: 'currencies',
+    common: 'payment',
     //模块主要名称2
-    module: 'manage',
+    module: 'methods',
     //模块标题
-    title: '货币管理',
+    title: '支付渠道',
     // url地址
-    url: '货币管理',
+    url: '/rest/methods',
 };
 module.exports = moduleSetting;

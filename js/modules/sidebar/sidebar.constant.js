@@ -83,7 +83,25 @@
                     "text": "货币管理",
                     "sref": "admin.currenciesManage",
                     "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "银行黑名单",
+                    "sref": "admin.blackLists",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "充值管理",
+                    "sref": "admin.ordersManage",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "支付渠道",
+                    "sref": "admin.paymentMethods",
+                    "icon": "glyphicon glyphicon-th-large",
                 }//new sidebar name will be append here
+            
+            
+            
             
             
             

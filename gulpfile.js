@@ -592,9 +592,9 @@ gulp.task('addModuleNameToAppRoute', function () {
 });
 gulp.task('addModuleNameUrl', function () {
     var str = '//new URl will be append here';
-    return gulp.src(['./js/modules/sidebar/sidebar.constant.js'], {base: '.'})
+    return gulp.src(['./js/modules/core/core.controller.js'], {base: '.'})
         .pipe($.replace(new RegExp(str, 'g'),
-            `"${needRepalce['COMMONMODULETITLE']}":"${moduleSetting.url || ''}",
+            `"${needRepalce['COMMONMODULE']}":"${moduleSetting.url || ''}",
               //new sidebar name will be append here
             `))
         .pipe(gulp.dest('.'));

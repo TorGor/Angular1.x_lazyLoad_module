@@ -28,7 +28,9 @@
             USERLEVEL:'/rest/ranks',
             TRANSACTIONSDETAIL:'/rest/transactions',
             CURRENCIESMANAGE:'/rest/currencies',
-            //new URl will be append here
+            BLACKLISTS:'/rest/blacklists',
+            ORDERSMANAGE:"/rest/orders",
+            PAYMENTMETHODS:"/rest/methods",
         };
 
         /**

@@ -114,7 +114,34 @@
                 permission: 'currenciesManage'
             })
             
+            .state('admin.blackLists', {
+                url: '/blackLists/manage',
+                title: 'blackLists Manage',
+                controller: 'BlackListsController',
+                templateUrl: RouteHelpersProvider.basepath('admin/blackLists/blackLists.html'),
+                permission: 'blackLists'
+            })
+            
+            .state('admin.ordersManage', {
+                url: '/ordersManage/manage',
+                title: 'ordersManage Manage',
+                controller: 'OrdersManageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/ordersManage/ordersManage.html'),
+                permission: 'ordersManage'
+            })
+            
+            .state('admin.paymentMethods', {
+                url: '/paymentMethods/manage',
+                title: 'paymentMethods Manage',
+                controller: 'PaymentMethodsController',
+                templateUrl: RouteHelpersProvider.basepath('admin/paymentMethods/paymentMethods.html'),
+                permission: 'paymentMethods'
+            })
+            
             //new route name will be append here
+            
+            
+            
             
             
             

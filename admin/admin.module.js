@@ -11,6 +11,9 @@
 			'admin.userLevel',
 			'admin.transactionsDetail',
 			'admin.currenciesManage',
+			'admin.blackLists',
+			'admin.ordersManage',
+			'admin.paymentMethods',
 			//new module name will be append here
 
         ]);
