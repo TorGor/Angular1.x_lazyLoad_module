@@ -97,6 +97,8 @@
             }
         ];
 
+        var baseTreatments = angular.copy(item['treatments']);
+
         // 原始的数据
         $scope.treatmentsModal = [];
 
@@ -111,6 +113,9 @@
             $scope.treatmentsModal = [];
             if(item['treatments'].length){
                 $scope.treatmentsModal = item['treatments'];
+                $scope.treatmentsModal.forEach(function (treatmentsItem, treatmentsIndex) {
+                    treatmentsItem.id = treatmentsIndex + 1;
+                })
             }
         };
 
@@ -123,8 +128,8 @@
          */
 
         $scope.saveTreatmentsModal = function (treatmentsModal, item) {
-            var tempData = angular.extend({}, treatmentsModal, item);
-            return '';
+            treatmentsModal.id = $scope.treatmentsModal.length;
+            window.Object.assign(treatmentsModal, item);
         };
 
         // 删除treatmentsModal
@@ -143,12 +148,10 @@
             $scope.treatmentsModalSearch = '';
             $scope.treatmentsModal.unshift({
                 'id': null,
-                'treatmentsModalName': '',
-                'treatmentsModalType': '',
-                'treatmentsModalStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                "currency": $scope.currencyOptions[0].value,
+                "designation": $scope.designationOptions[0].value,
+                "type": $scope.typeOptions[0].value,
+                "value":""
             });
         };
 
@@ -165,10 +168,19 @@
         };
 
         $scope.confirmModal = function () {
+            $scope.treatmentsModal = $scope.treatmentsModal.filter(function (treatmentsItem) {
+                return treatmentsItem.id;
+            });
+            $scope.treatmentsModal.forEach(function (treatmentsItem, treatmentsIndex) {
+                if(treatmentsItem.id){
+                    delete treatmentsItem.id;
+                }
+            });
             $uibModalInstance.close('neededUpdateUserLevel');
         };
 
         $scope.cancelModal = function () {
+            item['treatments'] = baseTreatments;
             $uibModalInstance.dismiss('cancel');
         };
 

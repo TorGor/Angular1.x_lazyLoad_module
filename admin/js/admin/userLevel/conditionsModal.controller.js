@@ -164,7 +164,7 @@
         $scope.confirmModal = function () {
             $scope.conditionsModal = $scope.conditionsModal.filter(function (conditionsItem) {
                 return conditionsItem.id;
-            })
+            });
             $scope.conditionsModal.forEach(function (conditionsItem, conditionsIndex) {
                 if(conditionsItem.id){
                     delete conditionsItem.id;
