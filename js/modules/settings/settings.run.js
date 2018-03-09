@@ -5,21 +5,43 @@
         .module('app.settings')
         .run(settingsRun);
 
-    settingsRun.$inject = ['$rootScope', '$localStorage', '$translate'];
+    settingsRun.$inject = [
+        '$rootScope',
+        '$localStorage',
+        'userSelfService',
+        '$translate'
+    ];
 
-    function settingsRun($rootScope, $localStorage, $translate) {
+    function settingsRun(
+        $rootScope,
+        $localStorage,
+        userSelfService,
+        $translate
+    ) {
 
 
         // User Settings
         // -----------------------------------
         $rootScope.user = {
             system: 'admin',
-            name: 'welcome'
+            name: 'admin'
         };
 
         // Hides/show user avatar on sidebar from any element
         $rootScope.toggleUserBlock = function() {
             $rootScope.$broadcast('toggleUserBlock');
+        };
+
+        $rootScope.userLogout = function () {
+            userSelfService.getUserLogout.$promise.then(function (data) {
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+                        window.location.href = '/login.html'
+                    } else {
+                        $rootScope.alertErrorMsg(data.msg);
+                    }
+                }
+            })
         };
 
         // Global Settings
