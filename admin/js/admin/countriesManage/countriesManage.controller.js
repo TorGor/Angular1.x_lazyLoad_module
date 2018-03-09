@@ -7,14 +7,12 @@
     CountriesManageController.$inject = [
         '$scope',
         '$rootScope',
-        'URL',
         'adminService'
     ];
 
     function CountriesManageController(
         $scope,
         $rootScope,
-        URL,
         adminService
     ) {
 

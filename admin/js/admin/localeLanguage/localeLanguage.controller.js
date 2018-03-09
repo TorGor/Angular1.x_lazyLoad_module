@@ -8,7 +8,6 @@
         '$scope',
         '$rootScope',
         'adminService',
-        'URL',
         '$translate'
     ];
 
@@ -16,7 +15,6 @@
         $scope,
         $rootScope,
         adminService,
-        URL,
         $translate
     ) {
 

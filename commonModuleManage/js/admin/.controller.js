@@ -7,14 +7,12 @@
     CommonModuleController.$inject = [
         '$scope',
         '$rootScope',
-        'URL',
         'adminService'
     ];
 
     function CommonModuleController(
         $scope,
         $rootScope,
-        URL,
         adminService
     ) {
 

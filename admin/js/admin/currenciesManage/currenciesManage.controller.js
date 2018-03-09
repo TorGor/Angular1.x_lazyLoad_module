@@ -7,7 +7,6 @@
     CurrenciesManageController.$inject = [
         '$scope',
         '$rootScope',
-        'URL',
         '$translate',
         'adminService'
     ];
@@ -15,7 +14,6 @@
     function CurrenciesManageController(
         $scope,
         $rootScope,
-        URL,
         $translate,
         adminService
     ) {

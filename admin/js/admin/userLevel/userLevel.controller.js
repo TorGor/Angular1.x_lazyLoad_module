@@ -7,7 +7,6 @@
     UserLevelController.$inject = [
         '$scope',
         '$rootScope',
-        'URL',
         '$uibModal',
         'adminService'
     ];
@@ -15,7 +14,6 @@
     function UserLevelController(
         $scope,
         $rootScope,
-        URL,
         $uibModal,
         adminService
     ) {
