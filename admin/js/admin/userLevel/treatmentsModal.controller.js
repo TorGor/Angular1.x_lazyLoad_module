@@ -20,17 +20,6 @@
         item
     ) {
 
-        $scope.currencyOptions = [
-            {
-                label: '1',
-                value: '1'
-            },
-            {
-                label: '2',
-                value: '2'
-            }
-        ];
-
         $scope.designationOptions = [
             {
                 label: 'member-card',

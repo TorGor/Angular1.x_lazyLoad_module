@@ -20,17 +20,6 @@
         item
     ) {
 
-        $scope.currencyOptions = [
-            {
-                label: '1',
-                value: '1'
-            },
-            {
-                label: '2',
-                value: '2'
-            }
-        ];
-
         $scope.productOptions = [
             {
                 label: 'SLOTS',
@@ -53,6 +42,8 @@
         // 原始的数据
         $scope.rebatesModal = [];
 
+        var baseRebates = angular.copy(item['rebates']);
+
         // 过滤出来的数据
         $scope.showRebatesModal = [];
         $scope.rebatesModalReload = 1;
@@ -64,6 +55,9 @@
             $scope.rebatesModal = [];
             if(item['rebates'].length){
                 $scope.rebatesModal = item['rebates'];
+                $scope.rebatesModal.forEach(function (rebatesItem, rebatesIndex) {
+                    rebatesItem.id = rebatesIndex + 1;
+                })
             }
         };
 
@@ -76,8 +70,8 @@
          */
 
         $scope.saveRebatesModal = function (rebatesModal, item) {
-            var tempData = angular.extend({}, rebatesModal, item);
-            return '';
+            rebatesModal.id = $scope.rebatesModal.length;
+            window.Object.assign(rebatesModal, item);
         };
 
         // 删除rebatesModal
@@ -86,6 +80,7 @@
          * @return null
          */
         $scope.deleteRebatesModal = function (rebatesModal) {
+            $scope.rebatesModal.splice(index, 1)
         };
 
         // 添加按钮
@@ -116,10 +111,19 @@
         };
 
         $scope.confirmModal = function () {
+            $scope.rebatesModal = $scope.rebatesModal.filter(function (rebatesItem) {
+                return rebatesItem.id;
+            });
+            $scope.rebatesModal.forEach(function (rebatesItem, rebatesIndex) {
+                if(rebatesItem.id){
+                    delete rebatesItem.id;
+                }
+            });
             $uibModalInstance.close('neededUpdateUserLevel');
         };
 
         $scope.cancelModal = function () {
+            item['rebates'] = baseRebates;
             $uibModalInstance.dismiss('cancel');
         };
         // 页面加载执行的函数

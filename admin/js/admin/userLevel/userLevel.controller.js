@@ -18,6 +18,8 @@
         adminService
     ) {
 
+        $scope.currencyOptions = [];
+
         // 原始的数据
         $scope.userLevel = [];
 
@@ -26,6 +28,30 @@
         $scope.userLevelReload = 1;
         $scope.userLevelAoData = {};
         $scope.userLevelSearch = '';
+
+        $scope.initCurrenciesManageData = function () {
+            $scope.currencyOptions = [];
+            adminService.getReq(URL.CURRENCIESMANAGE, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.currencyOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
 
         /**
          * 格式化userLevel数据
