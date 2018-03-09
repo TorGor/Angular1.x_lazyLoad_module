@@ -43,17 +43,17 @@
                         <tr ng-repeat="item in showTreatmentsModal">
                            <td>
                               <span editable-select="item.currency" e-name="currency" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in currencyOptions">
-                                 {{showOptionsValue(item.currency,currencyOptions)}}}
+                                 {{showOptionsValue(item.currency,currencyOptions)}}
                               </span>
                            </td>
                            <td>
                               <span editable-select="item.designation" e-name="designation" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in designationOptions">
-                                 {{showOptionsValue(item.designation,designationOptions)}}}
+                                 {{showOptionsValue(item.designation,designationOptions)}}
                               </span>
                            </td>
                            <td>
                               <span editable-select="item.type" e-name="type" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in typeOptions">
-                                 {{showOptionsValue(item.type,typeOptions)}}}
+                                 {{showOptionsValue(item.type,typeOptions)}}
                               </span>
                            </td>
                            <td>

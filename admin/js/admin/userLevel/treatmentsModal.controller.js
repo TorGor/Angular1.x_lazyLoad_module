@@ -130,9 +130,11 @@
         // 删除treatmentsModal
         /**
          * @param treatmentsModal 用户等级数据对象
+         * @param index 位置
          * @return null
          */
-        $scope.deleteTreatmentsModal = function (treatmentsModal) {
+        $scope.deleteTreatmentsModal = function (treatmentsModal, index) {
+            $scope.treatmentsModal.splice(index, 1)
         };
 
         // 添加按钮

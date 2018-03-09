@@ -4,7 +4,7 @@
 
 <div class="modal-body">
     <div class="row">
-        <div class="panel panel-default">
+        <div class="">
             <div class="panel-wrapper">
                 <div class="panel-body">
                 <span class="form-group add-button-class">
@@ -58,14 +58,14 @@
                                     <span editable-select="item.currency" e-name="currency" e-form="rowform"
                                           onbeforesave="checkRequiredData($data)"
                                           e-ng-options="option.value as option.label for option in currencyOptions">
-                                        {{showOptionsValue(item.currency,currencyOptions)}}}
+                                        {{showOptionsValue(item.currency,currencyOptions)}}
                                     </span>
                                 </td>
                                 <td>
                                     <span editable-select="item.product" e-name="product" e-form="rowform"
                                           onbeforesave="checkRequiredData($data)"
                                           e-ng-options="option.value as option.label for option in productOptions">
-                                        {{showOptionsValue(item.product,productOptions)}}}
+                                        {{showOptionsValue(item.product,productOptions)}}
                                     </span>
                                 </td>
                                 <td>

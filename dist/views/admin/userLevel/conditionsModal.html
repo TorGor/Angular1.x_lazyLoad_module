@@ -4,7 +4,7 @@
 
 <div class="modal-body">
    <div class="row">
-      <div class="panel panel-default">
+      <div class="">
          <div class="panel-wrapper">
             <div class="panel-body">
                <span class="form-group add-button-class">
@@ -49,17 +49,17 @@
                         <tr ng-repeat="item in showConditionsModal">
                            <td>
                               <span editable-select="item.currency" e-name="currency" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in currencyOptions">
-                                 {{showOptionsValue(item.currency,currencyOptions)}}}
+                                 {{showOptionsValue(item.currency,currencyOptions)}}
                               </span>
                            </td>
                            <td>
                               <span editable-select="item.designation" e-name="designation" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in designationOptions">
-                                 {{showOptionsValue(item.designation,designationOptions)}}}
+                                 {{showOptionsValue(item.designation,designationOptions)}}
                               </span>
                            </td>
                            <td>
                               <span editable-select="item.comparison" e-name="comparison" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in comparisonOptions">
-                                 {{showOptionsValue(item.comparison,comparisonOptions)}}}
+                                 {{showOptionsValue(item.comparison,comparisonOptions)}}
                               </span>
                            </td>
                            <td>
@@ -67,12 +67,12 @@
                            </td>
                            <td>
                               <span editable-select="item.type" e-name="type" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in typeOptions">
-                                 {{showOptionsValue(item.type,typeOptions)}}}
+                                 {{showOptionsValue(item.type,typeOptions)}}
                               </span>
                            </td>
                            <td>
                               <span editable-select="item.logicality" e-name="logicality" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in logicalityOptions">
-                                 {{showOptionsValue(item.logicality,logicalityOptions)}}}
+                                 {{showOptionsValue(item.logicality,logicalityOptions)}}
                               </span>
                            </td>
                            <td style="white-space: nowrap;">
@@ -88,7 +88,7 @@
                                  <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
                                     <em class="fa fa-pencil"></em>
                                  </button>
-                                 <button class="btn btn-sm btn-danger" ng-click="deleteConditionsModal(item)" title="{{'table.button.delete' | translate}}">
+                                 <button class="btn btn-sm btn-danger" ng-click="deleteConditionsModal(item, $index)" title="{{'table.button.delete' | translate}}">
                                     <em class="fa fa-trash"></em>
                                  </button>
                               </div>

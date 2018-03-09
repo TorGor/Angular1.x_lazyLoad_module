@@ -32,14 +32,14 @@
 (function() {
 
     angular
-        .module('admin.transactionsDetail', [
+        .module('admin.localeLanguage', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.localeLanguage', [
+        .module('admin.transactionsDetail', [
             'app.core',
         ]);
 })();
@@ -508,36 +508,6 @@
 (function() {
 
     angular
-        .module('admin.transactionsDetail')
-        .controller('TransactionsDetailController', TransactionsDetailController);
-
-    TransactionsDetailController.$inject = [
-        '$scope',
-        '$rootScope',
-        'URL',
-        'adminService'
-    ];
-
-    function TransactionsDetailController(
-        $scope,
-        $rootScope,
-        URL,
-        adminService
-    ) {
-
-        $scope.transactionsDetail = [];
-        $scope.transactionsDetailReload = 1;
-        $scope.transactionsDetailAoData = {
-            timezone: "+10:00"
-        };
-        $scope.transactionsUrl = URL.TRANSACTIONSDETAIL;
-
-    }
-})();
-
-(function() {
-
-    angular
         .module('admin.localeLanguage')
         .controller('LocaleLanguageController', LocaleLanguageController);
 
@@ -692,6 +662,36 @@
 (function() {
 
     angular
+        .module('admin.transactionsDetail')
+        .controller('TransactionsDetailController', TransactionsDetailController);
+
+    TransactionsDetailController.$inject = [
+        '$scope',
+        '$rootScope',
+        'URL',
+        'adminService'
+    ];
+
+    function TransactionsDetailController(
+        $scope,
+        $rootScope,
+        URL,
+        adminService
+    ) {
+
+        $scope.transactionsDetail = [];
+        $scope.transactionsDetailReload = 1;
+        $scope.transactionsDetailAoData = {
+            timezone: "+10:00"
+        };
+        $scope.transactionsUrl = URL.TRANSACTIONSDETAIL;
+
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.userLevel')
         .controller('UserLevelConditionsModalController', UserLevelConditionsModalController);
 
@@ -789,12 +789,16 @@
         $scope.conditionsModalAoData = {};
         $scope.conditionsModalSearch = '';
 
+        var baseConditions = angular.copy(item['conditions']);
+
         // 初始化table数据
         $scope.initConditionsModalData = function () {
             $scope.conditionsModal = [];
-            console.log(item, '--------')
             if(item['conditions'].length){
                 $scope.conditionsModal = item['conditions'];
+                $scope.conditionsModal.forEach(function (conditionsItem, conditionsIndex) {
+                    conditionsItem.id = conditionsIndex + 1;
+                })
             }
         };
 
@@ -807,16 +811,18 @@
          */
 
         $scope.saveConditionsModal = function (conditionsModal, item) {
-            var tempData = angular.extend({}, conditionsModal, item);
-            return '';
+            conditionsModal.id = $scope.conditionsModal.length;
+            window.Object.assign(conditionsModal, item);
         };
 
         // 删除conditionsModal
         /**
          * @param conditionsModal 用户等级数据对象
+         * @param index 位置
          * @return null
          */
-        $scope.deleteConditionsModal = function (conditionsModal) {
+        $scope.deleteConditionsModal = function (conditionsModal, index) {
+            $scope.conditionsModal.splice(index, 1)
         };
 
         // 添加按钮
@@ -825,12 +831,12 @@
             $scope.conditionsModalSearch = '';
             $scope.conditionsModal.unshift({
                 'id': null,
-                'conditionsModalName': '',
-                'conditionsModalType': '',
-                'conditionsModalStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                "currency": $scope.currencyOptions[0].value,
+                "designation": $scope.designationOptions[0].value,
+                "comparison": $scope.comparisonOptions[0].value,
+                "value":'',
+                "type": $scope.typeOptions[0].value,
+                "logicality": $scope.logicalityOptions[0].value
             });
         };
 
@@ -847,10 +853,19 @@
         };
 
         $scope.confirmModal = function () {
+            $scope.conditionsModal = $scope.conditionsModal.filter(function (conditionsItem) {
+                return conditionsItem.id;
+            })
+            $scope.conditionsModal.forEach(function (conditionsItem, conditionsIndex) {
+                if(conditionsItem.id){
+                    delete conditionsItem.id;
+                }
+            });
             $uibModalInstance.close('neededUpdateUserLevel');
         };
 
         $scope.cancelModal = function () {
+            item['conditions'] = baseConditions;
             $uibModalInstance.dismiss('cancel');
         };
 
@@ -1253,9 +1268,11 @@
         // 删除treatmentsModal
         /**
          * @param treatmentsModal 用户等级数据对象
+         * @param index 位置
          * @return null
          */
-        $scope.deleteTreatmentsModal = function (treatmentsModal) {
+        $scope.deleteTreatmentsModal = function (treatmentsModal, index) {
+            $scope.treatmentsModal.splice(index, 1)
         };
 
         // 添加按钮
@@ -1439,7 +1456,6 @@
             });
             modalInstance.result.then(function (data) {
                 if (data === 'neededUpdateUserLevel') {
-                    $scope.initOneLevelMenus();
                 }
             }, function (cancel) {
 
