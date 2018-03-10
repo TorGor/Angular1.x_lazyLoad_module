@@ -34,7 +34,7 @@
                         <table width="100%" class="table table-bordered table-hover bg-white">
                             <thead>
                             <tr class="bg-gray-light text-bold">
-                                <td style="width: 15%" ao-data="rebatesModalAoData" web-data-table-sort="currency">
+                                <td style="width: 22%" ao-data="rebatesModalAoData" web-data-table-sort="currency">
                                     {{'table.rebatesModal.th1' | translate}}
                                 </td>
                                 <td style="width: 15%" ao-data="rebatesModalAoData" web-data-table-sort="product">
@@ -43,13 +43,13 @@
                                 <td style="width: 15%" ao-data="rebatesModalAoData" web-data-table-sort="max">
                                     {{'table.rebatesModal.th3' | translate}}
                                 </td>
-                                <td style="width: 15%" ao-data="rebatesModalAoData" web-data-table-sort="days">
+                                <td style="width: 10%" ao-data="rebatesModalAoData" web-data-table-sort="days">
                                     {{'table.rebatesModal.th4' | translate}}
                                 </td>
-                                <td style="width: 15%">
+                                <td style="width: 8%">
                                     {{'table.rebatesModal.th5' | translate}}
                                 </td>
-                                <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                                <td style="width: 12%">{{'table.button.operation' | translate}}</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -73,7 +73,7 @@
                                           onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.max || '' }}</span>
                                 </td>
                                 <td>
-                                    <span editable-text="item.days" e-name="days" e-formclass="xeditable-sm"
+                                    <span editable-text="item.days" e-name="days" e-formclass="xeditable-xs"
                                           onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.days || '' }}</span>
                                 </td>
                                 <td>
@@ -106,7 +106,7 @@
                                 </td>
                             </tr>
                             <tr ng-show="showRebatesModal.length==0">
-                                <td colspan="3" class="">{{'table.no_date' | translate}}</td>
+                                <td colspan="6" class="">{{'table.no_date' | translate}}</td>
                             </tr>
                             </tbody>
                         </table>

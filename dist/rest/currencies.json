@@ -1,0 +1,958 @@
+{
+  "success": true,
+  "msg": "Read Success",
+  "data": [
+    {
+      "symbol": "د.إ",
+      "code": "AED",
+      "name": "United Arab Emirates Dirham",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "؋",
+      "code": "AFA",
+      "name": "Afghanistan Afghani",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "Lek",
+      "code": "ALL",
+      "name": "Albanian Lek",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "ƒ",
+      "code": "ANG",
+      "name": "Netherlands Antillian Guilder",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "Kz",
+      "code": "AOK",
+      "name": "Angolan Kwanza",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "ARS",
+      "name": "Argentine Peso",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "AUD",
+      "name": "Australian Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "ƒ",
+      "code": "AWG",
+      "name": "Aruban Florin",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "BBD",
+      "name": "Barbados Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "Tk",
+      "code": "BDT",
+      "name": "Bangladeshi Taka",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "лв",
+      "code": "BGN",
+      "name": "Bulgarian Lev",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "BD",
+      "code": "BHD",
+      "name": "Bahraini Dinar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "FBu",
+      "code": "BIF",
+      "name": "Burundi Franc",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "BMD",
+      "name": "Bermudian Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "BND",
+      "name": "Brunei Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$b",
+      "code": "BOB",
+      "name": "Bolivian Boliviano",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "R$",
+      "code": "BRL",
+      "name": "Brazilian Real",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "BSD",
+      "name": "Bahamian Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "Nu",
+      "code": "BTN",
+      "name": "Bhutan Ngultrum",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "K",
+      "code": "BUK",
+      "name": "Burma Kyat",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "P",
+      "code": "BWP",
+      "name": "Botswanian Pula",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "BZ$",
+      "code": "BZD",
+      "name": "Belize Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "CAD",
+      "name": "Canadian Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "CHF",
+      "code": "CHF",
+      "name": "Swiss Franc",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "CLP",
+      "name": "Chilean Peso",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "¥",
+      "code": "CNY",
+      "name": "Yuan (Chinese) Renminbi",
+      "symbolAfter": false,
+      "supported": true
+    },
+    {
+      "symbol": "$",
+      "code": "COP",
+      "name": "Colombian Peso",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₡",
+      "code": "CRC",
+      "name": "Costa Rican Colon",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₱",
+      "code": "CUP",
+      "name": "Cuban Peso",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "CVE",
+      "name": "Cape Verde Escudo",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "£",
+      "code": "CYP",
+      "name": "Cyprus Pound",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "Kč",
+      "code": "CZK",
+      "name": "Czech Republic Koruna",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "kr",
+      "code": "DKK",
+      "name": "Danish Krone",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "RD$",
+      "code": "DOP",
+      "name": "Dominican Peso",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "DA",
+      "code": "DZD",
+      "name": "Algerian Dinar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "£",
+      "code": "EGP",
+      "name": "Egyptian Pound",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "Br",
+      "code": "ETB",
+      "name": "Ethiopian Birr",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "€",
+      "code": "EUR",
+      "name": "Euro",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "FJD",
+      "name": "Fiji Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "£",
+      "code": "FKP",
+      "name": "Falkland Islands Pound",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "£",
+      "code": "GBP",
+      "name": "British Pound",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "GHC",
+      "name": "Ghanaian Cedi",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "£",
+      "code": "GIP",
+      "name": "Gibraltar Pound",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "GMD",
+      "name": "Gambian Dalasi",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "GNF",
+      "name": "Guinea Franc",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "Q",
+      "code": "GTQ",
+      "name": "Guatemalan Quetzal",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "GWP",
+      "name": "Guinea-Bissau Peso",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "GYD",
+      "name": "Guyanan Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "HKD",
+      "name": "Hong Kong Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "L",
+      "code": "HNL",
+      "name": "Honduran Lempira",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "HTG",
+      "name": "Haitian Gourde",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "Ft",
+      "code": "HUF",
+      "name": "Hungarian Forint",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "Rp",
+      "code": "IDR",
+      "name": "Indonesian Rupiah",
+      "symbolAfter": false,
+      "supported": true
+    },
+    {
+      "symbol": null,
+      "code": "IEP",
+      "name": "Irish Punt",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₪",
+      "code": "ILS",
+      "name": "Israeli Shekel",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₹",
+      "code": "INR",
+      "name": "Indian Rupee",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "IQD",
+      "name": "Iraqi Dinar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "﷼",
+      "code": "IRR",
+      "name": "Iranian Rial",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "J$",
+      "code": "JMD",
+      "name": "Jamaican Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "JOD",
+      "name": "Jordanian Dinar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "¥",
+      "code": "JPY",
+      "name": "Japanese Yen",
+      "symbolAfter": false,
+      "supported": true
+    },
+    {
+      "symbol": null,
+      "code": "KES",
+      "name": "Kenyan Schilling",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "៛",
+      "code": "KHR",
+      "name": "Kampuchean (Cambodian) Riel",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "KMF",
+      "name": "Comoros Franc",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₩",
+      "code": "KPW",
+      "name": "North Korean Won",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₩",
+      "code": "KRW",
+      "name": "South Korean Won",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "KWD",
+      "name": "Kuwaiti Dinar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "KYD",
+      "name": "Cayman Islands Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₭",
+      "code": "LAK",
+      "name": "Lao Kip",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "£",
+      "code": "LBP",
+      "name": "Lebanese Pound",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₨",
+      "code": "LKR",
+      "name": "Sri Lanka Rupee",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "LRD",
+      "name": "Liberian Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "LSL",
+      "name": "Lesotho Loti",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "LYD",
+      "name": "Libyan Dinar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "MAD",
+      "name": "Moroccan Dirham",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "MGF",
+      "name": "Malagasy Franc",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₮",
+      "code": "MNT",
+      "name": "Mongolian Tugrik",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "MOP",
+      "name": "Macau Pataca",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "MRO",
+      "name": "Mauritanian Ouguiya",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "MTL",
+      "name": "Maltese Lira",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₨",
+      "code": "MUR",
+      "name": "Mauritius Rupee",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "MVR",
+      "name": "Maldive Rufiyaa",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "MWK",
+      "name": "Malawi Kwacha",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "MXN",
+      "name": "Mexican Peso",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "RM",
+      "code": "MYR",
+      "name": "Malaysian Ringgit",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "MT",
+      "code": "MZN",
+      "name": "Mozambique Metical",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "NAD",
+      "name": "Namibian Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₦",
+      "code": "NGN",
+      "name": "Nigerian Naira",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "C$",
+      "code": "NIO",
+      "name": "Nicaraguan Cordoba",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "kr",
+      "code": "NOK",
+      "name": "Norwegian Kroner",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₨",
+      "code": "NPR",
+      "name": "Nepalese Rupee",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "NZD",
+      "name": "New Zealand Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "﷼",
+      "code": "OMR",
+      "name": "Omani Rial",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "B/.",
+      "code": "PAB",
+      "name": "Panamanian Balboa",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "S/.",
+      "code": "PEN",
+      "name": "Peruvian Nuevo Sol",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "K",
+      "code": "PGK",
+      "name": "Papua New Guinea Kina",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₱",
+      "code": "PHP",
+      "name": "Philippine Peso",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₨",
+      "code": "PKR",
+      "name": "Pakistan Rupee",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "zł",
+      "code": "PLN",
+      "name": "Polish Zloty",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "Gs",
+      "code": "PYG",
+      "name": "Paraguay Guarani",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "﷼",
+      "code": "QAR",
+      "name": "Qatari Rial",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "lei",
+      "code": "RON",
+      "name": "Romanian Leu",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₽",
+      "code": "RUB",
+      "name": "Russian Ruble",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "R₣",
+      "code": "RWF",
+      "name": "Rwanda Franc",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "﷼",
+      "code": "SAR",
+      "name": "Saudi Arabian Riyal",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "SBD",
+      "name": "Solomon Islands Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₨",
+      "code": "SCR",
+      "name": "Seychelles Rupee",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "kr",
+      "code": "SEK",
+      "name": "Swedish Krona",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "SGD",
+      "name": "Singapore Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "£",
+      "code": "SHP",
+      "name": "St. Helena Pound",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "SLL",
+      "name": "Sierra Leone Leone",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "S",
+      "code": "SOS",
+      "name": "Somali Schilling",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "SRG",
+      "name": "Suriname Guilder",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "STD",
+      "name": "Sao Tome and Principe Dobra",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "SVC",
+      "name": "El Salvador Colon",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "£",
+      "code": "SYP",
+      "name": "Syrian Pound",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "฿",
+      "code": "THB",
+      "name": "Thai Baht",
+      "symbolAfter": false,
+      "supported": true
+    },
+    {
+      "symbol": "DT ",
+      "code": "TND",
+      "name": "Tunisian Dinar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "TOP",
+      "name": "Tongan Paanga",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₺",
+      "code": "TRY",
+      "name": "Turkish Lira",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "TT$",
+      "code": "TTD",
+      "name": "Trinidad and Tobago Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "¥",
+      "code": "TTT",
+      "name": "Test Currency",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "NT$",
+      "code": "TWD",
+      "name": "Taiwan Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "TZS",
+      "name": "Tanzanian Schilling",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "UGX",
+      "name": "Uganda Shilling",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "USD",
+      "name": "US Dollar",
+      "symbolAfter": false,
+      "supported": true
+    },
+    {
+      "symbol": "$U",
+      "code": "UYU",
+      "name": "Uruguayan Peso",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "Bs",
+      "code": "VEF",
+      "name": "Venezualan Bolivar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "₫",
+      "code": "VND",
+      "name": "Vietnamese Dong",
+      "symbolAfter": false,
+      "supported": true
+    },
+    {
+      "symbol": null,
+      "code": "VUV",
+      "name": "Vanuatu Vatu",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "WST",
+      "name": "Samoan Tala",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "XAF",
+      "name": "Communauté Financière Africaine BEAC, Francs",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": "$",
+      "code": "XCD",
+      "name": "East Caribbean Dollar",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "XOF",
+      "name": "Communauté Financière Africaine BCEAO - Francs",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "XPF",
+      "name": "Comptoirs Français du Pacifique Francs",
+      "symbolAfter": false,
+      "supported": false
+    },
+    {
+      "symbol": null,
+      "code": "XPT",
+      "name": "Platinum, Ounces",
+      "symbolAfter": false,
+      "supported": false
+    }
+  ]
+}

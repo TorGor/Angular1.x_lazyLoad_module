@@ -40,9 +40,9 @@
                                     name: data.data && data.data.username || ''
                                 };
                             },function (error) {
-                                $timeout(function() {
-                                    window.location.href = '/login.html';
-                                }, 10);
+                                // $timeout(function() {
+                                //     window.location.href = '/login.html';
+                                // }, 10);
                                 return 'get User Info failed';
                             });
                         }]
