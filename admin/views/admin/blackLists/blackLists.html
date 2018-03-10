@@ -2,12 +2,57 @@
     <div class="panel panel-default">
         <div class="panel-wrapper">
             <div class="panel-body">
+                <div class="row" style="margin-bottom: 10px">
+                    <form class="form-horizontal" role="form">
+                        <div class="col-lg-3 col-md-6">
+                            <input
+                                    class="form-control"
+                                    type="text"
+                                    ng-model="blackListsAoData.accountNumber"
+                                    placeholder="{{'table.blackLists.th1' | translate}}">
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <input
+                                    class="form-control"
+                                    type="text"
+                                    ng-model="blackListsAoData.comment"
+                                    placeholder="{{'table.blackLists.th2' | translate}}">
+                        </div>
+                        <div class="form-group col-lg-3 col-md-6">
+                            <ui-select
+                                    ng-model="blackListsAoData.type"
+                                    theme="bootstrap"
+                                    search-enabled="false">
+                                <ui-select-match placeholder="{{'table.blackLists.th3' | translate}}">
+                                    <span ng-bind="$select.selected.label"></span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="item.value as item in typeOptionsSearch">
+                                    <span ng-bind="item.label"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <ui-select
+                                    ng-model="selected"
+                                    theme="bootstrap"
+                                    search-enabled="false">
+                                <ui-select-match placeholder="{{'table.blackLists.th4' | translate}}">
+                                    <span ng-bind="$select.selected.label"></span>
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in (typeOptions | filter:$select.search)">
+                                    <span ng-bind="item.label"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </form>
+                </div>
+                <div class="clearfix"></div>
                 <span class="form-group add-button-class">
                     <button
-                        class="btn btn-primary"
-                        ng-click="addBlackLists()"
-                        type="button"
-                        translate="table.button.add"
+                            class="btn btn-primary"
+                            ng-click="addBlackLists()"
+                            type="button"
+                            translate="table.button.add"
                     >
                         新增
                     </button>
@@ -15,7 +60,8 @@
                 <form class="form-inline pull-right add-button-class" role="form">
                     <div style="position: relative" class="form-group">
                         <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                        <input class="form-control" type="text" ng-model="blackListsSearch" placeholder="{{searchPlaceholder(['table.blackLists.th1', 'table.blackLists.th2', 'table.blackLists.th3'])}}">
+                        <input class="form-control" type="text" ng-model="blackListsSearch"
+                               placeholder="{{searchPlaceholder(['table.blackLists.th1', 'table.blackLists.th2', 'table.blackLists.th3'])}}">
                     </div>
                 </form>
                 <div
@@ -48,7 +94,9 @@
                         <tbody>
                         <tr ng-repeat="item in blackLists">
                             <td>
-                                <span editable-text="item.accountNumber" e-name="accountNumber" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.accountNumber || '' }}</span>
+                                <span editable-text="item.accountNumber" e-name="accountNumber"
+                                      e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)"
+                                      e-form="rowform" e-required="">{{ item.accountNumber || '' }}</span>
                             </td>
                             <td>
                                 <span editable-text="item.comment" e-name="comment" e-formclass="xeditable-md"
@@ -62,7 +110,7 @@
                                     </span>
                             </td>
                             <td>
-                                <span >{{item.isDeleted}}</span>
+                                <span>{{item.isDeleted}}</span>
                             </td>
                             <td style="white-space: nowrap;">
                                 <form class="form-buttons form-inline" editable-form name="rowform"
@@ -86,6 +134,10 @@
                                     <button class="btn btn-sm btn-danger" ng-click="deleteBlackLists(item)"
                                             title="{{'table.button.delete' | translate}}">
                                         <em class="fa fa-trash"></em>
+                                    </button>
+                                    <button class="btn btn-sm btn-green" ng-click="recoverBlackLists(item)"
+                                            title="{{'table.button.recover' | translate}}">
+                                        <em class="fa fa-rotate-left"></em>
                                     </button>
                                 </div>
                             </td>

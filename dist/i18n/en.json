@@ -49,6 +49,7 @@
       "edit": "Edit",
       "delete": "Delete",
       "cancel": "Cancel",
+      "recover": "Recover",
       "operation": "Operation"
     },
     "menu": {
@@ -144,8 +145,8 @@
     "blackLists": {
       "th1": "AccountNumber",
       "th2": "Comment",
-      "th3": "IsDeleted",
-      "th4": "Type"
+      "th3": "Type",
+      "th4": "IsDeleted"
     }
   },
   "panel_tile": {

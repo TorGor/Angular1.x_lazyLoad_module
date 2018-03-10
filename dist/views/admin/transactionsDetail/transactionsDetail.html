@@ -2,6 +2,33 @@
    <div class="panel panel-default">
       <div class="panel-wrapper">
          <div class="panel-body">
+            <div class="row" style="margin-bottom: 15px">
+               <form class="form-inline" role="form">
+                  <div class="col-lg-3 col-md-6">
+                     <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeStart">
+                        <input type="text" class="form-control" placeholder="start" />
+                        <span class="input-group-addon" style="background:none">
+                           <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                     </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6">
+                     <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeEnd">
+                        <input type="text" class="form-control" placeholder="end" />
+                        <span class="input-group-addon" style="background:none">
+                           <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                     </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6">
+                     <input class="form-control" type="text" style="width: 100%" ng-model="adminsAoData.userName" placeholder="{{'table.admin.th1' | translate}}">
+                  </div>
+                  <div class="col-lg-3 col-md-6">
+                     <select class="form-control" style="width: 100%" ng-model="adminsAoData.status" ng-options="option.value as option.label for option in superAdminSelect012.optionsSearch">
+                     </select>
+                  </div>
+               </form>
+            </div>
             <form class="form-inline pull-right add-button-class" role="form">
                <div style="position: relative" class="form-group">
                   <span style="position: absolute;left: 4px;top: 6px">

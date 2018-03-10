@@ -27,6 +27,21 @@
             }
         ];
 
+        $scope.typeOptionsSearch = [
+            {
+                label:'all',
+                value:''
+            },
+            {
+                label:'fraud',
+                value:'fraud'
+            },
+            {
+                label:'suspicious',
+                value:'suspicious'
+            }
+        ];
+
         // 原始的数据
         $scope.blackLists = [];
 

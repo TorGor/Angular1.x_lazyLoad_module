@@ -32,7 +32,7 @@
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
-                        $scope.paymentMethods = angular.copy(data.res.data);
+                        $scope.paymentMethods = angular.copy(res.data.data);
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }

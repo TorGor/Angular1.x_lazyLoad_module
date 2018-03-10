@@ -49,6 +49,7 @@
       "edit": "编辑",
       "delete": "删除",
       "cancel": "取消",
+      "recover": "恢复",
       "operation": "操作"
     },
     "menu": {
@@ -144,8 +145,8 @@
     "blackLists":{
       "th1":"AccountNumber",
       "th2":"Comment",
-      "th3":"IsDeleted",
-      "th4":"Type"
+      "th3":"Type",
+      "th4":"IsDeleted"
     }
   },
   "panel_tile": {
