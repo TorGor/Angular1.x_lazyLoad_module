@@ -79,6 +79,8 @@
                 var timeout = null;
                 $scope.$watch('aoData',function(newVal,oldVal){
                     if (newVal!=oldVal) {
+                        console.log(newVal)
+
                         if($scope.pageNeedChange||$scope.currentPage==1){
 
                         }else{
@@ -165,26 +167,25 @@
             },
             controller: function ($scope,$element,$attrs) {
                 angular.element($element).on('click',function(){
-                    $scope.sortValue($scope.cyDataTableSort)
+                    $scope.sortValue($scope.serverDataTableSort)
                 }).append('<i style="position: absolute;top: 11px;right: 4px"></i>').css('position','relative');
                 angular.element($element).find('i').css('display','block')
                 $scope.sortValue=function(name){
-                    if($scope.aoData.sort==name){
-                        if($scope.aoData.sort_dir==true){
-                            $scope.aoData.sort_dir=false
+                    if($scope.aoData.sort && $scope.aoData.sort.indexOf(name) !== -1){
+                        if($scope.aoData.sort.indexOf('desc') !== -1){
+                            $scope.aoData.sort = name + '.asc'
                         }else {
-                            $scope.aoData.sort_dir=true
+                            $scope.aoData.sort = name + '.desc'
                         }
                     }else{
-                        $scope.aoData.sort_dir=true
+                        $scope.aoData.sort = name + '.desc'
                     }
-                    $scope.aoData.sort=name;
                     $scope.$parent.$apply();
                 };
-                $scope.$watch('aoData.sort_dir+aoData.sort_col',function(){
-                    var className=''
-                    if($scope.aoData.sort_col==$scope.cyDataTableSort){
-                        if($scope.aoData.sort_dir){
+                $scope.$watch('aoData.sort',function(){
+                    var className='';
+                    if($scope.aoData.sort && $scope.aoData.sort.indexOf($scope.serverDataTableSort) !== -1){
+                        if($scope.aoData.sort.indexOf('desc') !== -1){
                             className='glyphicon glyphicon-sort-by-attributes-alt pull-right'
                         }else{
                             className='glyphicon glyphicon-sort-by-attributes pull-right'
