@@ -42,7 +42,7 @@
                               <span editable-text="item.rate" e-name="rate" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.rate || '' }}</span>
                            </td>
                            <td style="white-space: nowrap;">
-                              <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveRebatesBrandsModal(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
+                              <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveRebatesBrandsModal(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
                                  <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                     <em class="fa fa-save"></em>
                                  </button>

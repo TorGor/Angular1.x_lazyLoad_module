@@ -99,7 +99,7 @@
                                 <td style="white-space: nowrap;">
                                     <form class="form-buttons form-inline" editable-form name="rowform"
                                           onaftersave="saveConditionsModal(item, $data)" ng-show="rowform.$visible"
-                                          shown="item.id == null">
+                                          shown="validIsNew(item.id)">
                                         <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
                                                 title="{{'table.button.save' | translate}}">
                                             <em class="fa fa-save"></em>

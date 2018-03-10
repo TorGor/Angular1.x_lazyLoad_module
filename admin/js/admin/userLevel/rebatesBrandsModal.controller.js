@@ -48,12 +48,18 @@
         /**
          *
          * @param rebatesBrandsModal 用户等级数据对象
-         * @param RebatesBrandsItem
+         * @param data
          */
 
-        $scope.saveRebatesBrandsModal = function (rebatesBrandsModal, RebatesBrandsItem) {
-            rebatesBrandsModal.id = $scope.rebatesBrandsModal.length;
-            window.Object.assign(rebatesBrandsModal, RebatesBrandsItem);
+        $scope.saveRebatesBrandsModal = function (rebatesBrandsModal, data) {
+            $scope.rebatesBrandsModal.forEach(function (rebatesBrandsModalItem) {
+                if(rebatesBrandsModalItem.id == rebatesBrandsModal.id){
+                    window.Object.assign(rebatesBrandsModalItem, data);
+                    if($scope.validIsNew(rebatesBrandsModalItem.id)){
+                        rebatesBrandsModalItem.id = window.parseInt(rebatesBrandsModalItem.id, 10)
+                    }
+                }
+            });
         };
 
         // 删除rebatesModal
@@ -71,7 +77,7 @@
             $scope.rebatesBrandsModalAoData = {};
             $scope.rebatesBrandsModalSearch = '';
             $scope.rebatesBrandsModal.unshift({
-                'id': null,
+                'id': ($scope.rebatesBrandsModal.length+1) + 'null',
                 "brand": "",
                 "rate": ''
             });
@@ -84,21 +90,24 @@
          */
 
         $scope.cancelSave = function (RebatesBrandsItem, index) {
-            if (RebatesBrandsItem.id == null) {
+            if ($scope.validIsNew(RebatesBrandsItem.id)) {
                 $scope.rebatesBrandsModal.splice(index, 1);
             }
         };
 
         $scope.confirmModalRebatesBrand = function () {
             $scope.rebatesBrandsModal = $scope.rebatesBrandsModal.filter(function (rebatesBrandsItem) {
-                return rebatesBrandsItem.id;
+                return !$scope.validIsNew(rebatesBrandsItem.id);
             });
             $scope.rebatesBrandsModal.forEach(function (rebatesBrandsItem, rebatesBrandsIndex) {
                 if(rebatesBrandsItem.id){
                     delete rebatesBrandsItem.id;
                 }
             });
-            $uibModalInstance.close('neededUpdateUserLevelRebates');
+            $uibModalInstance.close({
+                type:'brands',
+                data:$scope.rebatesBrandsModal
+            });
         };
 
         $scope.cancelModalRebatesBrand = function () {

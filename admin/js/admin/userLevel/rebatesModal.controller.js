@@ -68,12 +68,18 @@
         /**
          *
          * @param rebatesModal 用户等级数据对象
-         * @param item
+         * @param data
          */
 
-        $scope.saveRebatesModal = function (rebatesModal, item) {
-            rebatesModal.id = $scope.rebatesModal.length;
-            window.Object.assign(rebatesModal, item);
+        $scope.saveRebatesModal = function (rebatesModal, data) {
+            $scope.rebatesModal.forEach(function (rebatesModalItem) {
+                if(rebatesModalItem.id == rebatesModal.id){
+                    window.Object.assign(rebatesModalItem, data);
+                    if($scope.validIsNew(rebatesModalItem.id)){
+                        rebatesModalItem.id = window.parseInt(rebatesModalItem.id, 10)
+                    }
+                }
+            });
         };
 
         // 删除rebatesModal
@@ -90,7 +96,7 @@
             $scope.rebatesModalAoData = {};
             $scope.rebatesModalSearch = '';
             $scope.rebatesModal.unshift({
-                'id': null,
+                'id': ($scope.rebatesModal.length+1) + 'null',
                 "currency":$scope.currencyOptions[0].value,
                 "product": $scope.productOptions[0].value,
                 "max":'',
@@ -113,7 +119,9 @@
                 }
             });
             modalInstance.result.then(function (data) {
-                if (data === 'neededUpdateUserLevelRebates') {}
+                if(data.type == 'brands'){
+                    item[data.type] = angular.copy(data.data)
+                }
             }, function (cancel) {
 
             });
@@ -126,21 +134,24 @@
          */
 
         $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
+            if ($scope.validIsNew(item.id)) {
                 $scope.rebatesModal.splice(index, 1);
             }
         };
 
         $scope.confirmModal = function () {
             $scope.rebatesModal = $scope.rebatesModal.filter(function (rebatesItem) {
-                return rebatesItem.id;
+                return !$scope.validIsNew(rebatesItem.id);
             });
             $scope.rebatesModal.forEach(function (rebatesItem, rebatesIndex) {
                 if(rebatesItem.id){
                     delete rebatesItem.id;
                 }
             });
-            $uibModalInstance.close('neededUpdateUserLevel');
+            $uibModalInstance.close({
+                type:'rebates',
+                data:$scope.rebatesModal
+            });
         };
 
         $scope.cancelModal = function () {

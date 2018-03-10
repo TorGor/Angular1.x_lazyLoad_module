@@ -113,12 +113,18 @@
         /**
          *
          * @param treatmentsModal 用户等级数据对象
-         * @param item
+         * @param data
          */
 
-        $scope.saveTreatmentsModal = function (treatmentsModal, item) {
-            treatmentsModal.id = $scope.treatmentsModal.length;
-            window.Object.assign(treatmentsModal, item);
+        $scope.saveTreatmentsModal = function (treatmentsModal, data) {
+            $scope.treatmentsModal.forEach(function (treatmentsModalItem) {
+                if(treatmentsModalItem.id == treatmentsModal.id){
+                    window.Object.assign(treatmentsModalItem, data);
+                    if($scope.validIsNew(treatmentsModalItem.id)){
+                        treatmentsModalItem.id = window.parseInt(treatmentsModalItem.id, 10)
+                    }
+                }
+            });
         };
 
         // 删除treatmentsModal
@@ -136,7 +142,7 @@
             $scope.treatmentsModalAoData = {};
             $scope.treatmentsModalSearch = '';
             $scope.treatmentsModal.unshift({
-                'id': null,
+                'id': ($scope.treatmentsModal.length+1) + 'null',
                 "currency": $scope.currencyOptions[0].value,
                 "designation": $scope.designationOptions[0].value,
                 "type": $scope.typeOptions[0].value,
@@ -151,21 +157,24 @@
          */
 
         $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
+            if ($scope.validIsNew(item.id)) {
                 $scope.treatmentsModal.splice(index, 1);
             }
         };
 
         $scope.confirmModal = function () {
             $scope.treatmentsModal = $scope.treatmentsModal.filter(function (treatmentsItem) {
-                return treatmentsItem.id;
+                return !$scope.validIsNew(treatmentsItem.id);
             });
             $scope.treatmentsModal.forEach(function (treatmentsItem, treatmentsIndex) {
                 if(treatmentsItem.id){
                     delete treatmentsItem.id;
                 }
             });
-            $uibModalInstance.close('neededUpdateUserLevel');
+            $uibModalInstance.close({
+                type:'treatments',
+                data:$scope.treatmentsModal
+            });
         };
 
         $scope.cancelModal = function () {

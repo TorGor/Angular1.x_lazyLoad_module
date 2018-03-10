@@ -93,6 +93,7 @@
         $scope.initConditionsModalData = function () {
             $scope.conditionsModal = [];
             if(item['conditions'].length){
+                console.log(item)
                 $scope.conditionsModal = item['conditions'];
                 $scope.conditionsModal.forEach(function (conditionsItem, conditionsIndex) {
                     conditionsItem.id = conditionsIndex + 1;
@@ -105,12 +106,18 @@
         /**
          *
          * @param conditionsModal 用户等级数据对象
-         * @param item
+         * @param data
          */
 
-        $scope.saveConditionsModal = function (conditionsModal, item) {
-            conditionsModal.id = $scope.conditionsModal.length;
-            window.Object.assign(conditionsModal, item);
+        $scope.saveConditionsModal = function (conditionsModal, data) {
+            $scope.conditionsModal.forEach(function (conditionsModalItem) {
+                if(conditionsModalItem.id == conditionsModal.id){
+                    window.Object.assign(conditionsModalItem, data);
+                    if($scope.validIsNew(conditionsModalItem.id)){
+                        conditionsModalItem.id = window.parseInt(conditionsModalItem.id, 10)
+                    }
+                }
+            });
         };
 
         // 删除conditionsModal
@@ -128,7 +135,7 @@
             $scope.conditionsModalAoData = {};
             $scope.conditionsModalSearch = '';
             $scope.conditionsModal.unshift({
-                'id': null,
+                'id': ($scope.conditionsModal.length+1) + 'null',
                 "currency": $scope.currencyOptions[0].value,
                 "designation": $scope.designationOptions[0].value,
                 "comparison": $scope.comparisonOptions[0].value,
@@ -145,21 +152,24 @@
          */
 
         $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
+            if ($scope.validIsNew(item.id)) {
                 $scope.conditionsModal.splice(index, 1);
             }
         };
 
         $scope.confirmModal = function () {
             $scope.conditionsModal = $scope.conditionsModal.filter(function (conditionsItem) {
-                return conditionsItem.id;
+                return !$scope.validIsNew(conditionsItem.id);
             });
             $scope.conditionsModal.forEach(function (conditionsItem, conditionsIndex) {
                 if(conditionsItem.id){
                     delete conditionsItem.id;
                 }
             });
-            $uibModalInstance.close('neededUpdateUserLevel');
+            $uibModalInstance.close({
+                type:'conditions',
+                data:$scope.conditionsModal
+            });
         };
 
         $scope.cancelModal = function () {
