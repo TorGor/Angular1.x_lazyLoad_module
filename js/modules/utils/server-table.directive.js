@@ -72,7 +72,7 @@
                     if($scope.currentPage>=$scope.pageTotle)$scope.currentPage=$scope.pageTotle
                     if($scope.currentPage<=0)$scope.currentPage=1;
                     $scope.pageNeedChange=true;
-                    $scope.aoData.curPage=$scope.currentPage;
+                    $scope.aoData.page=$scope.currentPage;
                     $scope.aoData.pageSize=$scope.pageNumber;
                 });
 
@@ -116,30 +116,20 @@
                     }
                 });
                 $scope.ServerPaging=function(){
-                    console.log($scope.url, 66666)
                     var temAoData=angular.copy($scope.aoData);
-                    if(temAoData.curPage){
-                        temAoData.page = temAoData.curPage;
-                        delete temAoData.curPage;
-                    }
-                    temAoData.draw=$scope.TemDraw;
-                    $scope.TemDraw++;
                     if($scope.url){
-                        console.log($scope.url, 66666)
                         service[$scope.serviceNameAttr]($scope.url,temAoData,{}).then(function (data){
-                            console.log(data, '----ServerPaging URL')
-                            if(data.data && data.data.draw && $scope.pageMessage.draw){
-                                if(parseInt($scope.pageMessage.draw)<=parseInt(data.data.draw)){
-                                    $scope.pageMessage.count=angular.copy(data.data.totalSize);
-                                    $scope.pageTotle=angular.copy(data.data.totalPage);
-                                    $scope.items=angular.copy(data.data.list);
-                                }
+                            var result = data.data && data.data.data;
+                            console.log(result, 'result')
+                            if(result && result.data && result.meta){
+                                $scope.pageMessage.count=angular.copy(result.meta.total);
+                                $scope.pageTotle=angular.copy(result.meta.last_page);
+                                $scope.items=angular.copy(result.data);
                             }else{
                                 $scope.pageMessage.draw=angular.copy(data.data.draw||1);
-                                $scope.pageMessage.count=angular.copy(data.data.totalSize);
-                                $scope.pageTotle=angular.copy(data.data.totalPage);
-                                $scope.items=angular.copy(data.data.list);
-                                console.log($scope.pageMessage,'$scope.pageMessage')
+                                $scope.pageMessage.count= 0;
+                                $scope.pageTotle=1;
+                                $scope.items=[];
                             }
                         });
                     }else{
@@ -179,7 +169,7 @@
                 }).append('<i style="position: absolute;top: 11px;right: 4px"></i>').css('position','relative');
                 angular.element($element).find('i').css('display','block')
                 $scope.sortValue=function(name){
-                    if($scope.aoData.sort_col==name){
+                    if($scope.aoData.sort==name){
                         if($scope.aoData.sort_dir==true){
                             $scope.aoData.sort_dir=false
                         }else {
@@ -188,7 +178,7 @@
                     }else{
                         $scope.aoData.sort_dir=true
                     }
-                    $scope.aoData.sort_col=name;
+                    $scope.aoData.sort=name;
                     $scope.$parent.$apply();
                 };
                 $scope.$watch('aoData.sort_dir+aoData.sort_col',function(){

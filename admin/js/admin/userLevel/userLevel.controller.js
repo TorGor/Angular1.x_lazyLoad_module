@@ -129,18 +129,6 @@
             });
         };
 
-        $scope.showOptionsValue = function (str, arr) {
-            if(str && arr.length){
-                var tempBtnArray = arr.filter(function (optionsItem) {
-                    return optionsItem.value == str;
-                });
-                if(tempBtnArray.length){
-                    return tempBtnArray[0].label;
-                }
-            }
-            return '';
-        };
-
         /**
          * 根据传入的modal名称进行弹窗显示
          * @param modal 弹窗的名称
@@ -195,7 +183,7 @@
             var tempData = angular.extend({}, userLevel, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.USERLEVEL, tempData, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.USERLEVEL, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -207,7 +195,7 @@
                     }
                 });
             } else if (tempData.id) {
-                adminService.patchReq($rootScope.URL.USERLEVEL,tempData, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.USERLEVEL,{}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {

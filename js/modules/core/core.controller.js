@@ -40,6 +40,18 @@
             }
         };
 
+        $scope.showOptionsValue = function (str, arr) {
+            if(str && arr.length){
+                var tempBtnArray = arr.filter(function (optionsItem) {
+                    return optionsItem.value == str;
+                });
+                if(tempBtnArray.length){
+                    return tempBtnArray[0].label;
+                }
+            }
+            return '';
+        };
+
 
         $scope.searchPlaceholder = function(param) {
             if (window.Array.isArray(param)) {
@@ -62,8 +74,8 @@
          */
 
         $scope.checkRequiredData = function(data) {
-            if (data === '') {
-                return $translate.instant('alert_confirm.required_message');
+            if (typeof data !=='boolean' && !data) {
+                return $translate.instant('required_message');
             }
         };
 

@@ -140,6 +140,12 @@
       "th7":"postBalance",
       "th8":"walletCode",
       "th9":"description"
+    },
+    "blackLists":{
+      "th1":"AccountNumber",
+      "th2":"Comment",
+      "th3":"IsDeleted",
+      "th4":"Type"
     }
   },
   "panel_tile": {

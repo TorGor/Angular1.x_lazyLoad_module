@@ -394,28 +394,29 @@
         adminService
     ) {
 
+        $scope.typeOptions = [
+            {
+                label:'fraud',
+                value:'fraud'
+            },
+            {
+                label:'suspicious',
+                value:'suspicious'
+            }
+        ];
+
         // 原始的数据
         $scope.blackLists = [];
 
-        // 过滤出来的数据
-        $scope.showBlackLists = [];
         $scope.blackListsReload = 1;
         $scope.blackListsAoData = {};
         $scope.blackListsSearch = '';
 
+        $scope.blackListsUrl = $rootScope.URL.BLACKLISTS;
+
         // 初始化table数据
         $scope.initBlackListsData = function () {
-            $scope.blackLists = [];
-            adminService.getReq($rootScope.URL.BLACKLISTS, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.blackLists = angular.copy(data.res.data);
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
+            $scope.blackListsReload++;
         };
 
 
@@ -482,16 +483,11 @@
 
         // 添加按钮
         $scope.addBlackLists = function () {
-            $scope.blackListsAoData = {};
-            $scope.blackListsSearch = '';
             $scope.blackLists.unshift({
-                'id': null,
-                'blackListsName': '',
-                'blackListsType': '',
-                'blackListsStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                "account_number": "",
+                "type": $scope.typeOptions[0].value,
+                "comment":"",
+                "isDeleted":true
             });
         };
 
@@ -502,14 +498,11 @@
          */
 
         $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
+            if (item.account_number == '') {
                 $scope.blackLists.splice(index, 1);
             }
         };
 
-        // 页面加载执行的函数
-
-        $scope.initBlackListsData();
     }
 })();
 
@@ -1917,18 +1910,6 @@
             });
         };
 
-        $scope.showOptionsValue = function (str, arr) {
-            if(str && arr.length){
-                var tempBtnArray = arr.filter(function (optionsItem) {
-                    return optionsItem.value == str;
-                });
-                if(tempBtnArray.length){
-                    return tempBtnArray[0].label;
-                }
-            }
-            return '';
-        };
-
         /**
          * 根据传入的modal名称进行弹窗显示
          * @param modal 弹窗的名称
@@ -1983,7 +1964,7 @@
             var tempData = angular.extend({}, userLevel, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.USERLEVEL, tempData, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.USERLEVEL, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -1995,7 +1976,7 @@
                     }
                 });
             } else if (tempData.id) {
-                adminService.patchReq($rootScope.URL.USERLEVEL,tempData, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.USERLEVEL,{}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {

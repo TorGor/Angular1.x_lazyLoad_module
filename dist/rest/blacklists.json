@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "msg": "Read Success",
+  "data": {
+    "stat": "ok",
+    "data": [
+      {
+        "isDeleted": false,
+        "timestamps": {
+          "createdAt": "2018-03-06T11:25:20+00:00",
+          "updatedAt": "2018-03-06T11:47:18+00:00"
+        },
+        "comment": "电子回",
+        "accountNumber": "1234567890",
+        "type": "suspicious"
+      },
+      {
+        "isDeleted": false,
+        "timestamps": {
+          "createdAt": "2018-03-08T08:29:44+00:00",
+          "updatedAt": "2018-03-08T08:29:44+00:00"
+        },
+        "comment": "comment",
+        "accountNumber": "888888888",
+        "type": "suspicious"
+      }
+    ],
+    "meta": {
+      "path": "/rest/blacklists",
+      "per_page": 50,
+      "total": 2,
+      "last_page": 1,
+      "from": 1,
+      "to": 2,
+      "current_page": 1
+    },
+    "links": {
+      "last": "/rest/blacklists?page=1",
+      "first": "/rest/blacklists?page=1"
+    }
+  }
+}

@@ -39,6 +39,12 @@
     'use strict';
 
     angular
+        .module('app.lazyload', []);
+})();
+(function() {
+    'use strict';
+
+    angular
         .module('app.core', [
             'ngRoute',
             'ngAnimate',
@@ -62,12 +68,6 @@
 
     angular
         .module('app.loadingbar', []);
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.lazyload', []);
 })();
 (function() {
     'use strict';
@@ -161,434 +161,6 @@
 
 })();
 
-(function() {
-    'use strict';
-
-    angular
-        .module('app.core')
-        .config(coreConfig);
-
-    coreConfig.$inject = [
-        '$controllerProvider',
-        '$compileProvider',
-        '$filterProvider',
-        '$provide',
-        '$httpProvider',
-        '$animateProvider'
-    ];
-    function coreConfig(
-        $controllerProvider,
-        $compileProvider,
-        $filterProvider,
-        $provide,
-        $httpProvider,
-        $animateProvider
-    ){
-
-      var core = angular.module('app.core');
-      // registering components after bootstrap
-      core.controller = $controllerProvider.register;
-      core.directive  = $compileProvider.directive;
-      core.filter     = $filterProvider.register;
-      core.factory    = $provide.factory;
-      core.service    = $provide.service;
-      core.constant   = $provide.constant;
-      core.value      = $provide.value;
-
-      // Disables animation on items with class .ng-no-animation
-      $animateProvider.classNameFilter(/^((?!(ng-no-animation)).)*$/);
-
-      // Improve performance disabling debugging features
-      // $compileProvider.debugInfoEnabled(false);
-
-      $httpProvider.interceptors.push('customeInterceptor');
-
-    }
-
-})();
-/** =========================================================
- * Module: constants.js
- * Define constants to inject across the application
- ========================================================= */
-
-(function() {
-
-    angular
-        .module('app.core')
-        .constant('APP_MEDIAQUERY', {
-            'desktopLG': 1200,
-            'desktop': 992,
-            'tablet': 768,
-            'mobile': 480
-        })
-        .constant('EVN', {
-            debug: true,
-            suffix: '.json',
-            // suffix: '',
-            server: '',
-            // server: 'http://madmin.ngrok.xiaomiqiu.cn',
-            // server: 'http://mysqlserver.free.ngrok.cc'
-        });
-})();
-(function() {
-
-
-    angular
-        .module('app.core')
-        .controller('MainController', MainController);
-
-    MainController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$translate',
-        'SweetAlert',
-        'toaster'
-    ];
-
-    function MainController(
-        $scope,
-        $rootScope,
-        $translate,
-        SweetAlert,
-        toaster
-    ) {
-
-        /**
-         *
-         * @param value 0-禁用；1-启用；2-删除；
-         * @return {*}
-         */
-
-        // 0-禁用；1-启用；2-删除；
-        $scope.filter012OptionsValue = function (value) {
-            if (value == 0) {
-                return '<div class="label label-warning">' + $translate.instant('options.forbid') + '</div>';
-            } else if (value == 1) {
-                return '<div class="label label-success">' + $translate.instant('options.enable') + '</div>';
-            } else if (value == 2) {
-                return '<div class="label label-danger">' + $translate.instant('options.delete') + '</div>';
-            } else {
-                return '';
-            }
-        };
-
-
-        $scope.searchPlaceholder = function(param) {
-            if (window.Array.isArray(param)) {
-                var tempArr = param.map(function(item) {
-                    return $translate.instant(item);
-                });
-                return tempArr.join('/');
-            }
-            if (typeof param === 'string') {
-                return $translate.instant(param);
-            }
-            return '';
-        };
-
-
-        /**
-         *
-         * @param data 传入的值是否为空
-         * @return {string}
-         */
-
-        $scope.checkRequiredData = function(data) {
-            if (data === '') {
-                return $translate.instant('alert_confirm.required_message');
-            }
-        };
-
-        /**
-         *
-         * @param msg string
-         */
-
-        // 全局报错机制成功
-        $rootScope.toasterSuccess = function (msg) {
-            toaster.pop('success', $translate.instant('alert_confirm.success'), msg);
-        };
-
-        $rootScope.alertErrorMsg = function (msg) {
-            SweetAlert.error($translate.instant('alert_confirm.error'), msg);
-        };
-
-
-        $rootScope.dateOptionsYYYMMDD = {
-            useCurrent: false,
-            locale: $rootScope.language.selected || 'en',
-            format: 'YYYY-MM-DD'
-        };
-
-        $rootScope.dateOptionsYYYMMDDHHMM = {
-            useCurrent: false,
-            locale: $rootScope.language.selected || 'en',
-            format: 'YYYY-MM-DD HH:MM'
-        };
-
-        /**
-         *
-         * @param callback 回调函数
-         */
-
-        // 删除确认
-        $rootScope.alertConfirm = function (callback) {
-            SweetAlert.swal({
-                title: $translate.instant('alert_confirm.title'),
-                text: $translate.instant('alert_confirm.text'),
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
-                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
-                closeOnConfirm: true
-            }, function(yes) {
-                if (yes) {
-                    callback();
-                }
-            });
-        };
-    }
-
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.core')
-        .factory('customeInterceptor', customeInterceptor);
-
-    customeInterceptor.$inject = ['$rootScope', '$timeout', '$injector', '$q','$window'];
-
-    function customeInterceptor($rootScope, $timeout, $injector, $q, $window) {
-        var requestInitiated;
-
-        function showLoadingText() {
-            $rootScope.isShowLoadingSpinner = true;
-        };
-
-        function hideLoadingText() {
-            $rootScope.isShowLoadingSpinner = false;
-        };
-
-        return {
-            request: function (config) {
-                requestInitiated = true;
-                showLoadingText();
-                return config;
-            },
-            response: function (response) {
-                requestInitiated = false;
-
-                // Show delay of 300ms so the popup will not appear for multiple http request
-                $timeout(function () {
-
-                    if (requestInitiated) return;
-                    hideLoadingText();
-
-                }, 300);
-
-                return response;
-            },
-            requestError: function (err) {
-                hideLoadingText();
-                return err;
-            },
-            responseError: function (err) {
-                hideLoadingText();
-                return $q.reject(err);
-            }
-        }
-    }
-
-})();
-(function() {
-
-
-    angular
-        .module('app.core')
-        .run(appRun);
-
-    appRun.$inject = [
-        '$rootScope',
-        '$state',
-        '$stateParams',
-        '$window',
-        '$templateCache',
-        'Colors',
-        'SweetAlert',
-        'toaster'
-    ];
-
-    function appRun(
-        $rootScope,
-        $state,
-        $stateParams,
-        $window,
-        $templateCache,
-        Colors,
-        SweetAlert,
-        toaster
-    ) {
-
-        // Hook into ocLazyLoad to setup AngularGrid before inject into the app
-        // See "Creating the AngularJS Module" at
-        // https://www.ag-grid.com/best-angularjs-data-grid/index.php
-        var offevent = $rootScope.$on('ocLazyLoad.fileLoaded', function(e, file) {
-            if (file.indexOf('ag-grid.js') > -1) {
-                agGrid.initialiseAgGridWithAngular1(angular);
-                offevent();
-            }
-        });
-
-        // Set reference to access them from any scope
-        $rootScope.$state = $state;
-        $rootScope.$stateParams = $stateParams;
-        $rootScope.$storage = $window.localStorage;
-
-        // Uncomment this to disable template cache
-        // $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        //     if (typeof(toState) !== 'undefined'){
-        //       $templateCache.remove(toState.templateUrl);
-        //     }
-        // });
-
-        // Allows to use branding color with interpolation
-        // {{ colorByName('primary') }}
-        $rootScope.colorByName = Colors.byName;
-
-        // cancel click event easily
-        $rootScope.cancel = function($event) {
-            $event.stopPropagation();
-        };
-
-        // Hooks Example
-        // -----------------------------------
-
-        // Hook not start
-        $rootScope.$on('$stateChangeStart',
-            function(event, toState, toParams, fromState, fromParams) {
-                if(toState.permission){
-                    console.log(toState.permission, 'toState.permission')
-                }
-
-            });
-
-        // Hook not found
-        $rootScope.$on('$stateNotFound',
-            function(event, unfoundState /* , fromState, fromParams */) {
-                console.log(unfoundState.to); // "lazy.state"
-                console.log(unfoundState.toParams); // {a:1, b:2}
-                console.log(unfoundState.options); // {inherit:false} + default options
-            });
-        // Hook error
-        $rootScope.$on('$stateChangeError',
-            function(event, toState, toParams, fromState, fromParams, error) {
-                console.log(error);
-            });
-        // Hook success
-        $rootScope.$on('$stateChangeSuccess',
-            function(event, toState, toParams, fromState, fromParams) {
-                // display new view from top
-                $window.scrollTo(0, 0);
-                // Save the route title
-                // $rootScope.currTitle = $state.current.title;
-                $window.document.title = $state.current.title;
-            });
-
-        // Load a title dynamically
-        // $rootScope.currTitle = $state.current.title;
-        // $rootScope.pageTitle = function() {
-        //     var title = $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
-        //     document.title = title;
-        //     return title;
-        // };
-
-        $window.document.title = '';
-
-    }
-
-})();
-(function (angular) {
-    
-
-    angular
-        .module('app.core')
-        .factory('userSelfService', userSelfService);
-
-    userSelfService.$inject = ['$resource', 'EVN'];
-
-    /* @ngInject */
-    function userSelfService($resource, EVN) {
-        return $resource(EVN.server + '/user/:action',
-            {},
-            {
-                // 获取用户自己的信息
-                getUserSelfInfo: {
-                    method: 'GET',
-                    params: {
-                        action: 'getUserInfo' + EVN.suffix
-                    }
-                },
-                // 用户登出
-                getUserLogout: {
-                    method: 'GET',
-                    params: {
-                        action: 'logout' + EVN.suffix
-                    }
-                },
-
-            }
-        );
-    }
-
-})(angular);
-
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.loadingbar')
-        .config(loadingbarConfig)
-        ;
-    loadingbarConfig.$inject = ['cfpLoadingBarProvider'];
-    function loadingbarConfig(cfpLoadingBarProvider){
-      cfpLoadingBarProvider.includeBar = true;
-      cfpLoadingBarProvider.includeSpinner = false;
-      cfpLoadingBarProvider.latencyThreshold = 500;
-      cfpLoadingBarProvider.parentSelector = '.wrapper > section';
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.loadingbar')
-        .run(loadingbarRun)
-        ;
-    loadingbarRun.$inject = ['$rootScope', '$timeout', 'cfpLoadingBar'];
-    function loadingbarRun($rootScope, $timeout, cfpLoadingBar){
-
-      // Loading bar transition
-      // ----------------------------------- 
-      var thBar;
-      $rootScope.$on('$stateChangeStart', function() {
-          if($('.wrapper > section').length) // check if bar container exists
-            thBar = $timeout(function() {
-              cfpLoadingBar.start();
-            }, 0); // sets a latency Threshold
-      });
-      $rootScope.$on('$stateChangeSuccess', function(event) {
-          event.targetScope.$watch('$viewContentLoaded', function () {
-            $timeout.cancel(thBar);
-            cfpLoadingBar.complete();
-          });
-      });
-
-    }
-
-})();
 (function() {
     'use strict';
 
@@ -902,6 +474,446 @@
         });
 })();
 
+(function() {
+    'use strict';
+
+    angular
+        .module('app.core')
+        .config(coreConfig);
+
+    coreConfig.$inject = [
+        '$controllerProvider',
+        '$compileProvider',
+        '$filterProvider',
+        '$provide',
+        '$httpProvider',
+        '$animateProvider'
+    ];
+    function coreConfig(
+        $controllerProvider,
+        $compileProvider,
+        $filterProvider,
+        $provide,
+        $httpProvider,
+        $animateProvider
+    ){
+
+      var core = angular.module('app.core');
+      // registering components after bootstrap
+      core.controller = $controllerProvider.register;
+      core.directive  = $compileProvider.directive;
+      core.filter     = $filterProvider.register;
+      core.factory    = $provide.factory;
+      core.service    = $provide.service;
+      core.constant   = $provide.constant;
+      core.value      = $provide.value;
+
+      // Disables animation on items with class .ng-no-animation
+      $animateProvider.classNameFilter(/^((?!(ng-no-animation)).)*$/);
+
+      // Improve performance disabling debugging features
+      // $compileProvider.debugInfoEnabled(false);
+
+      $httpProvider.interceptors.push('customeInterceptor');
+
+    }
+
+})();
+/** =========================================================
+ * Module: constants.js
+ * Define constants to inject across the application
+ ========================================================= */
+
+(function() {
+
+    angular
+        .module('app.core')
+        .constant('APP_MEDIAQUERY', {
+            'desktopLG': 1200,
+            'desktop': 992,
+            'tablet': 768,
+            'mobile': 480
+        })
+        .constant('EVN', {
+            debug: true,
+            suffix: '.json',
+            // suffix: '',
+            server: '',
+            // server: 'http://madmin.ngrok.xiaomiqiu.cn',
+            // server: 'http://mysqlserver.free.ngrok.cc'
+        });
+})();
+(function() {
+
+
+    angular
+        .module('app.core')
+        .controller('MainController', MainController);
+
+    MainController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$translate',
+        'SweetAlert',
+        'toaster'
+    ];
+
+    function MainController(
+        $scope,
+        $rootScope,
+        $translate,
+        SweetAlert,
+        toaster
+    ) {
+
+        /**
+         *
+         * @param value 0-禁用；1-启用；2-删除；
+         * @return {*}
+         */
+
+        // 0-禁用；1-启用；2-删除；
+        $scope.filter012OptionsValue = function (value) {
+            if (value == 0) {
+                return '<div class="label label-warning">' + $translate.instant('options.forbid') + '</div>';
+            } else if (value == 1) {
+                return '<div class="label label-success">' + $translate.instant('options.enable') + '</div>';
+            } else if (value == 2) {
+                return '<div class="label label-danger">' + $translate.instant('options.delete') + '</div>';
+            } else {
+                return '';
+            }
+        };
+
+        $scope.showOptionsValue = function (str, arr) {
+            if(str && arr.length){
+                var tempBtnArray = arr.filter(function (optionsItem) {
+                    return optionsItem.value == str;
+                });
+                if(tempBtnArray.length){
+                    return tempBtnArray[0].label;
+                }
+            }
+            return '';
+        };
+
+
+        $scope.searchPlaceholder = function(param) {
+            if (window.Array.isArray(param)) {
+                var tempArr = param.map(function(item) {
+                    return $translate.instant(item);
+                });
+                return tempArr.join('/');
+            }
+            if (typeof param === 'string') {
+                return $translate.instant(param);
+            }
+            return '';
+        };
+
+
+        /**
+         *
+         * @param data 传入的值是否为空
+         * @return {string}
+         */
+
+        $scope.checkRequiredData = function(data) {
+            if (typeof data !=='boolean' && !data) {
+                return $translate.instant('required_message');
+            }
+        };
+
+        /**
+         *
+         * @param msg string
+         */
+
+        // 全局报错机制成功
+        $rootScope.toasterSuccess = function (msg) {
+            toaster.pop('success', $translate.instant('alert_confirm.success'), msg);
+        };
+
+        $rootScope.alertErrorMsg = function (msg) {
+            SweetAlert.error($translate.instant('alert_confirm.error'), msg);
+        };
+
+
+        $rootScope.dateOptionsYYYMMDD = {
+            useCurrent: false,
+            locale: $rootScope.language.selected || 'en',
+            format: 'YYYY-MM-DD'
+        };
+
+        $rootScope.dateOptionsYYYMMDDHHMM = {
+            useCurrent: false,
+            locale: $rootScope.language.selected || 'en',
+            format: 'YYYY-MM-DD HH:MM'
+        };
+
+        /**
+         *
+         * @param callback 回调函数
+         */
+
+        // 删除确认
+        $rootScope.alertConfirm = function (callback) {
+            SweetAlert.swal({
+                title: $translate.instant('alert_confirm.title'),
+                text: $translate.instant('alert_confirm.text'),
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
+                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
+                closeOnConfirm: true
+            }, function(yes) {
+                if (yes) {
+                    callback();
+                }
+            });
+        };
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.core')
+        .factory('customeInterceptor', customeInterceptor);
+
+    customeInterceptor.$inject = ['$rootScope', '$timeout', '$injector', '$q','$window'];
+
+    function customeInterceptor($rootScope, $timeout, $injector, $q, $window) {
+        var requestInitiated;
+
+        function showLoadingText() {
+            $rootScope.isShowLoadingSpinner = true;
+        };
+
+        function hideLoadingText() {
+            $rootScope.isShowLoadingSpinner = false;
+        };
+
+        return {
+            request: function (config) {
+                requestInitiated = true;
+                showLoadingText();
+                return config;
+            },
+            response: function (response) {
+                requestInitiated = false;
+
+                // Show delay of 300ms so the popup will not appear for multiple http request
+                $timeout(function () {
+
+                    if (requestInitiated) return;
+                    hideLoadingText();
+
+                }, 300);
+
+                return response;
+            },
+            requestError: function (err) {
+                hideLoadingText();
+                return err;
+            },
+            responseError: function (err) {
+                hideLoadingText();
+                return $q.reject(err);
+            }
+        }
+    }
+
+})();
+(function() {
+
+
+    angular
+        .module('app.core')
+        .run(appRun);
+
+    appRun.$inject = [
+        '$rootScope',
+        '$state',
+        '$stateParams',
+        '$window',
+        '$templateCache',
+        'Colors',
+        'SweetAlert',
+        'toaster'
+    ];
+
+    function appRun(
+        $rootScope,
+        $state,
+        $stateParams,
+        $window,
+        $templateCache,
+        Colors,
+        SweetAlert,
+        toaster
+    ) {
+
+        // Hook into ocLazyLoad to setup AngularGrid before inject into the app
+        // See "Creating the AngularJS Module" at
+        // https://www.ag-grid.com/best-angularjs-data-grid/index.php
+        var offevent = $rootScope.$on('ocLazyLoad.fileLoaded', function(e, file) {
+            if (file.indexOf('ag-grid.js') > -1) {
+                agGrid.initialiseAgGridWithAngular1(angular);
+                offevent();
+            }
+        });
+
+        // Set reference to access them from any scope
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+        $rootScope.$storage = $window.localStorage;
+
+        // Uncomment this to disable template cache
+        // $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        //     if (typeof(toState) !== 'undefined'){
+        //       $templateCache.remove(toState.templateUrl);
+        //     }
+        // });
+
+        // Allows to use branding color with interpolation
+        // {{ colorByName('primary') }}
+        $rootScope.colorByName = Colors.byName;
+
+        // cancel click event easily
+        $rootScope.cancel = function($event) {
+            $event.stopPropagation();
+        };
+
+        // Hooks Example
+        // -----------------------------------
+
+        // Hook not start
+        $rootScope.$on('$stateChangeStart',
+            function(event, toState, toParams, fromState, fromParams) {
+                if(toState.permission){
+                    console.log(toState.permission, 'toState.permission')
+                }
+
+            });
+
+        // Hook not found
+        $rootScope.$on('$stateNotFound',
+            function(event, unfoundState /* , fromState, fromParams */) {
+                console.log(unfoundState.to); // "lazy.state"
+                console.log(unfoundState.toParams); // {a:1, b:2}
+                console.log(unfoundState.options); // {inherit:false} + default options
+            });
+        // Hook error
+        $rootScope.$on('$stateChangeError',
+            function(event, toState, toParams, fromState, fromParams, error) {
+                console.log(error);
+            });
+        // Hook success
+        $rootScope.$on('$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams) {
+                // display new view from top
+                $window.scrollTo(0, 0);
+                // Save the route title
+                // $rootScope.currTitle = $state.current.title;
+                $window.document.title = $state.current.title;
+            });
+
+        // Load a title dynamically
+        // $rootScope.currTitle = $state.current.title;
+        // $rootScope.pageTitle = function() {
+        //     var title = $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
+        //     document.title = title;
+        //     return title;
+        // };
+
+        $window.document.title = '';
+
+    }
+
+})();
+(function (angular) {
+    
+
+    angular
+        .module('app.core')
+        .factory('userSelfService', userSelfService);
+
+    userSelfService.$inject = ['$resource', 'EVN'];
+
+    /* @ngInject */
+    function userSelfService($resource, EVN) {
+        return $resource(EVN.server + '/user/:action',
+            {},
+            {
+                // 获取用户自己的信息
+                getUserSelfInfo: {
+                    method: 'GET',
+                    params: {
+                        action: 'getUserInfo' + EVN.suffix
+                    }
+                },
+                // 用户登出
+                getUserLogout: {
+                    method: 'GET',
+                    params: {
+                        action: 'logout' + EVN.suffix
+                    }
+                },
+
+            }
+        );
+    }
+
+})(angular);
+
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.loadingbar')
+        .config(loadingbarConfig)
+        ;
+    loadingbarConfig.$inject = ['cfpLoadingBarProvider'];
+    function loadingbarConfig(cfpLoadingBarProvider){
+      cfpLoadingBarProvider.includeBar = true;
+      cfpLoadingBarProvider.includeSpinner = false;
+      cfpLoadingBarProvider.latencyThreshold = 500;
+      cfpLoadingBarProvider.parentSelector = '.wrapper > section';
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.loadingbar')
+        .run(loadingbarRun)
+        ;
+    loadingbarRun.$inject = ['$rootScope', '$timeout', 'cfpLoadingBar'];
+    function loadingbarRun($rootScope, $timeout, cfpLoadingBar){
+
+      // Loading bar transition
+      // ----------------------------------- 
+      var thBar;
+      $rootScope.$on('$stateChangeStart', function() {
+          if($('.wrapper > section').length) // check if bar container exists
+            thBar = $timeout(function() {
+              cfpLoadingBar.start();
+            }, 0); // sets a latency Threshold
+      });
+      $rootScope.$on('$stateChangeSuccess', function(event) {
+          event.targetScope.$watch('$viewContentLoaded', function () {
+            $timeout.cancel(thBar);
+            cfpLoadingBar.complete();
+          });
+      });
+
+    }
+
+})();
 (function() {
     'use strict';
 
@@ -1991,7 +2003,7 @@
                     if($scope.currentPage>=$scope.pageTotle)$scope.currentPage=$scope.pageTotle
                     if($scope.currentPage<=0)$scope.currentPage=1;
                     $scope.pageNeedChange=true;
-                    $scope.aoData.curPage=$scope.currentPage;
+                    $scope.aoData.page=$scope.currentPage;
                     $scope.aoData.pageSize=$scope.pageNumber;
                 });
 
@@ -2035,30 +2047,20 @@
                     }
                 });
                 $scope.ServerPaging=function(){
-                    console.log($scope.url, 66666)
                     var temAoData=angular.copy($scope.aoData);
-                    if(temAoData.curPage){
-                        temAoData.page = temAoData.curPage;
-                        delete temAoData.curPage;
-                    }
-                    temAoData.draw=$scope.TemDraw;
-                    $scope.TemDraw++;
                     if($scope.url){
-                        console.log($scope.url, 66666)
                         service[$scope.serviceNameAttr]($scope.url,temAoData,{}).then(function (data){
-                            console.log(data, '----ServerPaging URL')
-                            if(data.data && data.data.draw && $scope.pageMessage.draw){
-                                if(parseInt($scope.pageMessage.draw)<=parseInt(data.data.draw)){
-                                    $scope.pageMessage.count=angular.copy(data.data.totalSize);
-                                    $scope.pageTotle=angular.copy(data.data.totalPage);
-                                    $scope.items=angular.copy(data.data.list);
-                                }
+                            var result = data.data && data.data.data;
+                            console.log(result, 'result')
+                            if(result && result.data && result.meta){
+                                $scope.pageMessage.count=angular.copy(result.meta.total);
+                                $scope.pageTotle=angular.copy(result.meta.last_page);
+                                $scope.items=angular.copy(result.data);
                             }else{
                                 $scope.pageMessage.draw=angular.copy(data.data.draw||1);
-                                $scope.pageMessage.count=angular.copy(data.data.totalSize);
-                                $scope.pageTotle=angular.copy(data.data.totalPage);
-                                $scope.items=angular.copy(data.data.list);
-                                console.log($scope.pageMessage,'$scope.pageMessage')
+                                $scope.pageMessage.count= 0;
+                                $scope.pageTotle=1;
+                                $scope.items=[];
                             }
                         });
                     }else{
@@ -2098,7 +2100,7 @@
                 }).append('<i style="position: absolute;top: 11px;right: 4px"></i>').css('position','relative');
                 angular.element($element).find('i').css('display','block')
                 $scope.sortValue=function(name){
-                    if($scope.aoData.sort_col==name){
+                    if($scope.aoData.sort==name){
                         if($scope.aoData.sort_dir==true){
                             $scope.aoData.sort_dir=false
                         }else {
@@ -2107,7 +2109,7 @@
                     }else{
                         $scope.aoData.sort_dir=true
                     }
-                    $scope.aoData.sort_col=name;
+                    $scope.aoData.sort=name;
                     $scope.$parent.$apply();
                 };
                 $scope.$watch('aoData.sort_dir+aoData.sort_col',function(){

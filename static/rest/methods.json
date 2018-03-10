@@ -1,0 +1,113 @@
+{"success": true,
+  "msg": "Read Success",
+  "data": [
+    {
+      "code": "ALIWAP",
+      "timestamps": {
+        "createdAt": "2018-02-05T02:13:12+00:00",
+        "updatedAt": "2018-02-05T02:13:13+00:00"
+      },
+      "name": [
+        {
+          "locale": "en-GB",
+          "value": "Alipay (Mobile)"
+        },
+        {
+          "locale": "zh-CN",
+          "value": "支付宝 (手机)"
+        },
+        {
+          "locale": "zh-TW",
+          "value": "支付寶 (手機)"
+        }
+      ],
+      "description": {
+        "header": "ALIPAY_WAP"
+      },
+      "range": {
+        "min": 0.01,
+        "max": 5000
+      },
+      "currency": "CNY",
+      "disabled": false
+    },
+    {
+      "code": "CNYALI",
+      "timestamps": {
+        "createdAt": "2017-09-06T07:20:42+00:00",
+        "updatedAt": "2017-09-06T07:20:42+00:00"
+      },
+      "name": [
+        {
+          "locale": "en-GB",
+          "value": "Alipay"
+        },
+        {
+          "locale": "zh-CN",
+          "value": "支付宝"
+        },
+        {
+          "locale": "zh-TW",
+          "value": "支付寶"
+        }
+      ],
+      "description": {
+        "header": "ALIPAY_QR_SCAN"
+      },
+      "range": {
+        "min": 0.01,
+        "max": 5000
+      },
+      "currency": "CNY",
+      "disabled": false
+    },
+    {
+      "code": "TTT",
+      "timestamps": {
+        "createdAt": "2018-03-06T08:49:26+00:00",
+        "updatedAt": "2018-03-06T09:04:26+00:00"
+      },
+      "name": [
+        {
+          "locale": "zh-CN",
+          "value": "在线支付2"
+        },
+        {
+          "locale": "en-GB",
+          "value": "online pay"
+        }
+      ],
+      "description": null,
+      "range": {
+        "min": 0.01,
+        "max": 100000
+      },
+      "currency": "CNY",
+      "disabled": true
+    },
+    {
+      "code": "TTTT",
+      "timestamps": {
+        "createdAt": "2018-03-06T13:04:36+00:00",
+        "updatedAt": "2018-03-06T13:04:36+00:00"
+      },
+      "name": [
+        {
+          "locale": "zh-CN",
+          "value": "在线支付2"
+        },
+        {
+          "locale": "en-GB",
+          "value": "online pay"
+        }
+      ],
+      "description": null,
+      "range": {
+        "min": 0.01,
+        "max": 100000
+      },
+      "currency": "CNY",
+      "disabled": true
+    }
+  ]
+}
