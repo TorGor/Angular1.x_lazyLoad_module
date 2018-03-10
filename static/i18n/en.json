@@ -117,9 +117,9 @@
           "th2":"Product",
           "th3":"Max",
           "th4":"Days",
-          "th5":"Brand",
+          "th5":"Brands",
           "brands":{
-            "th1":"Crand",
+            "th1":"Brand",
             "th2":"Rate"
           }
       },

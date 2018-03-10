@@ -9,7 +9,7 @@
         '$rootScope',
         '$uibModalInstance',
         '$translate',
-        'item'
+        'RebatesBrandsItem'
     ];
 
     function UserLevelRebatesBrandsModalController(
@@ -17,27 +17,8 @@
         $rootScope,
         $uibModalInstance,
         $translate,
-        item
+        RebatesBrandsItem
     ) {
-
-        $scope.productOptions = [
-            {
-                label: 'SLOTS',
-                value: 'SLOTS'
-            },
-            {
-                label: 'LIVE',
-                value: 'LIVE'
-            },
-            {
-                label: 'SPORTS',
-                value: 'SPORTS'
-            },
-            {
-                label: 'LOTTERY',
-                value: 'LOTTERY'
-            }
-        ];
 
         // 原始的数据
         $scope.rebatesBrandsModal = [];
@@ -48,11 +29,17 @@
         $scope.rebatesBrandsModalAoData = {};
         $scope.rebatesBrandsModalSearch = '';
 
+        var baseRebatesBrands = angular.copy(RebatesBrandsItem['brands']);
+
         // 初始化table数据
         $scope.initRebatesBrandsModalData = function () {
             $scope.rebatesBrandsModal = [];
-            if(item['brands'].length){
-                $scope.rebatesBrandsModal = item['brands'];
+            console.log(RebatesBrandsItem,'RebatesBrandsItem')
+            if(RebatesBrandsItem['brands'].length){
+                $scope.rebatesBrandsModal = RebatesBrandsItem['brands'];
+                $scope.rebatesBrandsModal.forEach(function (rebatesBrandsItem, rebatesBrandsIndex) {
+                    rebatesBrandsItem.id = rebatesBrandsIndex + 1;
+                })
             }
         };
 
@@ -61,20 +48,22 @@
         /**
          *
          * @param rebatesBrandsModal 用户等级数据对象
-         * @param item
+         * @param RebatesBrandsItem
          */
 
-        $scope.saveRebatesBrandsModal = function (rebatesBrandsModal, item) {
-            var tempData = angular.extend({}, rebatesBrandsModal, item);
-            return '';
+        $scope.saveRebatesBrandsModal = function (rebatesBrandsModal, RebatesBrandsItem) {
+            rebatesBrandsModal.id = $scope.rebatesBrandsModal.length;
+            window.Object.assign(rebatesBrandsModal, RebatesBrandsItem);
         };
 
         // 删除rebatesModal
         /**
          * @param rebatesBrandsModal 用户等级数据对象
+         * @param index 位置
          * @return null
          */
-        $scope.deleteRebatesBrandsModal = function (rebatesBrandsModal) {
+        $scope.deleteRebatesBrandsModal = function (rebatesBrandsModal, index) {
+            $scope.rebatesBrandsModal.splice(index, 1)
         };
 
         // 添加按钮
@@ -83,32 +72,37 @@
             $scope.rebatesBrandsModalSearch = '';
             $scope.rebatesBrandsModal.unshift({
                 'id': null,
-                'rebatesModalName': '',
-                'rebatesModalType': '',
-                'rebatesModalStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                "brand": "",
+                "rate": ''
             });
         };
 
         /**
          *
-         * @param item 添加的用户等级
+         * @param RebatesBrandsItem 添加的用户等级
          * @param index 添加的index
          */
 
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
+        $scope.cancelSave = function (RebatesBrandsItem, index) {
+            if (RebatesBrandsItem.id == null) {
                 $scope.rebatesBrandsModal.splice(index, 1);
             }
         };
 
-        $scope.confirmModal = function () {
-            $uibModalInstance.close('neededUpdateUserLevel');
+        $scope.confirmModalRebatesBrand = function () {
+            $scope.rebatesBrandsModal = $scope.rebatesBrandsModal.filter(function (rebatesBrandsItem) {
+                return rebatesBrandsItem.id;
+            });
+            $scope.rebatesBrandsModal.forEach(function (rebatesBrandsItem, rebatesBrandsIndex) {
+                if(rebatesBrandsItem.id){
+                    delete rebatesBrandsItem.id;
+                }
+            });
+            $uibModalInstance.close('neededUpdateUserLevelRebates');
         };
 
-        $scope.cancelModal = function () {
+        $scope.cancelModalRebatesBrand = function () {
+            RebatesBrandsItem['brands'] = baseRebatesBrands;
             $uibModalInstance.dismiss('cancel');
         };
 

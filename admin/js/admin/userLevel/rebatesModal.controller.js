@@ -8,6 +8,7 @@
         '$scope',
         '$rootScope',
         '$uibModalInstance',
+        '$uibModal',
         '$translate',
         'item'
     ];
@@ -16,6 +17,7 @@
         $scope,
         $rootScope,
         $uibModalInstance,
+        $uibModal,
         $translate,
         item
     ) {
@@ -89,12 +91,31 @@
             $scope.rebatesModalSearch = '';
             $scope.rebatesModal.unshift({
                 'id': null,
-                'rebatesModalName': '',
-                'rebatesModalType': '',
-                'rebatesModalStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                "currency":$scope.currencyOptions[0].value,
+                "product": $scope.productOptions[0].value,
+                "max":'',
+                "days":'',
+                "brands":[]
+            });
+        };
+
+        $scope.showEditRebatesBrandModal = function (item) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/userLevel/rebatesBrandsModal.html',
+                controller: 'UserLevelRebatesBrandsModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    RebatesBrandsItem: item
+                }
+            });
+            modalInstance.result.then(function (data) {
+                if (data === 'neededUpdateUserLevelRebates') {}
+            }, function (cancel) {
+
             });
         };
 

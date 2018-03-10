@@ -76,18 +76,22 @@
             if(userLevelItem['rebates']){
                 window.Object.keys(userLevelItem['rebates']).map(function (key) {
                     userLevelItem['rebates'][key].map(function (keyItem) {
-                        var product = keyItem['product'];
-                        var max = keyItem['max'];
-                        var days = keyItem['days'];
-                        if(window.Array.isArray(keyItem['brands'])){
-                            keyItem['brands'].map(function (brandsItem) {
-                                var tempObj = angular.copy(brandsItem);
-                                tempObj.product = product;
-                                tempObj.max = max;
-                                tempObj.days = days;
-                                rebates.push(tempObj)
-                            })
+                        var tempObj = {};
+                        tempObj.product = keyItem['product'];
+                        tempObj.max = keyItem['max'];
+                        tempObj.days = keyItem['days'];
+                        tempObj.currency = key;
+                        if (window.Array.isArray(keyItem['brands'])) {
+                            tempObj.brands = angular.copy(keyItem['brands']);
+                        } else {
+                            tempObj.brands = [];
                         }
+                        tempObj.brands.forEach(function (brandsItem) {
+                            if(brandsItem.currency){
+                                delete brandsItem.currency
+                            }
+                        });
+                        rebates.push(tempObj)
                     })
                 })
             }
@@ -129,6 +133,11 @@
             return '';
         };
 
+        /**
+         * 根据传入的modal名称进行弹窗显示
+         * @param modal 弹窗的名称
+         * @param item 弹窗的数据
+         */
 
         $scope.showEditModal = function (modal,item) {
             var templateName = '';

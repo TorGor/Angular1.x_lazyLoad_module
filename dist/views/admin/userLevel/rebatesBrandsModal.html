@@ -17,18 +17,18 @@
                      <span style="position: absolute;left: 4px;top: 6px">
                         <em class="fa fa-search"></em>
                      </span>
-                     <input class="form-control" type="text" ng-model="rebatesBrandsModalSearch" placeholder="{{searchPlaceholder(['table.rebatesModal.brands.th1', 'table.rebatesModal.brands.th2', 'table.rebatesModal.brands.th3'])}}">
+                     <input class="form-control" type="text" ng-model="rebatesBrandsModalSearch" placeholder="{{searchPlaceholder(['table.rebatesModal.brands.th1', 'table.rebatesModal.brands.th2'])}}">
                   </div>
                </form>
-               <div web-data-table items="rebatesBrandsModal" ao-data="rebatesBrandsModalAoData" search="rebatesBrandsModalSearch" reload="rebatesBrandsModalReload" show-items="showRebatesModal">
+               <div web-data-table items="rebatesBrandsModal" ao-data="rebatesBrandsModalAoData" search="rebatesBrandsModalSearch" reload="rebatesBrandsModalReload" show-items="showRebatesBrandsModal">
                   <table width="100%" class="table table-bordered table-hover bg-white">
                      <thead>
                         <tr class="bg-gray-light text-bold">
                            <td style="width: 40%" ao-data="rebatesBrandsModalAoData" web-data-table-sort="currency">
-                              {{'table.rebatesBrandsModal.th1' | translate}}
+                              {{'table.rebatesModal.brands.th1' | translate}}
                            </td>
                            <td style="width: 40%" ao-data="rebatesBrandsModalAoData" web-data-table-sort="product">
-                              {{'table.rebatesBrandsModal.th2' | translate}}
+                              {{'table.rebatesModal.brands.th2' | translate}}
                            </td>
                            <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                         </tr>
@@ -60,8 +60,8 @@
                               </div>
                            </td>
                         </tr>
-                        <tr ng-show="showRebatesbrandsModal.length==0">
-                           <td colspan="6" class="">{{'table.no_date' | translate}}</td>
+                        <tr ng-show="showRebatesBrandsModal.length==0">
+                           <td colspan="3" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                      </tbody>
                   </table>
@@ -73,7 +73,7 @@
 </div>
 
 <div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
-   <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
+   <button class="btn btn-primary" type="button" ng-click="confirmModalRebatesBrand()">{{'table.button.save' | translate}}</button>
+   <button class="btn btn-default" type="button" ng-click="cancelModalRebatesBrand()">{{'table.button.cancel' | translate}}</button>
 </div>
 

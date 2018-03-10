@@ -61,7 +61,7 @@
                               <span editable-text="item.days" e-name="days" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.days || '' }}</span>
                            </td>
                            <td>
-                              <button class="btn btn-sm btn-info" ng-click="showEditModal('conditions', item)">明细</button>
+                              <button class="btn btn-sm btn-info" ng-click="showEditRebatesBrandModal(item)">明细</button>
                            </td>
                            <td style="white-space: nowrap;">
                               <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveRebatesModal(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
