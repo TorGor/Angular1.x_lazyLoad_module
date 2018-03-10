@@ -14,6 +14,18 @@
         $translate
     ) {
 
+        // 配置预设的url
+        $rootScope.URL = {
+            COUNTRIESMANAGE:'/rest/countries',
+            LOCALELANGUAGE:'/rest/locales',
+            USERLEVEL:'/rest/ranks',
+            TRANSACTIONSDETAIL:'/rest/transactions',
+            CURRENCIESMANAGE:'/rest/currencies',
+            BLACKLISTS:'/rest/blacklists',
+            ORDERSMANAGE:"/rest/orders",
+            PAYMENTMETHODS:"/rest/methods",
+        };
+
         $rootScope.adminSelect012 = {
             // 0-禁用；1-启用；
             options: [

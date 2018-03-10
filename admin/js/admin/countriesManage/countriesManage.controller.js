@@ -28,7 +28,7 @@
         // 初始化table数据
         $scope.initCountriesManageData = function () {
             $scope.countriesManage = [];
-            adminService.getReq(URL.COUNTRIESMANAGE).then(function (res) {
+            adminService.getReq($rootScope.URL.COUNTRIESMANAGE).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -55,7 +55,7 @@
             var tempData = angular.extend({}, countriesManage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq(URL.COUNTRIESMANAGE,tempData, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.COUNTRIESMANAGE,tempData, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -68,7 +68,7 @@
                 });
             } else if (tempData.id && countriesManage.iso) {
                 delete tempData.id;
-                adminService.patchReq(URL.COUNTRIESMANAGE+'/'+countriesManage.iso, tempData, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.COUNTRIESMANAGE+'/'+countriesManage.iso, tempData, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -91,7 +91,7 @@
         $scope.deleteCountriesManage = function (countriesManage) {
             if (countriesManage.iso) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq(URL.COUNTRIESMANAGE+'/'+countriesManage.iso, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.COUNTRIESMANAGE+'/'+countriesManage.iso, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initCountriesManageData();

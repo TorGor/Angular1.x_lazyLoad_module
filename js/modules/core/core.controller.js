@@ -21,18 +21,6 @@
         toaster
     ) {
 
-        // 配置预设的url
-        $scope.URL = {
-            COUNTRIESMANAGE:'/rest/countries',
-            LOCALELANGUAGE:'/rest/locales',
-            USERLEVEL:'/rest/ranks',
-            TRANSACTIONSDETAIL:'/rest/transactions',
-            CURRENCIESMANAGE:'/rest/currencies',
-            BLACKLISTS:'/rest/blacklists',
-            ORDERSMANAGE:"/rest/orders",
-            PAYMENTMETHODS:"/rest/methods",
-        };
-
         /**
          *
          * @param value 0-禁用；1-启用；2-删除；

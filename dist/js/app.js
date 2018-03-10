@@ -39,12 +39,6 @@
     'use strict';
 
     angular
-        .module('app.lazyload', []);
-})();
-(function() {
-    'use strict';
-
-    angular
         .module('app.core', [
             'ngRoute',
             'ngAnimate',
@@ -62,6 +56,12 @@
             'oitozero.ngSweetAlert',
             'toaster'
         ]);
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.lazyload', []);
 })();
 (function() {
     'use strict';
@@ -160,6 +160,390 @@
     }
 
 })();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.core')
+        .config(coreConfig);
+
+    coreConfig.$inject = [
+        '$controllerProvider',
+        '$compileProvider',
+        '$filterProvider',
+        '$provide',
+        '$httpProvider',
+        '$animateProvider'
+    ];
+    function coreConfig(
+        $controllerProvider,
+        $compileProvider,
+        $filterProvider,
+        $provide,
+        $httpProvider,
+        $animateProvider
+    ){
+
+      var core = angular.module('app.core');
+      // registering components after bootstrap
+      core.controller = $controllerProvider.register;
+      core.directive  = $compileProvider.directive;
+      core.filter     = $filterProvider.register;
+      core.factory    = $provide.factory;
+      core.service    = $provide.service;
+      core.constant   = $provide.constant;
+      core.value      = $provide.value;
+
+      // Disables animation on items with class .ng-no-animation
+      $animateProvider.classNameFilter(/^((?!(ng-no-animation)).)*$/);
+
+      // Improve performance disabling debugging features
+      // $compileProvider.debugInfoEnabled(false);
+
+      $httpProvider.interceptors.push('customeInterceptor');
+
+    }
+
+})();
+/** =========================================================
+ * Module: constants.js
+ * Define constants to inject across the application
+ ========================================================= */
+
+(function() {
+
+    angular
+        .module('app.core')
+        .constant('APP_MEDIAQUERY', {
+            'desktopLG': 1200,
+            'desktop': 992,
+            'tablet': 768,
+            'mobile': 480
+        })
+        .constant('EVN', {
+            debug: true,
+            suffix: '.json',
+            // suffix: '',
+            server: '',
+            // server: 'http://madmin.ngrok.xiaomiqiu.cn',
+            // server: 'http://mysqlserver.free.ngrok.cc'
+        });
+})();
+(function() {
+
+
+    angular
+        .module('app.core')
+        .controller('MainController', MainController);
+
+    MainController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$translate',
+        'SweetAlert',
+        'toaster'
+    ];
+
+    function MainController(
+        $scope,
+        $rootScope,
+        $translate,
+        SweetAlert,
+        toaster
+    ) {
+
+        /**
+         *
+         * @param value 0-禁用；1-启用；2-删除；
+         * @return {*}
+         */
+
+        // 0-禁用；1-启用；2-删除；
+        $scope.filter012OptionsValue = function (value) {
+            if (value == 0) {
+                return '<div class="label label-warning">' + $translate.instant('options.forbid') + '</div>';
+            } else if (value == 1) {
+                return '<div class="label label-success">' + $translate.instant('options.enable') + '</div>';
+            } else if (value == 2) {
+                return '<div class="label label-danger">' + $translate.instant('options.delete') + '</div>';
+            } else {
+                return '';
+            }
+        };
+
+
+        $scope.searchPlaceholder = function(param) {
+            if (window.Array.isArray(param)) {
+                var tempArr = param.map(function(item) {
+                    return $translate.instant(item);
+                });
+                return tempArr.join('/');
+            }
+            if (typeof param === 'string') {
+                return $translate.instant(param);
+            }
+            return '';
+        };
+
+
+        /**
+         *
+         * @param data 传入的值是否为空
+         * @return {string}
+         */
+
+        $scope.checkRequiredData = function(data) {
+            if (data === '') {
+                return $translate.instant('alert_confirm.required_message');
+            }
+        };
+
+        /**
+         *
+         * @param msg string
+         */
+
+        // 全局报错机制成功
+        $rootScope.toasterSuccess = function (msg) {
+            toaster.pop('success', $translate.instant('alert_confirm.success'), msg);
+        };
+
+        $rootScope.alertErrorMsg = function (msg) {
+            SweetAlert.error($translate.instant('alert_confirm.error'), msg);
+        };
+
+
+        $rootScope.dateOptionsYYYMMDD = {
+            useCurrent: false,
+            locale: $rootScope.language.selected || 'en',
+            format: 'YYYY-MM-DD'
+        };
+
+        $rootScope.dateOptionsYYYMMDDHHMM = {
+            useCurrent: false,
+            locale: $rootScope.language.selected || 'en',
+            format: 'YYYY-MM-DD HH:MM'
+        };
+
+        /**
+         *
+         * @param callback 回调函数
+         */
+
+        // 删除确认
+        $rootScope.alertConfirm = function (callback) {
+            SweetAlert.swal({
+                title: $translate.instant('alert_confirm.title'),
+                text: $translate.instant('alert_confirm.text'),
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
+                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
+                closeOnConfirm: true
+            }, function(yes) {
+                if (yes) {
+                    callback();
+                }
+            });
+        };
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.core')
+        .factory('customeInterceptor', customeInterceptor);
+
+    customeInterceptor.$inject = ['$rootScope', '$timeout', '$injector', '$q','$window'];
+
+    function customeInterceptor($rootScope, $timeout, $injector, $q, $window) {
+        var requestInitiated;
+
+        function showLoadingText() {
+            $rootScope.isShowLoadingSpinner = true;
+        };
+
+        function hideLoadingText() {
+            $rootScope.isShowLoadingSpinner = false;
+        };
+
+        return {
+            request: function (config) {
+                requestInitiated = true;
+                showLoadingText();
+                return config;
+            },
+            response: function (response) {
+                requestInitiated = false;
+
+                // Show delay of 300ms so the popup will not appear for multiple http request
+                $timeout(function () {
+
+                    if (requestInitiated) return;
+                    hideLoadingText();
+
+                }, 300);
+
+                return response;
+            },
+            requestError: function (err) {
+                hideLoadingText();
+                return err;
+            },
+            responseError: function (err) {
+                hideLoadingText();
+                return $q.reject(err);
+            }
+        }
+    }
+
+})();
+(function() {
+
+
+    angular
+        .module('app.core')
+        .run(appRun);
+
+    appRun.$inject = [
+        '$rootScope',
+        '$state',
+        '$stateParams',
+        '$window',
+        '$templateCache',
+        'Colors',
+        'SweetAlert',
+        'toaster'
+    ];
+
+    function appRun(
+        $rootScope,
+        $state,
+        $stateParams,
+        $window,
+        $templateCache,
+        Colors,
+        SweetAlert,
+        toaster
+    ) {
+
+        // Hook into ocLazyLoad to setup AngularGrid before inject into the app
+        // See "Creating the AngularJS Module" at
+        // https://www.ag-grid.com/best-angularjs-data-grid/index.php
+        var offevent = $rootScope.$on('ocLazyLoad.fileLoaded', function(e, file) {
+            if (file.indexOf('ag-grid.js') > -1) {
+                agGrid.initialiseAgGridWithAngular1(angular);
+                offevent();
+            }
+        });
+
+        // Set reference to access them from any scope
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+        $rootScope.$storage = $window.localStorage;
+
+        // Uncomment this to disable template cache
+        // $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        //     if (typeof(toState) !== 'undefined'){
+        //       $templateCache.remove(toState.templateUrl);
+        //     }
+        // });
+
+        // Allows to use branding color with interpolation
+        // {{ colorByName('primary') }}
+        $rootScope.colorByName = Colors.byName;
+
+        // cancel click event easily
+        $rootScope.cancel = function($event) {
+            $event.stopPropagation();
+        };
+
+        // Hooks Example
+        // -----------------------------------
+
+        // Hook not start
+        $rootScope.$on('$stateChangeStart',
+            function(event, toState, toParams, fromState, fromParams) {
+                if(toState.permission){
+                    console.log(toState.permission, 'toState.permission')
+                }
+
+            });
+
+        // Hook not found
+        $rootScope.$on('$stateNotFound',
+            function(event, unfoundState /* , fromState, fromParams */) {
+                console.log(unfoundState.to); // "lazy.state"
+                console.log(unfoundState.toParams); // {a:1, b:2}
+                console.log(unfoundState.options); // {inherit:false} + default options
+            });
+        // Hook error
+        $rootScope.$on('$stateChangeError',
+            function(event, toState, toParams, fromState, fromParams, error) {
+                console.log(error);
+            });
+        // Hook success
+        $rootScope.$on('$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams) {
+                // display new view from top
+                $window.scrollTo(0, 0);
+                // Save the route title
+                // $rootScope.currTitle = $state.current.title;
+                $window.document.title = $state.current.title;
+            });
+
+        // Load a title dynamically
+        // $rootScope.currTitle = $state.current.title;
+        // $rootScope.pageTitle = function() {
+        //     var title = $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
+        //     document.title = title;
+        //     return title;
+        // };
+
+        $window.document.title = '';
+
+    }
+
+})();
+(function (angular) {
+    
+
+    angular
+        .module('app.core')
+        .factory('userSelfService', userSelfService);
+
+    userSelfService.$inject = ['$resource', 'EVN'];
+
+    /* @ngInject */
+    function userSelfService($resource, EVN) {
+        return $resource(EVN.server + '/user/:action',
+            {},
+            {
+                // 获取用户自己的信息
+                getUserSelfInfo: {
+                    method: 'GET',
+                    params: {
+                        action: 'getUserInfo' + EVN.suffix
+                    }
+                },
+                // 用户登出
+                getUserLogout: {
+                    method: 'GET',
+                    params: {
+                        action: 'logout' + EVN.suffix
+                    }
+                },
+
+            }
+        );
+    }
+
+})(angular);
+
 
 (function() {
     'use strict';
@@ -478,603 +862,6 @@
     'use strict';
 
     angular
-        .module('app.core')
-        .config(coreConfig);
-
-    coreConfig.$inject = [
-        '$controllerProvider',
-        '$compileProvider',
-        '$filterProvider',
-        '$provide',
-        '$httpProvider',
-        '$animateProvider'
-    ];
-    function coreConfig(
-        $controllerProvider,
-        $compileProvider,
-        $filterProvider,
-        $provide,
-        $httpProvider,
-        $animateProvider
-    ){
-
-      var core = angular.module('app.core');
-      // registering components after bootstrap
-      core.controller = $controllerProvider.register;
-      core.directive  = $compileProvider.directive;
-      core.filter     = $filterProvider.register;
-      core.factory    = $provide.factory;
-      core.service    = $provide.service;
-      core.constant   = $provide.constant;
-      core.value      = $provide.value;
-
-      // Disables animation on items with class .ng-no-animation
-      $animateProvider.classNameFilter(/^((?!(ng-no-animation)).)*$/);
-
-      // Improve performance disabling debugging features
-      // $compileProvider.debugInfoEnabled(false);
-
-      $httpProvider.interceptors.push('customeInterceptor');
-
-    }
-
-})();
-/** =========================================================
- * Module: constants.js
- * Define constants to inject across the application
- ========================================================= */
-
-(function() {
-
-    angular
-        .module('app.core')
-        .constant('APP_MEDIAQUERY', {
-            'desktopLG': 1200,
-            'desktop': 992,
-            'tablet': 768,
-            'mobile': 480
-        })
-        .constant('EVN', {
-            debug: true,
-            // suffix: '.json',
-            suffix: '',
-            // server: '',
-            // server: 'http://madmin.ngrok.xiaomiqiu.cn',
-            server: 'http://mysqlserver.free.ngrok.cc'
-        });
-})();
-(function() {
-
-
-    angular
-        .module('app.core')
-        .controller('MainController', MainController);
-
-    MainController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$translate',
-        'SweetAlert',
-        'toaster'
-    ];
-
-    function MainController(
-        $scope,
-        $rootScope,
-        $translate,
-        SweetAlert,
-        toaster
-    ) {
-
-        /**
-         *
-         * @param value 0-禁用；1-启用；2-删除；
-         * @return {*}
-         */
-
-        // 0-禁用；1-启用；2-删除；
-        $scope.filter012OptionsValue = function (value) {
-            if (value == 0) {
-                return '<div class="label label-warning">' + $translate.instant('options.forbid') + '</div>';
-            } else if (value == 1) {
-                return '<div class="label label-success">' + $translate.instant('options.enable') + '</div>';
-            } else if (value == 2) {
-                return '<div class="label label-danger">' + $translate.instant('options.delete') + '</div>';
-            } else {
-                return '';
-            }
-        };
-
-
-        $scope.searchPlaceholder = function(param) {
-            if (window.Array.isArray(param)) {
-                var tempArr = param.map(function(item) {
-                    return $translate.instant(item);
-                });
-                return tempArr.join('/');
-            }
-            if (typeof param === 'string') {
-                return $translate.instant(param);
-            }
-            return '';
-        };
-
-
-        /**
-         *
-         * @param data 传入的值是否为空
-         * @return {string}
-         */
-
-        $scope.checkRequiredData = function(data) {
-            if (data === '') {
-                return $translate.instant('alert_confirm.required_message');
-            }
-        };
-
-        /**
-         *
-         * @param msg string
-         */
-
-        // 全局报错机制成功
-        $rootScope.toasterSuccess = function (msg) {
-            toaster.pop('success', $translate.instant('alert_confirm.success'), msg);
-        };
-
-        $rootScope.alertErrorMsg = function (msg) {
-            SweetAlert.error($translate.instant('alert_confirm.error'), msg);
-        };
-
-
-        $rootScope.dateOptionsYYYMMDD = {
-            useCurrent: false,
-            locale: $rootScope.language.selected || 'en',
-            format: 'YYYY-MM-DD'
-        };
-
-        $rootScope.dateOptionsYYYMMDDHHMM = {
-            useCurrent: false,
-            locale: $rootScope.language.selected || 'en',
-            format: 'YYYY-MM-DD HH:MM'
-        };
-
-        /**
-         *
-         * @param callback 回调函数
-         */
-
-        // 删除确认
-        $rootScope.alertConfirm = function (callback) {
-            SweetAlert.swal({
-                title: $translate.instant('alert_confirm.title'),
-                text: $translate.instant('alert_confirm.text'),
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
-                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
-                closeOnConfirm: true
-            }, function(yes) {
-                if (yes) {
-                    callback();
-                }
-            });
-        };
-    }
-
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.core')
-        .factory('customeInterceptor', customeInterceptor);
-
-    customeInterceptor.$inject = ['$rootScope', '$timeout', '$injector', '$q','$window'];
-
-    function customeInterceptor($rootScope, $timeout, $injector, $q, $window) {
-        var requestInitiated;
-
-        function showLoadingText() {
-            $rootScope.isShowLoadingSpinner = true;
-        };
-
-        function hideLoadingText() {
-            $rootScope.isShowLoadingSpinner = false;
-        };
-
-        return {
-            request: function (config) {
-                requestInitiated = true;
-                showLoadingText();
-                return config;
-            },
-            response: function (response) {
-                requestInitiated = false;
-
-                // Show delay of 300ms so the popup will not appear for multiple http request
-                $timeout(function () {
-
-                    if (requestInitiated) return;
-                    hideLoadingText();
-
-                }, 300);
-
-                return response;
-            },
-            requestError: function (err) {
-                hideLoadingText();
-                return err;
-            },
-            responseError: function (err) {
-                hideLoadingText();
-                return $q.reject(err);
-            }
-        }
-    }
-
-})();
-(function() {
-
-
-    angular
-        .module('app.core')
-        .run(appRun);
-
-    appRun.$inject = [
-        '$rootScope',
-        '$state',
-        '$stateParams',
-        '$window',
-        '$templateCache',
-        'Colors',
-        'SweetAlert',
-        'toaster'
-    ];
-
-    function appRun(
-        $rootScope,
-        $state,
-        $stateParams,
-        $window,
-        $templateCache,
-        Colors,
-        SweetAlert,
-        toaster
-    ) {
-
-        // Hook into ocLazyLoad to setup AngularGrid before inject into the app
-        // See "Creating the AngularJS Module" at
-        // https://www.ag-grid.com/best-angularjs-data-grid/index.php
-        var offevent = $rootScope.$on('ocLazyLoad.fileLoaded', function(e, file) {
-            if (file.indexOf('ag-grid.js') > -1) {
-                agGrid.initialiseAgGridWithAngular1(angular);
-                offevent();
-            }
-        });
-
-        // Set reference to access them from any scope
-        $rootScope.$state = $state;
-        $rootScope.$stateParams = $stateParams;
-        $rootScope.$storage = $window.localStorage;
-
-        // Uncomment this to disable template cache
-        // $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        //     if (typeof(toState) !== 'undefined'){
-        //       $templateCache.remove(toState.templateUrl);
-        //     }
-        // });
-
-        // Allows to use branding color with interpolation
-        // {{ colorByName('primary') }}
-        $rootScope.colorByName = Colors.byName;
-
-        // cancel click event easily
-        $rootScope.cancel = function($event) {
-            $event.stopPropagation();
-        };
-
-        // Hooks Example
-        // -----------------------------------
-
-        // Hook not start
-        $rootScope.$on('$stateChangeStart',
-            function(event, toState, toParams, fromState, fromParams) {
-                if(toState.permission){
-                    console.log(toState.permission, 'toState.permission')
-                }
-
-            });
-
-        // Hook not found
-        $rootScope.$on('$stateNotFound',
-            function(event, unfoundState /* , fromState, fromParams */) {
-                console.log(unfoundState.to); // "lazy.state"
-                console.log(unfoundState.toParams); // {a:1, b:2}
-                console.log(unfoundState.options); // {inherit:false} + default options
-            });
-        // Hook error
-        $rootScope.$on('$stateChangeError',
-            function(event, toState, toParams, fromState, fromParams, error) {
-                console.log(error);
-            });
-        // Hook success
-        $rootScope.$on('$stateChangeSuccess',
-            function(event, toState, toParams, fromState, fromParams) {
-                // display new view from top
-                $window.scrollTo(0, 0);
-                // Save the route title
-                // $rootScope.currTitle = $state.current.title;
-                $window.document.title = $state.current.title;
-            });
-
-        // Load a title dynamically
-        // $rootScope.currTitle = $state.current.title;
-        // $rootScope.pageTitle = function() {
-        //     var title = $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
-        //     document.title = title;
-        //     return title;
-        // };
-
-        $window.document.title = '';
-
-    }
-
-})();
-(function (angular) {
-    
-
-    angular
-        .module('app.core')
-        .factory('superAdminService', superAdminService)
-        .factory('userSelfService', userSelfService);
-
-    superAdminService.$inject = ['$resource', 'EVN'];
-
-    /* @ngInject */
-    function superAdminService($resource, EVN) {
-        return $resource(EVN.server + '/admin/:action',
-            {},
-            {
-                // 菜单维护模块
-
-                // 3.1 查询一级菜单
-                getFindRootMenuInfo: {
-                    method: 'GET',
-                    params: {
-                        action: 'findRootMenuInfo' + EVN.suffix
-                    }
-                },
-
-                // 3.2 查询子菜单
-                getFindSecMenuInfo: {
-                    method: 'GET',
-                    params: {
-                        action: 'findSecMenuInfo' + EVN.suffix
-                    }
-                },
-
-                // 3.3 保存菜单
-                postSaveMenuInfo: {
-                    method: 'POST',
-                    params: {
-                        action: 'saveMenuInfo' + EVN.suffix
-                    }
-                },
-
-                // 3.4 更新菜单
-                postUpdateMenuInfo: {
-                    method: 'POST',
-                    params: {
-                        action: 'updateMenuInfo' + EVN.suffix
-                    }
-                },
-
-                // 3.5 删除一级菜单
-                getDeleteMenuInfoById: {
-                    method: 'GET',
-                    params: {
-                        action: 'deleteMenuInfoById' + EVN.suffix
-                    }
-                },
-
-                // 3.5 删除二级菜单
-                getDeleteSecondMenuInfoById: {
-                    method: 'GET',
-                    params: {
-                        action: 'deleteSecMenuInfoById' + EVN.suffix
-                    }
-                },
-
-                // 按钮维护模块
-
-                // 3.1 查找所有菜单
-                getFindAllMenuInfo: {
-                    method: 'GET',
-                    params: {
-                        action: 'findAllMenuInfo' + EVN.suffix
-                    }
-                },
-
-                // 3.2 更新按钮
-                postUpdateButtonInfo: {
-                    method: 'POST',
-                    params: {
-                        action: 'updateButtonInfo' + EVN.suffix
-                    }
-                },
-
-                // 3.3 根据菜单ID查询按钮
-                getFindButtonInfoByMenuId: {
-                    method: 'GET',
-                    params: {
-                        action: 'findButtonInfoByMenuId' + EVN.suffix
-                    }
-                },
-
-                // 3.4 保存按钮
-                postSaveButtonInfo: {
-                    method: 'POST',
-                    params: {
-                        action: 'saveButtonInfo' + EVN.suffix
-                    }
-                },
-
-                // 3.5 删除按钮
-                getDeleteButtonInfoById: {
-                    method: 'GET',
-                    params: {
-                        action: 'deleteButtonInfoById' + EVN.suffix
-                    }
-                },
-
-                // 角色维护模块
-
-                // 3.1 查询角色
-                getFindPageRoleInfo: {
-                    method: 'GET',
-                    params: {
-                        action: 'findPageRoleInfo' + EVN.suffix
-                    }
-                },
-                // 3.1 查询未删除的角色
-                getFindRoleInfoList: {
-                    method: 'GET',
-                    params: {
-                        action: 'findRoleInfoList' + EVN.suffix
-                    }
-                },
-
-                // 3.2 保存角色
-                postSaveRoleInfo: {
-                    method: 'POST',
-                    params: {
-                        action: 'saveRoleInfo' + EVN.suffix
-                    }
-                },
-
-                // 3.3 更新角色
-                postUpdateRoleInfo: {
-                    method: 'POST',
-                    params: {
-                        action: 'updateRoleInfo' + EVN.suffix
-                    }
-                },
-
-                // 3.4 删除角色
-                getDeleteRoleInfoById: {
-                    method: 'GET',
-                    params: {
-                        action: 'deleteRoleInfoById' + EVN.suffix
-                    }
-                },
-
-                // 3.1 查找菜单树
-                getFindMenuByRoleId: {
-                    method: 'GET',
-                    params: {
-                        action: 'findMenuByRoleId' + EVN.suffix
-                    }
-                },
-
-                // 3.2 添加角色菜单按钮关系
-                postAddRoleAndMenuAndBtn: {
-                    method: 'POST',
-                    params: {
-                        action: 'addRoleAndMenuAndBtn' + EVN.suffix
-                    }
-                },
-
-                // 3.3 删除角色菜单按钮关系
-                getDeleteRoleAndMenuAndBtn: {
-                    method: 'GET',
-                    params: {
-                        action: 'deleteRoleAndMenuAndBtn' + EVN.suffix
-                    }
-                },
-
-                // 3.4 查找按钮
-                getFindButtonInfoList: {
-                    method: 'GET',
-                    params: {
-                        action: 'findButtonInfoList' + EVN.suffix
-                    }
-                },
-
-                // 管理员模块
-
-                // 3.1 查询用户
-                getFindUserInfo: {
-                    method: 'GET',
-                    params: {
-                        action: 'findUserInfo' + EVN.suffix
-                    }
-                },
-
-                // 3.2 保存用户
-                postSaveUserInfo: {
-                    method: 'POST',
-                    params: {
-                        action: 'saveUserInfo' + EVN.suffix
-                    }
-                },
-
-                // 3.3 更新用户
-                postUpdateUserInfo: {
-                    method: 'POST',
-                    params: {
-                        action: 'updateUserInfo' + EVN.suffix
-                    }
-                },
-
-                // 3.4 删除用户
-                getDeleteUserById: {
-                    method: 'GET',
-                    params: {
-                        action: 'deleteUserById' + EVN.suffix
-                    }
-                },
-
-                // 3.1 菜单按钮
-                getFindRoleMenuByRoleId: {
-                    method: 'GET',
-                    params: {
-                        action: 'findRoleMenuByRoleId' + EVN.suffix
-                    }
-                },
-            }
-        );
-    }
-
-    userSelfService.$inject = ['$resource', 'EVN'];
-
-    /* @ngInject */
-    function userSelfService($resource, EVN) {
-        return $resource(EVN.server + '/user/:action',
-            {},
-            {
-                // 菜单维护模块
-
-                // 3.1 查询一级菜单
-                getUserSelfInfo: {
-                    method: 'GET',
-                    params: {
-                        action: 'getUserInfo' + EVN.suffix
-                    }
-                },
-
-            }
-        );
-    }
-
-})(angular);
-
-
-(function() {
-    'use strict';
-
-    angular
         .module('app.loadingbar')
         .config(loadingbarConfig)
         ;
@@ -1300,21 +1087,43 @@
         .module('app.settings')
         .run(settingsRun);
 
-    settingsRun.$inject = ['$rootScope', '$localStorage', '$translate'];
+    settingsRun.$inject = [
+        '$rootScope',
+        '$localStorage',
+        'userSelfService',
+        '$translate'
+    ];
 
-    function settingsRun($rootScope, $localStorage, $translate) {
+    function settingsRun(
+        $rootScope,
+        $localStorage,
+        userSelfService,
+        $translate
+    ) {
 
 
         // User Settings
         // -----------------------------------
         $rootScope.user = {
             system: 'admin',
-            name: 'welcome'
+            name: 'admin'
         };
 
         // Hides/show user avatar on sidebar from any element
         $rootScope.toggleUserBlock = function() {
             $rootScope.$broadcast('toggleUserBlock');
+        };
+
+        $rootScope.userLogout = function () {
+            userSelfService.getUserLogout.$promise.then(function (data) {
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+                        window.location.href = '/login.html'
+                    } else {
+                        $rootScope.alertErrorMsg(data.msg);
+                    }
+                }
+            })
         };
 
         // Global Settings
@@ -1503,7 +1312,25 @@
                     "text": "货币管理",
                     "sref": "admin.currenciesManage",
                     "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "银行黑名单",
+                    "sref": "admin.blackLists",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "充值管理",
+                    "sref": "admin.ordersManage",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "支付渠道",
+                    "sref": "admin.paymentMethods",
+                    "icon": "glyphicon glyphicon-th-large",
                 }//new sidebar name will be append here
+            
+            
+            
             
             
             

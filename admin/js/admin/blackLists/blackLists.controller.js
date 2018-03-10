@@ -28,7 +28,7 @@
         // 初始化table数据
         $scope.initBlackListsData = function () {
             $scope.blackLists = [];
-            adminService.getReq(URL.BLACKLISTS, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.BLACKLISTS, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -52,7 +52,7 @@
             var tempData = angular.extend({}, blackLists, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq(URL.BLACKLISTS, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.BLACKLISTS, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -64,7 +64,7 @@
                     }
                 });
             } else if (tempData.id && blackLists.id) {
-                adminService.patchReq(URL.BLACKLISTS+'/'+blackLists.id, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.BLACKLISTS+'/'+blackLists.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -87,7 +87,7 @@
         $scope.deleteBlackLists = function (blackLists) {
             if (blackLists.id) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq(URL.BLACKLISTS+'/'+blackLists.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.BLACKLISTS+'/'+blackLists.id, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initBlackListsData();

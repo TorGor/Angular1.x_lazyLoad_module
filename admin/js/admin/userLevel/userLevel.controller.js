@@ -31,7 +31,7 @@
 
         $scope.initCurrenciesManageData = function () {
             $scope.currencyOptions = [];
-            adminService.getReq(URL.CURRENCIESMANAGE, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -68,13 +68,11 @@
                     })
                 })
             }
-            console.log(conditions, '------------conditions---------')
             if(userLevelItem['treatments']){
                 window.Object.keys(userLevelItem['treatments']).map(function (key) {
                     treatments = treatments.concat(userLevelItem['treatments'][key])
                 })
             }
-            console.log(treatments, '------------treatments---------')
             if(userLevelItem['rebates']){
                 window.Object.keys(userLevelItem['rebates']).map(function (key) {
                     userLevelItem['rebates'][key].map(function (keyItem) {
@@ -93,7 +91,6 @@
                     })
                 })
             }
-            console.log(rebates, '------------rebates---------')
             return {
                 conditions:conditions,
                 treatments:treatments,
@@ -104,7 +101,7 @@
         // 初始化table数据
         $scope.initUserLevelData = function () {
             $scope.userLevel = [];
-            adminService.getReq(URL.USERLEVEL, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.USERLEVEL, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -180,7 +177,7 @@
             var tempData = angular.extend({}, userLevel, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq(URL.USERLEVEL, tempData, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.USERLEVEL, tempData, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -192,7 +189,7 @@
                     }
                 });
             } else if (tempData.id) {
-                adminService.patchReq(URL.USERLEVEL,tempData, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.USERLEVEL,tempData, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -215,7 +212,7 @@
         $scope.deleteUserLevel = function (userLevel) {
             if (userLevel.id) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq(URL.USERLEVEL, {id: userLevel.id}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.USERLEVEL, {id: userLevel.id}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initUserLevelData();

@@ -41,7 +41,7 @@
         // 初始化table数据
         $scope.initCurrenciesManageData = function () {
             $scope.currenciesManage = [];
-            adminService.getReq(URL.CURRENCIESMANAGE, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -70,7 +70,7 @@
             var tempData = angular.extend({}, currenciesManage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq(URL.CURRENCIESMANAGE, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.CURRENCIESMANAGE, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -83,7 +83,7 @@
                 });
             } else if (currenciesManage.id) {
                 delete tempData.id;
-                adminService.patchReq(URL.CURRENCIESMANAGE+'/'+currenciesManage.code, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.CURRENCIESMANAGE+'/'+currenciesManage.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -106,7 +106,7 @@
         $scope.deleteCurrenciesManage = function (currenciesManage) {
             if (currenciesManage.id) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq(URL.CURRENCIESMANAGE+'/'+currenciesManage.code, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.CURRENCIESMANAGE+'/'+currenciesManage.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initCurrenciesManageData();

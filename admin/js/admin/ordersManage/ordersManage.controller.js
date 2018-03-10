@@ -28,7 +28,7 @@
         // 初始化table数据
         $scope.initOrdersManageData = function () {
             $scope.ordersManage = [];
-            adminService.getReq(URL.ORDERSMANAGE, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.ORDERSMANAGE, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -52,7 +52,7 @@
             var tempData = angular.extend({}, ordersManage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq(URL.ORDERSMANAGE, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.ORDERSMANAGE, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -64,7 +64,7 @@
                     }
                 });
             } else if (tempData.id && ordersManage.id) {
-                adminService.patchReq(URL.ORDERSMANAGE+'/'+ordersManage.id, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.ORDERSMANAGE+'/'+ordersManage.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -87,7 +87,7 @@
         $scope.deleteOrdersManage = function (ordersManage) {
             if (ordersManage.id) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq(URL.ORDERSMANAGE+'/'+ordersManage.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.ORDERSMANAGE+'/'+ordersManage.id, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initOrdersManageData();

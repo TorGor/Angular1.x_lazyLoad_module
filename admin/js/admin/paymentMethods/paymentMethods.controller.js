@@ -28,7 +28,7 @@
         // 初始化table数据
         $scope.initPaymentMethodsData = function () {
             $scope.paymentMethods = [];
-            adminService.getReq(URL.PAYMENTMETHODS, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.PAYMENTMETHODS, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -52,7 +52,7 @@
             var tempData = angular.extend({}, paymentMethods, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq(URL.PAYMENTMETHODS, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.PAYMENTMETHODS, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -64,7 +64,7 @@
                     }
                 });
             } else if (tempData.id && paymentMethods.id) {
-                adminService.patchReq(URL.PAYMENTMETHODS+'/'+paymentMethods.id, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.PAYMENTMETHODS+'/'+paymentMethods.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -87,7 +87,7 @@
         $scope.deletePaymentMethods = function (paymentMethods) {
             if (paymentMethods.id) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq(URL.PAYMENTMETHODS+'/'+paymentMethods.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.PAYMENTMETHODS+'/'+paymentMethods.id, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initPaymentMethodsData();

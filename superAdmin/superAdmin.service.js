@@ -2,7 +2,7 @@
     
 
     angular
-        .module('app.superAdmin')
+        .module('superAdmin')
         .factory('superAdminService', superAdminService);
 
     superAdminService.$inject = ['$resource', 'EVN'];
