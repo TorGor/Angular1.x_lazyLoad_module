@@ -11140,6 +11140,9 @@ body .jvectormap-zoomout {
 .hover-visible:hover .hover-hidden-inline {
   display: inline-block;
 }
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
 .media-box,
 .media-box-body {
   overflow: hidden;

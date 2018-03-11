@@ -45,6 +45,7 @@
     "button": {
       "add": "添加",
       "search": "查找",
+      "advance_search": "显示高级搜索",
       "save": "保存",
       "edit": "编辑",
       "delete": "删除",

@@ -157,7 +157,7 @@
         // 添加按钮
         $scope.addBlackLists = function () {
             $scope.blackLists.unshift({
-                "account_number": "",
+                "accountNumber": "",
                 "type": $scope.typeOptions[0].value,
                 "comment":"",
                 "isDeleted":false

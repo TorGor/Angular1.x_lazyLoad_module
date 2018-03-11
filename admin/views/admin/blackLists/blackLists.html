@@ -8,7 +8,7 @@
                             <input
                                     class="form-control"
                                     type="text"
-                                    ng-model="blackListsAoData.accountNumber"
+                                    ng-model="blackListsAoData.account_number"
                                     placeholder="{{'table.blackLists.th1' | translate}}">
                         </div>
                         <div class="col-lg-3 col-md-6">
@@ -33,13 +33,13 @@
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <ui-select
-                                    ng-model="blackListsAoData.isDeleted"
+                                    ng-model="blackListsAoData.is_deleted"
                                     theme="bootstrap"
                                     search-enabled="false">
                                 <ui-select-match placeholder="{{'table.blackLists.th4' | translate}}">
                                     <span ng-bind="$select.selected.label"></span>
                                 </ui-select-match>
-                                <ui-select-choices repeat="item in isDeletedOptions">
+                                <ui-select-choices repeat="item.value as item in isDeletedOptions">
                                     <span ng-bind="item.label"></span>
                                 </ui-select-choices>
                             </ui-select>
@@ -57,13 +57,13 @@
                         新增
                     </button>
                 </span>
-                <form class="form-inline pull-right add-button-class" role="form">
-                    <div style="position: relative" class="form-group">
-                        <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                        <input class="form-control" type="text" ng-model="blackListsSearch"
-                               placeholder="{{searchPlaceholder(['table.blackLists.th1', 'table.blackLists.th2', 'table.blackLists.th3'])}}">
-                    </div>
-                </form>
+                <!--<form class="form-inline pull-right add-button-class" role="form">-->
+                    <!--<div style="position: relative" class="form-group">-->
+                        <!--<span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>-->
+                        <!--<input class="form-control" type="text" ng-model="blackListsSearch"-->
+                               <!--placeholder="{{searchPlaceholder(['table.blackLists.th1', 'table.blackLists.th2', 'table.blackLists.th3'])}}">-->
+                    <!--</div>-->
+                <!--</form>-->
                 <div
                         server-data-table
                         items="blackLists"
@@ -76,7 +76,7 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 20%" ao-data="blackListsAoData" server-data-table-sort="accountNumber">
+                            <td style="width: 20%" ao-data="blackListsAoData" server-data-table-sort="account_number">
                                 {{'table.blackLists.th1' | translate}}
                             </td>
                             <td style="width: 10%" ao-data="blackListsAoData" server-data-table-sort="comment">
@@ -85,9 +85,9 @@
                             <td style="width: 15%" ao-data="blackListsAoData" server-data-table-sort="type">
                                 {{'table.blackLists.th3' | translate}}
                             </td>
-                            <!--<td style="width: 10%" ao-data="blackListsAoData" server-data-table-sort="isDeleted">-->
-                                <!--{{'table.blackLists.th4' | translate}}-->
-                            <!--</td>-->
+                            <td style="width: 10%" ao-data="blackListsAoData" server-data-table-sort="is_deleted">
+                                {{'table.blackLists.th4' | translate}}
+                            </td>
                             <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
@@ -109,9 +109,9 @@
                                         <span>{{showOptionsValue(item.type,typeOptions)}}</span>
                                     </span>
                             </td>
-                            <!--<td>-->
-                                <!--<span>{{item.isDeleted}}</span>-->
-                            <!--</td>-->
+                            <td>
+                                <span>{{item.isDeleted ? 'yes' : 'no'}}</span>
+                            </td>
                             <td style="white-space: nowrap;">
                                 <form class="form-buttons form-inline" editable-form name="rowform"
                                       onaftersave="saveBlackLists(item, $data)" ng-show="rowform.$visible"
