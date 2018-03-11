@@ -16,6 +16,32 @@
         adminService
     ) {
 
+        $scope.currencyOptions = [];
+
+        $scope.initCurrenciesManageData = function () {
+            $scope.currencyOptions = [];
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.currencyOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
         // 原始的数据
         $scope.countriesManage = [];
 
@@ -35,6 +61,7 @@
                         $scope.countriesManage = angular.copy(res.data.data);
                         $scope.countriesManage.forEach(function (countriesManageItem, countriesManageIndex) {
                             countriesManageItem.id = countriesManageIndex + 1;
+                            countriesManageItem.currencyCode = countriesManageItem.currency && countriesManageItem.currency.code || ''
                         })
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
@@ -117,7 +144,7 @@
                 "numCode": '',
                 "name": "",
                 "phoneCode": '',
-                "currency": '',
+                "currencyCode": '',
                 "niceName": "",
             });
         };
@@ -137,5 +164,7 @@
         // 页面加载执行的函数
 
         $scope.initCountriesManageData();
+
+        $scope.initCurrenciesManageData()
     }
 })();

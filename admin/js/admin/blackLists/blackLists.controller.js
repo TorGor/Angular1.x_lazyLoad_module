@@ -34,11 +34,11 @@
             },
             {
                 label:'Deleted',
-                value:true
+                value:'1'
             },
             {
                 label:'No Deleted',
-                value:false
+                value:'0'
             }
         ];
 

@@ -15,10 +15,10 @@
         })
         .constant('EVN', {
             debug: true,
-            suffix: '.json',
-            // suffix: '',
-            server: '',
+            // suffix: '.json',
+            suffix: '',
+            // server: '',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
-            // server: 'http://mysqlserver.free.ngrok.cc'
+            server: 'http://mysqlserver.free.ngrok.cc'
         });
 })();

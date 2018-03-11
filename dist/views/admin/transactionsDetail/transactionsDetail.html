@@ -5,26 +5,26 @@
             <div class="row" style="margin-bottom: 15px">
                <form class="form-horizontal" role="form" style="height: 45px;width: 100%">
                   <div class="col-lg-3 col-md-6 margin-bottom-10 pull-right">
-                     <button class="btn btn-primary pull-right" ng-click="switchAdvancedSearch()" type="button" translate="table.button.advance_search">
-                     </button>
+                     <input class="form-control" type="text" ng-blur="validTimeZone()" ng-model="timezone" placeholder="timezone">
                   </div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10 pull-right">
-                     <input class="form-control" type="text" ng-blur="validTimeZone()" ng-model="timezone" placeholder="timezone">
+                     <button class="btn btn-primary pull-right" ng-click="switchAdvancedSearch()" type="button" translate="table.button.advance_search">
+                     </button>
                   </div>
                </form>
                <div class="clearfix"></div>
                <form class="form-horizontal" role="form" ng-show="advancedSearch">
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
-                     <input class="form-control" type="text" ng-model="adminsAoData.user_id" placeholder="{{'table.transactionsDetail.th1' | translate}}">
+                     <input class="form-control" type="text" ng-model="transactionsDetailAoData.user_id" placeholder="{{'table.transactionsDetail.th1' | translate}}">
                   </div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
-                     <input class="form-control" type="text" ng-model="adminsAoData.affiliate_id" placeholder="{{'table.transactionsDetail.th2' | translate}}">
+                     <input class="form-control" type="text" ng-model="transactionsDetailAoData.affiliate_id" placeholder="{{'table.transactionsDetail.th2' | translate}}">
                   </div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
-                     <input class="form-control" type="text" style="width: 100%" ng-model="adminsAoData.service_id" placeholder="{{'table.transactionsDetail.th3' | translate}}">
+                     <input class="form-control" type="text" style="width: 100%" ng-model="transactionsDetailAoData.service_id" placeholder="{{'table.transactionsDetail.th3' | translate}}">
                   </div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
-                     <ui-select ng-model="adminsAoData.service" theme="bootstrap" search-enabled="false">
+                     <ui-select ng-model="transactionsDetailAoData.service" theme="bootstrap" search-enabled="false">
                         <ui-select-match placeholder="{{'table.transactionsDetail.th4' | translate}}">
                            <span ng-bind="$select.selected.label"></span>
                         </ui-select-match>
@@ -35,10 +35,10 @@
                   </div>
                   <div class="clearfix"></div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
-                     <input class="form-control" type="text" ng-model="adminsAoData.min_amount" placeholder="{{'min ' + ('table.transactionsDetail.th5' | translate)}}">
+                     <input class="form-control" type="text" ng-model="transactionsDetailAoData.min_amount" placeholder="{{'min ' + ('table.transactionsDetail.th5' | translate)}}">
                   </div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
-                     <input class="form-control" type="text" ng-model="adminsAoData.max_amount" placeholder="{{'max ' + ('table.transactionsDetail.th5' | translate)}}">
+                     <input class="form-control" type="text" ng-model="transactionsDetailAoData.max_amount" placeholder="{{'max ' + ('table.transactionsDetail.th5' | translate)}}">
                   </div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
                      <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeStart">
@@ -122,7 +122,7 @@
                         </td>
                      </tr>
                      <tr ng-show="transactionsDetail.length==0">
-                        <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan="9" class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

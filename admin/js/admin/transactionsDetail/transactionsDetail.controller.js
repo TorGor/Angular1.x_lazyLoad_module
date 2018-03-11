@@ -18,6 +18,10 @@
 
         $scope.serviceOptions = [
             {
+                label:'all',
+                value:''
+            },
+            {
                 label:'deposit',
                 value:'deposit'
             },
@@ -55,7 +59,7 @@
             user_id: '',
             affiliate_id: '',
             service_id: '',
-            service: '',
+            // service: '',
             min_amount: '',
             max_amount: '',
             wallet_code: '',
