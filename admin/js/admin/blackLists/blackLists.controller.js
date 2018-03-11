@@ -94,8 +94,8 @@
                         }
                     }
                 });
-            } else if (tempData.id && blackLists.id) {
-                adminService.patchReq($rootScope.URL.BLACKLISTS.PATCH+'/'+blackLists.id, {}, tempData).then(function (res) {
+            } else if (tempData.id && blackLists.accountNumber) {
+                adminService.patchReq($rootScope.URL.BLACKLISTS.PATCH+'/'+blackLists.accountNumber, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {

@@ -53,8 +53,8 @@
                         }
                     }
                 });
-            } else if (tempData.id && ordersManage.id) {
-                adminService.patchReq($rootScope.URL.ORDERSMANAGE.PATCH+'/'+ordersManage.id, {}, tempData).then(function (res) {
+            } else if (tempData.id && ordersManage.code) {
+                adminService.patchReq($rootScope.URL.ORDERSMANAGE.PATCH+'/'+ordersManage.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -75,9 +75,32 @@
          * @return null
          */
         $scope.deleteOrdersManage = function (ordersManage) {
-            if (ordersManage.id) {
+            if (ordersManage.code) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.ORDERSMANAGE.DELETE+'/'+ordersManage.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.ORDERSMANAGE.DELETE+'/'+ordersManage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initOrdersManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 恢复ordersManage
+        /**
+         * @param ordersManage ORDERSMANAGETITLE数据对象
+         * @return null
+         */
+        $scope.deleteOrdersManage = function (ordersManage) {
+            if (ordersManage.code) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.ORDERSMANAGE.PUT+'/'+ordersManage.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initOrdersManageData();

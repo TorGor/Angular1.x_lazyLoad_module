@@ -396,8 +396,8 @@
                         }
                     }
                 });
-            } else if (tempData.id && blackLists.id) {
-                adminService.patchReq($rootScope.URL.BLACKLISTS.PATCH+'/'+blackLists.id, {}, tempData).then(function (res) {
+            } else if (tempData.id && blackLists.accountNumber) {
+                adminService.patchReq($rootScope.URL.BLACKLISTS.PATCH+'/'+blackLists.accountNumber, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -987,8 +987,8 @@
                         }
                     }
                 });
-            } else if (tempData.id && ordersManage.id) {
-                adminService.patchReq($rootScope.URL.ORDERSMANAGE.PATCH+'/'+ordersManage.id, {}, tempData).then(function (res) {
+            } else if (tempData.id && ordersManage.code) {
+                adminService.patchReq($rootScope.URL.ORDERSMANAGE.PATCH+'/'+ordersManage.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -1009,9 +1009,32 @@
          * @return null
          */
         $scope.deleteOrdersManage = function (ordersManage) {
-            if (ordersManage.id) {
+            if (ordersManage.code) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.ORDERSMANAGE.DELETE+'/'+ordersManage.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.ORDERSMANAGE.DELETE+'/'+ordersManage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initOrdersManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 恢复ordersManage
+        /**
+         * @param ordersManage ORDERSMANAGETITLE数据对象
+         * @return null
+         */
+        $scope.deleteOrdersManage = function (ordersManage) {
+            if (ordersManage.code) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.ORDERSMANAGE.PUT+'/'+ordersManage.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initOrdersManageData();
@@ -1103,6 +1126,32 @@
             });
         };
 
+        $scope.localesOptions = [];
+
+        $scope.initLocalesOptionsData = function () {
+            $scope.localesOptions = [];
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.localesOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
         $scope.typeOptions = [
             {
                 label:'pc',
@@ -1135,6 +1184,13 @@
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $scope.paymentMethods = angular.copy(res.data.data);
+                        $scope.paymentMethods.forEach(function (paymentMethodsItem, paymentMethodsIndex) {
+                            paymentMethodsItem.id = paymentMethodsIndex +1;
+                            paymentMethodsItem.min = paymentMethodsItem['range'] && paymentMethodsItem['range'].min || '';
+                            paymentMethodsItem.max = paymentMethodsItem['range'] && paymentMethodsItem['range'].max || '';
+                            paymentMethodsItem.disabled = paymentMethodsItem.disabled ? '1' : '0';
+                        });
+                        console.log($scope.paymentMethods)
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
@@ -1165,8 +1221,8 @@
                         }
                     }
                 });
-            } else if (tempData.id && paymentMethods.id) {
-                adminService.patchReq($rootScope.URL.PAYMENTMETHODS.PATCH+'/'+paymentMethods.id, {}, tempData).then(function (res) {
+            } else if (tempData.id && paymentMethods.code) {
+                adminService.patchReq($rootScope.URL.PAYMENTMETHODS.PATCH+'/'+paymentMethods.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -1189,7 +1245,30 @@
         $scope.deletePaymentMethods = function (paymentMethods) {
             if (paymentMethods.id) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.PAYMENTMETHODS.DELETE+'/'+paymentMethods.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.PAYMENTMETHODS.DELETE+'/'+paymentMethods.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initPaymentMethodsData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 恢复paymentMethods
+        /**
+         * @param paymentMethods PAYMENTMETHODSTITLE数据对象
+         * @return null
+         */
+        $scope.recoverPaymentMethods = function (paymentMethods) {
+            if (paymentMethods.id) {
+                $rootScope.alertConfirm(function () {
+                    adminService.putReq($rootScope.URL.PAYMENTMETHODS.DELETE+'/'+paymentMethods.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initPaymentMethodsData();
@@ -1210,12 +1289,13 @@
             $scope.paymentMethodsSearch = '';
             $scope.paymentMethods.unshift({
                 'id': null,
-                'paymentMethodsName': '',
-                'paymentMethodsType': '',
-                'paymentMethodsStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                "code": "",
+                "currency": $scope.currencyOptions[0].value,
+                "min": '',
+                "max": '',
+                "disabled": false,
+                "type": $scope.typeOptions[0].value,
+                "name": []
             });
         };
 

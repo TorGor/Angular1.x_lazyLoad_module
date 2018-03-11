@@ -19,14 +19,26 @@
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
-                        <td style="width: 40%" ao-data="paymentMethodsAoData" web-data-table-sort="roleName">
+                        <td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="code">
                            {{'table.paymentMethods.th1' | translate}}
                         </td>
-                        <td style="width: 40%" ao-data="paymentMethodsAoData" web-data-table-sort="roleName">
-                           {{'table.paymentMethods.th1' | translate}}
-                        </td>
-                        <td style="width: 40%" ao-data="paymentMethodsAoData" web-data-table-sort="roleStatus">
+                        <td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="name">
                            {{'table.paymentMethods.th2' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="currency">
+                           {{'table.paymentMethods.th3' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="min">
+                           {{'table.paymentMethods.th4' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="max">
+                           {{'table.paymentMethods.th5' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="type">
+                           {{'table.paymentMethods.th6' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="disabled">
+                           {{'table.paymentMethods.th7' | translate}}
                         </td>
                         <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                      </tr>
@@ -40,8 +52,20 @@
                            <span editable-text="item.name" e-name="name" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
                         </td>
                         <td>
-                           <span editable-select="item.roleStatus" e-name="roleStatus" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in adminSelect012.options">
-                              <span ng-bind-html="filter012OptionsValue(item.roleStatus)"></span>
+                           <span editable-select="item.currency" e-name="currency" e-form="currency" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in currencyOptions">
+                              <span>{{showOptionsValue(item.currency,currencyOptions)}}</span>
+                           </span>
+                        </td>
+                        <td>
+                           <span editable-text="item.min" e-name="min" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.min || '' }}</span>
+                        </td>
+                        <td>
+                           <span editable-text="item.max" e-name="max" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.max || '' }}</span>
+                        </td>
+
+                        <td>
+                           <span editable-select="item.type" e-name="type" e-form="type" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in typeOptions">
+                              <span>{{showOptionsValue(item.type,typeOptions)}}</span>
                            </span>
                         </td>
                         <td style="white-space: nowrap;">
@@ -57,14 +81,17 @@
                               <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
                                  <em class="fa fa-pencil"></em>
                               </button>
-                              <button class="btn btn-sm btn-danger" ng-click="deletePaymentMethods(item)" title="{{'table.button.delete' | translate}}">
+                              <button class="btn btn-sm btn-danger" ng-show="!item.disabled" ng-click="deletePaymentMethods(item)" title="{{'table.button.delete' | translate}}">
                                  <em class="fa fa-trash"></em>
+                              </button>
+                              <button class="btn btn-sm btn-green" ng-show="item.disabled" ng-click="recoverPaymentMethods(item)" title="{{'table.button.recover' | translate}}">
+                                 <em class="fa fa-rotate-left"></em>
                               </button>
                            </div>
                         </td>
                      </tr>
                      <tr ng-show="showPaymentMethods.length==0">
-                        <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan="7" class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>
