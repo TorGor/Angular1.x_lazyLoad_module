@@ -1,0 +1,101 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{'table.paymentMethods.th2' | translate}}</h3>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="">
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                <span class="form-group add-button-class">
+                    <button
+                            class="btn btn-primary"
+                            ng-click="addMethodsNameModal()"
+                            type="button"
+                            translate="table.button.add"
+                    >
+                        新增
+                    </button>
+                </span>
+                    <form class="form-inline pull-right add-button-class" role="form">
+                        <div style="position: relative" class="form-group">
+                            <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
+                            <input class="form-control" type="text" ng-model="methodsNameModalSearch" placeholder="{{searchPlaceholder(['table.rebatesModal.brands.th1', 'table.rebatesModal.brands.th2'])}}">
+                        </div>
+                    </form>
+                    <div
+                            web-data-table
+                            items="methodsNameModal"
+                            ao-data="methodsNameModalAoData"
+                            search="methodsNameModalSearch"
+                            reload="methodsNameModalReload"
+                            show-items="showMethodsNameModal"
+                    >
+                        <table width="100%" class="table table-bordered table-hover bg-white">
+                            <thead>
+                            <tr class="bg-gray-light text-bold">
+                                <td style="width: 40%" ao-data="methodsNameModalAoData" web-data-table-sort="locale">
+                                    {{'table.paymentMethods.name.th1' | translate}}
+                                </td>
+                                <td style="width: 40%" ao-data="methodsNameModalAoData" web-data-table-sort="value">
+                                    {{'table.paymentMethods.name.th2' | translate}}
+                                </td>
+                                <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in showMethodsNameModal">
+                                <td>
+                                    <span editable-select="item.locale" e-name="locale" e-form="rowform"
+                                          onbeforesave="checkRequiredData($data)"
+                                          e-ng-options="option.value as option.label for option in localesOptions">
+                                        {{showOptionsValue(item.locale,localesOptions)}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span editable-text="item.value" e-name="value" e-formclass="xeditable-sm"
+                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.value || '' }}</span>
+                                </td>
+                                <td style="white-space: nowrap;">
+                                    <form class="form-buttons form-inline" editable-form name="rowform"
+                                          onaftersave="saveMethodsNameModal(item, $data)" ng-show="rowform.$visible"
+                                          shown="validIsNew(item.id)">
+                                        <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
+                                                title="{{'table.button.save' | translate}}">
+                                            <em class="fa fa-save"></em>
+                                        </button>
+                                        <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
+                                                ng-click="rowform.$cancel();cancelSaveModal(item,$index)"
+                                                title="{{'table.button.cancel' | translate}}">
+                                            <em class="fa fa-times"></em>
+                                        </button>
+                                    </form>
+                                    <div class="buttons" ng-show="!rowform.$visible">
+                                        <button class="btn btn-sm btn-info" ng-click="rowform.$show()"
+                                                title="{{'table.button.edit' | translate}}">
+                                            <em class="fa fa-pencil"></em>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" ng-click="deleteMethodsNameModal(item, $index)"
+                                                title="{{'table.button.delete' | translate}}">
+                                            <em class="fa fa-trash"></em>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-show="showMethodsNameModal.length==0">
+                                <td colspan="3" class="">{{'table.no_date' | translate}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
+</div>
+

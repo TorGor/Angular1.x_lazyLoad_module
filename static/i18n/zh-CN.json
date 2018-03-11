@@ -147,6 +147,19 @@
       "th2":"Comment",
       "th3":"Type",
       "th4":"IsDeleted"
+    },
+    "paymentMethods": {
+      "th1": "编码",
+      "th2": "名称",
+      "th3": "货币",
+      "th4": "最小",
+      "th5": "最大",
+      "th6": "类型",
+      "th7": "禁止",
+      "name":{
+        "th1": "位置",
+        "th2": "数值"
+      }
     }
   },
   "panel_tile": {

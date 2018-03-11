@@ -147,6 +147,19 @@
       "th2": "Comment",
       "th3": "Type",
       "th4": "IsDeleted"
+    },
+    "paymentMethods": {
+      "th1": "Code",
+      "th2": "Name",
+      "th3": "Currency",
+      "th4": "Min",
+      "th5": "Max",
+      "th6": "Type",
+      "th7": "Disabled",
+      "name":{
+        "th1": "Locals",
+        "th2": "Value"
+      }
     }
   },
   "panel_tile": {

@@ -25,7 +25,7 @@
                         <td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="name">
                            {{'table.paymentMethods.th2' | translate}}
                         </td>
-                        <td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="currency">
+                        <td style="width: 20%" ao-data="paymentMethodsAoData" web-data-table-sort="currency">
                            {{'table.paymentMethods.th3' | translate}}
                         </td>
                         <td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="min">
@@ -37,10 +37,10 @@
                         <td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="type">
                            {{'table.paymentMethods.th6' | translate}}
                         </td>
-                        <td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="disabled">
+                        <td style="width: 6%" ao-data="paymentMethodsAoData" web-data-table-sort="disabled">
                            {{'table.paymentMethods.th7' | translate}}
                         </td>
-                        <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                        <td style="width: 10%">{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
@@ -49,24 +49,28 @@
                            <span editable-text="item.code" e-name="code" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.name" e-name="name" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
-                        </td>
-                        <td>
-                           <span editable-select="item.currency" e-name="currency" e-form="currency" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in currencyOptions">
-                              <span>{{showOptionsValue(item.currency,currencyOptions)}}</span>
+                           <span>
+                              <button class="btn btn-sm btn-info" ng-click="showEditMethodsNameModal(item)">明细</button>
                            </span>
                         </td>
                         <td>
-                           <span editable-text="item.min" e-name="min" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.min || '' }}</span>
-                        </td>
-                        <td>
-                           <span editable-text="item.max" e-name="max" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.max || '' }}</span>
-                        </td>
-
-                        <td>
-                           <span editable-select="item.type" e-name="type" e-form="type" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in typeOptions">
-                              <span>{{showOptionsValue(item.type,typeOptions)}}</span>
+                           <span editable-select="item.currency" e-name="currency" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in currencyOptions">
+                              {{showOptionsValue(item.currency,currencyOptions)}}
                            </span>
+                        </td>
+                        <td>
+                           <span editable-text="item.min" e-name="min" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.min || '' }}</span>
+                        </td>
+                        <td>
+                           <span editable-text="item.max" e-name="max" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.max || '' }}</span>
+                        </td>
+                        <td>
+                           <span editable-select="item.type" e-name="type" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in typeOptions">
+                              {{showOptionsValue(item.type,typeOptions)}}
+                           </span>
+                        </td>
+                        <td>
+                           <span>{{item.disabled ? 'Yes' : 'No'}}</span>
                         </td>
                         <td style="white-space: nowrap;">
                            <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="savePaymentMethods(item, $data)" ng-show="rowform.$visible" shown="item.id == null">

@@ -7,12 +7,14 @@
     PaymentMethodsController.$inject = [
         '$scope',
         '$rootScope',
+        '$uibModal',
         'adminService'
     ];
 
     function PaymentMethodsController(
         $scope,
         $rootScope,
+        $uibModal,
         adminService
     ) {
 
@@ -35,32 +37,7 @@
                                 }
                             })
                         }
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.localesOptions = [];
-
-        $scope.initLocalesOptionsData = function () {
-            $scope.localesOptions = [];
-            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        if(window.Array.isArray(res.data.data)){
-                            res.data.data.map(function (objItem) {
-                                var tempObj ={
-                                    label:objItem.name||'',
-                                    value:objItem.code||''
-                                };
-                                if(objItem.supported){
-                                    $scope.localesOptions.push(tempObj)
-                                }
-                            })
-                        }
+                        console.log($scope.currencyOptions, 9999)
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
@@ -82,6 +59,28 @@
                 value:'both'
             }
         ];
+
+        $scope.showEditMethodsNameModal = function (item) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/paymentMethods/paymentMethodsNameModal.html',
+                controller: 'PaymentMethodsNameModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    MethodsNameItem: item
+                }
+            });
+            modalInstance.result.then(function (data) {
+                if(data.type == 'name'){
+                    item[data.type] = angular.copy(data.data)
+                }
+            }, function (cancel) {
+
+            });
+        };
 
         // 原始的数据
         $scope.paymentMethods = [];
@@ -183,18 +182,16 @@
          */
         $scope.recoverPaymentMethods = function (paymentMethods) {
             if (paymentMethods.id) {
-                $rootScope.alertConfirm(function () {
-                    adminService.putReq($rootScope.URL.PAYMENTMETHODS.DELETE+'/'+paymentMethods.code, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initPaymentMethodsData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
+                adminService.putReq($rootScope.URL.PAYMENTMETHODS.DELETE+'/'+paymentMethods.code, {}, {}).then(function (res) {
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initPaymentMethodsData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                            return '';
                         }
-                    });
+                    }
                 });
             }
         };
@@ -230,5 +227,7 @@
         // 页面加载执行的函数
 
         $scope.initPaymentMethodsData();
+
+        $scope.initCurrenciesManageData()
     }
 })();
