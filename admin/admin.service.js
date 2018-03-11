@@ -65,6 +65,24 @@
                 });
             },
 
+            // 所有恢复请求
+            /**
+             *
+             * @param url 请求的url
+             * @param params 请求的参数
+             * @param data 请求的数据
+             * @returns $promise
+             */
+            putReq: function (url, params, data) {
+                return $http({
+                    method: 'PUT',
+                    url: EVN.debug ? (EVN.server + url + EVN.suffix) : url,
+                    params: params||{},
+                    // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: data ||{}
+                });
+            },
+
             // 所有删除请求
             /**
              *

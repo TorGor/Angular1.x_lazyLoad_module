@@ -27,17 +27,32 @@
             }
         ];
 
-        $scope.typeOptionsSearch = [
+        $scope.isDeletedOptions = [
             {
-                label:'all',
+                label:'All',
                 value:''
             },
             {
-                label:'fraud',
+                label:'Deleted',
+                value:true
+            },
+            {
+                label:'No Deleted',
+                value:false
+            }
+        ];
+
+        $scope.typeOptionsSearch = [
+            {
+                label:'All',
+                value:''
+            },
+            {
+                label:'Fraud',
                 value:'fraud'
             },
             {
-                label:'suspicious',
+                label:'Suspicious',
                 value:'suspicious'
             }
         ];
@@ -101,9 +116,32 @@
          * @return null
          */
         $scope.deleteBlackLists = function (blackLists) {
-            if (blackLists.id) {
+            if (blackLists.accountNumber) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.BLACKLISTS+'/'+blackLists.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.BLACKLISTS+'/'+blackLists.accountNumber, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initBlackListsData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 恢复blackLists
+        /**
+         * @param blackLists BLACKLISTSTITLE数据对象
+         * @return null
+         */
+        $scope.recoverBlackLists = function (blackLists) {
+            if (blackLists.accountNumber) {
+                $rootScope.alertConfirm(function () {
+                    adminService.putReq($rootScope.URL.BLACKLISTS+'/restore/'+blackLists.accountNumber, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initBlackListsData();
@@ -124,7 +162,7 @@
                 "account_number": "",
                 "type": $scope.typeOptions[0].value,
                 "comment":"",
-                "isDeleted":true
+                "isDeleted":false
             });
         };
 

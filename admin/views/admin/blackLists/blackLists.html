@@ -33,13 +33,13 @@
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <ui-select
-                                    ng-model="selected"
+                                    ng-model="blackListsAoData.isDeleted"
                                     theme="bootstrap"
                                     search-enabled="false">
                                 <ui-select-match placeholder="{{'table.blackLists.th4' | translate}}">
                                     <span ng-bind="$select.selected.label"></span>
                                 </ui-select-match>
-                                <ui-select-choices repeat="item in (typeOptions | filter:$select.search)">
+                                <ui-select-choices repeat="item in isDeletedOptions">
                                     <span ng-bind="item.label"></span>
                                 </ui-select-choices>
                             </ui-select>
@@ -85,9 +85,9 @@
                             <td style="width: 15%" ao-data="blackListsAoData" server-data-table-sort="type">
                                 {{'table.blackLists.th3' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="blackListsAoData" server-data-table-sort="isDeleted">
-                                {{'table.blackLists.th4' | translate}}
-                            </td>
+                            <!--<td style="width: 10%" ao-data="blackListsAoData" server-data-table-sort="isDeleted">-->
+                                <!--{{'table.blackLists.th4' | translate}}-->
+                            <!--</td>-->
                             <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
@@ -109,9 +109,9 @@
                                         <span>{{showOptionsValue(item.type,typeOptions)}}</span>
                                     </span>
                             </td>
-                            <td>
-                                <span>{{item.isDeleted}}</span>
-                            </td>
+                            <!--<td>-->
+                                <!--<span>{{item.isDeleted}}</span>-->
+                            <!--</td>-->
                             <td style="white-space: nowrap;">
                                 <form class="form-buttons form-inline" editable-form name="rowform"
                                       onaftersave="saveBlackLists(item, $data)" ng-show="rowform.$visible"
@@ -131,11 +131,11 @@
                                             title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" ng-click="deleteBlackLists(item)"
+                                    <button class="btn btn-sm btn-danger" ng-show="!item.isDeleted" ng-click="deleteBlackLists(item)"
                                             title="{{'table.button.delete' | translate}}">
                                         <em class="fa fa-trash"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-green" ng-click="recoverBlackLists(item)"
+                                    <button class="btn btn-sm btn-green" ng-show="item.isDeleted" ng-click="recoverBlackLists(item)"
                                             title="{{'table.button.recover' | translate}}">
                                         <em class="fa fa-rotate-left"></em>
                                     </button>
@@ -143,7 +143,7 @@
                             </td>
                         </tr>
                         <tr ng-show="blackLists.length==0">
-                            <td colspan="5" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan="4" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>
