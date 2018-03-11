@@ -2214,14 +2214,6 @@
             });
         };
 
-        // 判断是否是一个新添加的
-        $scope.validIsNew = function (str) {
-            if (str && str.toString().indexOf('null') !== -1) {
-                return true;
-            }
-            return false;
-        };
-
         /**
          * 格式化userLevel数据
          * @param userLevelItem 数组中的每一项

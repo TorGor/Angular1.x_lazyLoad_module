@@ -66,6 +66,14 @@
             return '';
         };
 
+        // 判断是否是一个新添加的
+        $scope.validIsNew = function (str) {
+            if (str && str.toString().indexOf('null') !== -1) {
+                return true;
+            }
+            return false;
+        };
+
 
         /**
          *
