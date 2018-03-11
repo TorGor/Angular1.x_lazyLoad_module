@@ -3,6 +3,21 @@
       <div class="panel-wrapper">
          <div class="panel-body">
             <div class="row" style="margin-bottom: 10px">
+               <div class="col-xs-12">
+                  <span class="form-group add-button-class">
+                     <button class="btn btn-primary" ng-click="addBlackLists()" type="button" translate="table.button.add">
+                        新增
+                     </button>
+                  </span>
+               </div>
+               <!--<form class="form-inline pull-right add-button-class" role="form">-->
+               <!--<div style="position: relative" class="form-group">-->
+               <!--<span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>-->
+               <!--<input class="form-control" type="text" ng-model="blackListsSearch"-->
+               <!--placeholder="{{searchPlaceholder(['table.blackLists.th1', 'table.blackLists.th2', 'table.blackLists.th3'])}}">-->
+               <!--</div>-->
+               <!--</form>-->
+               <div class="clearfix"></div>
                <form class="form-horizontal" role="form">
                   <div class="col-lg-3 col-md-6">
                      <input class="form-control" type="text" ng-model="blackListsAoData.account_number" placeholder="{{'table.blackLists.th1' | translate}}">
@@ -33,18 +48,6 @@
                </form>
             </div>
             <div class="clearfix"></div>
-            <span class="form-group add-button-class">
-               <button class="btn btn-primary" ng-click="addBlackLists()" type="button" translate="table.button.add">
-                  新增
-               </button>
-            </span>
-            <!--<form class="form-inline pull-right add-button-class" role="form">-->
-            <!--<div style="position: relative" class="form-group">-->
-            <!--<span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>-->
-            <!--<input class="form-control" type="text" ng-model="blackListsSearch"-->
-            <!--placeholder="{{searchPlaceholder(['table.blackLists.th1', 'table.blackLists.th2', 'table.blackLists.th3'])}}">-->
-            <!--</div>-->
-            <!--</form>-->
             <div server-data-table items="blackLists" ao-data="blackListsAoData" reload="blackListsReload" service-name="adminService" service-name-attr="getReq" url="blackListsUrl">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
