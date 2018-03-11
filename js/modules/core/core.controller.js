@@ -74,6 +74,21 @@
             return false;
         };
 
+        /**
+         * 用正则进行验证
+         * @param Reg 正则表达式
+         * @param str 传入的字符串
+         * @param msg 提示信息
+         */
+        $scope.validReg = function (Reg,str,msg) {
+            var tempReg = new RegExp(Reg);
+            if(tempReg.test(str)){
+                return true;
+            }else{
+                return msg;
+            }
+        };
+
 
         /**
          *

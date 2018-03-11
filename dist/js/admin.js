@@ -1532,7 +1532,8 @@
         };
 
         $scope.validTimeZone = function () {
-            if(/[+-]\d{2}:\d{2}/.test($scope.timezone)){
+            console.log($scope.validReg('[+-]\\d{2}:\\d{2}$',$scope.timezone,'77777'))
+            if(/[+-]\d{2}:\d{2}$/.test($scope.timezone)){
                 $scope.transactionsDetailAoData.timezone = $scope.timezone;
             }else{
                 $rootScope.alertErrorMsg('Formatting error,The right example +00:00');
