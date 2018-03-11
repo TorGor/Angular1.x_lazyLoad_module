@@ -41,7 +41,7 @@
         // 初始化table数据
         $scope.initLocaleLanguageData = function () {
             $scope.localeLanguage = [];
-            adminService.getReq($rootScope.URL.LOCALELANGUAGE, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -69,7 +69,7 @@
             var tempData = angular.extend({}, localeLanguage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.LOCALELANGUAGE, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.LOCALELANGUAGE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -82,7 +82,7 @@
                 });
             } else if (tempData.id && localeLanguage.code) {
                 delete tempData.id;
-                adminService.patchReq($rootScope.URL.LOCALELANGUAGE+'/'+localeLanguage.code, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.LOCALELANGUAGE.PATCH+'/'+localeLanguage.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -106,7 +106,7 @@
         $scope.deleteLocaleLanguage = function (localeLanguage) {
             if (localeLanguage.code) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.LOCALELANGUAGE+'/'+localeLanguage.code, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.LOCALELANGUAGE.DELETE+'/'+localeLanguage.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initLocaleLanguageData();

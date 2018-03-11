@@ -28,7 +28,7 @@
         // 初始化table数据
         $scope.initCommonModuleData = function () {
             $scope.commonModule = [];
-            adminService.getReq($rootScope.URL.COMMONMODULE, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.COMMONMODULE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -52,7 +52,7 @@
             var tempData = angular.extend({}, commonModule, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.COMMONMODULE, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.COMMONMODULE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -64,7 +64,7 @@
                     }
                 });
             } else if (tempData.id && commonModule.id) {
-                adminService.patchReq($rootScope.URL.COMMONMODULE+'/'+commonModule.id, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.COMMONMODULE.PATCH+'/'+commonModule.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -87,7 +87,7 @@
         $scope.deleteCommonModule = function (commonModule) {
             if (commonModule.id) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.COMMONMODULE+'/'+commonModule.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.COMMONMODULE.DELETE+'/'+commonModule.id, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initCommonModuleData();

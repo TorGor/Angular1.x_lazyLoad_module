@@ -64,7 +64,7 @@
         $scope.blackListsAoData = {};
         $scope.blackListsSearch = '';
 
-        $scope.blackListsUrl = $rootScope.URL.BLACKLISTS;
+        $scope.blackListsUrl = $rootScope.URL.BLACKLISTS.GET;
 
         // 初始化table数据
         $scope.initBlackListsData = function () {
@@ -83,7 +83,7 @@
             var tempData = angular.extend({}, blackLists, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.BLACKLISTS, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.BLACKLISTS.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -95,7 +95,7 @@
                     }
                 });
             } else if (tempData.id && blackLists.id) {
-                adminService.patchReq($rootScope.URL.BLACKLISTS+'/'+blackLists.id, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.BLACKLISTS.PATCH+'/'+blackLists.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -118,7 +118,7 @@
         $scope.deleteBlackLists = function (blackLists) {
             if (blackLists.accountNumber) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.BLACKLISTS+'/'+blackLists.accountNumber, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.BLACKLISTS.DELETE+'/'+blackLists.accountNumber, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initBlackListsData();
@@ -141,7 +141,7 @@
         $scope.recoverBlackLists = function (blackLists) {
             if (blackLists.accountNumber) {
                 $rootScope.alertConfirm(function () {
-                    adminService.putReq($rootScope.URL.BLACKLISTS+'/restore/'+blackLists.accountNumber, {}, {}).then(function (res) {
+                    adminService.putReq($rootScope.URL.BLACKLISTS.PUT+'/'+blackLists.accountNumber, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initBlackListsData();

@@ -98,14 +98,62 @@
 
         // 配置预设的url
         $rootScope.URL = {
-            COUNTRIESMANAGE:'/rest/countries',
-            LOCALELANGUAGE:'/rest/locales',
-            USERLEVEL:'/rest/ranks',
-            TRANSACTIONSDETAIL:'/rest/transactions',
-            CURRENCIESMANAGE:'/rest/currencies',
-            BLACKLISTS:'/rest/blacklists',
-            ORDERSMANAGE:"/rest/orders",
-            PAYMENTMETHODS:"/rest/methods",
+            COUNTRIESMANAGE:{
+                GET:'/rest/countries',
+                POST:'/rest/countries',
+                PATCH:'/rest/countries',
+                DELETE:'/rest/countries',
+                PUT:'/rest/countries/restore'
+            },
+            LOCALELANGUAGE:{
+                GET:'/rest/locales',
+                POST:'/rest/locales',
+                PATCH:'/rest/locales',
+                DELETE:'/rest/locales',
+                PUT:'/rest/locales/restore'
+            },
+            USERLEVEL:{
+                GET:'/rest/ranks',
+                POST:'/rest/ranks',
+                PATCH:'/rest/ranks',
+                DELETE:'/rest/ranks',
+                PUT:'/rest/ranks/restore'
+            },
+            TRANSACTIONSDETAIL:{
+                GET:'/rest/transactions',
+                POST:'/rest/transactions',
+                PATCH:'/rest/transactions',
+                DELETE:'/rest/transactions',
+                PUT:'/rest/transactions/restore'
+            },
+            CURRENCIESMANAGE:{
+                GET:'/rest/currencies',
+                POST:'/rest/currencies',
+                PATCH:'/rest/currencies',
+                DELETE:'/rest/currencies',
+                PUT:'/rest/currencies/restore'
+            },
+            BLACKLISTS:{
+                GET:'/rest/blacklists',
+                POST:'/rest/blacklists',
+                PATCH:'/rest/blacklists',
+                DELETE:'/rest/blacklists',
+                PUT:'/rest/blacklists/restore'
+            },
+            ORDERSMANAGE:{
+                GET:'/rest/orders',
+                POST:'/rest/orders',
+                PATCH:'/rest/orders',
+                DELETE:'/rest/orders',
+                PUT:'/rest/orders/restore'
+            },
+            PAYMENTMETHODS:{
+                GET:'/rest/methods',
+                POST:'/rest/methods',
+                PATCH:'/rest/methods',
+                DELETE:'/rest/methods',
+                PUT:'/rest/methods/restore'
+            },
         };
 
         $rootScope.adminSelect012 = {
@@ -318,7 +366,7 @@
         $scope.blackListsAoData = {};
         $scope.blackListsSearch = '';
 
-        $scope.blackListsUrl = $rootScope.URL.BLACKLISTS;
+        $scope.blackListsUrl = $rootScope.URL.BLACKLISTS.GET;
 
         // 初始化table数据
         $scope.initBlackListsData = function () {
@@ -337,7 +385,7 @@
             var tempData = angular.extend({}, blackLists, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.BLACKLISTS, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.BLACKLISTS.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -349,7 +397,7 @@
                     }
                 });
             } else if (tempData.id && blackLists.id) {
-                adminService.patchReq($rootScope.URL.BLACKLISTS+'/'+blackLists.id, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.BLACKLISTS.PATCH+'/'+blackLists.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -372,7 +420,7 @@
         $scope.deleteBlackLists = function (blackLists) {
             if (blackLists.accountNumber) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.BLACKLISTS+'/'+blackLists.accountNumber, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.BLACKLISTS.DELETE+'/'+blackLists.accountNumber, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initBlackListsData();
@@ -395,7 +443,7 @@
         $scope.recoverBlackLists = function (blackLists) {
             if (blackLists.accountNumber) {
                 $rootScope.alertConfirm(function () {
-                    adminService.putReq($rootScope.URL.BLACKLISTS+'/restore/'+blackLists.accountNumber, {}, {}).then(function (res) {
+                    adminService.putReq($rootScope.URL.BLACKLISTS.PUT+'/'+blackLists.accountNumber, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initBlackListsData();
@@ -465,7 +513,7 @@
         // 初始化table数据
         $scope.initCountriesManageData = function () {
             $scope.countriesManage = [];
-            adminService.getReq($rootScope.URL.COUNTRIESMANAGE).then(function (res) {
+            adminService.getReq($rootScope.URL.COUNTRIESMANAGE.GET).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -492,7 +540,7 @@
             var tempData = angular.extend({}, countriesManage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.COUNTRIESMANAGE,tempData, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.COUNTRIESMANAGE.POST,tempData, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -505,7 +553,7 @@
                 });
             } else if (tempData.id && countriesManage.iso) {
                 delete tempData.id;
-                adminService.patchReq($rootScope.URL.COUNTRIESMANAGE+'/'+countriesManage.iso, tempData, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.COUNTRIESMANAGE.PATCH+'/'+countriesManage.iso, tempData, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -528,7 +576,7 @@
         $scope.deleteCountriesManage = function (countriesManage) {
             if (countriesManage.iso) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.COUNTRIESMANAGE+'/'+countriesManage.iso, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.COUNTRIESMANAGE.DELETE+'/'+countriesManage.iso, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initCountriesManageData();
@@ -620,7 +668,7 @@
         // 初始化table数据
         $scope.initCurrenciesManageData = function () {
             $scope.currenciesManage = [];
-            adminService.getReq($rootScope.URL.CURRENCIESMANAGE, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -649,7 +697,7 @@
             var tempData = angular.extend({}, currenciesManage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.CURRENCIESMANAGE, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -662,7 +710,7 @@
                 });
             } else if (currenciesManage.id) {
                 delete tempData.id;
-                adminService.patchReq($rootScope.URL.CURRENCIESMANAGE+'/'+currenciesManage.code, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.CURRENCIESMANAGE.PATCH+'/'+currenciesManage.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -685,7 +733,7 @@
         $scope.deleteCurrenciesManage = function (currenciesManage) {
             if (currenciesManage.id) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.CURRENCIESMANAGE+'/'+currenciesManage.code, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.CURRENCIESMANAGE.DELETE+'/'+currenciesManage.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initCurrenciesManageData();
@@ -775,7 +823,7 @@
         // 初始化table数据
         $scope.initLocaleLanguageData = function () {
             $scope.localeLanguage = [];
-            adminService.getReq($rootScope.URL.LOCALELANGUAGE, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -803,7 +851,7 @@
             var tempData = angular.extend({}, localeLanguage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.LOCALELANGUAGE, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.LOCALELANGUAGE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -816,7 +864,7 @@
                 });
             } else if (tempData.id && localeLanguage.code) {
                 delete tempData.id;
-                adminService.patchReq($rootScope.URL.LOCALELANGUAGE+'/'+localeLanguage.code, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.LOCALELANGUAGE.PATCH+'/'+localeLanguage.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -840,7 +888,7 @@
         $scope.deleteLocaleLanguage = function (localeLanguage) {
             if (localeLanguage.code) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.LOCALELANGUAGE+'/'+localeLanguage.code, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.LOCALELANGUAGE.DELETE+'/'+localeLanguage.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initLocaleLanguageData();
@@ -913,17 +961,7 @@
 
         // 初始化table数据
         $scope.initOrdersManageData = function () {
-            $scope.ordersManage = [];
-            adminService.getReq($rootScope.URL.ORDERSMANAGE, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.ordersManage = angular.copy(data.res.data);
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
+            $scope.ordersManageReload++;
         };
 
 
@@ -938,7 +976,7 @@
             var tempData = angular.extend({}, ordersManage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.ORDERSMANAGE, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.ORDERSMANAGE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -950,7 +988,7 @@
                     }
                 });
             } else if (tempData.id && ordersManage.id) {
-                adminService.patchReq($rootScope.URL.ORDERSMANAGE+'/'+ordersManage.id, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.ORDERSMANAGE.PATCH+'/'+ordersManage.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -973,7 +1011,7 @@
         $scope.deleteOrdersManage = function (ordersManage) {
             if (ordersManage.id) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.ORDERSMANAGE+'/'+ordersManage.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.ORDERSMANAGE.DELETE+'/'+ordersManage.id, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initOrdersManageData();
@@ -1039,6 +1077,47 @@
         adminService
     ) {
 
+        $scope.currencyOptions = [];
+
+        $scope.initCurrenciesManageData = function () {
+            $scope.currencyOptions = [];
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.currencyOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.typeOptions = [
+            {
+                label:'pc',
+                value:'pc'
+            },
+            {
+                label:'mobile',
+                value:'mobile'
+            },
+            {
+                label:'both',
+                value:'both'
+            }
+        ];
+
         // 原始的数据
         $scope.paymentMethods = [];
 
@@ -1051,7 +1130,7 @@
         // 初始化table数据
         $scope.initPaymentMethodsData = function () {
             $scope.paymentMethods = [];
-            adminService.getReq($rootScope.URL.PAYMENTMETHODS, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.PAYMENTMETHODS.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -1075,7 +1154,7 @@
             var tempData = angular.extend({}, paymentMethods, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.PAYMENTMETHODS, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.PAYMENTMETHODS.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -1087,7 +1166,7 @@
                     }
                 });
             } else if (tempData.id && paymentMethods.id) {
-                adminService.patchReq($rootScope.URL.PAYMENTMETHODS+'/'+paymentMethods.id, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.PAYMENTMETHODS.PATCH+'/'+paymentMethods.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -1110,7 +1189,7 @@
         $scope.deletePaymentMethods = function (paymentMethods) {
             if (paymentMethods.id) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.PAYMENTMETHODS+'/'+paymentMethods.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.PAYMENTMETHODS.DELETE+'/'+paymentMethods.id, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initPaymentMethodsData();
@@ -1181,7 +1260,7 @@
         $scope.transactionsDetailAoData = {
             timezone: "+10:00"
         };
-        $scope.transactionsUrl = $rootScope.URL.TRANSACTIONSDETAIL;
+        $scope.transactionsUrl = $rootScope.URL.TRANSACTIONSDETAIL.GET;
 
     }
 })();
@@ -1883,7 +1962,7 @@
 
         $scope.initCurrenciesManageData = function () {
             $scope.currencyOptions = [];
-            adminService.getReq($rootScope.URL.CURRENCIESMANAGE, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -1965,7 +2044,7 @@
         // 初始化table数据
         $scope.initUserLevelData = function () {
             $scope.userLevel = [];
-            adminService.getReq($rootScope.URL.USERLEVEL, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.USERLEVEL.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -2035,7 +2114,7 @@
             var tempData = angular.extend({}, userLevel, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.USERLEVEL, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.USERLEVEL.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -2047,7 +2126,7 @@
                     }
                 });
             } else if (tempData.id) {
-                adminService.patchReq($rootScope.URL.USERLEVEL,{}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.USERLEVEL.PATCH,{}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -2070,7 +2149,7 @@
         $scope.deleteUserLevel = function (userLevel) {
             if (userLevel.id) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.USERLEVEL, {id: userLevel.id}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.USERLEVEL.DELETE, {id: userLevel.id}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initUserLevelData();

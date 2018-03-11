@@ -21,7 +21,7 @@
         $scope.transactionsDetailAoData = {
             timezone: "+10:00"
         };
-        $scope.transactionsUrl = $rootScope.URL.TRANSACTIONSDETAIL;
+        $scope.transactionsUrl = $rootScope.URL.TRANSACTIONSDETAIL.GET;
 
     }
 })();

@@ -31,7 +31,7 @@
 
         $scope.initCurrenciesManageData = function () {
             $scope.currencyOptions = [];
-            adminService.getReq($rootScope.URL.CURRENCIESMANAGE, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -113,7 +113,7 @@
         // 初始化table数据
         $scope.initUserLevelData = function () {
             $scope.userLevel = [];
-            adminService.getReq($rootScope.URL.USERLEVEL, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.USERLEVEL.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -183,7 +183,7 @@
             var tempData = angular.extend({}, userLevel, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.USERLEVEL, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.USERLEVEL.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -195,7 +195,7 @@
                     }
                 });
             } else if (tempData.id) {
-                adminService.patchReq($rootScope.URL.USERLEVEL,{}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.USERLEVEL.PATCH,{}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -218,7 +218,7 @@
         $scope.deleteUserLevel = function (userLevel) {
             if (userLevel.id) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.USERLEVEL, {id: userLevel.id}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.USERLEVEL.DELETE, {id: userLevel.id}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initUserLevelData();
