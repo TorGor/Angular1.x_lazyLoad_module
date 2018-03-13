@@ -18,6 +18,17 @@
         adminService
     ) {
 
+        $scope.defaultOptions = [
+            {
+                label:'YES',
+                value:'1'
+            },
+            {
+                label:'NO',
+                value:'0'
+            }
+        ];
+
         $scope.currencyOptions = [];
 
         // 原始的数据
@@ -120,6 +131,7 @@
                         $scope.userLevel = angular.copy(res.data.data);
                         $scope.userLevel.forEach(function (userLevelItem, userLevelIndex) {
                             userLevelItem.id = userLevelIndex +1;
+                            userLevelItem.default = userLevelItem.isDefault ? '1' : '0'
                             window.Object.assign(userLevelItem, $scope.formatUserLevelData(userLevelItem))
                         });
                     } else {
@@ -194,8 +206,8 @@
                         }
                     }
                 });
-            } else if (tempData.id) {
-                adminService.patchReq($rootScope.URL.USERLEVEL.PATCH,{}, tempData).then(function (res) {
+            } else if (tempData.id && tempData.code) {
+                adminService.patchReq($rootScope.URL.USERLEVEL.PATCH + '/' + tempData.code,{}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -216,9 +228,9 @@
          * @return null
          */
         $scope.deleteUserLevel = function (userLevel) {
-            if (userLevel.id) {
+            if (userLevel.id && userLevel.code) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.USERLEVEL.DELETE, {id: userLevel.id}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.USERLEVEL.DELETE + '/' + userLevel.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initUserLevelData();
@@ -246,8 +258,8 @@
             $scope.userLevel.unshift({
                 'id': null,
                 'code': '',
-                'default': 1,
-                'level': '1',
+                'default': '0',
+                'level': '',
                 'conditions': [],
                 'treatments': [],
                 'rebates': []

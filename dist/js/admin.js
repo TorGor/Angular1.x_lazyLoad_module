@@ -21,14 +21,14 @@
 (function() {
 
     angular
-        .module('admin.countriesManage', [
+        .module('admin.blackLists', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.blackLists', [
+        .module('admin.countriesManage', [
             'app.core',
         ]);
 })();
@@ -331,6 +331,189 @@
 (function() {
 
     angular
+        .module('admin.blackLists')
+        .controller('BlackListsController', BlackListsController);
+
+    BlackListsController.$inject = [
+        '$scope',
+        '$rootScope',
+        'adminService'
+    ];
+
+    function BlackListsController(
+        $scope,
+        $rootScope,
+        adminService
+    ) {
+
+        $scope.typeOptions = [
+            {
+                label:'fraud',
+                value:'fraud'
+            },
+            {
+                label:'suspicious',
+                value:'suspicious'
+            }
+        ];
+
+        $scope.isDeletedOptions = [
+            {
+                label:'All',
+                value:''
+            },
+            {
+                label:'Deleted',
+                value:'1'
+            },
+            {
+                label:'No Deleted',
+                value:'0'
+            }
+        ];
+
+        $scope.typeOptionsSearch = [
+            {
+                label:'All',
+                value:''
+            },
+            {
+                label:'Fraud',
+                value:'fraud'
+            },
+            {
+                label:'Suspicious',
+                value:'suspicious'
+            }
+        ];
+
+        // 原始的数据
+        $scope.blackLists = [];
+
+        $scope.blackListsReload = 1;
+        $scope.blackListsAoData = {};
+        $scope.blackListsSearch = '';
+
+        $scope.blackListsUrl = $rootScope.URL.BLACKLISTS.GET;
+
+        // 初始化table数据
+        $scope.initBlackListsData = function () {
+            $scope.blackListsReload++;
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param blackLists BLACKLISTSTITLE数据对象
+         * @param item
+         */
+
+        $scope.saveBlackLists = function (blackLists, item) {
+            var tempData = angular.extend({}, blackLists, item);
+            tempData.admin_id = window.userInfo && window.userInfo.admin_id || '';
+            if (tempData.id) {
+                delete tempData.id;
+                adminService.postReq($rootScope.URL.BLACKLISTS.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initBlackListsData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (!tempData.id && blackLists.accountNumber) {
+                adminService.patchReq($rootScope.URL.BLACKLISTS.PATCH+'/'+blackLists.accountNumber, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initBlackListsData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+        };
+
+        // 删除blackLists
+        /**
+         * @param blackLists BLACKLISTSTITLE数据对象
+         * @return null
+         */
+        $scope.deleteBlackLists = function (blackLists) {
+            if (blackLists.accountNumber) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.BLACKLISTS.DELETE+'/'+blackLists.accountNumber, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initBlackListsData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 恢复blackLists
+        /**
+         * @param blackLists BLACKLISTSTITLE数据对象
+         * @return null
+         */
+        $scope.recoverBlackLists = function (blackLists) {
+            if (blackLists.accountNumber) {
+                adminService.putReq($rootScope.URL.BLACKLISTS.PUT+'/'+blackLists.accountNumber, {}, {}).then(function (res) {
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initBlackListsData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                            return '';
+                        }
+                    }
+                });
+            }
+        };
+
+        // 添加按钮
+        $scope.addBlackLists = function () {
+            $scope.blackLists.unshift({
+                "id":true,
+                "accountNumber": "",
+                "type": $scope.typeOptions[0].value,
+                "comment":"",
+                "isDeleted":false
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的BLACKLISTSTITLE
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.account_number == '') {
+                $scope.blackLists.splice(index, 1);
+            }
+        };
+
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.countriesManage')
         .controller('CountriesManageController', CountriesManageController);
 
@@ -503,187 +686,6 @@
         $scope.initCountriesManageData();
 
         $scope.initCurrenciesManageData()
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.blackLists')
-        .controller('BlackListsController', BlackListsController);
-
-    BlackListsController.$inject = [
-        '$scope',
-        '$rootScope',
-        'adminService'
-    ];
-
-    function BlackListsController(
-        $scope,
-        $rootScope,
-        adminService
-    ) {
-
-        $scope.typeOptions = [
-            {
-                label:'fraud',
-                value:'fraud'
-            },
-            {
-                label:'suspicious',
-                value:'suspicious'
-            }
-        ];
-
-        $scope.isDeletedOptions = [
-            {
-                label:'All',
-                value:''
-            },
-            {
-                label:'Deleted',
-                value:'1'
-            },
-            {
-                label:'No Deleted',
-                value:'0'
-            }
-        ];
-
-        $scope.typeOptionsSearch = [
-            {
-                label:'All',
-                value:''
-            },
-            {
-                label:'Fraud',
-                value:'fraud'
-            },
-            {
-                label:'Suspicious',
-                value:'suspicious'
-            }
-        ];
-
-        // 原始的数据
-        $scope.blackLists = [];
-
-        $scope.blackListsReload = 1;
-        $scope.blackListsAoData = {};
-        $scope.blackListsSearch = '';
-
-        $scope.blackListsUrl = $rootScope.URL.BLACKLISTS.GET;
-
-        // 初始化table数据
-        $scope.initBlackListsData = function () {
-            $scope.blackListsReload++;
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param blackLists BLACKLISTSTITLE数据对象
-         * @param item
-         */
-
-        $scope.saveBlackLists = function (blackLists, item) {
-            var tempData = angular.extend({}, blackLists, item);
-            if (!tempData.id) {
-                delete tempData.id;
-                adminService.postReq($rootScope.URL.BLACKLISTS.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initBlackListsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (tempData.id && blackLists.accountNumber) {
-                adminService.patchReq($rootScope.URL.BLACKLISTS.PATCH+'/'+blackLists.accountNumber, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initBlackListsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
-        // 删除blackLists
-        /**
-         * @param blackLists BLACKLISTSTITLE数据对象
-         * @return null
-         */
-        $scope.deleteBlackLists = function (blackLists) {
-            if (blackLists.accountNumber) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.BLACKLISTS.DELETE+'/'+blackLists.accountNumber, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initBlackListsData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 恢复blackLists
-        /**
-         * @param blackLists BLACKLISTSTITLE数据对象
-         * @return null
-         */
-        $scope.recoverBlackLists = function (blackLists) {
-            if (blackLists.accountNumber) {
-                adminService.putReq($rootScope.URL.BLACKLISTS.PUT+'/'+blackLists.accountNumber, {}, {}).then(function (res) {
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initBlackListsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                            return '';
-                        }
-                    }
-                });
-            }
-        };
-
-        // 添加按钮
-        $scope.addBlackLists = function () {
-            $scope.blackLists.unshift({
-                "accountNumber": "",
-                "type": $scope.typeOptions[0].value,
-                "comment":"",
-                "isDeleted":false
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的BLACKLISTSTITLE
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.account_number == '') {
-                $scope.blackLists.splice(index, 1);
-            }
-        };
-
     }
 })();
 
@@ -2325,6 +2327,17 @@
         adminService
     ) {
 
+        $scope.defaultOptions = [
+            {
+                label:'YES',
+                value:'1'
+            },
+            {
+                label:'NO',
+                value:'0'
+            }
+        ];
+
         $scope.currencyOptions = [];
 
         // 原始的数据
@@ -2427,6 +2440,7 @@
                         $scope.userLevel = angular.copy(res.data.data);
                         $scope.userLevel.forEach(function (userLevelItem, userLevelIndex) {
                             userLevelItem.id = userLevelIndex +1;
+                            userLevelItem.default = userLevelItem.isDefault ? '1' : '0'
                             window.Object.assign(userLevelItem, $scope.formatUserLevelData(userLevelItem))
                         });
                     } else {
@@ -2501,8 +2515,8 @@
                         }
                     }
                 });
-            } else if (tempData.id) {
-                adminService.patchReq($rootScope.URL.USERLEVEL.PATCH,{}, tempData).then(function (res) {
+            } else if (tempData.id && tempData.code) {
+                adminService.patchReq($rootScope.URL.USERLEVEL.PATCH + '/' + tempData.code,{}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -2523,9 +2537,9 @@
          * @return null
          */
         $scope.deleteUserLevel = function (userLevel) {
-            if (userLevel.id) {
+            if (userLevel.id && userLevel.code) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.USERLEVEL.DELETE, {id: userLevel.id}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.USERLEVEL.DELETE + '/' + userLevel.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initUserLevelData();
@@ -2553,8 +2567,8 @@
             $scope.userLevel.unshift({
                 'id': null,
                 'code': '',
-                'default': 1,
-                'level': '1',
+                'default': '0',
+                'level': '',
                 'conditions': [],
                 'treatments': [],
                 'rebates': []

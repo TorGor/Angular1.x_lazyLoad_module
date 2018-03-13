@@ -32,7 +32,7 @@
                             <td style="width: 12%" ao-data="userLevelAoData" web-data-table-sort="code">
                                 {{'table.userLevel.th1' | translate}}
                             </td>
-                            <td style="width: 12%" ao-data="userLevelAoData" web-data-table-sort="isDefault">
+                            <td style="width: 12%" ao-data="userLevelAoData" web-data-table-sort="default">
                                 {{'table.userLevel.th2' | translate}}
                             </td>
                             <td style="width: 12%" ao-data="userLevelAoData" web-data-table-sort="level">
@@ -57,8 +57,11 @@
                                       onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
                             </td>
                             <td>
-                                <span editable-text="item.isDefault" e-name="isDefault" e-formclass="xeditable-sm"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.isDefault}}</span>
+                                <span editable-select="item.default" e-name="default" e-form="rowform"
+                                      onbeforesave="checkRequiredData($data)"
+                                      e-ng-options="option.value as option.label for option in defaultOptions">
+                                        {{showOptionsValue(item.default,defaultOptions)}}
+                                </span>
                             </td>
                             <td>
                                 <span editable-text="item.level" e-name="level" e-formclass="xeditable-sm"

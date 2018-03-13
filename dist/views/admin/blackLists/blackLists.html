@@ -84,7 +84,7 @@
                            <span>{{item.isDeleted ? 'yes' : 'no'}}</span>
                         </td>
                         <td style="white-space: nowrap;">
-                           <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveBlackLists(item, $data)" ng-show="rowform.$visible" shown="item.accountNumber == null">
+                           <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveBlackLists(item, $data)" ng-show="rowform.$visible" shown="item.id == true">
                               <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                  <em class="fa fa-save"></em>
                               </button>

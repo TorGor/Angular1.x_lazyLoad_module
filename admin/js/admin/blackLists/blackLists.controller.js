@@ -81,7 +81,8 @@
 
         $scope.saveBlackLists = function (blackLists, item) {
             var tempData = angular.extend({}, blackLists, item);
-            if (!tempData.id) {
+            tempData.admin_id = window.userInfo && window.userInfo.admin_id || '';
+            if (tempData.id) {
                 delete tempData.id;
                 adminService.postReq($rootScope.URL.BLACKLISTS.POST, {}, tempData).then(function (res) {
                     console.log(res);
@@ -94,7 +95,7 @@
                         }
                     }
                 });
-            } else if (tempData.id && blackLists.accountNumber) {
+            } else if (!tempData.id && blackLists.accountNumber) {
                 adminService.patchReq($rootScope.URL.BLACKLISTS.PATCH+'/'+blackLists.accountNumber, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -157,6 +158,7 @@
         // 添加按钮
         $scope.addBlackLists = function () {
             $scope.blackLists.unshift({
+                "id":true,
                 "accountNumber": "",
                 "type": $scope.typeOptions[0].value,
                 "comment":"",
