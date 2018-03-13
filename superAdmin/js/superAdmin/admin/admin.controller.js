@@ -56,7 +56,7 @@
                     }
                 }
                 if ($scope.searchTimeEnd) {
-                    $scope.adminsAoData.start = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                    $scope.adminsAoData.end = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
                 } else {
                     if ($scope.adminsAoData.end) {
                         delete $scope.adminsAoData.end;

@@ -1,0 +1,18 @@
+{
+    "id": "5fe75a80-cba3-11e7-a868-4724fe68cc3e",
+    "currency": "CNY",
+    "wallet": "MAIN",
+    "amount": 100,
+    "status": "pending",
+    "bank": "ICBC",
+    "account": {
+        "branch": "abcdefg",
+        "name": "abc",
+        "number": "1234567890123"
+    },
+    "details": [],
+    "timestamps": {
+        "createdAt": "2017-11-17T14:27:00+00:00",
+        "updatedAt": "2017-11-17T14:27:00+00:00"
+    }
+}

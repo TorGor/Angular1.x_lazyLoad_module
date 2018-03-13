@@ -61,7 +61,14 @@
                         $scope.countriesManage = angular.copy(res.data.data);
                         $scope.countriesManage.forEach(function (countriesManageItem, countriesManageIndex) {
                             countriesManageItem.id = countriesManageIndex + 1;
-                            countriesManageItem.currencyCode = countriesManageItem.currency && countriesManageItem.currency.code || ''
+                            countriesManageItem.currencyCode = countriesManageItem.currency && countriesManageItem.currency.code || '';
+                            countriesManageItem.numcode = countriesManageItem.numCode || '';
+                            if(countriesManageItem.numCode){
+                                delete countriesManageItem.numCode
+                            }
+                            if(countriesManageItem.currency){
+                                delete countriesManageItem.currency
+                            }
                         })
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
@@ -82,7 +89,7 @@
             var tempData = angular.extend({}, countriesManage, item);
             if (!tempData.id) {
                 delete tempData.id;
-                adminService.postReq($rootScope.URL.COUNTRIESMANAGE.POST,tempData, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.COUNTRIESMANAGE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -95,7 +102,7 @@
                 });
             } else if (tempData.id && countriesManage.iso) {
                 delete tempData.id;
-                adminService.patchReq($rootScope.URL.COUNTRIESMANAGE.PATCH+'/'+countriesManage.iso, tempData, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.COUNTRIESMANAGE.PATCH+'/'+countriesManage.iso, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -141,7 +148,7 @@
                 "id": null,
                 "iso": "",
                 "iso3": "",
-                "numCode": '',
+                "numcode": '',
                 "name": "",
                 "phoneCode": '',
                 "currencyCode": '',
