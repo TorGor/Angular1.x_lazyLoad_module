@@ -48,6 +48,7 @@
       "advance_search": "Show Advance Search",
       "save": "Save",
       "edit": "Edit",
+      "detail": "Detail",
       "delete": "Delete",
       "cancel": "Cancel",
       "recover": "Recover",
@@ -160,7 +161,14 @@
       "name":{
         "th1": "Locals",
         "th2": "Value"
-      }
+      },
+    "ordersManage": {
+      "th1": "Amount",
+      "th2": "Currency",
+      "th3": "Destination",
+      "th4": "Method Code",
+      "th5": "Status",
+      "th6": "User"
     }
   },
   "panel_tile": {

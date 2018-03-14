@@ -48,6 +48,7 @@
       "advance_search": "显示高级搜索",
       "save": "保存",
       "edit": "编辑",
+      "detail": "更多",
       "delete": "删除",
       "cancel": "取消",
       "recover": "恢复",
@@ -161,6 +162,14 @@
         "th1": "位置",
         "th2": "数值"
       }
+    },
+    "ordersManage": {
+      "th1": "Amount",
+      "th2": "Currency",
+      "th3": "Destination",
+      "th4": "Method Code",
+      "th5": "Status",
+      "th6": "User"
     }
   },
   "panel_tile": {

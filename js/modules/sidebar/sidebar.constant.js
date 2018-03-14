@@ -89,13 +89,14 @@
                             "sref": "admin.blackLists",
                             "icon": "glyphicon glyphicon-th-large",
                         },
+                        {
+                            "text": "用户等级",
+                            "sref": "admin.userLevel",
+                            "icon": "glyphicon glyphicon-th-large",
+                        },
                     ]
                 },
-                {
-                    "text": "用户等级",
-                    "sref": "admin.userLevel",
-                    "icon": "glyphicon glyphicon-th-large",
-                },
+
                 {
                     "text": "充值管理",
                     "sref": "admin.ordersManage",

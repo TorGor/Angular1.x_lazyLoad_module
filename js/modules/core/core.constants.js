@@ -19,6 +19,6 @@
             suffix: '',
             server: '',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
-            // server: 'http://mysqlserver.free.ngrok.cc'
+            server: 'http://mysqlserver.free.ngrok.cc'
         });
 })();

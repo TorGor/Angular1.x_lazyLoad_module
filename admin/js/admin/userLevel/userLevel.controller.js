@@ -290,7 +290,7 @@
          */
 
         $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
+            if ($scope.validIsNew(item.id)) {
                 $scope.userLevel.splice(index, 1);
             }
         };

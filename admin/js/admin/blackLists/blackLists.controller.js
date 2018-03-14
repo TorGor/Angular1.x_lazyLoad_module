@@ -81,7 +81,7 @@
 
         $scope.saveBlackLists = function (blackLists, item) {
             var tempData = angular.extend({}, blackLists, item);
-            tempData.admin_id = window.userInfo && window.userInfo.admin_id || '';
+            tempData.adminId = window.userInfo && window.userInfo.admin_id || '';
             if (tempData.id) {
                 delete tempData.id;
                 adminService.postReq($rootScope.URL.BLACKLISTS.POST, {}, tempData).then(function (res) {

@@ -22,32 +22,6 @@
         MethodsNameItem
     ) {
 
-        $scope.localesOptions = [];
-
-        $scope.initLocalesOptionsData = function () {
-            $scope.localesOptions = [];
-            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        if(window.Array.isArray(res.data.data)){
-                            res.data.data.map(function (objItem) {
-                                var tempObj ={
-                                    label:objItem.name||'',
-                                    value:objItem.code||''
-                                };
-                                if(objItem.supported){
-                                    $scope.localesOptions.push(tempObj)
-                                }
-                            })
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
         // 原始的数据
         $scope.methodsNameModal = [];
 
@@ -57,7 +31,7 @@
         $scope.methodsNameModalAoData = {};
         $scope.methodsNameModalSearch = '';
 
-        var baseMethodsName = angular.copy(MethodsNameItem['name']);
+        var baseMethodsName = angular.copy(MethodsNameItem);
 
         // 初始化table数据
         $scope.initMethodsNameModalData = function () {
@@ -132,21 +106,37 @@
                     delete methodsNameItem.id;
                 }
             });
+            if($scope.methodsNameModal && $scope.methodsNameModal.length){
+                var tempObj = {};
+                var sameKey = false;
+                $scope.methodsNameModal.map(function(nameItem) {
+                    if(tempObj[nameItem.locale]){
+                        sameKey = true
+                    }
+                    tempObj[nameItem.locale] = nameItem.value
+                });
+                if(sameKey){
+                    $rootScope.alertErrorMsg('you set same local,just remove one');
+                    return '';
+                }
+            }
+            baseMethodsName.name = $scope.methodsNameModal;
             $uibModalInstance.close({
                 type:'name',
-                data:$scope.methodsNameModal
+                data:baseMethodsName
             });
         };
 
         $scope.cancelModal = function () {
-            MethodsNameItem['name'] = baseMethodsName;
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss({
+                type:'name',
+                data:baseMethodsName
+            });
         };
 
         // 页面加载执行的函数
 
         $scope.initMethodsNameModalData();
 
-        $scope.initLocalesOptionsData()
     }
 })();

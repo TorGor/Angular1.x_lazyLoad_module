@@ -16,18 +16,23 @@
         adminService
     ) {
 
+        $scope.ordersManageUrl = $rootScope.URL.ORDERSMANAGE.GET;
+
         // 原始的数据
         $scope.ordersManage = [];
 
+        $scope.advancedSearch = false;
+
         // 过滤出来的数据
-        $scope.showOrdersManage = [];
         $scope.ordersManageReload = 1;
         $scope.ordersManageAoData = {};
-        $scope.ordersManageSearch = '';
 
-        // 初始化table数据
-        $scope.initOrdersManageData = function () {
-            $scope.ordersManageReload++;
+        $scope.initOrdersManageData = function() {
+            $scope.ordersManageReload++
+        };
+
+        $scope.showAdvanceSearch = function() {
+            $scope.advancedSearch = !$scope.advancedSearch
         };
 
 
@@ -40,21 +45,10 @@
 
         $scope.saveOrdersManage = function (ordersManage, item) {
             var tempData = angular.extend({}, ordersManage, item);
-            if (!tempData.id) {
+            if (tempData.id) {
                 delete tempData.id;
+                tempData.adminId = window.userInfo && window.userInfo.admin_id || '';
                 adminService.postReq($rootScope.URL.ORDERSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initOrdersManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (tempData.id && ordersManage.code) {
-                adminService.patchReq($rootScope.URL.ORDERSMANAGE.PATCH+'/'+ordersManage.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -92,41 +86,15 @@
             }
         };
 
-        // 恢复ordersManage
-        /**
-         * @param ordersManage ORDERSMANAGETITLE数据对象
-         * @return null
-         */
-        $scope.deleteOrdersManage = function (ordersManage) {
-            if (ordersManage.code) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.ORDERSMANAGE.PUT+'/'+ordersManage.code, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initOrdersManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
         // 添加按钮
         $scope.addOrdersManage = function () {
             $scope.ordersManageAoData = {};
             $scope.ordersManageSearch = '';
             $scope.ordersManage.unshift({
-                'id': null,
-                'ordersManageName': '',
-                'ordersManageType': '',
-                'ordersManageStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                "id":true,
+                order_no: '',
+                trade_no: '',
+                amount: ''
             });
         };
 
@@ -142,8 +110,24 @@
             }
         };
 
-        // 页面加载执行的函数
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.ordersManageAoData.start_time = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                } else {
+                    if ($scope.ordersManageAoData.start_time) {
+                        delete $scope.ordersManageAoData.start_time;
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.ordersManageAoData.end_time = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                } else {
+                    if ($scope.ordersManageAoData.end_time) {
+                        delete $scope.ordersManageAoData.end_time;
+                    }
+                }
+            }
+        });
 
-        $scope.initOrdersManageData();
     }
 })();
