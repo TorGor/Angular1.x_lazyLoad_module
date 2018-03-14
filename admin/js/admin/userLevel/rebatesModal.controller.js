@@ -44,7 +44,7 @@
         // 原始的数据
         $scope.rebatesModal = [];
 
-        var baseRebates = angular.copy(item['rebates']);
+        var baseRebates = angular.copy(item);
 
         // 过滤出来的数据
         $scope.showRebatesModal = [];
@@ -120,11 +120,24 @@
             });
             modalInstance.result.then(function (data) {
                 if(data.type == 'brands'){
-                    RebatesBrandsItem[data.type] = angular.copy(data.data)
-                    console.log($scope.rebatesModal)
+                    $scope.rebatesModal.forEach(function(rebatesModalItem) {
+                        if (rebatesModalItem.id == data.data.id) {
+                            rebatesModalItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.rebatesModalReload++;
+                        }
+                    });
                 }
-            }, function (cancel) {
-
+                modalInstance = null
+            }, function (data) {
+                if(data.type == 'brands'){
+                    $scope.rebatesModal.forEach(function(rebatesModalItem) {
+                        if (rebatesModalItem.id == data.data.id) {
+                            rebatesModalItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.rebatesModalReload++;
+                        }
+                    });
+                }
+                modalInstance = null
             });
         };
 
@@ -157,8 +170,10 @@
         };
 
         $scope.cancelModal = function () {
-            item['rebates'] = baseRebates;
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss({
+                type:'rebates',
+                data:baseRebates
+            });
         };
         // 页面加载执行的函数
 

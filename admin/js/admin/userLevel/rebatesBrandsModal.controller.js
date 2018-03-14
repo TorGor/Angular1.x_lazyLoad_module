@@ -29,7 +29,7 @@
         $scope.rebatesBrandsModalAoData = {};
         $scope.rebatesBrandsModalSearch = '';
 
-        var baseRebatesBrands = angular.copy(RebatesBrandsItem['brands']);
+        var baseRebatesBrands = angular.copy(RebatesBrandsItem);
 
         // 初始化table数据
         $scope.initRebatesBrandsModalData = function () {
@@ -104,16 +104,19 @@
                     delete rebatesBrandsItem.id;
                 }
             });
+            baseRebatesBrands['brands'] = $scope.rebatesBrandsModal;
             console.log($scope.rebatesBrandsModal,'$scope.rebatesBrandsModal')
             $uibModalInstance.close({
                 type:'brands',
-                data:$scope.rebatesBrandsModal
+                data:baseRebatesBrands
             });
         };
 
         $scope.cancelModalRebatesBrand = function () {
-            RebatesBrandsItem['brands'] = baseRebatesBrands;
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss({
+                type:'brands',
+                data:baseRebatesBrands
+            });
         };
 
         // 页面加载执行的函数

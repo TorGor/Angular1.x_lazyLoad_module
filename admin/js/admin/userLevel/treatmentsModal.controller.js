@@ -86,7 +86,7 @@
             }
         ];
 
-        var baseTreatments = angular.copy(item['treatments']);
+        var baseTreatments = angular.copy(item);
 
         // 原始的数据
         $scope.treatmentsModal = [];
@@ -179,8 +179,10 @@
         };
 
         $scope.cancelModal = function () {
-            item['treatments'] = baseTreatments;
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss({
+                type:'treatments',
+                data: baseTreatments
+            });
         };
 
         // 页面加载执行的函数

@@ -169,25 +169,37 @@
                 templateUrl: '/views/admin/userLevel/'+templateName+'.html',
                 controller: controllerName,
                 size: 'lg',
-                // scope:$scope,
+                scope:$scope,
                 resolve: {
                     item: item
                 }
             });
-            modalInstance.result.then(function (data) {
-                console.log(data,999)
-                if(['conditions', 'treatments', 'rebates'].indexOf(data.type) !== -1){
+            modalInstance.result.then(function(data) {
+                if (['conditions', 'treatments', 'rebates'].indexOf(data.type) !== -1) {
                     $scope.userLevel.forEach(function(userLevelItem) {
-                        if(userLevelItem.id == data.data.id){
-                            console.log(userLevelItem, 'userLevelItem')
-                            console.log(userLevelItem, 'userLevelItem')
-                            userLevelItem[data.type] = angular.copy(data.data[data.type])
+                        if (userLevelItem.id == data.data.id) {
+                            console.log(userLevelItem, 'userLevelItem');
+                            console.log(data.data[data.type], '3333');
+                            userLevelItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.userLevelReload++;
                         }
-                    })
-                    console.log($scope.userLevel)
+                    });
+                    console.log($scope.userLevel);
                 }
-            }, function (cancel) {
-
+                modalInstance = null;
+            }, function(data) {
+                if (['conditions', 'treatments', 'rebates'].indexOf(data.type) !== -1) {
+                    $scope.userLevel.forEach(function(userLevelItem) {
+                        if (userLevelItem.id == data.data.id) {
+                            console.log(userLevelItem, 'userLevelItem');
+                            console.log(data.data[data.type], '3333');
+                            userLevelItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.userLevelReload++;
+                        }
+                    });
+                    console.log($scope.userLevel);
+                }
+                modalInstance = null;
             });
         };
 

@@ -60,33 +60,40 @@
             ],
             admin: [
                 {
-                    "text": "本地语言",
-                    "sref": "admin.localeLanguage",
+                    "text": "已测接口",
+                    "sref": "#",
                     "icon": "glyphicon glyphicon-th-large",
-                },
-                {
-                    "text": "国家管理",
-                    "sref": "admin.countriesManage",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "submenu": [
+                        {
+                            "text": "本地语言",
+                            "sref": "admin.localeLanguage",
+                            "icon": "glyphicon glyphicon-th-large",
+                        },
+                        {
+                            "text": "国家管理",
+                            "sref": "admin.countriesManage",
+                            "icon": "glyphicon glyphicon-th-large",
+                        },
+                        {
+                            "text": "财务明细",
+                            "sref": "admin.transactionsDetail",
+                            "icon": "glyphicon glyphicon-th-large",
+                        },
+                        {
+                            "text": "货币管理",
+                            "sref": "admin.currenciesManage",
+                            "icon": "glyphicon glyphicon-th-large",
+                        },
+                        {
+                            "text": "银行黑名单",
+                            "sref": "admin.blackLists",
+                            "icon": "glyphicon glyphicon-th-large",
+                        },
+                    ]
                 },
                 {
                     "text": "用户等级",
                     "sref": "admin.userLevel",
-                    "icon": "glyphicon glyphicon-th-large",
-                },
-                {
-                    "text": "财务明细",
-                    "sref": "admin.transactionsDetail",
-                    "icon": "glyphicon glyphicon-th-large",
-                },
-                {
-                    "text": "货币管理",
-                    "sref": "admin.currenciesManage",
-                    "icon": "glyphicon glyphicon-th-large",
-                },
-                {
-                    "text": "银行黑名单",
-                    "sref": "admin.blackLists",
                     "icon": "glyphicon glyphicon-th-large",
                 },
                 {
@@ -99,16 +106,6 @@
                     "sref": "admin.paymentMethods",
                     "icon": "glyphicon glyphicon-th-large",
                 }//new sidebar name will be append here
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             
             ]
 

@@ -15,8 +15,8 @@
         })
         .constant('EVN', {
             debug: true,
-            suffix: '.json',
-            // suffix: '',
+            // suffix: '.json',
+            suffix: '',
             server: '',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             // server: 'http://mysqlserver.free.ngrok.cc'

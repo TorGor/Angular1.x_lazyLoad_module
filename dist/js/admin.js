@@ -1738,7 +1738,6 @@
         $scope.initConditionsModalData = function () {
             $scope.conditionsModal = [];
             if(item['conditions'].length){
-                console.log(item)
                 $scope.conditionsModal = item['conditions'];
                 $scope.conditionsModal.forEach(function (conditionsItem, conditionsIndex) {
                     conditionsItem.id = conditionsIndex + 1;
@@ -1819,8 +1818,10 @@
         };
 
         $scope.cancelModal = function () {
-            item = baseConditions;
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss({
+                type:'conditions',
+                data:baseConditions
+            });
         };
 
         // 页面加载执行的函数
@@ -1860,7 +1861,7 @@
         $scope.rebatesBrandsModalAoData = {};
         $scope.rebatesBrandsModalSearch = '';
 
-        var baseRebatesBrands = angular.copy(RebatesBrandsItem['brands']);
+        var baseRebatesBrands = angular.copy(RebatesBrandsItem);
 
         // 初始化table数据
         $scope.initRebatesBrandsModalData = function () {
@@ -1935,16 +1936,19 @@
                     delete rebatesBrandsItem.id;
                 }
             });
+            baseRebatesBrands['brands'] = $scope.rebatesBrandsModal;
             console.log($scope.rebatesBrandsModal,'$scope.rebatesBrandsModal')
             $uibModalInstance.close({
                 type:'brands',
-                data:$scope.rebatesBrandsModal
+                data:baseRebatesBrands
             });
         };
 
         $scope.cancelModalRebatesBrand = function () {
-            RebatesBrandsItem['brands'] = baseRebatesBrands;
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss({
+                type:'brands',
+                data:baseRebatesBrands
+            });
         };
 
         // 页面加载执行的函数
@@ -1999,7 +2003,7 @@
         // 原始的数据
         $scope.rebatesModal = [];
 
-        var baseRebates = angular.copy(item['rebates']);
+        var baseRebates = angular.copy(item);
 
         // 过滤出来的数据
         $scope.showRebatesModal = [];
@@ -2075,11 +2079,24 @@
             });
             modalInstance.result.then(function (data) {
                 if(data.type == 'brands'){
-                    RebatesBrandsItem[data.type] = angular.copy(data.data)
-                    console.log($scope.rebatesModal)
+                    $scope.rebatesModal.forEach(function(rebatesModalItem) {
+                        if (rebatesModalItem.id == data.data.id) {
+                            rebatesModalItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.rebatesModalReload++;
+                        }
+                    });
                 }
-            }, function (cancel) {
-
+                modalInstance = null
+            }, function (data) {
+                if(data.type == 'brands'){
+                    $scope.rebatesModal.forEach(function(rebatesModalItem) {
+                        if (rebatesModalItem.id == data.data.id) {
+                            rebatesModalItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.rebatesModalReload++;
+                        }
+                    });
+                }
+                modalInstance = null
             });
         };
 
@@ -2112,8 +2129,10 @@
         };
 
         $scope.cancelModal = function () {
-            item['rebates'] = baseRebates;
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss({
+                type:'rebates',
+                data:baseRebates
+            });
         };
         // 页面加载执行的函数
 
@@ -2209,7 +2228,7 @@
             }
         ];
 
-        var baseTreatments = angular.copy(item['treatments']);
+        var baseTreatments = angular.copy(item);
 
         // 原始的数据
         $scope.treatmentsModal = [];
@@ -2302,8 +2321,10 @@
         };
 
         $scope.cancelModal = function () {
-            item['treatments'] = baseTreatments;
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss({
+                type:'treatments',
+                data: baseTreatments
+            });
         };
 
         // 页面加载执行的函数
@@ -2483,25 +2504,37 @@
                 templateUrl: '/views/admin/userLevel/'+templateName+'.html',
                 controller: controllerName,
                 size: 'lg',
-                // scope:$scope,
+                scope:$scope,
                 resolve: {
                     item: item
                 }
             });
-            modalInstance.result.then(function (data) {
-                console.log(data,999)
-                if(['conditions', 'treatments', 'rebates'].indexOf(data.type) !== -1){
+            modalInstance.result.then(function(data) {
+                if (['conditions', 'treatments', 'rebates'].indexOf(data.type) !== -1) {
                     $scope.userLevel.forEach(function(userLevelItem) {
-                        if(userLevelItem.id == data.data.id){
-                            console.log(userLevelItem, 'userLevelItem')
-                            console.log(userLevelItem, 'userLevelItem')
-                            userLevelItem[data.type] = angular.copy(data.data[data.type])
+                        if (userLevelItem.id == data.data.id) {
+                            console.log(userLevelItem, 'userLevelItem');
+                            console.log(data.data[data.type], '3333');
+                            userLevelItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.userLevelReload++;
                         }
-                    })
-                    console.log($scope.userLevel)
+                    });
+                    console.log($scope.userLevel);
                 }
-            }, function (cancel) {
-
+                modalInstance = null;
+            }, function(data) {
+                if (['conditions', 'treatments', 'rebates'].indexOf(data.type) !== -1) {
+                    $scope.userLevel.forEach(function(userLevelItem) {
+                        if (userLevelItem.id == data.data.id) {
+                            console.log(userLevelItem, 'userLevelItem');
+                            console.log(data.data[data.type], '3333');
+                            userLevelItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.userLevelReload++;
+                        }
+                    });
+                    console.log($scope.userLevel);
+                }
+                modalInstance = null;
             });
         };
 

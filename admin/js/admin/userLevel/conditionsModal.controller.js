@@ -93,7 +93,6 @@
         $scope.initConditionsModalData = function () {
             $scope.conditionsModal = [];
             if(item['conditions'].length){
-                console.log(item)
                 $scope.conditionsModal = item['conditions'];
                 $scope.conditionsModal.forEach(function (conditionsItem, conditionsIndex) {
                     conditionsItem.id = conditionsIndex + 1;
@@ -174,8 +173,10 @@
         };
 
         $scope.cancelModal = function () {
-            item = baseConditions;
-            $uibModalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss({
+                type:'conditions',
+                data:baseConditions
+            });
         };
 
         // 页面加载执行的函数
