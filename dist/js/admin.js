@@ -1732,7 +1732,7 @@
         $scope.conditionsModalAoData = {};
         $scope.conditionsModalSearch = '';
 
-        var baseConditions = angular.copy(item['conditions']);
+        var baseConditions = angular.copy(item);
 
         // 初始化table数据
         $scope.initConditionsModalData = function () {
@@ -1811,14 +1811,15 @@
                     delete conditionsItem.id;
                 }
             });
+            baseConditions['conditions'] = $scope.conditionsModal;
             $uibModalInstance.close({
                 type:'conditions',
-                data:$scope.conditionsModal
+                data:baseConditions
             });
         };
 
         $scope.cancelModal = function () {
-            item['conditions'] = baseConditions;
+            item = baseConditions;
             $uibModalInstance.dismiss('cancel');
         };
 
@@ -1934,6 +1935,7 @@
                     delete rebatesBrandsItem.id;
                 }
             });
+            console.log($scope.rebatesBrandsModal,'$scope.rebatesBrandsModal')
             $uibModalInstance.close({
                 type:'brands',
                 data:$scope.rebatesBrandsModal
@@ -2058,7 +2060,7 @@
             });
         };
 
-        $scope.showEditRebatesBrandModal = function (item) {
+        $scope.showEditRebatesBrandModal = function (RebatesBrandsItem) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -2068,12 +2070,13 @@
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    RebatesBrandsItem: item
+                    RebatesBrandsItem: RebatesBrandsItem
                 }
             });
             modalInstance.result.then(function (data) {
                 if(data.type == 'brands'){
-                    item[data.type] = angular.copy(data.data)
+                    RebatesBrandsItem[data.type] = angular.copy(data.data)
+                    console.log($scope.rebatesModal)
                 }
             }, function (cancel) {
 
@@ -2101,9 +2104,10 @@
                     delete rebatesItem.id;
                 }
             });
+            baseRebates['rebates'] = $scope.rebatesModal;
             $uibModalInstance.close({
                 type:'rebates',
-                data:$scope.rebatesModal
+                data:baseRebates
             });
         };
 
@@ -2290,9 +2294,10 @@
                     delete treatmentsItem.id;
                 }
             });
+            baseTreatments['treatments'] = $scope.treatmentsModal
             $uibModalInstance.close({
                 type:'treatments',
-                data:$scope.treatmentsModal
+                data: baseTreatments
             });
         };
 
@@ -2478,14 +2483,22 @@
                 templateUrl: '/views/admin/userLevel/'+templateName+'.html',
                 controller: controllerName,
                 size: 'lg',
-                scope:$scope,
+                // scope:$scope,
                 resolve: {
                     item: item
                 }
             });
             modalInstance.result.then(function (data) {
+                console.log(data,999)
                 if(['conditions', 'treatments', 'rebates'].indexOf(data.type) !== -1){
-                    item[data.type] = angular.copy(data.data)
+                    $scope.userLevel.forEach(function(userLevelItem) {
+                        if(userLevelItem.id == data.data.id){
+                            console.log(userLevelItem, 'userLevelItem')
+                            console.log(userLevelItem, 'userLevelItem')
+                            userLevelItem[data.type] = angular.copy(data.data[data.type])
+                        }
+                    })
+                    console.log($scope.userLevel)
                 }
             }, function (cancel) {
 
@@ -2502,8 +2515,11 @@
 
         $scope.saveUserLevel = function (userLevel, item) {
             var tempData = angular.extend({}, userLevel, item);
-            if (!tempData.id) {
+            if ($scope.validIsNew(tempData.id)) {
                 delete tempData.id;
+                if(tempData.default){
+                    delete tempData.default;
+                }
                 adminService.postReq($rootScope.URL.USERLEVEL.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -2515,7 +2531,7 @@
                         }
                     }
                 });
-            } else if (tempData.id && tempData.code) {
+            } else if (!$scope.validIsNew(tempData.id) && tempData.code) {
                 adminService.patchReq($rootScope.URL.USERLEVEL.PATCH + '/' + tempData.code,{}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -2537,7 +2553,7 @@
          * @return null
          */
         $scope.deleteUserLevel = function (userLevel) {
-            if (userLevel.id && userLevel.code) {
+            if (!$scope.validIsNew(userLevel.id) && userLevel.code) {
                 $rootScope.alertConfirm(function () {
                     adminService.deleteReq($rootScope.URL.USERLEVEL.DELETE + '/' + userLevel.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
@@ -2556,16 +2572,10 @@
 
         // 添加按钮
         $scope.addUserLevel = function () {
-            if(!$scope.userLevel.every(function (userLevelItem) {
-                    return userLevelItem.id
-                })){
-                $rootScope.alertErrorMsg('current item needed save');
-                return;
-            }
             $scope.userLevelAoData = {};
             $scope.userLevelSearch = '';
             $scope.userLevel.unshift({
-                'id': null,
+                'id': ($scope.userLevel.length+1) + 'null',
                 'code': '',
                 'default': '0',
                 'level': '',

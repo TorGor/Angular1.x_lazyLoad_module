@@ -104,6 +104,7 @@
                     delete rebatesBrandsItem.id;
                 }
             });
+            console.log($scope.rebatesBrandsModal,'$scope.rebatesBrandsModal')
             $uibModalInstance.close({
                 type:'brands',
                 data:$scope.rebatesBrandsModal

@@ -105,7 +105,7 @@
             });
         };
 
-        $scope.showEditRebatesBrandModal = function (item) {
+        $scope.showEditRebatesBrandModal = function (RebatesBrandsItem) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -115,12 +115,13 @@
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    RebatesBrandsItem: item
+                    RebatesBrandsItem: RebatesBrandsItem
                 }
             });
             modalInstance.result.then(function (data) {
                 if(data.type == 'brands'){
-                    item[data.type] = angular.copy(data.data)
+                    RebatesBrandsItem[data.type] = angular.copy(data.data)
+                    console.log($scope.rebatesModal)
                 }
             }, function (cancel) {
 
@@ -148,9 +149,10 @@
                     delete rebatesItem.id;
                 }
             });
+            baseRebates['rebates'] = $scope.rebatesModal;
             $uibModalInstance.close({
                 type:'rebates',
-                data:$scope.rebatesModal
+                data:baseRebates
             });
         };
 

@@ -171,9 +171,10 @@
                     delete treatmentsItem.id;
                 }
             });
+            baseTreatments['treatments'] = $scope.treatmentsModal
             $uibModalInstance.close({
                 type:'treatments',
-                data:$scope.treatmentsModal
+                data: baseTreatments
             });
         };
 

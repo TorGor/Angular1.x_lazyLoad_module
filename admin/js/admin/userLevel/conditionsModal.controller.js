@@ -87,7 +87,7 @@
         $scope.conditionsModalAoData = {};
         $scope.conditionsModalSearch = '';
 
-        var baseConditions = angular.copy(item['conditions']);
+        var baseConditions = angular.copy(item);
 
         // 初始化table数据
         $scope.initConditionsModalData = function () {
@@ -166,14 +166,15 @@
                     delete conditionsItem.id;
                 }
             });
+            baseConditions['conditions'] = $scope.conditionsModal;
             $uibModalInstance.close({
                 type:'conditions',
-                data:$scope.conditionsModal
+                data:baseConditions
             });
         };
 
         $scope.cancelModal = function () {
-            item['conditions'] = baseConditions;
+            item = baseConditions;
             $uibModalInstance.dismiss('cancel');
         };
 
