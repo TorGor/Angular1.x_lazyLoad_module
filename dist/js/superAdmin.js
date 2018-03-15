@@ -544,8 +544,8 @@
          * @return null
          */
         $scope.getRoleMenuAndBtn = function (id) {
+            $scope.roleMenuAndBtn = [];
             if (id) {
-                $scope.roleMenuAndBtn = [];
                 superAdminService.getFindRoleMenuByRoleId({ 'roleId': id }, {}, function (data) {
                     console.log(data, 'getRoleMenuAndBtn');
                     if (typeof data.success === 'boolean') {
@@ -556,6 +556,8 @@
                         }
                     }
                 });
+            }else{
+
             }
         };
 
@@ -566,9 +568,7 @@
          */
         $scope.setCurrentAdmin = function (admin) {
             $scope.currentAdmin = angular.copy(admin);
-            if (admin.roleId) {
-                $scope.getRoleMenuAndBtn(admin.roleId);
-            }
+            $scope.getRoleMenuAndBtn(admin.roleId);
         };
 
         // 设置用户的roleId

@@ -1,18 +1,278 @@
 {
-    "id": "5fe75a80-cba3-11e7-a868-4724fe68cc3e",
-    "currency": "CNY",
-    "wallet": "MAIN",
-    "amount": 100,
-    "status": "pending",
-    "bank": "ICBC",
-    "account": {
-        "branch": "abcdefg",
-        "name": "abc",
-        "number": "1234567890123"
-    },
-    "details": [],
-    "timestamps": {
-        "createdAt": "2017-11-17T14:27:00+00:00",
-        "updatedAt": "2017-11-17T14:27:00+00:00"
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "stat": "ok",
+        "data": [
+            {
+                "amount": 100,
+                "bank": "ICBC",
+                "wallet": "MAIN",
+                "timestamps": {
+                    "createdAt": "2017-11-17T14:27:00+00:00",
+                    "updatedAt": "2018-03-06T11:08:52+00:00"
+                },
+                "currency": "CNY",
+                "details": [
+                    {
+                        "result": "pending",
+                        "timestamps": {
+                            "createdAt": "2018-03-06T10:23:05+00:00",
+                            "updatedAt": "2018-03-06T10:37:35+00:00"
+                        },
+                        "adminId": "1",
+                        "action": "audit",
+                        "id": 1,
+                        "withdraw": {
+                            "amount": 100,
+                            "bank": "ICBC",
+                            "wallet": "MAIN",
+                            "timestamps": {
+                                "createdAt": "2017-11-17T14:27:00+00:00",
+                                "updatedAt": "2018-03-06T11:08:52+00:00"
+                            },
+                            "currency": "CNY",
+                            "id": "5fe75a80-cba3-11e7-a868-4724fe68cc3e",
+                            "account": {
+                                "number": "1234567890123",
+                                "name": "abc",
+                                "branch": "abcdefg"
+                            },
+                            "status": "reviewing"
+                        }
+                    },
+                    {
+                        "result": "approved",
+                        "timestamps": {
+                            "createdAt": "2018-03-06T10:45:00+00:00",
+                            "updatedAt": "2018-03-06T10:45:15+00:00"
+                        },
+                        "adminId": "1",
+                        "action": "audit",
+                        "id": 2,
+                        "withdraw": {
+                            "amount": 100,
+                            "bank": "ICBC",
+                            "wallet": "MAIN",
+                            "timestamps": {
+                                "createdAt": "2017-11-17T14:27:00+00:00",
+                                "updatedAt": "2018-03-06T11:08:52+00:00"
+                            },
+                            "currency": "CNY",
+                            "id": "5fe75a80-cba3-11e7-a868-4724fe68cc3e",
+                            "account": {
+                                "number": "1234567890123",
+                                "name": "abc",
+                                "branch": "abcdefg"
+                            },
+                            "status": "reviewing"
+                        }
+                    },
+                    {
+                        "result": "paid",
+                        "timestamps": {
+                            "createdAt": "2018-03-06T10:45:48+00:00",
+                            "updatedAt": "2018-03-06T10:46:59+00:00"
+                        },
+                        "adminId": "1",
+                        "action": "pay",
+                        "comment": "电子回单",
+                        "id": 3,
+                        "withdraw": {
+                            "amount": 100,
+                            "bank": "ICBC",
+                            "wallet": "MAIN",
+                            "timestamps": {
+                                "createdAt": "2017-11-17T14:27:00+00:00",
+                                "updatedAt": "2018-03-06T11:08:52+00:00"
+                            },
+                            "currency": "CNY",
+                            "id": "5fe75a80-cba3-11e7-a868-4724fe68cc3e",
+                            "account": {
+                                "number": "1234567890123",
+                                "name": "abc",
+                                "branch": "abcdefg"
+                            },
+                            "status": "reviewing"
+                        }
+                    },
+                    {
+                        "result": "paid",
+                        "timestamps": {
+                            "createdAt": "2018-03-06T10:51:25+00:00",
+                            "updatedAt": "2018-03-06T10:51:47+00:00"
+                        },
+                        "adminId": "1",
+                        "action": "review",
+                        "comment": "电子回单",
+                        "id": 4,
+                        "withdraw": {
+                            "amount": 100,
+                            "bank": "ICBC",
+                            "wallet": "MAIN",
+                            "timestamps": {
+                                "createdAt": "2017-11-17T14:27:00+00:00",
+                                "updatedAt": "2018-03-06T11:08:52+00:00"
+                            },
+                            "currency": "CNY",
+                            "id": "5fe75a80-cba3-11e7-a868-4724fe68cc3e",
+                            "account": {
+                                "number": "1234567890123",
+                                "name": "abc",
+                                "branch": "abcdefg"
+                            },
+                            "status": "reviewing"
+                        }
+                    },
+                    {
+                        "result": "finished",
+                        "timestamps": {
+                            "createdAt": "2018-03-06T10:52:49+00:00",
+                            "updatedAt": "2018-03-06T10:53:08+00:00"
+                        },
+                        "adminId": "1",
+                        "action": "review",
+                        "comment": "电子回单",
+                        "id": 5,
+                        "withdraw": {
+                            "amount": 100,
+                            "bank": "ICBC",
+                            "wallet": "MAIN",
+                            "timestamps": {
+                                "createdAt": "2017-11-17T14:27:00+00:00",
+                                "updatedAt": "2018-03-06T11:08:52+00:00"
+                            },
+                            "currency": "CNY",
+                            "id": "5fe75a80-cba3-11e7-a868-4724fe68cc3e",
+                            "account": {
+                                "number": "1234567890123",
+                                "name": "abc",
+                                "branch": "abcdefg"
+                            },
+                            "status": "reviewing"
+                        }
+                    },
+                    {
+                        "result": "approved",
+                        "timestamps": {
+                            "createdAt": "2018-03-06T10:55:23+00:00",
+                            "updatedAt": "2018-03-06T11:04:31+00:00"
+                        },
+                        "adminId": "1",
+                        "action": "audit",
+                        "id": 6,
+                        "withdraw": {
+                            "amount": 100,
+                            "bank": "ICBC",
+                            "wallet": "MAIN",
+                            "timestamps": {
+                                "createdAt": "2017-11-17T14:27:00+00:00",
+                                "updatedAt": "2018-03-06T11:08:52+00:00"
+                            },
+                            "currency": "CNY",
+                            "id": "5fe75a80-cba3-11e7-a868-4724fe68cc3e",
+                            "account": {
+                                "number": "1234567890123",
+                                "name": "abc",
+                                "branch": "abcdefg"
+                            },
+                            "status": "reviewing"
+                        }
+                    },
+                    {
+                        "result": "paid",
+                        "timestamps": {
+                            "createdAt": "2018-03-06T11:04:51+00:00",
+                            "updatedAt": "2018-03-06T11:08:24+00:00"
+                        },
+                        "adminId": "1",
+                        "action": "pay",
+                        "comment": "电子回单2",
+                        "id": 7,
+                        "withdraw": {
+                            "amount": 100,
+                            "bank": "ICBC",
+                            "wallet": "MAIN",
+                            "timestamps": {
+                                "createdAt": "2017-11-17T14:27:00+00:00",
+                                "updatedAt": "2018-03-06T11:08:52+00:00"
+                            },
+                            "currency": "CNY",
+                            "id": "5fe75a80-cba3-11e7-a868-4724fe68cc3e",
+                            "account": {
+                                "number": "1234567890123",
+                                "name": "abc",
+                                "branch": "abcdefg"
+                            },
+                            "status": "reviewing"
+                        }
+                    },
+                    {
+                        "timestamps": {
+                            "createdAt": "2018-03-06T11:08:52+00:00",
+                            "updatedAt": "2018-03-06T11:08:52+00:00"
+                        },
+                        "adminId": "1",
+                        "action": "review",
+                        "id": 8,
+                        "withdraw": {
+                            "amount": 100,
+                            "bank": "ICBC",
+                            "wallet": "MAIN",
+                            "timestamps": {
+                                "createdAt": "2017-11-17T14:27:00+00:00",
+                                "updatedAt": "2018-03-06T11:08:52+00:00"
+                            },
+                            "currency": "CNY",
+                            "id": "5fe75a80-cba3-11e7-a868-4724fe68cc3e",
+                            "account": {
+                                "number": "1234567890123",
+                                "name": "abc",
+                                "branch": "abcdefg"
+                            },
+                            "status": "reviewing"
+                        }
+                    }
+                ],
+                "id": "5fe75a80-cba3-11e7-a868-4724fe68cc3e",
+                "account": {
+                    "number": "1234567890123",
+                    "name": "abc",
+                    "branch": "abcdefg"
+                },
+                "status": "reviewing"
+            },
+            {
+                "amount": 100,
+                "bank": "ICBC",
+                "wallet": "MAIN",
+                "timestamps": {
+                    "createdAt": "2017-10-30T00:12:25+00:00",
+                    "updatedAt": "2017-10-30T00:12:25+00:00"
+                },
+                "currency": "CNY",
+                "details": [],
+                "id": "01e99dc0-bd07-11e7-8286-2dddf98d0b13",
+                "account": {
+                    "number": "123151311",
+                    "name": "马哈马的·买买提",
+                    "branch": "ssd!@$$#%"
+                },
+                "status": "declined"
+            }
+        ],
+        "meta": {
+            "path": "/rest/withdraws",
+            "per_page": "25",
+            "total": 2,
+            "last_page": 1,
+            "from": 1,
+            "to": 2,
+            "current_page": 1
+        },
+        "links": {
+            "last": "/rest/withdraws?pageSize=25&page=1",
+            "first": "/rest/withdraws?pageSize=25&page=1"
+        }
     }
 }

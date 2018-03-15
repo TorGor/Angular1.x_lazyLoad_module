@@ -1,0 +1,90 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": [
+        {
+            "timestamps": {
+                "createdAt": "2018-03-11T06:38:40+00:00",
+                "updatedAt": "2018-03-11T06:38:40+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Relaxation"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "休闲"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "休閒"
+                }
+            ],
+            "id": "d5dcb760-24f6-11e8-a8d9-bf24e1946c28"
+        },
+        {
+            "timestamps": {
+                "createdAt": "2017-10-08T18:38:47+00:00",
+                "updatedAt": "2017-10-08T18:38:47+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Myth & Fairy"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "神话精灵"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "神話精靈"
+                }
+            ],
+            "id": "eb70b5a0-ac57-11e7-9213-09e13e7a6677"
+        },
+        {
+            "timestamps": {
+                "createdAt": "2018-03-11T06:39:24+00:00",
+                "updatedAt": "2018-03-11T06:39:24+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Treasure"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "疯狂财富"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "瘋狂財富"
+                }
+            ],
+            "id": "f071b970-24f6-11e8-8216-690c6b7dcfcc"
+        },
+        {
+            "timestamps": {
+                "createdAt": "2018-03-11T06:32:33+00:00",
+                "updatedAt": "2018-03-11T06:32:33+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Sports"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "运动达人"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "運動達人"
+                }
+            ],
+            "id": "fb812f30-24f5-11e8-ad33-c38498208bf7"
+        }
+    ]
+}

@@ -1,0 +1,267 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "stat": "ok",
+        "data": [
+            {
+                "product": "SLOTS",
+                "period": {
+                    "from": "2018-03-13T14:20:25+00:00"
+                },
+                "code": "TEST100000",
+                "wallet": "FS",
+                "needAudit": true,
+                "timestamps": {
+                    "createdAt": "2018-03-13T14:20:25+00:00",
+                    "updatedAt": "2018-03-13T14:28:22+00:00"
+                },
+                "type": "deposit",
+                "treatments": [
+                    {
+                        "max": 2,
+                        "id": 12,
+                        "type": "times",
+                        "value": 1
+                    },
+                    {
+                        "max": 2,
+                        "id": 13,
+                        "type": "times",
+                        "value": 12
+                    }
+                ],
+                "multipleUse": true,
+                "ranks": [
+                    "AMBER",
+                    "SAPPHIRE"
+                ],
+                "isDeleted": false,
+                "needCertification": true,
+                "name": "test Coupon 10001111",
+                "currency": "CNY",
+                "conditions": [
+                    {
+                        "id": 26,
+                        "type": "principal",
+                        "value": {
+                            "type": "amount",
+                            "value": 0.02
+                        }
+                    },
+                    {
+                        "id": 27,
+                        "type": "principal",
+                        "value": {
+                            "type": "amount",
+                            "value": 0.03
+                        }
+                    }
+                ],
+                "brand": "PT"
+            },
+            {
+                "product": "SLOTS",
+                "period": {
+                    "from": "2017-09-21T00:00:00+00:00"
+                },
+                "code": "TEST1505998553",
+                "wallet": "PT",
+                "needAudit": false,
+                "timestamps": {
+                    "createdAt": "2017-09-21T12:56:23+00:00",
+                    "updatedAt": "2017-09-21T12:56:23+00:00"
+                },
+                "type": "deposit",
+                "treatments": [
+                    {
+                        "max": 128,
+                        "id": 9,
+                        "type": "amount",
+                        "value": 128
+                    }
+                ],
+                "multipleUse": true,
+                "isDeleted": false,
+                "needCertification": true,
+                "name": "test Coupon 1",
+                "currency": "CNY",
+                "conditions": [
+                    {
+                        "id": 20,
+                        "type": "principal",
+                        "value": {
+                            "type": "amount",
+                            "value": 1000
+                        }
+                    },
+                    {
+                        "id": 21,
+                        "type": "bets",
+                        "value": {
+                            "type": "times",
+                            "value": 20
+                        }
+                    }
+                ],
+                "brand": "PT"
+            },
+            {
+                "product": "SLOTS",
+                "period": {
+                    "from": "2017-09-21T00:00:00+00:00"
+                },
+                "code": "TEST1505998583",
+                "wallet": "FS",
+                "needAudit": false,
+                "timestamps": {
+                    "createdAt": "2017-09-21T12:56:23+00:00",
+                    "updatedAt": "2017-09-21T12:56:23+00:00"
+                },
+                "type": "deposit",
+                "treatments": [
+                    {
+                        "max": 128,
+                        "id": 1,
+                        "type": "amount",
+                        "value": 128
+                    }
+                ],
+                "multipleUse": true,
+                "isDeleted": false,
+                "needCertification": true,
+                "name": "test Coupon 3",
+                "currency": "CNY",
+                "conditions": [
+                    {
+                        "id": 1,
+                        "type": "principal",
+                        "value": {
+                            "type": "amount",
+                            "value": 0.01
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "type": "bets",
+                        "value": {
+                            "type": "times",
+                            "value": 20
+                        }
+                    }
+                ],
+                "brand": "PNG"
+            },
+            {
+                "product": "SLOTS",
+                "period": {
+                    "from": "2017-10-17T00:00:00+00:00",
+                    "to": "2018-04-01T00:00:00+00:00"
+                },
+                "code": "TESTC2",
+                "wallet": "FS",
+                "needAudit": false,
+                "timestamps": {
+                    "createdAt": "2017-10-17T09:44:43+00:00",
+                    "updatedAt": "2017-10-17T10:17:50+00:00"
+                },
+                "type": "deposit",
+                "treatments": [
+                    {
+                        "max": 128,
+                        "id": 8,
+                        "type": "times",
+                        "value": 100
+                    }
+                ],
+                "multipleUse": true,
+                "isDeleted": false,
+                "needCertification": true,
+                "name": "Test Coupon 2",
+                "currency": "CNY",
+                "conditions": [
+                    {
+                        "id": 17,
+                        "type": "principal",
+                        "value": {
+                            "type": "amount",
+                            "value": 1000
+                        }
+                    },
+                    {
+                        "id": 18,
+                        "type": "bets",
+                        "value": {
+                            "type": "times",
+                            "value": 20
+                        }
+                    }
+                ],
+                "brand": "MG"
+            },
+            {
+                "product": "SLOTS",
+                "period": {
+                    "from": "2018-03-13T06:05:23+00:00"
+                },
+                "code": "TESTC3",
+                "wallet": "FS",
+                "needAudit": true,
+                "timestamps": {
+                    "createdAt": "2018-03-13T06:05:23+00:00",
+                    "updatedAt": "2018-03-13T07:11:26+00:00"
+                },
+                "type": "all",
+                "treatments": [
+                    {
+                        "max": 168,
+                        "id": 11,
+                        "type": "times",
+                        "value": 100
+                    }
+                ],
+                "multipleUse": false,
+                "ranks": [
+                    "AMBER",
+                    "SAPPHIRE"
+                ],
+                "isDeleted": false,
+                "needCertification": true,
+                "name": "测试优惠券",
+                "currency": "CNY",
+                "conditions": [
+                    {
+                        "id": 24,
+                        "type": "principal",
+                        "value": {
+                            "type": "amount",
+                            "value": 100
+                        }
+                    },
+                    {
+                        "id": 25,
+                        "type": "bets",
+                        "value": {
+                            "type": "times",
+                            "value": 19
+                        }
+                    }
+                ],
+                "brand": "TTG"
+            }
+        ],
+        "meta": {
+            "path": "/rest/coupons",
+            "per_page": "25",
+            "total": 5,
+            "last_page": 1,
+            "from": 1,
+            "to": 5,
+            "current_page": 1
+        },
+        "links": {
+            "last": "/rest/coupons?pageSize=25&page=1",
+            "first": "/rest/coupons?pageSize=25&page=1"
+        }
+    }
+}

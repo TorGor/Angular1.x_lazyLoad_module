@@ -1,0 +1,751 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": [
+        {
+            "code": "AG",
+            "wallet": "AG",
+            "timestamps": {
+                "createdAt": "2017-08-26T09:11:58+00:00",
+                "updatedAt": "2017-08-26T09:11:58+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "AsiaGaming"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "AG"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "AG"
+                }
+            ],
+            "languageMap": [
+                {
+                    "brand": "en_GB",
+                    "local": "en-GB"
+                },
+                {
+                    "brand": "ja_JP",
+                    "local": "ja-JP"
+                },
+                {
+                    "brand": "ko_KR",
+                    "local": "ko-KR"
+                },
+                {
+                    "brand": "th_TH",
+                    "local": "th-TH"
+                },
+                {
+                    "brand": "vi_VN",
+                    "local": "vi-VN"
+                },
+                {
+                    "brand": "zh_CN",
+                    "local": "zh-CN"
+                },
+                {
+                    "brand": "zh_TW",
+                    "local": "zh-TW"
+                }
+            ],
+            "jackpotUrl": null,
+            "status": "OPEN",
+            "currencies": [
+                "BIC",
+                "CNY",
+                "EUR",
+                "IDR",
+                "INR",
+                "JPY",
+                "KRW",
+                "MYR",
+                "THB",
+                "USD",
+                "VND"
+            ],
+            "products": [
+                {
+                    "urls": {
+                        "osx": null,
+                        "android": null,
+                        "windows": null,
+                        "ios": null
+                    },
+                    "code": "LIVE",
+                    "name": [
+                        {
+                            "locale": "en-GB",
+                            "value": "Live"
+                        },
+                        {
+                            "locale": "zh-CN",
+                            "value": "真人荷官"
+                        },
+                        {
+                            "locale": "zh-TW",
+                            "value": "真人視訊"
+                        }
+                    ],
+                    "disabled": false
+                },
+                {
+                    "urls": {
+                        "osx": null,
+                        "android": null,
+                        "windows": null,
+                        "ios": null
+                    },
+                    "code": "SLOTS",
+                    "name": [
+                        {
+                            "locale": "en-GB",
+                            "value": "Slots"
+                        },
+                        {
+                            "locale": "zh-CN",
+                            "value": "老虎机"
+                        },
+                        {
+                            "locale": "zh-TW",
+                            "value": "老虎機"
+                        }
+                    ],
+                    "disabled": false
+                }
+            ]
+        },
+        {
+            "code": "BBIN",
+            "wallet": "BBIN",
+            "timestamps": {
+                "createdAt": "2017-08-30T09:41:11+00:00",
+                "updatedAt": "2017-08-30T09:41:11+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "BBIN"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "BBIN"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "BBIN"
+                }
+            ],
+            "languageMap": [
+                {
+                    "brand": "en-us",
+                    "local": "en-GB"
+                },
+                {
+                    "brand": "es",
+                    "local": "es-ES"
+                },
+                {
+                    "brand": "es",
+                    "local": "es-PE"
+                },
+                {
+                    "brand": "euc-jp",
+                    "local": "ja-JP"
+                },
+                {
+                    "brand": "ko",
+                    "local": "ko-KR"
+                },
+                {
+                    "brand": "th",
+                    "local": "th-TH"
+                },
+                {
+                    "brand": "vi",
+                    "local": "vi-VN"
+                },
+                {
+                    "brand": "zh-cn",
+                    "local": "zh-CN"
+                },
+                {
+                    "brand": "zh-tw",
+                    "local": "zh-TW"
+                }
+            ],
+            "jackpotUrl": null,
+            "status": "OPEN",
+            "currencies": [
+                "CNY"
+            ],
+            "products": [
+                {
+                    "urls": {
+                        "osx": null,
+                        "android": null,
+                        "windows": null,
+                        "ios": null
+                    },
+                    "code": "LIVE",
+                    "name": [
+                        {
+                            "locale": "en-GB",
+                            "value": "Live"
+                        },
+                        {
+                            "locale": "zh-CN",
+                            "value": "真人荷官"
+                        },
+                        {
+                            "locale": "zh-TW",
+                            "value": "真人視訊"
+                        }
+                    ],
+                    "disabled": false
+                },
+                {
+                    "urls": {
+                        "osx": null,
+                        "android": null,
+                        "windows": null,
+                        "ios": null
+                    },
+                    "code": "SLOTS",
+                    "name": [
+                        {
+                            "locale": "en-GB",
+                            "value": "Slots"
+                        },
+                        {
+                            "locale": "zh-CN",
+                            "value": "老虎机"
+                        },
+                        {
+                            "locale": "zh-TW",
+                            "value": "老虎機"
+                        }
+                    ],
+                    "disabled": false
+                }
+            ]
+        },
+        {
+            "code": "DD",
+            "wallet": "DD",
+            "timestamps": {
+                "createdAt": "2018-03-13T11:34:34+00:00",
+                "updatedAt": "2018-03-13T11:34:34+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "DDDDDDDDD1"
+                }
+            ],
+            "languageMap": [
+                {
+                    "brand": "en1",
+                    "local": "en-GB"
+                }
+            ],
+            "jackpotUrl": null,
+            "status": "OPEN",
+            "currencies": [
+                "BIC",
+                "CNY",
+                "EUR"
+            ],
+            "products": [
+                {
+                    "urls": {
+                        "osx": "https://download.osx.com/adf1.pkg",
+                        "android": "https://download.osx.com/adf4.pkg",
+                        "windows": "https://download.osx.com/adf2.pkg",
+                        "ios": "https://download.osx.com/adf3.pkg"
+                    },
+                    "code": "SLOTS",
+                    "name": [
+                        {
+                            "locale": "en-GB",
+                            "value": "Slots"
+                        },
+                        {
+                            "locale": "zh-CN",
+                            "value": "老虎机"
+                        },
+                        {
+                            "locale": "zh-TW",
+                            "value": "老虎機"
+                        }
+                    ],
+                    "disabled": false
+                }
+            ]
+        },
+        {
+            "code": "HABA",
+            "wallet": "FS",
+            "timestamps": {
+                "createdAt": "2017-09-13T22:17:42+00:00",
+                "updatedAt": "2017-09-13T22:17:42+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Habanero"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "哈巴"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "哈巴"
+                }
+            ],
+            "languageMap": [
+                {
+                    "brand": "en_GB",
+                    "local": "en-GB"
+                },
+                {
+                    "brand": "ja_JP",
+                    "local": "ja-JP"
+                },
+                {
+                    "brand": "ko_KR",
+                    "local": "ko-KR"
+                },
+                {
+                    "brand": "th_TH",
+                    "local": "th-TH"
+                },
+                {
+                    "brand": "vi_VN",
+                    "local": "vi-VN"
+                },
+                {
+                    "brand": "zh_CN",
+                    "local": "zh-CN"
+                },
+                {
+                    "brand": "zh_TW",
+                    "local": "zh-TW"
+                }
+            ],
+            "jackpotUrl": null,
+            "status": "OPEN",
+            "currencies": [],
+            "products": [
+                {
+                    "urls": {
+                        "osx": null,
+                        "android": null,
+                        "windows": null,
+                        "ios": null
+                    },
+                    "code": "SLOTS",
+                    "name": [
+                        {
+                            "locale": "en-GB",
+                            "value": "Slots"
+                        },
+                        {
+                            "locale": "zh-CN",
+                            "value": "老虎机"
+                        },
+                        {
+                            "locale": "zh-TW",
+                            "value": "老虎機"
+                        }
+                    ],
+                    "disabled": false
+                }
+            ]
+        },
+        {
+            "code": "MG",
+            "wallet": "FS",
+            "timestamps": {
+                "createdAt": "2017-08-26T09:11:58+00:00",
+                "updatedAt": "2017-08-26T09:11:58+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "MicroGaming"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "MG"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "MG"
+                }
+            ],
+            "languageMap": [
+                {
+                    "brand": "en_GB",
+                    "local": "en-GB"
+                },
+                {
+                    "brand": "in_ID",
+                    "local": "in-ID"
+                },
+                {
+                    "brand": "ja_JP",
+                    "local": "ja-JP"
+                },
+                {
+                    "brand": "ko_KR",
+                    "local": "ko-KR"
+                },
+                {
+                    "brand": "th_TH",
+                    "local": "th-TH"
+                },
+                {
+                    "brand": "vi_VN",
+                    "local": "vi-VN"
+                },
+                {
+                    "brand": "zh_CN",
+                    "local": "zh-CN"
+                },
+                {
+                    "brand": "zh_TW",
+                    "local": "zh-TW"
+                }
+            ],
+            "jackpotUrl": null,
+            "status": "OPEN",
+            "currencies": [
+                "CNY",
+                "IDR",
+                "INR",
+                "JPY",
+                "KRW",
+                "MYR",
+                "THB",
+                "VND"
+            ],
+            "products": [
+                {
+                    "urls": {
+                        "osx": null,
+                        "android": null,
+                        "windows": null,
+                        "ios": null
+                    },
+                    "code": "LIVE",
+                    "name": [
+                        {
+                            "locale": "en-GB",
+                            "value": "Live"
+                        },
+                        {
+                            "locale": "zh-CN",
+                            "value": "真人荷官"
+                        },
+                        {
+                            "locale": "zh-TW",
+                            "value": "真人視訊"
+                        }
+                    ],
+                    "disabled": false
+                },
+                {
+                    "urls": {
+                        "osx": null,
+                        "android": null,
+                        "windows": null,
+                        "ios": null
+                    },
+                    "code": "SLOTS",
+                    "name": [
+                        {
+                            "locale": "en-GB",
+                            "value": "Slots"
+                        },
+                        {
+                            "locale": "zh-CN",
+                            "value": "老虎机"
+                        },
+                        {
+                            "locale": "zh-TW",
+                            "value": "老虎機"
+                        }
+                    ],
+                    "disabled": false
+                }
+            ]
+        },
+        {
+            "code": "PNG",
+            "wallet": "FS",
+            "timestamps": {
+                "createdAt": "2017-08-26T09:11:58+00:00",
+                "updatedAt": "2017-08-26T09:11:58+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Playn'Go"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "PNG"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "PNG"
+                }
+            ],
+            "languageMap": [
+                {
+                    "brand": "en_GB",
+                    "local": "en-GB"
+                },
+                {
+                    "brand": "ja_JP",
+                    "local": "ja-JP"
+                },
+                {
+                    "brand": "ko_KR",
+                    "local": "ko-KR"
+                },
+                {
+                    "brand": "th_TH",
+                    "local": "th-TH"
+                },
+                {
+                    "brand": "vi_VN",
+                    "local": "vi-VN"
+                },
+                {
+                    "brand": "zh_CN",
+                    "local": "zh-CN"
+                },
+                {
+                    "brand": "zh_TW",
+                    "local": "zh-TW"
+                }
+            ],
+            "jackpotUrl": null,
+            "status": "OPEN",
+            "currencies": [
+                "CNY",
+                "EUR",
+                "IDR",
+                "INR",
+                "JPY",
+                "KRW",
+                "MYR",
+                "THB",
+                "USD",
+                "VND"
+            ],
+            "products": [
+                {
+                    "urls": {
+                        "osx": null,
+                        "android": null,
+                        "windows": null,
+                        "ios": null
+                    },
+                    "code": "SLOTS",
+                    "name": [
+                        {
+                            "locale": "en-GB",
+                            "value": "Slots"
+                        },
+                        {
+                            "locale": "zh-CN",
+                            "value": "老虎机"
+                        },
+                        {
+                            "locale": "zh-TW",
+                            "value": "老虎機"
+                        }
+                    ],
+                    "disabled": false
+                }
+            ]
+        },
+        {
+            "code": "PT",
+            "wallet": "PT",
+            "timestamps": {
+                "createdAt": "2017-08-26T09:11:58+00:00",
+                "updatedAt": "2017-08-26T09:11:58+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Playtech"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "PT"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "PT"
+                }
+            ],
+            "languageMap": [
+                {
+                    "brand": "EN",
+                    "local": "en-GB"
+                },
+                {
+                    "brand": "KO",
+                    "local": "ko-KR"
+                },
+                {
+                    "brand": "TH",
+                    "local": "th-TH"
+                },
+                {
+                    "brand": "ZH-CN",
+                    "local": "zh-CN"
+                },
+                {
+                    "brand": "CH",
+                    "local": "zh-TW"
+                }
+            ],
+            "jackpotUrl": null,
+            "status": "OPEN",
+            "currencies": [
+                "CNY",
+                "IDR",
+                "JPY",
+                "KRW",
+                "THB",
+                "VND"
+            ],
+            "products": [
+                {
+                    "urls": {
+                        "osx": null,
+                        "android": "https://cdn.sc172.com/download/pt_live.apk",
+                        "windows": "https://cdn.sc172.com/download/pt-download.exe",
+                        "ios": "https://app.geemade.com"
+                    },
+                    "code": "LIVE",
+                    "name": [
+                        {
+                            "locale": "en-GB",
+                            "value": "Live"
+                        },
+                        {
+                            "locale": "zh-CN",
+                            "value": "真人荷官"
+                        },
+                        {
+                            "locale": "zh-TW",
+                            "value": "真人視訊"
+                        }
+                    ],
+                    "disabled": false
+                },
+                {
+                    "urls": {
+                        "osx": null,
+                        "android": "https://cdn.sc172.com/download/pt_slots.apk",
+                        "windows": "https://cdn.sc172.com/download/pt-download.exe",
+                        "ios": "https://app.geemade.com"
+                    },
+                    "code": "SLOTS",
+                    "name": [
+                        {
+                            "locale": "en-GB",
+                            "value": "Slots"
+                        },
+                        {
+                            "locale": "zh-CN",
+                            "value": "老虎机"
+                        },
+                        {
+                            "locale": "zh-TW",
+                            "value": "老虎機"
+                        }
+                    ],
+                    "disabled": false
+                }
+            ]
+        },
+        {
+            "code": "TTG",
+            "wallet": "FS",
+            "timestamps": {
+                "createdAt": "2017-10-08T17:35:11+00:00",
+                "updatedAt": "2017-10-08T17:35:11+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Top Trend Gaming"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "TTG"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "TTG"
+                }
+            ],
+            "languageMap": [
+                {
+                    "brand": "en",
+                    "local": "en-GB"
+                },
+                {
+                    "brand": "ZH-CN",
+                    "local": "zh-CN"
+                }
+            ],
+            "jackpotUrl": null,
+            "status": "OPEN",
+            "currencies": [
+                "CNY",
+                "USD",
+                "VND"
+            ],
+            "products": [
+                {
+                    "urls": {
+                        "osx": null,
+                        "android": null,
+                        "windows": "https://cdn.sc172.com/download/ttg.exe",
+                        "ios": null
+                    },
+                    "code": "SLOTS",
+                    "name": [
+                        {
+                            "locale": "en-GB",
+                            "value": "Slots"
+                        },
+                        {
+                            "locale": "zh-CN",
+                            "value": "老虎机"
+                        },
+                        {
+                            "locale": "zh-TW",
+                            "value": "老虎機"
+                        }
+                    ],
+                    "disabled": false
+                }
+            ]
+        }
+    ]
+}

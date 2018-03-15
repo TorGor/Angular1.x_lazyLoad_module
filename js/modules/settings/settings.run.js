@@ -33,10 +33,12 @@
         };
 
         $rootScope.userLogout = function () {
-            userSelfService.getUserLogout.$promise.then(function (data) {
+            console.log(userSelfService.getUserLogout)
+            userSelfService.getUserLogout({},{}).$promise.then(function (data) {
+                window.location.href = '/login.html'
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
-                        window.location.href = '/login.html'
+
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
                     }

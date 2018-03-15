@@ -1,0 +1,202 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "stat": "ok",
+        "data": [
+            {
+                "principal": 1,
+                "product": "SLOTS",
+                "wallet": "FS",
+                "coupon": "TEST1505998583",
+                "bonus": 128,
+                "timestamps": {
+                    "createdAt": "2018-02-18T11:22:31+00:00",
+                    "updatedAt": "2018-02-18T11:22:31+00:00"
+                },
+                "id": "0278c5c0-149e-11e8-9499-b75a3b18a3cc",
+                "bets": 2580,
+                "brand": "PNG",
+                "status": "processing"
+            },
+            {
+                "principal": 1010,
+                "product": "SLOTS",
+                "wallet": "FS",
+                "coupon": "TEST1505998583",
+                "bonus": 128,
+                "timestamps": {
+                    "createdAt": "2018-02-18T10:18:16+00:00",
+                    "updatedAt": "2018-02-18T10:18:16+00:00"
+                },
+                "id": "088ecdd0-1495-11e8-a4cd-1b299dafcaa8",
+                "bets": 22760,
+                "brand": "PNG",
+                "status": "processing"
+            },
+            {
+                "principal": 1,
+                "product": "SLOTS",
+                "wallet": "FS",
+                "coupon": "TEST1505998583",
+                "bonus": 128,
+                "timestamps": {
+                    "createdAt": "2018-02-18T11:30:14+00:00",
+                    "updatedAt": "2018-02-18T11:30:14+00:00"
+                },
+                "id": "166beb30-149f-11e8-a753-898909a79b7a",
+                "bets": 2580,
+                "brand": "PNG",
+                "status": "processing"
+            },
+            {
+                "principal": 1,
+                "product": "SLOTS",
+                "wallet": "FS",
+                "coupon": "TEST1505998583",
+                "bonus": 128,
+                "timestamps": {
+                    "createdAt": "2018-02-18T11:39:20+00:00",
+                    "updatedAt": "2018-02-18T11:39:25+00:00"
+                },
+                "id": "5c1b5630-14a0-11e8-b5e2-e142e3edf217",
+                "bets": 2580,
+                "brand": "PNG",
+                "status": "revoked"
+            },
+            {
+                "principal": 0.01,
+                "product": "SLOTS",
+                "wallet": "FS",
+                "coupon": "TEST1505998583",
+                "bonus": 128,
+                "timestamps": {
+                    "createdAt": "2018-02-19T21:54:11+00:00",
+                    "updatedAt": "2018-02-19T21:54:14+00:00"
+                },
+                "id": "6adf75d0-15bf-11e8-a3d6-7175fcd42826",
+                "bets": 2560.2,
+                "brand": "PNG",
+                "status": "succeed"
+            },
+            {
+                "principal": 1010,
+                "product": "SLOTS",
+                "wallet": "FS",
+                "coupon": "TEST1505998583",
+                "bonus": 128,
+                "timestamps": {
+                    "createdAt": "2018-03-03T11:10:27+00:00",
+                    "updatedAt": "2018-03-03T11:10:27+00:00"
+                },
+                "id": "7a654100-1ed3-11e8-b6b2-29d3ff84ce4c",
+                "bets": 22760,
+                "brand": "PNG",
+                "status": "processing"
+            },
+            {
+                "principal": 0.01,
+                "product": "SLOTS",
+                "wallet": "FS",
+                "coupon": "TEST1505998583",
+                "bonus": 128,
+                "timestamps": {
+                    "createdAt": "2018-02-19T19:24:22+00:00",
+                    "updatedAt": "2018-02-19T19:24:25+00:00"
+                },
+                "id": "7d42ab50-15aa-11e8-b789-7f9f19b080f6",
+                "bets": 2560.2,
+                "brand": "PNG",
+                "status": "succeed"
+            },
+            {
+                "principal": 1000,
+                "product": "SLOTS",
+                "wallet": "FS",
+                "coupon": "TEST1505998583",
+                "bonus": 128,
+                "timestamps": {
+                    "createdAt": "2017-10-17T11:38:09+00:00",
+                    "updatedAt": "2017-10-17T11:38:09+00:00"
+                },
+                "id": "a6493a60-b32f-11e7-8918-2da23614dd75",
+                "bets": 22560,
+                "brand": "PNG",
+                "status": "succeed"
+            },
+            {
+                "principal": 0.01,
+                "product": "SLOTS",
+                "wallet": "FS",
+                "coupon": "TEST1505998583",
+                "bonus": 128,
+                "timestamps": {
+                    "createdAt": "2018-02-22T01:07:18+00:00",
+                    "updatedAt": "2018-02-22T01:07:23+00:00"
+                },
+                "id": "ba273a00-176c-11e8-8516-3bc2a9e6717c",
+                "bets": 2560.2,
+                "brand": "PNG",
+                "status": "succeed"
+            },
+            {
+                "principal": 1,
+                "product": "SLOTS",
+                "wallet": "FS",
+                "coupon": "TEST1505998583",
+                "bonus": 128,
+                "timestamps": {
+                    "createdAt": "2018-02-18T11:28:06+00:00",
+                    "updatedAt": "2018-02-18T11:28:06+00:00"
+                },
+                "id": "ca7a1320-149e-11e8-a5bc-11cea2d7a2d8",
+                "bets": 2580,
+                "brand": "PNG",
+                "status": "processing"
+            },
+            {
+                "principal": 1,
+                "product": "SLOTS",
+                "wallet": "FS",
+                "coupon": "TEST1505998583",
+                "bonus": 128,
+                "timestamps": {
+                    "createdAt": "2018-02-18T11:21:29+00:00",
+                    "updatedAt": "2018-02-18T11:21:29+00:00"
+                },
+                "id": "dd806f60-149d-11e8-b46d-dd2bd65201b4",
+                "bets": 2580,
+                "brand": "PNG",
+                "status": "processing"
+            },
+            {
+                "principal": 1,
+                "product": "SLOTS",
+                "wallet": "FS",
+                "coupon": "TESTC2",
+                "bonus": 128,
+                "timestamps": {
+                    "createdAt": "2018-02-18T11:21:29+00:00",
+                    "updatedAt": "2018-03-13T08:26:26+00:00"
+                },
+                "id": "dd806f60-149d-11e8-b46d-dd2bd65201b5",
+                "bets": 2580,
+                "brand": "MG",
+                "status": "revoked"
+            }
+        ],
+        "meta": {
+            "path": "/rest/applies",
+            "per_page": "25",
+            "total": 12,
+            "last_page": 1,
+            "from": 1,
+            "to": 12,
+            "current_page": 1
+        },
+        "links": {
+            "last": "/rest/applies?pageSize=25&page=1",
+            "first": "/rest/applies?pageSize=25&page=1"
+        }
+    }
+}

@@ -6,12 +6,14 @@
 
     OrdersManageController.$inject = [
         '$scope',
+        '$uibModal',
         '$rootScope',
         'adminService'
     ];
 
     function OrdersManageController(
         $scope,
+        $uibModal,
         $rootScope,
         adminService
     ) {
@@ -88,8 +90,22 @@
 
         // 添加按钮
         $scope.addOrdersManage = function () {
-            $scope.ordersManageAoData = {};
-            $scope.ordersManageSearch = '';
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/userLevel/'+templateName+'.html',
+                controller: '',
+                size: 'md',
+                scope:$scope,
+                resolve: {
+                    item: item
+                }
+            });
+            modalInstance.result.then(function(data) {
+                $scope.initOrdersManageData()
+            }, function(data) {
+            });
             $scope.ordersManage.unshift({
                 "id":true,
                 order_no: '',

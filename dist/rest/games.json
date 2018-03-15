@@ -1,0 +1,1202 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "stat": "ok",
+        "data": [
+            {
+                "image": "aa",
+                "isRecommend": true,
+                "codes": {
+                    "html5": "AA",
+                    "android": "AA",
+                    "ios": "AA",
+                    "windows": "AA",
+                    "flash": "AA"
+                },
+                "bigwinable": true,
+                "timestamps": {
+                    "createdAt": "2018-03-13T12:44:46+00:00",
+                    "updatedAt": "2018-03-13T12:51:28+00:00"
+                },
+                "worksOn": {
+                    "androidApp": true,
+                    "pcBrowser": true,
+                    "iosApp": true,
+                    "windowsDownload": true,
+                    "mobileBrowser": true
+                },
+                "isNew": true,
+                "demo": {
+                    "html5": true,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": true,
+                "productCode": "SLOTS",
+                "ftpCode": "AA",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "TEST03"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "test1"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "test1"
+                    }
+                ],
+                "disabled": false,
+                "id": "4f92d8d0-26bc-11e8-b890-7d8e0d274b9f",
+                "lines": 0,
+                "hasJackpot": true,
+                "brandCode": "AG"
+            },
+            {
+                "image": "",
+                "isRecommend": true,
+                "codes": {
+                    "flash": "21|391|GenericSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "CashGrab",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Cash Grab"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "快抓钱"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "快抓钱"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7c156d0-b96e-11e7-9a75-3312a30ee230",
+                "lines": 3,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": true,
+                "codes": {
+                    "flash": "0|401|GoooalSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "GoooalSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Goooal Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "足球赛事"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "足球赛事"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7c2c5a0-b96e-11e7-8007-79fc7e29b421",
+                "lines": 3,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": true,
+                "codes": {
+                    "flash": "0|411|FruitParty"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "FruitParty",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Fruit Party"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "水果会"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "水果会"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7c425a0-b96e-11e7-8dec-196f001a39df",
+                "lines": 9,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": true,
+                "codes": {
+                    "flash": "0|413|JackpotHolidaySlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "JackpotHolidaySlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Jackpot Holiday Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "头彩假日"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "头彩假日"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7c591f0-b96e-11e7-be10-db5f8a7e7560",
+                "lines": 10,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": true,
+                "codes": {
+                    "flash": "0|414|AmazonAdventureSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "AmazonAdventureSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Amazon Adventure Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "亚马逊奇遇记"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "亚马逊奇遇记"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7c6f6e0-b96e-11e7-95ae-41a244b4ecfa",
+                "lines": 10,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|416|NeptunesGoldSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "NeptunesGoldSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Neptunes Gold Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "海王星的金"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "海王星的金"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7c866f0-b96e-11e7-b177-032e27552872",
+                "lines": 20,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|421|MonkeyLoveSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "MonkeyLoveSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Monkey Love Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "猴恋"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "猴恋"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7c9d8e0-b96e-11e7-9e68-27ff0d3c97d5",
+                "lines": 20,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|423|Dragon8sSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "Dragon8sSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Dragon8s Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "龙8"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "龙8"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7cb5160-b96e-11e7-917d-e9a199a1f24f",
+                "lines": 20,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|424|PolarRichesSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "PolarRichesSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Polar Riches Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "极地财宝"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "极地财宝"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7ccb280-b96e-11e7-bb52-618aa141b98e",
+                "lines": 20,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|428|WildMummySlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "WildMummySlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Wild Mummy Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "疯狂木乃伊"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "疯狂木乃伊"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7ce2d20-b96e-11e7-92f0-dbb0b869bf45",
+                "lines": 20,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|437|FanCashticSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "FanCashticSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Fan Cashtic Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "奇妙嬴现金"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "奇妙嬴现金"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7cf9dc0-b96e-11e7-9716-bda9cd077ef2",
+                "lines": 10,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|438|VivaVeneziaSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "VivaVeneziaSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Viva Venezia Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "威尼斯万岁"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "威尼斯万岁"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7d11de0-b96e-11e7-a93f-99e0fc14bb60",
+                "lines": 20,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|439|LadysCharmsSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "LadysCharmsSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Ladys Charms Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "淑女魅力"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "淑女魅力"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7d29670-b96e-11e7-aa13-c93736d9a85c",
+                "lines": 20,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|440|KatLeeSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "KatLeeSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Kat Lee Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "吉李：赏金猎人"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "吉李：赏金猎人"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7d42460-b96e-11e7-90cf-4bded4279cc7",
+                "lines": 30,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|444|BerryBlastSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "BerryBlastSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Berry Blast Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "浆果培击"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "浆果培击"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7d5ae30-b96e-11e7-819a-e9ffc8e7fbf0",
+                "lines": 30,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|446|FortuneTellerSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "FortuneTellerSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Fortune Teller Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "算命嬴大奖"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "算命嬴大奖"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7d716b0-b96e-11e7-802d-434e3a4d5678",
+                "lines": 15,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|447|TBSpinNWinSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "TBSpinNWinSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "TB SpinN Win Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "三重红利幸运大转盘"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "三重红利幸运大转盘"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7d88400-b96e-11e7-a6ea-9d8fbcd62f28",
+                "lines": 30,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|449|SurfsUpSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "SurfsUpSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Surfs Up Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "冲浪"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "冲浪"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7d9f3e0-b96e-11e7-b2d1-c7d321f328af",
+                "lines": 15,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|452|MagicalGroveSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "MagicalGroveSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Magical Grove Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "魔法森林"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "魔法森林"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7db4d90-b96e-11e7-ad30-095682ce8ac6",
+                "lines": 15,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|453|TheGreatCasiniSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "TheGreatCasiniSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "The Great Casini Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "大卡西尼"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "大卡西尼"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7dcb8b0-b96e-11e7-8403-d36c7fe1893c",
+                "lines": 15,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|462|ArthursQuestIISlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "ArthursQuestIISlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Arthurs  Quest II"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "亚瑟寻宝之旅 II"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "亚瑟寻宝之旅 II"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7e47230-b96e-11e7-800f-cd987d7b9fb9",
+                "lines": 9,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|468|VictoryRidgeSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "VictoryRidgeSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Victory Ridge Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "维多利山脊"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "维多利山脊"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7e5e020-b96e-11e7-b1c5-451c27c12ee4",
+                "lines": 20,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|473|BarsAndBellsSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "BarsAndBellsSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Bars  And  Bells  Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "酒吧门铃"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "酒吧门铃"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7e73940-b96e-11e7-a1e2-23f9ba627f98",
+                "lines": 20,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            },
+            {
+                "image": "",
+                "isRecommend": false,
+                "codes": {
+                    "flash": "0|474|SinfulSpinsSlots"
+                },
+                "bigwinable": false,
+                "timestamps": {
+                    "createdAt": "2017-10-25T10:24:17+00:00",
+                    "updatedAt": "2017-10-25T10:24:17+00:00"
+                },
+                "worksOn": {
+                    "androidApp": false,
+                    "pcBrowser": true,
+                    "iosApp": false,
+                    "windowsDownload": false,
+                    "mobileBrowser": false
+                },
+                "isNew": false,
+                "demo": {
+                    "html5": false,
+                    "flash": true
+                },
+                "rebateable": true,
+                "isComingSoon": false,
+                "productCode": "SLOTS",
+                "ftpCode": "SinfulSpinsSlots",
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Sinful  Spins  Slots"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "万恶旋转"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "万恶旋转"
+                    }
+                ],
+                "disabled": false,
+                "id": "a7e8bb90-b96e-11e7-9413-6b19c24b912f",
+                "lines": 20,
+                "hasJackpot": false,
+                "brandCode": "TTG"
+            }
+        ],
+        "meta": {
+            "path": "/rest/games",
+            "per_page": "25",
+            "total": 1288,
+            "last_page": 52,
+            "from": 1,
+            "to": 25,
+            "current_page": 1
+        },
+        "links": {
+            "next": "/rest/games?pageSize=25&page=2",
+            "last": "/rest/games?pageSize=25&page=52",
+            "first": "/rest/games?pageSize=25&page=1"
+        }
+    }
+}
