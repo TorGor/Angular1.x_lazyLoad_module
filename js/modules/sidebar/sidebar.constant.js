@@ -106,7 +106,55 @@
                     "text": "支付渠道",
                     "sref": "admin.paymentMethods",
                     "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "优惠券使用",
+                    "sref": "admin.appliesUse",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "游戏品牌",
+                    "sref": "admin.gameBrands",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "游戏种类",
+                    "sref": "admin.gameCategories",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "优惠券管理",
+                    "sref": "admin.couponsManage",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "游戏管理",
+                    "sref": "admin.gamesManage",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "游戏产品",
+                    "sref": "admin.gamesProducts",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "psp管理",
+                    "sref": "admin.pspsManage",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "提款管理",
+                    "sref": "admin.withdrawsManage",
+                    "icon": "glyphicon glyphicon-th-large",
                 }//new sidebar name will be append here
+            
+            
+            
+            
+            
+            
+            
+            
             
             ]
 

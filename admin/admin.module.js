@@ -14,6 +14,14 @@
 			'admin.blackLists',
 			'admin.ordersManage',
 			'admin.paymentMethods',
+			'admin.appliesUse',
+			'admin.gameBrands',
+			'admin.gameCategories',
+			'admin.couponsManage',
+			'admin.gamesManage',
+			'admin.gamesProducts',
+			'admin.pspsManage',
+			'admin.withdrawsManage',
 			//new module name will be append here
 
         ]);

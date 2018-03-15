@@ -138,7 +138,79 @@
                 permission: 'paymentMethods'
             })
             
+            .state('admin.appliesUse', {
+                url: '/appliesUse/manage',
+                title: 'appliesUse Manage',
+                controller: 'AppliesUseController',
+                templateUrl: RouteHelpersProvider.basepath('admin/appliesUse/appliesUse.html'),
+                permission: 'appliesUse'
+            })
+            
+            .state('admin.gameBrands', {
+                url: '/gameBrands/manage',
+                title: 'gameBrands Manage',
+                controller: 'GameBrandsController',
+                templateUrl: RouteHelpersProvider.basepath('admin/gameBrands/gameBrands.html'),
+                permission: 'gameBrands'
+            })
+            
+            .state('admin.gameCategories', {
+                url: '/gameCategories/manage',
+                title: 'gameCategories Manage',
+                controller: 'GameCategoriesController',
+                templateUrl: RouteHelpersProvider.basepath('admin/gameCategories/gameCategories.html'),
+                permission: 'gameCategories'
+            })
+            
+            .state('admin.couponsManage', {
+                url: '/couponsManage/manage',
+                title: 'couponsManage Manage',
+                controller: 'CouponsManageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/couponsManage/couponsManage.html'),
+                permission: 'couponsManage'
+            })
+            
+            .state('admin.gamesManage', {
+                url: '/gamesManage/manage',
+                title: 'gamesManage Manage',
+                controller: 'GamesManageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/gamesManage/gamesManage.html'),
+                permission: 'gamesManage'
+            })
+            
+            .state('admin.gamesProducts', {
+                url: '/gamesProducts/manage',
+                title: 'gamesProducts Manage',
+                controller: 'GamesProductsController',
+                templateUrl: RouteHelpersProvider.basepath('admin/gamesProducts/gamesProducts.html'),
+                permission: 'gamesProducts'
+            })
+            
+            .state('admin.pspsManage', {
+                url: '/pspsManage/manage',
+                title: 'pspsManage Manage',
+                controller: 'PspsManageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/pspsManage/pspsManage.html'),
+                permission: 'pspsManage'
+            })
+            
+            .state('admin.withdrawsManage', {
+                url: '/withdrawsManage/manage',
+                title: 'withdrawsManage Manage',
+                controller: 'WithdrawsManageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/withdrawsManage/withdrawsManage.html'),
+                permission: 'withdrawsManage'
+            })
+            
             //new route name will be append here
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             

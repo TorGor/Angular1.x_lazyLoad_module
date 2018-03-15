@@ -72,6 +72,60 @@
                 DELETE:'/rest/methods',
                 PUT:'/rest/methods/restore'
             },
+            APPLIESUSE:{
+                GET:'/rest/applies',
+                POST:'/rest/applies/audit',
+                PATCH:'/rest/applies/revoke',
+                DELETE:'/rest/applies',
+                PUT:'/rest/applies/restore'
+            },
+            GAMEBRANDS:{
+                GET:'/rest/brands',
+                POST:'/rest/brands',
+                PATCH:'/rest/brands',
+                DELETE:'/rest/brands'
+            },
+            GAMECATEGORIES:{
+                GET:'/rest/categories',
+                POST:'/rest/categories',
+                PATCH:'/rest/categories',
+                DELETE:'/rest/categories'
+            },
+            COUPONSMANAGE:{
+                GET:'/rest/coupons',
+                POST:'/rest/coupons',
+                PATCH:'/rest/coupons',
+                PUT:'/rest/coupons',
+                DELETE:'/rest/coupons'
+            },
+            GAMESMANAGE:{
+                GET:'/rest/games',
+                POST:'/rest/games',
+                PATCH:'/rest/games',
+                PUT:'/rest/games',
+                DELETE:'/rest/games'
+            },
+            GAMESPRODUCTS:{
+                GET:'/rest/products',
+                POST:'/rest/products',
+                PATCH:'/rest/products',
+                PUT:'/rest/products',
+                DELETE:'/rest/products'
+            },
+            PSPSMANAGE:{
+                GET:'/rest/psps',
+                POST:'/rest/psps',
+                PATCH:'/rest/psps',
+                PUT:'/rest/psps',
+                DELETE:'/rest/psps'
+            },
+            WITHDRAWSMANAGE:{
+                GET:'/rest/withdraws',
+                POST:'/rest/withdraws',
+                PATCH:'/rest/withdraws',
+                PUT:'/rest/withdraws',
+                DELETE:'/rest/withdraws'
+            },
         };
 
         $rootScope.adminSelect012 = {

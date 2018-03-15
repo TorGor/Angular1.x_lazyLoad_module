@@ -3,12 +3,12 @@
  */
 var moduleSetting = {
     //模块主要名称
-    common: 'payment',
+    common: 'withdraws',
     //模块主要名称2
-    module: 'methods',
+    module: 'manage',
     //模块标题
-    title: '支付渠道',
+    title: '提款管理',
     // url地址
-    url: '/rest/methods',
+    url: '/rest/withdraws',
 };
 module.exports = moduleSetting;
