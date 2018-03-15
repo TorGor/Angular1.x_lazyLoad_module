@@ -94,23 +94,13 @@
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/userLevel/'+templateName+'.html',
-                controller: '',
+                templateUrl: '/views/admin/userLevel/.html',
+                controller: 'OrderAddModalController',
                 size: 'md',
-                scope:$scope,
-                resolve: {
-                    item: item
-                }
             });
             modalInstance.result.then(function(data) {
                 $scope.initOrdersManageData()
             }, function(data) {
-            });
-            $scope.ordersManage.unshift({
-                "id":true,
-                order_no: '',
-                trade_no: '',
-                amount: ''
             });
         };
 

@@ -29,13 +29,6 @@
 (function() {
 
     angular
-        .module('admin.blackLists', [
-            'app.core',
-        ]);
-})();
-(function() {
-
-    angular
         .module('admin.appliesUse', [
             'app.core',
         ]);
@@ -43,7 +36,7 @@
 (function() {
 
     angular
-        .module('admin.countriesManage', [
+        .module('admin.blackLists', [
             'app.core',
         ]);
 })();
@@ -51,6 +44,13 @@
 
     angular
         .module('admin.couponsManage', [
+            'app.core',
+        ]);
+})();
+(function() {
+
+    angular
+        .module('admin.countriesManage', [
             'app.core',
         ]);
 })();
@@ -449,6 +449,147 @@
 (function() {
 
     angular
+        .module('admin.appliesUse')
+        .controller('AppliesUseController', AppliesUseController);
+
+    AppliesUseController.$inject = [
+        '$scope',
+        '$rootScope',
+        'adminService'
+    ];
+
+    function AppliesUseController(
+        $scope,
+        $rootScope,
+        adminService
+    ) {
+
+        // 原始的数据
+        $scope.appliesUse = [];
+
+        // 过滤出来的数据
+        $scope.showAppliesUse = [];
+        $scope.appliesUseReload = 1;
+        $scope.appliesUseAoData = {};
+        $scope.appliesUseSearch = '';
+
+        // 初始化table数据
+        $scope.initAppliesUseData = function () {
+            $scope.appliesUse = [];
+            adminService.getReq($rootScope.URL.APPLIESUSE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.appliesUse = angular.copy(data.res.data);
+                        $scope.appliesUse.forEach(function (appliesUseItem, appliesUseIndex) {
+                            appliesUseItem.id = appliesUseIndex +1;
+                        });
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param appliesUse APPLIESUSETITLE数据对象
+         * @param item
+         */
+
+        $scope.saveAppliesUse = function (appliesUse, item) {
+            var tempData = angular.extend({}, appliesUse, item);
+            if ($scope.validIsNew(tempData._id)) {
+                delete tempData._id;
+                adminService.postReq($rootScope.URL.APPLIESUSE.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initAppliesUseData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (!$scope.validIsNew(tempData._id) && appliesUse.id) {
+                delete tempData._id;
+                adminService.patchReq($rootScope.URL.APPLIESUSE.PATCH+'/'+appliesUse.id, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initAppliesUseData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+        };
+
+        // 删除appliesUse
+        /**
+         * @param appliesUse APPLIESUSETITLE数据对象
+         * @return null
+         */
+        $scope.deleteAppliesUse = function (appliesUse) {
+            if (!$scope.validIsNew(appliesUse._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.APPLIESUSE.DELETE+'/'+appliesUse.id, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initAppliesUseData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 添加按钮
+        $scope.addAppliesUse = function () {
+            $scope.appliesUseAoData = {};
+            $scope.appliesUseSearch = '';
+            $scope.appliesUse.unshift({
+                '_id': ($scope.appliesUse.length+1) + 'null',
+                'appliesUseName': '',
+                'appliesUseType': '',
+                'appliesUseStatus': '1',
+                'createTime': null,
+                'optTime': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的APPLIESUSETITLE
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if ($scope.validIsNew(item._id)) {
+                $scope.appliesUse.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initAppliesUseData();
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.blackLists')
         .controller('BlackListsController', BlackListsController);
 
@@ -632,40 +773,40 @@
 (function() {
 
     angular
-        .module('admin.appliesUse')
-        .controller('AppliesUseController', AppliesUseController);
+        .module('admin.couponsManage')
+        .controller('CouponsManageController', CouponsManageController);
 
-    AppliesUseController.$inject = [
+    CouponsManageController.$inject = [
         '$scope',
         '$rootScope',
         'adminService'
     ];
 
-    function AppliesUseController(
+    function CouponsManageController(
         $scope,
         $rootScope,
         adminService
     ) {
 
         // 原始的数据
-        $scope.appliesUse = [];
+        $scope.couponsManage = [];
 
         // 过滤出来的数据
-        $scope.showAppliesUse = [];
-        $scope.appliesUseReload = 1;
-        $scope.appliesUseAoData = {};
-        $scope.appliesUseSearch = '';
+        $scope.showCouponsManage = [];
+        $scope.couponsManageReload = 1;
+        $scope.couponsManageAoData = {};
+        $scope.couponsManageSearch = '';
 
         // 初始化table数据
-        $scope.initAppliesUseData = function () {
-            $scope.appliesUse = [];
-            adminService.getReq($rootScope.URL.APPLIESUSE.GET, {}, {}).then(function (res) {
+        $scope.initCouponsManageData = function () {
+            $scope.couponsManage = [];
+            adminService.getReq($rootScope.URL.COUPONSMANAGE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
-                        $scope.appliesUse = angular.copy(data.res.data);
-                        $scope.appliesUse.forEach(function (appliesUseItem, appliesUseIndex) {
-                            appliesUseItem.id = appliesUseIndex +1;
+                        $scope.couponsManage = angular.copy(data.res.data);
+                        $scope.couponsManage.forEach(function (couponsManageItem, couponsManageIndex) {
+                            couponsManageItem.id = couponsManageIndex +1;
                         });
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
@@ -678,32 +819,32 @@
         // 保存
         /**
          *
-         * @param appliesUse APPLIESUSETITLE数据对象
+         * @param couponsManage COUPONSMANAGETITLE数据对象
          * @param item
          */
 
-        $scope.saveAppliesUse = function (appliesUse, item) {
-            var tempData = angular.extend({}, appliesUse, item);
+        $scope.saveCouponsManage = function (couponsManage, item) {
+            var tempData = angular.extend({}, couponsManage, item);
             if ($scope.validIsNew(tempData._id)) {
                 delete tempData._id;
-                adminService.postReq($rootScope.URL.APPLIESUSE.POST, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
-                            $scope.initAppliesUseData();
+                            $scope.initCouponsManageData();
                             $rootScope.toasterSuccess(res.data.msg);
                         } else {
                             $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
                 });
-            } else if (!$scope.validIsNew(tempData._id) && appliesUse.id) {
+            } else if (!$scope.validIsNew(tempData._id) && couponsManage.id) {
                 delete tempData._id;
-                adminService.patchReq($rootScope.URL.APPLIESUSE.PATCH+'/'+appliesUse.id, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.COUPONSMANAGE.PATCH+'/'+couponsManage.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
-                            $scope.initAppliesUseData();
+                            $scope.initCouponsManageData();
                             $rootScope.toasterSuccess(res.data.msg);
                         } else {
                             $rootScope.alertErrorMsg(res.data.msg);
@@ -714,18 +855,18 @@
             return '';
         };
 
-        // 删除appliesUse
+        // 删除couponsManage
         /**
-         * @param appliesUse APPLIESUSETITLE数据对象
+         * @param couponsManage COUPONSMANAGETITLE数据对象
          * @return null
          */
-        $scope.deleteAppliesUse = function (appliesUse) {
-            if (!$scope.validIsNew(appliesUse._id)) {
+        $scope.deleteCouponsManage = function (couponsManage) {
+            if (!$scope.validIsNew(couponsManage._id)) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.APPLIESUSE.DELETE+'/'+appliesUse.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.COUPONSMANAGE.DELETE+'/'+couponsManage.id, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
-                                $scope.initAppliesUseData();
+                                $scope.initCouponsManageData();
                                 $rootScope.toasterSuccess(res.data.msg);
                             } else {
                                 $rootScope.alertErrorMsg(res.data.msg);
@@ -738,14 +879,14 @@
         };
 
         // 添加按钮
-        $scope.addAppliesUse = function () {
-            $scope.appliesUseAoData = {};
-            $scope.appliesUseSearch = '';
-            $scope.appliesUse.unshift({
-                '_id': ($scope.appliesUse.length+1) + 'null',
-                'appliesUseName': '',
-                'appliesUseType': '',
-                'appliesUseStatus': '1',
+        $scope.addCouponsManage = function () {
+            $scope.couponsManageAoData = {};
+            $scope.couponsManageSearch = '';
+            $scope.couponsManage.unshift({
+                '_id': ($scope.couponsManage.length+1) + 'null',
+                'couponsManageName': '',
+                'couponsManageType': '',
+                'couponsManageStatus': '1',
                 'createTime': null,
                 'optTime': null,
                 'isShowTrEdit': true
@@ -754,19 +895,19 @@
 
         /**
          *
-         * @param item 添加的APPLIESUSETITLE
+         * @param item 添加的COUPONSMANAGETITLE
          * @param index 添加的index
          */
 
         $scope.cancelSave = function (item, index) {
             if ($scope.validIsNew(item._id)) {
-                $scope.appliesUse.splice(index, 1);
+                $scope.couponsManage.splice(index, 1);
             }
         };
 
         // 页面加载执行的函数
 
-        $scope.initAppliesUseData();
+        $scope.initCouponsManageData();
     }
 })();
 
@@ -945,147 +1086,6 @@
         $scope.initCountriesManageData();
 
         $scope.initCurrenciesManageData()
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.couponsManage')
-        .controller('CouponsManageController', CouponsManageController);
-
-    CouponsManageController.$inject = [
-        '$scope',
-        '$rootScope',
-        'adminService'
-    ];
-
-    function CouponsManageController(
-        $scope,
-        $rootScope,
-        adminService
-    ) {
-
-        // 原始的数据
-        $scope.couponsManage = [];
-
-        // 过滤出来的数据
-        $scope.showCouponsManage = [];
-        $scope.couponsManageReload = 1;
-        $scope.couponsManageAoData = {};
-        $scope.couponsManageSearch = '';
-
-        // 初始化table数据
-        $scope.initCouponsManageData = function () {
-            $scope.couponsManage = [];
-            adminService.getReq($rootScope.URL.COUPONSMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.couponsManage = angular.copy(data.res.data);
-                        $scope.couponsManage.forEach(function (couponsManageItem, couponsManageIndex) {
-                            couponsManageItem.id = couponsManageIndex +1;
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param couponsManage COUPONSMANAGETITLE数据对象
-         * @param item
-         */
-
-        $scope.saveCouponsManage = function (couponsManage, item) {
-            var tempData = angular.extend({}, couponsManage, item);
-            if ($scope.validIsNew(tempData._id)) {
-                delete tempData._id;
-                adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initCouponsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(tempData._id) && couponsManage.id) {
-                delete tempData._id;
-                adminService.patchReq($rootScope.URL.COUPONSMANAGE.PATCH+'/'+couponsManage.id, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initCouponsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
-        // 删除couponsManage
-        /**
-         * @param couponsManage COUPONSMANAGETITLE数据对象
-         * @return null
-         */
-        $scope.deleteCouponsManage = function (couponsManage) {
-            if (!$scope.validIsNew(couponsManage._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.COUPONSMANAGE.DELETE+'/'+couponsManage.id, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initCouponsManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 添加按钮
-        $scope.addCouponsManage = function () {
-            $scope.couponsManageAoData = {};
-            $scope.couponsManageSearch = '';
-            $scope.couponsManage.unshift({
-                '_id': ($scope.couponsManage.length+1) + 'null',
-                'couponsManageName': '',
-                'couponsManageType': '',
-                'couponsManageStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的COUPONSMANAGETITLE
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item._id)) {
-                $scope.couponsManage.splice(index, 1);
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initCouponsManageData();
     }
 })();
 
@@ -1964,186 +1964,39 @@
 
     angular
         .module('admin.ordersManage')
-        .controller('UserLevelConditionsModalController', UserLevelConditionsModalController);
+        .controller('OrderAddModalController', OrderAddModalController);
 
-    UserLevelConditionsModalController.$inject = [
+    OrderAddModalController.$inject = [
         '$scope',
         '$rootScope',
         '$uibModalInstance',
-        '$translate',
-        'item'
+        '$translate'
     ];
 
-    function UserLevelConditionsModalController(
+    function OrderAddModalController(
         $scope,
         $rootScope,
         $uibModalInstance,
-        $translate,
-        item
+        $translate
     ) {
 
-        $scope.designationOptions = [
-            {
-                label: 'deposit',
-                value: 'deposit'
-            },
-            {
-                label: 'bets',
-                value: 'bets'
-            }
-        ];
-
-        $scope.comparisonOptions = [
-            {
-                label: 'eq',
-                value: 'eq'
-            },
-            {
-                label: 'gt',
-                value: 'gt'
-            },
-            {
-                label: 'gte',
-                value: 'gte'
-            },
-            {
-                label: 'lt',
-                value: 'lt'
-            },
-            {
-                label: 'lte',
-                value: 'lte'
-            }
-        ];
-
-        $scope.typeOptions = [
-            {
-                label: 'grading',
-                value: 'grading'
-            },
-            {
-                label: 'upgrading',
-                value: 'upgrading'
-            }
-        ];
-
-        $scope.logicalityOptions = [
-            {
-                label: 'AND',
-                value: 'AND'
-            },
-            {
-                label: 'OR',
-                value: 'OR'
-            }
-        ];
-
-
-
-        // 原始的数据
-        $scope.conditionsModal = [];
-
-        // 过滤出来的数据
-        $scope.showConditionsModal = [];
-        $scope.conditionsModalReload = 1;
-        $scope.conditionsModalAoData = {};
-        $scope.conditionsModalSearch = '';
-
-        var baseConditions = angular.copy(item);
-
-        // 初始化table数据
-        $scope.initConditionsModalData = function () {
-            $scope.conditionsModal = [];
-            if(item['conditions'].length){
-                $scope.conditionsModal = item['conditions'];
-                $scope.conditionsModal.forEach(function (conditionsItem, conditionsIndex) {
-                    conditionsItem.id = conditionsIndex + 1;
-                })
-            }
+        $scope.orderAdd = {
+            order_no: '',
+            trade_no: '',
+            amount: '',
+            adminId: window.userInfo && window.userInfo.admin_id || ''
         };
 
-
-        // 保存
-        /**
-         *
-         * @param conditionsModal 用户等级数据对象
-         * @param data
-         */
-
-        $scope.saveConditionsModal = function (conditionsModal, data) {
-            $scope.conditionsModal.forEach(function (conditionsModalItem) {
-                if(conditionsModalItem.id == conditionsModal.id){
-                    window.Object.assign(conditionsModalItem, data);
-                    if($scope.validIsNew(conditionsModalItem.id)){
-                        conditionsModalItem.id = window.parseInt(conditionsModalItem.id, 10)
-                    }
-                }
-            });
+        $scope.confirmOrderAddModal = function () {
+            $uibModalInstance.close('success');
         };
 
-        // 删除conditionsModal
-        /**
-         * @param conditionsModal 用户等级数据对象
-         * @param index 位置
-         * @return null
-         */
-        $scope.deleteConditionsModal = function (conditionsModal, index) {
-            $scope.conditionsModal.splice(index, 1)
-        };
-
-        // 添加按钮
-        $scope.addConditionsModal = function () {
-            $scope.conditionsModalAoData = {};
-            $scope.conditionsModalSearch = '';
-            $scope.conditionsModal.unshift({
-                'id': ($scope.conditionsModal.length+1) + 'null',
-                "currency": $scope.currencyOptions[0].value,
-                "designation": $scope.designationOptions[0].value,
-                "comparison": $scope.comparisonOptions[0].value,
-                "value":'',
-                "type": $scope.typeOptions[0].value,
-                "logicality": $scope.logicalityOptions[0].value
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的用户等级
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item.id)) {
-                $scope.conditionsModal.splice(index, 1);
-            }
-        };
-
-        $scope.confirmModal = function () {
-            $scope.conditionsModal = $scope.conditionsModal.filter(function (conditionsItem) {
-                return !$scope.validIsNew(conditionsItem.id);
-            });
-            $scope.conditionsModal.forEach(function (conditionsItem, conditionsIndex) {
-                if(conditionsItem.id){
-                    delete conditionsItem.id;
-                }
-            });
-            baseConditions['conditions'] = $scope.conditionsModal;
-            $uibModalInstance.close({
-                type:'conditions',
-                data:baseConditions
-            });
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss({
-                type:'conditions',
-                data:baseConditions
-            });
+        $scope.cancelOrderAddModal = function () {
+            $uibModalInstance.dismiss('cancel');
         };
 
         // 页面加载执行的函数
 
-        $scope.initConditionsModalData();
     }
 })();
 
@@ -2243,23 +2096,13 @@
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/userLevel/'+templateName+'.html',
-                controller: '',
+                templateUrl: '/views/admin/userLevel/.html',
+                controller: 'OrderAddModalController',
                 size: 'md',
-                scope:$scope,
-                resolve: {
-                    item: item
-                }
             });
             modalInstance.result.then(function(data) {
                 $scope.initOrdersManageData()
             }, function(data) {
-            });
-            $scope.ordersManage.unshift({
-                "id":true,
-                order_no: '',
-                trade_no: '',
-                amount: ''
             });
         };
 
