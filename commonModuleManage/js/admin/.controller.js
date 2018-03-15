@@ -33,6 +33,9 @@
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $scope.commonModule = angular.copy(data.res.data);
+                        $scope.commonModule.forEach(function (commonModuleItem, commonModuleIndex) {
+                            commonModuleItem.id = commonModuleIndex +1;
+                        });
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
@@ -50,8 +53,8 @@
 
         $scope.saveCommonModule = function (commonModule, item) {
             var tempData = angular.extend({}, commonModule, item);
-            if (!tempData.id) {
-                delete tempData.id;
+            if ($scope.validIsNew(tempData._id)) {
+                delete tempData._id;
                 adminService.postReq($rootScope.URL.COMMONMODULE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -63,7 +66,8 @@
                         }
                     }
                 });
-            } else if (tempData.id && commonModule.id) {
+            } else if (!$scope.validIsNew(tempData._id) && commonModule.id) {
+                delete tempData._id;
                 adminService.patchReq($rootScope.URL.COMMONMODULE.PATCH+'/'+commonModule.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -85,7 +89,7 @@
          * @return null
          */
         $scope.deleteCommonModule = function (commonModule) {
-            if (commonModule.id) {
+            if (!$scope.validIsNew(commonModule._id)) {
                 $rootScope.alertConfirm(function () {
                     adminService.deleteReq($rootScope.URL.COMMONMODULE.DELETE+'/'+commonModule.id, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
@@ -107,7 +111,7 @@
             $scope.commonModuleAoData = {};
             $scope.commonModuleSearch = '';
             $scope.commonModule.unshift({
-                'id': null,
+                '_id': ($scope.commonModule.length+1) + 'null',
                 'commonModuleName': '',
                 'commonModuleType': '',
                 'commonModuleStatus': '1',
@@ -124,7 +128,7 @@
          */
 
         $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
+            if ($scope.validIsNew(item._id)) {
                 $scope.commonModule.splice(index, 1);
             }
         };

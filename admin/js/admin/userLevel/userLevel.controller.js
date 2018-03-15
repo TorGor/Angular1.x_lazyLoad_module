@@ -178,26 +178,20 @@
                 if (['conditions', 'treatments', 'rebates'].indexOf(data.type) !== -1) {
                     $scope.userLevel.forEach(function(userLevelItem) {
                         if (userLevelItem.id == data.data.id) {
-                            console.log(userLevelItem, 'userLevelItem');
-                            console.log(data.data[data.type], '3333');
                             userLevelItem[data.type] = angular.copy(data.data[data.type]);
                             $scope.userLevelReload++;
                         }
                     });
-                    console.log($scope.userLevel);
                 }
                 modalInstance = null;
             }, function(data) {
                 if (['conditions', 'treatments', 'rebates'].indexOf(data.type) !== -1) {
                     $scope.userLevel.forEach(function(userLevelItem) {
                         if (userLevelItem.id == data.data.id) {
-                            console.log(userLevelItem, 'userLevelItem');
-                            console.log(data.data[data.type], '3333');
                             userLevelItem[data.type] = angular.copy(data.data[data.type]);
                             $scope.userLevelReload++;
                         }
                     });
-                    console.log($scope.userLevel);
                 }
                 modalInstance = null;
             });
