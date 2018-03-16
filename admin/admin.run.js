@@ -60,7 +60,7 @@
             },
             ORDERSMANAGE:{
                 GET:'/rest/orders',
-                POST:'/rest/orders',
+                POST:'/rest/orders/receive',
                 PATCH:'/rest/orders',
                 DELETE:'/rest/orders',
                 PUT:'/rest/orders/restore'

@@ -1,5 +1,5 @@
 <div class="modal-header">
-   <h3 class="modal-title">{{'order详情'}}</h3>
+   <h4 class="modal-title">{{'order详情'}}</h4>
 </div>
 
 <div class="modal-body">
@@ -8,116 +8,178 @@
          <div class="panel-wrapper">
             <div class="panel-body">
                <form class="form-horizontal">
-                  <h3>用户信息</h3>
+                  <legend class="text-center">用户信息</legend>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">user id</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right text-right">user id</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.user.userId}}</p>
                      </div>
                   </div>
                   <div class="clearfix"></div>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">username</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right text-right">username</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.user.username}}</p>
                      </div>
                   </div>
                   <div class="clearfix"></div>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">user affiliateId</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right">user affiliateId</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.user.affiliateId}}</p>
                      </div>
                   </div>
                   <div class="clearfix"></div>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">affiliate id</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right">affiliate id</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.user.affiliateId}}</p>
                      </div>
                   </div>
                   <div class="clearfix"></div>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">affiliate</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right">affiliate</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.user.affiliate}}</p>
                      </div>
                   </div>
                   <div class="clearfix"></div>
-                  <h3>金额</h3>
+                  <legend class="text-center">概览</legend>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">目标</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right">目标</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.destination}}</p>
                      </div>
                   </div>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">amount</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right">amount</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.amount}}</p>
                      </div>
                   </div>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">状态</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right">状态</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.status}}</p>
                      </div>
                   </div>
                   <div class="clearfix"></div>
-                  <h3>货币</h3>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">user affiliateId</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right">货币</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.currency}}</p>
                      </div>
                   </div>
                   <div class="clearfix"></div>
-                  支付渠道
+                  <legend class="text-center">支付渠道</legend>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">编码</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right">编码</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.method.code}}</p>
                      </div>
                   </div>
                   <div class="clearfix"></div>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">范围</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right">范围</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.method.range.min + ' ~ ' + orderDetail.method.range.max}}</p>
                      </div>
                   </div>
                   <div class="clearfix"></div>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">货币</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right">货币</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.method.currency}}</p>
                      </div>
                   </div>
                   <div class="clearfix"></div>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">禁用</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right">禁用</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.method.disabled?'yes':'no'}}</p>
                      </div>
                   </div>
                   <div class="clearfix"></div>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">名称</label>
-                     <div class="col-lg-10">
-                        <span ng-repeat="name in orderDetail.user.name">{{name.locale + ':' +name.value + ','}}</span>
+                     <p class="col-lg-3 control-p text-right">名称</p>
+                     <div class="col-lg-9">
+                        <span ng-repeat="item in orderDetail.method.name">{{item.locale + ':' +item.value + ($index+1 == orderDetail.method.name.length ? '' : ' , ')}}</span>
                      </div>
                   </div>
                   <div class="clearfix"></div>
-                  <h3>其他</h3>
-                  <div class="form-group">
-                     <label class="col-lg-2 control-label">详细</label>
-                     <div class="col-lg-10">
-                        <p>{{orderDetail.details.join(',')}}</p>
+                  <legend class="text-center">详细</legend>
+                  <div class="form-group" ng-repeat="item in orderDetail.details">
+                     <p class="col-lg-3 control-p text-right">支付渠道代码</p>
+                     <div class="col-lg-9">
+                        <p>{{item.method_code}}</p>
                      </div>
+                     <div class="clearfix"></div>
+                     <p class="col-lg-3 control-p text-right">psp</p>
+                     <div class="col-lg-9">
+                        <p>{{item.psp}}</p>
+                     </div>
+                     <div class="clearfix"></div>
+                     <p class="col-lg-3 control-p text-right">sequence</p>
+                     <div class="col-lg-9">
+                        <p>{{item.sequence}}</p>
+                     </div>
+                     <div class="clearfix"></div>
+                     <p class="col-lg-3 control-p text-right">类型</p>
+                     <div class="col-lg-9">
+                        <p>{{item.type}}</p>
+                     </div>
+                     <div class="clearfix"></div>
+                     <p class="col-lg-3 control-p text-right">payload amount</p>
+                     <div class="col-lg-9">
+                        <p>{{item.payload.amount}}</p>
+                     </div>
+                     <div class="clearfix"></div>
+                     <p class="col-lg-3 control-p text-right">payload merchant_id</p>
+                     <div class="col-lg-9">
+                        <p>{{item.payload.merchant_id}}</p>
+                     </div>
+                     <div class="clearfix"></div>
+                     <p class="col-lg-3 control-p text-right">payload notify_url</p>
+                     <div class="col-lg-9">
+                        <p>{{item.payload.notify_url}}</p>
+                     </div>
+                     <div class="clearfix"></div>
+                     <p class="col-lg-3 control-p text-right">payload order_no</p>
+                     <div class="col-lg-9">
+                        <p>{{item.payload.order_no}}</p>
+                     </div>
+                     <div class="clearfix"></div>
+                     <p class="col-lg-3 control-p text-right">payload product_name</p>
+                     <div class="col-lg-9">
+                        <p>{{item.payload.product_name}}</p>
+                     </div>
+                     <div class="clearfix"></div>
+                     <p class="col-lg-3 control-p text-right">payload service_type</p>
+                     <div class="col-lg-9">
+                        <p>{{item.payload.service_type}}</p>
+                     </div>
+                     <div class="clearfix"></div>
+                     <p class="col-lg-3 control-p text-right">payload sign</p>
+                     <div class="col-lg-9">
+                        <p>{{item.payload.sign}}</p>
+                     </div>
+                     <div class="clearfix"></div>
+                     <p class="col-lg-3 control-p text-right">payload sign_type</p>
+                     <div class="col-lg-9">
+                        <p>{{item.payload.sign_type}}</p>
+                     </div>
+                     <div class="clearfix"></div>
+                     <p class="col-lg-3 control-p text-right">payload version</p>
+                     <div class="col-lg-9">
+                        <p>{{item.payload.version}}</p>
+                     </div>
+                     <div class="clearfix"></div>
                   </div>
+                  <div class="clearfix"></div>
+                  <legend class="text-center">其他</legend>
                   <div class="form-group">
-                     <label class="col-lg-2 control-label">附件</label>
-                     <div class="col-lg-10">
+                     <p class="col-lg-3 control-p text-right">附件</p>
+                     <div class="col-lg-9">
                         <p>{{orderDetail.extra?orderDetail.extra:''}}</p>
                      </div>
                   </div>
@@ -130,6 +192,5 @@
 </div>
 
 <div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-disabled="!orderAdd.order_no||!orderAdd.trade_no||!orderAdd.amount" ng-click="confirmOrderAddModal()">{{'table.button.save' | translate}}</button>
-   <button class="btn btn-default" type="button" ng-click="cancelOrderAddModal()">{{'table.button.cancel' | translate}}</button>
+   <button class="btn btn-primary" ng-click="closeModal()">OK</button>
 </div>

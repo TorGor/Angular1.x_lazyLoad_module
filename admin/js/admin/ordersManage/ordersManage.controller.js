@@ -85,6 +85,7 @@
             }
             adminService.getReq($rootScope.URL.ORDERSMANAGE.GET + '/' + item.id, {}, {}).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
+                    console.log(res.data.data)
                     if (res.data.success) {
                         var modalInstance = $uibModal.open({
                             animation: true,
@@ -92,10 +93,10 @@
                             ariaDescribedBy: 'modal-body',
                             templateUrl: '/views/admin/ordersManage/orderDetailModal.html',
                             controller: 'OrderDetailModalController',
-                            resole:{
+                            resolve: {
                                 orderDetail: res.data.data
                             },
-                            size: 'md',
+                            size: 'lg',
                         });
                         modalInstance.result.then(function(data) {
                         }, function(data) {

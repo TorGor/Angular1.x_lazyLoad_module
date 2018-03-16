@@ -22,15 +22,9 @@
 
         $scope.orderDetail = orderDetail;
 
-        $scope.confirmOrderDetailModal = function () {
-            $uibModalInstance.close('success');
-        };
-
-        $scope.cancelOrderDetailModal = function () {
+        $scope.closeModal = function () {
             $uibModalInstance.dismiss('cancel');
         };
-
-        // 页面加载执行的函数
 
     }
 })();
