@@ -8,6 +8,7 @@
         '$scope',
         '$rootScope',
         '$uibModalInstance',
+        'adminService',
         '$translate'
     ];
 
@@ -15,6 +16,7 @@
         $scope,
         $rootScope,
         $uibModalInstance,
+        adminService,
         $translate
     ) {
 
@@ -26,7 +28,16 @@
         };
 
         $scope.confirmOrderAddModal = function () {
-            $uibModalInstance.close('success');
+            adminService.postReq($rootScope.URL.ORDERSMANAGE.POST, {}, $scope.orderAdd).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $uibModalInstance.close('success');
+                        $rootScope.toasterSuccess(res.data.msg);
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
         };
 
         $scope.cancelOrderAddModal = function () {

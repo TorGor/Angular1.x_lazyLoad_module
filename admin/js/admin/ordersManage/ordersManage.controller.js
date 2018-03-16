@@ -38,33 +38,6 @@
         };
 
 
-        // 保存
-        /**
-         *
-         * @param ordersManage ORDERSMANAGETITLE数据对象
-         * @param item
-         */
-
-        $scope.saveOrdersManage = function (ordersManage, item) {
-            var tempData = angular.extend({}, ordersManage, item);
-            if (tempData.id) {
-                delete tempData.id;
-                tempData.adminId = window.userInfo && window.userInfo.admin_id || '';
-                adminService.postReq($rootScope.URL.ORDERSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initOrdersManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
         // 删除ordersManage
         /**
          * @param ordersManage ORDERSMANAGETITLE数据对象
@@ -94,13 +67,43 @@
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/userLevel/.html',
+                templateUrl: '/views/admin/ordersManage/orderAddModal.html',
                 controller: 'OrderAddModalController',
                 size: 'md',
             });
             modalInstance.result.then(function(data) {
                 $scope.initOrdersManageData()
             }, function(data) {
+            });
+        };
+
+        // 添加按钮
+        $scope.ordersDetailManage = function (item) {
+            if(!item.id){
+                $rootScope.alertErrorMsg('server data error');
+                return;
+            }
+            adminService.getReq($rootScope.URL.ORDERSMANAGE.GET + '/' + item.id, {}, {}).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        var modalInstance = $uibModal.open({
+                            animation: true,
+                            ariaLabelledBy: 'modal-title',
+                            ariaDescribedBy: 'modal-body',
+                            templateUrl: '/views/admin/ordersManage/orderDetailModal.html',
+                            controller: 'OrderDetailModalController',
+                            resole:{
+                                orderDetail: res.data.data
+                            },
+                            size: 'md',
+                        });
+                        modalInstance.result.then(function(data) {
+                        }, function(data) {
+                        });
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
             });
         };
 
