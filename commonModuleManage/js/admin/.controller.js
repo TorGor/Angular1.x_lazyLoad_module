@@ -32,7 +32,7 @@
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
-                        $scope.commonModule = angular.copy(data.res.data);
+                        $scope.commonModule = angular.copy(res.data.data);
                         $scope.commonModule.forEach(function (commonModuleItem, commonModuleIndex) {
                             commonModuleItem.id = commonModuleIndex +1;
                         });

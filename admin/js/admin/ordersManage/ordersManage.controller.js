@@ -77,7 +77,7 @@
             });
         };
 
-        // 添加按钮
+        // 详细按钮
         $scope.ordersDetailManage = function (item) {
             if(!item.id){
                 $rootScope.alertErrorMsg('server data error');

@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{'撤销优惠券使用'}}</h3>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="">
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">结果</label>
+                            <div class="col-lg-10">
+                                <ui-select
+                                        ng-model="appliesUseSaveRevoke.result"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose result">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in resultOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <input ng-model="" class="form-control" type="text" placeholder="trade no">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">结论</label>
+                            <div class="col-lg-10">
+                                <input ng-model="appliesUseSaveRevoke.comment" class="form-control" type="text" placeholder="amount">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-disabled="!appliesUseSaveRevoke.result||!appliesUseSaveRevoke.comment" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
+</div>

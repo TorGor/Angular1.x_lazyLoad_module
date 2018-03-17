@@ -32,7 +32,7 @@
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
-                        $scope.pspsManage = angular.copy(data.res.data);
+                        $scope.pspsManage = angular.copy(res.data.data);
                         $scope.pspsManage.forEach(function (pspsManageItem, pspsManageIndex) {
                             pspsManageItem.id = pspsManageIndex +1;
                         });

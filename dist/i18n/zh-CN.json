@@ -170,6 +170,16 @@
       "th4": "Method Code",
       "th5": "Status",
       "th6": "User"
+    },
+    "appliesUse": {
+      "th1": "bets",
+      "th2": "bonus",
+      "th3": "brand",
+      "th4": "coupon",
+      "th5": "principal",
+      "th6": "product",
+      "th7": "wallet",
+      "th8": "status"
     }
   },
   "panel_tile": {

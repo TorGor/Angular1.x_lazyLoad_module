@@ -32,7 +32,7 @@
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
-                        $scope.gamesProducts = angular.copy(data.res.data);
+                        $scope.gamesProducts = angular.copy(res.data.data);
                         $scope.gamesProducts.forEach(function (gamesProductsItem, gamesProductsIndex) {
                             gamesProductsItem.id = gamesProductsIndex +1;
                         });

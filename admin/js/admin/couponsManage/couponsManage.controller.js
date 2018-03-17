@@ -32,7 +32,7 @@
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
-                        $scope.couponsManage = angular.copy(data.res.data);
+                        $scope.couponsManage = angular.copy(res.data.data);
                         $scope.couponsManage.forEach(function (couponsManageItem, couponsManageIndex) {
                             couponsManageItem.id = couponsManageIndex +1;
                         });

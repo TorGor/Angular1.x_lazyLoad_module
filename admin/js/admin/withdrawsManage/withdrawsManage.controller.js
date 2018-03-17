@@ -32,7 +32,7 @@
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
-                        $scope.withdrawsManage = angular.copy(data.res.data);
+                        $scope.withdrawsManage = angular.copy(res.data.data);
                         $scope.withdrawsManage.forEach(function (withdrawsManageItem, withdrawsManageIndex) {
                             withdrawsManageItem.id = withdrawsManageIndex +1;
                         });
