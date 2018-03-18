@@ -264,7 +264,7 @@
             ],
             "gateway": "https://a.b.com/gateway",
             "account": "abdcsdfs",
-            "activated": true
+            "activated": false
         }
     ]
 }

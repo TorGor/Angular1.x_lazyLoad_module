@@ -19,33 +19,49 @@
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
-                        <td style="width: 40%" ao-data="pspsManageAoData" web-data-table-sort="roleName">
+                        <td style="width: 15%" ao-data="pspsManageAoData" web-data-table-sort="code">
                            {{'table.pspsManage.th1' | translate}}
                         </td>
-                        <td style="width: 40%" ao-data="pspsManageAoData" web-data-table-sort="roleName">
-                           {{'table.pspsManage.th1' | translate}}
-                        </td>
-                        <td style="width: 40%" ao-data="pspsManageAoData" web-data-table-sort="roleStatus">
+                        <td style="width: 20%" ao-data="pspsManageAoData" web-data-table-sort="gateway">
                            {{'table.pspsManage.th2' | translate}}
                         </td>
-                        <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                        <td style="width: 15%" ao-data="pspsManageAoData" web-data-table-sort="account">
+                           {{'table.pspsManage.th3' | translate}}
+                        </td>
+                        <td style="width: 20%" ao-data="pspsManageAoData" web-data-table-sort="api_key">
+                           {{'table.pspsManage.th4' | translate}}
+                        </td>
+                        <td style="width: 10%">
+                           {{'table.pspsManage.th5' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="pspsManageAoData" web-data-table-sort="activated">
+                           {{'table.pspsManage.th6' | translate}}
+                        </td>
+                        <td style="width: 10%">{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
                      <tr ng-repeat="item in showPspsManage">
                         <td>
-                           <span editable-text="item.code" e-name="code" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
+                           <span editable-text="item.code" e-name="code" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.name" e-name="name" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
+                           <span editable-text="item.gateway" e-name="gateway" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.gateway || '' }}</span>
                         </td>
                         <td>
-                           <span editable-select="item.roleStatus" e-name="roleStatus" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in adminSelect012.options">
-                              <span ng-bind-html="filter012OptionsValue(item.roleStatus)"></span>
-                           </span>
+                           <span editable-text="item.account" e-name="account" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.account || '' }}</span>
+                        </td>
+                        <td>
+                           <span editable-text="item.api_key" e-name="api_key" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.api_key || '' }}</span>
+                        </td>
+                        <td>
+                           <button class="btn btn-sm btn-info" ng-click="showPspsMethodsModal(item)">{{showAddOrDetail(item.methods, item._id)}}</button>
+                        </td>
+                        <td>
+                           <span>{{item.activated ? 'Yes' : 'No'}}</span>
                         </td>
                         <td style="white-space: nowrap;">
-                           <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="savePspsManage(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
+                           <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="savePspsManage(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item._id)">
                               <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                  <em class="fa fa-save"></em>
                               </button>
@@ -57,14 +73,17 @@
                               <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
                                  <em class="fa fa-pencil"></em>
                               </button>
-                              <button class="btn btn-sm btn-danger" ng-click="deletePspsManage(item)" title="{{'table.button.delete' | translate}}">
+                              <button class="btn btn-sm btn-danger" ng-show="item.activated" ng-click="deletePspsManage(item)" title="{{'table.button.delete' | translate}}">
                                  <em class="fa fa-trash"></em>
+                              </button>
+                              <button class="btn btn-sm btn-green" ng-show="!item.activated" ng-click="recoverPspsManage(item)" title="{{'table.button.recover' | translate}}">
+                                 <em class="fa fa-rotate-left"></em>
                               </button>
                            </div>
                         </td>
                      </tr>
                      <tr ng-show="showPspsManage.length==0">
-                        <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan="7" class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

@@ -70,7 +70,7 @@
                            </span>
                         </td>
                         <td>
-                           <span>{{item.disabled ? 'Yes' : 'No'}}</span>
+                           <span>{{item.disabled ? 'No' : 'Yes'}}</span>
                         </td>
                         <td style="white-space: nowrap;">
                            <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="savePaymentMethods(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
@@ -85,10 +85,10 @@
                               <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
                                  <em class="fa fa-pencil"></em>
                               </button>
-                              <button class="btn btn-sm btn-danger" ng-show="!item.disabled" ng-click="deletePaymentMethods(item)" title="{{'table.button.delete' | translate}}">
+                              <button class="btn btn-sm btn-danger" ng-show="item.disabled" ng-click="deletePaymentMethods(item)" title="{{'table.button.delete' | translate}}">
                                  <em class="fa fa-trash"></em>
                               </button>
-                              <button class="btn btn-sm btn-green" ng-show="item.disabled" ng-click="recoverPaymentMethods(item)" title="{{'table.button.recover' | translate}}">
+                              <button class="btn btn-sm btn-green" ng-show="!item.disabled" ng-click="recoverPaymentMethods(item)" title="{{'table.button.recover' | translate}}">
                                  <em class="fa fa-rotate-left"></em>
                               </button>
                            </div>

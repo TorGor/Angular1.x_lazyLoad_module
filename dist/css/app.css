@@ -8325,6 +8325,9 @@ flot .legend .legendColorBox > div > div {
 .xeditable-md .editable-input {
   width: 150px;
 }
+.xeditable-lg .editable-input {
+  width: 300px;
+}
 .c-checkbox,
 .c-radio {
   margin-right: 4px;

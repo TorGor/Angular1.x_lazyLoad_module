@@ -184,6 +184,20 @@
       "th1": "Code",
       "th2": "Name",
       "th3": "Disable"
+    },
+    "pspsManage": {
+      "th1": "Code",
+      "th2": "Gateway",
+      "th3": "Account",
+      "th4": "Api Key",
+      "th5": "Methods",
+      "th6": "Activated",
+      "methods": {
+        "th1": "Code",
+        "th2": "Rate",
+        "th3": "Other"
+      }
+    }
     }
   },
   "panel_tile": {
