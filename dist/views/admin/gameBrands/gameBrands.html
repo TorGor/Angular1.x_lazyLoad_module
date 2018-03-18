@@ -37,7 +37,7 @@
                         <td style="width: 12%">
                            {{'table.gameBrands.th6' | translate}}
                         </td>
-                        <td style="width: 12%">
+                        <td style="width: 12%" ao-data="gameBrandsAoData" web-data-table-sort="status">
                            {{'table.gameBrands.th7' | translate}}
                         </td>
                         <td style="width: 12%">{{'table.button.operation' | translate}}</td>
@@ -46,10 +46,10 @@
                   <tbody>
                      <tr ng-repeat="item in showGameBrands">
                         <td>
-                           <span editable-text="item.code" e-name="code" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
+                           <span editable-text="item.code" e-name="code" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.wallet" e-name="wallet" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.wallet || '' }}</span>
+                           <span editable-text="item.wallet" e-name="wallet" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.wallet || '' }}</span>
                         </td>
                         <td>
                            <span>

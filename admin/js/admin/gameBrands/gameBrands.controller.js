@@ -70,6 +70,32 @@
             });
         };
 
+        $scope.productOptions = [];
+
+        $scope.initProductManageData = function () {
+            $scope.productOptions = [];
+            adminService.getReq($rootScope.URL.GAMESPRODUCTS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.disabled === false){
+                                    $scope.productOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
         // 原始的数据
         $scope.gameBrands = [];
 
@@ -132,21 +158,61 @@
             modalInstance.result.then(function (data) {
                 if(data.type == 'name'){
                     $scope.gameBrands.forEach(function(gameBrandsItem) {
-                        if (gameBrandsItem.id == data.data.id) {
+                        if (gameBrandsItem._id == data.data._id) {
                             gameBrandsItem[data.type] = angular.copy(data.data[data.type]);
                             $scope.gameBrandsReload++;
                         }
                     });
                 }
+                modalInstance = null
             }, function (data) {
                 if(data.type == 'name'){
                     $scope.gameBrands.forEach(function(gameBrandsItem) {
-                        if (gameBrandsItem.id == data.data.id) {
+                        if (gameBrandsItem._id == data.data._id) {
                             gameBrandsItem[data.type] = angular.copy(data.data[data.type]);
                             $scope.gameBrandsReload++;
                         }
                     });
                 }
+                modalInstance = null
+            });
+        };
+
+        // 展示弹窗
+        $scope.showBrandsCurrenciesModal = function (item) {
+            console.log(item,999)
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/gameBrands/brandsCurrenciesModal.html',
+                controller: 'BrandsCurrenciesModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    brandsCurrenciesItem: item
+                }
+            });
+            modalInstance.result.then(function (data) {
+                if(data.type == 'currencies'){
+                    $scope.gameBrands.forEach(function(gameBrandsItem) {
+                        if (gameBrandsItem._id == data.data._id) {
+                            gameBrandsItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.gameBrandsReload++;
+                        }
+                    });
+                }
+                modalInstance = null
+            }, function (data) {
+                if(data.type == 'currencies'){
+                    $scope.gameBrands.forEach(function(gameBrandsItem) {
+                        if (gameBrandsItem._id == data.data._id) {
+                            gameBrandsItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.gameBrandsReload++;
+                        }
+                    });
+                }
+                modalInstance = null
             });
         };
 
@@ -221,6 +287,7 @@
                 '_id': ($scope.gameBrands.length+1) + 'null',
                 'code': '',
                 'wallet': '',
+                'status': 'OPEN',
                 'currencies': [],
                 'langs': [],
                 'products': []
