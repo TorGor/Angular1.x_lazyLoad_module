@@ -86,7 +86,7 @@
                 DELETE:'/rest/brands'
             },
             GAMECATEGORIES:{
-                GET:'/rest/ç',
+                GET:'/rest/categories',
                 POST:'/rest/categories',
                 PATCH:'/rest/categories',
                 DELETE:'/rest/categories'

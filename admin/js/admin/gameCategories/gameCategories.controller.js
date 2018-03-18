@@ -7,14 +7,42 @@
     GameCategoriesController.$inject = [
         '$scope',
         '$rootScope',
+        '$uibModal',
         'adminService'
     ];
 
     function GameCategoriesController(
         $scope,
         $rootScope,
+        $uibModal,
         adminService
     ) {
+
+        $scope.localesOptions = [];
+
+        $scope.initLocalesOptionsData = function () {
+            $scope.localesOptions = [];
+            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.localesOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
 
         // 原始的数据
         $scope.gameCategories = [];
@@ -33,8 +61,8 @@
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $scope.gameCategories = angular.copy(res.data.data);
-                        $scope.gameCategories.forEach(function (gameCategoriesItem, gameCategoriesIndex) {
-                            gameCategoriesItem.id = gameCategoriesIndex +1;
+                        $scope.gameCategories.forEach(function (paymentMethodsItem, paymentMethodsIndex) {
+                            paymentMethodsItem._id = paymentMethodsIndex +1;
                         });
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
@@ -42,6 +70,42 @@
                 }
             });
         };
+
+        // 展示弹窗
+        $scope.showGameCategoriesNameModal = function (item) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/gameCategories/gameCategoriesNameModal.html',
+                controller: 'GameCategoriesNameModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    GameCategoriesNameItem: item
+                }
+            });
+            modalInstance.result.then(function (data) {
+                if(data.type == 'name'){
+                    $scope.gameCategories.forEach(function(gameCategoriesItem) {
+                        if (gameCategoriesItem.id == data.data.id) {
+                            gameCategoriesItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.gameCategoriesReload++;
+                        }
+                    });
+                }
+            }, function (data) {
+                if(data.type == 'name'){
+                    $scope.gameCategories.forEach(function(gameCategoriesItem) {
+                        if (gameCategoriesItem.id == data.data.id) {
+                            gameCategoriesItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.gameCategoriesReload++;
+                        }
+                    });
+                }
+            });
+        };
+
 
 
         // 保存
@@ -53,8 +117,23 @@
 
         $scope.saveGameCategories = function (gameCategories, item) {
             var tempData = angular.extend({}, gameCategories, item);
-            if ($scope.validIsNew(tempData._id)) {
+            if ($scope.validIsNew(gameCategories._id)) {
                 delete tempData._id;
+                if(tempData.name && tempData.name.length){
+                    var tempObj = {};
+                    var sameKey = false;
+                    tempData.name.map(function(nameItem) {
+                        if(tempObj[nameItem.locale]){
+                            sameKey = true
+                        }
+                        tempObj[nameItem.locale] = nameItem.value
+                    });
+                    if(sameKey){
+                        $rootScope.alertErrorMsg('you set same local,just remove one');
+                        return '';
+                    }
+                    tempData.name = angular.copy(tempObj)
+                }
                 adminService.postReq($rootScope.URL.GAMECATEGORIES.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -66,8 +145,22 @@
                         }
                     }
                 });
-            } else if (!$scope.validIsNew(tempData._id) && gameCategories.id) {
-                delete tempData._id;
+            } else if (!$scope.validIsNew(gameCategories._id) && gameCategories.id) {
+                if(tempData.name && tempData.name.length){
+                    var tempObj = {};
+                    var sameKey = false;
+                    tempData.name.map(function(nameItem) {
+                        if(tempObj[nameItem.locale]){
+                            sameKey = true
+                        }
+                        tempObj[nameItem.locale] = nameItem.value
+                    });
+                    if(sameKey){
+                        $rootScope.alertErrorMsg('you set same local,just remove one');
+                        return '';
+                    }
+                    tempData.name = angular.copy(tempObj)
+                }
                 adminService.patchReq($rootScope.URL.GAMECATEGORIES.PATCH+'/'+gameCategories.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -112,12 +205,7 @@
             $scope.gameCategoriesSearch = '';
             $scope.gameCategories.unshift({
                 '_id': ($scope.gameCategories.length+1) + 'null',
-                'gameCategoriesName': '',
-                'gameCategoriesType': '',
-                'gameCategoriesStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                'name': []
             });
         };
 
@@ -136,5 +224,7 @@
         // 页面加载执行的函数
 
         $scope.initGameCategoriesData();
+
+        $scope.initLocalesOptionsData()
     }
 })();

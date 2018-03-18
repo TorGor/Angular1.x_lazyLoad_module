@@ -1,0 +1,40 @@
+<div class="modal-header">
+   <h3 class="modal-title">{{'保存优惠券使用审核'}}</h3>
+</div>
+
+<div class="modal-body">
+   <div class="row">
+      <div class="">
+         <div class="panel-wrapper">
+            <div class="panel-body">
+               <form class="form-horizontal">
+                  <div class="form-group">
+                     <label class="col-lg-2 control-label">结果</label>
+                     <div class="col-lg-10">
+                        <ui-select ng-model="appliesUseSaveAudit.result" theme="bootstrap" search-enabled="false">
+                           <ui-select-match placeholder="choose result">
+                              <span ng-bind="$select.selected.label"></span>
+                           </ui-select-match>
+                           <ui-select-choices repeat="item.value as item in resultOptions">
+                              <span ng-bind="item.label"></span>
+                           </ui-select-choices>
+                        </ui-select>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-lg-2 control-label">结论</label>
+                     <div class="col-lg-10">
+                        <input ng-model="appliesUseSaveAudit.comment" class="form-control" type="text" placeholder="comment">
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal-footer">
+   <button class="btn btn-primary" type="button" ng-disabled="!appliesUseSaveAudit.result||!appliesUseSaveAudit.comment" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+   <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
+</div>

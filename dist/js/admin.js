@@ -106,6 +106,13 @@
 (function() {
 
     angular
+        .module('admin.pspsManage', [
+            'app.core',
+        ]);
+})();
+(function() {
+
+    angular
         .module('admin.paymentMethods', [
             'app.core',
         ]);
@@ -114,13 +121,6 @@
 
     angular
         .module('admin.transactionsDetail', [
-            'app.core',
-        ]);
-})();
-(function() {
-
-    angular
-        .module('admin.pspsManage', [
             'app.core',
         ]);
 })();
@@ -232,7 +232,7 @@
                 DELETE:'/rest/brands'
             },
             GAMECATEGORIES:{
-                GET:'/rest/ç',
+                GET:'/rest/categories',
                 POST:'/rest/categories',
                 PATCH:'/rest/categories',
                 DELETE:'/rest/categories'
@@ -1468,14 +1468,42 @@
     GameCategoriesController.$inject = [
         '$scope',
         '$rootScope',
+        '$uibModal',
         'adminService'
     ];
 
     function GameCategoriesController(
         $scope,
         $rootScope,
+        $uibModal,
         adminService
     ) {
+
+        $scope.localesOptions = [];
+
+        $scope.initLocalesOptionsData = function () {
+            $scope.localesOptions = [];
+            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.localesOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
 
         // 原始的数据
         $scope.gameCategories = [];
@@ -1494,8 +1522,8 @@
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $scope.gameCategories = angular.copy(res.data.data);
-                        $scope.gameCategories.forEach(function (gameCategoriesItem, gameCategoriesIndex) {
-                            gameCategoriesItem.id = gameCategoriesIndex +1;
+                        $scope.gameCategories.forEach(function (paymentMethodsItem, paymentMethodsIndex) {
+                            paymentMethodsItem._id = paymentMethodsIndex +1;
                         });
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
@@ -1503,6 +1531,42 @@
                 }
             });
         };
+
+        // 展示弹窗
+        $scope.showGameCategoriesNameModal = function (item) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/gameCategories/gameCategoriesNameModal.html',
+                controller: 'GameCategoriesNameModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    GameCategoriesNameItem: item
+                }
+            });
+            modalInstance.result.then(function (data) {
+                if(data.type == 'name'){
+                    $scope.gameCategories.forEach(function(gameCategoriesItem) {
+                        if (gameCategoriesItem.id == data.data.id) {
+                            gameCategoriesItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.gameCategoriesReload++;
+                        }
+                    });
+                }
+            }, function (data) {
+                if(data.type == 'name'){
+                    $scope.gameCategories.forEach(function(gameCategoriesItem) {
+                        if (gameCategoriesItem.id == data.data.id) {
+                            gameCategoriesItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.gameCategoriesReload++;
+                        }
+                    });
+                }
+            });
+        };
+
 
 
         // 保存
@@ -1514,8 +1578,23 @@
 
         $scope.saveGameCategories = function (gameCategories, item) {
             var tempData = angular.extend({}, gameCategories, item);
-            if ($scope.validIsNew(tempData._id)) {
+            if ($scope.validIsNew(gameCategories._id)) {
                 delete tempData._id;
+                if(tempData.name && tempData.name.length){
+                    var tempObj = {};
+                    var sameKey = false;
+                    tempData.name.map(function(nameItem) {
+                        if(tempObj[nameItem.locale]){
+                            sameKey = true
+                        }
+                        tempObj[nameItem.locale] = nameItem.value
+                    });
+                    if(sameKey){
+                        $rootScope.alertErrorMsg('you set same local,just remove one');
+                        return '';
+                    }
+                    tempData.name = angular.copy(tempObj)
+                }
                 adminService.postReq($rootScope.URL.GAMECATEGORIES.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -1527,8 +1606,22 @@
                         }
                     }
                 });
-            } else if (!$scope.validIsNew(tempData._id) && gameCategories.id) {
-                delete tempData._id;
+            } else if (!$scope.validIsNew(gameCategories._id) && gameCategories.id) {
+                if(tempData.name && tempData.name.length){
+                    var tempObj = {};
+                    var sameKey = false;
+                    tempData.name.map(function(nameItem) {
+                        if(tempObj[nameItem.locale]){
+                            sameKey = true
+                        }
+                        tempObj[nameItem.locale] = nameItem.value
+                    });
+                    if(sameKey){
+                        $rootScope.alertErrorMsg('you set same local,just remove one');
+                        return '';
+                    }
+                    tempData.name = angular.copy(tempObj)
+                }
                 adminService.patchReq($rootScope.URL.GAMECATEGORIES.PATCH+'/'+gameCategories.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -1573,12 +1666,7 @@
             $scope.gameCategoriesSearch = '';
             $scope.gameCategories.unshift({
                 '_id': ($scope.gameCategories.length+1) + 'null',
-                'gameCategoriesName': '',
-                'gameCategoriesType': '',
-                'gameCategoriesStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                'name': []
             });
         };
 
@@ -1597,6 +1685,151 @@
         // 页面加载执行的函数
 
         $scope.initGameCategoriesData();
+
+        $scope.initLocalesOptionsData()
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.gameCategories')
+        .controller('GameCategoriesNameModalController', GameCategoriesNameModalController);
+
+    GameCategoriesNameModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        '$translate',
+        'adminService',
+        'GameCategoriesNameItem'
+    ];
+
+    function GameCategoriesNameModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        $translate,
+        adminService,
+        GameCategoriesNameItem
+    ) {
+
+        // 原始的数据
+        $scope.gameCategoriesNameModal = [];
+
+        // 过滤出来的数据
+        $scope.showGameCategoriesNameModal = [];
+        $scope.gameCategoriesNameModalReload = 1;
+        $scope.gameCategoriesNameModalAoData = {};
+        $scope.gameCategoriesNameModalSearch = '';
+
+        var baseGameCategoriesName = angular.copy(GameCategoriesNameItem);
+
+        // 初始化table数据
+        $scope.initGameCategoriesNameModalData = function () {
+            $scope.gameCategoriesNameModal = [];
+            console.log(GameCategoriesNameItem,'GameCategoriesNameItem')
+            if(GameCategoriesNameItem['name'].length){
+                $scope.gameCategoriesNameModal = GameCategoriesNameItem['name'];
+                $scope.gameCategoriesNameModal.forEach(function (gameCategoriesNameItem, gameCategoriesNameIndex) {
+                    gameCategoriesNameItem.id = gameCategoriesNameIndex + 1;
+                })
+            }
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param gameCategoriesNameModal 渠道名称数据对象
+         * @param data
+         */
+
+        $scope.saveGameCategoriesNameModal = function (gameCategoriesNameModal, data) {
+            $scope.gameCategoriesNameModal.forEach(function (gameCategoriesNameModalItem) {
+                if(gameCategoriesNameModalItem.id == gameCategoriesNameModal.id){
+                    window.Object.assign(gameCategoriesNameModalItem, data);
+                    if($scope.validIsNew(gameCategoriesNameModalItem.id)){
+                        gameCategoriesNameModalItem.id = window.parseInt(gameCategoriesNameModalItem.id, 10)
+                    }
+                }
+            });
+        };
+
+        // 删除rebatesModal
+        /**
+         * @param gameCategoriesNameModal 渠道名称数据对象
+         * @param index 位置
+         * @return null
+         */
+        $scope.deleteGameCategoriesNameModal = function (gameCategoriesNameModal, index) {
+            $scope.gameCategoriesNameModal.splice(index, 1)
+        };
+
+        // 添加按钮
+        $scope.addGameCategoriesNameModal = function () {
+            $scope.gameCategoriesNameModalAoData = {};
+            $scope.gameCategoriesNameModalSearch = '';
+            $scope.gameCategoriesNameModal.unshift({
+                'id': ($scope.gameCategoriesNameModal.length+1) + 'null',
+                "locale": $scope.localesOptions[0] ? $scope.localesOptions[0].value : '',
+                "value": ''
+            });
+        };
+
+        /**
+         *
+         * @param GameCategoriesNameItem 添加的渠道名称
+         * @param index 添加的index
+         */
+
+        $scope.cancelSaveModal = function (GameCategoriesNameItem, index) {
+            if ($scope.validIsNew(GameCategoriesNameItem.id)) {
+                $scope.gameCategoriesNameModal.splice(index, 1);
+            }
+        };
+
+        $scope.confirmModal = function () {
+            $scope.gameCategoriesNameModal = $scope.gameCategoriesNameModal.filter(function (gameCategoriesNameItem) {
+                return !$scope.validIsNew(gameCategoriesNameItem.id);
+            });
+            $scope.gameCategoriesNameModal.forEach(function (gameCategoriesNameItem, gameCategoriesNameIndex) {
+                if(gameCategoriesNameItem.id){
+                    delete gameCategoriesNameItem.id;
+                }
+            });
+            if($scope.gameCategoriesNameModal && $scope.gameCategoriesNameModal.length){
+                var tempObj = {};
+                var sameKey = false;
+                $scope.gameCategoriesNameModal.map(function(nameItem) {
+                    if(tempObj[nameItem.locale]){
+                        sameKey = true
+                    }
+                    tempObj[nameItem.locale] = nameItem.value
+                });
+                if(sameKey){
+                    $rootScope.alertErrorMsg('you set same local,just remove one');
+                    return '';
+                }
+            }
+            baseGameCategoriesName.name = $scope.gameCategoriesNameModal;
+            $uibModalInstance.close({
+                type:'name',
+                data:baseGameCategoriesName
+            });
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss({
+                type:'name',
+                data:baseGameCategoriesName
+            });
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initGameCategoriesNameModalData();
+
     }
 })();
 
@@ -2263,6 +2496,147 @@
 (function() {
 
     angular
+        .module('admin.pspsManage')
+        .controller('PspsManageController', PspsManageController);
+
+    PspsManageController.$inject = [
+        '$scope',
+        '$rootScope',
+        'adminService'
+    ];
+
+    function PspsManageController(
+        $scope,
+        $rootScope,
+        adminService
+    ) {
+
+        // 原始的数据
+        $scope.pspsManage = [];
+
+        // 过滤出来的数据
+        $scope.showPspsManage = [];
+        $scope.pspsManageReload = 1;
+        $scope.pspsManageAoData = {};
+        $scope.pspsManageSearch = '';
+
+        // 初始化table数据
+        $scope.initPspsManageData = function () {
+            $scope.pspsManage = [];
+            adminService.getReq($rootScope.URL.PSPSMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.pspsManage = angular.copy(res.data.data);
+                        $scope.pspsManage.forEach(function (pspsManageItem, pspsManageIndex) {
+                            pspsManageItem.id = pspsManageIndex +1;
+                        });
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param pspsManage PSPSMANAGETITLE数据对象
+         * @param item
+         */
+
+        $scope.savePspsManage = function (pspsManage, item) {
+            var tempData = angular.extend({}, pspsManage, item);
+            if ($scope.validIsNew(tempData._id)) {
+                delete tempData._id;
+                adminService.postReq($rootScope.URL.PSPSMANAGE.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initPspsManageData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (!$scope.validIsNew(tempData._id) && pspsManage.id) {
+                delete tempData._id;
+                adminService.patchReq($rootScope.URL.PSPSMANAGE.PATCH+'/'+pspsManage.id, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initPspsManageData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+        };
+
+        // 删除pspsManage
+        /**
+         * @param pspsManage PSPSMANAGETITLE数据对象
+         * @return null
+         */
+        $scope.deletePspsManage = function (pspsManage) {
+            if (!$scope.validIsNew(pspsManage._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.PSPSMANAGE.DELETE+'/'+pspsManage.id, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initPspsManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 添加按钮
+        $scope.addPspsManage = function () {
+            $scope.pspsManageAoData = {};
+            $scope.pspsManageSearch = '';
+            $scope.pspsManage.unshift({
+                '_id': ($scope.pspsManage.length+1) + 'null',
+                'pspsManageName': '',
+                'pspsManageType': '',
+                'pspsManageStatus': '1',
+                'createTime': null,
+                'optTime': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的PSPSMANAGETITLE
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if ($scope.validIsNew(item._id)) {
+                $scope.pspsManage.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initPspsManageData();
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.paymentMethods')
         .controller('PaymentMethodsController', PaymentMethodsController);
 
@@ -2369,7 +2743,7 @@
                         }
                     });
                 }
-            }, function (cancel) {
+            }, function (data) {
                 if(data.type == 'name'){
                     $scope.paymentMethods.forEach(function(paymentMethodsItem) {
                         if (paymentMethodsItem.id == data.data.id) {
@@ -2814,147 +3188,6 @@
             }
         });
 
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.pspsManage')
-        .controller('PspsManageController', PspsManageController);
-
-    PspsManageController.$inject = [
-        '$scope',
-        '$rootScope',
-        'adminService'
-    ];
-
-    function PspsManageController(
-        $scope,
-        $rootScope,
-        adminService
-    ) {
-
-        // 原始的数据
-        $scope.pspsManage = [];
-
-        // 过滤出来的数据
-        $scope.showPspsManage = [];
-        $scope.pspsManageReload = 1;
-        $scope.pspsManageAoData = {};
-        $scope.pspsManageSearch = '';
-
-        // 初始化table数据
-        $scope.initPspsManageData = function () {
-            $scope.pspsManage = [];
-            adminService.getReq($rootScope.URL.PSPSMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.pspsManage = angular.copy(res.data.data);
-                        $scope.pspsManage.forEach(function (pspsManageItem, pspsManageIndex) {
-                            pspsManageItem.id = pspsManageIndex +1;
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param pspsManage PSPSMANAGETITLE数据对象
-         * @param item
-         */
-
-        $scope.savePspsManage = function (pspsManage, item) {
-            var tempData = angular.extend({}, pspsManage, item);
-            if ($scope.validIsNew(tempData._id)) {
-                delete tempData._id;
-                adminService.postReq($rootScope.URL.PSPSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initPspsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(tempData._id) && pspsManage.id) {
-                delete tempData._id;
-                adminService.patchReq($rootScope.URL.PSPSMANAGE.PATCH+'/'+pspsManage.id, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initPspsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
-        // 删除pspsManage
-        /**
-         * @param pspsManage PSPSMANAGETITLE数据对象
-         * @return null
-         */
-        $scope.deletePspsManage = function (pspsManage) {
-            if (!$scope.validIsNew(pspsManage._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.PSPSMANAGE.DELETE+'/'+pspsManage.id, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initPspsManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 添加按钮
-        $scope.addPspsManage = function () {
-            $scope.pspsManageAoData = {};
-            $scope.pspsManageSearch = '';
-            $scope.pspsManage.unshift({
-                '_id': ($scope.pspsManage.length+1) + 'null',
-                'pspsManageName': '',
-                'pspsManageType': '',
-                'pspsManageStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的PSPSMANAGETITLE
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item._id)) {
-                $scope.pspsManage.splice(index, 1);
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initPspsManageData();
     }
 })();
 

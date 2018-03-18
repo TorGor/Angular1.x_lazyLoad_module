@@ -107,7 +107,7 @@
                         }
                     });
                 }
-            }, function (cancel) {
+            }, function (data) {
                 if(data.type == 'name'){
                     $scope.paymentMethods.forEach(function(paymentMethodsItem) {
                         if (paymentMethodsItem.id == data.data.id) {

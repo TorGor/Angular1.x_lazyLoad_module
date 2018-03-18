@@ -307,6 +307,24 @@
         };
 
         /**
+         *
+         * @param data 重复的项目
+         * @param id 重复项的id
+         * @returns {string}
+         */
+        $scope.showAddOrDetail = function(data, id) {
+            if($scope.validIsNew(id)){
+                return '新增';
+            }
+            if(window.Array.isArray(data) && data.length){
+                return '明细';
+            } else if (window.Array.isArray(data) && !data.length){
+                return '新增';
+            }
+            return '';
+        };
+
+        /**
          * 用正则进行验证
          * @param Reg 正则表达式
          * @param str 传入的字符串

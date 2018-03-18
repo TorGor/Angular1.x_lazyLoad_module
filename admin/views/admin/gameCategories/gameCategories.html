@@ -15,7 +15,7 @@
                 <form class="form-inline pull-right add-button-class" role="form">
                     <div style="position: relative" class="form-group">
                         <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                        <input class="form-control" type="text" ng-model="gameCategoriesSearch" placeholder="{{searchPlaceholder(['table.gameCategories.th1', 'table.gameCategories.th2', 'table.gameCategories.th3'])}}">
+                        <input class="form-control" type="text" ng-model="gameCategoriesSearch" placeholder="{{searchPlaceholder(['table.paymentMethods.th2'])}}">
                     </div>
                 </form>
                 <div
@@ -29,14 +29,8 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 40%" ao-data="gameCategoriesAoData" web-data-table-sort="roleName">
-                                {{'table.gameCategories.th1' | translate}}
-                            </td>
-                            <td style="width: 40%" ao-data="gameCategoriesAoData" web-data-table-sort="roleName">
-                                {{'table.gameCategories.th1' | translate}}
-                            </td>
-                            <td style="width: 40%" ao-data="gameCategoriesAoData" web-data-table-sort="roleStatus">
-                                {{'table.gameCategories.th2' | translate}}
+                            <td style="width: 80%">
+                                {{'table.paymentMethods.th2' | translate}}
                             </td>
                             <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                         </tr>
@@ -44,24 +38,14 @@
                         <tbody>
                         <tr ng-repeat="item in showGameCategories">
                             <td>
-                                <span editable-text="item.code" e-name="code" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
-                            </td>
-                            <td>
-                                <span editable-text="item.name" e-name="name" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
-                            </td>
-                            <td>
-                                    <span editable-select="item.roleStatus" e-name="roleStatus" e-form="rowform"
-                                          onbeforesave="checkRequiredData($data)"
-                                          e-ng-options="option.value as option.label for option in adminSelect012.options">
-                                        <span ng-bind-html="filter012OptionsValue(item.roleStatus)"></span>
-                                    </span>
+                                <span>
+                                    <button class="btn btn-sm btn-info" ng-click="showGameCategoriesNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>
+                                </span>
                             </td>
                             <td style="white-space: nowrap;">
                                 <form class="form-buttons form-inline" editable-form name="rowform"
                                       onaftersave="saveGameCategories(item, $data)" ng-show="rowform.$visible"
-                                      shown="validIsNew(item.id)">
+                                      shown="validIsNew(item._id)">
                                     <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
                                             title="{{'table.button.save' | translate}}">
                                         <em class="fa fa-save"></em>
