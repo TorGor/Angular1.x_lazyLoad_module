@@ -38,7 +38,7 @@
             adminId: window.userInfo && window.userInfo.admin_id || ''
         };
 
-        $scope.confirm = function () {
+        $scope.confirmModal = function () {
             adminService.patchReq($rootScope.URL.ORDERSMANAGE.PATCH+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -51,7 +51,7 @@
             });
         };
 
-        $scope.cancel = function () {
+        $scope.cancelModal = function () {
             $uibModalInstance.dismiss('cancel');
         };
 

@@ -171,14 +171,14 @@
       "th6": "User"
     },
     "appliesUse": {
-      "th1": "bets",
-      "th2": "bonus",
-      "th3": "brand",
-      "th4": "coupon",
-      "th5": "principal",
-      "th6": "product",
-      "th7": "wallet",
-      "th8": "status"
+      "th1": "Bets",
+      "th2": "Bonus",
+      "th3": "Brand",
+      "th4": "Coupon",
+      "th5": "Principal",
+      "th6": "Product",
+      "th7": "Wallet",
+      "th8": "Status"
     }
   },
   "panel_tile": {

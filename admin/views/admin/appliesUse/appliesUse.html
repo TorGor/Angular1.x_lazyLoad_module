@@ -30,28 +30,28 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 10%" ao-data="appliesUseAoData" web-data-table-sort="roleName">
+                            <td style="width: 10%" >
                                 {{'table.appliesUse.th1' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="appliesUseAoData" web-data-table-sort="roleStatus">
+                            <td style="width: 10%" >
                                 {{'table.appliesUse.th2' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="appliesUseAoData" web-data-table-sort="roleStatus">
+                            <td style="width: 10%" >
                                 {{'table.appliesUse.th3' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="appliesUseAoData" web-data-table-sort="roleStatus">
+                            <td style="width: 10%" >
                                 {{'table.appliesUse.th4' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="appliesUseAoData" web-data-table-sort="roleStatus">
+                            <td style="width: 10%" >
                                 {{'table.appliesUse.th5' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="appliesUseAoData" web-data-table-sort="roleStatus">
+                            <td style="width: 10%" >
                                 {{'table.appliesUse.th6' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="appliesUseAoData" web-data-table-sort="roleStatus">
+                            <td style="width: 10%" >
                                 {{'table.appliesUse.th7' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="appliesUseAoData" web-data-table-sort="roleStatus">
+                            <td style="width: 10%" >
                                 {{'table.appliesUse.th8' | translate}}
                             </td>
                             <td style="width: 10%">{{'table.button.operation' | translate}}</td>
@@ -85,19 +85,19 @@
                             </td>
                             <td style="white-space: nowrap;">
                                 <div class="buttons">
-                                    <button class="btn btn-sm btn-green" ng-click="ordersDetailManage(item)"
-                                            title="{{'table.button.detail' | translate}}">
-                                        <em class="fa fa-folder-open-o"></em>
+                                    <button class="btn btn-sm btn-primary" ng-click="appliesUseAudit(item)"
+                                            title="{{'table.button.save' | translate}}">
+                                        <em class="fa fa-save"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-green" ng-click="ordersDetailManage(item)"
-                                            title="{{'table.button.detail' | translate}}">
-                                        <em class="fa fa-folder-open-o"></em>
+                                    <button class="btn btn-sm btn-green" ng-click="appliesUseRevoke(item)"
+                                            title="{{'table.button.recover' | translate}}">
+                                        <em class="fa fa-rotate-left"></em>
                                     </button>
                                 </div>
                             </td>
                         </tr>
                         <tr ng-show="appliesUse.length==0">
-                            <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan="9" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

@@ -42,7 +42,7 @@
             adminId: window.userInfo && window.userInfo.admin_id || ''
         };
 
-        $scope.confirm = function () {
+        $scope.confirmModal = function () {
             adminService.postReq($rootScope.URL.ORDERSMANAGE.POST+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
@@ -55,7 +55,7 @@
             });
         };
 
-        $scope.cancel = function () {
+        $scope.cancelModal = function () {
             $uibModalInstance.dismiss('cancel');
         };
 

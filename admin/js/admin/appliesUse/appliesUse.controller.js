@@ -7,12 +7,14 @@
     AppliesUseController.$inject = [
         '$scope',
         '$rootScope',
+        '$uibModal',
         'adminService'
     ];
 
     function AppliesUseController(
         $scope,
         $rootScope,
+        $uibModal,
         adminService
     ) {
 
@@ -36,21 +38,23 @@
                 $rootScope.alertErrorMsg('server data error');
                 return;
             }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/appliesUse/appliesUseAuditModal.html',
+                controller: 'AppliesUseAuditModalController',
+                resolve: {
+                    item: item
+                },
+                size: 'lg',
+            });
+            modalInstance.result.then(function(data) {
+                $scope.initAppliesUseData()
+            }, function(data) {
+            });
         };
-        var modalInstance = $uibModal.open({
-            animation: true,
-            ariaLabelledBy: 'modal-title',
-            ariaDescribedBy: 'modal-body',
-            templateUrl: '/views/admin/appliesUse/appliesUseAuditModal.html',
-            controller: 'AppliesUseAuditModalController',
-            resolve: {
-                orderDetail: res.data.data
-            },
-            size: 'lg',
-        });
-        modalInstance.result.then(function(data) {
-        }, function(data) {
-        });
+
 
         $scope.appliesUseRevoke = function (item) {
             if(!item.id){
@@ -64,11 +68,12 @@
                 templateUrl: '/views/admin/appliesUse/appliesUseRevokeModal.html',
                 controller: 'AppliesUseRevokeModalController',
                 resolve: {
-                    orderDetail: res.data.data
+                    item: item
                 },
                 size: 'lg',
             });
             modalInstance.result.then(function(data) {
+                $scope.initAppliesUseData()
             }, function(data) {
             });
         };
