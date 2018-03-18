@@ -102,28 +102,28 @@
       "th6":"折扣"
     },
     "conditionsModal":{
-      "th1":"currency",
-      "th2":"designation",
-      "th3":"comparison",
-      "th4":"value",
-      "th5":"type",
-      "th6":"logicality"
+      "th1":"货币",
+      "th2":"指定",
+      "th3":"比较",
+      "th4":"数值",
+      "th5":"类型",
+      "th6":"逻辑"
     },
     "treatmentsModal":{
-      "th1":"currency",
-      "th2":"designation",
-      "th3":"type",
-      "th4":"value"
+      "th1":"货币",
+      "th2":"指定",
+      "th3":"泪痣",
+      "th4":"数值"
     },
     "rebatesModal":{
-      "th1":"currency",
-      "th2":"product",
-      "th3":"max",
-      "th4":"days",
-      "th5":"brands",
+      "th1":"货币",
+      "th2":"产品",
+      "th3":"最多",
+      "th4":"天数",
+      "th5":"品牌",
       "brands":{
-        "th1":"brand",
-        "th2":"rate"
+        "th1":"品牌",
+        "th2":"比例"
       }
     },
     "currenciesManage":{
@@ -134,21 +134,21 @@
       "th5":"支持"
     },
     "transactionsDetail":{
-      "th1":"User Id",
-      "th2":"Affiliate Id",
-      "th3":"Service Id",
-      "th4":"service",
-      "th5":"amount",
+      "th1":"用户Id",
+      "th2":"隶属Id",
+      "th3":"服务Id",
+      "th4":"服务",
+      "th5":"数量",
       "th6":"preBalance",
       "th7":"postBalance",
-      "th8":"walletCode",
-      "th9":"description"
+      "th8":"钱包编码",
+      "th9":"描述"
     },
     "blackLists":{
-      "th1":"AccountNumber",
-      "th2":"Comment",
-      "th3":"Type",
-      "th4":"IsDeleted"
+      "th1":"数量",
+      "th2":"结论",
+      "th3":"类型",
+      "th4":"删除"
     },
     "paymentMethods": {
       "th1": "编码",
@@ -164,40 +164,49 @@
       }
     },
     "ordersManage": {
-      "th1": "Amount",
-      "th2": "Currency",
-      "th3": "Destination",
-      "th4": "Method Code",
-      "th5": "Status",
-      "th6": "User"
+      "th1": "数量",
+      "th2": "货币",
+      "th3": "预定",
+      "th4": "渠道编码",
+      "th5": "状态",
+      "th6": "用户"
     },
     "appliesUse": {
-      "th1": "bets",
-      "th2": "bonus",
-      "th3": "brand",
-      "th4": "coupon",
-      "th5": "principal",
-      "th6": "product",
-      "th7": "wallet",
-      "th8": "status"
+      "th1": "预付",
+      "th2": "奖金",
+      "th3": "品牌",
+      "th4": "优惠券",
+      "th5": "本金",
+      "th6": "产品",
+      "th7": "产品",
+      "th8": "状态"
     },
     "gamesProducts": {
-      "th1": "Code",
-      "th2": "Name",
-      "th3": "Disable"
+      "th1": "编码",
+      "th2": "名称",
+      "th3": "禁用"
     },
     "pspsManage": {
-      "th1": "Code",
-      "th2": "Gateway",
-      "th3": "Account",
+      "th1": "编码",
+      "th2": "网关",
+      "th3": "额度",
       "th4": "Api Key",
-      "th5": "Methods",
-      "th6": "Activated",
+      "th5": "渠道",
+      "th6": "激活",
       "methods": {
-        "th1": "Code",
-        "th2": "Rate",
-        "th3": "Other"
+        "th1": "编码",
+        "th2": "比率",
+        "th3": "其他"
       }
+    },
+    "gameBrands": {
+      "th1": "编码",
+      "th2": "钱包",
+      "th3": "货币",
+      "th4": "名称",
+      "th5": "语言",
+      "th6": "产品",
+      "th7": "状态"
     }
   },
   "panel_tile": {

@@ -158,10 +158,11 @@
       "th5": "Max",
       "th6": "Type",
       "th7": "Disabled",
-      "name":{
+      "name": {
         "th1": "Locals",
         "th2": "Value"
-      },
+      }
+    },
     "ordersManage": {
       "th1": "Amount",
       "th2": "Currency",
@@ -197,7 +198,15 @@
         "th2": "Rate",
         "th3": "Other"
       }
-    }
+    },
+    "gameBrands": {
+      "th1": "Code",
+      "th2": "Wallet",
+      "th3": "Currencies",
+      "th4": "Name",
+      "th5": "Langs",
+      "th6": "Products",
+      "th7": "Status"
     }
   },
   "panel_tile": {

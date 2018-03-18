@@ -7,14 +7,68 @@
     GameBrandsController.$inject = [
         '$scope',
         '$rootScope',
+        '$uibModal',
         'adminService'
     ];
 
     function GameBrandsController(
         $scope,
         $rootScope,
+        $uibModal,
         adminService
     ) {
+
+        $scope.localesOptions = [];
+
+        $scope.initLocalesOptionsData = function () {
+            $scope.localesOptions = [];
+            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.localesOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.currencyOptions = [];
+
+        $scope.initCurrenciesManageData = function () {
+            $scope.currencyOptions = [];
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.currencyOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
 
         // 原始的数据
         $scope.gameBrands = [];
@@ -34,11 +88,64 @@
                     if (res.data.success) {
                         $scope.gameBrands = angular.copy(res.data.data);
                         $scope.gameBrands.forEach(function (gameBrandsItem, gameBrandsIndex) {
-                            gameBrandsItem.id = gameBrandsIndex +1;
+                            gameBrandsItem._id = gameBrandsIndex +1;
+                            gameBrandsItem.langs = [];
+                            if(gameBrandsItem.languageMap && window.Array.isArray(gameBrandsItem.languageMap) ){
+                                gameBrandsItem.languageMap.forEach(function(languageMapItem) {
+                                    var tempLangs = {};
+                                    tempLangs.our_locale = languageMapItem.local || '';
+                                    tempLangs.brand_locale = languageMapItem.brand || '';
+                                    gameBrandsItem.langs.push(tempLangs);
+                                });
+                                delete gameBrandsItem.languageMap;
+                            }
+                            gameBrandsItem.products = gameBrandsItem.products.map(function(productsItem) {
+                                var tempProducts = {};
+                                tempProducts.code = productsItem.code;
+                                tempProducts.osx_url = productsItem && productsItem.urls && productsItem.urls.osx || '';
+                                tempProducts.windows_url = productsItem && productsItem.urls && productsItem.urls.windows || '';
+                                tempProducts.ios_url = productsItem && productsItem.urls && productsItem.urls.ios || '';
+                                tempProducts.android_url = productsItem && productsItem.urls && productsItem.urls.android || '';
+                            })
                         });
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
+                }
+            });
+        };
+
+        // 展示弹窗
+        $scope.showBrandsNameModal = function (item) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/paymentMethods/paymentMethodsNameModal.html',
+                controller: 'PaymentMethodsNameModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    MethodsNameItem: item
+                }
+            });
+            modalInstance.result.then(function (data) {
+                if(data.type == 'name'){
+                    $scope.gameBrands.forEach(function(gameBrandsItem) {
+                        if (gameBrandsItem.id == data.data.id) {
+                            gameBrandsItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.gameBrandsReload++;
+                        }
+                    });
+                }
+            }, function (data) {
+                if(data.type == 'name'){
+                    $scope.gameBrands.forEach(function(gameBrandsItem) {
+                        if (gameBrandsItem.id == data.data.id) {
+                            gameBrandsItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.gameBrandsReload++;
+                        }
+                    });
                 }
             });
         };
@@ -66,9 +173,9 @@
                         }
                     }
                 });
-            } else if (!$scope.validIsNew(tempData._id) && gameBrands.id) {
+            } else if (!$scope.validIsNew(tempData._id) && gameBrands.code) {
                 delete tempData._id;
-                adminService.patchReq($rootScope.URL.GAMEBRANDS.PATCH+'/'+gameBrands.id, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.GAMEBRANDS.PATCH+'/'+gameBrands.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -91,7 +198,7 @@
         $scope.deleteGameBrands = function (gameBrands) {
             if (!$scope.validIsNew(gameBrands._id)) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.GAMEBRANDS.DELETE+'/'+gameBrands.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.GAMEBRANDS.DELETE+'/'+gameBrands.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initGameBrandsData();
@@ -112,12 +219,11 @@
             $scope.gameBrandsSearch = '';
             $scope.gameBrands.unshift({
                 '_id': ($scope.gameBrands.length+1) + 'null',
-                'gameBrandsName': '',
-                'gameBrandsType': '',
-                'gameBrandsStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                'code': '',
+                'wallet': '',
+                'currencies': [],
+                'langs': [],
+                'products': []
             });
         };
 
@@ -136,5 +242,9 @@
         // 页面加载执行的函数
 
         $scope.initGameBrandsData();
+
+        $scope.initCurrenciesManageData();
+
+        $scope.initLocalesOptionsData();
     }
 })();
