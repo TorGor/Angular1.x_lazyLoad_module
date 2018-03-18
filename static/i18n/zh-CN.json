@@ -180,6 +180,11 @@
       "th6": "product",
       "th7": "wallet",
       "th8": "status"
+    },
+    "gamesProducts": {
+      "th1": "Code",
+      "th2": "Name",
+      "th3": "Disable"
     }
   },
   "panel_tile": {

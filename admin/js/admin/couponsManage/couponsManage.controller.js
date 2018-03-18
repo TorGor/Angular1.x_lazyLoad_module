@@ -23,24 +23,10 @@
         $scope.showCouponsManage = [];
         $scope.couponsManageReload = 1;
         $scope.couponsManageAoData = {};
-        $scope.couponsManageSearch = '';
 
         // 初始化table数据
         $scope.initCouponsManageData = function () {
-            $scope.couponsManage = [];
-            adminService.getReq($rootScope.URL.COUPONSMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.couponsManage = angular.copy(res.data.data);
-                        $scope.couponsManage.forEach(function (couponsManageItem, couponsManageIndex) {
-                            couponsManageItem.id = couponsManageIndex +1;
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
+            $scope.couponsManageReload++
         };
 
 

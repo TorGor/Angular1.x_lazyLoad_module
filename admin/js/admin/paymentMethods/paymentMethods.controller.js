@@ -189,6 +189,7 @@
                     }
                 });
             } else if (!$scope.validIsNew(paymentMethods.id) && paymentMethods.code) {
+                delete tempData.id;
                 if(tempData.name && tempData.name.length){
                     var tempObj = {};
                     var sameKey = false;

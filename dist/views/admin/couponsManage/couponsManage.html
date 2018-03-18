@@ -45,7 +45,7 @@
                            </span>
                         </td>
                         <td style="white-space: nowrap;">
-                           <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveCouponsManage(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
+                           <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveCouponsManage(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item._id)">
                               <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                  <em class="fa fa-save"></em>
                               </button>

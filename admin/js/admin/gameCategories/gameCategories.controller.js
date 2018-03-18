@@ -77,12 +77,12 @@
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/gameCategories/gameCategoriesNameModal.html',
-                controller: 'GameCategoriesNameModalController',
+                templateUrl: '/views/admin/paymentMethods/paymentMethodsNameModal.html',
+                controller: 'PaymentMethodsNameModalController',
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    GameCategoriesNameItem: item
+                    MethodsNameItem: item
                 }
             });
             modalInstance.result.then(function (data) {
@@ -105,8 +105,6 @@
                 }
             });
         };
-
-
 
         // 保存
         /**
@@ -146,6 +144,7 @@
                     }
                 });
             } else if (!$scope.validIsNew(gameCategories._id) && gameCategories.id) {
+                delete tempData._id;
                 if(tempData.name && tempData.name.length){
                     var tempObj = {};
                     var sameKey = false;

@@ -34,7 +34,7 @@
                     if (res.data.success) {
                         $scope.commonModule = angular.copy(res.data.data);
                         $scope.commonModule.forEach(function (commonModuleItem, commonModuleIndex) {
-                            commonModuleItem.id = commonModuleIndex +1;
+                            commonModuleItem._id = commonModuleIndex +1;
                         });
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);

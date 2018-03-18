@@ -59,6 +59,7 @@
                     window.Object.assign(methodsNameModalItem, data);
                     if($scope.validIsNew(methodsNameModalItem.id)){
                         methodsNameModalItem.id = window.parseInt(methodsNameModalItem.id, 10)
+                        $scope.methodsNameModalReload ++
                     }
                 }
             });

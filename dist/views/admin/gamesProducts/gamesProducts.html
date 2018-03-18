@@ -19,14 +19,14 @@
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
-                        <td style="width: 40%" ao-data="gamesProductsAoData" web-data-table-sort="roleName">
+                        <td style="width: 40%" ao-data="gamesProductsAoData" web-data-table-sort="code">
                            {{'table.gamesProducts.th1' | translate}}
                         </td>
-                        <td style="width: 40%" ao-data="gamesProductsAoData" web-data-table-sort="roleName">
-                           {{'table.gamesProducts.th1' | translate}}
-                        </td>
-                        <td style="width: 40%" ao-data="gamesProductsAoData" web-data-table-sort="roleStatus">
+                        <td style="width: 40%" ao-data="gamesProductsAoData" web-data-table-sort="name">
                            {{'table.gamesProducts.th2' | translate}}
+                        </td>
+                        <td style="width: 40%" ao-data="gamesProductsAoData" web-data-table-sort="disabled">
+                           {{'table.gamesProducts.th3' | translate}}
                         </td>
                         <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                      </tr>
@@ -37,12 +37,10 @@
                            <span editable-text="item.code" e-name="code" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.name" e-name="name" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
+                           <button class="btn btn-sm btn-info" ng-click="showGameProductNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>
                         </td>
                         <td>
-                           <span editable-select="item.roleStatus" e-name="roleStatus" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in adminSelect012.options">
-                              <span ng-bind-html="filter012OptionsValue(item.roleStatus)"></span>
-                           </span>
+                           <span>{{item.disable ? 'Yes' : 'No'}}</span>
                         </td>
                         <td style="white-space: nowrap;">
                            <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveGamesProducts(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
