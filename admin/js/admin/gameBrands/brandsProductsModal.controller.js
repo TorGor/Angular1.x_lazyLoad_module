@@ -31,14 +31,14 @@
         $scope.brandsProductsModalAoData = {};
         $scope.brandsProductsModalSearch = '';
 
-        var baseBrandsProducts = angular.copy(BrandsProductsItem);
+        var baseBrandsProducts = angular.copy(brandsProductsItem);
 
         // 初始化table数据
         $scope.initBrandsProductsModalData = function () {
             $scope.brandsProductsModal = [];
-            console.log(BrandsProductsItem,'BrandsProductsItem')
-            if(BrandsProductsItem['products'].length){
-                $scope.brandsProductsModal = BrandsProductsItem['products'];
+            console.log(brandsProductsItem,'brandsProductsItem')
+            if(brandsProductsItem['products'].length){
+                $scope.brandsProductsModal = brandsProductsItem['products'];
                 $scope.brandsProductsModal.forEach(function (brandsProductsItem, brandsProductsIndex) {
                     brandsProductsItem.id = brandsProductsIndex + 1;
                 })
@@ -81,32 +81,27 @@
             $scope.brandsProductsModalSearch = '';
             $scope.brandsProductsModal.unshift({
                 'id': ($scope.brandsProductsModal.length+1) + 'null',
-                "locale": $scope.localesOptions[0] ? $scope.localesOptions[0].value : '',
-                "value": ''
+                "code": $scope.productOptions[0] ? $scope.productOptions[0].value : '',
+                "osx_url": '',
+                "windows_url": '',
+                "ios_url": '',
+                "android_url": '',
             });
         };
 
         /**
          *
-         * @param BrandsProductsItem 添加的渠道名称
+         * @param brandsProductsItem 添加的渠道名称
          * @param index 添加的index
          */
 
-        $scope.cancelSaveModal = function (BrandsProductsItem, index) {
-            if ($scope.validIsNew(BrandsProductsItem.id)) {
+        $scope.cancelSaveModal = function (brandsProductsItem, index) {
+            if ($scope.validIsNew(brandsProductsItem.id)) {
                 $scope.brandsProductsModal.splice(index, 1);
             }
         };
 
         $scope.confirmModal = function () {
-            $scope.brandsProductsModal = $scope.brandsProductsModal.filter(function (brandsProductsItem) {
-                return !$scope.validIsNew(brandsProductsItem.id);
-            });
-            $scope.brandsProductsModal.forEach(function (brandsProductsItem, brandsProductsIndex) {
-                if(brandsProductsItem.id){
-                    delete brandsProductsItem.id;
-                }
-            });
             if($scope.brandsProductsModal && $scope.brandsProductsModal.length){
                 var tempObj = {};
                 var sameKey = false;
@@ -121,6 +116,14 @@
                     return '';
                 }
             }
+            $scope.brandsProductsModal = $scope.brandsProductsModal.filter(function (brandsProductsItem) {
+                return !$scope.validIsNew(brandsProductsItem.id);
+            });
+            $scope.brandsProductsModal.forEach(function (brandsProductsItem, brandsProductsIndex) {
+                if(brandsProductsItem.id){
+                    delete brandsProductsItem.id;
+                }
+            });
             baseBrandsProducts.products = $scope.brandsProductsModal;
             $uibModalInstance.close({
                 type:'products',

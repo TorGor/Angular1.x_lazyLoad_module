@@ -10582,7 +10582,7 @@ body .jvectormap-zoomout {
   background: #5d9cec;
   color: white;
 }
-.editable-controls .editable-input.ng-empty {
+.editable-controls .editable-input.ng-invalid-required {
   border: 1px solid #a94442;
 }
 .editable-controls .editable-error {

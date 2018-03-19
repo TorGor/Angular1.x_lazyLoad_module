@@ -20,7 +20,7 @@
                     <form class="form-inline pull-right add-button-class" role="form">
                         <div style="position: relative" class="form-group">
                             <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                            <input class="form-control" type="text" ng-model="brandsProductsModalSearch" placeholder="{{searchPlaceholder(['table.gameBrands.products.th1', 'table.gameBrands.products.th2'])}}">
+                            <input class="form-control" type="text" ng-model="brandsProductsModalSearch" placeholder="{{searchPlaceholder(['table.gameBrands.products.th1', 'table.gameBrands.products.th2', 'table.gameBrands.products.th3', 'table.gameBrands.products.th4', 'table.gameBrands.products.th5'])}}">
                         </div>
                     </form>
                     <div
@@ -62,20 +62,20 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <span editable-text="item.osx_url" e-name="osx_url" e-formclass="xeditable-md"
-                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.osx_url || '' }}</span>
+                                    <span editable-text="item.osx_url" e-placeholder="can be empty" e-name="osx_url" e-formclass="xeditable-md"
+                                           e-form="rowform">{{ item.osx_url || '' }}</span>
                                 </td>
                                 <td>
-                                    <span editable-text="item.windows_url" e-name="windows_url" e-formclass="xeditable-md"
-                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.windows_url || '' }}</span>
+                                    <span editable-text="item.windows_url" e-placeholder="can be empty" e-name="windows_url" e-formclass="xeditable-md"
+                                           e-form="rowform" >{{ item.windows_url || '' }}</span>
                                 </td>
                                 <td>
-                                    <span editable-text="item.ios_url" e-name="ios_url" e-formclass="xeditable-md"
-                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.ios_url || '' }}</span>
+                                    <span editable-text="item.ios_url" e-placeholder="can be empty" e-name="ios_url" e-formclass="xeditable-md"
+                                           e-form="rowform" >{{ item.ios_url || '' }}</span>
                                 </td>
                                 <td>
-                                    <span editable-text="item.android_url" e-name="android_url" e-formclass="xeditable-md"
-                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.android_url || '' }}</span>
+                                    <span editable-text="item.android_url" e-placeholder="can be empty" e-name="android_url" e-formclass="xeditable-md"
+                                           e-form="rowform">{{ item.android_url || '' }}</span>
                                 </td>
                                 <td style="white-space: nowrap;">
                                     <form class="form-buttons form-inline" editable-form name="rowform"

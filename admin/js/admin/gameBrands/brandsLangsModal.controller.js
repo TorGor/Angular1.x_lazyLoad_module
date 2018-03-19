@@ -31,14 +31,14 @@
         $scope.brandsLangsModalAoData = {};
         $scope.brandsLangsModalSearch = '';
 
-        var baseBrandsLangs = angular.copy(BrandsLangsItem);
+        var baseBrandsLangs = angular.copy(brandsLangsItem);
 
         // 初始化table数据
         $scope.initBrandsLangsModalData = function () {
             $scope.brandsLangsModal = [];
-            console.log(BrandsLangsItem,'BrandsLangsItem')
-            if(BrandsLangsItem['langs'].length){
-                $scope.brandsLangsModal = BrandsLangsItem['langs'];
+            console.log(brandsLangsItem,'brandsLangsItem')
+            if(brandsLangsItem['langs'].length){
+                $scope.brandsLangsModal = brandsLangsItem['langs'];
                 $scope.brandsLangsModal.forEach(function (brandsLangsItem, brandsLangsIndex) {
                     brandsLangsItem.id = brandsLangsIndex + 1;
                 })
@@ -81,32 +81,24 @@
             $scope.brandsLangsModalSearch = '';
             $scope.brandsLangsModal.unshift({
                 'id': ($scope.brandsLangsModal.length+1) + 'null',
-                "locale": $scope.localesOptions[0] ? $scope.localesOptions[0].value : '',
-                "value": ''
+                "our_locale": $scope.localesOptions[0] ? $scope.localesOptions[0].value : '',
+                "brand_locale": ''
             });
         };
 
         /**
          *
-         * @param BrandsLangsItem 添加的渠道名称
+         * @param brandsLangsItem 添加的渠道名称
          * @param index 添加的index
          */
 
-        $scope.cancelSaveModal = function (BrandsLangsItem, index) {
-            if ($scope.validIsNew(BrandsLangsItem.id)) {
+        $scope.cancelSaveModal = function (brandsLangsItem, index) {
+            if ($scope.validIsNew(brandsLangsItem.id)) {
                 $scope.brandsLangsModal.splice(index, 1);
             }
         };
 
         $scope.confirmModal = function () {
-            $scope.brandsLangsModal = $scope.brandsLangsModal.filter(function (brandsLangsItem) {
-                return !$scope.validIsNew(brandsLangsItem.id);
-            });
-            $scope.brandsLangsModal.forEach(function (brandsLangsItem, brandsLangsIndex) {
-                if(brandsLangsItem.id){
-                    delete brandsLangsItem.id;
-                }
-            });
             if($scope.brandsLangsModal && $scope.brandsLangsModal.length){
                 var tempObj = {};
                 var sameKey = false;
@@ -121,7 +113,15 @@
                     return '';
                 }
             }
-            baseBrandsLangs.name = $scope.brandsLangsModal;
+            $scope.brandsLangsModal = $scope.brandsLangsModal.filter(function (brandsLangsItem) {
+                return !$scope.validIsNew(brandsLangsItem.id);
+            });
+            $scope.brandsLangsModal.forEach(function (brandsLangsItem, brandsLangsIndex) {
+                if(brandsLangsItem.id){
+                    delete brandsLangsItem.id;
+                }
+            });
+            baseBrandsLangs.langs = $scope.brandsLangsModal;
             $uibModalInstance.close({
                 type:'langs',
                 data:baseBrandsLangs

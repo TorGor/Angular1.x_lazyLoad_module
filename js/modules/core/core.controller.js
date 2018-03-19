@@ -49,6 +49,9 @@
                     return tempBtnArray[0].label;
                 }
             }
+            if(typeof str === 'string'){
+                return str;
+            }
             return '';
         };
 

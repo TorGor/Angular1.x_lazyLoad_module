@@ -99,14 +99,6 @@
         };
 
         $scope.confirmModal = function () {
-            $scope.methodsNameModal = $scope.methodsNameModal.filter(function (methodsNameItem) {
-                return !$scope.validIsNew(methodsNameItem.id);
-            });
-            $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
-                if(methodsNameItem.id){
-                    delete methodsNameItem.id;
-                }
-            });
             if($scope.methodsNameModal && $scope.methodsNameModal.length){
                 var tempObj = {};
                 var sameKey = false;
@@ -121,6 +113,14 @@
                     return '';
                 }
             }
+            $scope.methodsNameModal = $scope.methodsNameModal.filter(function (methodsNameItem) {
+                return !$scope.validIsNew(methodsNameItem.id);
+            });
+            $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
+                if(methodsNameItem.id){
+                    delete methodsNameItem.id;
+                }
+            });
             baseMethodsName.name = $scope.methodsNameModal;
             $uibModalInstance.close({
                 type:'name',

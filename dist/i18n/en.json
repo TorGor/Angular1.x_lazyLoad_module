@@ -206,7 +206,18 @@
       "th4": "Name",
       "th5": "Langs",
       "th6": "Products",
-      "th7": "Status"
+      "th7": "Status",
+      "langs": {
+        "th1": "System Locale",
+        "th2": "Define Locale"
+      },
+      "products": {
+        "th1": "Code",
+        "th2": "Osx Url",
+        "th3": "Windows Url",
+        "th4": "Ios Url",
+        "th5": "Android Url"
+      }
     }
   },
   "panel_tile": {

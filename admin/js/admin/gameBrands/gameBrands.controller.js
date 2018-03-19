@@ -132,8 +132,10 @@
                                 tempProducts.windows_url = productsItem && productsItem.urls && productsItem.urls.windows || '';
                                 tempProducts.ios_url = productsItem && productsItem.urls && productsItem.urls.ios || '';
                                 tempProducts.android_url = productsItem && productsItem.urls && productsItem.urls.android || '';
+                                return tempProducts;
                             })
                         });
+                        console.log($scope.gameBrands)
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
@@ -265,7 +267,7 @@
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    brandsLangsItem: item
+                    brandsProductsItem: item
                 }
             });
             modalInstance.result.then(function (data) {
