@@ -223,7 +223,7 @@
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
                 templateUrl: '/views/admin/gameBrands/brandsLangsModal.html',
-                controller: 'BrandsCurrenciesModalController',
+                controller: 'BrandsLangsModalController',
                 size: 'lg',
                 scope:$scope,
                 resolve: {
@@ -261,7 +261,7 @@
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
                 templateUrl: '/views/admin/gameBrands/brandsProductsModal.html',
-                controller: 'BrandsCurrenciesModalController',
+                controller: 'BrandsProductsModalController',
                 size: 'lg',
                 scope:$scope,
                 resolve: {
@@ -387,5 +387,7 @@
         $scope.initCurrenciesManageData();
 
         $scope.initLocalesOptionsData();
+
+        $scope.initProductManageData();
     }
 })();

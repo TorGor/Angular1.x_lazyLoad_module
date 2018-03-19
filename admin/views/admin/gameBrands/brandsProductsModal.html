@@ -34,27 +34,48 @@
                         <table width="100%" class="table table-bordered table-hover bg-white">
                             <thead>
                             <tr class="bg-gray-light text-bold">
-                                <td style="width: 40%" ao-data="brandsProductsModalAoData" web-data-table-sort="locale">
+                                <td style="width: 15%" ao-data="brandsProductsModalAoData" web-data-table-sort="code">
                                     {{'table.gameBrands.products.th1' | translate}}
                                 </td>
-                                <td style="width: 40%" ao-data="brandsProductsModalAoData" web-data-table-sort="value">
+                                <td style="width: 20%" ao-data="brandsProductsModalAoData" web-data-table-sort="osx_url">
                                     {{'table.gameBrands.products.th2' | translate}}
                                 </td>
-                                <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                                <td style="width: 20%" ao-data="brandsProductsModalAoData" web-data-table-sort="windows_url">
+                                    {{'table.gameBrands.products.th3' | translate}}
+                                </td>
+                                <td style="width: 20%" ao-data="brandsProductsModalAoData" web-data-table-sort="ios_url">
+                                    {{'table.gameBrands.products.th4' | translate}}
+                                </td>
+                                <td style="width: 20%" ao-data="brandsProductsModalAoData" web-data-table-sort="value">
+                                    {{'table.gameBrands.products.th5' | translate}}
+                                </td>
+                                <td style="width: 10%">{{'table.button.operation' | translate}}</td>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="item in showBrandsProductsModal">
                                 <td>
-                                    <span editable-select="item.locale" e-name="locale" e-form="rowform"
+                                    <span editable-select="item.code" e-name="code" e-form="rowform"
                                           onbeforesave="checkRequiredData($data)"
-                                          e-ng-options="option.value as option.label for option in localesOptions">
-                                        {{showOptionsValue(item.locale,localesOptions)}}
+                                          e-ng-options="option.value as option.label for option in productOptions">
+                                        {{showOptionsValue(item.code, productOptions)}}
                                     </span>
                                 </td>
                                 <td>
-                                    <span editable-text="item.value" e-name="value" e-formclass="xeditable-sm"
-                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.value || '' }}</span>
+                                    <span editable-text="item.osx_url" e-name="osx_url" e-formclass="xeditable-md"
+                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.osx_url || '' }}</span>
+                                </td>
+                                <td>
+                                    <span editable-text="item.windows_url" e-name="windows_url" e-formclass="xeditable-md"
+                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.windows_url || '' }}</span>
+                                </td>
+                                <td>
+                                    <span editable-text="item.ios_url" e-name="ios_url" e-formclass="xeditable-md"
+                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.ios_url || '' }}</span>
+                                </td>
+                                <td>
+                                    <span editable-text="item.android_url" e-name="android_url" e-formclass="xeditable-md"
+                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.android_url || '' }}</span>
                                 </td>
                                 <td style="white-space: nowrap;">
                                     <form class="form-buttons form-inline" editable-form name="rowform"

@@ -34,10 +34,10 @@
                         <table width="100%" class="table table-bordered table-hover bg-white">
                             <thead>
                             <tr class="bg-gray-light text-bold">
-                                <td style="width: 40%" ao-data="brandsLangsModalAoData" web-data-table-sort="locale">
+                                <td style="width: 40%" ao-data="brandsLangsModalAoData" web-data-table-sort="our_locale">
                                     {{'table.gameBrands.langs.th1' | translate}}
                                 </td>
-                                <td style="width: 40%" ao-data="brandsLangsModalAoData" web-data-table-sort="value">
+                                <td style="width: 40%" ao-data="brandsLangsModalAoData" web-data-table-sort="brand_locale">
                                     {{'table.gameBrands.langs.th2' | translate}}
                                 </td>
                                 <td style="width: 17%">{{'table.button.operation' | translate}}</td>
@@ -46,15 +46,15 @@
                             <tbody>
                             <tr ng-repeat="item in showBrandsLangsModal">
                                 <td>
-                                    <span editable-select="item.locale" e-name="locale" e-form="rowform"
+                                    <span editable-select="item.our_locale" e-name="our_locale" e-form="rowform"
                                           onbeforesave="checkRequiredData($data)"
                                           e-ng-options="option.value as option.label for option in localesOptions">
-                                        {{showOptionsValue(item.locale,localesOptions)}}
+                                        {{showOptionsValue(item.our_locale,localesOptions)}}
                                     </span>
                                 </td>
                                 <td>
-                                    <span editable-text="item.value" e-name="value" e-formclass="xeditable-sm"
-                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.value || '' }}</span>
+                                    <span editable-text="item.brand_locale" e-name="brand_locale" e-formclass="xeditable-sm"
+                                          onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.brand_locale || '' }}</span>
                                 </td>
                                 <td style="white-space: nowrap;">
                                     <form class="form-buttons form-inline" editable-form name="rowform"
