@@ -141,7 +141,7 @@
             });
         };
 
-        // 展示弹窗
+        // 展示Name弹窗
         $scope.showBrandsNameModal = function (item) {
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -178,9 +178,8 @@
             });
         };
 
-        // 展示弹窗
+        // 展示Currencies弹窗
         $scope.showBrandsCurrenciesModal = function (item) {
-            console.log(item,999)
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -216,6 +215,81 @@
             });
         };
 
+
+        // 展示Langs弹窗
+        $scope.showBrandsLangsModal = function (item) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/gameBrands/brandsLangsModal.html',
+                controller: 'BrandsCurrenciesModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    brandsLangsItem: item
+                }
+            });
+            modalInstance.result.then(function (data) {
+                if(data.type == 'langs'){
+                    $scope.gameBrands.forEach(function(gameBrandsItem) {
+                        if (gameBrandsItem._id == data.data._id) {
+                            gameBrandsItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.gameBrandsReload++;
+                        }
+                    });
+                }
+                modalInstance = null
+            }, function (data) {
+                if(data.type == 'langs'){
+                    $scope.gameBrands.forEach(function(gameBrandsItem) {
+                        if (gameBrandsItem._id == data.data._id) {
+                            gameBrandsItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.gameBrandsReload++;
+                        }
+                    });
+                }
+                modalInstance = null
+            });
+        };
+
+
+        // 展示Products弹窗
+        $scope.showBrandsProductsModal = function (item) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/gameBrands/brandsProductsModal.html',
+                controller: 'BrandsCurrenciesModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    brandsLangsItem: item
+                }
+            });
+            modalInstance.result.then(function (data) {
+                if(data.type == 'products'){
+                    $scope.gameBrands.forEach(function(gameBrandsItem) {
+                        if (gameBrandsItem._id == data.data._id) {
+                            gameBrandsItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.gameBrandsReload++;
+                        }
+                    });
+                }
+                modalInstance = null
+            }, function (data) {
+                if(data.type == 'products'){
+                    $scope.gameBrands.forEach(function(gameBrandsItem) {
+                        if (gameBrandsItem._id == data.data._id) {
+                            gameBrandsItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.gameBrandsReload++;
+                        }
+                    });
+                }
+                modalInstance = null
+            });
+        };
 
         // 保存
         /**

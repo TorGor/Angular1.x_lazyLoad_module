@@ -206,7 +206,18 @@
       "th4": "名称",
       "th5": "语言",
       "th6": "产品",
-      "th7": "状态"
+      "th7": "状态",
+      "langs": {
+        "th1": "系统语言",
+        "th2": "自定义语言"
+      },
+      "products": {
+        "th1": "编码",
+        "th2": "Osx Url",
+        "th3": "Windows Url",
+        "th4": "Ios Url",
+        "th5": "Android Url"
+      }
     }
   },
   "panel_tile": {
