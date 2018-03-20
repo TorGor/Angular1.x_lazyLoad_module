@@ -218,6 +218,29 @@
         "th4": "Ios Url",
         "th5": "Android Url"
       }
+    },
+    "couponsManage": {
+      "th1": "Code",
+      "th2": "Name",
+      "th3": "Currency",
+      "th4": "Name",
+      "th5": "Brand",
+      "th6": "Product",
+      "th7": "Multiple Use",
+      "th8": "Need Certification",
+      "th9": "Type",
+      "th10": "Code Only",
+      "th11": "Enabled",
+      "conditions": {
+        "th1": "Type",
+        "th2": "Value Type",
+        "th3": "Value"
+      },
+      "treatments": {
+        "th1": "Type",
+        "th2": "Value",
+        "th3": "Max Bonus"
+      }
     }
   },
   "panel_tile": {

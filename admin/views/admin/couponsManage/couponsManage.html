@@ -29,34 +29,82 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 40%" ao-data="couponsManageAoData" web-data-table-sort="roleName">
+                            <td style="width: 8%">
                                 {{'table.couponsManage.th1' | translate}}
                             </td>
-                            <td style="width: 40%" ao-data="couponsManageAoData" web-data-table-sort="roleName">
-                                {{'table.couponsManage.th1' | translate}}
-                            </td>
-                            <td style="width: 40%" ao-data="couponsManageAoData" web-data-table-sort="roleStatus">
+                            <td style="width: 8%">
                                 {{'table.couponsManage.th2' | translate}}
                             </td>
-                            <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                            <td style="width: 8%" ao-data="couponsManageAoData" server-data-table-sort="currency">
+                                {{'table.couponsManage.th3' | translate}}
+                            </td>
+                            <td style="width: 8%">
+                                {{'table.couponsManage.th4' | translate}}
+                            </td>
+                            <td style="width: 8%">
+                                {{'table.couponsManage.th5' | translate}}
+                            </td>
+                            <td style="width: 8%">
+                                {{'table.couponsManage.th6' | translate}}
+                            </td>
+                            <td style="width: 8%">
+                                {{'table.couponsManage.th7' | translate}}
+                            </td>
+                            <td style="width: 8%">
+                                {{'table.couponsManage.th8' | translate}}
+                            </td>
+                            <td style="width: 8%">
+                                {{'table.couponsManage.th9' | translate}}
+                            </td>
+                            <td style="width: 8%">
+                                {{'table.couponsManage.th10' | translate}}
+                            </td>
+                            <td style="width: 8%">
+                                {{'table.couponsManage.th11' | translate}}
+                            </td>
+                            <td style="width: 8%">
+                                {{'table.couponsManage.th12' | translate}}
+                            </td>
+                            <td style="width: 10%">{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in showCouponsManage">
                             <td>
-                                <span editable-text="item.code" e-name="code" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
+                                <span>{{ item.code || '' }}</span>
                             </td>
                             <td>
-                                <span editable-text="item.name" e-name="name" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
+                                <span>{{ item.name || '' }}</span>
                             </td>
                             <td>
-                                    <span editable-select="item.roleStatus" e-name="roleStatus" e-form="rowform"
-                                          onbeforesave="checkRequiredData($data)"
-                                          e-ng-options="option.value as option.label for option in adminSelect012.options">
-                                        <span ng-bind-html="filter012OptionsValue(item.roleStatus)"></span>
-                                    </span>
+                                <span>{{item.currency}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.brand}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.wallet}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.product}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.multiple_use ? 'Yes' : 'No'}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.need_certification ? 'Yes' : 'No'}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.type}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.need_audit ? 'Yes' : 'No'}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.code_only ? 'Yes' : 'No'}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.enabled ? 'Yes' : 'No'}}</span>
                             </td>
                             <td style="white-space: nowrap;">
                                 <form class="form-buttons form-inline" editable-form name="rowform"
