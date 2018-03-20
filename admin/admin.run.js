@@ -95,7 +95,7 @@
                 GET:'/rest/coupons',
                 POST:'/rest/coupons',
                 PATCH:'/rest/coupons',
-                PUT:'/rest/coupons',
+                PUT:'/rest/restore',
                 DELETE:'/rest/coupons'
             },
             GAMESMANAGE:{

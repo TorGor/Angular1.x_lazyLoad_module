@@ -229,8 +229,9 @@
       "th7": "Multiple Use",
       "th8": "Need Certification",
       "th9": "Type",
-      "th10": "Code Only",
-      "th11": "Enabled",
+      "th10": "Need Audit",
+      "th11": "Code Only",
+      "th12": "Enabled",
       "conditions": {
         "th1": "Type",
         "th2": "Value Type",

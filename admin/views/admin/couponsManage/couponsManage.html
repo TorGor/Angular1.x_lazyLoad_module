@@ -12,19 +12,36 @@
                         新增
                     </button>
                 </span>
-                <form class="form-inline pull-right add-button-class" role="form">
-                    <div style="position: relative" class="form-group">
-                        <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                        <input class="form-control" type="text" ng-model="couponsManageSearch" placeholder="{{searchPlaceholder(['table.couponsManage.th1', 'table.couponsManage.th2', 'table.couponsManage.th3'])}}">
+                <form style="width: 450px" class="form-horizontal pull-right" role="form">
+                    <div class="col-lg-6 col-md-6">
+                        <input
+                                class="form-control"
+                                type="text"
+                                ng-model="couponsManageAoData.code"
+                                placeholder="code">
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <ui-select
+                                ng-model="couponsManageAoData.currency"
+                                theme="bootstrap"
+                                search-enabled="false">
+                            <ui-select-match placeholder="{{'currency'}}">
+                                <span ng-bind="$select.selected.label"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item.value as item in currencyOptions">
+                                <span ng-bind="item.label"></span>
+                            </ui-select-choices>
+                        </ui-select>
                     </div>
                 </form>
                 <div
-                        web-data-table
+                        server-data-table
                         items="couponsManage"
                         ao-data="couponsManageAoData"
-                        search="couponsManageSearch"
                         reload="couponsManageReload"
-                        show-items="showCouponsManage"
+                        service-name="adminService"
+                        service-name-attr="getReq"
+                        url="couponsManageUrl"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
@@ -69,7 +86,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in showCouponsManage">
+                        <tr ng-repeat="item in couponsManage">
                             <td>
                                 <span>{{ item.code || '' }}</span>
                             </td>
@@ -107,33 +124,24 @@
                                 <span>{{item.enabled ? 'Yes' : 'No'}}</span>
                             </td>
                             <td style="white-space: nowrap;">
-                                <form class="form-buttons form-inline" editable-form name="rowform"
-                                      onaftersave="saveCouponsManage(item, $data)" ng-show="rowform.$visible"
-                                      shown="validIsNew(item._id)">
-                                    <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
-                                            title="{{'table.button.save' | translate}}">
-                                        <em class="fa fa-save"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
-                                            ng-click="rowform.$cancel();cancelSave(item,$index)"
-                                            title="{{'table.button.cancel' | translate}}">
-                                        <em class="fa fa-times"></em>
-                                    </button>
-                                </form>
-                                <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-info" ng-click="rowform.$show()"
+                                <div class="buttons">
+                                    <button class="btn btn-sm btn-info" ng-click="saveCouponsManage(item)"
                                             title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" ng-click="deleteCouponsManage(item)"
+                                    <button class="btn btn-sm btn-danger" ng-show="item.enabled" ng-click="deleteCouponsManage(item)"
                                             title="{{'table.button.delete' | translate}}">
                                         <em class="fa fa-trash"></em>
+                                    </button>
+                                    <button class="btn btn-sm btn-green" ng-show="!item.enabled" ng-click="recoverCouponsManage(item)"
+                                            title="{{'table.button.recover' | translate}}">
+                                        <em class="fa fa-rotate-left"></em>
                                     </button>
                                 </div>
                             </td>
                         </tr>
-                        <tr ng-show="showCouponsManage.length==0">
-                            <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                        <tr ng-show="couponsManage.length==0">
+                            <td colspan="13" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>
