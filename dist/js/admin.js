@@ -1240,13 +1240,13 @@
         };
 
 
-        // 保存
+        // 编辑
         /**
          *
          * @param couponsManage COUPONSMANAGETITLE数据对象
          */
 
-        $scope.saveCouponsManage = function (couponsManage) {
+        $scope.editCouponsManage = function (couponsManage) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -1255,7 +1255,7 @@
                 controller: 'addCouponsController',
                 scope: $scope,
                 size: 'lg',
-                resole:{
+                resolve:{
                     couponsItem:couponsManage,
                     edit:true,
                 }
@@ -1354,6 +1354,8 @@
         $scope.initProductManageData();
 
         $scope.initBrandOptionsData();
+
+        $scope.initRanksOptionsData();
     }
 })();
 
@@ -1392,9 +1394,25 @@
                     {
                         type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
                         value:'',
-                        max_bonus:''
+                        maxBonus:''
                     }
                 ]
+            }
+            if(window.Array.isArray($scope.couponsItem.conditions)){
+                $scope.couponsItem.conditions.forEach(function(conditionsItem) {
+                    if(conditionsItem.value){
+                        conditionsItem.valueType = conditionsItem.value.type || '';
+                        conditionsItem.value = conditionsItem.value.value || '';
+                    }
+                })
+            }
+            if(window.Array.isArray($scope.couponsItem.treatments)){
+                $scope.couponsItem.treatments.forEach(function(treatmentsItem) {
+                    if(treatmentsItem.max){
+                        treatmentsItem.maxBonus = treatmentsItem.max || '';
+                        delete treatmentsItem.max
+                    }
+                })
             }
         }else{
             $scope.couponsItem = {
@@ -1405,28 +1423,111 @@
                 wallet: $scope.walletOptions[0] && $scope.walletOptions[0].value || '',
                 product: $scope.productOptions[0] && $scope.productOptions[0].value || '',
                 type: $scope.typeOptions[0] && $scope.typeOptions[0].value || '',
-                start_time: '',
-                end_time: '',
-                need_audit: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                multiple_use: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                need_certification: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
+                startTime: '',
+                endTime: '',
+                needAudit: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
+                multipleUse: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
+                needCertification: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
                 ranks: [],
-                code_only: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                enabled: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
+                codeOnly: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
+                isDeleted: $scope.booleanOptons[1] && $scope.booleanOptons[1].value || 'false',
                 conditions: [],
                 treatments: [
                     {
                         type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
                         value:'',
-                        max_bonus:''
+                        maxBonus:''
                     }
                 ],
             };
         }
 
+        console.log($scope.couponsItem,888)
+
+        $scope.timeStart = $scope.couponsItem.startTime || '';
+        $scope.timeEnd = $scope.couponsItem.endTime || '';
+
+        /**
+         * 点击复选框
+         * @param value value值
+         * @param $event 点击事件
+         */
+        $scope.selectRank = function(value, $event) {
+            if($event.target.checked){
+                if($scope.couponsItem.ranks.indexOf(value) === -1){
+                    $scope.couponsItem.ranks.push(value)
+                }
+            }else{
+                $scope.couponsItem.ranks.splice($scope.couponsItem.ranks.indexOf(value), 1)
+            }
+        };
+
+        // 过滤出来的数据
+        $scope.showConditionsModal = [];
+        $scope.conditionsModalReload = 1;
+        $scope.conditionsModalAoData = {};
+        $scope.conditionsModalSearch = '';
+
+        // 初始化table数据
+        $scope.initConditionsModalData = function () {
+            $scope.couponsItem['conditions'].forEach(function (conditionsItem, conditionsIndex) {
+                conditionsItem.id = conditionsIndex + 1;
+            })
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param conditionsModal 渠道名称数据对象
+         * @param data
+         */
+
+        $scope.saveConditionsModal = function (conditionsModal, data) {
+            $scope.couponsItem['conditions'].forEach(function (conditionsModalItem) {
+                if(conditionsModalItem.id == conditionsModal.id){
+                    window.Object.assign(conditionsModalItem, data);
+                    if($scope.validIsNew(conditionsModalItem.id)){
+                        conditionsModalItem.id = window.parseInt(conditionsModalItem.id, 10)
+                        $scope.conditionsModalReload ++
+                    }
+                }
+            });
+        };
+
+        // 删除rebatesModal
+        /**
+         * @param conditionsModal 渠道名称数据对象
+         * @param index 位置
+         * @return null
+         */
+        $scope.deleteConditionsModal = function (conditionsModal, index) {
+            $scope.couponsItem['conditions'].splice(index, 1)
+        };
+
+        // 添加按钮
+        $scope.addConditionsModal = function () {
+            $scope.conditionsModalAoData = {};
+            $scope.conditionsModalSearch = '';
+            $scope.couponsItem['conditions'].unshift({
+                'id': ($scope.couponsItem['conditions'].length+1) + 'null',
+                "type": $scope.conditionsTypeOptions[0] ? $scope.conditionsTypeOptions[0].value : '',
+                "valueType": $scope.conditionsValueTypeOptions[0] ? $scope.conditionsValueTypeOptions[0].value : '',
+                "value": ''
+            });
+        };
+
         $scope.confirmModal = function () {
+            var tempData = angular.copy($scope.couponsItem);
+            if(window.Array.isArray(tempData['conditions'])){
+                tempData['conditions'].forEach(function(conditionsItem) {
+                    if(conditionsItem.id){
+                        delete conditionsItem.id;
+                    }
+                })
+            }
             if (!edit) {
-                adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, $scope.couponsItem).then(function (res) {
+                adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -1438,7 +1539,7 @@
                     }
                 });
             } else if (edit) {
-                adminService.patchReq($rootScope.URL.COUPONSMANAGE.PATCH+'/'+couponsItem.code, {}, $scope.couponsItem).then(function (res) {
+                adminService.patchReq($rootScope.URL.COUPONSMANAGE.PATCH+'/'+couponsItem.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -1457,6 +1558,21 @@
         };
 
         // 页面加载执行的函数
+
+        $scope.$watch('timeStart+timeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.timeStart) {
+                    $scope.couponsItem.startTime = $scope.timeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                } else {
+                    $scope.couponsItem.startTime = '';
+                }
+                if ($scope.timeEnd) {
+                    $scope.couponsItem.endTime = $scope.timeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                } else {
+                    $scope.couponsItem.endTime = '';
+                }
+            }
+        });
 
     }
 })();
@@ -1652,7 +1768,6 @@
          * @param $event 点击事件
          */
         $scope.selectCurrency = function(value, $event) {
-            console.log($scope.brandsCurrenciesModal, 11)
             if($event.target.checked){
                if($scope.brandsCurrenciesModal.indexOf(value) === -1){
                    $scope.brandsCurrenciesModal.push(value)
@@ -1660,7 +1775,6 @@
             }else{
                 $scope.brandsCurrenciesModal.splice($scope.brandsCurrenciesModal.indexOf(value), 1)
             }
-            console.log($scope.brandsCurrenciesModal, 22)
         };
 
         $scope.confirmModal = function () {
@@ -2616,31 +2730,87 @@
         adminService
     ) {
 
-        // 原始的数据
-        $scope.gamesManage = [];
+        $scope.brandOptions = [];
 
-        // 过滤出来的数据
-        $scope.showGamesManage = [];
-        $scope.gamesManageReload = 1;
-        $scope.gamesManageAoData = {};
-        $scope.gamesManageSearch = '';
-
-        // 初始化table数据
-        $scope.initGamesManageData = function () {
-            $scope.gamesManage = [];
-            adminService.getReq($rootScope.URL.GAMESMANAGE.GET, {}, {}).then(function (res) {
+        $scope.initBrandOptionsData = function () {
+            $scope.brandOptions = [];
+            adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
-                        $scope.gamesManage = angular.copy(res.data.data);
-                        $scope.gamesManage.forEach(function (gamesManageItem, gamesManageIndex) {
-                            gamesManageItem.id = gamesManageIndex +1;
-                        });
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                $scope.brandOptions.push(tempObj)
+                                // if(objItem.supported){
+                                //     $scope.brandOptions.push(tempObj)
+                                // }
+                            })
+                        }
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
                 }
             });
+        };
+
+        $scope.productOptions = [];
+
+        $scope.initProductManageData = function () {
+            $scope.productOptions = [];
+            adminService.getReq($rootScope.URL.GAMESPRODUCTS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.disabled == false){
+                                    $scope.productOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.booleanOptons = [
+            {
+                label: 'Yes',
+                value: 'true'
+            },
+            {
+                label: 'No',
+                value: 'false'
+            }
+        ];
+
+        $scope.gamesManageUrl = $rootScope.URL.GAMESMANAGE.GET;
+
+        // 原始的数据
+        $scope.gamesManage = [];
+        $scope.gamesManageReload = 1;
+        $scope.gamesManageAoData = {};
+
+        // 初始化table数据
+        $scope.initGamesManageData = function () {
+            $scope.gamesManageReload++;
+        };
+
+        $scope.handleGamesManageData = function(arr) {
+            arr.forEach(function (gamesManageItem, gamesManageIndex) {
+                gamesManageItem._id = gamesManageIndex +1;
+            });
+            return arr;
         };
 
 
@@ -2711,13 +2881,29 @@
             $scope.gamesManageAoData = {};
             $scope.gamesManageSearch = '';
             $scope.gamesManage.unshift({
-                '_id': ($scope.gamesManage.length+1) + 'null',
-                'gamesManageName': '',
-                'gamesManageType': '',
-                'gamesManageStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
+                _id: ($scope.gamesManage.length+1) + 'null',
+                name: [],
+                product_code: $scope.productOptions[0] && $scope.productOptions[0].value || '',
+                brand_code: $scope.brandOptions[0] && $scope.brandOptions[0].value || '',
+                flash_code:'',
+                html5_code:'',
+                app_code:'',
+                apk_code:'',
+                windows_code: '',
+                ftp_code: '',
+                flash_demo_supported: '',
+                html5_demo_supported: '',
+                image: '',
+                lines: '',
+                has_jackpot: '',
+                current_jackpot: '',
+                disabled: '',
+                rebateable: '',
+                bigwinable: '',
+                categories: '',
+                is_new: '',
+                is_coming_soon: '',
+                is_recommend: ''
             });
         };
 
@@ -2735,7 +2921,9 @@
 
         // 页面加载执行的函数
 
-        $scope.initGamesManageData();
+        $scope.initProductManageData();
+
+        $scope.initBrandOptionsData();
     }
 })();
 

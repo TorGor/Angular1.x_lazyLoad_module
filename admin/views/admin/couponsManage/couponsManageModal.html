@@ -11,7 +11,7 @@
                         <div class="form-group col-lg-6 col-md-12">
                             <label class="col-lg-4 col-md-6 control-label">编码</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem.code" ng-disabled="edit" class="fcodeorm-control" type="text" placeholder="coupons no">
+                                <input ng-model="couponsItem.code" ng-disabled="edit" class="form-control" type="text" placeholder="coupons no">
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12">
@@ -107,7 +107,7 @@
                             <label class="col-lg-4 col-md-6 control-label">人工</label>
                             <div class="col-lg-8 col-md-6">
                                 <ui-select
-                                        ng-model="couponsItem.need_audit"
+                                        ng-model="couponsItem.needAudit"
                                         theme="bootstrap"
                                         search-enabled="false">
                                     <ui-select-match placeholder="choose need audit">
@@ -124,7 +124,7 @@
                             <label class="col-lg-4 col-md-6 control-label">组合</label>
                             <div class="col-lg-8 col-md-6">
                                 <ui-select
-                                        ng-model="couponsItem.multiple_use"
+                                        ng-model="couponsItem.multipleUse"
                                         theme="bootstrap"
                                         search-enabled="false">
                                     <ui-select-match placeholder="choose multiple use">
@@ -140,7 +140,7 @@
                             <label class="col-lg-4 col-md-6 control-label">证书</label>
                             <div class="col-lg-8 col-md-6">
                                 <ui-select
-                                        ng-model="couponsItem.need_certification"
+                                        ng-model="couponsItem.needCertification"
                                         theme="bootstrap"
                                         search-enabled="false">
                                     <ui-select-match placeholder="choose need certification">
@@ -157,7 +157,7 @@
                             <label class="col-lg-4 col-md-6 control-label">仅编码</label>
                             <div class="col-lg-8 col-md-6">
                                 <ui-select
-                                        ng-model="couponsItem.code_only"
+                                        ng-model="couponsItem.codeOnly"
                                         theme="bootstrap"
                                         search-enabled="false">
                                     <ui-select-match placeholder="choose code only">
@@ -173,10 +173,10 @@
                             <label class="col-lg-4 col-md-6 control-label">禁止</label>
                             <div class="col-lg-8 col-md-6">
                                 <ui-select
-                                        ng-model="couponsItem.enabled"
+                                        ng-model="couponsItem.isDeleted"
                                         theme="bootstrap"
                                         search-enabled="false">
-                                    <ui-select-match placeholder="choose enabled">
+                                    <ui-select-match placeholder="choose is deleted">
                                         <span ng-bind="$select.selected.label"></span>
                                     </ui-select-match>
                                     <ui-select-choices repeat="item.value as item in booleanOptons">
@@ -226,7 +226,7 @@
                                     <ui-select-match placeholder="choose treatments type">
                                         <span ng-bind="$select.selected.label"></span>
                                     </ui-select-match>
-                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                    <ui-select-choices repeat="item.value as item in treatmentsTypeOptions">
                                         <span ng-bind="item.label"></span>
                                     </ui-select-choices>
                                 </ui-select>
@@ -235,13 +235,13 @@
                         <div class="form-group col-lg-6 col-md-12">
                             <label class="col-lg-4 col-md-6 control-label">数值</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem.couponsItem.treatments[0].value" class="form-control" type="number" placeholder="treatments value">
+                                <input ng-model="couponsItem.treatments[0].value" class="form-control" type="text" placeholder="treatments value">
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12">
                             <label class="col-lg-4 col-md-6 control-label">最大优惠</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem.treatments[0].max_bonus" class="form-control" type="number" placeholder="treatments max bonus">
+                                <input ng-model="couponsItem.treatments[0].maxBonus" class="form-control" type="number" placeholder="treatments max bonus">
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -275,7 +275,7 @@
                             </form>
                             <div
                                     web-data-table
-                                    items="$scope.couponsItem.conditions"
+                                    items="couponsItem.conditions"
                                     ao-data="conditionsModalAoData"
                                     search="conditionsModalSearch"
                                     reload="conditionsModalReload"
@@ -306,10 +306,10 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <span editable-select="item.value_type" e-name="value_type" e-form="rowform"
+                                            <span editable-select="item.valueType" e-name="value_type" e-form="rowform"
                                                   onbeforesave="checkRequiredData($data)"
                                                   e-ng-options="option.value as option.label for option in conditionsValueTypeOptions">
-                                                {{showOptionsValue(item.value_type,conditionsValueTypeOptions)}}
+                                                {{showOptionsValue(item.valueType,conditionsValueTypeOptions)}}
                                             </span>
                                         </td>
                                         <td>

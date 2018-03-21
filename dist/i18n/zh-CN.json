@@ -242,6 +242,30 @@
         "th2": "值",
         "th3": "最大优惠"
       }
+    },
+    "gamesManage": {
+      "th1": "名称",
+      "th2": "产品",
+      "th3": "品牌",
+      "th4": "Flash",
+      "th5": "Html5",
+      "th6": "App",
+      "th7": "Apk",
+      "th8": "windows",
+      "th9": "Ftp",
+      "th10": "Flash例子",
+      "th11": "Html5例子",
+      "th12": "图片",
+      "th13": "Lines",
+      "th14": "已有Jackpot",
+      "th15": "当前Jackpot",
+      "th16": "禁用",
+      "th17": "折扣",
+      "th18": "Bigwinable",
+      "th19": "种类",
+      "th20": "新的",
+      "th21": "很快上线",
+      "th22": "推荐"
     }
   },
   "panel_tile": {

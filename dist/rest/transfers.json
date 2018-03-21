@@ -1,0 +1,502 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "stat": "ok",
+        "data": [
+            {
+                "result": "succeed",
+                "amount": 111,
+                "coupon": "TESTCP1",
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-11T08:17:29+00:00",
+                    "updatedAt": "2018-02-11T08:17:31+00:00"
+                },
+                "wallets": {
+                    "destination": "PT",
+                    "source": "MAIN"
+                },
+                "id": "008caa60-0f04-11e8-baaa-6944b36fb025",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 1,
+                "coupon": "TEST1505998583",
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-18T11:22:29+00:00",
+                    "updatedAt": "2018-02-18T11:22:30+00:00"
+                },
+                "wallets": {
+                    "destination": "FS",
+                    "source": "MAIN"
+                },
+                "id": "011b7da0-149e-11e8-a595-efe356c3ebbf",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 1,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2017-11-17T12:15:53+00:00",
+                    "updatedAt": "2017-11-17T12:15:55+00:00"
+                },
+                "wallets": {
+                    "destination": "MAIN",
+                    "source": "FS"
+                },
+                "id": "0ed9c6a0-cb91-11e7-b91e-b33b17eaf98e",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 111,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-11T08:25:04+00:00",
+                    "updatedAt": "2018-02-11T08:25:05+00:00"
+                },
+                "wallets": {
+                    "destination": "PT",
+                    "source": "MAIN"
+                },
+                "id": "0f5afeb0-0f05-11e8-a85e-b706ba0530c0",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 111,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-12T09:28:19+00:00",
+                    "updatedAt": "2018-02-12T09:28:21+00:00"
+                },
+                "wallets": {
+                    "destination": "MAIN",
+                    "source": "PT"
+                },
+                "id": "0ff3bc50-0fd7-11e8-9245-f1b47e72fb32",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 1,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-18T08:52:36+00:00",
+                    "updatedAt": "2018-02-18T08:52:38+00:00"
+                },
+                "wallets": {
+                    "destination": "FS",
+                    "source": "MAIN"
+                },
+                "id": "114c41a0-1489-11e8-bc6b-bbc44df16fe3",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 1,
+                "coupon": "TEST1505998583",
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-18T11:30:10+00:00",
+                    "updatedAt": "2018-02-18T11:30:13+00:00"
+                },
+                "wallets": {
+                    "destination": "FS",
+                    "source": "MAIN"
+                },
+                "id": "143f9250-149f-11e8-9a69-a937163845cc",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 1,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-21T02:51:17+00:00",
+                    "updatedAt": "2018-02-21T02:51:21+00:00"
+                },
+                "wallets": {
+                    "destination": "FS",
+                    "source": "PT"
+                },
+                "id": "16b7f260-16b2-11e8-991b-c1465cdc8f8d",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 100,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-12T08:45:56+00:00",
+                    "updatedAt": "2018-02-12T08:46:00+00:00"
+                },
+                "wallets": {
+                    "destination": "MAIN",
+                    "source": "AG"
+                },
+                "id": "2439d780-0fd1-11e8-8658-2f2e0e99b216",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 111,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-12T08:53:28+00:00",
+                    "updatedAt": "2018-02-12T08:53:29+00:00"
+                },
+                "wallets": {
+                    "destination": "PT",
+                    "source": "MAIN"
+                },
+                "id": "31845460-0fd2-11e8-aaee-9d2ef15201cf",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 1,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-12T09:50:47+00:00",
+                    "updatedAt": "2018-02-12T09:50:50+00:00"
+                },
+                "wallets": {
+                    "destination": "MAIN",
+                    "source": "AG"
+                },
+                "id": "333aff00-0fda-11e8-a228-cb44871d82f2",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 0.01,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-19T22:28:43+00:00",
+                    "updatedAt": "2018-02-19T22:28:46+00:00"
+                },
+                "wallets": {
+                    "destination": "FS",
+                    "source": "MAIN"
+                },
+                "id": "3e035b30-15c4-11e8-a66a-2135bcb56891",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 1,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2017-11-17T12:24:36+00:00",
+                    "updatedAt": "2017-11-17T12:24:37+00:00"
+                },
+                "wallets": {
+                    "destination": "MAIN",
+                    "source": "FS"
+                },
+                "id": "4649b800-cb92-11e7-bca5-6d6a17f58702",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 1,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-18T09:37:06+00:00",
+                    "updatedAt": "2018-02-18T09:37:08+00:00"
+                },
+                "wallets": {
+                    "destination": "FS",
+                    "source": "MAIN"
+                },
+                "id": "48cc1080-148f-11e8-bc5d-9f2328a27c95",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 0.01,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-19T22:50:36+00:00",
+                    "updatedAt": "2018-02-19T22:50:38+00:00"
+                },
+                "wallets": {
+                    "destination": "FS",
+                    "source": "MAIN"
+                },
+                "id": "4c8958c0-15c7-11e8-b7bb-23ef6c8e9d70",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 1,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-01-28T05:58:55+00:00",
+                    "updatedAt": "2018-01-28T05:58:57+00:00"
+                },
+                "wallets": {
+                    "destination": "MAIN",
+                    "source": "FS"
+                },
+                "id": "5339be00-03f0-11e8-97ef-25a3f73a5a89",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 111,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-12T09:30:19+00:00",
+                    "updatedAt": "2018-02-12T09:30:20+00:00"
+                },
+                "wallets": {
+                    "destination": "PT",
+                    "source": "MAIN"
+                },
+                "id": "57393610-0fd7-11e8-82d2-c9af18931fd2",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 111,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-11T08:19:56+00:00",
+                    "updatedAt": "2018-02-11T08:19:57+00:00"
+                },
+                "wallets": {
+                    "destination": "MAIN",
+                    "source": "PT"
+                },
+                "id": "57f44b20-0f04-11e8-b74f-637a0cb46e5a",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 1,
+                "coupon": "TEST1505998583",
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-18T11:39:16+00:00",
+                    "updatedAt": "2018-02-18T11:39:19+00:00"
+                },
+                "wallets": {
+                    "destination": "FS",
+                    "source": "MAIN"
+                },
+                "id": "598d6080-14a0-11e8-91cd-5be41dd90637",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 128,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-18T11:39:22+00:00",
+                    "updatedAt": "2018-02-18T11:39:25+00:00"
+                },
+                "wallets": {
+                    "destination": "FS",
+                    "source": "MAIN"
+                },
+                "id": "5d203600-14a0-11e8-be0b-6f64fe7713fe",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 128,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-03-13T08:13:10+00:00",
+                    "updatedAt": "2018-03-13T08:13:14+00:00"
+                },
+                "wallets": {
+                    "destination": "FS",
+                    "source": "MAIN"
+                },
+                "id": "5e2da4e0-2696-11e8-abbb-07bc915b3923",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 1,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-01-28T05:59:25+00:00",
+                    "updatedAt": "2018-01-28T05:59:27+00:00"
+                },
+                "wallets": {
+                    "destination": "FS",
+                    "source": "MAIN"
+                },
+                "id": "64e09200-03f0-11e8-a03d-43aaa1e01e9e",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 111,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-12T09:37:52+00:00",
+                    "updatedAt": "2018-02-12T09:37:54+00:00"
+                },
+                "wallets": {
+                    "destination": "MAIN",
+                    "source": "PT"
+                },
+                "id": "65cb0c10-0fd8-11e8-a4a8-d7ffadf77eba",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 0.01,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-19T21:54:08+00:00",
+                    "updatedAt": "2018-02-19T21:54:10+00:00"
+                },
+                "wallets": {
+                    "destination": "FS",
+                    "source": "MAIN"
+                },
+                "id": "6928c9d0-15bf-11e8-b01a-33ee19cde4a3",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "result": "succeed",
+                "amount": 128,
+                "bonus": 0,
+                "timestamps": {
+                    "createdAt": "2018-02-19T21:54:12+00:00",
+                    "updatedAt": "2018-02-19T21:54:14+00:00"
+                },
+                "wallets": {
+                    "destination": "FS",
+                    "source": "MAIN"
+                },
+                "id": "6bf0e370-15bf-11e8-9c99-29395b73aae8",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            }
+        ],
+        "meta": {
+            "path": "/rest/transfers",
+            "per_page": "25",
+            "total": 62,
+            "last_page": 3,
+            "from": 1,
+            "to": 25,
+            "current_page": 1
+        },
+        "links": {
+            "next": "/rest/transfers?pageSize=25&page=2",
+            "last": "/rest/transfers?pageSize=25&page=3",
+            "first": "/rest/transfers?pageSize=25&page=1"
+        }
+    }
+}

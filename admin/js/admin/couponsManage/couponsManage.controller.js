@@ -216,13 +216,13 @@
         };
 
 
-        // 保存
+        // 编辑
         /**
          *
          * @param couponsManage COUPONSMANAGETITLE数据对象
          */
 
-        $scope.saveCouponsManage = function (couponsManage) {
+        $scope.editCouponsManage = function (couponsManage) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -231,7 +231,7 @@
                 controller: 'addCouponsController',
                 scope: $scope,
                 size: 'lg',
-                resole:{
+                resolve:{
                     couponsItem:couponsManage,
                     edit:true,
                 }
@@ -330,5 +330,7 @@
         $scope.initProductManageData();
 
         $scope.initBrandOptionsData();
+
+        $scope.initRanksOptionsData();
     }
 })();

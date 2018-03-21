@@ -20,7 +20,7 @@
                   <input class="form-control" type="text" ng-model="appliesUseSearch" placeholder="{{searchPlaceholder(['table.appliesUse.th1', 'table.appliesUse.th2', 'table.appliesUse.th3'])}}">
                </div>
             </form>
-            <div server-data-table items="appliesUse" ao-data="appliesUseAoData" reload="appliesUseReload" service-name="adminService" service-name-attr="getReq" url="appliesUseUrl">
+            <div server-data-table items="appliesUse" ao-data="appliesUseAoData" reload="appliesUseReload" service-name="adminService" service-name-attr="getReq" url="appliesUseUrl" handle-data="false">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">

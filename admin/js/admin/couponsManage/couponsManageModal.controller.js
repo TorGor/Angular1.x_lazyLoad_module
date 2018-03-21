@@ -33,9 +33,25 @@
                     {
                         type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
                         value:'',
-                        max_bonus:''
+                        maxBonus:''
                     }
                 ]
+            }
+            if(window.Array.isArray($scope.couponsItem.conditions)){
+                $scope.couponsItem.conditions.forEach(function(conditionsItem) {
+                    if(conditionsItem.value){
+                        conditionsItem.valueType = conditionsItem.value.type || '';
+                        conditionsItem.value = conditionsItem.value.value || '';
+                    }
+                })
+            }
+            if(window.Array.isArray($scope.couponsItem.treatments)){
+                $scope.couponsItem.treatments.forEach(function(treatmentsItem) {
+                    if(treatmentsItem.max){
+                        treatmentsItem.maxBonus = treatmentsItem.max || '';
+                        delete treatmentsItem.max
+                    }
+                })
             }
         }else{
             $scope.couponsItem = {
@@ -46,27 +62,29 @@
                 wallet: $scope.walletOptions[0] && $scope.walletOptions[0].value || '',
                 product: $scope.productOptions[0] && $scope.productOptions[0].value || '',
                 type: $scope.typeOptions[0] && $scope.typeOptions[0].value || '',
-                start_time: '',
-                end_time: '',
-                need_audit: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                multiple_use: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                need_certification: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
+                startTime: '',
+                endTime: '',
+                needAudit: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
+                multipleUse: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
+                needCertification: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
                 ranks: [],
-                code_only: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                enabled: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
+                codeOnly: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
+                isDeleted: $scope.booleanOptons[1] && $scope.booleanOptons[1].value || 'false',
                 conditions: [],
                 treatments: [
                     {
                         type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
                         value:'',
-                        max_bonus:''
+                        maxBonus:''
                     }
                 ],
             };
         }
 
-        $scope.timeStart = $scope.couponsItem.start_time || '';
-        $scope.timeEnd = $scope.couponsItem.end_time || '';
+        console.log($scope.couponsItem,888)
+
+        $scope.timeStart = $scope.couponsItem.startTime || '';
+        $scope.timeEnd = $scope.couponsItem.endTime || '';
 
         /**
          * 点击复选框
@@ -133,7 +151,7 @@
             $scope.couponsItem['conditions'].unshift({
                 'id': ($scope.couponsItem['conditions'].length+1) + 'null',
                 "type": $scope.conditionsTypeOptions[0] ? $scope.conditionsTypeOptions[0].value : '',
-                "value_type": $scope.conditionsValueTypeOptions[0] ? $scope.conditionsValueTypeOptions[0].value : '',
+                "valueType": $scope.conditionsValueTypeOptions[0] ? $scope.conditionsValueTypeOptions[0].value : '',
                 "value": ''
             });
         };
@@ -183,14 +201,14 @@
         $scope.$watch('timeStart+timeEnd', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 if ($scope.timeStart) {
-                    $scope.couponsItem.start_time = $scope.timeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                    $scope.couponsItem.startTime = $scope.timeStart.format('YYYY-MM-DD') + ' 00:00:00';
                 } else {
-                    $scope.couponsItem.start_time = '';
+                    $scope.couponsItem.startTime = '';
                 }
                 if ($scope.timeEnd) {
-                    $scope.couponsItem.end_time = $scope.timeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                    $scope.couponsItem.endTime = $scope.timeEnd.format('YYYY-MM-DD') + ' 23:59:59';
                 } else {
-                    $scope.couponsItem.end_time = '';
+                    $scope.couponsItem.endTime = '';
                 }
             }
         });

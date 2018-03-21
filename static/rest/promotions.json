@@ -1,0 +1,213 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "stat": "ok",
+        "data": [
+            {
+                "period": {
+                    "from": "2018-03-14T07:05:46+00:00"
+                },
+                "timestamps": {
+                    "createdAt": "2018-03-14T07:05:46+00:00",
+                    "updatedAt": "2018-03-14T07:11:23+00:00"
+                },
+                "banner": "sdfasfsa.png",
+                "currency": "CNY",
+                "id": "1e2a6e10-2756-11e8-a7a4-fff4dd9cd340",
+                "categories": [
+                    "DEPOSIT"
+                ],
+                "title": [
+                    {
+                        "locale": "en-GB",
+                        "value": "TEST03"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "测试3"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "测试3"
+                    }
+                ],
+                "content": [
+                    {
+                        "locale": "en-GB",
+                        "value": "asdfsfsdf"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "测试优惠3"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "測試優惠3"
+                    }
+                ],
+                "status": "draft"
+            },
+            {
+                "period": {
+                    "from": "2017-11-21T04:32:40+00:00"
+                },
+                "timestamps": {
+                    "createdAt": "2017-11-21T04:32:40+00:00",
+                    "updatedAt": "2017-11-21T04:53:56+00:00"
+                },
+                "banner": "5498b749054e0302b653681c409683190cc92c1d9cf71f9320f41c3d16f40404_giveaway",
+                "currency": "USD",
+                "id": "022dcf20-ce75-11e7-a9af-71cd043dacb6",
+                "categories": [
+                    "SLOTS"
+                ],
+                "title": [
+                    {
+                        "locale": "zh-CN",
+                        "value": "老虎机每周高额存送"
+                    },
+                    {
+                        "locale": "en-GB",
+                        "value": "High Deposit bonus for Slots"
+                    }
+                ],
+                "content": [
+                    {
+                        "locale": "zh-CN",
+                        "value": "老虎机每周高额存送\n优惠内容"
+                    },
+                    {
+                        "locale": "en-GB",
+                        "value": "High Deposit bonus for Slots\npromotion content"
+                    }
+                ],
+                "status": "publish"
+            },
+            {
+                "period": {
+                    "from": "2017-09-26T13:11:24+00:00"
+                },
+                "timestamps": {
+                    "createdAt": "2017-09-26T12:46:08+00:00",
+                    "updatedAt": "2017-09-26T12:46:08+00:00"
+                },
+                "banner": "/sfsf/sdfs/sdf.jpg",
+                "currency": "CNY",
+                "id": "aae20460-a2b8-11e7-9052-03031b6e0e5b",
+                "categories": [],
+                "title": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Test promotion 2"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "测试优惠2"
+                    }
+                ],
+                "content": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Test promotion 2 content"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "测试优惠2正文内容"
+                    }
+                ],
+                "status": "draft"
+            },
+            {
+                "period": {
+                    "from": "2017-09-26T00:00:00+00:00",
+                    "to": "2018-12-30T00:00:00+00:00"
+                },
+                "timestamps": {
+                    "createdAt": "2017-09-26T12:44:07+00:00",
+                    "updatedAt": "2017-09-26T12:44:07+00:00"
+                },
+                "banner": "5498b749054e0302b653681c409683190cc92c1d9cf71f9320f41c3d16f40404_giveaway",
+                "currency": "CNY",
+                "id": "62f2afe0-a2b8-11e7-aa14-59c8dec0bcd3",
+                "categories": [
+                    "DEPOSIT",
+                    "SLOTS"
+                ],
+                "title": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Test promotion 1"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "老虎机每周高额存送优惠"
+                    }
+                ],
+                "content": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Test promotion 1 content"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "<h3>活动详情：&nbsp;</h3>\n<ol start=\"1\" type=\"1\">\n    <li>此活动适用于人民币以及印尼盾注册的所有新会员。</li>\n    <li>此活动长期有效直至优惠撤销。</li>\n    <li>该优惠最低存款要求为100元人民币。</li>\n    <li>所有普通会员或者VIP会员，每周均可申请一次以下每周存送红利：</li>\n</ol>\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"0\" width=\"90%\" style=\"margin:0 auto\">\n    <tbody>\n        <tr style=\"height:14.05pt\">\n            <td width=\"149\" nowrap=\"\" style=\"width:111.4pt;border:solid windowtext 1.0pt;&#10;  background:#A6A6A6;padding:0cm 5.4pt 0cm 5.4pt;height:14.05pt\">\n            <div align=\"center\" style=\"text-align:center;\"><b><span style=\"font-size:&#10;  9.0pt;微软雅黑\">会员等级</span></b></div>\n            </td>\n            <td width=\"100\" nowrap=\"\" style=\"width:74.95pt;border:solid windowtext 1.0pt;&#10;  border-left:none;background:#A6A6A6;padding:0cm 5.4pt 0cm 5.4pt;height:14.05pt\">\n            <div align=\"center\" style=\"text-align:center;\"><b><span style=\"font-size:&#10;  9.0pt;微软雅黑\">周存送比例</span></b></div>\n            </td>\n            <td width=\"176\" nowrap=\"\" style=\"width:131.75pt;border:solid windowtext 1.0pt;&#10;  border-left:none;background:#A6A6A6;padding:0cm 5.4pt 0cm 5.4pt;height:14.05pt\">\n            <div align=\"center\" style=\"text-align:center;\"><b><span style=\"font-size:&#10;  9.0pt;微软雅黑\">最高红利金额&nbsp;(RMB)</span></b></div>\n            </td>\n            <td width=\"139\" nowrap=\"\" style=\"width:103.9pt;border:solid windowtext 1.0pt;&#10;  border-left:none;background:#A6A6A6;padding:0cm 5.4pt 0cm 5.4pt;height:14.05pt\">\n            <div align=\"center\" style=\"text-align:center;\"><b><span style=\"font-size:&#10;  9.0pt;微软雅黑\">流水要求&nbsp;(倍)</span></b></div>\n            </td>\n            <td width=\"81\" nowrap=\"\" style=\"width:61.05pt;border:solid windowtext 1.0pt;&#10;  border-left:none;background:#A6A6A6;padding:0cm 5.4pt 0cm 5.4pt;height:14.05pt\">\n            <div align=\"center\" style=\"text-align:center;\"><b><span style=\"font-size:&#10;  9.0pt;微软雅黑\">优惠代码</span></b></div>\n            </td>\n        </tr>\n        <tr style=\"height:13.3pt\">\n            <td width=\"149\" nowrap=\"\" style=\"width:111.4pt;border:solid windowtext 1.0pt;&#10;  border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"left\"><span style=\"font-size:9.0pt;微软雅黑\">普通会员</span></div>\n            </td>\n            <td width=\"100\" nowrap=\"\" style=\"width:74.95pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">50%</span></div>\n            </td>\n            <td width=\"176\" nowrap=\"\" style=\"width:131.75pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">599</span></div>\n            </td>\n            <td width=\"139\" nowrap=\"\" style=\"width:103.9pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">15</span></div>\n            </td>\n            <td width=\"81\" nowrap=\"\" style=\"width:61.05pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">VIP5015</span></div>\n            </td>\n        </tr>\n        <tr style=\"height:13.3pt\">\n            <td width=\"149\" nowrap=\"\" style=\"width:111.4pt;border:solid windowtext 1.0pt;&#10;  border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"left\"><span style=\"font-size:9.0pt;微软雅黑\">普通VIP会员</span></div>\n            </td>\n            <td width=\"100\" nowrap=\"\" style=\"width:74.95pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">69%</span></div>\n            </td>\n            <td width=\"176\" nowrap=\"\" style=\"width:131.75pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">799</span></div>\n            </td>\n            <td width=\"139\" nowrap=\"\" style=\"width:103.9pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">15</span></div>\n            </td>\n            <td width=\"81\" nowrap=\"\" style=\"width:61.05pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">VIP6915</span></div>\n            </td>\n        </tr>\n        <tr style=\"height:13.3pt\">\n            <td width=\"149\" nowrap=\"\" style=\"width:111.4pt;border:solid windowtext 1.0pt;&#10;  border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"left\"><span style=\"font-size:9.0pt;微软雅黑\">高级VIP会员</span></div>\n            </td>\n            <td width=\"100\" nowrap=\"\" style=\"width:74.95pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">79%</span></div>\n            </td>\n            <td width=\"176\" nowrap=\"\" style=\"width:131.75pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">1999</span></div>\n            </td>\n            <td width=\"139\" nowrap=\"\" style=\"width:103.9pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">17</span></div>\n            </td>\n            <td width=\"81\" nowrap=\"\" style=\"width:61.05pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">VIP7917</span></div>\n            </td>\n        </tr>\n        <tr style=\"height:13.3pt\">\n            <td width=\"149\" nowrap=\"\" style=\"width:111.4pt;border:solid windowtext 1.0pt;&#10;  border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"left\"><span style=\"font-size:9.0pt;微软雅黑\">顶级VIP会员</span></div>\n            </td>\n            <td width=\"100\" nowrap=\"\" style=\"width:74.95pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">100%</span></div>\n            </td>\n            <td width=\"176\" nowrap=\"\" style=\"width:131.75pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">2999</span></div>\n            </td>\n            <td width=\"139\" nowrap=\"\" style=\"width:103.9pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">20</span></div>\n            </td>\n            <td width=\"81\" nowrap=\"\" style=\"width:61.05pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">VIP10020</span></div>\n            </td>\n        </tr>\n        <tr style=\"height:13.3pt\">\n            <td width=\"149\" nowrap=\"\" style=\"width:111.4pt;border:solid windowtext 1.0pt;&#10;  border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"left\"><span style=\"font-size:9.0pt;微软雅黑\">殿堂级VIP会员</span></div>\n            </td>\n            <td width=\"100\" nowrap=\"\" style=\"width:74.95pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">159%</span></div>\n            </td>\n            <td width=\"176\" nowrap=\"\" style=\"width:131.75pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">5999</span></div>\n            </td>\n            <td width=\"139\" nowrap=\"\" style=\"width:103.9pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">25</span></div>\n            </td>\n            <td width=\"81\" nowrap=\"\" style=\"width:61.05pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">VIP15925</span></div>\n            </td>\n        </tr>\n    </tbody>\n</table>\n<div align=\"left\">&nbsp; &nbsp; &nbsp;5.&nbsp;所有流水均为老虎机的有效流水。</div>\n<div align=\"left\">&nbsp; &nbsp; &nbsp;6.&nbsp;每周只能有一笔存款参与该优惠，如果当周无申请，则视为自动放弃当周的该优惠。</div>\n<div align=\"left\">&nbsp; &nbsp; &nbsp;7.&nbsp;该笔参与此优惠的存款，不可以参与其他存送优惠。并且不计算救援金。</div>\n<h3>申请方式：</h3>\n<div align=\"left\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;请符合要求的会员，在存款时候填写相应的代码，系统会在审核之后派发。</div>\n<h3>条款与条件：</h3>\n<ol start=\"1\" type=\"1\">\n    <li>流水要求：如果申请老虎机参与该优惠，在未达到流水要求之前投注于申请优惠对应的游戏馆的老虎机之外的游戏，则我们将有权扣除所有红利和盈利。</li>\n    <li>存送红利投注流水计入返水有效流水中。</li>\n    <li style=\"margin: 0px; padding: 0px;\">有效流水仅针对老虎机类型游戏，如PT客户端内&ldquo;经典老虎机&rdquo;、&ldquo;电动吃角子老虎机&rdquo;、&ldquo;刮刮乐&rdquo;；PT网页版内&ldquo;吃角子老虎机&rdquo;、&ldquo;刮开&rdquo;，；TTG游戏大厅内&ldquo;最新游戏&rdquo;、&ldquo;热门游戏&rdquo;、&ldquo;老虎机&rdquo;；MG网页版内&ldquo;视频老虎机&rdquo;、&ldquo;经典老虎机&rdquo;、&ldquo;特色老虎机&rdquo;、&ldquo;累计奖池&rdquo;、&ldquo;宾果刮刮卡&rdquo;。以下游戏将不计算有效流水：所有的21点、轮盘、骰宝、百家乐、Pontoon、Craps、视频扑克、牌九扑克、赌场战争、娱乐场Hold&rsquo;em，以及多旋转老虎机(地妖之穴、海洋公主、三倍利润、热带滚筒、珠光宝气、神秘的世界、东方珍兽、怀旧水果转盘和部落生活)、电动扑克、桌上游戏、大型电玩和所有的老虎机奖金翻倍投注，Inca Jackpot (aztec)印加帝国头像。BBIN内：&ldquo;西游记&rdquo;、&ldquo;传统&rdquo;、&ldquo;外星争霸&rdquo;、&ldquo;丛林&rdquo;、&ldquo;法海斗白蛇&rdquo;、&ldquo;水果乐园&rdquo;、&ldquo;齐天大圣&rdquo;、&ldquo;连环夺宝&rdquo;、&ldquo;糖果派对&rdquo;，&ldquo;捕鱼游戏&rdquo;。TTG内：&ldquo;青蛙与苍蝇&rdquo;。</li>\n    <li>每周存送优惠只适用于拥有一个独立账户的会员,每个独立账户的会员仅可申请一次。电子邮箱地址、电话号码、IP地址、支付方式(相同借记卡/信用卡/银行账户号码)、上网设备、网络环境等将可以作为判定是否为独立会员的条件。</li>\n    <li>喜乐在线娱乐保有最终解释权并可以随时修改优惠条款。</li>\n    <li>一般条款与规则适用。</li>\n</ol>"
+                    }
+                ],
+                "status": "publish"
+            },
+            {
+                "period": {
+                    "from": "2017-09-26T00:00:00+00:00",
+                    "to": "2019-01-01T00:00:00+00:00"
+                },
+                "timestamps": {
+                    "createdAt": "2017-09-26T12:44:07+00:00",
+                    "updatedAt": "2017-09-26T12:44:07+00:00"
+                },
+                "banner": "5498b749054e0302b653681c409683190cc92c1d9cf71f9320f41c3d16f40404_giveaway",
+                "currency": "CNY",
+                "id": "62f2afe0-a2b8-11e7-aa14-59c8dec0bce3",
+                "categories": [
+                    "DEPOSIT",
+                    "SLOTS",
+                    "SPORTS"
+                ],
+                "title": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Test promotion 1"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "老虎机每周高额存送优惠"
+                    }
+                ],
+                "content": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Test promotion 1 content"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "<h3>活动详情：&nbsp;</h3>\n<ol start=\"1\" type=\"1\">\n    <li>此活动适用于人民币以及印尼盾注册的所有新会员。</li>\n    <li>此活动长期有效直至优惠撤销。</li>\n    <li>该优惠最低存款要求为100元人民币。</li>\n    <li>所有普通会员或者VIP会员，每周均可申请一次以下每周存送红利：</li>\n</ol>\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"0\" width=\"90%\" style=\"margin:0 auto\">\n    <tbody>\n        <tr style=\"height:14.05pt\">\n            <td width=\"149\" nowrap=\"\" style=\"width:111.4pt;border:solid windowtext 1.0pt;&#10;  background:#A6A6A6;padding:0cm 5.4pt 0cm 5.4pt;height:14.05pt\">\n            <div align=\"center\" style=\"text-align:center;\"><b><span style=\"font-size:&#10;  9.0pt;微软雅黑\">会员等级</span></b></div>\n            </td>\n            <td width=\"100\" nowrap=\"\" style=\"width:74.95pt;border:solid windowtext 1.0pt;&#10;  border-left:none;background:#A6A6A6;padding:0cm 5.4pt 0cm 5.4pt;height:14.05pt\">\n            <div align=\"center\" style=\"text-align:center;\"><b><span style=\"font-size:&#10;  9.0pt;微软雅黑\">周存送比例</span></b></div>\n            </td>\n            <td width=\"176\" nowrap=\"\" style=\"width:131.75pt;border:solid windowtext 1.0pt;&#10;  border-left:none;background:#A6A6A6;padding:0cm 5.4pt 0cm 5.4pt;height:14.05pt\">\n            <div align=\"center\" style=\"text-align:center;\"><b><span style=\"font-size:&#10;  9.0pt;微软雅黑\">最高红利金额&nbsp;(RMB)</span></b></div>\n            </td>\n            <td width=\"139\" nowrap=\"\" style=\"width:103.9pt;border:solid windowtext 1.0pt;&#10;  border-left:none;background:#A6A6A6;padding:0cm 5.4pt 0cm 5.4pt;height:14.05pt\">\n            <div align=\"center\" style=\"text-align:center;\"><b><span style=\"font-size:&#10;  9.0pt;微软雅黑\">流水要求&nbsp;(倍)</span></b></div>\n            </td>\n            <td width=\"81\" nowrap=\"\" style=\"width:61.05pt;border:solid windowtext 1.0pt;&#10;  border-left:none;background:#A6A6A6;padding:0cm 5.4pt 0cm 5.4pt;height:14.05pt\">\n            <div align=\"center\" style=\"text-align:center;\"><b><span style=\"font-size:&#10;  9.0pt;微软雅黑\">优惠代码</span></b></div>\n            </td>\n        </tr>\n        <tr style=\"height:13.3pt\">\n            <td width=\"149\" nowrap=\"\" style=\"width:111.4pt;border:solid windowtext 1.0pt;&#10;  border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"left\"><span style=\"font-size:9.0pt;微软雅黑\">普通会员</span></div>\n            </td>\n            <td width=\"100\" nowrap=\"\" style=\"width:74.95pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">50%</span></div>\n            </td>\n            <td width=\"176\" nowrap=\"\" style=\"width:131.75pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">599</span></div>\n            </td>\n            <td width=\"139\" nowrap=\"\" style=\"width:103.9pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">15</span></div>\n            </td>\n            <td width=\"81\" nowrap=\"\" style=\"width:61.05pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">VIP5015</span></div>\n            </td>\n        </tr>\n        <tr style=\"height:13.3pt\">\n            <td width=\"149\" nowrap=\"\" style=\"width:111.4pt;border:solid windowtext 1.0pt;&#10;  border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"left\"><span style=\"font-size:9.0pt;微软雅黑\">普通VIP会员</span></div>\n            </td>\n            <td width=\"100\" nowrap=\"\" style=\"width:74.95pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">69%</span></div>\n            </td>\n            <td width=\"176\" nowrap=\"\" style=\"width:131.75pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">799</span></div>\n            </td>\n            <td width=\"139\" nowrap=\"\" style=\"width:103.9pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">15</span></div>\n            </td>\n            <td width=\"81\" nowrap=\"\" style=\"width:61.05pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">VIP6915</span></div>\n            </td>\n        </tr>\n        <tr style=\"height:13.3pt\">\n            <td width=\"149\" nowrap=\"\" style=\"width:111.4pt;border:solid windowtext 1.0pt;&#10;  border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"left\"><span style=\"font-size:9.0pt;微软雅黑\">高级VIP会员</span></div>\n            </td>\n            <td width=\"100\" nowrap=\"\" style=\"width:74.95pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">79%</span></div>\n            </td>\n            <td width=\"176\" nowrap=\"\" style=\"width:131.75pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">1999</span></div>\n            </td>\n            <td width=\"139\" nowrap=\"\" style=\"width:103.9pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">17</span></div>\n            </td>\n            <td width=\"81\" nowrap=\"\" style=\"width:61.05pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">VIP7917</span></div>\n            </td>\n        </tr>\n        <tr style=\"height:13.3pt\">\n            <td width=\"149\" nowrap=\"\" style=\"width:111.4pt;border:solid windowtext 1.0pt;&#10;  border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"left\"><span style=\"font-size:9.0pt;微软雅黑\">顶级VIP会员</span></div>\n            </td>\n            <td width=\"100\" nowrap=\"\" style=\"width:74.95pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">100%</span></div>\n            </td>\n            <td width=\"176\" nowrap=\"\" style=\"width:131.75pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">2999</span></div>\n            </td>\n            <td width=\"139\" nowrap=\"\" style=\"width:103.9pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">20</span></div>\n            </td>\n            <td width=\"81\" nowrap=\"\" style=\"width:61.05pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">VIP10020</span></div>\n            </td>\n        </tr>\n        <tr style=\"height:13.3pt\">\n            <td width=\"149\" nowrap=\"\" style=\"width:111.4pt;border:solid windowtext 1.0pt;&#10;  border-top:none;padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"left\"><span style=\"font-size:9.0pt;微软雅黑\">殿堂级VIP会员</span></div>\n            </td>\n            <td width=\"100\" nowrap=\"\" style=\"width:74.95pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">159%</span></div>\n            </td>\n            <td width=\"176\" nowrap=\"\" style=\"width:131.75pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">5999</span></div>\n            </td>\n            <td width=\"139\" nowrap=\"\" style=\"width:103.9pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">25</span></div>\n            </td>\n            <td width=\"81\" nowrap=\"\" style=\"width:61.05pt;border-top:none;border-left:none;&#10;  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;&#10;  padding:0cm 5.4pt 0cm 5.4pt;height:13.3pt\">\n            <div align=\"center\" style=\"text-align:center;\"><span style=\"font-size:9.0pt;微软雅黑\">VIP15925</span></div>\n            </td>\n        </tr>\n    </tbody>\n</table>\n<div align=\"left\">&nbsp; &nbsp; &nbsp;5.&nbsp;所有流水均为老虎机的有效流水。</div>\n<div align=\"left\">&nbsp; &nbsp; &nbsp;6.&nbsp;每周只能有一笔存款参与该优惠，如果当周无申请，则视为自动放弃当周的该优惠。</div>\n<div align=\"left\">&nbsp; &nbsp; &nbsp;7.&nbsp;该笔参与此优惠的存款，不可以参与其他存送优惠。并且不计算救援金。</div>\n<h3>申请方式：</h3>\n<div align=\"left\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;请符合要求的会员，在存款时候填写相应的代码，系统会在审核之后派发。</div>\n<h3>条款与条件：</h3>\n<ol start=\"1\" type=\"1\">\n    <li>流水要求：如果申请老虎机参与该优惠，在未达到流水要求之前投注于申请优惠对应的游戏馆的老虎机之外的游戏，则我们将有权扣除所有红利和盈利。</li>\n    <li>存送红利投注流水计入返水有效流水中。</li>\n    <li style=\"margin: 0px; padding: 0px;\">有效流水仅针对老虎机类型游戏，如PT客户端内&ldquo;经典老虎机&rdquo;、&ldquo;电动吃角子老虎机&rdquo;、&ldquo;刮刮乐&rdquo;；PT网页版内&ldquo;吃角子老虎机&rdquo;、&ldquo;刮开&rdquo;，；TTG游戏大厅内&ldquo;最新游戏&rdquo;、&ldquo;热门游戏&rdquo;、&ldquo;老虎机&rdquo;；MG网页版内&ldquo;视频老虎机&rdquo;、&ldquo;经典老虎机&rdquo;、&ldquo;特色老虎机&rdquo;、&ldquo;累计奖池&rdquo;、&ldquo;宾果刮刮卡&rdquo;。以下游戏将不计算有效流水：所有的21点、轮盘、骰宝、百家乐、Pontoon、Craps、视频扑克、牌九扑克、赌场战争、娱乐场Hold&rsquo;em，以及多旋转老虎机(地妖之穴、海洋公主、三倍利润、热带滚筒、珠光宝气、神秘的世界、东方珍兽、怀旧水果转盘和部落生活)、电动扑克、桌上游戏、大型电玩和所有的老虎机奖金翻倍投注，Inca Jackpot (aztec)印加帝国头像。BBIN内：&ldquo;西游记&rdquo;、&ldquo;传统&rdquo;、&ldquo;外星争霸&rdquo;、&ldquo;丛林&rdquo;、&ldquo;法海斗白蛇&rdquo;、&ldquo;水果乐园&rdquo;、&ldquo;齐天大圣&rdquo;、&ldquo;连环夺宝&rdquo;、&ldquo;糖果派对&rdquo;，&ldquo;捕鱼游戏&rdquo;。TTG内：&ldquo;青蛙与苍蝇&rdquo;。</li>\n    <li>每周存送优惠只适用于拥有一个独立账户的会员,每个独立账户的会员仅可申请一次。电子邮箱地址、电话号码、IP地址、支付方式(相同借记卡/信用卡/银行账户号码)、上网设备、网络环境等将可以作为判定是否为独立会员的条件。</li>\n    <li>喜乐在线娱乐保有最终解释权并可以随时修改优惠条款。</li>\n    <li>一般条款与规则适用。</li>\n</ol>"
+                    }
+                ],
+                "status": "publish"
+            }
+        ],
+        "meta": {
+            "path": "/rest/promotions",
+            "per_page": "25",
+            "total": 5,
+            "last_page": 1,
+            "from": 1,
+            "to": 5,
+            "current_page": 1
+        },
+        "links": {
+            "last": "/rest/promotions?pageSize=25&page=1",
+            "first": "/rest/promotions?pageSize=25&page=1"
+        }
+    }
+}

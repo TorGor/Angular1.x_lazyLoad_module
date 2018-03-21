@@ -22,7 +22,7 @@
                   </ui-select>
                </div>
             </form>
-            <div server-data-table items="couponsManage" ao-data="couponsManageAoData" reload="couponsManageReload" service-name="adminService" service-name-attr="getReq" url="couponsManageUrl">
+            <div server-data-table items="couponsManage" ao-data="couponsManageAoData" reload="couponsManageReload" service-name="adminService" service-name-attr="getReq" url="couponsManageUrl" handle-data="false">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
@@ -59,9 +59,9 @@
                         <td style="width: 8%">
                            {{'table.couponsManage.th11' | translate}}
                         </td>
-                        <td style="width: 8%">
-                           {{'table.couponsManage.th12' | translate}}
-                        </td>
+                        <!--<td style="width: 8%">-->
+                        <!--{{'table.couponsManage.th12' | translate}}-->
+                        <!--</td>-->
                         <td style="width: 10%">{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
@@ -86,39 +86,39 @@
                            <span>{{item.product}}</span>
                         </td>
                         <td>
-                           <span>{{item.multiple_use ? 'Yes' : 'No'}}</span>
+                           <span>{{item.multipleUse ? 'Yes' : 'No'}}</span>
                         </td>
                         <td>
-                           <span>{{item.need_certification ? 'Yes' : 'No'}}</span>
+                           <span>{{item.needCertification ? 'Yes' : 'No'}}</span>
                         </td>
                         <td>
                            <span>{{item.type}}</span>
                         </td>
                         <td>
-                           <span>{{item.need_audit ? 'Yes' : 'No'}}</span>
+                           <span>{{item.needAudit ? 'Yes' : 'No'}}</span>
                         </td>
                         <td>
-                           <span>{{item.code_only ? 'Yes' : 'No'}}</span>
+                           <span>{{item.codeOnly ? 'Yes' : 'No'}}</span>
                         </td>
-                        <td>
-                           <span>{{item.enabled ? 'Yes' : 'No'}}</span>
-                        </td>
+                        <!--<td>-->
+                        <!--<span>{{item.isDeleted ? 'Yes' : 'No'}}</span>-->
+                        <!--</td>-->
                         <td style="white-space: nowrap;">
                            <div class="buttons">
-                              <button class="btn btn-sm btn-info" ng-click="saveCouponsManage(item)" title="{{'table.button.edit' | translate}}">
+                              <button class="btn btn-sm btn-info" ng-click="editCouponsManage(item)" title="{{'table.button.edit' | translate}}">
                                  <em class="fa fa-pencil"></em>
                               </button>
-                              <button class="btn btn-sm btn-danger" ng-show="item.enabled" ng-click="deleteCouponsManage(item)" title="{{'table.button.delete' | translate}}">
+                              <button class="btn btn-sm btn-danger" ng-show="!item.isDeleted" ng-click="deleteCouponsManage(item)" title="{{'table.button.delete' | translate}}">
                                  <em class="fa fa-trash"></em>
                               </button>
-                              <button class="btn btn-sm btn-green" ng-show="!item.enabled" ng-click="recoverCouponsManage(item)" title="{{'table.button.recover' | translate}}">
+                              <button class="btn btn-sm btn-green" ng-show="item.isDeleted" ng-click="recoverCouponsManage(item)" title="{{'table.button.recover' | translate}}">
                                  <em class="fa fa-rotate-left"></em>
                               </button>
                            </div>
                         </td>
                      </tr>
                      <tr ng-show="couponsManage.length==0">
-                        <td colspan="13" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan="12" class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>
