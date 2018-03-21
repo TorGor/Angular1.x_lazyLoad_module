@@ -11,93 +11,251 @@
                         <div class="form-group col-lg-6 col-md-12">
                             <label class="col-lg-4 col-md-6 control-label">编码</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem.code" class="fcodeorm-control" type="text" placeholder="order no">
+                                <input ng-model="couponsItem.code" class="fcodeorm-control" type="text" placeholder="coupons no">
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12">
                             <label class="col-lg-4 col-md-6 control-label">名称</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem.name" class="form-control" type="text" placeholder="order no">
+                                <input ng-model="couponsItem.name" class="form-control" type="text" placeholder="coupons name">
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="form-group col-lg-6 col-md-12">
                             <label class="col-lg-4 col-md-6 control-label">货币</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem.currency" class="form-control" type="text" placeholder="order no">
+                                <ui-select
+                                        ng-model="couponsItem.currency"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose currency">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in currencyOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12">
                             <label class="col-lg-4 col-md-6 control-label">品牌</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem.brand" class="form-control" type="text" placeholder="order no">
+                                <ui-select
+                                        ng-model="couponsItem.brand"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose brand">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in brandOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="form-group col-lg-6 col-md-12">
                             <label class="col-lg-4 col-md-6 control-label">钱包</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem.wallet" class="form-control" type="text" placeholder="order no">
+                                <ui-select
+                                        ng-model="couponsItem.wallet"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose wallet">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in walletOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12">
                             <label class="col-lg-4 col-md-6 control-label">产品</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem.product" class="form-control" type="text" placeholder="order no">
+                                <ui-select
+                                        ng-model="couponsItem.product"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose product">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in productOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="form-group col-lg-6 col-md-12">
                             <label class="col-lg-4 col-md-6 control-label">类型</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem.type" class="form-control" type="text" placeholder="order no">
+                                <ui-select
+                                        ng-model="couponsItem.type"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose type">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in typeOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12">
-                            <label class="col-lg-4 col-md-6 control-label">订单号</label>
+                            <label class="col-lg-4 col-md-6 control-label">人工</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem." class="form-control" type="text" placeholder="order no">
+                                <ui-select
+                                        ng-model="couponsItem.need_audit"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose need audit">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="form-group col-lg-6 col-md-12">
-                            <label class="col-lg-4 col-md-6 control-label">订单号</label>
+                            <label class="col-lg-4 col-md-6 control-label">组合</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem." class="form-control" type="text" placeholder="order no">
+                                <ui-select
+                                        ng-model="couponsItem.multiple_use"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose multiple use">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12">
-                            <label class="col-lg-4 col-md-6 control-label">订单号</label>
+                            <label class="col-lg-4 col-md-6 control-label">证书</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem." class="form-control" type="text" placeholder="order no">
+                                <ui-select
+                                        ng-model="couponsItem.need_certification"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose need certification">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="form-group col-lg-6 col-md-12">
-                            <label class="col-lg-4 col-md-6 control-label">订单号</label>
+                            <label class="col-lg-4 col-md-6 control-label">仅编码</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem." class="form-control" type="text" placeholder="order no">
+                                <ui-select
+                                        ng-model="couponsItem.code_only"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose code only">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12">
-                            <label class="col-lg-4 col-md-6 control-label">订单号</label>
+                            <label class="col-lg-4 col-md-6 control-label">禁止</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem." class="form-control" type="text" placeholder="order no">
+                                <ui-select
+                                        ng-model="couponsItem.enabled"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose enabled">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="form-group col-lg-6 col-md-12">
-                            <label class="col-lg-4 col-md-6 control-label">订单号</label>
+                            <label class="col-lg-4 col-md-6 control-label">开始</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem." class="form-control" type="text" placeholder="order no">
+                                <div class="input-group date"
+                                     datetimepicker
+                                     options={{dateOptionsYYYMMDD}}
+                                     ng-model="timeStart">
+                                    <input type="text" class="form-control" placeholder="start"/>
+                                    <span class="input-group-addon" style="background:none">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12">
-                            <label class="col-lg-4 col-md-6 control-label">订单号</label>
+                            <label class="col-lg-4 col-md-6 control-label">结束</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="couponsItem." class="form-control" type="text" placeholder="order no">
+                                <div class="input-group date"
+                                     datetimepicker
+                                     options={{dateOptionsYYYMMDD}}
+                                     ng-model="timeEtart">
+                                    <input type="text" class="form-control" placeholder="start"/>
+                                    <span class="input-group-addon" style="background:none">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                                </div>
                             </div>
                         </div>
+                        <div class="clearfix"></div>
+                        <legend class="text-center">处理</legend>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">类型</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                        ng-model="couponsItem.treatments[0].type"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose treatments type">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">数值</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="couponsItem.couponsItem.treatments[0].value" class="form-control" type="number" placeholder="treatments value">
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">最大优惠</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="couponsItem.treatments[0].max_bonus" class="form-control" type="number" placeholder="treatments max bonus">
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <legend class="text-center">用户等级</legend>
+                        <form class="form-horizontal">
+                            <div class="col-lg-6 col-xs-12" ng-repeat="rank in ranksOptions">
+                                <div class="checkbox c-checkbox needsclick">
+                                    <label class="needsclick">
+                                        <input class="needsclick" ng-click="selectRank(rank.value, $event)" ng-checked="couponsItem.ranks.indexOf(rank.value) !== -1" type="checkbox" ng-value="rank.value">
+                                        <span class="fa fa-check"></span>{{rank.label}}</label>
+                                </div>
+                            </div>
+                        </form>
+                        <legend class="text-center">条件</legend>
                         <div class="clearfix"></div>
                     </form>
                 </div>

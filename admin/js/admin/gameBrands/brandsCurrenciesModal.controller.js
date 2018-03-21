@@ -34,7 +34,6 @@
          * @param $event 点击事件
          */
         $scope.selectCurrency = function(value, $event) {
-            console.log($scope.brandsCurrenciesModal, 11)
             if($event.target.checked){
                if($scope.brandsCurrenciesModal.indexOf(value) === -1){
                    $scope.brandsCurrenciesModal.push(value)
@@ -42,7 +41,6 @@
             }else{
                 $scope.brandsCurrenciesModal.splice($scope.brandsCurrenciesModal.indexOf(value), 1)
             }
-            console.log($scope.brandsCurrenciesModal, 22)
         };
 
         $scope.confirmModal = function () {

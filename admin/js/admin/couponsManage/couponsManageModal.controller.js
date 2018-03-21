@@ -65,6 +65,24 @@
             };
         }
 
+        $scope.timeStart = $scope.couponsItem.start_time || '';
+        $scope.timeEnd = $scope.couponsItem.end_time || '';
+
+        /**
+         * 点击复选框
+         * @param value value值
+         * @param $event 点击事件
+         */
+        $scope.selectRank = function(value, $event) {
+            if($event.target.checked){
+                if($scope.couponsItem.ranks.indexOf(value) === -1){
+                    $scope.couponsItem.ranks.push(value)
+                }
+            }else{
+                $scope.couponsItem.ranks.splice($scope.couponsItem.ranks.indexOf(value), 1)
+            }
+        };
+
         $scope.confirmModal = function () {
             if (!edit) {
                 adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, $scope.couponsItem).then(function (res) {
@@ -98,6 +116,21 @@
         };
 
         // 页面加载执行的函数
+
+        $scope.$watch('timeStart+timeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.timeStart) {
+                    $scope.couponsItem.start_time = $scope.timeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                } else {
+                    $scope.couponsItem.start_time = '';
+                }
+                if ($scope.timeEnd) {
+                    $scope.couponsItem.end_time = $scope.timeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                } else {
+                    $scope.couponsItem.end_time = '';
+                }
+            }
+        });
 
     }
 })();
