@@ -16,31 +16,23 @@
         adminService
     ) {
 
+        $scope.gamesManageUrl = $rootScope.URL.GAMESMANAGE.GET;
+
         // 原始的数据
         $scope.gamesManage = [];
-
-        // 过滤出来的数据
-        $scope.showGamesManage = [];
         $scope.gamesManageReload = 1;
         $scope.gamesManageAoData = {};
-        $scope.gamesManageSearch = '';
 
         // 初始化table数据
         $scope.initGamesManageData = function () {
-            $scope.gamesManage = [];
-            adminService.getReq($rootScope.URL.GAMESMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.gamesManage = angular.copy(res.data.data);
-                        $scope.gamesManage.forEach(function (gamesManageItem, gamesManageIndex) {
-                            gamesManageItem.id = gamesManageIndex +1;
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
+            $scope.gamesManageReload++;
+        };
+
+        $scope.handleGamesManageData = function(arr) {
+            arr.forEach(function (gamesManageItem, gamesManageIndex) {
+                gamesManageItem._id = gamesManageIndex +1;
             });
+            return arr;
         };
 
 
@@ -112,12 +104,6 @@
             $scope.gamesManageSearch = '';
             $scope.gamesManage.unshift({
                 '_id': ($scope.gamesManage.length+1) + 'null',
-                'gamesManageName': '',
-                'gamesManageType': '',
-                'gamesManageStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
             });
         };
 
@@ -134,7 +120,5 @@
         };
 
         // 页面加载执行的函数
-
-        $scope.initGamesManageData();
     }
 })();

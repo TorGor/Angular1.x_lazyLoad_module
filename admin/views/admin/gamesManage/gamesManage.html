@@ -19,12 +19,14 @@
                     </div>
                 </form>
                 <div
-                        web-data-table
+                        server-data-table
                         items="gamesManage"
                         ao-data="gamesManageAoData"
-                        search="gamesManageSearch"
                         reload="gamesManageReload"
-                        show-items="showGamesManage"
+                        service-name="adminService"
+                        service-name-attr="getReq"
+                        url="gamesManageUrl"
+                        handle-data="handleGamesManageData"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
@@ -42,7 +44,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in showGamesManage">
+                        <tr ng-repeat="item in gamesManage">
                             <td>
                                 <span editable-text="item.code" e-name="code" e-formclass="xeditable-md"
                                       onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
@@ -61,7 +63,7 @@
                             <td style="white-space: nowrap;">
                                 <form class="form-buttons form-inline" editable-form name="rowform"
                                       onaftersave="saveGamesManage(item, $data)" ng-show="rowform.$visible"
-                                      shown="validIsNew(item.id)">
+                                      shown="validIsNew(item._id)">
                                     <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
                                             title="{{'table.button.save' | translate}}">
                                         <em class="fa fa-save"></em>
@@ -84,7 +86,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr ng-show="showGamesManage.length==0">
+                        <tr ng-show="gamesManage.length==0">
                             <td colspan="4" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
