@@ -83,9 +83,72 @@
             }
         };
 
+        // 过滤出来的数据
+        $scope.showConditionsModal = [];
+        $scope.conditionsModalReload = 1;
+        $scope.conditionsModalAoData = {};
+        $scope.conditionsModalSearch = '';
+
+        // 初始化table数据
+        $scope.initConditionsModalData = function () {
+            $scope.couponsItem['conditions'].forEach(function (conditionsItem, conditionsIndex) {
+                conditionsItem.id = conditionsIndex + 1;
+            })
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param conditionsModal 渠道名称数据对象
+         * @param data
+         */
+
+        $scope.saveConditionsModal = function (conditionsModal, data) {
+            $scope.couponsItem['conditions'].forEach(function (conditionsModalItem) {
+                if(conditionsModalItem.id == conditionsModal.id){
+                    window.Object.assign(conditionsModalItem, data);
+                    if($scope.validIsNew(conditionsModalItem.id)){
+                        conditionsModalItem.id = window.parseInt(conditionsModalItem.id, 10)
+                        $scope.conditionsModalReload ++
+                    }
+                }
+            });
+        };
+
+        // 删除rebatesModal
+        /**
+         * @param conditionsModal 渠道名称数据对象
+         * @param index 位置
+         * @return null
+         */
+        $scope.deleteConditionsModal = function (conditionsModal, index) {
+            $scope.couponsItem['conditions'].splice(index, 1)
+        };
+
+        // 添加按钮
+        $scope.addConditionsModal = function () {
+            $scope.conditionsModalAoData = {};
+            $scope.conditionsModalSearch = '';
+            $scope.couponsItem['conditions'].unshift({
+                'id': ($scope.couponsItem['conditions'].length+1) + 'null',
+                "type": $scope.conditionsTypeOptions[0] ? $scope.conditionsTypeOptions[0].value : '',
+                "value_type": $scope.conditionsValueTypeOptions[0] ? $scope.conditionsValueTypeOptions[0].value : '',
+                "value": ''
+            });
+        };
+
         $scope.confirmModal = function () {
+            var tempData = angular.copy($scope.couponsItem);
+            if(window.Array.isArray(tempData['conditions'])){
+                tempData['conditions'].forEach(function(conditionsItem) {
+                    if(conditionsItem.id){
+                        delete conditionsItem.id;
+                    }
+                })
+            }
             if (!edit) {
-                adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, $scope.couponsItem).then(function (res) {
+                adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -97,7 +160,7 @@
                     }
                 });
             } else if (edit) {
-                adminService.patchReq($rootScope.URL.COUPONSMANAGE.PATCH+'/'+couponsItem.code, {}, $scope.couponsItem).then(function (res) {
+                adminService.patchReq($rootScope.URL.COUPONSMANAGE.PATCH+'/'+couponsItem.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
