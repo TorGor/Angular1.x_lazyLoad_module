@@ -242,6 +242,30 @@
         "th2": "Value",
         "th3": "Max Bonus"
       }
+    },
+    "gamesManage": {
+      "th1": "Name",
+      "th2": "Product",
+      "th3": "Brand",
+      "th4": "Flash",
+      "th5": "Html5",
+      "th6": "App",
+      "th7": "Apk",
+      "th8": "windows",
+      "th9": "Ftp",
+      "th10": "Flash Demo",
+      "th11": "Html5 Demo",
+      "th12": "Image",
+      "th13": "Lines",
+      "th14": "Has Jackpot",
+      "th15": "Current Jackpot",
+      "th16": "Disabled",
+      "th17": "Rebateable",
+      "th18": "Bigwinable",
+      "th19": "Categories",
+      "th20": "Is New",
+      "th21": "Is Coming Soon",
+      "th22": "Is Recommend"
     }
   },
   "panel_tile": {

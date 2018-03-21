@@ -31,34 +31,199 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 40%" ao-data="gamesManageAoData" web-data-table-sort="roleName">
+                            <td style="width: 4%">
                                 {{'table.gamesManage.th1' | translate}}
                             </td>
-                            <td style="width: 40%" ao-data="gamesManageAoData" web-data-table-sort="roleName">
-                                {{'table.gamesManage.th1' | translate}}
-                            </td>
-                            <td style="width: 40%" ao-data="gamesManageAoData" web-data-table-sort="roleStatus">
+                            <td style="width: 4%">
                                 {{'table.gamesManage.th2' | translate}}
                             </td>
-                            <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th3' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th4' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th5' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th6' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th7' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th8' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th9' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th10' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th11' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th12' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th13' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th14' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th15' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th16' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th17' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th18' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th19' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th20' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th21' | translate}}
+                            </td>
+                            <td style="width: 4%">
+                                {{'table.gamesManage.th22' | translate}}
+                            </td>
+                            <td style="width: 4%">{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in gamesManage">
                             <td>
-                                <span editable-text="item.code" e-name="code" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
+                                <span>
+                                    <button class="btn btn-sm btn-info" ng-click="showEditMethodsNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>
+                                </span>
                             </td>
                             <td>
-                                <span editable-text="item.name" e-name="name" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
+                                <span editable-select="item.product_code" e-name="product_code" e-form="rowform"
+                                      onbeforesave="checkRequiredData($data)"
+                                      e-ng-options="option.value as option.label for option in productOptions">
+                                    {{showOptionsValue(item.product_code,productOptions)}}
+                                </span>
                             </td>
                             <td>
-                                    <span editable-select="item.roleStatus" e-name="roleStatus" e-form="rowform"
-                                          onbeforesave="checkRequiredData($data)"
-                                          e-ng-options="option.value as option.label for option in adminSelect012.options">
-                                        <span ng-bind-html="filter012OptionsValue(item.roleStatus)"></span>
-                                    </span>
+                                <span editable-select="item.brand_code" e-name="brand_code" e-form="rowform"
+                                      onbeforesave="checkRequiredData($data)"
+                                      e-ng-options="option.value as option.label for option in brandOptions">
+                                    {{showOptionsValue(item.brand_code,brandOptions)}}
+                                </span>
+                            </td>
+                            <td>
+                                <span editable-text="item.flash_code" e-name="flash_code" e-formclass="xeditable-sm"
+                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.flash_code || '' }}</span>
+                            </td>
+                            <td>
+                                <span editable-text="item.html5_code" e-name="html5_code" e-formclass="xeditable-sm"
+                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.html5_code || '' }}</span>
+                            </td>
+                            <td>
+                                <span editable-text="item.app_code" e-name="app_code" e-formclass="xeditable-sm"
+                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.app_code || '' }}</span>
+                            </td>
+                            <td>
+                                <span editable-text="item.apk_code" e-name="apk_code" e-formclass="xeditable-sm"
+                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.apk_code || '' }}</span>
+                            </td>
+                            <td>
+                                <span editable-text="item.windows_code" e-name="windows_code" e-formclass="xeditable-sm"
+                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.windows_code || '' }}</span>
+                            </td>
+                            <td>
+                                <span editable-text="item.ftp_code" e-name="ftp_code" e-formclass="xeditable-sm"
+                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.ftp_code || '' }}</span>
+                            </td>
+                            <td>
+                                <span editable-select="item.flash_demo_supported" e-name="flash_demo_supported" e-form="rowform"
+                                      onbeforesave="checkRequiredData($data)"
+                                      e-ng-options="option.value as option.label for option in booleanOptons">
+                                    {{showOptionsValue(item.flash_demo_supported,booleanOptons)}}
+                                </span>
+                            </td>
+                            <td>
+                                <span editable-select="item.html5_demo_supported" e-name="html5_demo_supported" e-form="rowform"
+                                      onbeforesave="checkRequiredData($data)"
+                                      e-ng-options="option.value as option.label for option in booleanOptons">
+                                    {{showOptionsValue(item.html5_demo_supported,booleanOptons)}}
+                                </span>
+                            </td>
+                            <td>
+                                <span editable-text="item.image" e-name="image" e-formclass="xeditable-sm"
+                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.image || '' }}</span>
+                            </td>
+                            <td>
+                                <span editable-text="item.lines" e-name="lines" e-formclass="xeditable-sm"
+                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.lines || '' }}</span>
+                            </td>
+                            <td>
+                                <span editable-select="item.has_jackpot" e-name="has_jackpot" e-form="rowform"
+                                      onbeforesave="checkRequiredData($data)"
+                                      e-ng-options="option.value as option.label for option in booleanOptons">
+                                    {{showOptionsValue(item.has_jackpot,booleanOptons)}}
+                                </span>
+                            </td>
+                            <td>
+                                <span editable-text="item.current_jackpot" e-name="current_jackpot" e-formclass="xeditable-sm"
+                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.current_jackpot || '' }}</span>
+                            </td>
+                            <td>
+                                <span editable-select="item.disabled" e-name="disabled" e-form="rowform"
+                                      onbeforesave="checkRequiredData($data)"
+                                      e-ng-options="option.value as option.label for option in booleanOptons">
+                                    {{showOptionsValue(item.disabled,booleanOptons)}}
+                                </span>
+                            </td>
+                            <td>
+                                <span editable-select="item.rebateable" e-name="rebateable" e-form="rowform"
+                                      onbeforesave="checkRequiredData($data)"
+                                      e-ng-options="option.value as option.label for option in booleanOptons">
+                                    {{showOptionsValue(item.rebateable,booleanOptons)}}
+                                </span>
+                            </td>
+                            <td>
+                                <span editable-select="item.bigwinable" e-name="bigwinable" e-form="rowform"
+                                      onbeforesave="checkRequiredData($data)"
+                                      e-ng-options="option.value as option.label for option in booleanOptons">
+                                    {{showOptionsValue(item.bigwinable,booleanOptons)}}
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <button class="btn btn-sm btn-info" ng-click="showEditMethodsNameModal(item)">{{showAddOrDetail(item.categories, item._id)}}</button>
+                                </span>
+                            </td>
+                            <td>
+                                <span editable-select="item.is_new" e-name="is_new" e-form="rowform"
+                                      onbeforesave="checkRequiredData($data)"
+                                      e-ng-options="option.value as option.label for option in booleanOptons">
+                                    {{showOptionsValue(item.is_new,booleanOptons)}}
+                                </span>
+                            </td>
+                            <td>
+                                <span editable-select="item.is_coming_soon" e-name="is_coming_soon" e-form="rowform"
+                                      onbeforesave="checkRequiredData($data)"
+                                      e-ng-options="option.value as option.label for option in booleanOptons">
+                                    {{showOptionsValue(item.is_coming_soon,booleanOptons)}}
+                                </span>
+                            </td>
+                            <td>
+                                <span editable-select="item.is_recommend" e-name="is_recommend" e-form="rowform"
+                                      onbeforesave="checkRequiredData($data)"
+                                      e-ng-options="option.value as option.label for option in booleanOptons">
+                                    {{showOptionsValue(item.is_recommend,booleanOptons)}}
+                                </span>
                             </td>
                             <td style="white-space: nowrap;">
                                 <form class="form-buttons form-inline" editable-form name="rowform"

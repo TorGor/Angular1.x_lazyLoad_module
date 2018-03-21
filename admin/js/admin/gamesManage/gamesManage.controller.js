@@ -16,6 +16,70 @@
         adminService
     ) {
 
+        $scope.brandOptions = [];
+
+        $scope.initBrandOptionsData = function () {
+            $scope.brandOptions = [];
+            adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                $scope.brandOptions.push(tempObj)
+                                // if(objItem.supported){
+                                //     $scope.brandOptions.push(tempObj)
+                                // }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.productOptions = [];
+
+        $scope.initProductManageData = function () {
+            $scope.productOptions = [];
+            adminService.getReq($rootScope.URL.GAMESPRODUCTS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.disabled == false){
+                                    $scope.productOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.booleanOptons = [
+            {
+                label: 'Yes',
+                value: 'true'
+            },
+            {
+                label: 'No',
+                value: 'false'
+            }
+        ];
+
         $scope.gamesManageUrl = $rootScope.URL.GAMESMANAGE.GET;
 
         // 原始的数据
@@ -103,7 +167,29 @@
             $scope.gamesManageAoData = {};
             $scope.gamesManageSearch = '';
             $scope.gamesManage.unshift({
-                '_id': ($scope.gamesManage.length+1) + 'null',
+                _id: ($scope.gamesManage.length+1) + 'null',
+                name: [],
+                product_code: $scope.productOptions[0] && $scope.productOptions[0].value || '',
+                brand_code: $scope.brandOptions[0] && $scope.brandOptions[0].value || '',
+                flash_code:'',
+                html5_code:'',
+                app_code:'',
+                apk_code:'',
+                windows_code: '',
+                ftp_code: '',
+                flash_demo_supported: '',
+                html5_demo_supported: '',
+                image: '',
+                lines: '',
+                has_jackpot: '',
+                current_jackpot: '',
+                disabled: '',
+                rebateable: '',
+                bigwinable: '',
+                categories: '',
+                is_new: '',
+                is_coming_soon: '',
+                is_recommend: ''
             });
         };
 
@@ -120,5 +206,9 @@
         };
 
         // 页面加载执行的函数
+
+        $scope.initProductManageData();
+
+        $scope.initBrandOptionsData();
     }
 })();
