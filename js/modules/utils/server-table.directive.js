@@ -25,6 +25,7 @@
                 serviceName: '@serviceName',
                 serviceNameAttr: '@serviceNameAttr',
                 reload: '=reload',
+                handleData: '=',
             },
             template:
                 '<div class="clearfix"></div>\
@@ -126,7 +127,11 @@
                             if(result && result.data && result.meta){
                                 $scope.pageMessage.count=angular.copy(result.meta.total);
                                 $scope.pageTotle=angular.copy(result.meta.last_page);
-                                $scope.items=angular.copy(result.data);
+                                if($scope.handleData){
+                                    $scope.items=angular.copy($scope.handleData(result.data));
+                                }else{
+                                    $scope.items=angular.copy(result.data);
+                                }
                             }else{
                                 $scope.pageMessage.draw=angular.copy(data.data.draw||1);
                                 $scope.pageMessage.count= 0;
