@@ -72,16 +72,16 @@
                 isDeleted: $scope.booleanOptons[1] && $scope.booleanOptons[1].value || 'false',
                 conditions: [],
                 treatments: [
-                    {
-                        type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
-                        value:'',
-                        maxBonus:''
-                    }
+                    // {
+                    //     type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
+                    //     value:'',
+                    //     maxBonus:''
+                    // }
                 ],
             };
         }
 
-        console.log($scope.couponsItem,888)
+        console.log($scope.couponsItem,88888)
 
         $scope.timeStart = $scope.couponsItem.startTime || '';
         $scope.timeEnd = $scope.couponsItem.endTime || '';
@@ -156,12 +156,100 @@
             });
         };
 
+        /**
+         *
+         * @param conditionsItem 条件项目
+         * @param index 添加的index
+         */
+
+        $scope.cancelSaveConditionsModal = function (conditionsItem, index) {
+            if ($scope.validIsNew(conditionsItem.id)) {
+                $scope.couponsItem.splice(index, 1);
+            }
+        };
+
+
+        // 过滤出来的数据
+        $scope.showTreatmentsModal = [];
+        $scope.treatmentsModalReload = 1;
+        $scope.treatmentsModalAoData = {};
+        $scope.treatmentsModalSearch = '';
+
+
+        // 初始化table数据
+        $scope.initTreatmentsModalData = function () {
+            $scope.couponsItem['treatments'].forEach(function (treatmentsItem, treatmentsIndex) {
+                treatmentsItem.id = treatmentsIndex + 1;
+            })
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param treatmentsModal 处理对象数据对象
+         * @param data
+         */
+
+        $scope.saveTreatmentsModal = function (treatmentsModal, data) {
+            $scope.couponsItem['treatments'].forEach(function (treatmentsModalItem) {
+                if(treatmentsModalItem.id == treatmentsModal.id){
+                    window.Object.assign(treatmentsModalItem, data);
+                    if($scope.validIsNew(treatmentsModalItem.id)){
+                        treatmentsModalItem.id = window.parseInt(treatmentsModalItem.id, 10)
+                        $scope.treatmentsModalReload ++
+                    }
+                }
+            });
+        };
+
+        // 删除处理对象Modal
+        /**
+         * @param treatmentsModal 处理对象
+         * @param index 位置
+         * @return null
+         */
+        $scope.deleteTreatmentsModal = function (treatmentsModal, index) {
+            $scope.couponsItem['treatments'].splice(index, 1)
+        };
+
+        // 添加按钮
+        $scope.addTreatmentsModal = function () {
+            $scope.treatmentsModalAoData = {};
+            $scope.treatmentsModalSearch = '';
+            $scope.couponsItem['treatments'].unshift({
+                'id': ($scope.couponsItem['treatments'].length+1) + 'null',
+                type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
+                value:'',
+                maxBonus:''
+            });
+        };
+
+        /**
+         *
+         * @param treatmentsItem 处理项目
+         * @param index 添加的index
+         */
+
+        $scope.cancelSaveTreatmentsModal = function (treatmentsItem, index) {
+            if ($scope.validIsNew(treatmentsItem.id)) {
+                $scope.couponsItem.splice(index, 1);
+            }
+        };
+
         $scope.confirmModal = function () {
             var tempData = angular.copy($scope.couponsItem);
             if(window.Array.isArray(tempData['conditions'])){
                 tempData['conditions'].forEach(function(conditionsItem) {
                     if(conditionsItem.id){
                         delete conditionsItem.id;
+                    }
+                })
+            }
+            if(window.Array.isArray(tempData['treatments'])){
+                tempData['treatments'].forEach(function(treatmentsItem) {
+                    if(treatmentsItem.id){
+                        delete treatmentsItem.id;
                     }
                 })
             }
@@ -197,6 +285,10 @@
         };
 
         // 页面加载执行的函数
+
+        $scope.initConditionsModalData();
+
+        $scope.initTreatmentsModalData();
 
         $scope.$watch('timeStart+timeEnd', function (newValue, oldValue) {
             if (newValue !== oldValue) {
