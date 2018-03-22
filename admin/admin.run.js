@@ -126,6 +126,22 @@
                 PUT:'/rest/withdraws',
                 DELETE:'/rest/withdraws'
             },
+            PROMOTIONSMANAGE:{
+                GET:'/rest/promotions',
+                POST:'/rest/promotions',
+                PATCH:'/rest/promotions',
+                PUT:'/rest/promotions',
+                DELETE:'/rest/promotions'
+            },
+            REBATESLIST:{
+                GET:'/rest/rebates',
+            },
+            RELIEFSLIST:{
+                GET:'/rest/reliefs',
+            },
+            TRANSFERSMANAGE:{
+                GET:'/rest/transfers',
+            },
         };
 
         $rootScope.adminSelect012 = {

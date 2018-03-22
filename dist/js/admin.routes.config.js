@@ -202,7 +202,43 @@
                 permission: 'withdrawsManage'
             })
             
+            .state('admin.promotionsManage', {
+                url: '/promotionsManage/manage',
+                title: 'promotionsManage Manage',
+                controller: 'PromotionsManageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/promotionsManage/promotionsManage.html'),
+                permission: 'promotionsManage'
+            })
+            
+            .state('admin.rebatesList', {
+                url: '/rebatesList/manage',
+                title: 'rebatesList Manage',
+                controller: 'RebatesListController',
+                templateUrl: RouteHelpersProvider.basepath('admin/rebatesList/rebatesList.html'),
+                permission: 'rebatesList'
+            })
+            
+            .state('admin.reliefsList', {
+                url: '/reliefsList/manage',
+                title: 'reliefsList Manage',
+                controller: 'ReliefsListController',
+                templateUrl: RouteHelpersProvider.basepath('admin/reliefsList/reliefsList.html'),
+                permission: 'reliefsList'
+            })
+            
+            .state('admin.transfersList', {
+                url: '/transfersList/manage',
+                title: 'transfersList Manage',
+                controller: 'TransfersListController',
+                templateUrl: RouteHelpersProvider.basepath('admin/transfersList/transfersList.html'),
+                permission: 'transfersList'
+            })
+            
             //new route name will be append here
+            
+            
+            
+            
             
             
             

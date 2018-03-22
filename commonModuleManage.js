@@ -3,12 +3,12 @@
  */
 var moduleSetting = {
     //模块主要名称
-    common: 'withdraws',
+    common: 'transfers',
     //模块主要名称2
-    module: 'manage',
+    module: 'List',
     //模块标题
-    title: '提款管理',
+    title: '救济金列表',
     // url地址
-    url: '/rest/withdraws',
+    url: '/rest/transfers',
 };
 module.exports = moduleSetting;

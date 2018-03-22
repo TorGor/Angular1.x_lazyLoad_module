@@ -22,6 +22,10 @@
 			'admin.gamesProducts',
 			'admin.pspsManage',
 			'admin.withdrawsManage',
+			'admin.promotionsManage',
+			'admin.rebatesList',
+			'admin.reliefsList',
+			'admin.transfersList',
 			//new module name will be append here
 
         ]);

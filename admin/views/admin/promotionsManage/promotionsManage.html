@@ -5,7 +5,7 @@
                 <span class="form-group add-button-class">
                     <button
                         class="btn btn-primary"
-                        ng-click="addCommonModule()"
+                        ng-click="addPromotionsManage()"
                         type="button"
                         translate="table.button.add"
                     >
@@ -15,42 +15,42 @@
                 <form class="form-inline pull-right add-button-class" role="form">
                     <div style="position: relative" class="form-group">
                         <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                        <input class="form-control" type="text" ng-model="commonModuleSearch" placeholder="{{searchPlaceholder(['table.commonModule.th1', 'table.commonModule.th2', 'table.commonModule.th3'])}}">
+                        <input class="form-control" type="text" ng-model="promotionsManageSearch" placeholder="{{searchPlaceholder(['table.promotionsManage.th1', 'table.promotionsManage.th2', 'table.promotionsManage.th3'])}}">
                     </div>
                 </form>
                 <div
                         server-data-table
-                        items="commonModule"
-                        ao-data="commonModuleAoData"
-                        reload="commonModuleReload"
+                        items="promotionsManage"
+                        ao-data="promotionsManageAoData"
+                        reload="promotionsManageReload"
                         service-name="adminService"
                         service-name-attr="getReq"
-                        url="commonModuleUrl"
+                        url="promotionsManageUrl"
                         handle-data="false"
                         web-data-table
-                        items="commonModule"
-                        ao-data="commonModuleAoData"
-                        search="commonModuleSearch"
-                        reload="commonModuleReload"
-                        show-items="showCommonModule"
+                        items="promotionsManage"
+                        ao-data="promotionsManageAoData"
+                        search="promotionsManageSearch"
+                        reload="promotionsManageReload"
+                        show-items="showPromotionsManage"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 40%" ao-data="commonModuleAoData" web-data-table-sort="roleName">
-                                {{'table.commonModule.th1' | translate}}
+                            <td style="width: 40%" ao-data="promotionsManageAoData" web-data-table-sort="roleName">
+                                {{'table.promotionsManage.th1' | translate}}
                             </td>
-                            <td style="width: 40%" ao-data="commonModuleAoData" web-data-table-sort="roleName">
-                                {{'table.commonModule.th1' | translate}}
+                            <td style="width: 40%" ao-data="promotionsManageAoData" web-data-table-sort="roleName">
+                                {{'table.promotionsManage.th1' | translate}}
                             </td>
-                            <td style="width: 40%" ao-data="commonModuleAoData" web-data-table-sort="roleStatus">
-                                {{'table.commonModule.th2' | translate}}
+                            <td style="width: 40%" ao-data="promotionsManageAoData" web-data-table-sort="roleStatus">
+                                {{'table.promotionsManage.th2' | translate}}
                             </td>
                             <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in showCommonModule">
+                        <tr ng-repeat="item in showPromotionsManage">
                             <td>
                                 <span editable-text="item.code" e-name="code" e-formclass="xeditable-md"
                                       onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
@@ -68,7 +68,7 @@
                             </td>
                             <td style="white-space: nowrap;">
                                 <form class="form-buttons form-inline" editable-form name="rowform"
-                                      onaftersave="saveCommonModule(item, $data)" ng-show="rowform.$visible"
+                                      onaftersave="savePromotionsManage(item, $data)" ng-show="rowform.$visible"
                                       shown="validIsNew(item._id)">
                                     <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
                                             title="{{'table.button.save' | translate}}">
@@ -85,14 +85,14 @@
                                             title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" ng-click="deleteCommonModule(item)"
+                                    <button class="btn btn-sm btn-danger" ng-click="deletePromotionsManage(item)"
                                             title="{{'table.button.delete' | translate}}">
                                         <em class="fa fa-trash"></em>
                                     </button>
                                 </div>
                             </td>
                         </tr>
-                        <tr ng-show="showCommonModule.length==0">
+                        <tr ng-show="showPromotionsManage.length==0">
                             <td colspan="4" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>

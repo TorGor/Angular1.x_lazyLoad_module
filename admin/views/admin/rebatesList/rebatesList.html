@@ -5,7 +5,7 @@
                 <span class="form-group add-button-class">
                     <button
                         class="btn btn-primary"
-                        ng-click="addCommonModule()"
+                        ng-click="addRebatesList()"
                         type="button"
                         translate="table.button.add"
                     >
@@ -15,42 +15,42 @@
                 <form class="form-inline pull-right add-button-class" role="form">
                     <div style="position: relative" class="form-group">
                         <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                        <input class="form-control" type="text" ng-model="commonModuleSearch" placeholder="{{searchPlaceholder(['table.commonModule.th1', 'table.commonModule.th2', 'table.commonModule.th3'])}}">
+                        <input class="form-control" type="text" ng-model="rebatesListSearch" placeholder="{{searchPlaceholder(['table.rebatesList.th1', 'table.rebatesList.th2', 'table.rebatesList.th3'])}}">
                     </div>
                 </form>
                 <div
                         server-data-table
-                        items="commonModule"
-                        ao-data="commonModuleAoData"
-                        reload="commonModuleReload"
+                        items="rebatesList"
+                        ao-data="rebatesListAoData"
+                        reload="rebatesListReload"
                         service-name="adminService"
                         service-name-attr="getReq"
-                        url="commonModuleUrl"
+                        url="rebatesListUrl"
                         handle-data="false"
                         web-data-table
-                        items="commonModule"
-                        ao-data="commonModuleAoData"
-                        search="commonModuleSearch"
-                        reload="commonModuleReload"
-                        show-items="showCommonModule"
+                        items="rebatesList"
+                        ao-data="rebatesListAoData"
+                        search="rebatesListSearch"
+                        reload="rebatesListReload"
+                        show-items="showRebatesList"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 40%" ao-data="commonModuleAoData" web-data-table-sort="roleName">
-                                {{'table.commonModule.th1' | translate}}
+                            <td style="width: 40%" ao-data="rebatesListAoData" web-data-table-sort="roleName">
+                                {{'table.rebatesList.th1' | translate}}
                             </td>
-                            <td style="width: 40%" ao-data="commonModuleAoData" web-data-table-sort="roleName">
-                                {{'table.commonModule.th1' | translate}}
+                            <td style="width: 40%" ao-data="rebatesListAoData" web-data-table-sort="roleName">
+                                {{'table.rebatesList.th1' | translate}}
                             </td>
-                            <td style="width: 40%" ao-data="commonModuleAoData" web-data-table-sort="roleStatus">
-                                {{'table.commonModule.th2' | translate}}
+                            <td style="width: 40%" ao-data="rebatesListAoData" web-data-table-sort="roleStatus">
+                                {{'table.rebatesList.th2' | translate}}
                             </td>
                             <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in showCommonModule">
+                        <tr ng-repeat="item in showRebatesList">
                             <td>
                                 <span editable-text="item.code" e-name="code" e-formclass="xeditable-md"
                                       onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
@@ -68,7 +68,7 @@
                             </td>
                             <td style="white-space: nowrap;">
                                 <form class="form-buttons form-inline" editable-form name="rowform"
-                                      onaftersave="saveCommonModule(item, $data)" ng-show="rowform.$visible"
+                                      onaftersave="saveRebatesList(item, $data)" ng-show="rowform.$visible"
                                       shown="validIsNew(item._id)">
                                     <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
                                             title="{{'table.button.save' | translate}}">
@@ -85,14 +85,14 @@
                                             title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" ng-click="deleteCommonModule(item)"
+                                    <button class="btn btn-sm btn-danger" ng-click="deleteRebatesList(item)"
                                             title="{{'table.button.delete' | translate}}">
                                         <em class="fa fa-trash"></em>
                                     </button>
                                 </div>
                             </td>
                         </tr>
-                        <tr ng-show="showCommonModule.length==0">
+                        <tr ng-show="showRebatesList.length==0">
                             <td colspan="4" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>

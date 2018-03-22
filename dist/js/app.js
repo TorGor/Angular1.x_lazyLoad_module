@@ -1433,7 +1433,31 @@
                     "text": "提款管理",
                     "sref": "admin.withdrawsManage",
                     "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "优惠券管理",
+                    "sref": "admin.promotionsManage",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "返水列表",
+                    "sref": "admin.rebatesList",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "救济金列表",
+                    "sref": "admin.reliefsList",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "救济金列表",
+                    "sref": "admin.transfersList",
+                    "icon": "glyphicon glyphicon-th-large",
                 }//new sidebar name will be append here
+            
+            
+            
+            
             
             
             
