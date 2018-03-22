@@ -31,27 +31,27 @@
         }else{
             $scope.gamesItem = {
                 name: [],
-                product_code: $scope.productOptions[0] && $scope.productOptions[0].value || '',
-                brand_code: $scope.brandOptions[0] && $scope.brandOptions[0].value || '',
-                flash_code:'',
-                html5_code:'',
-                app_code:'',
-                apk_code:'',
-                windows_code: '',
-                ftp_code: '',
-                flash_demo_supported: '',
-                html5_demo_supported: '',
+                productCode: $scope.productOptions[0] && $scope.productOptions[0].value || '',
+                brandCode: $scope.brandOptions[0] && $scope.brandOptions[0].value || '',
+                flashCode:'',
+                html5Code:'',
+                appCode:'',
+                apkCode:'',
+                windowsCode: '',
+                ftpCode: '',
+                flashDemoSupported: '',
+                html5DemoSupported: '',
                 image: '',
                 lines: '',
-                has_jackpot: '',
-                current_jackpot: '',
+                hasJackpot: '',
+                currentJackpot: '',
                 disabled: '',
                 rebateable: '',
                 bigwinable: '',
-                categories: '',
-                is_new: '',
-                is_coming_soon: '',
-                is_recommend: ''
+                categories: [],
+                isNew: '',
+                isComing_soon: '',
+                isRecommend: ''
             };
         }
 

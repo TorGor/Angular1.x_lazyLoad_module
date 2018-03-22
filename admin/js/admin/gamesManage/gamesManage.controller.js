@@ -95,6 +95,24 @@
         $scope.handleGamesManageData = function(arr) {
             arr.forEach(function (gamesManageItem, gamesManageIndex) {
                 gamesManageItem._id = gamesManageIndex +1;
+                gamesManageItem.currentJackpot = '';
+                gamesManageItem.categories = [];
+                gamesManageItem.flashCode = gamesManageItem.codes && gamesManageItem.codes.flash || '',
+                gamesManageItem.html5Code = gamesManageItem.codes && gamesManageItem.codes.html5 || '',
+                gamesManageItem.appCode = gamesManageItem.codes && gamesManageItem.codes.ios || '',
+                gamesManageItem.apkCode = gamesManageItem.codes && gamesManageItem.codes.android || '',
+                gamesManageItem.windowsCode = gamesManageItem.codes && gamesManageItem.codes.windows || '',
+                gamesManageItem.flashDemoSupported = (gamesManageItem.demo && gamesManageItem.demo.flash || 'false').toString(),
+                gamesManageItem.html5DemoSupported = (gamesManageItem.demo && gamesManageItem.demo.html5 || 'false').toString()
+                if(gamesManageItem.codes){
+                    delete gamesManageItem.codes;
+                }
+                if(gamesManageItem.demo){
+                    delete gamesManageItem.demo;
+                }
+                if(gamesManageItem.worksOn){
+                    delete gamesManageItem.worksOn;
+                }
             });
             return arr;
         };
