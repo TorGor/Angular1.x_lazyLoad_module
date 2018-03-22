@@ -103,40 +103,27 @@
         // 保存
         /**
          *
-         * @param gamesManage GAMESMANAGETITLE数据对象
-         * @param item
+         * @param game GAMESMANAGETITLE数据对象
          */
 
-        $scope.saveGamesManage = function (gamesManage, item) {
-            var tempData = angular.extend({}, gamesManage, item);
-            if ($scope.validIsNew(tempData._id)) {
-                delete tempData._id;
-                adminService.postReq($rootScope.URL.GAMESMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initGamesManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(tempData._id) && gamesManage.id) {
-                delete tempData._id;
-                adminService.patchReq($rootScope.URL.GAMESMANAGE.PATCH+'/'+gamesManage.id, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initGamesManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
+        $scope.editGamesManage = function (game) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/gamesManage/gamesManageModal.html',
+                controller: 'addGamesController',
+                scope: $scope,
+                size: 'lg',
+                resolve:{
+                    gamesItem:game,
+                    edit:true,
+                }
+            });
+            modalInstance.result.then(function(data) {
+                $scope.initGamesManageData()
+            }, function(data) {
+            });
         };
 
         // 删除gamesManage
@@ -164,32 +151,22 @@
 
         // 添加按钮
         $scope.addGamesManage = function () {
-            $scope.gamesManageAoData = {};
-            $scope.gamesManageSearch = '';
-            $scope.gamesManage.unshift({
-                _id: ($scope.gamesManage.length+1) + 'null',
-                name: [],
-                product_code: $scope.productOptions[0] && $scope.productOptions[0].value || '',
-                brand_code: $scope.brandOptions[0] && $scope.brandOptions[0].value || '',
-                flash_code:'',
-                html5_code:'',
-                app_code:'',
-                apk_code:'',
-                windows_code: '',
-                ftp_code: '',
-                flash_demo_supported: '',
-                html5_demo_supported: '',
-                image: '',
-                lines: '',
-                has_jackpot: '',
-                current_jackpot: '',
-                disabled: '',
-                rebateable: '',
-                bigwinable: '',
-                categories: '',
-                is_new: '',
-                is_coming_soon: '',
-                is_recommend: ''
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/gamesManage/gamesManageModal.html',
+                controller: 'addGamesController',
+                scope: $scope,
+                size: 'lg',
+                resolve:{
+                    gamesItem:false,
+                    edit:false,
+                }
+            });
+            modalInstance.result.then(function(data) {
+                $scope.initGamesManageData()
+            }, function(data) {
             });
         };
 
