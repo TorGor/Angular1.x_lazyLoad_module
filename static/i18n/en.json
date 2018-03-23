@@ -296,15 +296,26 @@
       "th7": "AffiliateId"
     },
     "reliefsList": {
-      "th1": "product",
-      "th2": "amount",
-      "th3": "balance",
-      "th4": "rate",
-      "th5": "consecutive",
-      "th6": "withdraw",
-      "th7": "affiliate",
-      "th8": "username",
-      "th9": "status"
+      "th1": "Product",
+      "th2": "Amount",
+      "th3": "Balance",
+      "th4": "Rate",
+      "th5": "Consecutive",
+      "th6": "Withdraw",
+      "th7": "Affiliate",
+      "th8": "Username",
+      "th9": "Status"
+    },
+    "transfersList": {
+      "th1": "Coupon",
+      "th2": "Amount",
+      "th3": "Bonus",
+      "th4": "Wallets Source",
+      "th5": "Wallets Destination",
+      "th6": "User Username",
+      "th7": "User UserId",
+      "th8": "User AffiliateId",
+      "th9": "Result"
     }
   },
   "panel_tile": {

@@ -141,7 +141,7 @@
             RELIEFSLIST:{
                 GET:'/rest/reliefs',
             },
-            TRANSFERSMANAGE:{
+            TRANSFERSLIST:{
                 GET:'/rest/transfers',
             },
         };
