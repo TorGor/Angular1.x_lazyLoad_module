@@ -2,16 +2,6 @@
     <div class="panel panel-default">
         <div class="panel-wrapper">
             <div class="panel-body">
-                <span class="form-group add-button-class">
-                    <button
-                        class="btn btn-primary"
-                        ng-click="addReliefsList()"
-                        type="button"
-                        translate="table.button.add"
-                    >
-                        新增
-                    </button>
-                </span>
                 <form class="form-inline pull-right add-button-class" role="form">
                     <div style="position: relative" class="form-group">
                         <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
@@ -19,14 +9,6 @@
                     </div>
                 </form>
                 <div
-                        server-data-table
-                        items="reliefsList"
-                        ao-data="reliefsListAoData"
-                        reload="reliefsListReload"
-                        service-name="adminService"
-                        service-name-attr="getReq"
-                        url="reliefsListUrl"
-                        handle-data="false"
                         web-data-table
                         items="reliefsList"
                         ao-data="reliefsListAoData"
@@ -37,63 +19,70 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 40%" ao-data="reliefsListAoData" web-data-table-sort="roleName">
+                            <td style="width: 10%" ao-data="reliefsListAoData" web-data-table-sort="product">
                                 {{'table.reliefsList.th1' | translate}}
                             </td>
-                            <td style="width: 40%" ao-data="reliefsListAoData" web-data-table-sort="roleName">
-                                {{'table.reliefsList.th1' | translate}}
-                            </td>
-                            <td style="width: 40%" ao-data="reliefsListAoData" web-data-table-sort="roleStatus">
+                            <td style="width: 10%" ao-data="reliefsListAoData" web-data-table-sort="amount">
                                 {{'table.reliefsList.th2' | translate}}
                             </td>
-                            <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                            <td style="width: 10%">
+                                {{'table.reliefsList.th3' | translate}}
+                            </td>
+                            <td style="width: 10%">
+                                {{'table.reliefsList.th4' | translate}}
+                            </td>
+                            <td style="width: 10%">
+                                {{'table.reliefsList.th5' | translate}}
+                            </td>
+                            <td style="width: 10%">
+                                {{'table.reliefsList.th6' | translate}}
+                            </td>
+                            <td style="width: 10%">
+                                {{'table.reliefsList.th7' | translate}}
+                            </td>
+                            <td style="width: 10%">
+                                {{'table.reliefsList.th8' | translate}}
+                            </td>
+                            <td style="width: 10%" ao-data="reliefsListAoData" web-data-table-sort="status">
+                                {{'table.reliefsList.th9' | translate}}
+                            </td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in showReliefsList">
                             <td>
-                                <span editable-text="item.code" e-name="code" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
+                                <span>{{item.product || ''}}</span>
                             </td>
                             <td>
-                                <span editable-text="item.name" e-name="name" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
+                                <span>{{item.amount || ''}}</span>
                             </td>
                             <td>
-                                    <span editable-select="item.roleStatus" e-name="roleStatus" e-form="rowform"
-                                          onbeforesave="checkRequiredData($data)"
-                                          e-ng-options="option.value as option.label for option in adminSelect012.options">
-                                        <span ng-bind-html="filter012OptionsValue(item.roleStatus)"></span>
-                                    </span>
+                                <span>{{item.details.balance || ''}}</span>
                             </td>
-                            <td style="white-space: nowrap;">
-                                <form class="form-buttons form-inline" editable-form name="rowform"
-                                      onaftersave="saveReliefsList(item, $data)" ng-show="rowform.$visible"
-                                      shown="validIsNew(item._id)">
-                                    <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
-                                            title="{{'table.button.save' | translate}}">
-                                        <em class="fa fa-save"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
-                                            ng-click="rowform.$cancel();cancelSave(item,$index)"
-                                            title="{{'table.button.cancel' | translate}}">
-                                        <em class="fa fa-times"></em>
-                                    </button>
-                                </form>
-                                <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-info" ng-click="rowform.$show()"
-                                            title="{{'table.button.edit' | translate}}">
-                                        <em class="fa fa-pencil"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" ng-click="deleteReliefsList(item)"
-                                            title="{{'table.button.delete' | translate}}">
-                                        <em class="fa fa-trash"></em>
-                                    </button>
-                                </div>
+                            <td>
+                                <span>{{item.details.rate || ''}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.details.deposit || ''}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.details.consecutive || ''}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.details.withdraw || ''}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.user.affiliate || ''}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.user.username || ''}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.status || ''}}</span>
                             </td>
                         </tr>
                         <tr ng-show="showReliefsList.length==0">
-                            <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan="9" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

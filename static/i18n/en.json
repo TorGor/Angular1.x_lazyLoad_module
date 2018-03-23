@@ -287,13 +287,24 @@
       "th7": "Status"
     },
     "rebatesList": {
+      "th1": "Product",
+      "th2": "From",
+      "th3": "To",
+      "th4": "Bonus",
+      "th5": "Username",
+      "th6": "UserId",
+      "th7": "AffiliateId"
+    },
+    "reliefsList": {
       "th1": "product",
-      "th2": "from",
-      "th3": "to",
-      "th4": "bonus",
-      "th5": "username",
-      "th6": "userId",
-      "th7": "affiliateId"
+      "th2": "amount",
+      "th3": "balance",
+      "th4": "rate",
+      "th5": "consecutive",
+      "th6": "withdraw",
+      "th7": "affiliate",
+      "th8": "username",
+      "th9": "status"
     }
   },
   "panel_tile": {
