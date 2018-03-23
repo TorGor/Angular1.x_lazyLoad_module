@@ -7,12 +7,14 @@
     GamesManageController.$inject = [
         '$scope',
         '$rootScope',
+        '$uibModal',
         'adminService'
     ];
 
     function GamesManageController(
         $scope,
         $rootScope,
+        $uibModal,
         adminService
     ) {
 

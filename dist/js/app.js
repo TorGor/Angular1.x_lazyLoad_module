@@ -2439,7 +2439,7 @@
                 if (!$scope.search) {
                     $scope.search = '';
                 }
-
+                $scope.filterItems = [];
                 $scope.pageNeedChange = false;
                 $scope.$watch('[currentPage+pageNumber+showItems.length]', function(newValue, oldValue) {
                     if (newValue != oldValue) {

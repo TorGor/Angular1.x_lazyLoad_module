@@ -9,7 +9,7 @@
         '$rootScope',
         '$uibModalInstance',
         'adminService',
-        'couponsItem',
+        'gamesItem',
         'edit',
         '$translate'
     ];
@@ -54,10 +54,6 @@
                 isRecommend: ''
             };
         }
-
-
-        $scope.timeStart = $scope.gamesItem.startTime || '';
-        $scope.timeEnd = $scope.gamesItem.endTime || '';
 
         /**
          * 点击复选框
@@ -163,21 +159,6 @@
         };
 
         // 页面加载执行的函数
-
-        $scope.$watch('timeStart+timeEnd', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.timeStart) {
-                    $scope.gamesItem.startTime = $scope.timeStart.format('YYYY-MM-DD') + ' 00:00:00';
-                } else {
-                    $scope.gamesItem.startTime = '';
-                }
-                if ($scope.timeEnd) {
-                    $scope.gamesItem.endTime = $scope.timeEnd.format('YYYY-MM-DD') + ' 23:59:59';
-                } else {
-                    $scope.gamesItem.endTime = '';
-                }
-            }
-        });
 
     }
 })();

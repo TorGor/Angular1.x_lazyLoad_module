@@ -180,132 +180,79 @@
                   </div>
                   <div class="clearfix"></div>
                   <legend class="text-center">处理</legend>
-                  <!--<div class="">-->
-                  <!--<span class="form-group add-button-class">-->
-                  <!--<button-->
-                  <!--class="btn btn-primary"-->
-                  <!--ng-click="addTreatmentsModal()"-->
-                  <!--type="button"-->
-                  <!--translate="table.button.add"-->
-                  <!--&gt;-->
-                  <!--</button>-->
-                  <!--</span>-->
-                  <!--<form class="form-inline pull-right add-button-class" role="form">-->
-                  <!--<div style="position: relative" class="form-group">-->
-                  <!--<span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>-->
-                  <!--<input class="form-control" type="text" ng-model="treatmentsModalSearch"-->
-                  <!--placeholder="{{searchPlaceholder(['table.couponsManage.treatments.th1', 'table.couponsManage.treatments.th2'])}}">-->
-                  <!--</div>-->
-                  <!--</form>-->
-                  <!--<div-->
-                  <!--web-data-table-->
-                  <!--items="couponsItem.treatments"-->
-                  <!--ao-data="treatmentsModalAoData"-->
-                  <!--search="treatmentsModalSearch"-->
-                  <!--reload="treatmentsModalReload"-->
-                  <!--show-items="showTreatmentsModal"-->
-                  <!--&gt;-->
-                  <!--<table width="100%" class="table table-bordered table-hover bg-white">-->
-                  <!--<thead>-->
-                  <!--<tr class="bg-gray-light text-bold">-->
-                  <!--<td style="width: 25%" ao-data="treatmentsModalAoData" web-data-table-sort="type">-->
-                  <!--{{'table.couponsManage.treatments.th1' | translate}}-->
-                  <!--</td>-->
-                  <!--<td style="width: 25%" ao-data="treatmentsModalAoData" web-data-table-sort="value_type">-->
-                  <!--{{'table.couponsManage.treatments.th2' | translate}}-->
-                  <!--</td>-->
-                  <!--<td style="width: 25%" ao-data="treatmentsModalAoData" web-data-table-sort="value">-->
-                  <!--{{'table.couponsManage.treatments.th3' | translate}}-->
-                  <!--</td>-->
-                  <!--<td style="width: 15%">{{'table.button.operation' | translate}}</td>-->
-                  <!--</tr>-->
-                  <!--</thead>-->
-                  <!--<tbody>-->
-                  <!--<tr ng-repeat="item in showTreatmentsModal">-->
-                  <!--<td>-->
-                  <!--<span editable-select="item.type" e-name="type" e-form="rowform"-->
-                  <!--onbeforesave="checkRequiredData($data)"-->
-                  <!--e-ng-options="option.value as option.label for option in treatmentsTypeOptions">-->
-                  <!--{{showOptionsValue(item.type,treatmentsTypeOptions)}}-->
-                  <!--</span>-->
-                  <!--</td>-->
-                  <!--<td>-->
-                  <!--<span editable-text="item.value" e-name="value" e-type="number"-->
-                  <!--e-formclass="xeditable-md"-->
-                  <!--onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">-->
-                  <!--{{ item.value || '' }}-->
-                  <!--</span>-->
-                  <!--</td>-->
-                  <!--<td>-->
-                  <!--<span editable-text="item.maxBonus" e-name="maxBonus" e-type="number"-->
-                  <!--e-formclass="xeditable-md"-->
-                  <!--onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">-->
-                  <!--{{ item.maxBonus || '' }}-->
-                  <!--</span>-->
-                  <!--</td>-->
-                  <!--<td style="white-space: nowrap;">-->
-                  <!--<form class="form-buttons form-inline"-->
-                  <!--editable-form-->
-                  <!--name="rowform"-->
-                  <!--onaftersave="saveTreatmentsModal(item, $data)" ng-show="rowform.$visible"-->
-                  <!--shown="validIsNew(item.id)">-->
-                  <!--<button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"-->
-                  <!--title="{{'table.button.save' | translate}}">-->
-                  <!--<em class="fa fa-save"></em>-->
-                  <!--</button>-->
-                  <!--<button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"-->
-                  <!--ng-click="rowform.$cancel();cancelSaveTreatmentsModal(item,$index)"-->
-                  <!--title="{{'table.button.cancel' | translate}}">-->
-                  <!--<em class="fa fa-times"></em>-->
-                  <!--</button>-->
-                  <!--</form>-->
-                  <!--<div class="buttons" ng-show="!rowform.$visible">-->
-                  <!--<button class="btn btn-sm btn-info" ng-click="rowform.$show()"-->
-                  <!--title="{{'table.button.edit' | translate}}">-->
-                  <!--<em class="fa fa-pencil"></em>-->
-                  <!--</button>-->
-                  <!--<button class="btn btn-sm btn-danger" ng-click="deleteTreatmentsModal(item, $index)"-->
-                  <!--title="{{'table.button.delete' | translate}}">-->
-                  <!--<em class="fa fa-trash"></em>-->
-                  <!--</button>-->
-                  <!--</div>-->
-                  <!--</td>-->
-                  <!--</tr>-->
-                  <!--<tr ng-show="showTreatmentsModal.length==0">-->
-                  <!--<td colspan="4" class="">{{'table.no_date' | translate}}</td>-->
-                  <!--</tr>-->
-                  <!--</tbody>-->
-                  <!--</table>-->
-                  <!--</div>-->
-                  <!--</div>-->
-                  <!--<div class="form-group col-lg-6 col-md-12">-->
-                  <!--<label class="col-lg-4 col-md-6 control-label">类型</label>-->
-                  <!--<div class="col-lg-8 col-md-6">-->
-                  <!--<ui-select-->
-                  <!--ng-model="couponsItem.treatments[0].type"-->
-                  <!--theme="bootstrap"-->
-                  <!--search-enabled="false">-->
-                  <!--<ui-select-match placeholder="choose treatments type">-->
-                  <!--<span ng-bind="$select.selected.label"></span>-->
-                  <!--</ui-select-match>-->
-                  <!--<ui-select-choices repeat="item.value as item in treatmentsTypeOptions">-->
-                  <!--<span ng-bind="item.label"></span>-->
-                  <!--</ui-select-choices>-->
-                  <!--</ui-select>-->
-                  <!--</div>-->
-                  <!--</div>-->
-                  <!--<div class="form-group col-lg-6 col-md-12">-->
-                  <!--<label class="col-lg-4 col-md-6 control-label">数值</label>-->
-                  <!--<div class="col-lg-8 col-md-6">-->
-                  <!--<input ng-model="couponsItem.treatments[0].value" class="form-control" type="text" placeholder="treatments value">-->
-                  <!--</div>-->
-                  <!--</div>-->
-                  <!--<div class="form-group col-lg-6 col-md-12">-->
-                  <!--<label class="col-lg-4 col-md-6 control-label">最大优惠</label>-->
-                  <!--<div class="col-lg-8 col-md-6">-->
-                  <!--<input ng-model="couponsItem.treatments[0].maxBonus" class="form-control" type="number" placeholder="treatments max bonus">-->
-                  <!--</div>-->
-                  <!--</div>-->
+                  <form></form>
+                  <div class="">
+                     <span class="form-group add-button-class">
+                        <button class="btn btn-primary" ng-click="addTreatmentsModal()" type="button" translate="table.button.add">
+                        </button>
+                     </span>
+                     <form class="form-inline pull-right add-button-class" role="form">
+                        <div style="position: relative" class="form-group">
+                           <span style="position: absolute;left: 4px;top: 6px">
+                              <em class="fa fa-search"></em>
+                           </span>
+                           <input class="form-control" type="text" ng-model="treatmentsModalSearch" placeholder="{{searchPlaceholder(['table.couponsManage.treatments.th1', 'table.couponsManage.treatments.th2'])}}">
+                        </div>
+                     </form>
+                     <div web-data-table items="couponsItem.treatments" ao-data="treatmentsModalAoData" search="treatmentsModalSearch" reload="treatmentsModalReload" show-items="showTreatmentsModal">
+                        <table width="100%" class="table table-bordered table-hover bg-white">
+                           <thead>
+                              <tr class="bg-gray-light text-bold">
+                                 <td style="width: 25%" ao-data="treatmentsModalAoData" web-data-table-sort="type">
+                                    {{'table.couponsManage.treatments.th1' | translate}}
+                                 </td>
+                                 <td style="width: 25%" ao-data="treatmentsModalAoData" web-data-table-sort="value_type">
+                                    {{'table.couponsManage.treatments.th2' | translate}}
+                                 </td>
+                                 <td style="width: 25%" ao-data="treatmentsModalAoData" web-data-table-sort="value">
+                                    {{'table.couponsManage.treatments.th3' | translate}}
+                                 </td>
+                                 <td style="width: 15%">{{'table.button.operation' | translate}}</td>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr ng-repeat="item in showTreatmentsModal">
+                                 <td>
+                                    <span editable-select="item.type" e-name="type" e-form="rowform2" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in treatmentsTypeOptions">
+                                       {{showOptionsValue(item.type,treatmentsTypeOptions)}}
+                                    </span>
+                                 </td>
+                                 <td>
+                                    <span editable-text="item.value" e-name="value" e-type="number" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform2" e-required="">
+                                       {{ item.value || '' }}
+                                    </span>
+                                 </td>
+                                 <td>
+                                    <span editable-text="item.maxBonus" e-name="maxBonus" e-type="number" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform2" e-required="">
+                                       {{ item.maxBonus || '' }}
+                                    </span>
+                                 </td>
+                                 <td style="white-space: nowrap;">
+                                    <form class="form-buttons form-inline" editable-form name="rowform2" onaftersave="saveTreatmentsModal(item, $data)" ng-show="rowform2.$visible" shown="validIsNew(item.id)">
+                                       <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform2.$waiting" title="{{'table.button.save' | translate}}">
+                                          <em class="fa fa-save"></em>
+                                       </button>
+                                       <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform2.$waiting" ng-click="rowform2.$cancel();cancelSaveTreatmentsModal(item,$index)" title="{{'table.button.cancel' | translate}}">
+                                          <em class="fa fa-times"></em>
+                                       </button>
+                                    </form>
+                                    <div class="buttons" ng-show="!rowform2.$visible">
+                                       <button class="btn btn-sm btn-info" ng-click="rowform2.$show()" title="{{'table.button.edit' | translate}}">
+                                          <em class="fa fa-pencil"></em>
+                                       </button>
+                                       <button class="btn btn-sm btn-danger" ng-click="deleteTreatmentsModal(item, $index)" title="{{'table.button.delete' | translate}}">
+                                          <em class="fa fa-trash"></em>
+                                       </button>
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr ng-show="showTreatmentsModal.length==0">
+                                 <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
                   <div class="clearfix"></div>
                   <legend class="text-center">用户等级</legend>
                   <form class="form-horizontal">
@@ -318,81 +265,6 @@
                      </div>
                   </form>
                   <legend class="text-center">条件</legend>
-                  <div class="">
-                     <span class="form-group add-button-class">
-                        <button class="btn btn-primary" ng-click="addConditionsModal()" type="button" translate="table.button.add">
-                           新增
-                        </button>
-                     </span>
-                     <form class="form-inline pull-right add-button-class" role="form">
-                        <div style="position: relative" class="form-group">
-                           <span style="position: absolute;left: 4px;top: 6px">
-                              <em class="fa fa-search"></em>
-                           </span>
-                           <input class="form-control" type="text" ng-model="conditionsModalSearch" placeholder="{{searchPlaceholder(['table.couponsManage.conditions.th1', 'table.couponsManage.conditions.th2'])}}">
-                        </div>
-                     </form>
-                     <div web-data-table items="couponsItem.conditions" ao-data="conditionsModalAoData" search="conditionsModalSearch" reload="conditionsModalReload" show-items="showConditionsModal">
-                        <table width="100%" class="table table-bordered table-hover bg-white">
-                           <thead>
-                              <tr class="bg-gray-light text-bold">
-                                 <td style="width: 25%" ao-data="conditionsModalAoData" web-data-table-sort="type">
-                                    {{'table.couponsManage.conditions.th1' | translate}}
-                                 </td>
-                                 <td style="width: 25%" ao-data="conditionsModalAoData" web-data-table-sort="value_type">
-                                    {{'table.couponsManage.conditions.th2' | translate}}
-                                 </td>
-                                 <td style="width: 25%" ao-data="conditionsModalAoData" web-data-table-sort="value">
-                                    {{'table.couponsManage.conditions.th3' | translate}}
-                                 </td>
-                                 <td style="width: 15%">{{'table.button.operation' | translate}}</td>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr ng-repeat="item in showConditionsModal">
-                                 <td>
-                                    <span editable-select="item.type" e-name="type" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in conditionsTypeOptions">
-                                       {{showOptionsValue(item.type,conditionsTypeOptions)}}
-                                    </span>
-                                 </td>
-                                 <td>
-                                    <span editable-select="item.valueType" e-name="value_type" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in conditionsValueTypeOptions">
-                                       {{showOptionsValue(item.valueType,conditionsValueTypeOptions)}}
-                                    </span>
-                                 </td>
-                                 <td>
-                                    <span editable-text="item.value" e-name="value" e-type="number" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">
-                                       {{ item.value || '' }}
-                                    </span>
-                                 </td>
-                                 <td style="white-space: nowrap;">
-                                    <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveConditionsModal(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
-                                       <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
-                                          <em class="fa fa-save"></em>
-                                       </button>
-                                       <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSaveConditionsModal(item,$index)" title="{{'table.button.cancel' | translate}}">
-                                          <em class="fa fa-times"></em>
-                                       </button>
-                                    </form>
-                                    <div class="buttons" ng-show="!rowform.$visible">
-                                       <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
-                                          <em class="fa fa-pencil"></em>
-                                       </button>
-                                       <button class="btn btn-sm btn-danger" ng-click="deleteConditionsModal(item, $index)" title="{{'table.button.delete' | translate}}">
-                                          <em class="fa fa-trash"></em>
-                                       </button>
-                                    </div>
-                                 </td>
-                              </tr>
-                              <tr ng-show="showConditionsModal.length==0">
-                                 <td colspan="4" class="">{{'table.no_date' | translate}}</td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                  </div>
-
-                  <!--分割测试-->
                   <div class="">
                      <span class="form-group add-button-class">
                         <button class="btn btn-primary" ng-click="addConditionsModal()" type="button" translate="table.button.add">

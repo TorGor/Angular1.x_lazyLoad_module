@@ -81,7 +81,7 @@
             };
         }
 
-        console.log($scope.couponsItem,88888)
+        console.log($scope.couponsItem,1111)
 
         $scope.timeStart = $scope.couponsItem.startTime || '';
         $scope.timeEnd = $scope.couponsItem.endTime || '';
@@ -164,7 +164,7 @@
 
         $scope.cancelSaveConditionsModal = function (conditionsItem, index) {
             if ($scope.validIsNew(conditionsItem.id)) {
-                $scope.couponsItem.splice(index, 1);
+                $scope.couponsItem['conditions'].splice(index, 1);
             }
         };
 
@@ -233,11 +233,13 @@
 
         $scope.cancelSaveTreatmentsModal = function (treatmentsItem, index) {
             if ($scope.validIsNew(treatmentsItem.id)) {
-                $scope.couponsItem.splice(index, 1);
+                $scope.couponsItem['treatments'].splice(index, 1);
             }
         };
 
         $scope.confirmModal = function () {
+            console.log($scope.couponsItem,6666)
+            return;
             var tempData = angular.copy($scope.couponsItem);
             if(window.Array.isArray(tempData['conditions'])){
                 tempData['conditions'].forEach(function(conditionsItem) {
