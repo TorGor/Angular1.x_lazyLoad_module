@@ -266,6 +266,16 @@
       "th20": "Is New",
       "th21": "Is Coming Soon",
       "th22": "Is Recommend"
+    },
+    "withdrawsManage": {
+      "th1": "Amount",
+      "th2": "Bank",
+      "th3": "Wallet",
+      "th4": "Currency",
+      "th5": "Account No",
+      "th6": "Account Name",
+      "th7": "Account branch",
+      "th8": "Status"
     }
   },
   "panel_tile": {

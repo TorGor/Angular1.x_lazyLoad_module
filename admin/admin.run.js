@@ -121,10 +121,12 @@
             },
             WITHDRAWSMANAGE:{
                 GET:'/rest/withdraws',
-                POST:'/rest/withdraws',
-                PATCH:'/rest/withdraws',
-                PUT:'/rest/withdraws',
-                DELETE:'/rest/withdraws'
+                GETAUDIT:'/rest/withdraws/audit',
+                POSTAUDIT:'/rest/withdraws/audit',
+                GETPAY:'/rest/withdraws/pay',
+                POSTPAY:'/rest/withdraws/pay',
+                GETREVIEW:'/rest/withdraws/review',
+                POSTREVIEW:'/rest/withdraws/review'
             },
             PROMOTIONSMANAGE:{
                 GET:'/rest/promotions',
