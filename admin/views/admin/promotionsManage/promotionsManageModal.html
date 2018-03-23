@@ -1,0 +1,560 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{edit?'修改':'添加' +'转账'}}</h3>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="">
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">编码</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="couponsItem.code" ng-disabled="edit" class="form-control" type="text" placeholder="coupons no">
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">名称</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="couponsItem.name" class="form-control" type="text" placeholder="coupons name">
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">货币</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                        ng-model="couponsItem.currency"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose currency">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in currencyOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">品牌</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                        ng-model="couponsItem.brand"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose brand">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in brandOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">钱包</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                        ng-model="couponsItem.wallet"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose wallet">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in walletOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">产品</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                        ng-model="couponsItem.product"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose product">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in productOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">类型</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                        ng-model="couponsItem.type"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose type">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in typeOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">人工</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                        ng-model="couponsItem.needAudit"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose need audit">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">组合</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                        ng-model="couponsItem.multipleUse"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose multiple use">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">证书</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                        ng-model="couponsItem.needCertification"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose need certification">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">仅编码</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                        ng-model="couponsItem.codeOnly"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose code only">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">禁止</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                        ng-model="couponsItem.isDeleted"
+                                        theme="bootstrap"
+                                        search-enabled="false">
+                                    <ui-select-match placeholder="choose is deleted">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">开始</label>
+                            <div class="col-lg-8 col-md-6">
+                                <div class="input-group date"
+                                     datetimepicker
+                                     options={{dateOptionsYYYMMDD}}
+                                     ng-model="timeStart">
+                                    <input type="text" class="form-control" placeholder="start"/>
+                                    <span class="input-group-addon" style="background:none">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">结束</label>
+                            <div class="col-lg-8 col-md-6">
+                                <div class="input-group date"
+                                     datetimepicker
+                                     options={{dateOptionsYYYMMDD}}
+                                     ng-model="timeEtart">
+                                    <input type="text" class="form-control" placeholder="start"/>
+                                    <span class="input-group-addon" style="background:none">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <legend class="text-center">处理</legend>
+                        <!--<div class="">-->
+                            <!--<span class="form-group add-button-class">-->
+                                <!--<button-->
+                                        <!--class="btn btn-primary"-->
+                                        <!--ng-click="addTreatmentsModal()"-->
+                                        <!--type="button"-->
+                                        <!--translate="table.button.add"-->
+                                <!--&gt;-->
+                                <!--</button>-->
+                            <!--</span>-->
+                            <!--<form class="form-inline pull-right add-button-class" role="form">-->
+                                <!--<div style="position: relative" class="form-group">-->
+                                    <!--<span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>-->
+                                    <!--<input class="form-control" type="text" ng-model="treatmentsModalSearch"-->
+                                           <!--placeholder="{{searchPlaceholder(['table.couponsManage.treatments.th1', 'table.couponsManage.treatments.th2'])}}">-->
+                                <!--</div>-->
+                            <!--</form>-->
+                            <!--<div-->
+                                    <!--web-data-table-->
+                                    <!--items="couponsItem.treatments"-->
+                                    <!--ao-data="treatmentsModalAoData"-->
+                                    <!--search="treatmentsModalSearch"-->
+                                    <!--reload="treatmentsModalReload"-->
+                                    <!--show-items="showTreatmentsModal"-->
+                            <!--&gt;-->
+                                <!--<table width="100%" class="table table-bordered table-hover bg-white">-->
+                                    <!--<thead>-->
+                                    <!--<tr class="bg-gray-light text-bold">-->
+                                        <!--<td style="width: 25%" ao-data="treatmentsModalAoData" web-data-table-sort="type">-->
+                                            <!--{{'table.couponsManage.treatments.th1' | translate}}-->
+                                        <!--</td>-->
+                                        <!--<td style="width: 25%" ao-data="treatmentsModalAoData" web-data-table-sort="value_type">-->
+                                            <!--{{'table.couponsManage.treatments.th2' | translate}}-->
+                                        <!--</td>-->
+                                        <!--<td style="width: 25%" ao-data="treatmentsModalAoData" web-data-table-sort="value">-->
+                                            <!--{{'table.couponsManage.treatments.th3' | translate}}-->
+                                        <!--</td>-->
+                                        <!--<td style="width: 15%">{{'table.button.operation' | translate}}</td>-->
+                                    <!--</tr>-->
+                                    <!--</thead>-->
+                                    <!--<tbody>-->
+                                    <!--<tr ng-repeat="item in showTreatmentsModal">-->
+                                        <!--<td>-->
+                                            <!--<span editable-select="item.type" e-name="type" e-form="rowform"-->
+                                                  <!--onbeforesave="checkRequiredData($data)"-->
+                                                  <!--e-ng-options="option.value as option.label for option in treatmentsTypeOptions">-->
+                                                <!--{{showOptionsValue(item.type,treatmentsTypeOptions)}}-->
+                                            <!--</span>-->
+                                        <!--</td>-->
+                                        <!--<td>-->
+                                            <!--<span editable-text="item.value" e-name="value" e-type="number"-->
+                                                  <!--e-formclass="xeditable-md"-->
+                                                  <!--onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">-->
+                                                <!--{{ item.value || '' }}-->
+                                            <!--</span>-->
+                                        <!--</td>-->
+                                        <!--<td>-->
+                                            <!--<span editable-text="item.maxBonus" e-name="maxBonus" e-type="number"-->
+                                                  <!--e-formclass="xeditable-md"-->
+                                                  <!--onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">-->
+                                                <!--{{ item.maxBonus || '' }}-->
+                                            <!--</span>-->
+                                        <!--</td>-->
+                                        <!--<td style="white-space: nowrap;">-->
+                                            <!--<form class="form-buttons form-inline"-->
+                                                  <!--editable-form-->
+                                                  <!--name="rowform"-->
+                                                  <!--onaftersave="saveTreatmentsModal(item, $data)" ng-show="rowform.$visible"-->
+                                                  <!--shown="validIsNew(item.id)">-->
+                                                <!--<button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"-->
+                                                        <!--title="{{'table.button.save' | translate}}">-->
+                                                    <!--<em class="fa fa-save"></em>-->
+                                                <!--</button>-->
+                                                <!--<button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"-->
+                                                        <!--ng-click="rowform.$cancel();cancelSaveTreatmentsModal(item,$index)"-->
+                                                        <!--title="{{'table.button.cancel' | translate}}">-->
+                                                    <!--<em class="fa fa-times"></em>-->
+                                                <!--</button>-->
+                                            <!--</form>-->
+                                            <!--<div class="buttons" ng-show="!rowform.$visible">-->
+                                                <!--<button class="btn btn-sm btn-info" ng-click="rowform.$show()"-->
+                                                        <!--title="{{'table.button.edit' | translate}}">-->
+                                                    <!--<em class="fa fa-pencil"></em>-->
+                                                <!--</button>-->
+                                                <!--<button class="btn btn-sm btn-danger" ng-click="deleteTreatmentsModal(item, $index)"-->
+                                                        <!--title="{{'table.button.delete' | translate}}">-->
+                                                    <!--<em class="fa fa-trash"></em>-->
+                                                <!--</button>-->
+                                            <!--</div>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr ng-show="showTreatmentsModal.length==0">-->
+                                        <!--<td colspan="4" class="">{{'table.no_date' | translate}}</td>-->
+                                    <!--</tr>-->
+                                    <!--</tbody>-->
+                                <!--</table>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-lg-6 col-md-12">-->
+                            <!--<label class="col-lg-4 col-md-6 control-label">类型</label>-->
+                            <!--<div class="col-lg-8 col-md-6">-->
+                                <!--<ui-select-->
+                                        <!--ng-model="couponsItem.treatments[0].type"-->
+                                        <!--theme="bootstrap"-->
+                                        <!--search-enabled="false">-->
+                                    <!--<ui-select-match placeholder="choose treatments type">-->
+                                        <!--<span ng-bind="$select.selected.label"></span>-->
+                                    <!--</ui-select-match>-->
+                                    <!--<ui-select-choices repeat="item.value as item in treatmentsTypeOptions">-->
+                                        <!--<span ng-bind="item.label"></span>-->
+                                    <!--</ui-select-choices>-->
+                                <!--</ui-select>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-lg-6 col-md-12">-->
+                            <!--<label class="col-lg-4 col-md-6 control-label">数值</label>-->
+                            <!--<div class="col-lg-8 col-md-6">-->
+                                <!--<input ng-model="couponsItem.treatments[0].value" class="form-control" type="text" placeholder="treatments value">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-lg-6 col-md-12">-->
+                            <!--<label class="col-lg-4 col-md-6 control-label">最大优惠</label>-->
+                            <!--<div class="col-lg-8 col-md-6">-->
+                                <!--<input ng-model="couponsItem.treatments[0].maxBonus" class="form-control" type="number" placeholder="treatments max bonus">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="clearfix"></div>
+                        <legend class="text-center">用户等级</legend>
+                        <form class="form-horizontal">
+                            <div class="col-lg-6 col-xs-12" ng-repeat="rank in ranksOptions">
+                                <div class="checkbox c-checkbox needsclick">
+                                    <label class="needsclick">
+                                        <input class="needsclick" ng-click="selectRank(rank.value, $event)" ng-checked="couponsItem.ranks.indexOf(rank.value) !== -1" type="checkbox" ng-value="rank.value">
+                                        <span class="fa fa-check"></span>{{rank.label}}</label>
+                                </div>
+                            </div>
+                        </form>
+                        <legend class="text-center">条件</legend>
+                        <div class="">
+                            <span class="form-group add-button-class">
+                                <button
+                                    class="btn btn-primary"
+                                    ng-click="addConditionsModal()"
+                                    type="button"
+                                    translate="table.button.add"
+                                >
+                                    新增
+                                </button>
+                            </span>
+                            <form class="form-inline pull-right add-button-class" role="form">
+                                <div style="position: relative" class="form-group">
+                                    <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
+                                    <input class="form-control" type="text" ng-model="conditionsModalSearch" placeholder="{{searchPlaceholder(['table.couponsManage.conditions.th1', 'table.couponsManage.conditions.th2'])}}">
+                                </div>
+                            </form>
+                            <div
+                                    web-data-table
+                                    items="couponsItem.conditions"
+                                    ao-data="conditionsModalAoData"
+                                    search="conditionsModalSearch"
+                                    reload="conditionsModalReload"
+                                    show-items="showConditionsModal"
+                            >
+                                <table width="100%" class="table table-bordered table-hover bg-white">
+                                    <thead>
+                                    <tr class="bg-gray-light text-bold">
+                                        <td style="width: 25%" ao-data="conditionsModalAoData" web-data-table-sort="type">
+                                            {{'table.couponsManage.conditions.th1' | translate}}
+                                        </td>
+                                        <td style="width: 25%" ao-data="conditionsModalAoData" web-data-table-sort="value_type">
+                                            {{'table.couponsManage.conditions.th2' | translate}}
+                                        </td>
+                                        <td style="width: 25%" ao-data="conditionsModalAoData" web-data-table-sort="value">
+                                            {{'table.couponsManage.conditions.th3' | translate}}
+                                        </td>
+                                        <td style="width: 15%">{{'table.button.operation' | translate}}</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in showConditionsModal">
+                                        <td>
+                                            <span editable-select="item.type" e-name="type" e-form="rowform"
+                                                  onbeforesave="checkRequiredData($data)"
+                                                  e-ng-options="option.value as option.label for option in conditionsTypeOptions">
+                                                {{showOptionsValue(item.type,conditionsTypeOptions)}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span editable-select="item.valueType" e-name="value_type" e-form="rowform"
+                                                  onbeforesave="checkRequiredData($data)"
+                                                  e-ng-options="option.value as option.label for option in conditionsValueTypeOptions">
+                                                {{showOptionsValue(item.valueType,conditionsValueTypeOptions)}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span editable-text="item.value" e-name="value" e-type="number" e-formclass="xeditable-sm"
+                                                onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">
+                                                {{ item.value || '' }}
+                                            </span>
+                                        </td>
+                                        <td style="white-space: nowrap;">
+                                            <form class="form-buttons form-inline" editable-form name="rowform"
+                                                  onaftersave="saveConditionsModal(item, $data)" ng-show="rowform.$visible"
+                                                  shown="validIsNew(item.id)">
+                                                <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
+                                                        title="{{'table.button.save' | translate}}">
+                                                    <em class="fa fa-save"></em>
+                                                </button>
+                                                <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
+                                                        ng-click="rowform.$cancel();cancelSaveConditionsModal(item,$index)"
+                                                        title="{{'table.button.cancel' | translate}}">
+                                                    <em class="fa fa-times"></em>
+                                                </button>
+                                            </form>
+                                            <div class="buttons" ng-show="!rowform.$visible">
+                                                <button class="btn btn-sm btn-info" ng-click="rowform.$show()"
+                                                        title="{{'table.button.edit' | translate}}">
+                                                    <em class="fa fa-pencil"></em>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" ng-click="deleteConditionsModal(item, $index)"
+                                                        title="{{'table.button.delete' | translate}}">
+                                                    <em class="fa fa-trash"></em>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="showConditionsModal.length==0">
+                                        <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!--分割测试-->
+                        <div class="">
+                            <span class="form-group add-button-class">
+                                <button
+                                    class="btn btn-primary"
+                                    ng-click="addConditionsModal()"
+                                    type="button"
+                                    translate="table.button.add"
+                                >
+                                    新增
+                                </button>
+                            </span>
+                            <form class="form-inline pull-right add-button-class" role="form">
+                                <div style="position: relative" class="form-group">
+                                    <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
+                                    <input class="form-control" type="text" ng-model="conditionsModalSearch" placeholder="{{searchPlaceholder(['table.couponsManage.conditions.th1', 'table.couponsManage.conditions.th2'])}}">
+                                </div>
+                            </form>
+                            <div
+                                    web-data-table
+                                    items="couponsItem.conditions"
+                                    ao-data="conditionsModalAoData"
+                                    search="conditionsModalSearch"
+                                    reload="conditionsModalReload"
+                                    show-items="showConditionsModal"
+                            >
+                                <table width="100%" class="table table-bordered table-hover bg-white">
+                                    <thead>
+                                    <tr class="bg-gray-light text-bold">
+                                        <td style="width: 25%" ao-data="conditionsModalAoData" web-data-table-sort="type">
+                                            {{'table.couponsManage.conditions.th1' | translate}}
+                                        </td>
+                                        <td style="width: 25%" ao-data="conditionsModalAoData" web-data-table-sort="value_type">
+                                            {{'table.couponsManage.conditions.th2' | translate}}
+                                        </td>
+                                        <td style="width: 25%" ao-data="conditionsModalAoData" web-data-table-sort="value">
+                                            {{'table.couponsManage.conditions.th3' | translate}}
+                                        </td>
+                                        <td style="width: 15%">{{'table.button.operation' | translate}}</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in showConditionsModal">
+                                        <td>
+                                            <span editable-select="item.type" e-name="type" e-form="rowform"
+                                                  onbeforesave="checkRequiredData($data)"
+                                                  e-ng-options="option.value as option.label for option in conditionsTypeOptions">
+                                                {{showOptionsValue(item.type,conditionsTypeOptions)}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span editable-select="item.valueType" e-name="value_type" e-form="rowform"
+                                                  onbeforesave="checkRequiredData($data)"
+                                                  e-ng-options="option.value as option.label for option in conditionsValueTypeOptions">
+                                                {{showOptionsValue(item.valueType,conditionsValueTypeOptions)}}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span editable-text="item.value" e-name="value" e-type="number" e-formclass="xeditable-sm"
+                                                onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">
+                                                {{ item.value || '' }}
+                                            </span>
+                                        </td>
+                                        <td style="white-space: nowrap;">
+                                            <form class="form-buttons form-inline" editable-form name="rowform"
+                                                  onaftersave="saveConditionsModal(item, $data)" ng-show="rowform.$visible"
+                                                  shown="validIsNew(item.id)">
+                                                <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
+                                                        title="{{'table.button.save' | translate}}">
+                                                    <em class="fa fa-save"></em>
+                                                </button>
+                                                <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
+                                                        ng-click="rowform.$cancel();cancelSaveConditionsModal(item,$index)"
+                                                        title="{{'table.button.cancel' | translate}}">
+                                                    <em class="fa fa-times"></em>
+                                                </button>
+                                            </form>
+                                            <div class="buttons" ng-show="!rowform.$visible">
+                                                <button class="btn btn-sm btn-info" ng-click="rowform.$show()"
+                                                        title="{{'table.button.edit' | translate}}">
+                                                    <em class="fa fa-pencil"></em>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" ng-click="deleteConditionsModal(item, $index)"
+                                                        title="{{'table.button.delete' | translate}}">
+                                                    <em class="fa fa-trash"></em>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="showConditionsModal.length==0">
+                                        <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
+</div>

@@ -276,6 +276,15 @@
       "th6": "Account Name",
       "th7": "Account branch",
       "th8": "Status"
+    },
+    "promotionsManage": {
+      "th1": "banner",
+      "th2": "currency",
+      "th3": "categories",
+      "th4": "title",
+      "th5": "content",
+      "th6": "period",
+      "th7": "status"
     }
   },
   "panel_tile": {
