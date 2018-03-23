@@ -278,13 +278,22 @@
       "th8": "Status"
     },
     "promotionsManage": {
-      "th1": "banner",
-      "th2": "currency",
-      "th3": "categories",
-      "th4": "title",
-      "th5": "content",
-      "th6": "period",
-      "th7": "status"
+      "th1": "Banner",
+      "th2": "Currency",
+      "th3": "Categories",
+      "th4": "Title",
+      "th5": "Content",
+      "th6": "Period",
+      "th7": "Status"
+    },
+    "rebatesList": {
+      "th1": "product",
+      "th2": "from",
+      "th3": "to",
+      "th4": "bonus",
+      "th5": "username",
+      "th6": "userId",
+      "th7": "affiliateId"
     }
   },
   "panel_tile": {
