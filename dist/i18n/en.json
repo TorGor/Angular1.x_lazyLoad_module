@@ -266,6 +266,56 @@
       "th20": "Is New",
       "th21": "Is Coming Soon",
       "th22": "Is Recommend"
+    },
+    "withdrawsManage": {
+      "th1": "Amount",
+      "th2": "Bank",
+      "th3": "Wallet",
+      "th4": "Currency",
+      "th5": "Account No",
+      "th6": "Account Name",
+      "th7": "Account branch",
+      "th8": "Status"
+    },
+    "promotionsManage": {
+      "th1": "Banner",
+      "th2": "Currency",
+      "th3": "Categories",
+      "th4": "Title",
+      "th5": "Content",
+      "th6": "Period",
+      "th7": "Status"
+    },
+    "rebatesList": {
+      "th1": "Product",
+      "th2": "From",
+      "th3": "To",
+      "th4": "Bonus",
+      "th5": "Username",
+      "th6": "UserId",
+      "th7": "AffiliateId"
+    },
+    "reliefsList": {
+      "th1": "Product",
+      "th2": "Amount",
+      "th3": "Balance",
+      "th4": "Rate",
+      "th5": "Consecutive",
+      "th6": "Withdraw",
+      "th7": "Affiliate",
+      "th8": "Username",
+      "th9": "Status"
+    },
+    "transfersList": {
+      "th1": "Coupon",
+      "th2": "Amount",
+      "th3": "Bonus",
+      "th4": "Wallets Source",
+      "th5": "Wallets Destination",
+      "th6": "User Username",
+      "th7": "User UserId",
+      "th8": "User AffiliateId",
+      "th9": "Result"
     }
   },
   "panel_tile": {
