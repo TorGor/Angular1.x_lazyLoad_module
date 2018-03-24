@@ -1,0 +1,217 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": [
+        {
+            "code": "MAIN",
+            "brands": null,
+            "timestamps": {
+                "createdAt": "2017-08-27T07:00:27+00:00",
+                "deletedAt": null,
+                "updatedAt": "2017-08-27T07:00:27+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Main Wallet"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "中心钱包"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "中心錢包"
+                }
+            ],
+            "merchant": {
+                "name": null,
+                "key": null
+            },
+            "disabled": false,
+            "status": "OPEN",
+            "setting": {
+                "record": {
+                    "duration": 0,
+                    "timezone": "UTC",
+                    "timeFormat": null
+                },
+                "user": {
+                    "prefix": null,
+                    "syncPassword": false
+                }
+            }
+        },
+        {
+            "code": "PT",
+            "brands": [
+                "PT"
+            ],
+            "timestamps": {
+                "createdAt": "2017-08-27T07:00:27+00:00",
+                "deletedAt": null,
+                "updatedAt": "2017-08-27T07:00:27+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Playtech"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "PT 馆"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "PT 館"
+                }
+            ],
+            "merchant": {
+                "name": "happygamingprod",
+                "key": "uqlAWa2d6Dc166JrUoHaL5HmbGWErEIG"
+            },
+            "disabled": false,
+            "status": "OPEN",
+            "setting": {
+                "record": {
+                    "duration": 10,
+                    "timezone": "Asia/Shanghai",
+                    "timeFormat": "Y-m-d H.i.s"
+                },
+                "user": {
+                    "prefix": "XL",
+                    "syncPassword": true
+                }
+            }
+        },
+        {
+            "code": "FS",
+            "brands": [
+                "MG",
+                "PNG",
+                "HABA",
+                "TTG"
+            ],
+            "timestamps": {
+                "createdAt": "2017-08-30T09:34:15+00:00",
+                "deletedAt": null,
+                "updatedAt": "2017-08-30T09:34:15+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "FunSpins"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "FS 馆"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "FS 館"
+                }
+            ],
+            "merchant": {
+                "name": "xile99",
+                "key": "eyJpdiI6InBoNVpkQTlTYTd2bG95MlZo"
+            },
+            "disabled": false,
+            "status": "OPEN",
+            "setting": {
+                "record": {
+                    "duration": 360,
+                    "timezone": "Asia/Shanghai",
+                    "timeFormat": "Y-m-d H:i:s"
+                },
+                "user": {
+                    "prefix": "xl",
+                    "syncPassword": true
+                }
+            }
+        },
+        {
+            "code": "AG",
+            "brands": [
+                "AG"
+            ],
+            "timestamps": {
+                "createdAt": "2017-08-30T09:37:11+00:00",
+                "deletedAt": null,
+                "updatedAt": "2017-08-30T09:37:11+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "AsiaGaming"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "AG 馆"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "AG 館"
+                }
+            ],
+            "merchant": {
+                "name": "xile99",
+                "key": "eyJpdiI6InBoNVpkQTlTYTd2bG95MlZo"
+            },
+            "disabled": false,
+            "status": "OPEN",
+            "setting": {
+                "record": {
+                    "duration": 360,
+                    "timezone": "Asia/Shanghai",
+                    "timeFormat": "Y-m-d H:i:s"
+                },
+                "user": {
+                    "prefix": "xl",
+                    "syncPassword": false
+                }
+            }
+        },
+        {
+            "code": "BBIN",
+            "brands": [
+                "BBIN"
+            ],
+            "timestamps": {
+                "createdAt": "2017-08-30T09:39:11+00:00",
+                "deletedAt": null,
+                "updatedAt": "2017-08-30T09:39:11+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "BBIN"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "BBIN 馆"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "BBIN 館"
+                }
+            ],
+            "merchant": {
+                "name": null,
+                "key": null
+            },
+            "disabled": false,
+            "status": "CLOSED",
+            "setting": {
+                "record": {
+                    "duration": 10,
+                    "timezone": "America/New_York",
+                    "timeFormat": null
+                },
+                "user": {
+                    "prefix": null,
+                    "syncPassword": false
+                }
+            }
+        }
+    ]
+}

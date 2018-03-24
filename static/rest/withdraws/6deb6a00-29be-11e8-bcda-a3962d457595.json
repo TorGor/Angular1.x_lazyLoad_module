@@ -1,0 +1,62 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "amount": 100,
+        "bank": "ICBC",
+        "wallet": "MAIN",
+        "timestamps": {
+            "createdAt": "2018-03-17T08:37:29+00:00",
+            "updatedAt": "2018-03-17T08:50:03+00:00"
+        },
+        "currency": "CNY",
+        "details": [
+            {
+                "result": "declined",
+                "timestamps": {
+                    "createdAt": "2018-03-17T08:43:08+00:00",
+                    "updatedAt": "2018-03-17T08:43:35+00:00"
+                },
+                "adminId": "1",
+                "action": "audit",
+                "comment": "declined",
+                "id": 12
+            },
+            {
+                "result": "declined",
+                "timestamps": {
+                    "createdAt": "2018-03-17T08:45:09+00:00",
+                    "updatedAt": "2018-03-17T08:45:29+00:00"
+                },
+                "adminId": "1",
+                "action": "audit",
+                "comment": "declined",
+                "id": 13
+            },
+            {
+                "result": "paid",
+                "timestamps": {
+                    "createdAt": "2018-03-17T08:48:33+00:00",
+                    "updatedAt": "2018-03-17T08:50:03+00:00"
+                },
+                "adminId": "1",
+                "action": "pay",
+                "comment": "paid",
+                "id": 14
+            }
+        ],
+        "id": "6deb6a00-29be-11e8-bcda-a3962d457595",
+        "user": {
+            "affiliate": null,
+            "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+            "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+            "username": "kirinse"
+        },
+        "account": {
+            "number": "123123123123123123",
+            "name": "马哈马的·买买提",
+            "branch": "我也是玩玩"
+        },
+        "status": "paid"
+    }
+}

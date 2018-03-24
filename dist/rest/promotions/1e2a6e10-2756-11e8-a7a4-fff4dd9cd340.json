@@ -1,0 +1,49 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "period": {
+            "from": "2018-03-14T07:05:46+00:00",
+            "to": null
+        },
+        "timestamps": {
+            "createdAt": "2018-03-14T07:05:46+00:00",
+            "updatedAt": "2018-03-14T07:11:23+00:00"
+        },
+        "banner": "sdfasfsa.png",
+        "currency": "CNY",
+        "id": "1e2a6e10-2756-11e8-a7a4-fff4dd9cd340",
+        "categories": [
+            "DEPOSIT"
+        ],
+        "title": [
+            {
+                "locale": "en-GB",
+                "value": "TEST03"
+            },
+            {
+                "locale": "zh-CN",
+                "value": "测试3"
+            },
+            {
+                "locale": "zh-TW",
+                "value": "测试3"
+            }
+        ],
+        "content": [
+            {
+                "locale": "en-GB",
+                "value": "asdfsfsdf"
+            },
+            {
+                "locale": "zh-CN",
+                "value": "测试优惠3"
+            },
+            {
+                "locale": "zh-TW",
+                "value": "測試優惠3"
+            }
+        ],
+        "status": "draft"
+    }
+}

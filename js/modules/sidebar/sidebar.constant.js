@@ -148,7 +148,7 @@
                     "icon": "glyphicon glyphicon-th-large",
                 },
                 {
-                    "text": "优惠券管理",
+                    "text": "优惠活动",
                     "sref": "admin.promotionsManage",
                     "icon": "glyphicon glyphicon-th-large",
                 },

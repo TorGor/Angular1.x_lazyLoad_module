@@ -1,0 +1,368 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "stat": "ok",
+        "data": [
+            {
+                "country": {
+                    "iso": "US",
+                    "phoneCode": 1,
+                    "niceName": "United States"
+                },
+                "gender": "F",
+                "financial": {
+                    "settings": {
+                        "deposit": [
+                            {
+                                "method": "CNYCC",
+                                "timestamps": {
+                                    "createdAt": "2017-10-15T23:59:02+00:00",
+                                    "updatedAt": "2017-10-16T01:21:40+00:00"
+                                },
+                                "range": {
+                                    "min": 0.01,
+                                    "max": 10000
+                                },
+                                "psp": "PP"
+                            },
+                            {
+                                "method": "CNYWX",
+                                "timestamps": {
+                                    "createdAt": "2017-10-16T01:21:40+00:00",
+                                    "updatedAt": "2017-10-16T01:21:40+00:00"
+                                },
+                                "range": {
+                                    "min": 0.01,
+                                    "max": 3000
+                                },
+                                "psp": "PP"
+                            },
+                            {
+                                "method": "CNYALI",
+                                "timestamps": {
+                                    "createdAt": "2017-10-16T01:21:40+00:00",
+                                    "updatedAt": "2017-10-16T01:21:40+00:00"
+                                },
+                                "range": {
+                                    "min": 0.01,
+                                    "max": 3000
+                                },
+                                "psp": "PP"
+                            },
+                            {
+                                "method": "ALIWAP",
+                                "timestamps": {
+                                    "createdAt": "2017-10-16T01:21:40+00:00",
+                                    "updatedAt": "2017-10-16T01:21:40+00:00"
+                                },
+                                "range": {
+                                    "min": 0.01,
+                                    "max": 3000
+                                },
+                                "psp": "PP"
+                            }
+                        ],
+                        "withdraw": [
+                            {
+                                "bank": {
+                                    "code": "ICBC",
+                                    "name": "中国工商银行"
+                                }
+                            },
+                            {
+                                "bank": {
+                                    "code": "CCB",
+                                    "name": "中国建设银行"
+                                }
+                            },
+                            {
+                                "bank": {
+                                    "code": "ABC",
+                                    "name": "中国农业银行"
+                                }
+                            }
+                        ]
+                    },
+                    "isDefault": true,
+                    "name": "CNY default",
+                    "currency": {
+                        "symbol": "¥",
+                        "symbol_after": 0,
+                        "code": "CNY",
+                        "name": "Yuan (Chinese) Renminbi",
+                        "supported": 1
+                    },
+                    "id": "d1b25450-b204-11e7-ab48-097a050432ea",
+                    "limitations": {
+                        "balance": {
+                            "total": 1000000
+                        },
+                        "deposit": {
+                            "daily": 1000000
+                        },
+                        "withdraw": {
+                            "min": 100,
+                            "max": 50000,
+                            "daily": 200000
+                        }
+                    }
+                },
+                "timezone": "-05:00",
+                "timestamps": {
+                    "createdAt": "2018-03-05T04:12:20+00:00",
+                    "updatedAt": "2018-03-05T04:43:59+00:00"
+                },
+                "otp": false,
+                "verifications": {
+                    "phone": false,
+                    "identity": false,
+                    "name": false
+                },
+                "locale": "zh-CN",
+                "userId": "129b6870-1dd3-11e8-8768-936692927f70",
+                "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                "rank": {
+                    "isDefault": true,
+                    "rebates": {
+                        "CNY": [
+                            {
+                                "product": "SLOTS",
+                                "brands": [
+                                    {
+                                        "rate": 0.008,
+                                        "currency": "CNY",
+                                        "brand": "PT"
+                                    },
+                                    {
+                                        "rate": 0.011,
+                                        "currency": "CNY",
+                                        "brand": "BBIN"
+                                    },
+                                    {
+                                        "rate": 0.009,
+                                        "currency": "CNY",
+                                        "brand": "MG"
+                                    },
+                                    {
+                                        "rate": 0.009,
+                                        "currency": "CNY",
+                                        "brand": "PNG"
+                                    },
+                                    {
+                                        "rate": 0.009,
+                                        "currency": "CNY",
+                                        "brand": "HABA"
+                                    },
+                                    {
+                                        "rate": 0.009,
+                                        "currency": "CNY",
+                                        "brand": "AG"
+                                    }
+                                ],
+                                "max": 8888,
+                                "days": 3
+                            }
+                        ]
+                    },
+                    "code": "DEFAULT",
+                    "isDeleted": false,
+                    "level": 0,
+                    "conditions": [],
+                    "treatments": []
+                },
+                "currency": "CNY",
+                "email": "x.w@e8bet.net",
+                "username": "xwe8bet"
+            },
+            {
+                "birthday": "1980-02-07",
+                "country": {
+                    "iso": "CN",
+                    "phoneCode": 86,
+                    "niceName": "China"
+                },
+                "gender": "M",
+                "financial": {
+                    "settings": {
+                        "deposit": [
+                            {
+                                "method": "CNYCC",
+                                "timestamps": {
+                                    "createdAt": "2017-10-15T23:59:02+00:00",
+                                    "updatedAt": "2017-10-16T01:21:40+00:00"
+                                },
+                                "range": {
+                                    "min": 0.01,
+                                    "max": 10000
+                                },
+                                "psp": "PP"
+                            },
+                            {
+                                "method": "CNYWX",
+                                "timestamps": {
+                                    "createdAt": "2017-10-16T01:21:40+00:00",
+                                    "updatedAt": "2017-10-16T01:21:40+00:00"
+                                },
+                                "range": {
+                                    "min": 0.01,
+                                    "max": 3000
+                                },
+                                "psp": "PP"
+                            },
+                            {
+                                "method": "CNYALI",
+                                "timestamps": {
+                                    "createdAt": "2017-10-16T01:21:40+00:00",
+                                    "updatedAt": "2017-10-16T01:21:40+00:00"
+                                },
+                                "range": {
+                                    "min": 0.01,
+                                    "max": 3000
+                                },
+                                "psp": "PP"
+                            },
+                            {
+                                "method": "ALIWAP",
+                                "timestamps": {
+                                    "createdAt": "2017-10-16T01:21:40+00:00",
+                                    "updatedAt": "2017-10-16T01:21:40+00:00"
+                                },
+                                "range": {
+                                    "min": 0.01,
+                                    "max": 3000
+                                },
+                                "psp": "PP"
+                            }
+                        ],
+                        "withdraw": [
+                            {
+                                "bank": {
+                                    "code": "ICBC",
+                                    "name": "中国工商银行"
+                                }
+                            },
+                            {
+                                "bank": {
+                                    "code": "CCB",
+                                    "name": "中国建设银行"
+                                }
+                            },
+                            {
+                                "bank": {
+                                    "code": "ABC",
+                                    "name": "中国农业银行"
+                                }
+                            }
+                        ]
+                    },
+                    "isDefault": true,
+                    "name": "CNY default",
+                    "currency": {
+                        "symbol": "¥",
+                        "symbol_after": 0,
+                        "code": "CNY",
+                        "name": "Yuan (Chinese) Renminbi",
+                        "supported": 1
+                    },
+                    "id": "d1b25450-b204-11e7-ab48-097a050432ea",
+                    "limitations": {
+                        "balance": {
+                            "total": 1000000
+                        },
+                        "deposit": {
+                            "daily": 1000000
+                        },
+                        "withdraw": {
+                            "min": 100,
+                            "max": 50000,
+                            "daily": 200000
+                        }
+                    }
+                },
+                "timezone": "+08:00",
+                "timestamps": {
+                    "createdAt": "2017-09-28T06:49:33+00:00",
+                    "updatedAt": "2018-03-24T04:47:08+00:00"
+                },
+                "otp": true,
+                "verifications": {
+                    "phone": true,
+                    "identity": false,
+                    "name": true
+                },
+                "locale": "zh-CN",
+                "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                "phone": "1234567890",
+                "identity": "100000750207087",
+                "name": "马哈马的·买买提",
+                "rank": {
+                    "isDefault": true,
+                    "rebates": {
+                        "CNY": [
+                            {
+                                "product": "SLOTS",
+                                "brands": [
+                                    {
+                                        "rate": 0.008,
+                                        "currency": "CNY",
+                                        "brand": "PT"
+                                    },
+                                    {
+                                        "rate": 0.011,
+                                        "currency": "CNY",
+                                        "brand": "BBIN"
+                                    },
+                                    {
+                                        "rate": 0.009,
+                                        "currency": "CNY",
+                                        "brand": "MG"
+                                    },
+                                    {
+                                        "rate": 0.009,
+                                        "currency": "CNY",
+                                        "brand": "PNG"
+                                    },
+                                    {
+                                        "rate": 0.009,
+                                        "currency": "CNY",
+                                        "brand": "HABA"
+                                    },
+                                    {
+                                        "rate": 0.009,
+                                        "currency": "CNY",
+                                        "brand": "AG"
+                                    }
+                                ],
+                                "max": 8888,
+                                "days": 3
+                            }
+                        ]
+                    },
+                    "code": "DEFAULT",
+                    "isDeleted": false,
+                    "level": 0,
+                    "conditions": [],
+                    "treatments": []
+                },
+                "currency": "CNY",
+                "email": "kirinse@gmail.com",
+                "username": "kirinse"
+            }
+        ],
+        "meta": {
+            "path": "/rest/users",
+            "per_page": 50,
+            "total": 2,
+            "last_page": 1,
+            "from": 1,
+            "to": 2,
+            "current_page": 1
+        },
+        "links": {
+            "last": "/rest/users?page=1",
+            "first": "/rest/users?page=1"
+        }
+    }
+}
