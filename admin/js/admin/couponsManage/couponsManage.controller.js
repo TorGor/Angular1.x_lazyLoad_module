@@ -298,7 +298,7 @@
                 controller: 'addCouponsController',
                 scope: $scope,
                 size: 'lg',
-                resole:{
+                resolve:{
                     couponsItem:false,
                     edit:false,
                 }

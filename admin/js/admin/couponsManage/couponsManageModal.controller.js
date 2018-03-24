@@ -247,6 +247,9 @@
             console.log($scope.couponsItem,6666)
             return;
             var tempData = angular.copy($scope.couponsItem);
+            tempData['conditions'] = tempData['conditions'].filter(function (item) {
+                return !$scope.validIsNew(item.id);
+            });
             if(window.Array.isArray(tempData['conditions'])){
                 tempData['conditions'].forEach(function(conditionsItem) {
                     if(conditionsItem.id){
@@ -254,6 +257,9 @@
                     }
                 })
             }
+            tempData['treatments'] = tempData['treatments'].filter(function (item) {
+                return !$scope.validIsNew(item.id);
+            });
             if(window.Array.isArray(tempData['treatments'])){
                 tempData['treatments'].forEach(function(treatmentsItem) {
                     if(treatmentsItem.id){

@@ -109,7 +109,7 @@
         for (var oldName in obj) {
 
             // Camel to underscore
-            newName = oldName.replace(/([a-z][A-Z])/g, function ($1) {
+            newName = oldName.replace(/([a-z0-9][A-Z])/g, function ($1) {
                 return $1.toLowerCase().substr(0, 1) + '_' + $1.toLowerCase().substr(1);
             });
 

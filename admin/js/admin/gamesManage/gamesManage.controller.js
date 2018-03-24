@@ -71,14 +71,64 @@
             });
         };
 
+        $scope.categoriesOptions = [];
+
+        $scope.initCategoriesManageData = function () {
+            $scope.categoriesOptions = [];
+            adminService.getReq($rootScope.URL.GAMECATEGORIES.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.id||'',
+                                    value:objItem.id||''
+                                };
+                                $scope.categoriesOptions.push(tempObj)
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.localesOptions = [];
+
+        $scope.initLocalesOptionsData = function () {
+            $scope.localesOptions = [];
+            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.localesOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
         $scope.booleanOptons = [
             {
                 label: 'Yes',
-                value: 'true'
+                value: true
             },
             {
                 label: 'No',
-                value: 'false'
+                value: false
             }
         ];
 
@@ -207,5 +257,9 @@
         $scope.initProductManageData();
 
         $scope.initBrandOptionsData();
+
+        $scope.initCategoriesManageData();
+
+        $scope.initLocalesOptionsData();
     }
 })();
