@@ -1,245 +1,145 @@
-<div class="modal-header">
-   <h3 class="modal-title">{{'提款详情'}}</h3>
+<div class='modal-header'>
+   <h3 class='modal-title'>{{'提款详细'}}</h3>
 </div>
 
-<div class="modal-body">
-   <div class="row">
-      <div class="">
-         <div class="panel-wrapper">
-            <div class="panel-body">
-               <form class="form-horizontal">
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">编码</label>
-                     <div class="col-lg-8 col-md-6">
-                        <input ng-model="couponsItem.code" ng-disabled="edit" class="form-control" type="text" placeholder="coupons no">
+<div class='modal-body'>
+   <div class='row'>
+      <div class=''>
+         <div class='panel-wrapper'>
+            <div class='panel-body'>
+               <form class='form-horizontal'>
+                  <legend class='text-center'>用户信息</legend>
+                  <div class='form-group col-lg-6 col-md-12'>
+                     <label class='col-lg-4 col-md-6 control-label'>用户名</label>
+                     <div class='col-lg-8 col-md-6'>
+                        <input ng-model='withdrawsDetail.user.username' disabled='disabled' class='form-control' type='text'>
                      </div>
                   </div>
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">名称</label>
-                     <div class="col-lg-8 col-md-6">
-                        <input ng-model="couponsItem.name" class="form-control" type="text" placeholder="coupons name">
+                  <div class='form-group col-lg-6 col-md-12'>
+                     <label class='col-lg-4 col-md-6 control-label'>用户ID</label>
+                     <div class='col-lg-8 col-md-6'>
+                        <input ng-model='withdrawsDetail.user.userId' disabled='disabled' class='form-control' type='text'>
                      </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">货币</label>
-                     <div class="col-lg-8 col-md-6">
-                        <ui-select ng-model="couponsItem.currency" theme="bootstrap" search-enabled="false">
-                           <ui-select-match placeholder="choose currency">
-                              <span ng-bind="$select.selected.label"></span>
-                           </ui-select-match>
-                           <ui-select-choices repeat="item.value as item in currencyOptions">
-                              <span ng-bind="item.label"></span>
-                           </ui-select-choices>
-                        </ui-select>
+                  <div class='clearfix'></div>
+                  <div class='form-group col-lg-6 col-md-12'>
+                     <label class='col-lg-4 col-md-6 control-label'>隶属</label>
+                     <div class='col-lg-8 col-md-6'>
+                        <input ng-model='withdrawsDetail.user.affiliate' disabled='disabled' class='form-control' type='text'>
                      </div>
                   </div>
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">品牌</label>
-                     <div class="col-lg-8 col-md-6">
-                        <ui-select ng-model="couponsItem.brand" theme="bootstrap" search-enabled="false">
-                           <ui-select-match placeholder="choose brand">
-                              <span ng-bind="$select.selected.label"></span>
-                           </ui-select-match>
-                           <ui-select-choices repeat="item.value as item in brandOptions">
-                              <span ng-bind="item.label"></span>
-                           </ui-select-choices>
-                        </ui-select>
+                  <div class='form-group col-lg-6 col-md-12'>
+                     <label class='col-lg-4 col-md-6 control-label'>隶属ID</label>
+                     <div class='col-lg-8 col-md-6'>
+                        <input ng-model='withdrawsDetail.user.affiliateId' disabled='disabled' class='form-control' type='text'>
                      </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">钱包</label>
-                     <div class="col-lg-8 col-md-6">
-                        <ui-select ng-model="couponsItem.wallet" theme="bootstrap" search-enabled="false">
-                           <ui-select-match placeholder="choose wallet">
-                              <span ng-bind="$select.selected.label"></span>
-                           </ui-select-match>
-                           <ui-select-choices repeat="item.value as item in walletOptions">
-                              <span ng-bind="item.label"></span>
-                           </ui-select-choices>
-                        </ui-select>
+                  <div class='clearfix'></div>
+                  <legend class='text-center'>概况</legend>
+                  <div class='form-group col-lg-6 col-md-12'>
+                     <label class='col-lg-4 col-md-6 control-label'>数量</label>
+                     <div class='col-lg-8 col-md-6'>
+                        <input ng-model='withdrawsDetail.amount' disabled='disabled' class='form-control' type='text'>
                      </div>
                   </div>
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">产品</label>
-                     <div class="col-lg-8 col-md-6">
-                        <ui-select ng-model="couponsItem.product" theme="bootstrap" search-enabled="false">
-                           <ui-select-match placeholder="choose product">
-                              <span ng-bind="$select.selected.label"></span>
-                           </ui-select-match>
-                           <ui-select-choices repeat="item.value as item in productOptions">
-                              <span ng-bind="item.label"></span>
-                           </ui-select-choices>
-                        </ui-select>
+                  <div class='form-group col-lg-6 col-md-12'>
+                     <label class='col-lg-4 col-md-6 control-label'>银行</label>
+                     <div class='col-lg-8 col-md-6'>
+                        <input ng-model='withdrawsDetail.bank' disabled='disabled' class='form-control' type='text'>
                      </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">类型</label>
-                     <div class="col-lg-8 col-md-6">
-                        <ui-select ng-model="couponsItem.type" theme="bootstrap" search-enabled="false">
-                           <ui-select-match placeholder="choose type">
-                              <span ng-bind="$select.selected.label"></span>
-                           </ui-select-match>
-                           <ui-select-choices repeat="item.value as item in typeOptions">
-                              <span ng-bind="item.label"></span>
-                           </ui-select-choices>
-                        </ui-select>
+                  <div class='clearfix'></div>
+                  <div class='form-group col-lg-6 col-md-12'>
+                     <label class='col-lg-4 col-md-6 control-label'>钱包</label>
+                     <div class='col-lg-8 col-md-6'>
+                        <input ng-model='withdrawsDetail.wallet' disabled='disabled' class='form-control' type='text'>
                      </div>
                   </div>
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">人工</label>
-                     <div class="col-lg-8 col-md-6">
-                        <ui-select ng-model="couponsItem.needAudit" theme="bootstrap" search-enabled="false">
-                           <ui-select-match placeholder="choose need audit">
-                              <span ng-bind="$select.selected.label"></span>
-                           </ui-select-match>
-                           <ui-select-choices repeat="item.value as item in booleanOptons">
-                              <span ng-bind="item.label"></span>
-                           </ui-select-choices>
-                        </ui-select>
+                  <div class='form-group col-lg-6 col-md-12'>
+                     <label class='col-lg-4 col-md-6 control-label'>货币</label>
+                     <div class='col-lg-8 col-md-6'>
+                        <input ng-model='withdrawsDetail.currency' disabled='disabled' class='form-control' type='text'>
                      </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">组合</label>
-                     <div class="col-lg-8 col-md-6">
-                        <ui-select ng-model="couponsItem.multipleUse" theme="bootstrap" search-enabled="false">
-                           <ui-select-match placeholder="choose multiple use">
-                              <span ng-bind="$select.selected.label"></span>
-                           </ui-select-match>
-                           <ui-select-choices repeat="item.value as item in booleanOptons">
-                              <span ng-bind="item.label"></span>
-                           </ui-select-choices>
-                        </ui-select>
+                  <div class='clearfix'></div>
+                  <div class='form-group col-lg-6 col-md-12'>
+                     <label class='col-lg-4 col-md-6 control-label'>状态</label>
+                     <div class='col-lg-8 col-md-6'>
+                        <input ng-model='withdrawsDetail.status' disabled='disabled' class='form-control' type='text'>
                      </div>
                   </div>
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">证书</label>
-                     <div class="col-lg-8 col-md-6">
-                        <ui-select ng-model="couponsItem.needCertification" theme="bootstrap" search-enabled="false">
-                           <ui-select-match placeholder="choose need certification">
-                              <span ng-bind="$select.selected.label"></span>
-                           </ui-select-match>
-                           <ui-select-choices repeat="item.value as item in booleanOptons">
-                              <span ng-bind="item.label"></span>
-                           </ui-select-choices>
-                        </ui-select>
+                  <div class='clearfix'></div>
+                  <legend class='text-center'>账目信息</legend>
+                  <div class='form-group col-lg-6 col-md-12'>
+                     <label class='col-lg-4 col-md-6 control-label'>编号</label>
+                     <div class='col-lg-8 col-md-6'>
+                        <input ng-model='withdrawsDetail.account.number' disabled='disabled' class='form-control' type='text'>
                      </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">仅编码</label>
-                     <div class="col-lg-8 col-md-6">
-                        <ui-select ng-model="couponsItem.codeOnly" theme="bootstrap" search-enabled="false">
-                           <ui-select-match placeholder="choose code only">
-                              <span ng-bind="$select.selected.label"></span>
-                           </ui-select-match>
-                           <ui-select-choices repeat="item.value as item in booleanOptons">
-                              <span ng-bind="item.label"></span>
-                           </ui-select-choices>
-                        </ui-select>
+                  <div class='form-group col-lg-6 col-md-12'>
+                     <label class='col-lg-4 col-md-6 control-label'>名称</label>
+                     <div class='col-lg-8 col-md-6'>
+                        <input ng-model='withdrawsDetail.account.name' disabled='disabled' class='form-control' type='text'>
                      </div>
                   </div>
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">禁止</label>
-                     <div class="col-lg-8 col-md-6">
-                        <ui-select ng-model="couponsItem.isDeleted" theme="bootstrap" search-enabled="false">
-                           <ui-select-match placeholder="choose is deleted">
-                              <span ng-bind="$select.selected.label"></span>
-                           </ui-select-match>
-                           <ui-select-choices repeat="item.value as item in booleanOptons">
-                              <span ng-bind="item.label"></span>
-                           </ui-select-choices>
-                        </ui-select>
+                  <div class='form-group col-lg-6 col-md-12'>
+                     <label class='col-lg-4 col-md-6 control-label'>分支</label>
+                     <div class='col-lg-8 col-md-6'>
+                        <input ng-model='withdrawsDetail.account.branch' disabled='disabled' class='form-control' type='text'>
                      </div>
                   </div>
-                  <div class="clearfix"></div>
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">开始</label>
-                     <div class="col-lg-8 col-md-6">
-                        <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="timeStart">
-                           <input type="text" class="form-control" placeholder="start" />
-                           <span class="input-group-addon" style="background:none">
-                              <span class="glyphicon glyphicon-calendar"></span>
+                  <div class='clearfix'></div>
+                  <legend class='text-center'>明细</legend>
+                  <div class=''>
+                     <form class='form-inline pull-right add-button-class' role='form'>
+                        <div style="position: relative;width: 200px;margin-right: 10px" class="form-group pull-right">
+                           <span style='position: absolute;left: 4px;top: 6px'>
+                              <em class='fa fa-search'></em>
                            </span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">结束</label>
-                     <div class="col-lg-8 col-md-6">
-                        <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="timeEtart">
-                           <input type="text" class="form-control" placeholder="start" />
-                           <span class="input-group-addon" style="background:none">
-                              <span class="glyphicon glyphicon-calendar"></span>
-                           </span>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  <legend class="text-center">用户等级</legend>
-                  <form class="form-horizontal">
-                     <div class="col-lg-6 col-xs-12" ng-repeat="rank in ranksOptions">
-                        <div class="checkbox c-checkbox needsclick">
-                           <label class="needsclick">
-                              <input class="needsclick" ng-click="selectRank(rank.value, $event)" ng-checked="couponsItem.ranks.indexOf(rank.value) !== -1" type="checkbox" ng-value="rank.value">
-                              <span class="fa fa-check"></span>{{rank.label}}</label>
-                        </div>
-                     </div>
-                  </form>
-                  <legend class="text-center">条件</legend>
-                  <div class="">
-                     <form class="form-inline pull-right add-button-class" role="form">
-                        <div style="position: relative" class="form-group">
-                           <span style="position: absolute;left: 4px;top: 6px">
-                              <em class="fa fa-search"></em>
-                           </span>
-                           <input class="form-control" type="text" ng-model="conditionsModalSearch" placeholder="{{searchPlaceholder(['table.couponsManage.conditions.th1', 'table.couponsManage.conditions.th2'])}}">
+                           <input class='form-control' type='text' ng-model='detailModalSearch' placeholder="{{' search all'}}">
                         </div>
                      </form>
-                     <div web-data-table items="couponsItem.conditions" ao-data="conditionsModalAoData" search="conditionsModalSearch" reload="conditionsModalReload" show-items="showConditionsModal">
-                        <table width="100%" class="table table-bordered table-hover bg-white">
+                     <div web-data-table items='withdrawsDetail.details' ao-data='detailModalAoData' search='detailModalSearch' reload='detailModalReload' show-items='showDetailModal'>
+                        <table width='100%' class='table table-bordered table-hover bg-white'>
                            <thead>
-                              <tr class="bg-gray-light text-bold">
-                                 <td style="width: 25%" ao-data="conditionsModalAoData" web-data-table-sort="type">
-                                    {{'table.couponsManage.conditions.th1' | translate}}
+                              <tr class='bg-gray-light text-bold'>
+                                 <td style='width: 25%' ao-data='detailModalAoData' web-data-table-sort='adminId'>
+                                    {{'table.withdrawsManage.detail.th1' | translate}}
                                  </td>
-                                 <td style="width: 25%" ao-data="conditionsModalAoData" web-data-table-sort="value_type">
-                                    {{'table.couponsManage.conditions.th2' | translate}}
+                                 <td style='width: 25%' ao-data='detailModalAoData' web-data-table-sort='action'>
+                                    {{'table.withdrawsManage.detail.th2' | translate}}
                                  </td>
-                                 <td style="width: 25%" ao-data="conditionsModalAoData" web-data-table-sort="value">
-                                    {{'table.couponsManage.conditions.th3' | translate}}
+                                 <td style='width: 25%'>
+                                    {{'table.withdrawsManage.detail.th3' | translate}}
+                                 </td>
+                                 <td style='width: 25%' ao-data='detailModalAoData' web-data-table-sort='result'>
+                                    {{'table.withdrawsManage.detail.th4' | translate}}
                                  </td>
                               </tr>
                            </thead>
                            <tbody>
-                              <tr ng-repeat="item in showConditionsModal">
+                              <tr ng-repeat='item in showDetailModal'>
                                  <td>
-                                    <span editable-select="item.type" e-name="type" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in conditionsTypeOptions">
-                                       {{showOptionsValue(item.type,conditionsTypeOptions)}}
-                                    </span>
+                                    <span>{{item.adminId || ''}}</span>
                                  </td>
                                  <td>
-                                    <span editable-select="item.valueType" e-name="value_type" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in conditionsValueTypeOptions">
-                                       {{showOptionsValue(item.valueType,conditionsValueTypeOptions)}}
-                                    </span>
+                                    <span>{{item.action || ''}}</span>
                                  </td>
                                  <td>
-                                    <span editable-text="item.value" e-name="value" e-type="number" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">
-                                       {{ item.value || '' }}
-                                    </span>
+                                    <span>{{item.comment || ''}}</span>
+                                 </td>
+                                 <td>
+                                    <span>{{item.result || ''}}</span>
                                  </td>
                               </tr>
-                              <tr ng-show="showConditionsModal.length==0">
-                                 <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                              <tr ng-show='showDetailModal.length==0'>
+                                 <td colspan='4' class=''>{{'table.no_date' | translate}}</td>
                               </tr>
                            </tbody>
                         </table>
                      </div>
                   </div>
-                  <div class="clearfix"></div>
+                  <div class='clearfix'></div>
                </form>
             </div>
          </div>
@@ -247,7 +147,6 @@
    </div>
 </div>
 
-<div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
-   <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
+<div class='modal-footer'>
+   <button class='btn btn-primary' type='button' ng-click='cancelModal()'>{{'OK'}}</button>
 </div>

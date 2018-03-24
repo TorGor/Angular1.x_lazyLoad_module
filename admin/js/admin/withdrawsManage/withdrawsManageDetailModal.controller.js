@@ -22,11 +22,12 @@
 
         $scope.withdrawsDetail = withdrawsDetail;
 
-        $scope.confirmModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
+        $scope.detailModalAoData = {};
+        $scope.detailModalSearch = '';
+        $scope.detailModalReload = 1;
+        $scope.showDetailModal = [];
 
-        $scope.closeModal = function () {
+        $scope.cancelModal = function () {
             $uibModalInstance.dismiss('cancel');
         };
 

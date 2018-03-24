@@ -134,6 +134,9 @@
                             <td style="width: 12%">
                                 {{'table.withdrawsManage.th7' | translate}}
                             </td>
+                            <td style="width: 12%">
+                                {{'table.withdrawsManage.th8' | translate}}
+                            </td>
                             <td style="width: 13%">{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
@@ -144,6 +147,9 @@
                             </td>
                             <td>
                                 <span>{{item.bank  || ''}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.wallet  || ''}}</span>
                             </td>
                             <td>
                                 <span>{{item.currency  || ''}}</span>
@@ -182,7 +188,7 @@
                             </td>
                         </tr>
                         <tr ng-show="withdrawsManage.length==0">
-                            <td colspan="8" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan="9" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

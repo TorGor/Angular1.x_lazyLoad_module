@@ -275,7 +275,13 @@
             "th5": "Account No",
             "th6": "Account Name",
             "th7": "Account branch",
-            "th8": "Status"
+            "th8": "Status",
+            "detail": {
+                "th1": "Admin Id",
+                "th2": "Action",
+                "th3": "Comment",
+                "th4": "Result"
+            }
         },
         "promotionsManage": {
             "th1": "Banner",
