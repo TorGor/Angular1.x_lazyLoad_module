@@ -54,14 +54,14 @@
 (function() {
 
     angular
-        .module('admin.currenciesManage', [
+        .module('admin.couponsManage', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.couponsManage', [
+        .module('admin.currenciesManage', [
             'app.core',
         ]);
 })();
@@ -1075,161 +1075,6 @@
 (function() {
 
     angular
-        .module('admin.currenciesManage')
-        .controller('CurrenciesManageController', CurrenciesManageController);
-
-    CurrenciesManageController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$translate',
-        'adminService'
-    ];
-
-    function CurrenciesManageController(
-        $scope,
-        $rootScope,
-        $translate,
-        adminService
-    ) {
-
-        $scope.options = [
-            {
-                value:'0',
-                label:$translate.instant('table.localeLanguage.th3ShowFalse')
-            },
-            {
-                value:'1',
-                label:$translate.instant('table.localeLanguage.th3ShowTrue')
-            }
-        ];
-
-        // 原始的数据
-        $scope.currenciesManage = [];
-
-        // 过滤出来的数据
-        $scope.showCurrenciesManage = [];
-        $scope.currenciesManageReload = 1;
-        $scope.currenciesManageAoData = {};
-        $scope.currenciesManageSearch = '';
-
-        // 初始化table数据
-        $scope.initCurrenciesManageData = function () {
-            $scope.currenciesManage = [];
-            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.currenciesManage = angular.copy(res.data.data);
-                        $scope.currenciesManage.forEach(function (currenciesManageItem, currenciesManageIndex) {
-                            currenciesManageItem.id = currenciesManageIndex +1;
-                            currenciesManageItem.supported = currenciesManageItem.supported ? '1' : '0';
-                            currenciesManageItem.symbolAfter = currenciesManageItem.symbolAfter ? '1' : '0';
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param currenciesManage 货币管理数据对象
-         * @param item
-         */
-
-        $scope.saveCurrenciesManage = function (currenciesManage, item) {
-            var tempData = angular.extend({}, currenciesManage, item);
-            if (!tempData.id) {
-                delete tempData.id;
-                adminService.postReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initCurrenciesManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (currenciesManage.id) {
-                delete tempData.id;
-                adminService.patchReq($rootScope.URL.CURRENCIESMANAGE.PATCH+'/'+currenciesManage.code, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initCurrenciesManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
-        // 删除currenciesManage
-        /**
-         * @param currenciesManage 货币管理数据对象
-         * @return null
-         */
-        $scope.deleteCurrenciesManage = function (currenciesManage) {
-            if (currenciesManage.id) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.CURRENCIESMANAGE.DELETE+'/'+currenciesManage.code, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initCurrenciesManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 添加按钮
-        $scope.addCurrenciesManage = function () {
-            $scope.currenciesManageAoData = {};
-            $scope.currenciesManageSearch = '';
-            $scope.currenciesManage.unshift({
-                'id': null,
-                'code': '',
-                'name': '',
-                'symbol': '',
-                'symbolAfter': '0',
-                'supported': '1'
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的货币管理
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.currenciesManage.splice(index, 1);
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initCurrenciesManageData();
-    }
-})();
-
-(function() {
-
-    angular
         .module('admin.couponsManage')
         .controller('CouponsManageController', CouponsManageController);
 
@@ -1637,17 +1482,9 @@
                 codeOnly: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
                 isDeleted: $scope.booleanOptons[1] && $scope.booleanOptons[1].value || 'false',
                 conditions: [],
-                treatments: [
-                    // {
-                    //     type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
-                    //     value:'',
-                    //     maxBonus:''
-                    // }
-                ],
+                treatments: [],
             };
         }
-
-        console.log($scope.couponsItem,1111)
 
         if($scope.couponsItem.period){
             $scope.couponsItem.startTime = $scope.couponsItem.period.from || '';
@@ -1885,6 +1722,161 @@
             }
         });
 
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.currenciesManage')
+        .controller('CurrenciesManageController', CurrenciesManageController);
+
+    CurrenciesManageController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$translate',
+        'adminService'
+    ];
+
+    function CurrenciesManageController(
+        $scope,
+        $rootScope,
+        $translate,
+        adminService
+    ) {
+
+        $scope.options = [
+            {
+                value:'0',
+                label:$translate.instant('table.localeLanguage.th3ShowFalse')
+            },
+            {
+                value:'1',
+                label:$translate.instant('table.localeLanguage.th3ShowTrue')
+            }
+        ];
+
+        // 原始的数据
+        $scope.currenciesManage = [];
+
+        // 过滤出来的数据
+        $scope.showCurrenciesManage = [];
+        $scope.currenciesManageReload = 1;
+        $scope.currenciesManageAoData = {};
+        $scope.currenciesManageSearch = '';
+
+        // 初始化table数据
+        $scope.initCurrenciesManageData = function () {
+            $scope.currenciesManage = [];
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.currenciesManage = angular.copy(res.data.data);
+                        $scope.currenciesManage.forEach(function (currenciesManageItem, currenciesManageIndex) {
+                            currenciesManageItem.id = currenciesManageIndex +1;
+                            currenciesManageItem.supported = currenciesManageItem.supported ? '1' : '0';
+                            currenciesManageItem.symbolAfter = currenciesManageItem.symbolAfter ? '1' : '0';
+                        });
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param currenciesManage 货币管理数据对象
+         * @param item
+         */
+
+        $scope.saveCurrenciesManage = function (currenciesManage, item) {
+            var tempData = angular.extend({}, currenciesManage, item);
+            if (!tempData.id) {
+                delete tempData.id;
+                adminService.postReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initCurrenciesManageData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (currenciesManage.id) {
+                delete tempData.id;
+                adminService.patchReq($rootScope.URL.CURRENCIESMANAGE.PATCH+'/'+currenciesManage.code, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initCurrenciesManageData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+        };
+
+        // 删除currenciesManage
+        /**
+         * @param currenciesManage 货币管理数据对象
+         * @return null
+         */
+        $scope.deleteCurrenciesManage = function (currenciesManage) {
+            if (currenciesManage.id) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.CURRENCIESMANAGE.DELETE+'/'+currenciesManage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initCurrenciesManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 添加按钮
+        $scope.addCurrenciesManage = function () {
+            $scope.currenciesManageAoData = {};
+            $scope.currenciesManageSearch = '';
+            $scope.currenciesManage.unshift({
+                'id': null,
+                'code': '',
+                'name': '',
+                'symbol': '',
+                'symbolAfter': '0',
+                'supported': '1'
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的货币管理
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.currenciesManage.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initCurrenciesManageData();
     }
 })();
 
@@ -4567,60 +4559,26 @@
 
         if(edit){
             $scope.promotionsItem = angular.copy(promotionsItem)
-            if(!$scope.promotionsItem.treatments || !$scope.promotionsItem.treatments.length){
-                $scope.promotionsItem.treatments = [
-                    {
-                        type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
-                        value:'',
-                        maxBonus:''
-                    }
-                ]
-            }
-            if(window.Array.isArray($scope.promotionsItem.conditions)){
-                $scope.promotionsItem.conditions.forEach(function(conditionsItem) {
-                    if(conditionsItem.value){
-                        conditionsItem.valueType = conditionsItem.value.type || '';
-                        conditionsItem.value = conditionsItem.value.value || '';
-                    }
-                })
-            }
-            if(window.Array.isArray($scope.promotionsItem.treatments)){
-                $scope.promotionsItem.treatments.forEach(function(treatmentsItem) {
-                    if(treatmentsItem.max){
-                        treatmentsItem.maxBonus = treatmentsItem.max || '';
-                        delete treatmentsItem.max
-                    }
-                })
-            }
         }else{
             $scope.promotionsItem = {
-                code: '',
-                name: '',
+                banner: '',
                 currency: $scope.currencyOptions[0] && $scope.currencyOptions[0].value || '',
                 brand: $scope.brandOptions[0] && $scope.brandOptions[0].value || '',
-                wallet: $scope.walletOptions[0] && $scope.walletOptions[0].value || '',
-                product: $scope.productOptions[0] && $scope.productOptions[0].value || '',
-                type: $scope.typeOptions[0] && $scope.typeOptions[0].value || '',
                 startTime: '',
                 endTime: '',
-                needAudit: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                multipleUse: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                needCertification: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                ranks: [],
-                codeOnly: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                isDeleted: $scope.booleanOptons[1] && $scope.booleanOptons[1].value || 'false',
-                conditions: [],
-                treatments: [
-                    // {
-                    //     type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
-                    //     value:'',
-                    //     maxBonus:''
-                    // }
-                ],
+                categories: [],
+                title: [],
+                content: [],
             };
         }
 
         console.log($scope.promotionsItem,88888)
+
+        if($scope.promotionsItem.period){
+            $scope.promotionsItem.startTime = $scope.promotionsItem.period.from || '';
+            $scope.promotionsItem.endTime = $scope.promotionsItem.period.to || '';
+            delete $scope.promotionsItem.period
+        }
 
         $scope.timeStart = $scope.promotionsItem.startTime || '';
         $scope.timeEnd = $scope.promotionsItem.endTime || '';
@@ -4778,17 +4736,17 @@
 
         $scope.confirmModal = function () {
             var tempData = angular.copy($scope.promotionsItem);
-            if(window.Array.isArray(tempData['conditions'])){
-                tempData['conditions'].forEach(function(conditionsItem) {
-                    if(conditionsItem.id){
-                        delete conditionsItem.id;
+            if(window.Array.isArray(tempData['title'])){
+                tempData['title'].forEach(function(titleItem) {
+                    if(titleItem.id){
+                        delete titleItem.id;
                     }
                 })
             }
-            if(window.Array.isArray(tempData['treatments'])){
-                tempData['treatments'].forEach(function(treatmentsItem) {
-                    if(treatmentsItem.id){
-                        delete treatmentsItem.id;
+            if(window.Array.isArray(tempData['content'])){
+                tempData['content'].forEach(function(contentItem) {
+                    if(contentItem.id){
+                        delete contentItem.id;
                     }
                 })
             }
@@ -4832,12 +4790,12 @@
         $scope.$watch('timeStart+timeEnd', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 if ($scope.timeStart) {
-                    $scope.promotionsItem.startTime = $scope.timeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                    $scope.promotionsItem.startTime = $scope.timeStart.format && $scope.timeStart.format('YYYY-MM-DD') + ' 00:00:00';
                 } else {
                     $scope.promotionsItem.startTime = '';
                 }
                 if ($scope.timeEnd) {
-                    $scope.promotionsItem.endTime = $scope.timeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                    $scope.promotionsItem.endTime = $scope.timeEnd.format && $scope.timeEnd.format('YYYY-MM-DD') + ' 23:59:59';
                 } else {
                     $scope.promotionsItem.endTime = '';
                 }

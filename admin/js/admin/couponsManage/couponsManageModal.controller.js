@@ -71,17 +71,9 @@
                 codeOnly: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
                 isDeleted: $scope.booleanOptons[1] && $scope.booleanOptons[1].value || 'false',
                 conditions: [],
-                treatments: [
-                    // {
-                    //     type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
-                    //     value:'',
-                    //     maxBonus:''
-                    // }
-                ],
+                treatments: [],
             };
         }
-
-        console.log($scope.couponsItem,1111)
 
         if($scope.couponsItem.period){
             $scope.couponsItem.startTime = $scope.couponsItem.period.from || '';

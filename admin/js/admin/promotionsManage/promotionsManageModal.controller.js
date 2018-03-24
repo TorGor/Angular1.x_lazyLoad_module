@@ -28,60 +28,26 @@
 
         if(edit){
             $scope.promotionsItem = angular.copy(promotionsItem)
-            if(!$scope.promotionsItem.treatments || !$scope.promotionsItem.treatments.length){
-                $scope.promotionsItem.treatments = [
-                    {
-                        type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
-                        value:'',
-                        maxBonus:''
-                    }
-                ]
-            }
-            if(window.Array.isArray($scope.promotionsItem.conditions)){
-                $scope.promotionsItem.conditions.forEach(function(conditionsItem) {
-                    if(conditionsItem.value){
-                        conditionsItem.valueType = conditionsItem.value.type || '';
-                        conditionsItem.value = conditionsItem.value.value || '';
-                    }
-                })
-            }
-            if(window.Array.isArray($scope.promotionsItem.treatments)){
-                $scope.promotionsItem.treatments.forEach(function(treatmentsItem) {
-                    if(treatmentsItem.max){
-                        treatmentsItem.maxBonus = treatmentsItem.max || '';
-                        delete treatmentsItem.max
-                    }
-                })
-            }
         }else{
             $scope.promotionsItem = {
-                code: '',
-                name: '',
+                banner: '',
                 currency: $scope.currencyOptions[0] && $scope.currencyOptions[0].value || '',
                 brand: $scope.brandOptions[0] && $scope.brandOptions[0].value || '',
-                wallet: $scope.walletOptions[0] && $scope.walletOptions[0].value || '',
-                product: $scope.productOptions[0] && $scope.productOptions[0].value || '',
-                type: $scope.typeOptions[0] && $scope.typeOptions[0].value || '',
                 startTime: '',
                 endTime: '',
-                needAudit: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                multipleUse: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                needCertification: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                ranks: [],
-                codeOnly: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                isDeleted: $scope.booleanOptons[1] && $scope.booleanOptons[1].value || 'false',
-                conditions: [],
-                treatments: [
-                    // {
-                    //     type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
-                    //     value:'',
-                    //     maxBonus:''
-                    // }
-                ],
+                categories: [],
+                title: [],
+                content: [],
             };
         }
 
         console.log($scope.promotionsItem,88888)
+
+        if($scope.promotionsItem.period){
+            $scope.promotionsItem.startTime = $scope.promotionsItem.period.from || '';
+            $scope.promotionsItem.endTime = $scope.promotionsItem.period.to || '';
+            delete $scope.promotionsItem.period
+        }
 
         $scope.timeStart = $scope.promotionsItem.startTime || '';
         $scope.timeEnd = $scope.promotionsItem.endTime || '';
@@ -239,17 +205,17 @@
 
         $scope.confirmModal = function () {
             var tempData = angular.copy($scope.promotionsItem);
-            if(window.Array.isArray(tempData['conditions'])){
-                tempData['conditions'].forEach(function(conditionsItem) {
-                    if(conditionsItem.id){
-                        delete conditionsItem.id;
+            if(window.Array.isArray(tempData['title'])){
+                tempData['title'].forEach(function(titleItem) {
+                    if(titleItem.id){
+                        delete titleItem.id;
                     }
                 })
             }
-            if(window.Array.isArray(tempData['treatments'])){
-                tempData['treatments'].forEach(function(treatmentsItem) {
-                    if(treatmentsItem.id){
-                        delete treatmentsItem.id;
+            if(window.Array.isArray(tempData['content'])){
+                tempData['content'].forEach(function(contentItem) {
+                    if(contentItem.id){
+                        delete contentItem.id;
                     }
                 })
             }
@@ -293,12 +259,12 @@
         $scope.$watch('timeStart+timeEnd', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 if ($scope.timeStart) {
-                    $scope.promotionsItem.startTime = $scope.timeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                    $scope.promotionsItem.startTime = $scope.timeStart.format && $scope.timeStart.format('YYYY-MM-DD') + ' 00:00:00';
                 } else {
                     $scope.promotionsItem.startTime = '';
                 }
                 if ($scope.timeEnd) {
-                    $scope.promotionsItem.endTime = $scope.timeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                    $scope.promotionsItem.endTime = $scope.timeEnd.format && $scope.timeEnd.format('YYYY-MM-DD') + ' 23:59:59';
                 } else {
                     $scope.promotionsItem.endTime = '';
                 }
