@@ -51,5 +51,24 @@
         // 页面加载执行的函数
 
         $scope.initRebatesListData();
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.rebatesListAoData.start_time = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                } else {
+                    if ($scope.rebatesListAoData.start_time) {
+                        delete $scope.rebatesListAoData.start_time;
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.rebatesListAoData.end_time = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                } else {
+                    if ($scope.rebatesListAoData.end_time) {
+                        delete $scope.rebatesListAoData.end_time;
+                    }
+                }
+            }
+        });
     }
 })();

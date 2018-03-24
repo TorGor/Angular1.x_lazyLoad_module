@@ -22,6 +22,11 @@
 
         $scope.rebatesDetail = rebatesDetail;
 
+        $scope.showDetailModal = [];
+        $scope.detailModalAoData = {};
+        $scope.detailModalSearch = '';
+        $scope.detailModalReload = 1;
+
         $scope.closeModal = function () {
             $uibModalInstance.dismiss('cancel');
         };

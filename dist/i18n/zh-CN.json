@@ -1,343 +1,351 @@
 {
-  "offsidebar": {
-    "setting": {
-      "SETTINGS": "设置",
-      "LANGUAGE": "语言",
-      "THEMES": "主题",
-      "LAYOUT": "布局",
-      "ASIDE": "导航",
-      "layout": {
-        "FIXED": "固定"
-      },
-      "aside": {
-        "COLLAPSED": "折叠菜单",
-        "COLLAPSED_TEXT": "折叠文字",
-        "FLOAT": "浮动",
-        "HOVER": "鼠标悬浮",
-        "SHOW_SCROLLBAR": "滚动条"
-      }
+    "offsidebar": {
+        "setting": {
+            "SETTINGS": "设置",
+            "LANGUAGE": "语言",
+            "THEMES": "主题",
+            "LAYOUT": "布局",
+            "ASIDE": "导航",
+            "layout": {
+                "FIXED": "固定"
+            },
+            "aside": {
+                "COLLAPSED": "折叠菜单",
+                "COLLAPSED_TEXT": "折叠文字",
+                "FLOAT": "浮动",
+                "HOVER": "鼠标悬浮",
+                "SHOW_SCROLLBAR": "滚动条"
+            }
+        }
+    },
+    "sidebar": {
+        "nav": {
+            "super_admin": {
+                "MENU_MANAGE": "菜单管理",
+                "MENU_MAINTAIN": "菜单维护",
+                "BUTTON_MAINTAIN": "按钮维护",
+                "ROLE_MAINTAIN": "角色维护",
+                "ROLE_INFO_MAINTAIN": "角色信息维护",
+                "ROLE_RELATE_MENU": "角色关联菜单",
+                "ADMIN_AND_ROLE": "管理员和角色",
+                "ADMIN_INFO": "管理员信息维护",
+                "ADMIN_RELATE_ROLE": "管理员关联角色"
+            }
+        }
+    },
+    "table": {
+        "common": {
+            "per_page": "每页",
+            "showing_item_to": "展示第 {{ from }} 至 {{ to }} 项结果,共 {{ totalItem }} 项",
+            "cur_page_first": "第",
+            "cur_page_last": "页",
+            "total_page": "共{{ totalPage }}页"
+        },
+        "no_date": "没有数据",
+        "button": {
+            "add": "添加",
+            "search": "查找",
+            "advance_search": "显示高级搜索",
+            "save": "保存",
+            "edit": "编辑",
+            "detail": "更多",
+            "delete": "删除",
+            "cancel": "取消",
+            "recover": "恢复",
+            "operation": "操作"
+        },
+        "menu": {
+            "th1": "序号",
+            "th2": "菜单名称",
+            "th3": "URL",
+            "th4": "状态",
+            "modal_title": "一级菜单"
+        },
+        "button_manage": {
+            "th1": "按钮名称",
+            "th2": "按钮类型",
+            "th3": "URL",
+            "th4": "状态"
+        },
+        "role": {
+            "th1": "角色",
+            "th2": "状态"
+        },
+        "admin": {
+            "th1": "账户",
+            "th2": "密码",
+            "th3": "创建时间",
+            "th4": "状态"
+        },
+        "localeLanguage": {
+            "th1": "代码",
+            "th2": "名称",
+            "th3": "支持",
+            "th3ShowTrue": "是",
+            "th3ShowFalse": "否"
+        },
+        "countriesManage": {
+            "th1": "iso",
+            "th2": "ios3",
+            "th3": "名称",
+            "th4": "别名",
+            "th5": "编码",
+            "th6": "区号",
+            "th7": "货币"
+        },
+        "userLevel": {
+            "th1": "编码",
+            "th2": "默认值",
+            "th3": "等级",
+            "th4": "条件",
+            "th5": "处理",
+            "th6": "折扣"
+        },
+        "conditionsModal": {
+            "th1": "货币",
+            "th2": "指定",
+            "th3": "比较",
+            "th4": "数值",
+            "th5": "类型",
+            "th6": "逻辑"
+        },
+        "treatmentsModal": {
+            "th1": "货币",
+            "th2": "指定",
+            "th3": "泪痣",
+            "th4": "数值"
+        },
+        "rebatesModal": {
+            "th1": "货币",
+            "th2": "产品",
+            "th3": "最多",
+            "th4": "天数",
+            "th5": "品牌",
+            "brands": {
+                "th1": "品牌",
+                "th2": "比例"
+            }
+        },
+        "currenciesManage": {
+            "th1": "代码",
+            "th2": "名称",
+            "th3": "符号",
+            "th4": "符号置后",
+            "th5": "支持"
+        },
+        "transactionsDetail": {
+            "th1": "用户Id",
+            "th2": "隶属Id",
+            "th3": "服务Id",
+            "th4": "服务",
+            "th5": "数量",
+            "th6": "preBalance",
+            "th7": "postBalance",
+            "th8": "钱包编码",
+            "th9": "描述"
+        },
+        "blackLists": {
+            "th1": "数量",
+            "th2": "结论",
+            "th3": "类型",
+            "th4": "删除"
+        },
+        "paymentMethods": {
+            "th1": "编码",
+            "th2": "名称",
+            "th3": "货币",
+            "th4": "最小",
+            "th5": "最大",
+            "th6": "类型",
+            "th7": "禁止",
+            "name": {
+                "th1": "位置",
+                "th2": "数值"
+            }
+        },
+        "ordersManage": {
+            "th1": "数量",
+            "th2": "货币",
+            "th3": "预定",
+            "th4": "渠道编码",
+            "th5": "状态",
+            "th6": "用户"
+        },
+        "appliesUse": {
+            "th1": "预付",
+            "th2": "奖金",
+            "th3": "品牌",
+            "th4": "优惠券",
+            "th5": "本金",
+            "th6": "产品",
+            "th7": "产品",
+            "th8": "状态"
+        },
+        "gamesProducts": {
+            "th1": "编码",
+            "th2": "名称",
+            "th3": "禁用"
+        },
+        "pspsManage": {
+            "th1": "编码",
+            "th2": "网关",
+            "th3": "额度",
+            "th4": "Api Key",
+            "th5": "渠道",
+            "th6": "激活",
+            "methods": {
+                "th1": "编码",
+                "th2": "比率",
+                "th3": "其他"
+            }
+        },
+        "gameBrands": {
+            "th1": "编码",
+            "th2": "钱包",
+            "th3": "货币",
+            "th4": "名称",
+            "th5": "语言",
+            "th6": "产品",
+            "th7": "状态",
+            "langs": {
+                "th1": "系统语言",
+                "th2": "自定义语言"
+            },
+            "products": {
+                "th1": "编码",
+                "th2": "Osx Url",
+                "th3": "Windows Url",
+                "th4": "Ios Url",
+                "th5": "Android Url"
+            }
+        },
+        "couponsManage": {
+            "th1": "编码",
+            "th2": "名称",
+            "th3": "货币",
+            "th4": "名称",
+            "th5": "品牌",
+            "th6": "产品",
+            "th7": "组合",
+            "th8": "需要证书",
+            "th9": "类型",
+            "th10": "人工",
+            "th11": "仅编码",
+            "th12": "禁用",
+            "conditions": {
+                "th1": "类型",
+                "th2": "值类型",
+                "th3": "值"
+            },
+            "treatments": {
+                "th1": "类型",
+                "th2": "值",
+                "th3": "最大优惠"
+            }
+        },
+        "gamesManage": {
+            "th1": "名称",
+            "th2": "产品",
+            "th3": "品牌",
+            "th4": "Flash",
+            "th5": "Html5",
+            "th6": "App",
+            "th7": "Apk",
+            "th8": "windows",
+            "th9": "Ftp",
+            "th10": "Flash例子",
+            "th11": "Html5例子",
+            "th12": "图片",
+            "th13": "Lines",
+            "th14": "已有Jackpot",
+            "th15": "当前Jackpot",
+            "th16": "禁用",
+            "th17": "折扣",
+            "th18": "Bigwinable",
+            "th19": "种类",
+            "th20": "新的",
+            "th21": "很快上线",
+            "th22": "推荐"
+        },
+        "withdrawsManage": {
+            "th1": "数量",
+            "th2": "银行",
+            "th3": "钱包",
+            "th4": "货币",
+            "th5": "账目 No",
+            "th6": "账目 名称",
+            "th7": "账目 分支",
+            "th8": "状态"
+        },
+        "promotionsManage": {
+            "th1": "标语",
+            "th2": "货币",
+            "th3": "种类",
+            "th4": "标题",
+            "th5": "内容",
+            "th6": "时间",
+            "th7": "状态"
+        },
+        "rebatesList": {
+            "th1": "产品",
+            "th2": "开始",
+            "th3": "截止",
+            "th4": "奖金",
+            "th5": "用户名",
+            "th6": "用户Id",
+            "th7": "隶属Id",
+            "detail": {
+                "th1": "数量",
+                "th2": "品牌",
+                "th3": "比例",
+                "th4": "钱包",
+                "th5": "返水",
+                "th6": "总流水"
+            }
+        },
+        "reliefsList": {
+            "th1": "产品",
+            "th2": "数量",
+            "th3": "相抵",
+            "th4": "比例",
+            "th5": "连续",
+            "th6": "提款",
+            "th7": "隶属",
+            "th8": "用户名",
+            "th9": "状态"
+        },
+        "transfersList": {
+            "th1": "优惠券",
+            "th2": "数量",
+            "th3": "Bonus",
+            "th4": "钱包源",
+            "th5": "钱包目的",
+            "th6": "用户名",
+            "th7": "用户ID",
+            "th8": "隶属",
+            "th9": "结果"
+        }
+    },
+    "panel_tile": {
+        "menu": "菜单",
+        "role": "角色",
+        "admin": "管理员",
+        "buttons": "按钮",
+        "configure": "权限一览"
+    },
+    "alert_confirm": {
+        "success": "成功",
+        "error": "错误",
+        "title": "确认删除?",
+        "text": "删除后可能无法恢复",
+        "cancelButtonText": "取消",
+        "confirmButtonText": "确认删除"
+    },
+    "required_message": "该字段必填",
+    "options": {
+        "all": "全部",
+        "forbid": "禁止",
+        "delete": "删除",
+        "enable": "启用"
     }
-  },
-  "sidebar": {
-    "nav": {
-      "super_admin": {
-        "MENU_MANAGE": "菜单管理",
-        "MENU_MAINTAIN": "菜单维护",
-        "BUTTON_MAINTAIN": "按钮维护",
-        "ROLE_MAINTAIN": "角色维护",
-        "ROLE_INFO_MAINTAIN": "角色信息维护",
-        "ROLE_RELATE_MENU": "角色关联菜单",
-        "ADMIN_AND_ROLE": "管理员和角色",
-        "ADMIN_INFO": "管理员信息维护",
-        "ADMIN_RELATE_ROLE": "管理员关联角色"
-      }
-    }
-  },
-  "table": {
-    "common": {
-      "per_page": "每页",
-      "showing_item_to": "展示第 {{ from }} 至 {{ to }} 项结果,共 {{ totalItem }} 项",
-      "cur_page_first": "第",
-      "cur_page_last": "页",
-      "total_page": "共{{ totalPage }}页"
-    },
-    "no_date": "没有数据",
-    "button": {
-      "add": "添加",
-      "search": "查找",
-      "advance_search": "显示高级搜索",
-      "save": "保存",
-      "edit": "编辑",
-      "detail": "更多",
-      "delete": "删除",
-      "cancel": "取消",
-      "recover": "恢复",
-      "operation": "操作"
-    },
-    "menu": {
-      "th1": "序号",
-      "th2": "菜单名称",
-      "th3": "URL",
-      "th4": "状态",
-      "modal_title": "一级菜单"
-    },
-    "button_manage": {
-      "th1": "按钮名称",
-      "th2": "按钮类型",
-      "th3": "URL",
-      "th4": "状态"
-    },
-    "role": {
-      "th1": "角色",
-      "th2": "状态"
-    },
-    "admin": {
-      "th1": "账户",
-      "th2": "密码",
-      "th3": "创建时间",
-      "th4": "状态"
-    },
-    "localeLanguage": {
-      "th1": "代码",
-      "th2": "名称",
-      "th3": "支持",
-      "th3ShowTrue":"是",
-      "th3ShowFalse":"否"
-    },
-    "countriesManage":{
-      "th1":"iso",
-      "th2":"ios3",
-      "th3":"名称",
-      "th4":"别名",
-      "th5":"编码",
-      "th6":"区号",
-      "th7":"货币"
-    },
-    "userLevel":{
-      "th1":"编码",
-      "th2":"默认值",
-      "th3":"等级",
-      "th4":"条件",
-      "th5":"处理",
-      "th6":"折扣"
-    },
-    "conditionsModal":{
-      "th1":"货币",
-      "th2":"指定",
-      "th3":"比较",
-      "th4":"数值",
-      "th5":"类型",
-      "th6":"逻辑"
-    },
-    "treatmentsModal":{
-      "th1":"货币",
-      "th2":"指定",
-      "th3":"泪痣",
-      "th4":"数值"
-    },
-    "rebatesModal":{
-      "th1":"货币",
-      "th2":"产品",
-      "th3":"最多",
-      "th4":"天数",
-      "th5":"品牌",
-      "brands":{
-        "th1":"品牌",
-        "th2":"比例"
-      }
-    },
-    "currenciesManage":{
-      "th1":"代码",
-      "th2":"名称",
-      "th3":"符号",
-      "th4":"符号置后",
-      "th5":"支持"
-    },
-    "transactionsDetail":{
-      "th1":"用户Id",
-      "th2":"隶属Id",
-      "th3":"服务Id",
-      "th4":"服务",
-      "th5":"数量",
-      "th6":"preBalance",
-      "th7":"postBalance",
-      "th8":"钱包编码",
-      "th9":"描述"
-    },
-    "blackLists":{
-      "th1":"数量",
-      "th2":"结论",
-      "th3":"类型",
-      "th4":"删除"
-    },
-    "paymentMethods": {
-      "th1": "编码",
-      "th2": "名称",
-      "th3": "货币",
-      "th4": "最小",
-      "th5": "最大",
-      "th6": "类型",
-      "th7": "禁止",
-      "name":{
-        "th1": "位置",
-        "th2": "数值"
-      }
-    },
-    "ordersManage": {
-      "th1": "数量",
-      "th2": "货币",
-      "th3": "预定",
-      "th4": "渠道编码",
-      "th5": "状态",
-      "th6": "用户"
-    },
-    "appliesUse": {
-      "th1": "预付",
-      "th2": "奖金",
-      "th3": "品牌",
-      "th4": "优惠券",
-      "th5": "本金",
-      "th6": "产品",
-      "th7": "产品",
-      "th8": "状态"
-    },
-    "gamesProducts": {
-      "th1": "编码",
-      "th2": "名称",
-      "th3": "禁用"
-    },
-    "pspsManage": {
-      "th1": "编码",
-      "th2": "网关",
-      "th3": "额度",
-      "th4": "Api Key",
-      "th5": "渠道",
-      "th6": "激活",
-      "methods": {
-        "th1": "编码",
-        "th2": "比率",
-        "th3": "其他"
-      }
-    },
-    "gameBrands": {
-      "th1": "编码",
-      "th2": "钱包",
-      "th3": "货币",
-      "th4": "名称",
-      "th5": "语言",
-      "th6": "产品",
-      "th7": "状态",
-      "langs": {
-        "th1": "系统语言",
-        "th2": "自定义语言"
-      },
-      "products": {
-        "th1": "编码",
-        "th2": "Osx Url",
-        "th3": "Windows Url",
-        "th4": "Ios Url",
-        "th5": "Android Url"
-      }
-    },
-    "couponsManage": {
-      "th1": "编码",
-      "th2": "名称",
-      "th3": "货币",
-      "th4": "名称",
-      "th5": "品牌",
-      "th6": "产品",
-      "th7": "组合",
-      "th8": "需要证书",
-      "th9": "类型",
-      "th10": "人工",
-      "th11": "仅编码",
-      "th12": "禁用",
-      "conditions": {
-        "th1": "类型",
-        "th2": "值类型",
-        "th3": "值"
-      },
-      "treatments": {
-        "th1": "类型",
-        "th2": "值",
-        "th3": "最大优惠"
-      }
-    },
-    "gamesManage": {
-      "th1": "名称",
-      "th2": "产品",
-      "th3": "品牌",
-      "th4": "Flash",
-      "th5": "Html5",
-      "th6": "App",
-      "th7": "Apk",
-      "th8": "windows",
-      "th9": "Ftp",
-      "th10": "Flash例子",
-      "th11": "Html5例子",
-      "th12": "图片",
-      "th13": "Lines",
-      "th14": "已有Jackpot",
-      "th15": "当前Jackpot",
-      "th16": "禁用",
-      "th17": "折扣",
-      "th18": "Bigwinable",
-      "th19": "种类",
-      "th20": "新的",
-      "th21": "很快上线",
-      "th22": "推荐"
-    },
-    "withdrawsManage": {
-      "th1": "数量",
-      "th2": "银行",
-      "th3": "钱包",
-      "th4": "货币",
-      "th5": "账目 No",
-      "th6": "账目 名称",
-      "th7": "账目 分支",
-      "th8": "状态"
-    },
-    "promotionsManage": {
-      "th1": "标语",
-      "th2": "货币",
-      "th3": "种类",
-      "th4": "标题",
-      "th5": "内容",
-      "th6": "时间",
-      "th7": "状态"
-    },
-    "rebatesList": {
-      "th1": "产品",
-      "th2": "开始",
-      "th3": "截止",
-      "th4": "奖金",
-      "th5": "用户名",
-      "th6": "用户Id",
-      "th7": "隶属Id"
-    },
-    "reliefsList": {
-      "th1": "产品",
-      "th2": "数量",
-      "th3": "相抵",
-      "th4": "比例",
-      "th5": "连续",
-      "th6": "提款",
-      "th7": "隶属",
-      "th8": "用户名",
-      "th9": "状态"
-    },
-    "transfersList": {
-      "th1": "优惠券",
-      "th2": "数量",
-      "th3": "Bonus",
-      "th4": "钱包源",
-      "th5": "钱包目的",
-      "th6": "用户名",
-      "th7": "用户ID",
-      "th8": "隶属",
-      "th9": "结果"
-    }
-  },
-  "panel_tile": {
-    "menu": "菜单",
-    "role": "角色",
-    "admin": "管理员",
-    "buttons": "按钮",
-    "configure": "权限一览"
-  },
-  "alert_confirm": {
-    "success": "成功",
-    "error": "错误",
-    "title": "确认删除?",
-    "text": "删除后可能无法恢复",
-    "cancelButtonText": "取消",
-    "confirmButtonText": "确认删除"
-  },
-  "required_message": "该字段必填",
-  "options": {
-    "all": "全部",
-    "forbid": "禁止",
-    "delete": "删除",
-    "enable": "启用"
-  }
 }
