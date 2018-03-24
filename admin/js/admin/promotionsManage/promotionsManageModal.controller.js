@@ -264,10 +264,10 @@
 
 
         $scope.confirmModal = function () {
-            if($scope.gamesItem.title && $scope.gamesItem.title.length){
+            if($scope.promotionsItem.title && $scope.promotionsItem.title.length){
                 var tempObj1 = {};
                 var sameKey1 = false;
-                $scope.gamesItem.title.map(function(nameItem) {
+                $scope.promotionsItem.title.map(function(nameItem) {
                     if(tempObj1[nameItem.locale]){
                         sameKey1 = true
                     }
@@ -278,10 +278,10 @@
                     return '';
                 }
             }
-            if($scope.gamesItem.content && $scope.gamesItem.content.length){
+            if($scope.promotionsItem.content && $scope.promotionsItem.content.length){
                 var tempObj2 = {};
                 var sameKey2 = false;
-                $scope.gamesItem.content.map(function(nameItem) {
+                $scope.promotionsItem.content.map(function(nameItem) {
                     if(tempObj2[nameItem.locale]){
                         sameKey2 = true
                     }
@@ -293,6 +293,8 @@
                 }
             }
             var tempData = angular.copy($scope.promotionsItem);
+
+            //处理title
             tempData['title'] = tempData['title'].filter(function (item) {
                 return !$scope.validIsNew(item.id);
             });
@@ -310,6 +312,8 @@
                 });
                 tempData.title = angular.copy(tempNameObj1)
             }
+
+            //处理content
             tempData['content'] = tempData['content'].filter(function (item) {
                 return !$scope.validIsNew(item.id);
             });
@@ -340,7 +344,7 @@
                     }
                 });
             } else if (edit) {
-                adminService.patchReq($rootScope.URL.PROMOTIONSMANAGE.PATCH+'/'+promotionsManage.id, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.PROMOTIONSMANAGE.PATCH+'/'+promotionsItem.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
