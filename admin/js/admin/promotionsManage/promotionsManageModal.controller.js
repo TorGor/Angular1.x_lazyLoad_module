@@ -57,26 +57,26 @@
          * @param value value值
          * @param $event 点击事件
          */
-        $scope.selectRank = function(value, $event) {
+        $scope.selectCategories = function(value, $event) {
             if($event.target.checked){
-                if($scope.promotionsItem.ranks.indexOf(value) === -1){
-                    $scope.promotionsItem.ranks.push(value)
+                if($scope.promotionsItem.categories.indexOf(value) === -1){
+                    $scope.promotionsItem.categories.push(value)
                 }
             }else{
-                $scope.promotionsItem.ranks.splice($scope.promotionsItem.ranks.indexOf(value), 1)
+                $scope.promotionsItem.categories.splice($scope.promotionsItem.categories.indexOf(value), 1)
             }
         };
 
         // 过滤出来的数据
-        $scope.showConditionsModal = [];
-        $scope.conditionsModalReload = 1;
-        $scope.conditionsModalAoData = {};
-        $scope.conditionsModalSearch = '';
+        $scope.showTitleModal = [];
+        $scope.titleModalReload = 1;
+        $scope.titleModalAoData = {};
+        $scope.titleModalSearch = '';
 
         // 初始化table数据
-        $scope.initConditionsModalData = function () {
-            $scope.promotionsItem['conditions'].forEach(function (conditionsItem, conditionsIndex) {
-                conditionsItem.id = conditionsIndex + 1;
+        $scope.initTitleModalData = function () {
+            $scope.promotionsItem['title'].forEach(function (titleItem, titleIndex) {
+                titleItem.id = titleIndex + 1;
             })
         };
 
@@ -84,17 +84,17 @@
         // 保存
         /**
          *
-         * @param conditionsModal 渠道名称数据对象
+         * @param titleModal 渠道名称数据对象
          * @param data
          */
 
-        $scope.saveConditionsModal = function (conditionsModal, data) {
-            $scope.promotionsItem['conditions'].forEach(function (conditionsModalItem) {
-                if(conditionsModalItem.id == conditionsModal.id){
-                    window.Object.assign(conditionsModalItem, data);
-                    if($scope.validIsNew(conditionsModalItem.id)){
-                        conditionsModalItem.id = window.parseInt(conditionsModalItem.id, 10)
-                        $scope.conditionsModalReload ++
+        $scope.saveTitleModal = function (titleModal, data) {
+            $scope.promotionsItem['title'].forEach(function (titleModalItem) {
+                if(titleModalItem.id == titleModal.id){
+                    window.Object.assign(titleModalItem, data);
+                    if($scope.validIsNew(titleModalItem.id)){
+                        titleModalItem.id = window.parseInt(titleModalItem.id, 10)
+                        $scope.titleModalReload ++
                     }
                 }
             });
@@ -102,50 +102,49 @@
 
         // 删除rebatesModal
         /**
-         * @param conditionsModal 渠道名称数据对象
+         * @param titleModal 渠道名称数据对象
          * @param index 位置
          * @return null
          */
-        $scope.deleteConditionsModal = function (conditionsModal, index) {
-            $scope.promotionsItem['conditions'].splice(index, 1)
+        $scope.deleteTitleModal = function (titleModal, index) {
+            $scope.promotionsItem['title'].splice(index, 1)
         };
 
         // 添加按钮
-        $scope.addConditionsModal = function () {
-            $scope.conditionsModalAoData = {};
-            $scope.conditionsModalSearch = '';
-            $scope.promotionsItem['conditions'].unshift({
-                'id': ($scope.promotionsItem['conditions'].length+1) + 'null',
-                "type": $scope.conditionsTypeOptions[0] ? $scope.conditionsTypeOptions[0].value : '',
-                "valueType": $scope.conditionsValueTypeOptions[0] ? $scope.conditionsValueTypeOptions[0].value : '',
+        $scope.addTitleModal = function () {
+            $scope.titleModalAoData = {};
+            $scope.titleModalSearch = '';
+            $scope.promotionsItem['title'].unshift({
+                'id': ($scope.promotionsItem['title'].length+1) + 'null',
+                "locale": $scope.localesOptions[0] ? $scope.localesOptions[0].value : '',
                 "value": ''
             });
         };
 
         /**
          *
-         * @param conditionsItem 条件项目
+         * @param titleItem 条件项目
          * @param index 添加的index
          */
 
-        $scope.cancelSaveConditionsModal = function (conditionsItem, index) {
-            if ($scope.validIsNew(conditionsItem.id)) {
-                $scope.promotionsItem.splice(index, 1);
+        $scope.cancelSaveTitleModal = function (titleItem, index) {
+            if ($scope.validIsNew(titleItem.id)) {
+                $scope.promotionsItem['title'].splice(index, 1);
             }
         };
 
 
         // 过滤出来的数据
-        $scope.showTreatmentsModal = [];
-        $scope.treatmentsModalReload = 1;
-        $scope.treatmentsModalAoData = {};
-        $scope.treatmentsModalSearch = '';
+        $scope.showContentModal = [];
+        $scope.contentModalReload = 1;
+        $scope.contentModalAoData = {};
+        $scope.contentModalSearch = '';
 
 
         // 初始化table数据
-        $scope.initTreatmentsModalData = function () {
-            $scope.promotionsItem['treatments'].forEach(function (treatmentsItem, treatmentsIndex) {
-                treatmentsItem.id = treatmentsIndex + 1;
+        $scope.initContentModalData = function () {
+            $scope.promotionsItem['content'].forEach(function (contentItem, contentIndex) {
+                contentItem.id = contentIndex + 1;
             })
         };
 
@@ -153,17 +152,17 @@
         // 保存
         /**
          *
-         * @param treatmentsModal 处理对象数据对象
+         * @param contentModal 处理对象数据对象
          * @param data
          */
 
-        $scope.saveTreatmentsModal = function (treatmentsModal, data) {
-            $scope.promotionsItem['treatments'].forEach(function (treatmentsModalItem) {
-                if(treatmentsModalItem.id == treatmentsModal.id){
-                    window.Object.assign(treatmentsModalItem, data);
-                    if($scope.validIsNew(treatmentsModalItem.id)){
-                        treatmentsModalItem.id = window.parseInt(treatmentsModalItem.id, 10)
-                        $scope.treatmentsModalReload ++
+        $scope.saveContentModal = function (contentModal, data) {
+            $scope.promotionsItem['content'].forEach(function (contentModalItem) {
+                if(contentModalItem.id == contentModal.id){
+                    window.Object.assign(contentModalItem, data);
+                    if($scope.validIsNew(contentModalItem.id)){
+                        contentModalItem.id = window.parseInt(contentModalItem.id, 10)
+                        $scope.contentModalReload ++
                     }
                 }
             });
@@ -171,40 +170,44 @@
 
         // 删除处理对象Modal
         /**
-         * @param treatmentsModal 处理对象
+         * @param contentModal 处理对象
          * @param index 位置
          * @return null
          */
-        $scope.deleteTreatmentsModal = function (treatmentsModal, index) {
-            $scope.promotionsItem['treatments'].splice(index, 1)
+        $scope.deleteContentModal = function (contentModal, index) {
+            $scope.promotionsItem['content'].splice(index, 1)
         };
 
         // 添加按钮
-        $scope.addTreatmentsModal = function () {
-            $scope.treatmentsModalAoData = {};
-            $scope.treatmentsModalSearch = '';
-            $scope.promotionsItem['treatments'].unshift({
-                'id': ($scope.promotionsItem['treatments'].length+1) + 'null',
-                type:$scope.treatmentsTypeOptions[0] && $scope.treatmentsTypeOptions[0].value || '',
-                value:'',
-                maxBonus:''
+        $scope.addContentModal = function () {
+            $scope.contentModalAoData = {};
+            $scope.contentModalSearch = '';
+            $scope.promotionsItem['content'].unshift({
+                'id': ($scope.promotionsItem['content'].length+1) + 'null',
+                "locale": $scope.localesOptions[0] ? $scope.localesOptions[0].value : '',
+                "value": ''
             });
         };
 
         /**
          *
-         * @param treatmentsItem 处理项目
+         * @param contentItem 处理项目
          * @param index 添加的index
          */
 
-        $scope.cancelSaveTreatmentsModal = function (treatmentsItem, index) {
-            if ($scope.validIsNew(treatmentsItem.id)) {
-                $scope.promotionsItem.splice(index, 1);
+        $scope.cancelSaveContentModal = function (contentItem, index) {
+            if ($scope.validIsNew(contentItem.id)) {
+                $scope.promotionsItem['content'].splice(index, 1);
             }
         };
 
         $scope.confirmModal = function () {
+            console.log($scope.promotionsItem,6666)
+            return;
             var tempData = angular.copy($scope.promotionsItem);
+            tempData['title'] = tempData['title'].filter(function (item) {
+                return !$scope.validIsNew(item.id);
+            });
             if(window.Array.isArray(tempData['title'])){
                 tempData['title'].forEach(function(titleItem) {
                     if(titleItem.id){
@@ -212,12 +215,117 @@
                     }
                 })
             }
+            tempData['content'] = tempData['content'].filter(function (item) {
+                return !$scope.validIsNew(item.id);
+            });
             if(window.Array.isArray(tempData['content'])){
                 tempData['content'].forEach(function(contentItem) {
                     if(contentItem.id){
                         delete contentItem.id;
                     }
                 })
+            }
+            if (!edit) {
+                adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('success');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (edit) {
+                adminService.patchReq($rootScope.URL.COUPONSMANAGE.PATCH+'/'+promotionsItem.code, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('success');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initTitleModalData();
+
+        $scope.initContentModalData();
+
+
+        $scope.confirmModal = function () {
+            if($scope.gamesItem.title && $scope.gamesItem.title.length){
+                var tempObj1 = {};
+                var sameKey1 = false;
+                $scope.gamesItem.title.map(function(nameItem) {
+                    if(tempObj1[nameItem.locale]){
+                        sameKey1 = true
+                    }
+                    tempObj1[nameItem.locale] = nameItem.value
+                });
+                if(sameKey1){
+                    $rootScope.alertErrorMsg('you set same local in title table, just remove one');
+                    return '';
+                }
+            }
+            if($scope.gamesItem.content && $scope.gamesItem.content.length){
+                var tempObj2 = {};
+                var sameKey2 = false;
+                $scope.gamesItem.content.map(function(nameItem) {
+                    if(tempObj2[nameItem.locale]){
+                        sameKey2 = true
+                    }
+                    tempObj2[nameItem.locale] = nameItem.value
+                });
+                if(sameKey2){
+                    $rootScope.alertErrorMsg('you set same local in content table, just remove one');
+                    return '';
+                }
+            }
+            var tempData = angular.copy($scope.promotionsItem);
+            tempData['title'] = tempData['title'].filter(function (item) {
+                return !$scope.validIsNew(item.id);
+            });
+            if(window.Array.isArray(tempData['title'])){
+                tempData['title'].forEach(function(titleItem) {
+                    if(titleItem.id){
+                        delete titleItem.id;
+                    }
+                })
+            }
+            if(tempData.title && tempData.title.length){
+                var tempNameObj1 = {};
+                tempData.title.map(function(nameItem) {
+                    tempNameObj1[nameItem.locale] = nameItem.value
+                });
+                tempData.title = angular.copy(tempNameObj1)
+            }
+            tempData['content'] = tempData['content'].filter(function (item) {
+                return !$scope.validIsNew(item.id);
+            });
+            if(window.Array.isArray(tempData['content'])){
+                tempData['content'].forEach(function(contentItem) {
+                    if(contentItem.id){
+                        delete contentItem.id;
+                    }
+                })
+            }
+            if(tempData.content && tempData.content.length){
+                var tempNameObj2 = {};
+                tempData.content.map(function(nameItem) {
+                    tempNameObj2[nameItem.locale] = nameItem.value
+                });
+                tempData.content = angular.copy(tempNameObj2)
             }
             if (!edit) {
                 adminService.postReq($rootScope.URL.PROMOTIONSMANAGE.POST, {}, tempData).then(function (res) {
@@ -252,9 +360,9 @@
 
         // 页面加载执行的函数
 
-        $scope.initConditionsModalData();
+        $scope.initTitleModalData();
 
-        $scope.initTreatmentsModalData();
+        $scope.initContentModalData();
 
         $scope.$watch('timeStart+timeEnd', function (newValue, oldValue) {
             if (newValue !== oldValue) {
