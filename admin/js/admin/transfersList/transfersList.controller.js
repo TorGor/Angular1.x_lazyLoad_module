@@ -16,6 +16,11 @@
         adminService
     ) {
 
+        $scope.search = {
+            sourceWallet: [],
+            destinationWallet: []
+        };
+
         $scope.transfersListUrl = $rootScope.URL.TRANSFERSLIST.GET;
 
         // 原始的数据
@@ -62,6 +67,13 @@
                         delete $scope.transfersListAoData.end_time;
                     }
                 }
+            }
+        });
+
+        $scope.$watch('search.sourceWallet.length+search.destinationWallet.length', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                $scope.transfersListAoData.source_wallet = $scope.search.sourceWallet.join(',')
+                $scope.transfersListAoData.destination_wallet = $scope.search.destinationWallet.join(',')
             }
         });
     }

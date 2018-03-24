@@ -2,20 +2,102 @@
     <div class="panel panel-default">
         <div class="panel-wrapper">
             <div class="panel-body">
-                <span class="form-group add-button-class">
-                    <button
-                        class="btn btn-primary"
-                        ng-click="addWithdrawsManage()"
-                        type="button"
-                        translate="table.button.add"
-                    >
-                        新增
-                    </button>
-                </span>
-                <form class="form-inline pull-right add-button-class" role="form">
-                    <div style="position: relative" class="form-group">
-                        <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                        <input class="form-control" type="text" ng-model="withdrawsManageSearch" placeholder="{{searchPlaceholder(['table.withdrawsManage.th1', 'table.withdrawsManage.th2', 'table.withdrawsManage.th3'])}}">
+                <form class='form-horizontal' role='form'>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <input
+                            class='form-control'
+                            type='text'
+                            ng-model='withdrawsManageAoData.user_id'
+                            placeholder='user id'
+                        >
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <input
+                            class='form-control'
+                            type='text'
+                            ng-model='withdrawsManageAoData.affiliate_id'
+                            placeholder='affiliate id'
+                        >
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <input
+                            class='form-control'
+                            type='text'
+                            ng-model='withdrawsManageAoData.min_amount'
+                            placeholder="{{'min ' + ('table.ordersManage.th1' | translate)}}"
+                        >
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <input
+                            class='form-control'
+                            type='text'
+                            ng-model='withdrawsManageAoData.max_amount'
+                            placeholder="{{'max ' + ('table.ordersManage.th1' | translate)}}"
+                        >
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <input
+                            class='form-control'
+                            type='text'
+                            ng-model='withdrawsManageAoData.statusOptions'
+                            placeholder='result eg. succeed,failed'
+                        >
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <ui-select
+                            ng-model="search.status"
+                            theme="bootstrap"
+                            multiple
+                            close-on-select="false"
+                            search-enabled="false">
+                            <ui-select-match placeholder="{{'choose status'}}">
+                                <span>{{$item.label}}</span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item.value as item in statusOptions">
+                                <span ng-bind="item.label"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <ui-select
+                            ng-model="search.wallet"
+                            theme="bootstrap"
+                            multiple
+                            close-on-select="false"
+                            search-enabled="false">
+                            <ui-select-match placeholder="{{'choose wallet'}}">
+                                <span>{{$item.label}}</span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item.value as item in walletOptions">
+                                <span ng-bind="item.label"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <div
+                            class='input-group date'
+                            datetimepicker
+                            options='{{dateOptionsYYYMMDD}}'
+                            ng-model='searchTimeStart'
+                        >
+                            <input type='text' class='form-control' placeholder='start' />
+                            <span class='input-group-addon' style='background:none'>
+                                <span class='glyphicon glyphicon-calendar'></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <div
+                            class='input-group date'
+                            datetimepicker
+                            options='{{dateOptionsYYYMMDD}}'
+                            ng-model='searchTimeEnd'
+                        >
+                            <input type='text' class='form-control' placeholder='end' />
+                            <span class='input-group-addon' style='background:none'>
+                                <span class='glyphicon glyphicon-calendar'></span>
+                            </span>
+                        </div>
                     </div>
                 </form>
                 <div
@@ -84,17 +166,17 @@
                                             title="{{'table.button.detail' | translate}}">
                                         <em class="fa fa-folder-open-o"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" ng-click="approveWithdrawsManage(item, 'audit')"
+                                    <button class="btn btn-sm btn-info" ng-click="approveWithdrawsManage(item, 'audit')"
                                             title="{{'table.button.edit' | translate}}">
-                                        <em class="fa fa-trash"></em>
+                                        audit
                                     </button>
-                                    <button class="btn btn-sm btn-danger" ng-click="approveWithdrawsManage(item, 'pay')"
+                                    <button class="btn btn-sm btn-info" ng-click="approveWithdrawsManage(item, 'pay')"
                                             title="{{'table.button.edit' | translate}}">
-                                        <em class="fa fa-trash"></em>
+                                        pay
                                     </button>
-                                    <button class="btn btn-sm btn-danger" ng-click="approveWithdrawsManage(item, 'review')"
+                                    <button class="btn btn-sm btn-info" ng-click="approveWithdrawsManage(item, 'review')"
                                             title="{{'table.button.edit' | translate}}">
-                                        <em class="fa fa-trash"></em>
+                                        review
                                     </button>
                                 </div>
                             </td>

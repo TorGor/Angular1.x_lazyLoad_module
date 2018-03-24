@@ -19,9 +19,9 @@
                   <input class='form-control' type='text' ng-model='transfersListAoData.result' placeholder='result eg. succeed,failed'>
                </div>
                <div class='col-lg-3 col-md-6 margin-bottom-10'>
-                  <ui-select ng-model="transfersListAoData.source_wallet" theme="bootstrap" search-enabled="false">
+                  <ui-select ng-model="search.sourceWallet" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
                      <ui-select-match placeholder="{{'source wallet'}}">
-                        <span ng-bind="$select.selected.label"></span>
+                        <span>{{$item.label}}</span>
                      </ui-select-match>
                      <ui-select-choices repeat="item.value as item in walletOptions">
                         <span ng-bind="item.label"></span>
@@ -29,9 +29,9 @@
                   </ui-select>
                </div>
                <div class='col-lg-3 col-md-6 margin-bottom-10'>
-                  <ui-select ng-model="transfersListAoData.destination_wallet" theme="bootstrap" search-enabled="false">
+                  <ui-select ng-model="search.destinationWallet" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
                      <ui-select-match placeholder="{{'destination wallet'}}">
-                        <span ng-bind="$select.selected.label"></span>
+                        <span>{{$item.label}}</span>
                      </ui-select-match>
                      <ui-select-choices repeat="item.value as item in walletOptions">
                         <span ng-bind="item.label"></span>
