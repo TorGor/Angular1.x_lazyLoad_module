@@ -189,11 +189,11 @@
         $scope.booleanOptons = [
             {
                 label: 'Yes',
-                value: 'true'
+                value: true
             },
             {
                 label: 'No',
-                value: 'false'
+                value: false
             }
         ];
 

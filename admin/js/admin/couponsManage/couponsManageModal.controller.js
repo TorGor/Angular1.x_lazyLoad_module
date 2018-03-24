@@ -83,6 +83,12 @@
 
         console.log($scope.couponsItem,1111)
 
+        if($scope.couponsItem.period){
+            $scope.couponsItem.startTime = $scope.couponsItem.period.from || '';
+            $scope.couponsItem.endTime = $scope.couponsItem.period.to || '';
+            delete $scope.couponsItem.period
+        }
+
         $scope.timeStart = $scope.couponsItem.startTime || '';
         $scope.timeEnd = $scope.couponsItem.endTime || '';
 
@@ -295,12 +301,12 @@
         $scope.$watch('timeStart+timeEnd', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 if ($scope.timeStart) {
-                    $scope.couponsItem.startTime = $scope.timeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                    $scope.couponsItem.startTime = $scope.timeStart.format && $scope.timeStart.format('YYYY-MM-DD') + ' 00:00:00';
                 } else {
                     $scope.couponsItem.startTime = '';
                 }
                 if ($scope.timeEnd) {
-                    $scope.couponsItem.endTime = $scope.timeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                    $scope.couponsItem.endTime = $scope.timeEnd.format && $scope.timeEnd.format('YYYY-MM-DD') + ' 23:59:59';
                 } else {
                     $scope.couponsItem.endTime = '';
                 }
