@@ -1,51 +1,146 @@
-<div class="row">
-    <div class="panel panel-default">
-        <div class="panel-wrapper">
-            <div class="panel-body">
+<div class='row'>
+    <div class='panel panel-default'>
+        <div class='panel-wrapper'>
+            <div class='panel-body'>
+                <form class='form-horizontal' role='form'>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <input
+                            class='form-control'
+                            type='text'
+                            ng-model='transfersListAoData.user_id'
+                            placeholder='user id'
+                        >
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <input
+                            class='form-control'
+                            type='text'
+                            ng-model='transfersListAoData.affiliate_id'
+                            placeholder='affiliate id'
+                        >
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <input
+                            class='form-control'
+                            type='text'
+                            ng-model='transfersListAoData.min_amount'
+                            placeholder="{{'min ' + ('table.ordersManage.th1' | translate)}}"
+                        >
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <input
+                            class='form-control'
+                            type='text'
+                            ng-model='transfersListAoData.max_amount'
+                            placeholder="{{'max ' + ('table.ordersManage.th1' | translate)}}"
+                        >
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <input
+                            class='form-control'
+                            type='text'
+                            ng-model='transfersListAoData.result'
+                            placeholder='result eg. succeed,failed'
+                        >
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <ui-select
+                            ng-model="transfersListAoData.source_wallet"
+                            theme="bootstrap"
+                            search-enabled="false">
+                            <ui-select-match placeholder="{{'source wallet'}}">
+                                <span ng-bind="$select.selected.label"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item.value as item in walletOptions">
+                                <span ng-bind="item.label"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <ui-select
+                            ng-model="transfersListAoData.destination_wallet"
+                            theme="bootstrap"
+                            search-enabled="false">
+                            <ui-select-match placeholder="{{'destination wallet'}}">
+                                <span ng-bind="$select.selected.label"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item.value as item in walletOptions">
+                                <span ng-bind="item.label"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <div
+                            class='input-group date'
+                            datetimepicker
+                            options='{{dateOptionsYYYMMDD}}'
+                            ng-model='searchTimeStart'
+                        >
+                            <input type='text' class='form-control' placeholder='start' />
+                            <span class='input-group-addon' style='background:none'>
+                                <span class='glyphicon glyphicon-calendar'></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <div
+                            class='input-group date'
+                            datetimepicker
+                            options='{{dateOptionsYYYMMDD}}'
+                            ng-model='searchTimeEnd'
+                        >
+                            <input type='text' class='form-control' placeholder='end' />
+                            <span class='input-group-addon' style='background:none'>
+                                <span class='glyphicon glyphicon-calendar'></span>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+
                 <div
-                        server-data-table
-                        items="transfersList"
-                        ao-data="transfersListAoData"
-                        reload="transfersListReload"
-                        service-name="adminService"
-                        service-name-attr="getReq"
-                        url="transfersListUrl"
-                        handle-data="false"
+                    server-data-table
+                    items='transfersList'
+                    ao-data='transfersListAoData'
+                    reload='transfersListReload'
+                    service-name='adminService'
+                    service-name-attr='getReq'
+                    url='transfersListUrl'
+                    handle-data='false'
                 >
-                    <table width="100%" class="table table-bordered table-hover bg-white">
+                    <table width='100%' class='table table-bordered table-hover bg-white'>
                         <thead>
-                        <tr class="bg-gray-light text-bold">
-                            <td style="width: 10%">
+                        <tr class='bg-gray-light text-bold'>
+                            <td style='width: 10%'>
                                 {{'table.transfersList.th1' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="transfersListAoData" server-data-table-sort="amount">
+                            <td style='width: 10%' ao-data='transfersListAoData' server-data-table-sort='amount'>
                                 {{'table.transfersList.th2' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style='width: 10%'>
                                 {{'table.transfersList.th3' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style='width: 10%'>
                                 {{'table.transfersList.th4' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style='width: 10%'>
                                 {{'table.transfersList.th5' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style='width: 10%'>
                                 {{'table.transfersList.th6' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style='width: 10%'>
                                 {{'table.transfersList.th7' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style='width: 10%'>
                                 {{'table.transfersList.th8' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style='width: 10%'>
                                 {{'table.transfersList.th9' | translate}}
                             </td>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in transfersList">
+                        <tr ng-repeat='item in transfersList'>
                             <td>
                                 <span>{{item.coupon || ''}}</span>
                             </td>
@@ -74,8 +169,8 @@
                                 <span>{{item.result || ''}}</span>
                             </td>
                         </tr>
-                        <tr ng-show="transfersList.length==0">
-                            <td colspan="9" class="">{{'table.no_date' | translate}}</td>
+                        <tr ng-show='transfersList.length==0'>
+                            <td colspan='9' class=''>{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

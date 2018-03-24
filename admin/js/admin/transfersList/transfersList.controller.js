@@ -28,6 +28,41 @@
             $scope.transfersListReload++;
         };
 
+        $scope.walletOptions = [
+            {
+                label:'MAIN',
+                value:'MAIN'
+            },
+            {
+                label:'FS',
+                value:'FS'
+            },
+            {
+                label:'PT',
+                value:'PT'
+            },
+        ];
+
+
         // 页面加载执行的函数
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.transfersListAoData.start_time = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                } else {
+                    if ($scope.transfersListAoData.start_time) {
+                        delete $scope.transfersListAoData.start_time;
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.transfersListAoData.end_time = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                } else {
+                    if ($scope.transfersListAoData.end_time) {
+                        delete $scope.transfersListAoData.end_time;
+                    }
+                }
+            }
+        });
     }
 })();

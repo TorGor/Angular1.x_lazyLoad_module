@@ -163,23 +163,10 @@
                     "icon": "glyphicon glyphicon-th-large",
                 },
                 {
-                    "text": "救济金列表",
+                    "text": "转账列表",
                     "sref": "admin.transfersList",
                     "icon": "glyphicon glyphicon-th-large",
                 }//new sidebar name will be append here
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             ]
 
         });
