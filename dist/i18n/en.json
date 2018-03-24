@@ -308,11 +308,12 @@
             "th2": "Amount",
             "th3": "Balance",
             "th4": "Rate",
-            "th5": "Consecutive",
-            "th6": "Withdraw",
-            "th7": "Affiliate",
-            "th8": "Username",
-            "th9": "Status"
+            "th5": "Deposit",
+            "th6": "Consecutive",
+            "th7": "Withdraw",
+            "th8": "Affiliate",
+            "th9": "Username",
+            "th10": "Status"
         },
         "transfersList": {
             "th1": "Coupon",

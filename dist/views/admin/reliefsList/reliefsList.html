@@ -7,7 +7,7 @@
                   <span style="position: absolute;left: 4px;top: 6px">
                      <em class="fa fa-search"></em>
                   </span>
-                  <input class="form-control" type="text" ng-model="reliefsListSearch" placeholder="{{searchPlaceholder(['table.reliefsList.th1', 'table.reliefsList.th2', 'table.reliefsList.th3'])}}">
+                  <input class="form-control" type="text" ng-model="reliefsListSearch" placeholder="{{' search all'}}">
                </div>
             </form>
             <div web-data-table items="reliefsList" ao-data="reliefsListAoData" search="reliefsListSearch" reload="reliefsListReload" show-items="showReliefsList">
@@ -38,8 +38,11 @@
                         <td style="width: 10%">
                            {{'table.reliefsList.th8' | translate}}
                         </td>
-                        <td style="width: 10%" ao-data="reliefsListAoData" web-data-table-sort="status">
+                        <td style="width: 10%">
                            {{'table.reliefsList.th9' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="reliefsListAoData" web-data-table-sort="status">
+                           {{'table.reliefsList.th10' | translate}}
                         </td>
                      </tr>
                   </thead>
@@ -49,22 +52,22 @@
                            <span>{{item.product || ''}}</span>
                         </td>
                         <td>
-                           <span>{{item.amount || ''}}</span>
+                           <span>{{item.amount}}</span>
                         </td>
                         <td>
-                           <span>{{item.details.balance || ''}}</span>
+                           <span>{{item.details.balance }}</span>
                         </td>
                         <td>
-                           <span>{{item.details.rate || ''}}</span>
+                           <span>{{item.details.rate}}</span>
                         </td>
                         <td>
-                           <span>{{item.details.deposit || ''}}</span>
+                           <span>{{item.details.deposit}}</span>
                         </td>
                         <td>
-                           <span>{{item.details.consecutive || ''}}</span>
+                           <span>{{item.details.consecutive}}</span>
                         </td>
                         <td>
-                           <span>{{item.details.withdraw || ''}}</span>
+                           <span>{{item.details.withdraw}}</span>
                         </td>
                         <td>
                            <span>{{item.user.affiliate || ''}}</span>
