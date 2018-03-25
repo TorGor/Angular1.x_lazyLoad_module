@@ -95,8 +95,6 @@
                 GET:'/rest/games',
                 POST:'/rest/games',
                 PATCH:'/rest/games',
-                PUT:'/rest/games',
-                DELETE:'/rest/games'
             },
             GAMESPRODUCTS:{
                 GET:'/rest/products',

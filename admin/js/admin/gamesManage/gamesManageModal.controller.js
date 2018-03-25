@@ -11,6 +11,7 @@
         'adminService',
         'gamesItem',
         'edit',
+        'hasPower',
         '$translate'
     ];
 
@@ -21,12 +22,13 @@
         adminService,
         gamesItem,
         edit,
+        hasPower,
         $translate
     ) {
 
         $scope.edit = edit;
 
-        console.log(gamesItem,66666777777)
+        $scope.hasPower = hasPower;
 
         if(edit){
             $scope.gamesItem = angular.copy(gamesItem)

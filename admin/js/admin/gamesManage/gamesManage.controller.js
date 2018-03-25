@@ -188,6 +188,7 @@
                 resolve:{
                     gamesItem:game,
                     edit:true,
+                    hasPower:$scope.hasPower
                 }
             });
             modalInstance.result.then(function(data) {
@@ -232,6 +233,7 @@
                 resolve:{
                     gamesItem:false,
                     edit:false,
+                    hasPower:$scope.hasPower
                 }
             });
             modalInstance.result.then(function(data) {
@@ -254,12 +256,17 @@
 
         // 页面加载执行的函数
 
-        $scope.initProductManageData();
+        $scope.hasPower = $scope.validPower("GAMESMANAGE", ["PATCH", "POST"]);
 
-        $scope.initBrandOptionsData();
+        if($scope.hasPower){
 
-        $scope.initCategoriesManageData();
+            $scope.initProductManageData();
 
-        $scope.initLocalesOptionsData();
+            $scope.initBrandOptionsData();
+
+            $scope.initCategoriesManageData();
+
+            $scope.initLocalesOptionsData();
+        }
     }
 })();

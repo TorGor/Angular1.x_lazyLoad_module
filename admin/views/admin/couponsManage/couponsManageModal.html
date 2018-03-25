@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">{{edit?'修改':'添加' +'优惠券'}}</h3>
+    <h3 class="modal-title">{{(edit?'修改':'添加') +'优惠券'}}</h3>
 </div>
 
 <div class="modal-body">
@@ -543,7 +543,8 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+    <button class="btn btn-primary" type="button" ng-show='hasPower' ng-click="confirmModal()">{{'table.button.save' |
+                                                                             translate}}</button>
     <button
         class="btn btn-default" type="button" ng-click="cancelModal()"
     >{{'table.button.cancel' | translate}}</button>

@@ -4,6 +4,7 @@
             <div class="panel-body">
                 <span class="form-group add-button-class">
                     <button
+                        ng-show='validPower("GAMESMANAGE", ["POST"])'
                         class="btn btn-primary"
                         ng-click="addGamesManage()"
                         type="button"
@@ -13,7 +14,7 @@
                     </button>
                 </span>
                 <form class="form-inline pull-right add-button-class" role="form">
-                    <div style="position: relative" class="form-group">
+                    <div style="position: relative" class="form-group margin-bottom-10" >
                         <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
                         <input class="form-control" type="text" ng-model="gamesManageSearch" placeholder="{{searchPlaceholder(['table.gamesManage.th1', 'table.gamesManage.th2', 'table.gamesManage.th3'])}}">
                     </div>
@@ -97,7 +98,8 @@
                             <!--<td style="width: 4%">-->
                                 <!--{{'table.gamesManage.th22' | translate}}-->
                             <!--</td>-->
-                            <td style="width: 4%">{{'table.button.operation' | translate}}</td>
+                            <td style="width: 4%" ng-show='validPower("GAMESMANAGE", ["PATCH"])'>{{'table.button.operation' |
+                                                                                             translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -178,9 +180,9 @@
                                     <!--{{showOptionsValue(item.isRecommend,booleanOptons)}}-->
                                 <!--</span>-->
                             <!--</td>-->
-                            <td style="white-space: nowrap;">
+                            <td style="white-space: nowrap;" ng-show='validPower("GAMESMANAGE", ["PATCH"])'>
                                 <div class="buttons">
-                                    <button class="btn btn-sm btn-info" ng-click="editGamesManage(item)"
+                                    <button class="btn btn-sm btn-info" ng-show='validPower("GAMESMANAGE", ["PATCH"])' ng-click="editGamesManage(item)"
                                             title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
                                     </button>
@@ -188,7 +190,8 @@
                             </td>
                         </tr>
                         <tr ng-show="gamesManage.length==0">
-                            <td colspan="14" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan='{{validPower("GAMESMANAGE", ["PATCH"])?10:9}}'
+                                                               class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>
