@@ -52,7 +52,7 @@
             if(typeof str === 'string'){
                 return str;
             }
-            return '';
+            return str || '';
         };
 
 
@@ -66,13 +66,40 @@
             if (typeof param === 'string') {
                 return $translate.instant(param);
             }
-            return '';
+            return ' search all';
         };
 
         // 判断是否是一个新添加的
         $scope.validIsNew = function (str) {
             if (str && str.toString().indexOf('null') !== -1) {
                 return true;
+            }
+            return false;
+        };
+
+        /**
+         *  检测是否有权限
+         * @param module 模块名称
+         * @param arr arr或str GET,POST,DELETE
+         * @returns {boolean}
+         */
+        $scope.validPower = function (module, arr) {
+            var result = false;
+            if(typeof arr == 'string'){
+                if($rootScope[module] && $rootScope[module][arr]){
+                    return true;
+                }
+            }
+            if (window.Array.isArray(arr)) {
+                if(!$rootScope[module]){
+                    return false;
+                }
+                arr.forEach(function(item) {
+                    if($rootScope[module][item]){
+                        result = true;
+                    }
+                })
+                return result;
             }
             return false;
         };
