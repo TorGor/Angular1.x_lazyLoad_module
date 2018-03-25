@@ -5,7 +5,7 @@
             <div class="row" style="margin-bottom: 10px">
                <div class="col-xs-12">
                   <span class="form-group add-button-class">
-                     <button class="btn btn-primary" ng-click="addBlackLists()" type="button" translate="table.button.add">
+                     <button ng-show='validPower("BLACKLISTS", ["POST"])' class="btn btn-primary" ng-click="addBlackLists()" type="button" translate="table.button.add">
                         新增
                      </button>
                   </span>
@@ -64,16 +64,16 @@
                         <td style="width: 10%" ao-data="blackListsAoData" server-data-table-sort="is_deleted">
                            {{'table.blackLists.th4' | translate}}
                         </td>
-                        <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                        <td style="width: 17%" ng-show='validPower("BLACKLISTS", ["PATCH", "PUT", "DELETE"])'>{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
                      <tr ng-repeat="item in blackLists">
                         <td>
-                           <span editable-text="item.accountNumber" e-name="accountNumber" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.accountNumber || '' }}</span>
+                           <span editable-text="item.accountNumber" e-name="accountNumber" e-formclass="xeditable-md" onbeforesave="validReg('^[0-9]{9,19}$', $data, '9-19 number')" e-form="rowform" e-required="">{{ item.accountNumber || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.comment" e-name="comment" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.comment || '' }}</span>
+                           <span editable-text="item.comment" e-name="comment" e-formclass="xeditable-md" e-placeholder='max 191 char' onbeforesave="validReg('^.{1,191}$', $data, 'max 191 char')" e-form="rowform" e-required="">{{ item.comment || '' }}</span>
                         </td>
                         <td>
                            <span editable-select="item.type" e-name="type" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in typeOptions">
@@ -83,7 +83,7 @@
                         <td>
                            <span>{{item.isDeleted ? 'yes' : 'no'}}</span>
                         </td>
-                        <td style="white-space: nowrap;">
+                        <td style="white-space: nowrap;" ng-show='validPower("BLACKLISTS", ["PATCH", "PUT", "DELETE"])'>
                            <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveBlackLists(item, $data)" ng-show="rowform.$visible" shown="item.id == true">
                               <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                  <em class="fa fa-save"></em>
@@ -93,20 +93,20 @@
                               </button>
                            </form>
                            <div class="buttons" ng-show="!rowform.$visible">
-                              <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                              <button class="btn btn-sm btn-info" ng-show="validPower('BLACKLISTS', ['PUT'])" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
                                  <em class="fa fa-pencil"></em>
                               </button>
-                              <button class="btn btn-sm btn-danger" ng-show="!item.isDeleted" ng-click="deleteBlackLists(item)" title="{{'table.button.delete' | translate}}">
+                              <button class="btn btn-sm btn-danger" ng-show="!item.isDeleted&&validPower('BLACKLISTS', ['PATCH'])" ng-click="deleteBlackLists(item)" title="{{'table.button.delete' | translate}}">
                                  <em class="fa fa-trash"></em>
                               </button>
-                              <button class="btn btn-sm btn-green" ng-show="item.isDeleted" ng-click="recoverBlackLists(item)" title="{{'table.button.recover' | translate}}">
+                              <button class="btn btn-sm btn-green" ng-show="item.isDeleted&&validPower('BLACKLISTS', ['PUT'])" ng-click="recoverBlackLists(item)" title="{{'table.button.recover' | translate}}">
                                  <em class="fa fa-rotate-left"></em>
                               </button>
                            </div>
                         </td>
                      </tr>
                      <tr ng-show="blackLists.length==0">
-                        <td colspan="5" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan='{{validPower("BLACKLISTS", ["PATCH", "PUT", "DELETE"])?5:4}}' class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>
