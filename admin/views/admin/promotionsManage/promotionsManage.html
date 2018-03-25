@@ -4,6 +4,7 @@
             <div class="panel-body">
                 <span class="form-group add-button-class">
                     <button
+                        ng-show='validPower("PROMOTIONSMANAGE", ["POST"])'
                         class="btn btn-primary"
                         ng-click="addPromotionsManage()"
                         type="button"
@@ -46,7 +47,9 @@
                             <td style="width: 16%">
                                 {{'table.promotionsManage.th7' | translate}}
                             </td>
-                            <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                            <td style="width: 17%"
+                                ng-show='validPower("PROMOTIONSMANAGE", ["PATCH"])'>{{'table.button.operation' |
+                                                                                 translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -72,9 +75,9 @@
                             <td>
                                 <span>{{item.status}}</span>
                             </td>
-                            <td style="white-space: nowrap;">
+                            <td style="white-space: nowrap;" ng-show='validPower("PROMOTIONSMANAGE", ["PATCH"])'>
                                 <div class="buttons">
-                                    <button class="btn btn-sm btn-info" ng-click="editPromotionsManage(item)"
+                                    <button class="btn btn-sm btn-info" ng-show='validPower("PROMOTIONSMANAGE", ["PATCH"])' ng-click="editPromotionsManage(item)"
                                             title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
                                     </button>
@@ -82,7 +85,9 @@
                             </td>
                         </tr>
                         <tr ng-show="promotionsManage.length==0">
-                            <td colspan="5" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan='{{validPower("PROMOTIONSMANAGE", ["PATCH"])?5:4}}'
+                                class="">{{'table.no_date' |
+                                                                                                 translate}}</td>
                         </tr>
                         </tbody>
                     </table>

@@ -11,6 +11,7 @@
         'adminService',
         'promotionsItem',
         'edit',
+        'hasPower',
         '$translate'
     ];
 
@@ -21,8 +22,11 @@
         adminService,
         promotionsItem,
         edit,
+        hasPower,
         $translate
     ) {
+
+        $scope.hasPower = hasPower;
 
         $scope.edit = edit;
 

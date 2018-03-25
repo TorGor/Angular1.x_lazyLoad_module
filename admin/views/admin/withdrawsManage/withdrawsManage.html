@@ -172,15 +172,17 @@
                                             title="{{'table.button.detail' | translate}}">
                                         <em class="fa fa-folder-open-o"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-info" ng-click="approveWithdrawsManage(item, 'audit')"
+                                    <button ng-show='validPower("WITHDRAWSMANAGE", ["GETAUDIT"])' class="btn btn-sm btn-info"
+                                             ng-click="approveWithdrawsManage(item, 'audit')"
                                             title="{{'table.button.edit' | translate}}">
                                         audit
                                     </button>
-                                    <button class="btn btn-sm btn-info" ng-click="approveWithdrawsManage(item, 'pay')"
+                                    <button ng-show='validPower("WITHDRAWSMANAGE", ["GETPAY"])' class="btn btn-sm btn-info" ng-click="approveWithdrawsManage(item, 'pay')"
                                             title="{{'table.button.edit' | translate}}">
                                         pay
                                     </button>
-                                    <button class="btn btn-sm btn-info" ng-click="approveWithdrawsManage(item, 'review')"
+                                    <button ng-show='validPower("WITHDRAWSMANAGE", ["GETREVIEW"])' class="btn btn-sm btn-info"
+                                             ng-click="approveWithdrawsManage(item, 'review')"
                                             title="{{'table.button.edit' | translate}}">
                                         review
                                     </button>

@@ -9,15 +9,15 @@
             <div class="panel-body">
                <form class="form-horizontal">
                   <div class="form-group col-lg-6 col-md-12">
-                     <label class="col-lg-4 col-md-6 control-label">编码</label>
+                     <label class="col-lg-4 col-md-6 control-label">标语</label>
                      <div class="col-lg-8 col-md-6">
-                        <input ng-model="promotionsItem.banner" class="form-control" type="text" placeholder="promotion banner eg. *.jpg, *.png, *.jpeg">
+                        <input ng-model="promotionsItem.banner" ng-disabled='!hasPower' class="form-control" type="text" placeholder="promotion banner eg. *.jpg, *.png, *.jpeg">
                      </div>
                   </div>
                   <div class="form-group col-lg-6 col-md-12">
                      <label class="col-lg-4 col-md-6 control-label">货币</label>
                      <div class="col-lg-8 col-md-6">
-                        <ui-select ng-model="promotionsItem.currency" theme="bootstrap" search-enabled="false">
+                        <ui-select ng-model="promotionsItem.currency" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
                            <ui-select-match placeholder="choose currency">
                               <span ng-bind="$select.selected.label"></span>
                            </ui-select-match>
@@ -31,7 +31,7 @@
                   <div class="form-group col-lg-6 col-md-12">
                      <label class="col-lg-4 col-md-6 control-label">品牌</label>
                      <div class="col-lg-8 col-md-6">
-                        <ui-select ng-model="promotionsItem.brand" theme="bootstrap" search-enabled="false">
+                        <ui-select ng-model="promotionsItem.brand" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
                            <ui-select-match placeholder="choose brand">
                               <span ng-bind="$select.selected.label"></span>
                            </ui-select-match>
@@ -46,7 +46,7 @@
                      <label class="col-lg-4 col-md-6 control-label">开始</label>
                      <div class="col-lg-8 col-md-6">
                         <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="timeStart">
-                           <input type="text" class="form-control" placeholder="start" />
+                           <input ng-disabled='!hasPower' type="text" class="form-control" placeholder="start" />
                            <span class="input-group-addon" style="background:none">
                               <span class="glyphicon glyphicon-calendar"></span>
                            </span>
@@ -57,7 +57,7 @@
                      <label class="col-lg-4 col-md-6 control-label">结束</label>
                      <div class="col-lg-8 col-md-6">
                         <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="timeEnd">
-                           <input type="text" class="form-control" placeholder="start" />
+                           <input ng-disabled='!hasPower' type="text" class="form-control" placeholder="start" />
                            <span class="input-group-addon" style="background:none">
                               <span class="glyphicon glyphicon-calendar"></span>
                            </span>
@@ -70,7 +70,7 @@
                      <div class="col-lg-6 col-xs-12" ng-repeat="categories in categoriesOptions">
                         <div class="checkbox c-checkbox needsclick">
                            <label class="needsclick">
-                              <input class="needsclick" ng-click="selectCategories(categories.value, $event)" ng-checked="promotionsItem.categories.indexOf(categories.value) !== -1" type="checkbox" ng-value="categories.value">
+                              <input class="needsclick" ng-disabled='!hasPower' ng-click="selectCategories(categories.value, $event)" ng-checked="promotionsItem.categories.indexOf(categories.value) !== -1" type="checkbox" ng-value="categories.value">
                               <span class="fa fa-check"></span>{{categories.label}}</label>
                         </div>
                      </div>
@@ -80,7 +80,7 @@
                   <form></form>
                   <div class="">
                      <span class="form-group add-button-class">
-                        <button class="btn btn-primary" ng-click="addTitleModal()" type="button" translate="table.button.add">
+                        <button ng-show='hasPower' class="btn btn-primary" ng-click="addTitleModal()" type="button" translate="table.button.add">
                         </button>
                      </span>
                      <form class="form-inline pull-right add-button-class" role="form">
@@ -101,7 +101,7 @@
                                  <td style='width: 50%' ao-data='titleModalReload' web-data-table-sort='value'>
                                     {{'table.paymentMethods.name.th2' | translate}}
                                  </td>
-                                 <td style="width: 15%">{{'table.button.operation' | translate}}</td>
+                                 <td style="width: 15%" ng-show='hasPower'>{{'table.button.operation' | translate}}</td>
                               </tr>
                            </thead>
                            <tbody>
@@ -114,7 +114,7 @@
                                  <td>
                                     <span editable-text='item.value' e-name='value' e-formclass='xeditable-lg' onbeforesave='checkRequiredData($data)' e-form='rowform2' e-required=''>{{ item.value || '' }}</span>
                                  </td>
-                                 <td style="white-space: nowrap;">
+                                 <td style="white-space: nowrap;" ng-show='hasPower'>
                                     <form class="form-buttons form-inline" editable-form name="rowform2" onaftersave="saveTitleModal(item, $data)" ng-show="rowform2.$visible" shown="validIsNew(item.id)">
                                        <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform2.$waiting" title="{{'table.button.save' | translate}}">
                                           <em class="fa fa-save"></em>
@@ -134,7 +134,7 @@
                                  </td>
                               </tr>
                               <tr ng-show="showTitleModal.length==0">
-                                 <td colspan="3" class="">{{'table.no_date' | translate}}</td>
+                                 <td colspan="{{hasPower?3:2}}" class="">{{'table.no_date' | translate}}</td>
                               </tr>
                            </tbody>
                         </table>
@@ -144,7 +144,7 @@
                   <legend class="text-center">内容</legend>
                   <div class="">
                      <span class="form-group add-button-class">
-                        <button class="btn btn-primary" ng-click="addContentModal()" type="button" translate="table.button.add">
+                        <button ng-show='hasPower' class="btn btn-primary" ng-click="addContentModal()" type="button" translate="table.button.add">
                            新增
                         </button>
                      </span>
@@ -166,7 +166,7 @@
                                  <td style='width: 50%' ao-data='contentModalAoData' web-data-table-sort='value'>
                                     {{'table.paymentMethods.name.th2' | translate}}
                                  </td>
-                                 <td style="width: 15%">{{'table.button.operation' | translate}}</td>
+                                 <td style="width: 15%" ng-show='hasPower'>{{'table.button.operation' | translate}}</td>
                               </tr>
                            </thead>
                            <tbody>
@@ -179,7 +179,7 @@
                                  <td>
                                     <span editable-text='item.value' e-name='value' e-formclass='xeditable-lg' onbeforesave='checkRequiredData($data)' e-form='rowform' e-required=''>{{ item.value || '' }}</span>
                                  </td>
-                                 <td style="white-space: nowrap;">
+                                 <td style="white-space: nowrap;" ng-show='hasPower'>
                                     <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveContentModal(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
                                        <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                           <em class="fa fa-save"></em>
@@ -199,7 +199,7 @@
                                  </td>
                               </tr>
                               <tr ng-show="showContentModal.length==0">
-                                 <td colspan="3" class="">{{'table.no_date' | translate}}</td>
+                                 <td colspan="{{hasPower?3:2}}" class="">{{'table.no_date' | translate}}</td>
                               </tr>
                            </tbody>
                         </table>
@@ -214,6 +214,7 @@
 </div>
 
 <div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+   <button class="btn btn-primary" ng-show='hasPower' type="button" ng-click="confirmModal()">{{'table.button.save' | translate}}
+   </button>
    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
 </div>

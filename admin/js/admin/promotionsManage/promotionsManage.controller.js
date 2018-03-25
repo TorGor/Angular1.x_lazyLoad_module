@@ -163,6 +163,7 @@
                             resolve: {
                                 promotionsItem: res.data.data,
                                 edit: true,
+                                hasPower:$scope.hasPower
                             }
                         });
                         modalInstance.result.then(function(data) {
@@ -189,6 +190,7 @@
                 resolve: {
                     promotionsItem: false,
                     edit: false,
+                    hasPower:$scope.hasPower
                 }
             });
             modalInstance.result.then(function(data) {
@@ -197,12 +199,17 @@
             });
         };
 
+        $scope.hasPower = $scope.validPower("PROMOTIONSMANAGE", ["POST","PATCH"]);
+
         // 页面加载执行的函数
 
         $scope.initCurrenciesManageData();
 
-        $scope.initBrandOptionsData();
+        if($scope.hasPower){
 
-        $scope.initLocalesOptionsData()
+            $scope.initBrandOptionsData();
+
+            $scope.initLocalesOptionsData()
+        }
     }
 })();
