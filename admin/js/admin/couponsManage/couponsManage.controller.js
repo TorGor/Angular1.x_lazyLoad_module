@@ -234,6 +234,7 @@
                 resolve:{
                     couponsItem:couponsManage,
                     edit:true,
+                    hasPower:$scope.hasPower
                 }
             });
             modalInstance.result.then(function(data) {
@@ -301,6 +302,7 @@
                 resolve:{
                     couponsItem:false,
                     edit:false,
+                    hasPower:$scope.hasPower
                 }
             });
             modalInstance.result.then(function(data) {
@@ -321,16 +323,21 @@
             }
         };
 
+        $scope.hasPower = $scope.validPower("COUPONSMANAGE", ["PATCH", "PUT"])
+
         // 页面加载执行的函数
 
         $scope.initCouponsManageData();
 
-        $scope.initCurrenciesManageData();
+        if($scope.hasPower){
 
-        $scope.initProductManageData();
+            $scope.initCurrenciesManageData();
 
-        $scope.initBrandOptionsData();
+            $scope.initProductManageData();
 
-        $scope.initRanksOptionsData();
+            $scope.initBrandOptionsData();
+
+            $scope.initRanksOptionsData();
+        }
     }
 })();

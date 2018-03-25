@@ -3,15 +3,15 @@
       <div class="panel-wrapper">
          <div class="panel-body">
             <span class="form-group add-button-class">
-               <button class="btn btn-primary" ng-click="addCouponsManage()" type="button" translate="table.button.add">
+               <button ng-show='validPower("COUPONSMANAGE", ["POST"])' class="btn btn-primary" ng-click="addCouponsManage()" type="button" translate="table.button.add">
                   新增
                </button>
             </span>
             <form style="width: 450px" class="form-horizontal pull-right" role="form">
-               <div class="col-lg-6 col-md-6">
+               <div class="col-lg-6 col-md-6 margin-bottom-10">
                   <input class="form-control" type="text" ng-model="couponsManageAoData.code" placeholder="code">
                </div>
-               <div class="col-lg-6 col-md-6">
+               <div class="col-lg-6 col-md-6 margin-bottom-10">
                   <ui-select ng-model="couponsManageAoData.currency" theme="bootstrap" search-enabled="false">
                      <ui-select-match placeholder="{{'currency'}}">
                         <span ng-bind="$select.selected.label"></span>
@@ -62,7 +62,7 @@
                         <!--<td style="width: 8%">-->
                         <!--{{'table.couponsManage.th12' | translate}}-->
                         <!--</td>-->
-                        <td style="width: 10%">{{'table.button.operation' | translate}}</td>
+                        <td style="width: 10%" ng-show='validPower("COUPONSMANAGE", ["PATCH", "PUT", "DELETE"])'>{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
@@ -103,22 +103,22 @@
                         <!--<td>-->
                         <!--<span>{{item.isDeleted ? 'Yes' : 'No'}}</span>-->
                         <!--</td>-->
-                        <td style="white-space: nowrap;">
+                        <td style="white-space: nowrap;" ng-show='validPower("COUPONSMANAGE", ["PATCH", "PUT", "DELETE"])'>
                            <div class="buttons">
-                              <button class="btn btn-sm btn-info" ng-click="editCouponsManage(item)" title="{{'table.button.edit' | translate}}">
+                              <button class="btn btn-sm btn-info" ng-show="validPower('COUPONSMANAGE', ['PATCH'])" ng-click="editCouponsManage(item)" title="{{'table.button.edit' | translate}}">
                                  <em class="fa fa-pencil"></em>
                               </button>
-                              <button class="btn btn-sm btn-danger" ng-show="!item.isDeleted" ng-click="deleteCouponsManage(item)" title="{{'table.button.delete' | translate}}">
+                              <button class="btn btn-sm btn-danger" ng-show="!item.isDeleted&&validPower('COUPONSMANAGE', ['DELETE'])" ng-click="deleteCouponsManage(item)" title="{{'table.button.delete' | translate}}">
                                  <em class="fa fa-trash"></em>
                               </button>
-                              <button class="btn btn-sm btn-green" ng-show="item.isDeleted" ng-click="recoverCouponsManage(item)" title="{{'table.button.recover' | translate}}">
+                              <button class="btn btn-sm btn-green" ng-show="item.isDeleted&&validPower('COUPONSMANAGE', ['PUT'])" ng-click="recoverCouponsManage(item)" title="{{'table.button.recover' | translate}}">
                                  <em class="fa fa-rotate-left"></em>
                               </button>
                            </div>
                         </td>
                      </tr>
                      <tr ng-show="couponsManage.length==0">
-                        <td colspan="12" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan='{{validPower("COUPONSMANAGE", ["PATCH", "PUT", "DELETE"])?12:11}}' class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

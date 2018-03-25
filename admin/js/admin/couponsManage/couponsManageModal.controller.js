@@ -11,6 +11,7 @@
         'adminService',
         'couponsItem',
         'edit',
+        'hasPower',
         '$translate'
     ];
 
@@ -21,10 +22,13 @@
         adminService,
         couponsItem,
         edit,
+        hasPower,
         $translate
     ) {
 
         $scope.edit = edit;
+
+        $scope.hasPower = hasPower;
 
         if(edit){
             $scope.couponsItem = angular.copy(couponsItem)
