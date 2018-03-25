@@ -42,8 +42,7 @@
                 GET:'/rest/currencies',
                 POST:'/rest/currencies',
                 PATCH:'/rest/currencies',
-                DELETE:'/rest/currencies',
-                PUT:'/rest/currencies/restore'
+                DELETE:'/rest/currencies'
             },
             BLACKLISTS:{
                 GET:'/rest/blacklists',

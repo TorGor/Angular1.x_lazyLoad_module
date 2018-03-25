@@ -4,6 +4,7 @@
             <div class="panel-body">
                 <span class="form-group add-button-class">
                     <button
+                        ng-show='validPower("CURRENCIESMANAGE", ["POST", "PATCH", "PUT", "DELETE"])'
                         class="btn btn-primary"
                         ng-click="addCurrenciesManage()"
                         type="button"
@@ -44,22 +45,29 @@
                             <td style="width: 10%" ao-data="currenciesManageAoData" web-data-table-sort="support">
                                 {{'table.currenciesManage.th5' | translate}}
                             </td>
-                            <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                            <td style="width: 17%"
+                                ng-show='validPower("CURRENCIESMANAGE", ["PATCH", "DELETE"])'>{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in showCurrenciesManage">
                             <td>
                                 <span editable-text="item.code" e-name="code" e-formclass="xeditable-sm"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
+                                      e-placeholder='XXX'
+                                      onbeforesave="validReg('[A-Z]{3}', $data, 'eg. XXX')" e-form="rowform"
+                                      e-required="">{{ item.code || '' }}</span>
                             </td>
                             <td>
                                 <span editable-text="item.name" e-name="name" e-formclass="xeditable-lg"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
+                                      e-placeholder='max 100 char'
+                                      onbeforesave="validReg('^.{1,100}$', $data, 'max 100 char')" e-form="rowform"
+                                      e-required="">{{ item.name || '' }}</span>
                             </td>
                             <td>
                                 <span editable-text="item.symbol" e-name="symbol" e-formclass="xeditable-sm"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.symbol || '' }}</span>
+                                      e-placeholder='max 5 char'
+                                      onbeforesave="validReg('^.{1,5}$', $data, 'max 5 char')" e-form="rowform"
+                                      e-required="">{{ item.symbol || '' }}</span>
                             </td>
                             <td>
                                 <span editable-select="item.symbolAfter" e-name="symbolAfter"  e-form="rowform" e-required=""  e-ng-options="option.value as option.label for option in options">
@@ -71,7 +79,7 @@
                                     {{ item.supported == 1 ? ('table.localeLanguage.th3ShowTrue' | translate):('table.localeLanguage.th3ShowFalse' | translate) }}
                                 </span>
                             </td>
-                            <td style="white-space: nowrap;">
+                            <td style="white-space: nowrap;" ng-show='validPower("CURRENCIESMANAGE", ["PATCH", "DELETE"])'>
                                 <form class="form-buttons form-inline" editable-form name="rowform"
                                       onaftersave="saveCurrenciesManage(item, $data)" ng-show="rowform.$visible"
                                       shown="item.id == null">
@@ -86,11 +94,11 @@
                                     </button>
                                 </form>
                                 <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-info" ng-click="rowform.$show()"
+                                    <button class="btn btn-sm btn-info" ng-show='validPower("CURRENCIESMANAGE", ["PATCH"])' ng-click="rowform.$show()"
                                             title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" ng-click="deleteCurrenciesManage(item)"
+                                    <button class="btn btn-sm btn-danger" ng-show='validPower("CURRENCIESMANAGE", ["DELETE"])' ng-click="deleteCurrenciesManage(item)"
                                             title="{{'table.button.delete' | translate}}">
                                         <em class="fa fa-trash"></em>
                                     </button>
@@ -98,7 +106,8 @@
                             </td>
                         </tr>
                         <tr ng-show="showCurrenciesManage.length==0">
-                            <td colspan="6" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan='{{validPower("CURRENCIESMANAGE", ["PATCH", "DELETE"])?6:5}}'
+                                class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

@@ -117,14 +117,14 @@
 (function() {
 
     angular
-        .module('admin.pspsManage', [
+        .module('admin.promotionsManage', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.promotionsManage', [
+        .module('admin.pspsManage', [
             'app.core',
         ]);
 })();
@@ -159,14 +159,14 @@
 (function() {
 
     angular
-        .module('admin.withdrawsManage', [
+        .module('admin.userLevel', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.userLevel', [
+        .module('admin.withdrawsManage', [
             'app.core',
         ]);
 })();
@@ -220,8 +220,7 @@
                 GET:'/rest/currencies',
                 POST:'/rest/currencies',
                 PATCH:'/rest/currencies',
-                DELETE:'/rest/currencies',
-                PUT:'/rest/currencies/restore'
+                DELETE:'/rest/currencies'
             },
             BLACKLISTS:{
                 GET:'/rest/blacklists',
@@ -4417,389 +4416,6 @@
 (function() {
 
     angular
-        .module('admin.pspsManage')
-        .controller('PspsManageController', PspsManageController);
-
-    PspsManageController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModal',
-        'adminService'
-    ];
-
-    function PspsManageController(
-        $scope,
-        $rootScope,
-        $uibModal,
-        adminService
-    ) {
-
-        $scope.methodsOptions = [];
-
-        $scope.initMethodsOptions = function() {
-            $scope.methodsOptions = [];
-            adminService.getReq($rootScope.URL.PAYMENTMETHODS.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.paymentMethods = angular.copy(res.data.data);
-                        $scope.paymentMethods.forEach(function (paymentMethodsItem, paymentMethodsIndex) {
-                            if(!paymentMethodsItem.disabled){
-                                var temp = {};
-                                temp.label = paymentMethodsItem.code;
-                                temp.value = paymentMethodsItem.code;
-                                $scope.methodsOptions.push(temp)
-                            }
-                        });
-                        console.log($scope.paymentMethods)
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        // 原始的数据
-        $scope.pspsManage = [];
-
-        // 过滤出来的数据
-        $scope.showPspsManage = [];
-        $scope.pspsManageReload = 1;
-        $scope.pspsManageAoData = {};
-        $scope.pspsManageSearch = '';
-
-        // 初始化table数据
-        $scope.initPspsManageData = function () {
-            $scope.pspsManage = [];
-            adminService.getReq($rootScope.URL.PSPSMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.pspsManage = angular.copy(res.data.data);
-                        $scope.pspsManage.forEach(function (pspsManageItem, pspsManageIndex) {
-                            pspsManageItem.id = pspsManageIndex +1;
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param pspsManage PSPSMANAGETITLE数据对象
-         * @param item
-         */
-
-        $scope.savePspsManage = function (pspsManage, item) {
-            var tempData = angular.extend({}, pspsManage, item);
-            if ($scope.validIsNew(tempData._id)) {
-                delete tempData._id;
-                adminService.postReq($rootScope.URL.PSPSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initPspsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(tempData._id) && pspsManage.id) {
-                delete tempData._id;
-                adminService.patchReq($rootScope.URL.PSPSMANAGE.PATCH+'/'+pspsManage.id, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initPspsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
-        /**
-         * 展示methods弹窗
-         * @param item
-         */
-
-        $scope.showPspsMethodsModal = function (item) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/pspsManage/pspsMethodsModal.html',
-                controller: 'pspsMethodsModalController',
-                size: 'lg',
-                scope:$scope,
-                resolve: {
-                    PspsMethodsItem: item
-                }
-            });
-            modalInstance.result.then(function (data) {
-                if(data.type == 'methods'){
-                    $scope.pspsManage.forEach(function(pspsManageItem) {
-                        if (pspsManageItem.id == data.data.id) {
-                            pspsManageItem[data.type] = angular.copy(data.data[data.type]);
-                            $scope.pspsManageReload++;
-                        }
-                    });
-                }
-            }, function (data) {
-                if(data.type == 'methods'){
-                    $scope.pspsManage.forEach(function(pspsManageItem) {
-                        if (pspsManageItem.id == data.data.id) {
-                            pspsManageItem[data.type] = angular.copy(data.data[data.type]);
-                            $scope.pspsManageReload++;
-                        }
-                    });
-                }
-            });
-        };
-
-
-        // 删除pspsManage
-        /**
-         * @param pspsManage PSPSMANAGETITLE数据对象
-         * @return null
-         */
-        $scope.deletePspsManage = function (pspsManage) {
-            if (!$scope.validIsNew(pspsManage._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.PSPSMANAGE.DELETE+'/'+pspsManage.code, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initPspsManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 恢复pspsManage
-        /**
-         * @param pspsManage PSPSMANAGETITLE数据对象
-         * @return null
-         */
-        $scope.recoverPspsManage = function (pspsManage) {
-            if (!$scope.validIsNew(pspsManage._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.putReq($rootScope.URL.PSPSMANAGE.DELETE+'/'+pspsManage.code, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initPspsManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 添加按钮
-        $scope.addPspsManage = function () {
-            $scope.pspsManageAoData = {};
-            $scope.pspsManageSearch = '';
-            $scope.pspsManage.unshift({
-                '_id': ($scope.pspsManage.length+1) + 'null',
-                code: '',
-                gateway: '',
-                account: '',
-                api_key: '',
-                activated: true,
-                methods: []
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的PSPSMANAGETITLE
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item._id)) {
-                $scope.pspsManage.splice(index, 1);
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initPspsManageData();
-
-        $scope.initMethodsOptions()
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.pspsManage')
-        .controller('pspsMethodsModalController', pspsMethodsModalController);
-
-    pspsMethodsModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        '$translate',
-        'adminService',
-        'PspsMethodsItem'
-    ];
-
-    function pspsMethodsModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        $translate,
-        adminService,
-        PspsMethodsItem
-    ) {
-
-        // 原始的数据
-        $scope.pspsMethodsModal = [];
-
-        // 过滤出来的数据
-        $scope.showPspsMethodsModal = [];
-        $scope.pspsMethodsModalReload = 1;
-        $scope.pspsMethodsModalAoData = {};
-        $scope.pspsMethodsModalSearch = '';
-
-        var basePspsMethods = angular.copy(PspsMethodsItem);
-
-        // 初始化table数据
-        $scope.initPspsMethodsModalData = function () {
-            $scope.pspsMethodsModal = [];
-            console.log(PspsMethodsItem,'PspsMethodsItem')
-            if(PspsMethodsItem['methods'].length){
-                $scope.pspsMethodsModal = PspsMethodsItem['methods'];
-                $scope.pspsMethodsModal.forEach(function (pspsMethodsItem, pspsMethodsIndex) {
-                    pspsMethodsItem.id = pspsMethodsIndex + 1;
-                    if(pspsMethodsItem['extra_setting'] && pspsMethodsItem['extra_setting']['bank'] && window.Array.isArray(pspsMethodsItem['extra_setting']['bank'])){
-                        pspsMethodsItem['extra_setting']['bank'] = pspsMethodsItem['extra_setting']['bank'].join(',')
-                    }else{
-                        pspsMethodsItem['extra_setting'] = {};
-                        pspsMethodsItem['extra_setting']['bank'] = '';
-                    }
-                })
-            }
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param pspsMethodsModal 渠道名称数据对象
-         * @param data
-         */
-
-        $scope.savePspsMethodsModal = function (pspsMethodsModal, data) {
-            $scope.pspsMethodsModal.forEach(function (pspsMethodsModalItem) {
-                if(pspsMethodsModalItem.id == pspsMethodsModal.id){
-                    pspsMethodsModalItem['code'] = data.code || '';
-                    pspsMethodsModalItem['rate'] = data.rate || '';
-                    pspsMethodsModalItem['extra_setting'] = {};
-                    pspsMethodsModalItem['extra_setting']['bank'] = data['extra_setting.bank'] || '';
-                    if($scope.validIsNew(pspsMethodsModalItem.id)){
-                        pspsMethodsModalItem.id = window.parseInt(pspsMethodsModalItem.id, 10)
-                        $scope.pspsMethodsModalReload ++
-                    }
-                }
-            });
-        };
-
-        // 删除rebatesModal
-        /**
-         * @param pspsMethodsModal 渠道名称数据对象
-         * @param index 位置
-         * @return null
-         */
-        $scope.deletePspsMethodsModal = function (pspsMethodsModal, index) {
-            $scope.pspsMethodsModal.splice(index, 1)
-        };
-
-        console.log($scope.methodsOptions)
-
-        // 添加按钮
-        $scope.addPspsMethodsModal = function () {
-            $scope.pspsMethodsModalAoData = {};
-            $scope.pspsMethodsModalSearch = '';
-            $scope.pspsMethodsModal.unshift({
-                'id': ($scope.pspsMethodsModal.length+1) + 'null',
-                "code": $scope.methodsOptions[0] ? $scope.methodsOptions[0].value : '',
-                "rate": '',
-                "extra_setting": {
-                    "bank":''
-                }
-            });
-        };
-
-        /**
-         *
-         * @param PspsMethodsItem 添加的渠道名称
-         * @param index 添加的index
-         */
-
-        $scope.cancelSaveModal = function (PspsMethodsItem, index) {
-            if ($scope.validIsNew(PspsMethodsItem.id)) {
-                $scope.pspsMethodsModal.splice(index, 1);
-            }
-        };
-
-        $scope.confirmModal = function () {
-            $scope.pspsMethodsModal = $scope.pspsMethodsModal.filter(function (pspsMethodsItem) {
-                return !$scope.validIsNew(pspsMethodsItem.id);
-            });
-            $scope.pspsMethodsModal.forEach(function (pspsMethodsItem, pspsMethodsIndex) {
-                if(pspsMethodsItem.id){
-                    delete pspsMethodsItem.id;
-                }
-                if(pspsMethodsItem['extra_setting'] && pspsMethodsItem['extra_setting']['bank']){
-                    pspsMethodsItem['extra_setting']['bank'] = pspsMethodsItem['extra_setting']['bank'].split(',');
-                    if(pspsMethodsItem['extra_setting']['bank'].length === 0){
-                        delete pspsMethodsItem['extra_setting'];
-                    }
-                }
-            });
-            basePspsMethods.methods = $scope.pspsMethodsModal;
-            $uibModalInstance.close({
-                type:'methods',
-                data:basePspsMethods
-            });
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss({
-                type:'methods',
-                data:basePspsMethods
-            });
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initPspsMethodsModalData();
-
-    }
-})();
-
-(function() {
-
-    angular
         .module('admin.promotionsManage')
         .controller('PromotionsManageController', PromotionsManageController);
 
@@ -5397,6 +5013,389 @@
 (function() {
 
     angular
+        .module('admin.pspsManage')
+        .controller('PspsManageController', PspsManageController);
+
+    PspsManageController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModal',
+        'adminService'
+    ];
+
+    function PspsManageController(
+        $scope,
+        $rootScope,
+        $uibModal,
+        adminService
+    ) {
+
+        $scope.methodsOptions = [];
+
+        $scope.initMethodsOptions = function() {
+            $scope.methodsOptions = [];
+            adminService.getReq($rootScope.URL.PAYMENTMETHODS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.paymentMethods = angular.copy(res.data.data);
+                        $scope.paymentMethods.forEach(function (paymentMethodsItem, paymentMethodsIndex) {
+                            if(!paymentMethodsItem.disabled){
+                                var temp = {};
+                                temp.label = paymentMethodsItem.code;
+                                temp.value = paymentMethodsItem.code;
+                                $scope.methodsOptions.push(temp)
+                            }
+                        });
+                        console.log($scope.paymentMethods)
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        // 原始的数据
+        $scope.pspsManage = [];
+
+        // 过滤出来的数据
+        $scope.showPspsManage = [];
+        $scope.pspsManageReload = 1;
+        $scope.pspsManageAoData = {};
+        $scope.pspsManageSearch = '';
+
+        // 初始化table数据
+        $scope.initPspsManageData = function () {
+            $scope.pspsManage = [];
+            adminService.getReq($rootScope.URL.PSPSMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.pspsManage = angular.copy(res.data.data);
+                        $scope.pspsManage.forEach(function (pspsManageItem, pspsManageIndex) {
+                            pspsManageItem.id = pspsManageIndex +1;
+                        });
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param pspsManage PSPSMANAGETITLE数据对象
+         * @param item
+         */
+
+        $scope.savePspsManage = function (pspsManage, item) {
+            var tempData = angular.extend({}, pspsManage, item);
+            if ($scope.validIsNew(tempData._id)) {
+                delete tempData._id;
+                adminService.postReq($rootScope.URL.PSPSMANAGE.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initPspsManageData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (!$scope.validIsNew(tempData._id) && pspsManage.id) {
+                delete tempData._id;
+                adminService.patchReq($rootScope.URL.PSPSMANAGE.PATCH+'/'+pspsManage.id, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initPspsManageData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+        };
+
+        /**
+         * 展示methods弹窗
+         * @param item
+         */
+
+        $scope.showPspsMethodsModal = function (item) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/pspsManage/pspsMethodsModal.html',
+                controller: 'pspsMethodsModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    PspsMethodsItem: item
+                }
+            });
+            modalInstance.result.then(function (data) {
+                if(data.type == 'methods'){
+                    $scope.pspsManage.forEach(function(pspsManageItem) {
+                        if (pspsManageItem.id == data.data.id) {
+                            pspsManageItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.pspsManageReload++;
+                        }
+                    });
+                }
+            }, function (data) {
+                if(data.type == 'methods'){
+                    $scope.pspsManage.forEach(function(pspsManageItem) {
+                        if (pspsManageItem.id == data.data.id) {
+                            pspsManageItem[data.type] = angular.copy(data.data[data.type]);
+                            $scope.pspsManageReload++;
+                        }
+                    });
+                }
+            });
+        };
+
+
+        // 删除pspsManage
+        /**
+         * @param pspsManage PSPSMANAGETITLE数据对象
+         * @return null
+         */
+        $scope.deletePspsManage = function (pspsManage) {
+            if (!$scope.validIsNew(pspsManage._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.PSPSMANAGE.DELETE+'/'+pspsManage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initPspsManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 恢复pspsManage
+        /**
+         * @param pspsManage PSPSMANAGETITLE数据对象
+         * @return null
+         */
+        $scope.recoverPspsManage = function (pspsManage) {
+            if (!$scope.validIsNew(pspsManage._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.putReq($rootScope.URL.PSPSMANAGE.DELETE+'/'+pspsManage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initPspsManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 添加按钮
+        $scope.addPspsManage = function () {
+            $scope.pspsManageAoData = {};
+            $scope.pspsManageSearch = '';
+            $scope.pspsManage.unshift({
+                '_id': ($scope.pspsManage.length+1) + 'null',
+                code: '',
+                gateway: '',
+                account: '',
+                api_key: '',
+                activated: true,
+                methods: []
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的PSPSMANAGETITLE
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if ($scope.validIsNew(item._id)) {
+                $scope.pspsManage.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initPspsManageData();
+
+        $scope.initMethodsOptions()
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.pspsManage')
+        .controller('pspsMethodsModalController', pspsMethodsModalController);
+
+    pspsMethodsModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        '$translate',
+        'adminService',
+        'PspsMethodsItem'
+    ];
+
+    function pspsMethodsModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        $translate,
+        adminService,
+        PspsMethodsItem
+    ) {
+
+        // 原始的数据
+        $scope.pspsMethodsModal = [];
+
+        // 过滤出来的数据
+        $scope.showPspsMethodsModal = [];
+        $scope.pspsMethodsModalReload = 1;
+        $scope.pspsMethodsModalAoData = {};
+        $scope.pspsMethodsModalSearch = '';
+
+        var basePspsMethods = angular.copy(PspsMethodsItem);
+
+        // 初始化table数据
+        $scope.initPspsMethodsModalData = function () {
+            $scope.pspsMethodsModal = [];
+            console.log(PspsMethodsItem,'PspsMethodsItem')
+            if(PspsMethodsItem['methods'].length){
+                $scope.pspsMethodsModal = PspsMethodsItem['methods'];
+                $scope.pspsMethodsModal.forEach(function (pspsMethodsItem, pspsMethodsIndex) {
+                    pspsMethodsItem.id = pspsMethodsIndex + 1;
+                    if(pspsMethodsItem['extra_setting'] && pspsMethodsItem['extra_setting']['bank'] && window.Array.isArray(pspsMethodsItem['extra_setting']['bank'])){
+                        pspsMethodsItem['extra_setting']['bank'] = pspsMethodsItem['extra_setting']['bank'].join(',')
+                    }else{
+                        pspsMethodsItem['extra_setting'] = {};
+                        pspsMethodsItem['extra_setting']['bank'] = '';
+                    }
+                })
+            }
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param pspsMethodsModal 渠道名称数据对象
+         * @param data
+         */
+
+        $scope.savePspsMethodsModal = function (pspsMethodsModal, data) {
+            $scope.pspsMethodsModal.forEach(function (pspsMethodsModalItem) {
+                if(pspsMethodsModalItem.id == pspsMethodsModal.id){
+                    pspsMethodsModalItem['code'] = data.code || '';
+                    pspsMethodsModalItem['rate'] = data.rate || '';
+                    pspsMethodsModalItem['extra_setting'] = {};
+                    pspsMethodsModalItem['extra_setting']['bank'] = data['extra_setting.bank'] || '';
+                    if($scope.validIsNew(pspsMethodsModalItem.id)){
+                        pspsMethodsModalItem.id = window.parseInt(pspsMethodsModalItem.id, 10)
+                        $scope.pspsMethodsModalReload ++
+                    }
+                }
+            });
+        };
+
+        // 删除rebatesModal
+        /**
+         * @param pspsMethodsModal 渠道名称数据对象
+         * @param index 位置
+         * @return null
+         */
+        $scope.deletePspsMethodsModal = function (pspsMethodsModal, index) {
+            $scope.pspsMethodsModal.splice(index, 1)
+        };
+
+        console.log($scope.methodsOptions)
+
+        // 添加按钮
+        $scope.addPspsMethodsModal = function () {
+            $scope.pspsMethodsModalAoData = {};
+            $scope.pspsMethodsModalSearch = '';
+            $scope.pspsMethodsModal.unshift({
+                'id': ($scope.pspsMethodsModal.length+1) + 'null',
+                "code": $scope.methodsOptions[0] ? $scope.methodsOptions[0].value : '',
+                "rate": '',
+                "extra_setting": {
+                    "bank":''
+                }
+            });
+        };
+
+        /**
+         *
+         * @param PspsMethodsItem 添加的渠道名称
+         * @param index 添加的index
+         */
+
+        $scope.cancelSaveModal = function (PspsMethodsItem, index) {
+            if ($scope.validIsNew(PspsMethodsItem.id)) {
+                $scope.pspsMethodsModal.splice(index, 1);
+            }
+        };
+
+        $scope.confirmModal = function () {
+            $scope.pspsMethodsModal = $scope.pspsMethodsModal.filter(function (pspsMethodsItem) {
+                return !$scope.validIsNew(pspsMethodsItem.id);
+            });
+            $scope.pspsMethodsModal.forEach(function (pspsMethodsItem, pspsMethodsIndex) {
+                if(pspsMethodsItem.id){
+                    delete pspsMethodsItem.id;
+                }
+                if(pspsMethodsItem['extra_setting'] && pspsMethodsItem['extra_setting']['bank']){
+                    pspsMethodsItem['extra_setting']['bank'] = pspsMethodsItem['extra_setting']['bank'].split(',');
+                    if(pspsMethodsItem['extra_setting']['bank'].length === 0){
+                        delete pspsMethodsItem['extra_setting'];
+                    }
+                }
+            });
+            basePspsMethods.methods = $scope.pspsMethodsModal;
+            $uibModalInstance.close({
+                type:'methods',
+                data:basePspsMethods
+            });
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss({
+                type:'methods',
+                data:basePspsMethods
+            });
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initPspsMethodsModalData();
+
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.rebatesList')
         .controller('RebatesDetailModalController', RebatesDetailModalController);
 
@@ -5776,346 +5775,6 @@
                 $scope.transfersListAoData.destination_wallet = $scope.search.destinationWallet.join(',')
             }
         });
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.withdrawsManage')
-        .controller('WithdrawsManageController', WithdrawsManageController);
-
-    WithdrawsManageController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModal',
-        'adminService'
-    ];
-
-    function WithdrawsManageController(
-        $scope,
-        $rootScope,
-        $uibModal,
-        adminService
-    ) {
-
-        $scope.walletOptions = [
-            {
-                label:'MAIN',
-                value:'MAIN'
-            },
-            {
-                label:'FS',
-                value:'FS'
-            },
-            {
-                label:'PT',
-                value:'PT'
-            },
-        ];
-
-        //pending|auditing|approved|declined|paid|reviewing|finished
-
-        $scope.statusOptions = [
-            {
-                label:'pending',
-                value:'pending'
-            },
-            {
-                label:'auditing',
-                value:'auditing'
-            },
-            {
-                label:'approved',
-                value:'approved'
-            },
-            {
-                label:'declined',
-                value:'declined'
-            },
-            {
-                label:'finished',
-                value:'finished'
-            },
-            {
-                label:'paid',
-                value:'paid'
-            },
-            {
-                label:'reviewing',
-                value:'reviewing'
-            },
-        ];
-
-        $scope.search = {
-            wallet: [],
-            status: []
-        };
-
-        $scope.withdrawsManageUrl = $rootScope.URL.WITHDRAWSMANAGE.GET;
-
-        // 原始的数据
-        $scope.withdrawsManage = [];
-        $scope.withdrawsManageReload = 1;
-        $scope.withdrawsManageAoData = {};
-
-        // 初始化table数据
-        $scope.initWithdrawsManageData = function () {
-            $scope.withdrawsManageReload++;
-        };
-
-        /**
-         *  显示提款详情
-         * @param item withdraws项目详情
-         */
-        $scope.showWithdrawsDetail = function (item) {
-            if(!item.id){
-                $rootScope.alertErrorMsg('server data error');
-                return;
-            }
-            adminService.getReq($rootScope.URL.WITHDRAWSMANAGE.GET + '/' + item.id, {}, {}).then(function (res) {
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        var modalInstance = $uibModal.open({
-                            animation: true,
-                            ariaLabelledBy: 'modal-title',
-                            ariaDescribedBy: 'modal-body',
-                            templateUrl: '/views/admin/withdrawsManage/withdrawsManageDetailModal.html',
-                            controller: 'WithdrawsManageModalController',
-                            resolve: {
-                                withdrawsDetail: res.data.data
-                            },
-                            size: 'lg',
-                        });
-                        modalInstance.result.then(function(data) {
-                        }, function(data) {
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        /**
-         *  进入审批流程
-         * @param item withdraws项目详情
-         * @param approve 到审批的哪一步了
-         */
-        $scope.approveWithdrawsManage = function (item, approve) {
-            if(!item.id || !approve){
-                $rootScope.alertErrorMsg('server data error');
-                return;
-            }
-            var tempUrl = $rootScope.URL.WITHDRAWSMANAGE && $rootScope.URL.WITHDRAWSMANAGE['GET'+approve.toUpperCase()];
-            adminService.getReq(tempUrl + '/' + item.id, {admin_id:window.userInfo.admin_id || ''}, {}).then(function (res) {
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        var modalInstance = $uibModal.open({
-                            animation: true,
-                            ariaLabelledBy: 'modal-title',
-                            ariaDescribedBy: 'modal-body',
-                            templateUrl: '/views/admin/withdrawsManage/withdrawsManageModal.html',
-                            controller: 'WithdrawsManageApproveController',
-                            resolve: {
-                                withdrawsDetail: res.data.data,
-                                approve: approve
-                            },
-                            size: 'lg',
-                        });
-                        modalInstance.result.then(function(data) {
-                            $scope.initWithdrawsManageData()
-                        }, function(data) {
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-
-        // 页面加载执行的函数
-
-        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.searchTimeStart) {
-                    $scope.withdrawsManageAoData.start_time = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
-                } else {
-                    if ($scope.withdrawsManageAoData.start_time) {
-                        delete $scope.withdrawsManageAoData.start_time;
-                    }
-                }
-                if ($scope.searchTimeEnd) {
-                    $scope.withdrawsManageAoData.end_time = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
-                } else {
-                    if ($scope.withdrawsManageAoData.end_time) {
-                        delete $scope.withdrawsManageAoData.end_time;
-                    }
-                }
-            }
-        });
-
-        $scope.$watch('search.wallet.length+search.status.length', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                $scope.withdrawsManageAoData.wallet = $scope.search.wallet.join(',');
-                $scope.withdrawsManageAoData.status = $scope.search.status.join(',');
-            }
-        });
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.withdrawsManage')
-        .controller('WithdrawsManageApproveController', WithdrawsManageApproveController);
-
-    WithdrawsManageApproveController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'withdrawsDetail',
-        'approve',
-        '$translate'
-    ];
-
-    function WithdrawsManageApproveController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        withdrawsDetail,
-        approve,
-        $translate
-    ) {
-
-        $scope.withdrawsDetail = withdrawsDetail;
-
-        $scope.detailModalAoData = {};
-        $scope.detailModalSearch = '';
-        $scope.detailModalReload = 1;
-        $scope.showDetailModal = [];
-
-        $scope.resultOptions = [];
-        if(approve == 'audit'){
-        //‘pending’, ‘approved’, ‘declined’
-            $scope.resultOptions = [
-                {
-                    label:'pending',
-                    value:'pending'
-                },
-                {
-                    label:'approved',
-                    value:'approved'
-                },
-                {
-                    label:'declined',
-                    value:'declined'
-                }
-            ];
-        }else if(approve == 'pay'){
-        //‘paid’, ‘approved’
-            $scope.resultOptions = [
-                {
-                    label:'paid',
-                    value:'paid'
-                },
-                {
-                    label:'approved',
-                    value:'approved'
-                }
-            ];
-        }else if(approve == 'pay'){
-        //‘paid’, ‘finished’
-            $scope.resultOptions = [
-                {
-                    label:'paid',
-                    value:'paid'
-                },
-                {
-                    label:'finished',
-                    value:'finished'
-                }
-            ];
-        }
-        if(!$scope.withdrawsDetail.adminId){
-            $scope.withdrawsDetail.adminId = window.userInfo && window.userInfo.admin_id || '';
-        }
-        if(!$scope.withdrawsDetail.result){
-            $scope.withdrawsDetail.result = $scope.resultOptions[0] && $scope.resultOptions[0].value || '';
-        }
-        if(!$scope.withdrawsDetail.comment){
-            $scope.withdrawsDetail.comment = '';
-        }
-
-        $scope.confirmModal = function() {
-            if(!$scope.withdrawsDetail.comment){
-                $rootScope.alertErrorMsg('comment is required');
-                return;
-            }
-            if(!$scope.withdrawsDetail.result){
-                $rootScope.alertErrorMsg('result is required');
-                return;
-            }
-            var approveData = {
-                adminId: $scope.withdrawsDetail.adminId,
-                result: $scope.withdrawsDetail.result,
-                comment: $scope.withdrawsDetail.comment
-            };
-            var tempUrl = $rootScope.URL.WITHDRAWSMANAGE && $rootScope.URL.WITHDRAWSMANAGE['POST'+approve.toUpperCase()];
-            adminService.postReq(tempUrl+'/'+withdrawsDetail.id+'/'+withdrawsDetail.withdraw.id, {}, approveData).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $uibModalInstance.close('success');
-                        $rootScope.toasterSuccess(res.data.msg);
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.closeModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.withdrawsManage')
-        .controller('WithdrawsManageModalController', WithdrawsManageModalController);
-
-    WithdrawsManageModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'withdrawsDetail',
-        '$translate'
-    ];
-
-    function WithdrawsManageModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        withdrawsDetail,
-        $translate
-    ) {
-
-        $scope.withdrawsDetail = withdrawsDetail;
-
-        $scope.detailModalAoData = {};
-        $scope.detailModalSearch = '';
-        $scope.detailModalReload = 1;
-        $scope.showDetailModal = [];
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
     }
 })();
 
@@ -7105,5 +6764,345 @@
         $scope.initUserLevelData();
 
         $scope.initCurrenciesManageData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.withdrawsManage')
+        .controller('WithdrawsManageController', WithdrawsManageController);
+
+    WithdrawsManageController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModal',
+        'adminService'
+    ];
+
+    function WithdrawsManageController(
+        $scope,
+        $rootScope,
+        $uibModal,
+        adminService
+    ) {
+
+        $scope.walletOptions = [
+            {
+                label:'MAIN',
+                value:'MAIN'
+            },
+            {
+                label:'FS',
+                value:'FS'
+            },
+            {
+                label:'PT',
+                value:'PT'
+            },
+        ];
+
+        //pending|auditing|approved|declined|paid|reviewing|finished
+
+        $scope.statusOptions = [
+            {
+                label:'pending',
+                value:'pending'
+            },
+            {
+                label:'auditing',
+                value:'auditing'
+            },
+            {
+                label:'approved',
+                value:'approved'
+            },
+            {
+                label:'declined',
+                value:'declined'
+            },
+            {
+                label:'finished',
+                value:'finished'
+            },
+            {
+                label:'paid',
+                value:'paid'
+            },
+            {
+                label:'reviewing',
+                value:'reviewing'
+            },
+        ];
+
+        $scope.search = {
+            wallet: [],
+            status: []
+        };
+
+        $scope.withdrawsManageUrl = $rootScope.URL.WITHDRAWSMANAGE.GET;
+
+        // 原始的数据
+        $scope.withdrawsManage = [];
+        $scope.withdrawsManageReload = 1;
+        $scope.withdrawsManageAoData = {};
+
+        // 初始化table数据
+        $scope.initWithdrawsManageData = function () {
+            $scope.withdrawsManageReload++;
+        };
+
+        /**
+         *  显示提款详情
+         * @param item withdraws项目详情
+         */
+        $scope.showWithdrawsDetail = function (item) {
+            if(!item.id){
+                $rootScope.alertErrorMsg('server data error');
+                return;
+            }
+            adminService.getReq($rootScope.URL.WITHDRAWSMANAGE.GET + '/' + item.id, {}, {}).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        var modalInstance = $uibModal.open({
+                            animation: true,
+                            ariaLabelledBy: 'modal-title',
+                            ariaDescribedBy: 'modal-body',
+                            templateUrl: '/views/admin/withdrawsManage/withdrawsManageDetailModal.html',
+                            controller: 'WithdrawsManageModalController',
+                            resolve: {
+                                withdrawsDetail: res.data.data
+                            },
+                            size: 'lg',
+                        });
+                        modalInstance.result.then(function(data) {
+                        }, function(data) {
+                        });
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        /**
+         *  进入审批流程
+         * @param item withdraws项目详情
+         * @param approve 到审批的哪一步了
+         */
+        $scope.approveWithdrawsManage = function (item, approve) {
+            if(!item.id || !approve){
+                $rootScope.alertErrorMsg('server data error');
+                return;
+            }
+            var tempUrl = $rootScope.URL.WITHDRAWSMANAGE && $rootScope.URL.WITHDRAWSMANAGE['GET'+approve.toUpperCase()];
+            adminService.getReq(tempUrl + '/' + item.id, {admin_id:window.userInfo.admin_id || ''}, {}).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        var modalInstance = $uibModal.open({
+                            animation: true,
+                            ariaLabelledBy: 'modal-title',
+                            ariaDescribedBy: 'modal-body',
+                            templateUrl: '/views/admin/withdrawsManage/withdrawsManageModal.html',
+                            controller: 'WithdrawsManageApproveController',
+                            resolve: {
+                                withdrawsDetail: res.data.data,
+                                approve: approve
+                            },
+                            size: 'lg',
+                        });
+                        modalInstance.result.then(function(data) {
+                            $scope.initWithdrawsManageData()
+                        }, function(data) {
+                        });
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        // 页面加载执行的函数
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.withdrawsManageAoData.start_time = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                } else {
+                    if ($scope.withdrawsManageAoData.start_time) {
+                        delete $scope.withdrawsManageAoData.start_time;
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.withdrawsManageAoData.end_time = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                } else {
+                    if ($scope.withdrawsManageAoData.end_time) {
+                        delete $scope.withdrawsManageAoData.end_time;
+                    }
+                }
+            }
+        });
+
+        $scope.$watch('search.wallet.length+search.status.length', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                $scope.withdrawsManageAoData.wallet = $scope.search.wallet.join(',');
+                $scope.withdrawsManageAoData.status = $scope.search.status.join(',');
+            }
+        });
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.withdrawsManage')
+        .controller('WithdrawsManageApproveController', WithdrawsManageApproveController);
+
+    WithdrawsManageApproveController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'withdrawsDetail',
+        'approve',
+        '$translate'
+    ];
+
+    function WithdrawsManageApproveController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        withdrawsDetail,
+        approve,
+        $translate
+    ) {
+
+        $scope.withdrawsDetail = withdrawsDetail;
+
+        $scope.detailModalAoData = {};
+        $scope.detailModalSearch = '';
+        $scope.detailModalReload = 1;
+        $scope.showDetailModal = [];
+
+        $scope.resultOptions = [];
+        if(approve == 'audit'){
+        //‘pending’, ‘approved’, ‘declined’
+            $scope.resultOptions = [
+                {
+                    label:'pending',
+                    value:'pending'
+                },
+                {
+                    label:'approved',
+                    value:'approved'
+                },
+                {
+                    label:'declined',
+                    value:'declined'
+                }
+            ];
+        }else if(approve == 'pay'){
+        //‘paid’, ‘approved’
+            $scope.resultOptions = [
+                {
+                    label:'paid',
+                    value:'paid'
+                },
+                {
+                    label:'approved',
+                    value:'approved'
+                }
+            ];
+        }else if(approve == 'pay'){
+        //‘paid’, ‘finished’
+            $scope.resultOptions = [
+                {
+                    label:'paid',
+                    value:'paid'
+                },
+                {
+                    label:'finished',
+                    value:'finished'
+                }
+            ];
+        }
+        if(!$scope.withdrawsDetail.adminId){
+            $scope.withdrawsDetail.adminId = window.userInfo && window.userInfo.admin_id || '';
+        }
+        if(!$scope.withdrawsDetail.result){
+            $scope.withdrawsDetail.result = $scope.resultOptions[0] && $scope.resultOptions[0].value || '';
+        }
+        if(!$scope.withdrawsDetail.comment){
+            $scope.withdrawsDetail.comment = '';
+        }
+
+        $scope.confirmModal = function() {
+            if(!$scope.withdrawsDetail.comment){
+                $rootScope.alertErrorMsg('comment is required');
+                return;
+            }
+            if(!$scope.withdrawsDetail.result){
+                $rootScope.alertErrorMsg('result is required');
+                return;
+            }
+            var approveData = {
+                adminId: $scope.withdrawsDetail.adminId,
+                result: $scope.withdrawsDetail.result,
+                comment: $scope.withdrawsDetail.comment
+            };
+            var tempUrl = $rootScope.URL.WITHDRAWSMANAGE && $rootScope.URL.WITHDRAWSMANAGE['POST'+approve.toUpperCase()];
+            adminService.postReq(tempUrl+'/'+withdrawsDetail.id+'/'+withdrawsDetail.withdraw.id, {}, approveData).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $uibModalInstance.close('success');
+                        $rootScope.toasterSuccess(res.data.msg);
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.closeModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.withdrawsManage')
+        .controller('WithdrawsManageModalController', WithdrawsManageModalController);
+
+    WithdrawsManageModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'withdrawsDetail',
+        '$translate'
+    ];
+
+    function WithdrawsManageModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        withdrawsDetail,
+        $translate
+    ) {
+
+        $scope.withdrawsDetail = withdrawsDetail;
+
+        $scope.detailModalAoData = {};
+        $scope.detailModalSearch = '';
+        $scope.detailModalReload = 1;
+        $scope.showDetailModal = [];
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
     }
 })();
