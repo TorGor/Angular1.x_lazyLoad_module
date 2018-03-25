@@ -55,7 +55,7 @@
                             <td style="width: 10%" >
                                 {{'table.appliesUse.th8' | translate}}
                             </td>
-                            <td style="width: 10%">{{'table.button.operation' | translate}}</td>
+                            <td style="width: 10%" ng-show='validPower("APPLIESUSE", ["POST", "PATCH"])'>{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -84,13 +84,15 @@
                             <td>
                                 <span>{{item.status}}</span>
                             </td>
-                            <td style="white-space: nowrap;">
+                            <td style="white-space: nowrap;" ng-show='validPower("APPLIESUSE", ["POST", "PATCH"])'>
                                 <div class="buttons">
-                                    <button class="btn btn-sm btn-primary" ng-click="appliesUseAudit(item)"
+                                    <button class="btn btn-sm btn-primary"
+                                            ng-show='validPower("APPLIESUSE", ["POST"])' ng-click="appliesUseAudit(item)"
                                             title="{{'table.button.save' | translate}}">
                                         <em class="fa fa-save"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-green" ng-click="appliesUseRevoke(item)"
+                                    <button class="btn btn-sm btn-green"
+                                            ng-show='validPower("APPLIESUSE", ["PATCH"])' ng-click="appliesUseRevoke(item)"
                                             title="{{'table.button.recover' | translate}}">
                                         <em class="fa fa-rotate-left"></em>
                                     </button>
@@ -98,7 +100,8 @@
                             </td>
                         </tr>
                         <tr ng-show="appliesUse.length==0">
-                            <td colspan="9" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan='{{validPower("APPLIESUSE", ["POST", "PATCH"])?9:8}}' class="">{{'table.no_date'
+                                                                                                    | translate}}</td>
                         </tr>
                         </tbody>
                     </table>
