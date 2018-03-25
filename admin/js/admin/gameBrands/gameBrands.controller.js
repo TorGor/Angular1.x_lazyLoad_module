@@ -180,7 +180,8 @@
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    MethodsNameItem: item
+                    MethodsNameItem: item,
+                    hasPower:$scope.validPower("GAMEBRANDS", ["POST", "PATCH"])
                 }
             });
             modalInstance.result.then(function (data) {
@@ -412,9 +413,9 @@
 
         $scope.initGameBrandsData();
 
-        if($scope.validPower("GAMEBRANDS", ["POST", "PATCH"])){
+        $scope.initCurrenciesManageData();
 
-            $scope.initCurrenciesManageData();
+        if($scope.validPower("GAMEBRANDS", ["POST", "PATCH"])){
 
             $scope.initLocalesOptionsData();
 

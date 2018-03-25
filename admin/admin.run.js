@@ -74,8 +74,8 @@
             },
             GAMEBRANDS:{
                 GET:'/rest/brands',
-                POST:'/rest/brands',
-                PATCH:'/rest/brands',
+                //POST:'/rest/brands',
+                //PATCH:'/rest/brands',
                 DELETE:'/rest/brands'
             },
             GAMECATEGORIES:{

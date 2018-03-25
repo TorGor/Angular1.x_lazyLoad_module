@@ -10,6 +10,7 @@
         '$uibModalInstance',
         '$translate',
         'adminService',
+        'hasPower',
         'MethodsNameItem'
     ];
 
@@ -19,8 +20,11 @@
         $uibModalInstance,
         $translate,
         adminService,
+        hasPower,
         MethodsNameItem
     ) {
+
+        $scope.hasPower = hasPower;
 
         // 原始的数据
         $scope.methodsNameModal = [];

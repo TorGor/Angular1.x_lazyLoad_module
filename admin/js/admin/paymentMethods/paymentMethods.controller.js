@@ -95,7 +95,8 @@
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    MethodsNameItem: item
+                    MethodsNameItem: item,
+                    hasPower: $scope.validPower('PAYMENTMETHODS', ['POST', 'PATCH'])
                 }
             });
             modalInstance.result.then(function (data) {
@@ -308,9 +309,11 @@
 
         $scope.initPaymentMethodsData();
 
-        $scope.initCurrenciesManageData();
+        if($scope.validPower('PAYMENTMETHODS', ['POST', 'PATCH'])){
 
-        $scope.initLocalesOptionsData();
+            $scope.initCurrenciesManageData();
 
+            $scope.initLocalesOptionsData();
+        }
     }
 })();
