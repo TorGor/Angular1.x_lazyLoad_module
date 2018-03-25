@@ -13,6 +13,36 @@
                         新增
                     </button>
                 </span>
+                <form style="width: 450px" class="form-horizontal pull-right" role="form">
+                    <div class="col-lg-6 col-md-6 margin-bottom-10">
+                        <ui-select
+                            ng-model="promotionsManageAoData.status"
+                            theme="bootstrap"
+                            search-enabled="false">
+                            <ui-select-match placeholder="{{'status'}}">
+                                <span ng-bind="$select.selected.label"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item.value as item in statusOptions">
+                                <span ng-bind="item.label"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-lg-6 col-md-6 margin-bottom-10">
+                        <ui-select
+                            ng-model="search.currency"
+                            theme="bootstrap"
+                            multiple
+                            close-on-select="false"
+                            search-enabled="false">
+                            <ui-select-match placeholder="{{'choose currency'}}">
+                                <span>{{$item.label}}</span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item.value as item in currencyOptions">
+                                <span ng-bind="item.label"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </form>
                 <div
                         server-data-table
                         items="promotionsManage"

@@ -24,7 +24,7 @@
             order_no: '',
             trade_no: '',
             amount: '',
-            adminId: window.userInfo && window.userInfo.admin_id || ''
+            adminId: window.userInfo && window.userInfo.adminId || ''
         };
 
         $scope.confirmOrderAddModal = function () {

@@ -296,6 +296,14 @@
             $uibModalInstance.dismiss('cancel');
         };
 
+        $scope.checkConditionsMinData = function(data) {
+            var temp = window.parseFloat(data);
+            if(!data || data<0.01){
+                return 'min 0.01';
+            }
+            return true;
+        }
+
         // 页面加载执行的函数
 
         $scope.initConditionsModalData();

@@ -45,7 +45,6 @@
             };
         }
 
-        console.log($scope.promotionsItem,88888)
 
         if($scope.promotionsItem.period){
             $scope.promotionsItem.startTime = $scope.promotionsItem.period.from || '';

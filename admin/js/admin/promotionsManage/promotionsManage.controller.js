@@ -18,6 +18,21 @@
         adminService
     ) {
 
+        $scope.search = {
+            currency: []
+        };
+
+        $scope.statusOptions = [
+            {
+                label:'publish',
+                value:'publish'
+            },
+            {
+                label:'draft',
+                value:'draft'
+            }
+        ];
+
         $scope.currencyOptions = [];
 
         $scope.initCurrenciesManageData = function () {
@@ -207,9 +222,15 @@
 
         if($scope.hasPower){
 
-            $scope.initBrandOptionsData();
+            //$scope.initBrandOptionsData();
 
             $scope.initLocalesOptionsData()
         }
+
+        $scope.$watch('search.currency.length', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                $scope.promotionsManageAoData.currency = $scope.search.currency.join(',');
+            }
+        });
     }
 })();

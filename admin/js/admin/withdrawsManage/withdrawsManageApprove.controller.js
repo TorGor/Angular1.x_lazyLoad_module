@@ -72,7 +72,7 @@
             ];
         }
         if(!$scope.withdrawsDetail.adminId){
-            $scope.withdrawsDetail.adminId = window.userInfo && window.userInfo.admin_id || '';
+            $scope.withdrawsDetail.adminId = window.userInfo && window.userInfo.adminId || '';
         }
         if(!$scope.withdrawsDetail.result){
             $scope.withdrawsDetail.result = $scope.resultOptions[0] && $scope.resultOptions[0].value || '';

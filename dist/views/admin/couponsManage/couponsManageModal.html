@@ -308,7 +308,7 @@
                                     </span>
                                  </td>
                                  <td>
-                                    <span editable-text="item.value" e-name="value" e-type="number" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">
+                                    <span editable-text="item.value" e-name="value" e-type="number" e-formclass="xeditable-sm" e-placeholder='min 0.01' onbeforesave="checkConditionsMinData($data)" e-form="rowform" e-required="">
                                        {{ item.value || '' }}
                                     </span>
                                  </td>

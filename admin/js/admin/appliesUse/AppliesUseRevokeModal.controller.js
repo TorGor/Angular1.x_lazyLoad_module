@@ -35,7 +35,7 @@
         $scope.appliesUseSaveRevoke = {
             result: $scope.resultOptions[0].value,
             comment: '',
-            adminId: window.userInfo && window.userInfo.admin_id || ''
+            adminId: window.userInfo && window.userInfo.adminId || ''
         };
 
         $scope.confirmModal = function () {
