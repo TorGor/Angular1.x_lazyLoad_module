@@ -4,6 +4,7 @@
             <div class="panel-body">
                 <span class="form-group add-button-class">
                     <button
+                        ng-show='validPower("USERLEVEL", ["POST", "PATCH", "PUT", "DELETE"])'
                         class="btn btn-primary"
                         ng-click="addUserLevel()"
                         type="button"
@@ -47,7 +48,7 @@
                             <td style="width: 12%">
                                 {{'table.userLevel.th6' | translate}}
                             </td>
-                            <td style="width: 15%">{{'table.button.operation' | translate}}</td>
+                            <td style="width: 15%" ng-show='validPower("USERLEVEL", ["PATCH","DELETE"])'>{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -69,17 +70,17 @@
                             </td>
                             <td>
                                 <span>
-                                    <button class="btn btn-sm btn-info" ng-click="showEditModal('conditions', item)">明细</button>
+                                    <button class="btn btn-sm btn-info" ng-click="showEditModal('conditions', item)">{{showAddOrDetail(item.conditions, item.id)}}</button>
                                 </span>
                             </td>
                             <td>
                                 <span>
-                                    <button class="btn btn-sm btn-info" ng-click="showEditModal('treatments', item)">明细</button>
+                                    <button class="btn btn-sm btn-info" ng-click="showEditModal('treatments', item)">{{showAddOrDetail(item.treatments, item.id)}}</button>
                                 </span>
                             </td>
                             <td>
                                 <span>
-                                    <button class="btn btn-sm btn-info" ng-click="showEditModal('rebates', item)">明细</button>
+                                    <button class="btn btn-sm btn-info" ng-click="showEditModal('rebates', item)">{{showAddOrDetail(item.rebates, item.id)}}</button>
                                 </span>
                             </td>
                             <td style="white-space: nowrap;">
@@ -97,11 +98,12 @@
                                     </button>
                                 </form>
                                 <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-info" ng-click="rowform.$show()"
+                                    <button class="btn btn-sm btn-info" ng-show='validPower("USERLEVEL", ["PATCH"])' ng-click="rowform.$show()"
                                             title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" ng-click="deleteUserLevel(item)"
+                                    <button class="btn btn-sm btn-danger" ng-show='!item.isDeleted&&validPower("USERLEVEL", ["DELETE"])'
+                                            ng-click="deleteUserLevel(item)"
                                             title="{{'table.button.delete' | translate}}">
                                         <em class="fa fa-trash"></em>
                                     </button>
@@ -109,7 +111,8 @@
                             </td>
                         </tr>
                         <tr ng-show="showUserLevel.length==0">
-                            <td colspan="7" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan='{{validPower("USERLEVEL", ["PATCH","DELETE"])?7:6}}'
+                                class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

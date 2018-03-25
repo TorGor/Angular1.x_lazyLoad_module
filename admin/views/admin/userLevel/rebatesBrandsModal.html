@@ -9,10 +9,11 @@
                 <div class="panel-body">
                 <span class="form-group add-button-class">
                     <button
-                            class="btn btn-primary"
-                            ng-click="addRebatesBrandsModal()"
-                            type="button"
-                            translate="table.button.add"
+                        ng-show='validPower("USERLEVEL", ["PATCH"])'
+                        class="btn btn-primary"
+                        ng-click="addRebatesBrandsModal()"
+                        type="button"
+                        translate="table.button.add"
                     >
                         新增
                     </button>
@@ -40,7 +41,7 @@
                                 <td style="width: 40%" ao-data="rebatesBrandsModalAoData" web-data-table-sort="product">
                                     {{'table.rebatesModal.brands.th2' | translate}}
                                 </td>
-                                <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                                <td style="width: 17%" ng-show='validPower("USERLEVEL", ["PATCH"])'>{{'table.button.operation' | translate}}</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -53,7 +54,7 @@
                                     <span editable-text="item.rate" e-name="rate" e-formclass="xeditable-sm"
                                           onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.rate || '' }}</span>
                                 </td>
-                                <td style="white-space: nowrap;">
+                                <td style="white-space: nowrap;" ng-show='validPower("USERLEVEL", ["PATCH"])'>
                                     <form class="form-buttons form-inline" editable-form name="rowform"
                                           onaftersave="saveRebatesBrandsModal(item, $data)" ng-show="rowform.$visible"
                                           shown="validIsNew(item.id)">
@@ -80,7 +81,8 @@
                                 </td>
                             </tr>
                             <tr ng-show="showRebatesBrandsModal.length==0">
-                                <td colspan="3" class="">{{'table.no_date' | translate}}</td>
+                                <td colspan='{{validPower("USERLEVEL", ["PATCH"])?3:2}}'
+                                                                   class="">{{'table.no_date' | translate}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -92,7 +94,8 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="confirmModalRebatesBrand()">{{'table.button.save' | translate}}</button>
+    <button class="btn btn-primary" type="button" ng-show='validPower("USERLEVEL", ["PATCH"])' ng-click="confirmModalRebatesBrand()">{{'table.button.save' |
+                                                                                         translate}}</button>
     <button class="btn btn-default" type="button" ng-click="cancelModalRebatesBrand()">{{'table.button.cancel' | translate}}</button>
 </div>
 
