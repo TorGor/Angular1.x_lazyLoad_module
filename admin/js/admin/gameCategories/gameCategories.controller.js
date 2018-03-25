@@ -82,7 +82,8 @@
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    MethodsNameItem: item
+                    MethodsNameItem: item,
+                    hasPower:$scope.validPower("GAMECATEGORIES", ["PATCH", "POST"])
                 }
             });
             modalInstance.result.then(function (data) {

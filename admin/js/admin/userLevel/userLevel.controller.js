@@ -346,7 +346,7 @@
 
         $scope.initUserLevelData();
 
-        if($scope.validPower("USERLEVEL", ["PATCH"])){
+        if($scope.validPower("USERLEVEL", ["PATCH", "POST"])){
             $scope.initCurrenciesManageData();
             $scope.initProductManageData();
             $scope.initBrandOptionsData();

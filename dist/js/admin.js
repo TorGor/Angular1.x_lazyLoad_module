@@ -252,8 +252,8 @@
             },
             GAMEBRANDS:{
                 GET:'/rest/brands',
-                //POST:'/rest/brands',
-                //PATCH:'/rest/brands',
+                POST:'/rest/brands',
+                PATCH:'/rest/brands',
                 DELETE:'/rest/brands'
             },
             GAMECATEGORIES:{
@@ -2742,7 +2742,8 @@
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    MethodsNameItem: item
+                    MethodsNameItem: item,
+                    hasPower:$scope.validPower("GAMECATEGORIES", ["PATCH", "POST"])
                 }
             });
             modalInstance.result.then(function (data) {
@@ -6934,7 +6935,7 @@
 
         $scope.initUserLevelData();
 
-        if($scope.validPower("USERLEVEL", ["PATCH"])){
+        if($scope.validPower("USERLEVEL", ["PATCH", "POST"])){
             $scope.initCurrenciesManageData();
             $scope.initProductManageData();
             $scope.initBrandOptionsData();
