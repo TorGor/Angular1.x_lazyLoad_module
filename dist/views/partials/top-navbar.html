@@ -31,15 +31,9 @@
       <ul class="nav navbar-nav navbar-right">
          <!-- START User avatar toggle-->
          <li>
-            <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
             <a href="" ng-click="toggleUserBlock()">
                <em class="icon-user"></em>
-            </a>
-         </li>
-         <li>
-            <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
-            <a>
-                {{user.name ? user.name.substr(0,8) : ''}}
+               {{user.name ? user.name.substr(0,8) : ''}}
             </a>
          </li>
          <!-- START User avatar toggle-->

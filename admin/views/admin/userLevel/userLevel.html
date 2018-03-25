@@ -55,7 +55,9 @@
                         <tr ng-repeat="item in showUserLevel">
                             <td>
                                 <span editable-text="item.code" e-name="code" e-formclass="xeditable-sm"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
+                                      e-placeholder='15 A-Z char'
+                                      onbeforesave="validReg('^[A-Z]{1,15}$', $data, '15 A-Z char')" e-form="rowform"
+                                      e-required="">{{ item.code || '' }}</span>
                             </td>
                             <td>
                                 <span editable-select="item.default" e-name="default" e-form="rowform"
@@ -66,7 +68,10 @@
                             </td>
                             <td>
                                 <span editable-text="item.level" e-name="level" e-formclass="xeditable-sm"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.level || '' }}</span>
+                                      e-placeholder='integer number'
+                                      onbeforesave="validReg('^[1-9][0-9]?$', $data, 'integer number')"
+                                      e-form="rowform"
+                                      e-required="">{{ item.level || '' }}</span>
                             </td>
                             <td>
                                 <span>

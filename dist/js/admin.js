@@ -209,7 +209,7 @@
             USERLEVEL:{
                 GET:'/rest/ranks',
                 POST:'/rest/ranks',
-                //PATCH:'/rest/ranks',
+                PATCH:'/rest/ranks',
                 DELETE:'/rest/ranks',
                 PUT:'/rest/ranks/restore'
             },
@@ -5996,6 +5996,14 @@
         $scope.rebatesBrandsModalAoData = {};
         $scope.rebatesBrandsModalSearch = '';
 
+        $scope.checkRebatesBrandsRate = function(data) {
+            var temp = window.parseFloat(data);
+            if(!data || temp<0.0001 || temp>0.99){
+                return '0.0001-0.99';
+            }
+            return true;
+        }
+
         var baseRebatesBrands = angular.copy(RebatesBrandsItem);
 
         // 初始化table数据
@@ -6045,7 +6053,7 @@
             $scope.rebatesBrandsModalSearch = '';
             $scope.rebatesBrandsModal.unshift({
                 'id': ($scope.rebatesBrandsModal.length+1) + 'null',
-                "brand": "",
+                "brand": $scope.brandOptions[0]&&$scope.brandOptions[0].value || '',
                 "rate": ''
             });
         };
@@ -6116,25 +6124,6 @@
         item
     ) {
 
-        $scope.productOptions = [
-            {
-                label: 'SLOTS',
-                value: 'SLOTS'
-            },
-            {
-                label: 'LIVE',
-                value: 'LIVE'
-            },
-            {
-                label: 'SPORTS',
-                value: 'SPORTS'
-            },
-            {
-                label: 'LOTTERY',
-                value: 'LOTTERY'
-            }
-        ];
-
         // 原始的数据
         $scope.rebatesModal = [];
 
@@ -6145,6 +6134,13 @@
         $scope.rebatesModalReload = 1;
         $scope.rebatesModalAoData = {};
         $scope.rebatesModalSearch = '';
+
+        $scope.checkRebatesMax = function(data) {
+            if(!data || window.parseFloat(data)<0.01){
+                return 'min 0.01'
+            }
+            return true;
+        };
 
         // 初始化table数据
         $scope.initRebatesModalData = function () {
@@ -6499,16 +6495,33 @@
             }
         ];
 
+        $scope.productOptions = [];
+
+        $scope.initProductManageData = function () {
+            $scope.productOptions = [];
+            adminService.getReq($rootScope.URL.GAMESPRODUCTS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.disabled == false){
+                                    $scope.productOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
         $scope.currencyOptions = [];
-
-        // 原始的数据
-        $scope.userLevel = [];
-
-        // 过滤出来的数据
-        $scope.showUserLevel = [];
-        $scope.userLevelReload = 1;
-        $scope.userLevelAoData = {};
-        $scope.userLevelSearch = '';
 
         $scope.initCurrenciesManageData = function () {
             $scope.currencyOptions = [];
@@ -6533,6 +6546,42 @@
                 }
             });
         };
+
+        $scope.brandOptions = [];
+
+        $scope.initBrandOptionsData = function () {
+            $scope.brandOptions = [];
+            adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                $scope.brandOptions.push(tempObj)
+                                // if(objItem.supported){
+                                //     $scope.brandOptions.push(tempObj)
+                                // }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        // 原始的数据
+        $scope.userLevel = [];
+
+        // 过滤出来的数据
+        $scope.showUserLevel = [];
+        $scope.userLevelReload = 1;
+        $scope.userLevelAoData = {};
+        $scope.userLevelSearch = '';
 
         // 判断是否是一个新添加的
         $scope.validIsNew = function (str) {
@@ -6763,7 +6812,11 @@
 
         $scope.initUserLevelData();
 
-        $scope.initCurrenciesManageData();
+        if($scope.validPower("USERLEVEL", ["PATCH"])){
+            $scope.initCurrenciesManageData();
+            $scope.initProductManageData();
+            $scope.initBrandOptionsData();
+        }
     }
 })();
 

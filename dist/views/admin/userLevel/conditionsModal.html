@@ -63,7 +63,7 @@
                               </span>
                            </td>
                            <td>
-                              <span editable-text="item.value" e-name="value" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.value || '' }}</span>
+                              <span editable-text="item.value" e-name="value" e-formclass="xeditable-sm" e-placeholder='integer number' onbeforesave="validReg('^[1-9][0-9]?$', $data, 'integer number')" e-form="rowform" e-required="">{{ item.value || '' }}</span>
                            </td>
                            <td>
                               <span editable-select="item.type" e-name="type" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in typeOptions">

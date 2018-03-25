@@ -55,10 +55,10 @@
                               </span>
                            </td>
                            <td>
-                              <span editable-text="item.max" e-name="max" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.max || '' }}</span>
+                              <span editable-text="item.max" e-name="max" e-formclass="xeditable-sm" e-placeholder='min 0.01' e-type='number' onbeforesave="checkRebatesMax($data)" e-form="rowform" e-required="">{{ item.max || '' }}</span>
                            </td>
                            <td>
-                              <span editable-text="item.days" e-name="days" e-formclass="xeditable-xs" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.days || '' }}</span>
+                              <span editable-text="item.days" e-name="days" e-formclass="xeditable-xs" e-placeholder='integer number' onbeforesave="validReg('^[1-9][0-9]?$', $data, 'integer number')" e-form="rowform" e-required="">{{ item.days || '' }}</span>
                            </td>
                            <td>
                               <button class="btn btn-sm btn-info" ng-click="showEditRebatesBrandModal(item)">{{showAddOrDetail(item.brands, item.id)}}</button>

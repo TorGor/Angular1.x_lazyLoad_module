@@ -31,7 +31,7 @@
             USERLEVEL:{
                 GET:'/rest/ranks',
                 POST:'/rest/ranks',
-                //PATCH:'/rest/ranks',
+                PATCH:'/rest/ranks',
                 DELETE:'/rest/ranks',
                 PUT:'/rest/ranks/restore'
             },

@@ -93,7 +93,9 @@
                                 <td>
                                     <span
                                         editable-text="item.value" e-name="value" e-formclass="xeditable-sm"
-                                        onbeforesave="checkRequiredData($data)" e-form="rowform" e-required=""
+                                        e-placeholder='integer number'
+                                        onbeforesave="validReg('^[1-9][0-9]?$', $data, 'integer number')"
+                                        e-form="rowform" e-required=""
                                     >{{ item.value || '' }}</span>
                                 </td>
                                 <td>

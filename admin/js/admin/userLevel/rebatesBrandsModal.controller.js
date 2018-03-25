@@ -29,6 +29,14 @@
         $scope.rebatesBrandsModalAoData = {};
         $scope.rebatesBrandsModalSearch = '';
 
+        $scope.checkRebatesBrandsRate = function(data) {
+            var temp = window.parseFloat(data);
+            if(!data || temp<0.0001 || temp>0.99){
+                return '0.0001-0.99';
+            }
+            return true;
+        }
+
         var baseRebatesBrands = angular.copy(RebatesBrandsItem);
 
         // 初始化table数据
@@ -78,7 +86,7 @@
             $scope.rebatesBrandsModalSearch = '';
             $scope.rebatesBrandsModal.unshift({
                 'id': ($scope.rebatesBrandsModal.length+1) + 'null',
-                "brand": "",
+                "brand": $scope.brandOptions[0]&&$scope.brandOptions[0].value || '',
                 "rate": ''
             });
         };

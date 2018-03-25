@@ -29,16 +29,33 @@
             }
         ];
 
+        $scope.productOptions = [];
+
+        $scope.initProductManageData = function () {
+            $scope.productOptions = [];
+            adminService.getReq($rootScope.URL.GAMESPRODUCTS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.disabled == false){
+                                    $scope.productOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
         $scope.currencyOptions = [];
-
-        // 原始的数据
-        $scope.userLevel = [];
-
-        // 过滤出来的数据
-        $scope.showUserLevel = [];
-        $scope.userLevelReload = 1;
-        $scope.userLevelAoData = {};
-        $scope.userLevelSearch = '';
 
         $scope.initCurrenciesManageData = function () {
             $scope.currencyOptions = [];
@@ -63,6 +80,42 @@
                 }
             });
         };
+
+        $scope.brandOptions = [];
+
+        $scope.initBrandOptionsData = function () {
+            $scope.brandOptions = [];
+            adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                $scope.brandOptions.push(tempObj)
+                                // if(objItem.supported){
+                                //     $scope.brandOptions.push(tempObj)
+                                // }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        // 原始的数据
+        $scope.userLevel = [];
+
+        // 过滤出来的数据
+        $scope.showUserLevel = [];
+        $scope.userLevelReload = 1;
+        $scope.userLevelAoData = {};
+        $scope.userLevelSearch = '';
 
         // 判断是否是一个新添加的
         $scope.validIsNew = function (str) {
@@ -293,6 +346,10 @@
 
         $scope.initUserLevelData();
 
-        $scope.initCurrenciesManageData();
+        if($scope.validPower("USERLEVEL", ["PATCH"])){
+            $scope.initCurrenciesManageData();
+            $scope.initProductManageData();
+            $scope.initBrandOptionsData();
+        }
     }
 })();

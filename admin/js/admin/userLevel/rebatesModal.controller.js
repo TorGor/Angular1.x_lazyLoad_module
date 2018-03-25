@@ -22,25 +22,6 @@
         item
     ) {
 
-        $scope.productOptions = [
-            {
-                label: 'SLOTS',
-                value: 'SLOTS'
-            },
-            {
-                label: 'LIVE',
-                value: 'LIVE'
-            },
-            {
-                label: 'SPORTS',
-                value: 'SPORTS'
-            },
-            {
-                label: 'LOTTERY',
-                value: 'LOTTERY'
-            }
-        ];
-
         // 原始的数据
         $scope.rebatesModal = [];
 
@@ -51,6 +32,13 @@
         $scope.rebatesModalReload = 1;
         $scope.rebatesModalAoData = {};
         $scope.rebatesModalSearch = '';
+
+        $scope.checkRebatesMax = function(data) {
+            if(!data || window.parseFloat(data)<0.01){
+                return 'min 0.01'
+            }
+            return true;
+        };
 
         // 初始化table数据
         $scope.initRebatesModalData = function () {
