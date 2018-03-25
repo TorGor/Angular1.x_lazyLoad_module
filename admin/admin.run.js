@@ -105,8 +105,8 @@
             },
             PSPSMANAGE:{
                 GET:'/rest/psps',
-                POST:'/rest/psps',
-                PATCH:'/rest/psps',
+                //POST:'/rest/psps',
+                //PATCH:'/rest/psps',
                 PUT:'/rest/psps',
                 DELETE:'/rest/psps'
             },

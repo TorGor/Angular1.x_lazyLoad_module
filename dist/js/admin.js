@@ -33,13 +33,6 @@
 (function() {
 
     angular
-        .module('admin.appliesUse', [
-            'app.core',
-        ]);
-})();
-(function() {
-
-    angular
         .module('admin.blackLists', [
             'app.core',
         ]);
@@ -54,7 +47,7 @@
 (function() {
 
     angular
-        .module('admin.couponsManage', [
+        .module('admin.appliesUse', [
             'app.core',
         ]);
 })();
@@ -62,6 +55,13 @@
 
     angular
         .module('admin.currenciesManage', [
+            'app.core',
+        ]);
+})();
+(function() {
+
+    angular
+        .module('admin.couponsManage', [
             'app.core',
         ]);
 })();
@@ -283,8 +283,8 @@
             },
             PSPSMANAGE:{
                 GET:'/rest/psps',
-                POST:'/rest/psps',
-                PATCH:'/rest/psps',
+                //POST:'/rest/psps',
+                //PATCH:'/rest/psps',
                 PUT:'/rest/psps',
                 DELETE:'/rest/psps'
             },
@@ -489,219 +489,6 @@
 
 })(angular);
 
-
-(function() {
-
-    angular
-        .module('admin.appliesUse')
-        .controller('AppliesUseAuditModalController', AppliesUseAuditModalController);
-
-    AppliesUseAuditModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'adminService',
-        'item',
-        '$translate'
-    ];
-
-    function AppliesUseAuditModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        adminService,
-        item,
-        $translate
-    ) {
-        $scope.resultOptions = [
-            {
-                label:'pass',
-                value:'pass'
-            },
-            {
-                label:'rejected',
-                value:'rejected'
-            },
-            {
-                label:'pending',
-                value:'pending'
-            }
-        ];
-
-        $scope.appliesUseSaveAudit = {
-            result: $scope.resultOptions[0].value,
-            comment: '',
-            adminId: window.userInfo && window.userInfo.admin_id || ''
-        };
-
-        $scope.confirmModal = function () {
-            adminService.postReq($rootScope.URL.ORDERSMANAGE.POST+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $uibModalInstance.close('success');
-                        $rootScope.toasterSuccess(res.data.msg);
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.appliesUse')
-        .controller('AppliesUseRevokeModalController', AppliesUseRevokeModalController);
-
-    AppliesUseRevokeModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'adminService',
-        'item',
-        '$translate'
-    ];
-
-    function AppliesUseRevokeModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        adminService,
-        item,
-        $translate
-    ) {
-        $scope.resultOptions = [
-            {
-                label:'revoked',
-                value:'revoked'
-            },
-            {
-                label:'succeed',
-                value:'succeed'
-            }
-        ];
-
-        $scope.appliesUseSaveRevoke = {
-            result: $scope.resultOptions[0].value,
-            comment: '',
-            adminId: window.userInfo && window.userInfo.admin_id || ''
-        };
-
-        $scope.confirmModal = function () {
-            adminService.patchReq($rootScope.URL.ORDERSMANAGE.PATCH+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $uibModalInstance.close('success');
-                        $rootScope.toasterSuccess(res.data.msg);
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.appliesUse')
-        .controller('AppliesUseController', AppliesUseController);
-
-    AppliesUseController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModal',
-        'adminService'
-    ];
-
-    function AppliesUseController(
-        $scope,
-        $rootScope,
-        $uibModal,
-        adminService
-    ) {
-
-        $scope.appliesUseUrl = $rootScope.URL.APPLIESUSE.GET;
-
-        // 原始的数据
-        $scope.appliesUse = [];
-
-        // 过滤出来的数据
-        $scope.showAppliesUse = [];
-        $scope.appliesUseReload = 1;
-        $scope.appliesUseAoData = {};
-
-        // 初始化table数据
-        $scope.initAppliesUseData = function () {
-            $scope.appliesUseReload++;
-        };
-
-        $scope.appliesUseAudit = function (item) {
-            if(!item.id){
-                $rootScope.alertErrorMsg('server data error');
-                return;
-            }
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/appliesUse/appliesUseAuditModal.html',
-                controller: 'AppliesUseAuditModalController',
-                resolve: {
-                    item: item
-                },
-                size: 'lg',
-            });
-            modalInstance.result.then(function(data) {
-                $scope.initAppliesUseData()
-            }, function(data) {
-            });
-        };
-
-
-        $scope.appliesUseRevoke = function (item) {
-            if(!item.id){
-                $rootScope.alertErrorMsg('server data error');
-                return;
-            }
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/appliesUse/appliesUseRevokeModal.html',
-                controller: 'AppliesUseRevokeModalController',
-                resolve: {
-                    item: item
-                },
-                size: 'lg',
-            });
-            modalInstance.result.then(function(data) {
-                $scope.initAppliesUseData()
-            }, function(data) {
-            });
-        };
-
-
-        // 页面加载执行的函数
-    }
-})();
 
 (function() {
 
@@ -1063,6 +850,374 @@
         if($scope.validPower("COUNTRIESMANAGE", ["PATCH"])){
             $scope.initCurrenciesManageData();
         }
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.appliesUse')
+        .controller('AppliesUseAuditModalController', AppliesUseAuditModalController);
+
+    AppliesUseAuditModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'adminService',
+        'item',
+        '$translate'
+    ];
+
+    function AppliesUseAuditModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        adminService,
+        item,
+        $translate
+    ) {
+        $scope.resultOptions = [
+            {
+                label:'pass',
+                value:'pass'
+            },
+            {
+                label:'rejected',
+                value:'rejected'
+            },
+            {
+                label:'pending',
+                value:'pending'
+            }
+        ];
+
+        $scope.appliesUseSaveAudit = {
+            result: $scope.resultOptions[0].value,
+            comment: '',
+            adminId: window.userInfo && window.userInfo.admin_id || ''
+        };
+
+        $scope.confirmModal = function () {
+            adminService.postReq($rootScope.URL.ORDERSMANAGE.POST+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $uibModalInstance.close('success');
+                        $rootScope.toasterSuccess(res.data.msg);
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.appliesUse')
+        .controller('AppliesUseRevokeModalController', AppliesUseRevokeModalController);
+
+    AppliesUseRevokeModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'adminService',
+        'item',
+        '$translate'
+    ];
+
+    function AppliesUseRevokeModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        adminService,
+        item,
+        $translate
+    ) {
+        $scope.resultOptions = [
+            {
+                label:'revoked',
+                value:'revoked'
+            },
+            {
+                label:'succeed',
+                value:'succeed'
+            }
+        ];
+
+        $scope.appliesUseSaveRevoke = {
+            result: $scope.resultOptions[0].value,
+            comment: '',
+            adminId: window.userInfo && window.userInfo.admin_id || ''
+        };
+
+        $scope.confirmModal = function () {
+            adminService.patchReq($rootScope.URL.ORDERSMANAGE.PATCH+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $uibModalInstance.close('success');
+                        $rootScope.toasterSuccess(res.data.msg);
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.appliesUse')
+        .controller('AppliesUseController', AppliesUseController);
+
+    AppliesUseController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModal',
+        'adminService'
+    ];
+
+    function AppliesUseController(
+        $scope,
+        $rootScope,
+        $uibModal,
+        adminService
+    ) {
+
+        $scope.appliesUseUrl = $rootScope.URL.APPLIESUSE.GET;
+
+        // 原始的数据
+        $scope.appliesUse = [];
+
+        // 过滤出来的数据
+        $scope.showAppliesUse = [];
+        $scope.appliesUseReload = 1;
+        $scope.appliesUseAoData = {};
+
+        // 初始化table数据
+        $scope.initAppliesUseData = function () {
+            $scope.appliesUseReload++;
+        };
+
+        $scope.appliesUseAudit = function (item) {
+            if(!item.id){
+                $rootScope.alertErrorMsg('server data error');
+                return;
+            }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/appliesUse/appliesUseAuditModal.html',
+                controller: 'AppliesUseAuditModalController',
+                resolve: {
+                    item: item
+                },
+                size: 'lg',
+            });
+            modalInstance.result.then(function(data) {
+                $scope.initAppliesUseData()
+            }, function(data) {
+            });
+        };
+
+
+        $scope.appliesUseRevoke = function (item) {
+            if(!item.id){
+                $rootScope.alertErrorMsg('server data error');
+                return;
+            }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/appliesUse/appliesUseRevokeModal.html',
+                controller: 'AppliesUseRevokeModalController',
+                resolve: {
+                    item: item
+                },
+                size: 'lg',
+            });
+            modalInstance.result.then(function(data) {
+                $scope.initAppliesUseData()
+            }, function(data) {
+            });
+        };
+
+
+        // 页面加载执行的函数
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.currenciesManage')
+        .controller('CurrenciesManageController', CurrenciesManageController);
+
+    CurrenciesManageController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$translate',
+        'adminService'
+    ];
+
+    function CurrenciesManageController(
+        $scope,
+        $rootScope,
+        $translate,
+        adminService
+    ) {
+
+        $scope.options = [
+            {
+                value:'0',
+                label:$translate.instant('table.localeLanguage.th3ShowFalse')
+            },
+            {
+                value:'1',
+                label:$translate.instant('table.localeLanguage.th3ShowTrue')
+            }
+        ];
+
+        // 原始的数据
+        $scope.currenciesManage = [];
+
+        // 过滤出来的数据
+        $scope.showCurrenciesManage = [];
+        $scope.currenciesManageReload = 1;
+        $scope.currenciesManageAoData = {};
+        $scope.currenciesManageSearch = '';
+
+        // 初始化table数据
+        $scope.initCurrenciesManageData = function () {
+            $scope.currenciesManage = [];
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.currenciesManage = angular.copy(res.data.data);
+                        $scope.currenciesManage.forEach(function (currenciesManageItem, currenciesManageIndex) {
+                            currenciesManageItem.id = currenciesManageIndex +1;
+                            currenciesManageItem.supported = currenciesManageItem.supported ? '1' : '0';
+                            currenciesManageItem.symbolAfter = currenciesManageItem.symbolAfter ? '1' : '0';
+                        });
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param currenciesManage 货币管理数据对象
+         * @param item
+         */
+
+        $scope.saveCurrenciesManage = function (currenciesManage, item) {
+            var tempData = angular.extend({}, currenciesManage, item);
+            if (!tempData.id) {
+                delete tempData.id;
+                adminService.postReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initCurrenciesManageData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (currenciesManage.id) {
+                delete tempData.id;
+                adminService.patchReq($rootScope.URL.CURRENCIESMANAGE.PATCH+'/'+currenciesManage.code, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initCurrenciesManageData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+        };
+
+        // 删除currenciesManage
+        /**
+         * @param currenciesManage 货币管理数据对象
+         * @return null
+         */
+        $scope.deleteCurrenciesManage = function (currenciesManage) {
+            if (currenciesManage.id) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.CURRENCIESMANAGE.DELETE+'/'+currenciesManage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initCurrenciesManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 添加按钮
+        $scope.addCurrenciesManage = function () {
+            $scope.currenciesManageAoData = {};
+            $scope.currenciesManageSearch = '';
+            $scope.currenciesManage.unshift({
+                'id': null,
+                'code': '',
+                'name': '',
+                'symbol': '',
+                'symbolAfter': '0',
+                'supported': '1'
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的货币管理
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.currenciesManage.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initCurrenciesManageData();
     }
 })();
 
@@ -1742,161 +1897,6 @@
             }
         });
 
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.currenciesManage')
-        .controller('CurrenciesManageController', CurrenciesManageController);
-
-    CurrenciesManageController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$translate',
-        'adminService'
-    ];
-
-    function CurrenciesManageController(
-        $scope,
-        $rootScope,
-        $translate,
-        adminService
-    ) {
-
-        $scope.options = [
-            {
-                value:'0',
-                label:$translate.instant('table.localeLanguage.th3ShowFalse')
-            },
-            {
-                value:'1',
-                label:$translate.instant('table.localeLanguage.th3ShowTrue')
-            }
-        ];
-
-        // 原始的数据
-        $scope.currenciesManage = [];
-
-        // 过滤出来的数据
-        $scope.showCurrenciesManage = [];
-        $scope.currenciesManageReload = 1;
-        $scope.currenciesManageAoData = {};
-        $scope.currenciesManageSearch = '';
-
-        // 初始化table数据
-        $scope.initCurrenciesManageData = function () {
-            $scope.currenciesManage = [];
-            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.currenciesManage = angular.copy(res.data.data);
-                        $scope.currenciesManage.forEach(function (currenciesManageItem, currenciesManageIndex) {
-                            currenciesManageItem.id = currenciesManageIndex +1;
-                            currenciesManageItem.supported = currenciesManageItem.supported ? '1' : '0';
-                            currenciesManageItem.symbolAfter = currenciesManageItem.symbolAfter ? '1' : '0';
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param currenciesManage 货币管理数据对象
-         * @param item
-         */
-
-        $scope.saveCurrenciesManage = function (currenciesManage, item) {
-            var tempData = angular.extend({}, currenciesManage, item);
-            if (!tempData.id) {
-                delete tempData.id;
-                adminService.postReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initCurrenciesManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (currenciesManage.id) {
-                delete tempData.id;
-                adminService.patchReq($rootScope.URL.CURRENCIESMANAGE.PATCH+'/'+currenciesManage.code, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initCurrenciesManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
-        // 删除currenciesManage
-        /**
-         * @param currenciesManage 货币管理数据对象
-         * @return null
-         */
-        $scope.deleteCurrenciesManage = function (currenciesManage) {
-            if (currenciesManage.id) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.CURRENCIESMANAGE.DELETE+'/'+currenciesManage.code, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initCurrenciesManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 添加按钮
-        $scope.addCurrenciesManage = function () {
-            $scope.currenciesManageAoData = {};
-            $scope.currenciesManageSearch = '';
-            $scope.currenciesManage.unshift({
-                'id': null,
-                'code': '',
-                'name': '',
-                'symbol': '',
-                'symbolAfter': '0',
-                'supported': '1'
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的货币管理
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.currenciesManage.splice(index, 1);
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initCurrenciesManageData();
     }
 })();
 
@@ -5300,7 +5300,8 @@
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    PspsMethodsItem: item
+                    PspsMethodsItem: item,
+                    hasPower:$scope.hasPower
                 }
             });
             modalInstance.result.then(function (data) {
@@ -5398,11 +5399,17 @@
             }
         };
 
+        $scope.hasPower = $scope.validPower("PSPSMANAGE", ["PATCH", "POST"])
+
         // 页面加载执行的函数
 
         $scope.initPspsManageData();
 
-        $scope.initMethodsOptions()
+        if($scope.hasPower){
+
+            $scope.initMethodsOptions()
+
+        }
     }
 })();
 
@@ -5418,6 +5425,7 @@
         '$uibModalInstance',
         '$translate',
         'adminService',
+        'hasPower',
         'PspsMethodsItem'
     ];
 
@@ -5427,8 +5435,11 @@
         $uibModalInstance,
         $translate,
         adminService,
+        hasPower,
         PspsMethodsItem
     ) {
+
+        $scope.hasPower = hasPower;
 
         // 原始的数据
         $scope.pspsMethodsModal = [];

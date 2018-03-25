@@ -4,6 +4,7 @@
             <div class="panel-body">
                 <span class="form-group add-button-class">
                     <button
+                        ng-show='validPower("PSPSMANAGE", ["POST"])'
                         class="btn btn-primary"
                         ng-click="addPspsManage()"
                         type="button"
@@ -47,26 +48,35 @@
                             <td style="width: 10%" ao-data="pspsManageAoData" web-data-table-sort="activated">
                                 {{'table.pspsManage.th6' | translate}}
                             </td>
-                            <td style="width: 10%">{{'table.button.operation' | translate}}</td>
+                            <td style="width: 10%"
+                                ng-show='validPower("PSPSMANAGE", ["PATCH"])'>{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in showPspsManage">
                             <td>
                                 <span editable-text="item.code" e-name="code" e-formclass="xeditable-sm"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
+                                      e-placeholder='A-Z0-9 max 10 char'
+                                      onbeforesave="validReg('[A-Z0-9]{1,10}', $data, 'A-Z0-9 max 10 char')"
+                                      e-form="rowform"
+                                      e-required="">{{ item.code || '' }}</span>
                             </td>
                             <td>
-                                <span editable-text="item.gateway" e-name="gateway" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.gateway || '' }}</span>
+                                <span editable-text="item.gateway" e-name="gateway" e-placeholder='url'
+                                      e-formclass="xeditable-md"
+                                      onbeforesave="validReg('^http', $data, 'should be url')" e-form="rowform"
+                                      e-required="">{{ item.gateway || '' }}</span>
                             </td>
                             <td>
                                 <span editable-text="item.account" e-name="account" e-formclass="xeditable-sm"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.account || '' }}</span>
+                                      e-placeholder='max 50 char'
+                                      onbeforesave="validReg('^.{1,50}$', $data, 'max 50 char')" e-form="rowform"
+                                      e-required="">{{ item.account || '' }}</span>
                             </td>
                             <td>
-                                <span editable-text="item.api_key" e-name="api_key" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.api_key || '' }}</span>
+                                <span editable-text="item.api_key" e-name="api_key" e-placeholder='max 50 char' e-formclass="xeditable-md"
+                                      onbeforesave="validReg('^.{1,50}$', $data, 'max 50 char')" e-form="rowform"
+                                      e-required="">{{ item.api_key || '' }}</span>
                             </td>
                             <td>
                                 <button class="btn btn-sm btn-info" ng-click="showPspsMethodsModal(item)">{{showAddOrDetail(item.methods, item._id)}}</button>
@@ -74,7 +84,7 @@
                             <td>
                                 <span>{{item.activated ? 'Yes' : 'No'}}</span>
                             </td>
-                            <td style="white-space: nowrap;">
+                            <td style="white-space: nowrap;" ng-show='validPower("PSPSMANAGE", ["PATCH"])'>
                                 <form class="form-buttons form-inline" editable-form name="rowform"
                                       onaftersave="savePspsManage(item, $data)" ng-show="rowform.$visible"
                                       shown="validIsNew(item._id)">
@@ -89,23 +99,24 @@
                                     </button>
                                 </form>
                                 <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-info" ng-click="rowform.$show()"
+                                    <button class="btn btn-sm btn-info" ng-show='validPower("PSPSMANAGE", ["PATCH"])' ng-click="rowform.$show()"
                                             title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" ng-show="item.activated" ng-click="deletePspsManage(item)"
-                                            title="{{'table.button.delete' | translate}}">
-                                        <em class="fa fa-trash"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-green" ng-show="!item.activated" ng-click="recoverPspsManage(item)"
-                                            title="{{'table.button.recover' | translate}}">
-                                        <em class="fa fa-rotate-left"></em>
-                                    </button>
+                                    <!--<button class="btn btn-sm btn-danger"  ng-click="deletePspsManage(item)"-->
+                                            <!--title="{{'table.button.delete' | translate}}">-->
+                                        <!--<em class="fa fa-trash"></em>-->
+                                    <!--</button>-->
+                                    <!--<button class="btn btn-sm btn-green" ng-show="!item.activated" ng-click="recoverPspsManage(item)"-->
+                                            <!--title="{{'table.button.recover' | translate}}">-->
+                                        <!--<em class="fa fa-rotate-left"></em>-->
+                                    <!--</button>-->
                                 </div>
                             </td>
                         </tr>
                         <tr ng-show="showPspsManage.length==0">
-                            <td colspan="7" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan='{{validPower("PSPSMANAGE", ["PATCH"])?7:6}}'
+                                                               class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

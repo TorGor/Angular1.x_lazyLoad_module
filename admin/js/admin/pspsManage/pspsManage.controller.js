@@ -125,7 +125,8 @@
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    PspsMethodsItem: item
+                    PspsMethodsItem: item,
+                    hasPower:$scope.hasPower
                 }
             });
             modalInstance.result.then(function (data) {
@@ -223,10 +224,16 @@
             }
         };
 
+        $scope.hasPower = $scope.validPower("PSPSMANAGE", ["PATCH", "POST"])
+
         // 页面加载执行的函数
 
         $scope.initPspsManageData();
 
-        $scope.initMethodsOptions()
+        if($scope.hasPower){
+
+            $scope.initMethodsOptions()
+
+        }
     }
 })();

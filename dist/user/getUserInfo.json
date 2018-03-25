@@ -2,51 +2,78 @@
   "success": true,
   "msg": "find success!",
   "data": {
-    "roleId": "40280981619f095901619f1795c3000a",
+    "roleId": "402883a761aea4ee0161aebc84180001",
     "roles": [
       {
-        "name": "配置信息",
+        "name": "配置",
+        "url": null,
         "data": [
           {
             "name": "语言",
+            "url": "rest/locales",
             "data": [
               {
-                "id": "4028098161adaa000161adab3b690001",
+                "id": "402883a961cb77290161cbb36b660005",
+                "btnName": "新增",
+                "btnType": "4",
+                "btnCode": "",
+                "btnUrl": "locales/add",
+                "btnStatus": "1",
+                "createTime": "2018-02-25 14:43:08",
+                "optTime": "2018-03-25 11:41:19",
+                "menuId": "402883a961cb77290161cbb0a49d0003"
+              },
+              {
+                "id": "402883a961cb77290161cbb3913a0006",
                 "btnName": "删除",
                 "btnType": "2",
                 "btnCode": "",
-                "btnUrl": "www.baidu.com",
+                "btnUrl": "delete",
                 "btnStatus": "1",
-                "createTime": "2018-02-19 18:45:35",
+                "createTime": "2018-02-25 14:43:18",
                 "optTime": null,
-                "menuId": "40280981619f095901619f0d46d90007"
+                "menuId": "402883a961cb77290161cbb0a49d0003"
               }
             ]
           }
         ]
       },
       {
-        "name": "优惠券",
+        "name": "用户等级",
+        "url": null,
         "data": [
           {
-            "name": "配置优惠卷",
+            "name": "用户等级",
+            "url": "rest/ranks",
             "data": [
               {
-                "id": "4028098161eb758e0161ec0737cd0000",
+                "id": "402883a961cb77290161cbb68fb2000b",
                 "btnName": "新增",
                 "btnType": "1",
                 "btnCode": "",
-                "btnUrl": "www.baidu.com",
+                "btnUrl": "add",
                 "btnStatus": "1",
-                "createTime": "2018-03-03 21:22:31",
+                "createTime": "2018-02-25 14:46:34",
                 "optTime": null,
-                "menuId": "4028098161cb9a130161cba9aa5d0000"
+                "menuId": "402883a961cb77290161cbb60e98000a"
+              },
+              {
+                "id": "402883a961cb77290161cbb6b481000c",
+                "btnName": "删除",
+                "btnType": "2",
+                "btnCode": "",
+                "btnUrl": "delete",
+                "btnStatus": "1",
+                "createTime": "2018-02-25 14:46:44",
+                "optTime": null,
+                "menuId": "402883a961cb77290161cbb60e98000a"
               }
             ]
           }
         ]
       }
     ],
-    "username": "admin"
+    "adminId": "402883a761aea4ee0161aec5837f0002",
+    "username": "admin1"
   }
 }

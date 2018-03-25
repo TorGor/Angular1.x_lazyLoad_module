@@ -10,6 +10,7 @@
         '$uibModalInstance',
         '$translate',
         'adminService',
+        'hasPower',
         'PspsMethodsItem'
     ];
 
@@ -19,8 +20,11 @@
         $uibModalInstance,
         $translate,
         adminService,
+        hasPower,
         PspsMethodsItem
     ) {
+
+        $scope.hasPower = hasPower;
 
         // 原始的数据
         $scope.pspsMethodsModal = [];
