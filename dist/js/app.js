@@ -361,6 +361,9 @@
          * @param msg 提示信息
          */
         $scope.validReg = function (Reg,str,msg) {
+            if(!str){
+                return msg;
+            }
             var tempReg = new RegExp(Reg);
             if(tempReg.test(str)){
                 return true;

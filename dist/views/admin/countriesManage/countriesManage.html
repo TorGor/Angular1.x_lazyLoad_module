@@ -3,7 +3,7 @@
       <div class="panel-wrapper">
          <div class="panel-body">
             <span class="form-group add-button-class">
-               <button class="btn btn-primary" ng-click="addCountriesManage()" type="button" translate="table.button.add">
+               <button ng-show='validPower("COUNTRIESMANAGE", ["POST"])' class="btn btn-primary" ng-click="addCountriesManage()" type="button" translate="table.button.add">
                   新增
                </button>
             </span>
@@ -40,28 +40,28 @@
                         <td style="width: 15%" ao-data="countriesManageAoData" web-data-table-sort="currencyCode">
                            {{'table.countriesManage.th7' | translate}}
                         </td>
-                        <td style="width: 10%">{{'table.button.operation' | translate}}</td>
+                        <td style="width: 10%" ng-show='validPower("COUNTRIESMANAGE", ["PATCH","DELETE"])'>{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
                      <tr ng-repeat="item in showCountriesManage">
                         <td>
-                           <span editable-text="item.iso" e-name="iso" e-formclass="xeditable-xs" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.iso || '' }}</span>
+                           <span editable-text="item.iso" e-name="iso" e-formclass="xeditable-xs" e-placeholder='XX' onbeforesave="validReg('[A-Z]{2}', $data, 'eg. XX')" e-form="rowform" e-required="">{{ item.iso || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.iso3" e-name="iso3" e-formclass="xeditable-xs" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.iso3 || '' }}</span>
+                           <span editable-text="item.iso3" e-name="iso3" e-formclass="xeditable-xs" e-placeholder='XXX' onbeforesave="validReg('[A-Z]{3}', $data, 'eg. XXX')" e-form="rowform" e-required="">{{ item.iso3 || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.name" e-name="name" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
+                           <span editable-text="item.name" e-name="name" e-formclass="xeditable-sm" onbeforesave="validReg('[A-Z ]+', $data, 'eg. XXXXXXXX')" e-form="rowform" e-placeholder='XXXXXXXX' e-required="">{{ item.name || '' }}</span>
                         </td>
                         <td>
                            <span editable-text="item.niceName" e-name="niceName" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.niceName || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.numcode" e-name="numcode" e-formclass="xeditable-xs" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.numcode || '' }}</span>
+                           <span editable-text="item.numcode" e-name="numcode" e-formclass="xeditable-xs" onbeforesave="validReg('^[0-9]{0,3}$', $data, 'eg. 999')" e-form="rowform" e-placeholder='999' e-required="">{{ item.numcode || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.phoneCode" e-name="phoneCode" e-formclass="xeditable-xs" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.phoneCode || '' }}</span>
+                           <span editable-text="item.phoneCode" e-name="phoneCode" e-formclass="xeditable-xs" onbeforesave="validReg('^[0-9]{0,4}$$', $data, 'eg. 9999')" e-form="rowform" e-placeholder='9999' e-required="">{{ item.phoneCode || '' }}</span>
                         </td>
                         <td>
                            <span editable-select="item.currencyCode" e-name="currencyCode" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in currencyOptions">
@@ -69,7 +69,7 @@
                            </span>
                         </td>
 
-                        <td style="white-space: nowrap;">
+                        <td style="white-space: nowrap;" ng-show='validPower("COUNTRIESMANAGE", ["PATCH","DELETE"])'>
                            <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveCountriesManage(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
                               <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                  <em class="fa fa-save"></em>
@@ -79,17 +79,17 @@
                               </button>
                            </form>
                            <div class="buttons" ng-show="!rowform.$visible">
-                              <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                              <button class="btn btn-sm btn-info" ng-show='validPower("COUNTRIESMANAGE", ["PATCH"])' ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
                                  <em class="fa fa-pencil"></em>
                               </button>
-                              <button class="btn btn-sm btn-danger" ng-click="deleteCountriesManage(item)" title="{{'table.button.delete' | translate}}">
+                              <button class="btn btn-sm btn-danger" ng-show='validPower("COUNTRIESMANAGE", ["DELETE"])' ng-click="deleteCountriesManage(item)" title="{{'table.button.delete' | translate}}">
                                  <em class="fa fa-trash"></em>
                               </button>
                            </div>
                         </td>
                      </tr>
                      <tr ng-show="showCountriesManage.length==0">
-                        <td colspan="8" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan='{{validPower("COUNTRIESMANAGE", ["PATCH","DELETE"]) ? 8 :7}}' class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

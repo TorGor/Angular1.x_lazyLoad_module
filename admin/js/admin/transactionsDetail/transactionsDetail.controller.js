@@ -51,6 +51,32 @@
             },
         ];
 
+        $scope.walletOptions = [];
+
+        $scope.initWalletOptionsData = function () {
+            $scope.walletOptions = [];
+            adminService.getReq($rootScope.URL.WALLETSMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                if(!objItem.disabled){
+                                    $scope.walletOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
         $scope.timezone = '+00:00';
 
         $scope.transactionsDetail = [];
@@ -85,6 +111,12 @@
         };
 
         $scope.transactionsUrl = $rootScope.URL.TRANSACTIONSDETAIL.GET;
+
+        //页面加载运行的函数
+
+        if($scope.validPower("TRANSACTIONSDETAIL", ["GET"])){
+            $scope.initWalletOptionsData();
+        }
 
         $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
             if (newValue !== oldValue) {

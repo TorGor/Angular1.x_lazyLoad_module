@@ -36,11 +36,7 @@
                 PUT:'/rest/ranks/restore'
             },
             TRANSACTIONSDETAIL:{
-                GET:'/rest/transactions',
-                POST:'/rest/transactions',
-                PATCH:'/rest/transactions',
-                DELETE:'/rest/transactions',
-                PUT:'/rest/transactions/restore'
+                GET:'/rest/transactions'
             },
             CURRENCIESMANAGE:{
                 GET:'/rest/currencies',
@@ -141,6 +137,9 @@
             },
             TRANSFERSLIST:{
                 GET:'/rest/transfers',
+            },
+            WALLETSMANAGE:{
+                GET:'/rest/wallets',
             },
         };
 

@@ -172,6 +172,8 @@
 
         $scope.initCountriesManageData();
 
-        $scope.initCurrenciesManageData()
+        if($scope.validPower("COUNTRIESMANAGE", ["PATCH"])){
+            $scope.initCurrenciesManageData();
+        }
     }
 })();

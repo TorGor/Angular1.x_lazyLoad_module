@@ -24,6 +24,17 @@
                      <input class="form-control" type="text" style="width: 100%" ng-model="transactionsDetailAoData.service_id" placeholder="{{'table.transactionsDetail.th3' | translate}}">
                   </div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <ui-select ng-model="transactionsDetailAoData.wallet" theme="bootstrap" search-enabled="false">
+                        <ui-select-match placeholder="{{'table.transactionsDetail.th8' | translate}}">
+                           <span>{{$select.selected.label}}</span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item.value as item in walletOptions">
+                           <span ng-bind="item.label"></span>
+                        </ui-select-choices>
+                     </ui-select>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
                      <ui-select ng-model="transactionsDetailAoData.service" theme="bootstrap" search-enabled="false">
                         <ui-select-match placeholder="{{'table.transactionsDetail.th4' | translate}}">
                            <span ng-bind="$select.selected.label"></span>
@@ -33,12 +44,11 @@
                         </ui-select-choices>
                      </ui-select>
                   </div>
-                  <div class="clearfix"></div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
-                     <input class="form-control" type="text" ng-model="transactionsDetailAoData.min_amount" placeholder="{{'min ' + ('table.transactionsDetail.th5' | translate)}}">
+                     <input class="form-control" type="number" ng-model="transactionsDetailAoData.min_amount" placeholder="{{'min ' + ('table.transactionsDetail.th5' | translate)}}">
                   </div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
-                     <input class="form-control" type="text" ng-model="transactionsDetailAoData.max_amount" placeholder="{{'max ' + ('table.transactionsDetail.th5' | translate)}}">
+                     <input class="form-control" type="number" ng-model="transactionsDetailAoData.max_amount" placeholder="{{'max ' + ('table.transactionsDetail.th5' | translate)}}">
                   </div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
                      <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeStart">
