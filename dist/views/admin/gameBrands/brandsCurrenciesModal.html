@@ -11,7 +11,7 @@
                   <div class="col-lg-6 col-xs-12" ng-repeat="currency in currencyOptions">
                      <div class="checkbox c-checkbox needsclick">
                         <label class="needsclick">
-                           <input class="needsclick" ng-click="selectCurrency(currency.value, $event)" ng-checked="brandsCurrenciesModal.indexOf(currency.value) !== -1" type="checkbox" ng-value="currency.value">
+                           <input class="needsclick" ng-disabled='!validPower("GAMEBRANDS", ["POST", "PATCH"])' ng-click="selectCurrency(currency.value, $event)" ng-checked="brandsCurrenciesModal.indexOf(currency.value) !== -1" type="checkbox" ng-value="currency.value">
                            <span class="fa fa-check"></span>{{currency.label}}</label>
                      </div>
                   </div>
@@ -23,7 +23,8 @@
 </div>
 
 <div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+   <button class="btn btn-primary" type="button" ng-show='validPower("GAMEBRANDS", ["POST", "PATCH"])' ng-click="confirmModal()">{{'table.button.save' | translate}}
+   </button>
    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
 </div>
 

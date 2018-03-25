@@ -9,7 +9,7 @@
                 <div class="panel-body">
                     <span class="form-group add-button-class">
                         <button
-                            ng-show="validPower('PAYMENTMETHODS', ['PATCH'])"
+                            ng-show="validPower('PAYMENTMETHODS', ['POST', 'PATCH'])"
                             class="btn btn-primary"
                             ng-click="addMethodsNameModal()"
                             type="button"
@@ -64,7 +64,7 @@
                                         onbeforesave="checkRequiredData($data)" e-form="rowform" e-required=""
                                     >{{ item.value || '' }}</span>
                                 </td>
-                                <td style="white-space: nowrap;" ng-show="validPower('PAYMENTMETHODS', ['PATCH'])">
+                                <td style="white-space: nowrap;" ng-show="validPower('PAYMENTMETHODS', ['POST', 'PATCH'])">
                                     <form
                                         class="form-buttons form-inline" editable-form name="rowform"
                                         onaftersave="saveMethodsNameModal(item, $data)" ng-show="rowform.$visible"
@@ -102,7 +102,7 @@
                                 </td>
                             </tr>
                             <tr ng-show="showMethodsNameModal.length==0">
-                                <td colspan="{{validPower('PAYMENTMETHODS', ['PATCH'])?3:2}}"
+                                <td colspan="{{validPower('PAYMENTMETHODS', ['POST', 'PATCH'])?3:2}}"
                                                                    class="">{{'table.no_date' | translate}}</td>
                             </tr>
                             </tbody>
@@ -115,7 +115,7 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-show="validPower('PAYMENTMETHODS', ['PATCH'])" ng-click="confirmModal()">{{'table.button.save' |
+    <button class="btn btn-primary" type="button" ng-show="validPower('PAYMENTMETHODS', ['POST', 'PATCH'])" ng-click="confirmModal()">{{'table.button.save' |
                                                                              translate}}</button>
     <button
         class="btn btn-default" type="button" ng-click="cancelModal()"

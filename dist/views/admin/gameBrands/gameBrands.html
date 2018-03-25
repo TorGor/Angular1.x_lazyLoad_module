@@ -3,7 +3,7 @@
       <div class="panel-wrapper">
          <div class="panel-body">
             <span class="form-group add-button-class">
-               <button class="btn btn-primary" ng-click="addGameBrands()" type="button" translate="table.button.add">
+               <button ng-show='validPower("GAMEBRANDS", ["POST"])' class="btn btn-primary" ng-click="addGameBrands()" type="button" translate="table.button.add">
                   新增
                </button>
             </span>
@@ -40,7 +40,7 @@
                         <td style="width: 12%" ao-data="gameBrandsAoData" web-data-table-sort="status">
                            {{'table.gameBrands.th7' | translate}}
                         </td>
-                        <td style="width: 12%">{{'table.button.operation' | translate}}</td>
+                        <td style="width: 12%" ng-show='validPower("GAMEBRANDS", ["PATCH"])'>{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
@@ -49,7 +49,9 @@
                            <span editable-text="item.code" e-name="code" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.wallet" e-name="wallet" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.wallet || '' }}</span>
+                           <span editable-select="item.wallet" e-name="wallet" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in walletOptions">
+                              {{showOptionsValue(item.wallet, walletOptions)}}
+                           </span>
                         </td>
                         <td>
                            <span>
@@ -74,7 +76,7 @@
                         <td>
                            <span>{{item.status}}</span>
                         </td>
-                        <td style="white-space: nowrap;">
+                        <td style="white-space: nowrap;" ng-show='validPower("GAMEBRANDS", ["PATCH"])'>
                            <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveGameBrands(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item._id)">
                               <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                  <em class="fa fa-save"></em>
@@ -84,17 +86,18 @@
                               </button>
                            </form>
                            <div class="buttons" ng-show="!rowform.$visible">
-                              <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                              <button class="btn btn-sm btn-info" ng-show='validPower("GAMEBRANDS", ["PATCH"])' ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
                                  <em class="fa fa-pencil"></em>
                               </button>
-                              <button class="btn btn-sm btn-danger" ng-click="deleteGameBrands(item)" title="{{'table.button.delete' | translate}}">
-                                 <em class="fa fa-trash"></em>
-                              </button>
+                              <!--<button class="btn btn-sm btn-danger" ng-click="deleteGameBrands(item)"-->
+                              <!--title="{{'table.button.delete' | translate}}">-->
+                              <!--<em class="fa fa-trash"></em>-->
+                              <!--</button>-->
                            </div>
                         </td>
                      </tr>
                      <tr ng-show="showGameBrands.length==0">
-                        <td colspan="8" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan='{{validPower("GAMEBRANDS", ["PATCH"])?8:7}}' class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

@@ -8,7 +8,7 @@
          <div class="panel-wrapper">
             <div class="panel-body">
                <span class="form-group add-button-class">
-                  <button class="btn btn-primary" ng-click="addBrandsLangsModal()" type="button" translate="table.button.add">
+                  <button ng-show='validPower("GAMEBRANDS", ["POST", "PATCH"])' class="btn btn-primary" ng-click="addBrandsLangsModal()" type="button" translate="table.button.add">
                      新增
                   </button>
                </span>
@@ -30,7 +30,7 @@
                            <td style="width: 40%" ao-data="brandsLangsModalAoData" web-data-table-sort="brand_locale">
                               {{'table.gameBrands.langs.th2' | translate}}
                            </td>
-                           <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                           <td style="width: 17%" ng-show='validPower("GAMEBRANDS", ["POST", "PATCH"])'>{{'table.button.operation' | translate}}</td>
                         </tr>
                      </thead>
                      <tbody>
@@ -43,7 +43,7 @@
                            <td>
                               <span editable-text="item.brand_locale" e-name="brand_locale" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.brand_locale || '' }}</span>
                            </td>
-                           <td style="white-space: nowrap;">
+                           <td style="white-space: nowrap;" ng-show='validPower("GAMEBRANDS", ["POST", "PATCH"])'>
                               <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveBrandsLangsModal(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
                                  <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                     <em class="fa fa-save"></em>
@@ -63,7 +63,7 @@
                            </td>
                         </tr>
                         <tr ng-show="showBrandsLangsModal.length==0">
-                           <td colspan="3" class="">{{'table.no_date' | translate}}</td>
+                           <td colspan='{{validPower("GAMEBRANDS", ["POST", "PATCH"])?3:2}}' class="">{{'table.no_date' | translate}}</td>
                         </tr>
                      </tbody>
                   </table>
@@ -75,7 +75,8 @@
 </div>
 
 <div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+   <button class="btn btn-primary" type="button" ng-show='validPower("GAMEBRANDS", ["POST", "PATCH"])' ng-click="confirmModal()">{{'table.button.save' | translate}}
+   </button>
    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
 </div>
 

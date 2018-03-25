@@ -44,6 +44,32 @@
             });
         };
 
+        $scope.walletOptions = [];
+
+        $scope.initWalletOptionsData = function () {
+            $scope.walletOptions = [];
+            adminService.getReq($rootScope.URL.WALLETSMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                if(!objItem.disabled){
+                                    $scope.walletOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
         $scope.currencyOptions = [];
 
         $scope.initCurrenciesManageData = function () {
@@ -386,10 +412,15 @@
 
         $scope.initGameBrandsData();
 
-        $scope.initCurrenciesManageData();
+        if($scope.validPower("GAMEBRANDS", ["POST", "PATCH"])){
 
-        $scope.initLocalesOptionsData();
+            $scope.initCurrenciesManageData();
 
-        $scope.initProductManageData();
+            $scope.initLocalesOptionsData();
+
+            $scope.initProductManageData();
+
+            $scope.initWalletOptionsData();
+        }
     }
 })();

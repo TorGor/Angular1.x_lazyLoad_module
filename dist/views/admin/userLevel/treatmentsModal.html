@@ -8,7 +8,7 @@
          <div class="panel-wrapper">
             <div class="panel-body">
                <span class="form-group add-button-class">
-                  <button ng-show='validPower("USERLEVEL", ["PATCH"])' class="btn btn-primary" ng-click="addTreatmentsModal()" type="button" translate="table.button.add">
+                  <button ng-show='validPower("USERLEVEL", ["POST", "PATCH"])' class="btn btn-primary" ng-click="addTreatmentsModal()" type="button" translate="table.button.add">
                      新增
                   </button>
                </span>
@@ -36,7 +36,7 @@
                            <td style="width: 14%" ao-data="treatmentsModalAoData" web-data-table-sort="value">
                               {{'table.treatmentsModal.th4' | translate}}
                            </td>
-                           <td style="width: 10%" ng-show='validPower("USERLEVEL", ["PATCH"])'>{{'table.button.operation' | translate}}</td>
+                           <td style="width: 10%" ng-show='validPower("USERLEVEL", ["POST", "PATCH"])'>{{'table.button.operation' | translate}}</td>
                         </tr>
                      </thead>
                      <tbody>
@@ -59,7 +59,7 @@
                            <td>
                               <span editable-text="item.value" e-name="value" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.value || '' }}</span>
                            </td>
-                           <td style="white-space: nowrap;" ng-show='validPower("USERLEVEL", ["PATCH"])'>
+                           <td style="white-space: nowrap;" ng-show='validPower("USERLEVEL", ["POST", "PATCH"])'>
                               <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveTreatmentsModal(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
                                  <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                     <em class="fa fa-save"></em>
@@ -79,7 +79,7 @@
                            </td>
                         </tr>
                         <tr ng-show="showTreatmentsModal.length==0">
-                           <td colspan='{{validPower("USERLEVEL", ["PATCH"])?5:4}}' class="">{{'table.no_date' | translate}}
+                           <td colspan='{{validPower("USERLEVEL", ["POST", "PATCH"])?5:4}}' class="">{{'table.no_date' | translate}}
                            </td>
                         </tr>
                      </tbody>
@@ -92,7 +92,7 @@
 </div>
 
 <div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-show='validPower("USERLEVEL", ["PATCH"])' ng-click="confirmModal()">{{'table.button.save' | translate}}
+   <button class="btn btn-primary" type="button" ng-show='validPower("USERLEVEL", ["POST", "PATCH"])' ng-click="confirmModal()">{{'table.button.save' | translate}}
    </button>
    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
 </div>
