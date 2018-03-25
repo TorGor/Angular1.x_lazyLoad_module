@@ -20,15 +20,13 @@
                 GET:'/rest/countries',
                 POST:'/rest/countries',
                 PATCH:'/rest/countries',
-                DELETE:'/rest/countries',
-                PUT:'/rest/countries/restore'
+                DELETE:'/rest/countries'
             },
             LOCALELANGUAGE:{
                 GET:'/rest/locales',
                 POST:'/rest/locales',
                 PATCH:'/rest/locales',
                 DELETE:'/rest/locales',
-                PUT:'/rest/locales/restore'
             },
             USERLEVEL:{
                 GET:'/rest/ranks',

@@ -80,7 +80,5 @@
 
 
         // 页面加载执行的函数
-
-        $scope.initAppliesUseData();
     }
 })();

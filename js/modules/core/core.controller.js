@@ -86,19 +86,19 @@
         $scope.validPower = function (module, arr) {
             var result = false;
             if(typeof arr == 'string'){
-                if($rootScope[module] && $rootScope[module][arr]){
+                if($rootScope.URL[module] && $rootScope.URL[module][arr]){
                     return true;
                 }
             }
             if (window.Array.isArray(arr)) {
-                if(!$rootScope[module]){
+                if(!$rootScope.URL[module]){
                     return false;
                 }
                 arr.forEach(function(item) {
-                    if($rootScope[module][item]){
+                    if($rootScope.URL[module][item]){
                         result = true;
                     }
-                })
+                });
                 return result;
             }
             return false;

@@ -3,7 +3,7 @@
       <div class="panel-wrapper">
          <div class="panel-body">
             <span class="form-group add-button-class">
-               <button class="btn btn-primary" ng-click="addLocaleLanguage()" type="button" translate="table.button.add">
+               <button ng-show='validPower("LOCALELANGUAGE", "POST")' class="btn btn-primary" ng-click="addLocaleLanguage()" type="button" translate="table.button.add">
                   新增
                </button>
             </span>
@@ -22,7 +22,9 @@
                         <td style="width: 30%" ao-data="localeLanguageAoData" web-data-table-sort="code">{{'table.localeLanguage.th1' | translate}}</td>
                         <td style="width: 30%" ao-data="localeLanguageAoData" web-data-table-sort="name">{{'table.localeLanguage.th2' | translate}}</td>
                         <td style="width: 10%" ao-data="localeLanguageAoData" web-data-table-sort="supported">{{'table.localeLanguage.th3' | translate}}</td>
-                        <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                        <td style="width: 17%" ng-show='validPower("LOCALELANGUAGE", ["PATCH", "DELETE"])'>
+                           {{'table.button.operation' | translate}}
+                        </td>
                      </tr>
                   </thead>
                   <tbody>
@@ -38,7 +40,7 @@
                               {{ item.supported == 1 ? ('table.localeLanguage.th3ShowTrue' | translate):('table.localeLanguage.th3ShowFalse' | translate) }}
                            </span>
                         </td>
-                        <td style="white-space: nowrap;">
+                        <td style="white-space: nowrap;" ng-show='validPower("LOCALELANGUAGE", ["PATCH", "DELETE"])'>
                            <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveLocaleLanguage(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
                               <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                  <em class="fa fa-save"></em>
@@ -48,17 +50,18 @@
                               </button>
                            </form>
                            <div class="buttons" ng-show="!rowform.$visible">
-                              <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                              <button class="btn btn-sm btn-info" ng-click="rowform.$show()" ng-show='validPower("LOCALELANGUAGE", ["PATCH"])' title="{{'table.button.edit' | translate}}">
                                  <em class="fa fa-pencil"></em>
                               </button>
-                              <button class="btn btn-sm btn-danger" ng-click="deleteLocaleLanguage(item)" title="{{'table.button.delete' | translate}}">
+                              <button class="btn btn-sm btn-danger" ng-show='validPower("LOCALELANGUAGE", ["DELETE"])' ng-click="deleteLocaleLanguage(item)" title="{{'table.button.delete' | translate}}">
                                  <em class="fa fa-trash"></em>
                               </button>
                            </div>
                         </td>
                      </tr>
                      <tr ng-show="showLocaleLanguage.length==0">
-                        <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan='{{validPower("LOCALELANGUAGE", ["PATCH", "DELETE"]) ? 4 : 3}}'>{{'table.no_date' | translate}}
+                        </td>
                      </tr>
                   </tbody>
                </table>

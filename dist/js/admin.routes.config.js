@@ -55,7 +55,7 @@
                 title: 'localeLanguage Manage',
                 controller: 'LocaleLanguageController',
                 templateUrl: RouteHelpersProvider.basepath('admin/localeLanguage/localeLanguage.html'),
-                permission: 'localeLanguage'
+                permission: 'locales'
             })
 
             .state('admin.countriesManage', {
@@ -63,7 +63,7 @@
                 title: 'countriesManage Manage',
                 controller: 'CountriesManageController',
                 templateUrl: RouteHelpersProvider.basepath('admin/countriesManage/countriesManage.html'),
-                permission: 'countriesManage'
+                permission: 'countries'
             })
             
             .state('admin.userLevel', {
@@ -71,39 +71,7 @@
                 title: 'userLevel Manage',
                 controller: 'UserLevelController',
                 templateUrl: RouteHelpersProvider.basepath('admin/userLevel/userLevel.html'),
-                permission: 'userLevel'
-            })
-            
-            .state('admin.conditionsModal', {
-                url: '/conditionsModal/manage',
-                title: 'conditionsModal Manage',
-                controller: 'ConditionsModalController',
-                templateUrl: RouteHelpersProvider.basepath('admin/conditionsModal/conditionsModal.html'),
-                permission: 'conditionsModal'
-            })
-            
-            .state('admin.treatmentsModal', {
-                url: '/treatmentsModal/manage',
-                title: 'treatmentsModal Manage',
-                controller: 'TreatmentsModalController',
-                templateUrl: RouteHelpersProvider.basepath('admin/treatmentsModal/treatmentsModal.html'),
-                permission: 'treatmentsModal'
-            })
-            
-            .state('admin.rebatesModal', {
-                url: '/rebatesModal/manage',
-                title: 'rebatesModal Manage',
-                controller: 'RebatesModalController',
-                templateUrl: RouteHelpersProvider.basepath('admin/rebatesModal/rebatesModal.html'),
-                permission: 'rebatesModal'
-            })
-            
-            .state('admin.transactionsDetail', {
-                url: '/transactionsDetail/manage',
-                title: 'transactionsDetail Manage',
-                controller: 'TransactionsDetailController',
-                templateUrl: RouteHelpersProvider.basepath('admin/transactionsDetail/transactionsDetail.html'),
-                permission: 'transactionsDetail'
+                permission: 'ranks'
             })
             
             .state('admin.currenciesManage', {
@@ -111,7 +79,7 @@
                 title: 'currenciesManage Manage',
                 controller: 'CurrenciesManageController',
                 templateUrl: RouteHelpersProvider.basepath('admin/currenciesManage/currenciesManage.html'),
-                permission: 'currenciesManage'
+                permission: 'currencies'
             })
             
             .state('admin.blackLists', {
@@ -119,7 +87,7 @@
                 title: 'blackLists Manage',
                 controller: 'BlackListsController',
                 templateUrl: RouteHelpersProvider.basepath('admin/blackLists/blackLists.html'),
-                permission: 'blackLists'
+                permission: 'blacklists'
             })
             
             .state('admin.ordersManage', {
@@ -127,7 +95,7 @@
                 title: 'ordersManage Manage',
                 controller: 'OrdersManageController',
                 templateUrl: RouteHelpersProvider.basepath('admin/ordersManage/ordersManage.html'),
-                permission: 'ordersManage'
+                permission: 'orders'
             })
             
             .state('admin.paymentMethods', {
@@ -135,7 +103,7 @@
                 title: 'paymentMethods Manage',
                 controller: 'PaymentMethodsController',
                 templateUrl: RouteHelpersProvider.basepath('admin/paymentMethods/paymentMethods.html'),
-                permission: 'paymentMethods'
+                permission: 'methods'
             })
             
             .state('admin.appliesUse', {
@@ -143,7 +111,7 @@
                 title: 'appliesUse Manage',
                 controller: 'AppliesUseController',
                 templateUrl: RouteHelpersProvider.basepath('admin/appliesUse/appliesUse.html'),
-                permission: 'appliesUse'
+                permission: 'applies'
             })
             
             .state('admin.gameBrands', {
@@ -159,7 +127,7 @@
                 title: 'gameCategories Manage',
                 controller: 'GameCategoriesController',
                 templateUrl: RouteHelpersProvider.basepath('admin/gameCategories/gameCategories.html'),
-                permission: 'gameCategories'
+                permission: 'brands'
             })
             
             .state('admin.couponsManage', {
@@ -167,7 +135,7 @@
                 title: 'couponsManage Manage',
                 controller: 'CouponsManageController',
                 templateUrl: RouteHelpersProvider.basepath('admin/couponsManage/couponsManage.html'),
-                permission: 'couponsManage'
+                permission: 'coupons'
             })
             
             .state('admin.gamesManage', {
@@ -175,7 +143,7 @@
                 title: 'gamesManage Manage',
                 controller: 'GamesManageController',
                 templateUrl: RouteHelpersProvider.basepath('admin/gamesManage/gamesManage.html'),
-                permission: 'gamesManage'
+                permission: 'games'
             })
             
             .state('admin.gamesProducts', {
@@ -183,7 +151,7 @@
                 title: 'gamesProducts Manage',
                 controller: 'GamesProductsController',
                 templateUrl: RouteHelpersProvider.basepath('admin/gamesProducts/gamesProducts.html'),
-                permission: 'gamesProducts'
+                permission: 'products'
             })
             
             .state('admin.pspsManage', {
@@ -191,7 +159,7 @@
                 title: 'pspsManage Manage',
                 controller: 'PspsManageController',
                 templateUrl: RouteHelpersProvider.basepath('admin/pspsManage/pspsManage.html'),
-                permission: 'pspsManage'
+                permission: 'psps'
             })
             
             .state('admin.withdrawsManage', {
@@ -199,7 +167,7 @@
                 title: 'withdrawsManage Manage',
                 controller: 'WithdrawsManageController',
                 templateUrl: RouteHelpersProvider.basepath('admin/withdrawsManage/withdrawsManage.html'),
-                permission: 'withdrawsManage'
+                permission: 'withdraws'
             })
             
             .state('admin.promotionsManage', {
@@ -207,7 +175,7 @@
                 title: 'promotionsManage Manage',
                 controller: 'PromotionsManageController',
                 templateUrl: RouteHelpersProvider.basepath('admin/promotionsManage/promotionsManage.html'),
-                permission: 'promotionsManage'
+                permission: 'promotions'
             })
             
             .state('admin.rebatesList', {
@@ -215,7 +183,7 @@
                 title: 'rebatesList Manage',
                 controller: 'RebatesListController',
                 templateUrl: RouteHelpersProvider.basepath('admin/rebatesList/rebatesList.html'),
-                permission: 'rebatesList'
+                permission: 'rebates'
             })
             
             .state('admin.reliefsList', {
@@ -223,7 +191,7 @@
                 title: 'reliefsList Manage',
                 controller: 'ReliefsListController',
                 templateUrl: RouteHelpersProvider.basepath('admin/reliefsList/reliefsList.html'),
-                permission: 'reliefsList'
+                permission: 'reliefs'
             })
             
             .state('admin.transfersList', {
@@ -231,7 +199,7 @@
                 title: 'transfersList Manage',
                 controller: 'TransfersListController',
                 templateUrl: RouteHelpersProvider.basepath('admin/transfersList/transfersList.html'),
-                permission: 'transfersList'
+                permission: 'transfers'
             })
             
             //new route name will be append here
