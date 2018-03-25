@@ -34,6 +34,10 @@
             {
                 label: $translate.instant('table.button.delete'),
                 value: '4'
+            },
+            {
+                label: $translate.instant('table.button.recover'),
+                value: '5'
             }
         ];
 

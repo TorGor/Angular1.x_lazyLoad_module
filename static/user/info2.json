@@ -5,6 +5,84 @@
         "roleId": "402883a761aea4ee0161aebc84180001",
         "roles": [
             {
+                "name": "支付渠道",
+                "url": null,
+                "data": [
+                    {
+                        "name": "支付渠道",
+                        "url": "methods",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d8697510084",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getMethods",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 22:18:44",
+                                "optTime": null,
+                                "menuId": "297e88d3625d541e01625d8612430083"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d86edec0085",
+                                "btnName": "详情",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getDetailMethods",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 22:19:06",
+                                "optTime": null,
+                                "menuId": "297e88d3625d541e01625d8612430083"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d872cd00086",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postMethods",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 22:19:22",
+                                "optTime": null,
+                                "menuId": "297e88d3625d541e01625d8612430083"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d8784fb0087",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchMethods",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 22:19:45",
+                                "optTime": null,
+                                "menuId": "297e88d3625d541e01625d8612430083"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d87e6da0088",
+                                "btnName": "删除",
+                                "btnType": "4",
+                                "btnCode": "",
+                                "btnUrl": "rest/deleteMethods",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 22:20:10",
+                                "optTime": null,
+                                "menuId": "297e88d3625d541e01625d8612430083"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d884ca00089",
+                                "btnName": "恢复",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/restoreMethods",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 22:20:36",
+                                "optTime": null,
+                                "menuId": "297e88d3625d541e01625d8612430083"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
                 "name": "银行卡黑名单",
                 "url": null,
                 "data": [

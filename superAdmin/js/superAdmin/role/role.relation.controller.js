@@ -35,7 +35,6 @@
             if (role.id) {
                 superAdminService.getFindMenuByRoleId({ 'roleId': role.id }, {}, function (data) {
                     console.log(data, 'getRoleRelationById');
-                    $scope.buttons = [];
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             var allMenus = angular.copy(data.data);
@@ -51,6 +50,7 @@
                             });
                             console.log($scope.oneLevelMenus, '$scope.oneLevelMenus');
                             if (isClick) {
+                                $scope.buttons = [];
                                 $scope.currentSecondLevelMenu = {};
                             } else {
                                 if (!$scope.currentSecondLevelMenu.id) {

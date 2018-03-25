@@ -60,112 +60,104 @@
             ],
             admin: [
                 {
-                    "text": "已测接口",
-                    "sref": "#",
-                    "icon": "glyphicon glyphicon-th-large",
-                    "submenu": [
-                        {
-                            "text": "本地语言",
-                            "sref": "admin.localeLanguage",
-                            "icon": "glyphicon glyphicon-th-large",
-                        },
-                        {
-                            "text": "国家管理",
-                            "sref": "admin.countriesManage",
-                            "icon": "glyphicon glyphicon-th-large",
-                        },
-                        {
-                            "text": "财务明细",
-                            "sref": "admin.transactionsDetail",
-                            "icon": "glyphicon glyphicon-th-large",
-                        },
-                        {
-                            "text": "货币管理",
-                            "sref": "admin.currenciesManage",
-                            "icon": "glyphicon glyphicon-th-large",
-                        },
-                        {
-                            "text": "银行黑名单",
-                            "sref": "admin.blackLists",
-                            "icon": "glyphicon glyphicon-th-large",
-                        },
-                        {
-                            "text": "用户等级",
-                            "sref": "admin.userLevel",
-                            "icon": "glyphicon glyphicon-th-large",
-                        },
-                    ]
+                    "text": "本地语言",
+                    "sref": "admin.localeLanguage",
+                    "module": "",
                 },
-
+                {
+                    "text": "国家管理",
+                    "sref": "admin.countriesManage",
+                    "module": "",
+                },
+                {
+                    "text": "财务明细",
+                    "sref": "admin.transactionsDetail",
+                    "module": "",
+                },
+                {
+                    "text": "货币管理",
+                    "sref": "admin.currenciesManage",
+                    "module": "",
+                },
+                {
+                    "text": "银行黑名单",
+                    "sref": "admin.blackLists",
+                    "module": "",
+                },
+                {
+                    "text": "用户等级",
+                    "sref": "admin.userLevel",
+                    "module": "",
+                },
                 {
                     "text": "充值管理",
                     "sref": "admin.ordersManage",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 },
                 {
                     "text": "支付渠道",
                     "sref": "admin.paymentMethods",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 },
                 {
                     "text": "优惠券使用",
                     "sref": "admin.appliesUse",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 },
                 {
                     "text": "游戏品牌",
                     "sref": "admin.gameBrands",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 },
                 {
                     "text": "游戏种类",
                     "sref": "admin.gameCategories",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 },
                 {
                     "text": "优惠券管理",
                     "sref": "admin.couponsManage",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 },
                 {
                     "text": "游戏管理",
                     "sref": "admin.gamesManage",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 },
                 {
                     "text": "游戏产品",
                     "sref": "admin.gamesProducts",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 },
                 {
                     "text": "psp管理",
                     "sref": "admin.pspsManage",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 },
                 {
                     "text": "提款管理",
                     "sref": "admin.withdrawsManage",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 },
                 {
                     "text": "优惠活动",
                     "sref": "admin.promotionsManage",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 },
                 {
                     "text": "返水列表",
                     "sref": "admin.rebatesList",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 },
                 {
                     "text": "救济金列表",
                     "sref": "admin.reliefsList",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 },
                 {
                     "text": "转账列表",
                     "sref": "admin.transfersList",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "",
                 }//new sidebar name will be append here
             ]
 
