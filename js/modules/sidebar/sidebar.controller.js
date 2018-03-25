@@ -10,9 +10,9 @@
         .module('app.sidebar')
         .controller('SidebarController', SidebarController);
 
-    SidebarController.$inject = ['$rootScope', '$scope', '$state', 'SidebarMenuData', 'Utils'];
+    SidebarController.$inject = ['$rootScope', '$scope', '$state', 'SidebarMenuData', 'Utils', 'EVN'];
 
-    function SidebarController($rootScope, $scope, $state, SidebarMenuData, Utils) {
+    function SidebarController($rootScope, $scope, $state, SidebarMenuData, Utils, EVN) {
 
         activate();
 
@@ -33,7 +33,11 @@
             if (window.location.pathname.indexOf('superAdmin') !== -1) {
                 $scope.menuItems = SidebarMenuData.superUser;
             } else {
-                $scope.menuItems = SidebarMenuData.admin;
+                if(EVN.debug){
+                    $scope.menuItems = SidebarMenuData.admin;
+                }else{
+                    $scope.menuItems = window.userInfo.menu;
+                }
             }
 
             // Handle sidebar and collapse items

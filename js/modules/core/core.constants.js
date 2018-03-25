@@ -14,11 +14,11 @@
             'mobile': 480
         })
         .constant('EVN', {
-            debug: true,
-            //suffix: '.json',
-             suffix: '',
+            debug: false,
+            suffix: '.json',
+             //suffix: '',
             server: '',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
-            server: 'http://holyplace.ngrok.xiaomiqiu.cn'
+            //server: 'http://holyplace.ngrok.xiaomiqiu.cn'
         });
 })();

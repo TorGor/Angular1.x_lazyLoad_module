@@ -32,17 +32,123 @@
                 resolve: angular.extend(
                     RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable','ui.select','datetimepicker', 'admin'), {
                         // YOUR RESOLVES GO HERE
-                        userInfo: ['userSelfService', 'EVN', '$timeout','$rootScope', function (userSelfService, EVN, $timeout,$rootScope) {
+                        userInfo: ['userSelfService', 'EVN', '$timeout','$rootScope', 'SidebarMenuData', function (userSelfService, EVN, $timeout,$rootScope,SidebarMenuData) {
                             userSelfService.getUserSelfInfo({},{},function (data) {
-                                window.userInfo = angular.copy(data.data);
+                                var roles = data.data.roles;
+                                window.userInfo = {};
+                                window.userInfo.adminId = angular.copy(data.data.adminId);
+                                window.userInfo.username = angular.copy(data.data.username);
+                                window.userInfo.module = [];
+                                window.userInfo.menu = [];
                                 $rootScope.user = {
                                     system: 'admin',
                                     name: data.data && data.data.username || ''
                                 };
+
+                                var moduleObj = {};
+                                SidebarMenuData.admin.map(function(moduleItem) {
+                                    moduleObj[moduleItem.module] = moduleItem.sref
+                                });
+
+                                var tempButtonUrl = {};
+
+                                if(window.Array.isArray(roles)){
+                                    roles.map(function(roleItem) {
+                                        var tempMenu = {};
+                                        tempMenu.text = roleItem.name || '';
+                                        if(roleItem.url == null){
+                                            tempMenu.sref = '#';
+                                            tempMenu.icon = 'glyphicon glyphicon-th-large';
+                                            tempMenu.submenu = [];
+                                            if(window.Array.isArray(roleItem.data)){
+                                                roleItem.data.map(function(moduleItem) {
+                                                    if(moduleItem.url){
+                                                        var tempSubmenu = {
+                                                            text: moduleItem.name || '',
+                                                            sref: moduleObj[moduleItem.url]
+                                                        };
+                                                        tempMenu.submenu.push(tempSubmenu);
+                                                        window.userInfo.module.push(moduleItem.url);
+                                                        tempButtonUrl[moduleItem.url] = moduleItem.data;
+                                                    }
+                                                })
+                                            }
+                                        }else if(roleItem.url){
+                                            tempMenu.sref = moduleObj[moduleItem.url];
+                                            tempMenu.icon = 'glyphicon glyphicon-th-large';
+                                        }
+                                        window.userInfo.menu.push(tempMenu)
+                                    });
+                                    console.log(window.userInfo);
+                                    console.log(tempButtonUrl);
+                                }
+
+                                var URLobj = {
+                                    locales:'LOCALELANGUAGE',
+                                    countries:'COUNTRIESMANAGE',
+                                    transactions:'TRANSACTIONSDETAIL',
+                                    currencies:'CURRENCIESMANAGE',
+                                    blacklists:'BLACKLISTS',
+                                    ranks:'USERLEVEL',
+                                    orders:'ORDERSMANAGE',
+                                    methods:'PAYMENTMETHODS',
+                                    applies:'APPLIESUSE',
+                                    brands:'GAMEBRANDS',
+                                    categories:'GAMECATEGORIES',
+                                    coupons:'COUPONSMANAGE',
+                                    games:'GAMESMANAGE',
+                                    products:'GAMESPRODUCTS',
+                                    psps:'PSPSMANAGE',
+                                    withdraws:'WITHDRAWSMANAGE',
+                                    promotions:'PROMOTIONSMANAGE',
+                                    rebates:'REBATESLIST',
+                                    reliefs:'RELIEFSLIST',
+                                    transfers:'TRANSFERSLIST'
+                                };
+
+                                // 配置预设的url
+                                $rootScope.URL = {
+                                    WALLETSMANAGE:{
+                                        GET:'/rest/wallets',
+                                    },
+                                };
+                                window.Object.keys(URLobj).map(function(module) {
+                                    if(tempButtonUrl[module]){
+                                        console.log(tempButtonUrl[module])
+                                        if(window.Array.isArray(tempButtonUrl[module])){
+                                            $rootScope.URL[URLobj[module]] = {};
+                                            tempButtonUrl[module].map(function(buttonItem) {
+                                                if(buttonItem.btnType == 1){
+                                                    $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
+                                                    $rootScope.URL[URLobj[module]].GETID = buttonItem.id;
+                                                }
+                                                if(buttonItem.btnType == 2){
+                                                    $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                    $rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
+                                                }
+                                                if(buttonItem.btnType == 2){
+                                                    $rootScope.URL[URLobj[module]].PATCH = buttonItem.btnUrl;
+                                                    $rootScope.URL[URLobj[module]].PATCHID = buttonItem.id;
+                                                }
+                                                if(buttonItem.btnType == 4){
+                                                    $rootScope.URL[URLobj[module]].DELETE = buttonItem.btnUrl;
+                                                    $rootScope.URL[URLobj[module]].DELETEID = buttonItem.id;
+                                                }
+                                                if(buttonItem.btnType == 5){
+                                                    $rootScope.URL[URLobj[module]].PUT = buttonItem.btnUrl;
+                                                    $rootScope.URL[URLobj[module]].PUTID = buttonItem.id;
+                                                }
+                                            })
+                                        }
+                                    }
+                                });
+                                console.log($rootScope.URL,6666)
+                                return true;
+
                             },function (error) {
-                                // $timeout(function() {
-                                //     window.location.href = '/login.html';
-                                // }, 10);
+                                 $timeout(function() {
+                                     window.location.href = '/login.html';
+                                 }, 300);
                                 return 'get User Info failed';
                             });
                         }]
@@ -72,30 +178,6 @@
                 controller: 'UserLevelController',
                 templateUrl: RouteHelpersProvider.basepath('admin/userLevel/userLevel.html'),
                 permission: 'ranks'
-            })
-            
-            .state('admin.conditionsModal', {
-                url: '/conditionsModal/manage',
-                title: 'conditionsModal Manage',
-                controller: 'ConditionsModalController',
-                templateUrl: RouteHelpersProvider.basepath('admin/conditionsModal/conditionsModal.html'),
-                permission: 'conditionsModal'
-            })
-
-            .state('admin.treatmentsModal', {
-                url: '/treatmentsModal/manage',
-                title: 'treatmentsModal Manage',
-                controller: 'TreatmentsModalController',
-                templateUrl: RouteHelpersProvider.basepath('admin/treatmentsModal/treatmentsModal.html'),
-                permission: 'treatmentsModal'
-            })
-
-            .state('admin.rebatesModal', {
-                url: '/rebatesModal/manage',
-                title: 'rebatesModal Manage',
-                controller: 'RebatesModalController',
-                templateUrl: RouteHelpersProvider.basepath('admin/rebatesModal/rebatesModal.html'),
-                permission: 'rebatesModal'
             })
 
             .state('admin.transactionsDetail', {
@@ -151,7 +233,7 @@
                 title: 'gameBrands Manage',
                 controller: 'GameBrandsController',
                 templateUrl: RouteHelpersProvider.basepath('admin/gameBrands/gameBrands.html'),
-                permission: 'gameBrands'
+                permission: 'brands'
             })
             
             .state('admin.gameCategories', {
@@ -159,7 +241,7 @@
                 title: 'gameCategories Manage',
                 controller: 'GameCategoriesController',
                 templateUrl: RouteHelpersProvider.basepath('admin/gameCategories/gameCategories.html'),
-                permission: 'brands'
+                permission: 'categories'
             })
             
             .state('admin.couponsManage', {

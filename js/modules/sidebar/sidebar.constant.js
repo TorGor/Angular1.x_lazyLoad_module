@@ -62,102 +62,102 @@
                 {
                     "text": "本地语言",
                     "sref": "admin.localeLanguage",
-                    "module": "",
+                    "module": "locales",
                 },
                 {
                     "text": "国家管理",
                     "sref": "admin.countriesManage",
-                    "module": "",
+                    "module": "countries",
                 },
                 {
                     "text": "财务明细",
                     "sref": "admin.transactionsDetail",
-                    "module": "",
+                    "module": "transactions",
                 },
                 {
                     "text": "货币管理",
                     "sref": "admin.currenciesManage",
-                    "module": "",
+                    "module": "currencies",
                 },
                 {
                     "text": "银行黑名单",
                     "sref": "admin.blackLists",
-                    "module": "",
+                    "module": "blacklists",
                 },
                 {
                     "text": "用户等级",
                     "sref": "admin.userLevel",
-                    "module": "",
+                    "module": "ranks",
                 },
                 {
                     "text": "充值管理",
                     "sref": "admin.ordersManage",
-                    "module": "",
+                    "module": "orders",
                 },
                 {
                     "text": "支付渠道",
                     "sref": "admin.paymentMethods",
-                    "module": "",
+                    "module": "methods",
                 },
                 {
                     "text": "优惠券使用",
                     "sref": "admin.appliesUse",
-                    "module": "",
+                    "module": "applies",
                 },
                 {
                     "text": "游戏品牌",
                     "sref": "admin.gameBrands",
-                    "module": "",
+                    "module": "brands",
                 },
                 {
                     "text": "游戏种类",
                     "sref": "admin.gameCategories",
-                    "module": "",
+                    "module": "categories",
                 },
                 {
                     "text": "优惠券管理",
                     "sref": "admin.couponsManage",
-                    "module": "",
+                    "module": "coupons",
                 },
                 {
                     "text": "游戏管理",
                     "sref": "admin.gamesManage",
-                    "module": "",
+                    "module": "games",
                 },
                 {
                     "text": "游戏产品",
                     "sref": "admin.gamesProducts",
-                    "module": "",
+                    "module": "products",
                 },
                 {
                     "text": "psp管理",
                     "sref": "admin.pspsManage",
-                    "module": "",
+                    "module": "psps",
                 },
                 {
                     "text": "提款管理",
                     "sref": "admin.withdrawsManage",
-                    "module": "",
+                    "module": "withdraws",
                 },
                 {
                     "text": "优惠活动",
                     "sref": "admin.promotionsManage",
-                    "module": "",
+                    "module": "promotions",
                 },
                 {
                     "text": "返水列表",
                     "sref": "admin.rebatesList",
-                    "module": "",
+                    "module": "rebates",
                 },
                 {
                     "text": "救济金列表",
                     "sref": "admin.reliefsList",
-                    "module": "",
+                    "module": "reliefs",
                 },
                 {
                     "text": "转账列表",
                     "sref": "admin.transfersList",
-                    "module": "",
+                    "module": "transfers",
                 }//new sidebar name will be append here
             ]
 
