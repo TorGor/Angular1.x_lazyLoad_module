@@ -70,7 +70,7 @@
                   <tbody>
                      <tr ng-repeat="item in blackLists">
                         <td>
-                           <span editable-text="item.accountNumber" e-name="accountNumber" e-formclass="xeditable-md" onbeforesave="validReg('^[0-9]{9,19}$', $data, '9-19 number')" e-form="rowform" e-required="">{{ item.accountNumber || '' }}</span>
+                           <span editable-text="item.accountNumber" e-name="accountNumber" e-formclass="xeditable-md" e-placeholder='9-19 number' onbeforesave="validReg('^[0-9]{9,19}$', $data, '9-19 number char')" e-form="rowform" e-required="">{{ item.accountNumber || '' }}</span>
                         </td>
                         <td>
                            <span editable-text="item.comment" e-name="comment" e-formclass="xeditable-md" e-placeholder='max 191 char' onbeforesave="validReg('^.{1,191}$', $data, 'max 191 char')" e-form="rowform" e-required="">{{ item.comment || '' }}</span>

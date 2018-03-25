@@ -240,8 +240,10 @@
         };
 
         $scope.confirmModal = function () {
-            console.log($scope.couponsItem,6666)
-            return;
+            if(!(/[A-Z0-9]{1,20}/.test($scope.couponsItem))){
+                $rootScope.alertErrorMsg('code should be A-Z0-9 max 20 char');
+                return;
+            }
             var tempData = angular.copy($scope.couponsItem);
             tempData['conditions'] = tempData['conditions'].filter(function (item) {
                 return !$scope.validIsNew(item.id);

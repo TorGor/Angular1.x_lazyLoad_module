@@ -123,20 +123,31 @@
             });
         };
 
-        $scope.walletOptions = [
-            {
-                label:'MAIN',
-                value:'MAIN'
-            },
-            {
-                label:'FS',
-                value:'FS'
-            },
-            {
-                label:'PT',
-                value:'PT'
-            },
-        ];
+        $scope.walletOptions = [];
+
+        $scope.initWalletOptionsData = function () {
+            $scope.walletOptions = [];
+            adminService.getReq($rootScope.URL.WALLETSMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                if(!objItem.disabled){
+                                    $scope.walletOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
 
         $scope.typeOptions = [
             {
@@ -338,6 +349,8 @@
             $scope.initBrandOptionsData();
 
             $scope.initRanksOptionsData();
+
+            $scope.initWalletOptionsData();
         }
     }
 })();

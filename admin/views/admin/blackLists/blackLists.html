@@ -101,7 +101,8 @@
                             <td>
                                 <span editable-text="item.accountNumber" e-name="accountNumber"
                                       e-formclass="xeditable-md"
-                                      onbeforesave="validReg('^[0-9]{9,19}$', $data, '9-19 number')"
+                                      e-placeholder='9-19 number'
+                                      onbeforesave="validReg('^[0-9]{9,19}$', $data, '9-19 number char')"
                                       e-form="rowform" e-required="">{{ item.accountNumber || '' }}</span>
                             </td>
                             <td>

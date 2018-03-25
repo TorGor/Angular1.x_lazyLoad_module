@@ -150,7 +150,8 @@
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    MethodsNameItem: item
+                    MethodsNameItem: item,
+                    hasPower:$scope.hasPower
                 }
             });
             modalInstance.result.then(function (data) {
@@ -222,10 +223,16 @@
             }
         };
 
+        $scope.hasPower = $scope.validPower("GAMESPRODUCTS", ["PATCH", "POST"])
+
         // 页面加载执行的函数
 
         $scope.initGamesProductsData();
 
-        $scope.initLocalesOptionsData();
+        if($scope.hasPower){
+
+            $scope.initLocalesOptionsData();
+
+        }
     }
 })();
