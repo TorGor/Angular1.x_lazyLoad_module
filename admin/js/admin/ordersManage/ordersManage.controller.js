@@ -18,6 +18,63 @@
         adminService
     ) {
 
+        $scope.search = {
+            wallet: [],
+            method: []
+        };
+
+        $scope.walletOptions = [];
+
+        $scope.initWalletOptionsData = function () {
+            $scope.walletOptions = [];
+            adminService.getReq($rootScope.URL.WALLETSMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                if(!objItem.disabled){
+                                    $scope.walletOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.methodOptions = [];
+
+        $scope.initMethodOptionsData = function () {
+            $scope.methodOptions = [];
+            adminService.getReq($rootScope.URL.PAYMENTMETHODS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                if(!objItem.disabled){
+                                    $scope.methodOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
         $scope.ordersManageUrl = $rootScope.URL.ORDERSMANAGE.GET;
 
         // 原始的数据
@@ -28,6 +85,9 @@
         // 过滤出来的数据
         $scope.ordersManageReload = 1;
         $scope.ordersManageAoData = {};
+
+        $scope.ordersManageAoData.wallet = ''
+        $scope.ordersManageAoData.method = ''
 
         $scope.initOrdersManageData = function() {
             $scope.ordersManageReload++
@@ -120,6 +180,10 @@
             }
         };
 
+        //页面加载执行
+        $scope.initWalletOptionsData();
+        $scope.initMethodOptionsData();
+
         $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 if ($scope.searchTimeStart) {
@@ -136,6 +200,13 @@
                         delete $scope.ordersManageAoData.end_time;
                     }
                 }
+            }
+        });
+
+        $scope.$watch('search.wallet.length+search.method.length', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                $scope.ordersManageAoData.wallet = $scope.search.wallet.join(',');
+                $scope.ordersManageAoData.method = $scope.search.method.join(',');
             }
         });
 

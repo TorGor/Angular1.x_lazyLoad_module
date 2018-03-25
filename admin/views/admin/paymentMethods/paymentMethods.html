@@ -4,6 +4,7 @@
             <div class="panel-body">
                 <span class="form-group add-button-class">
                     <button
+                        ng-show='validPower("PAYMENTMETHODS", ["POST"])'
                         class="btn btn-primary"
                         ng-click="addPaymentMethods()"
                         type="button"
@@ -50,7 +51,7 @@
                             <td style="width: 6%" ao-data="paymentMethodsAoData" web-data-table-sort="disabled">
                                 {{'table.paymentMethods.th7' | translate}}
                             </td>
-                            <td style="width: 10%">{{'table.button.operation' | translate}}</td>
+                            <td style="width: 10%" ng-show='validPower("PAYMENTMETHODS", ["PATCH", "PUT", "DELETE"])'>{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -73,11 +74,14 @@
                             </td>
                             <td>
                                 <span editable-text="item.min" e-name="min" e-formclass="xeditable-sm"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.min || '' }}</span>
+                                      e-placeholder='0.01-100000'
+                                      onbeforesave="checkPaymentMethodsMinMax($data)" e-form="rowform" e-required="">{{
+                                                                                                               item.min || '' }}</span>
                             </td>
                             <td>
                                 <span editable-text="item.max" e-name="max" e-formclass="xeditable-sm"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.max || '' }}</span>
+                                      e-placeholder='0.01-100000'
+                                      onbeforesave="checkPaymentMethodsMinMax($data)" e-form="rowform" e-required="">{{ item.max || '' }}</span>
                             </td>
                             <td>
                                 <span editable-select="item.type" e-name="type" e-form="rowform"
@@ -89,7 +93,7 @@
                             <td>
                                 <span>{{item.disabled ? 'No' : 'Yes'}}</span>
                             </td>
-                            <td style="white-space: nowrap;">
+                            <td style="white-space: nowrap;" ng-show='validPower("PAYMENTMETHODS", ["PATCH", "PUT", "DELETE"])'>
                                 <form class="form-buttons form-inline" editable-form name="rowform"
                                       onaftersave="savePaymentMethods(item, $data)" ng-show="rowform.$visible"
                                       shown="validIsNew(item.id)">
@@ -104,15 +108,19 @@
                                     </button>
                                 </form>
                                 <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-info" ng-click="rowform.$show()"
+                                    <button class="btn btn-sm btn-info"
+                                            ng-show="validPower('PAYMENTMETHODS', ['PATCH'])" ng-click="rowform.$show()"
                                             title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-danger" ng-show="item.disabled" ng-click="deletePaymentMethods(item)"
+                                    <button class="btn btn-sm btn-danger"
+                                            ng-show="item.disabled&&validPower('PAYMENTMETHODS', ['DELETE'])"
+                                            ng-click="deletePaymentMethods(item)"
                                             title="{{'table.button.delete' | translate}}">
                                         <em class="fa fa-trash"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-green" ng-show="!item.disabled" ng-click="recoverPaymentMethods(item)"
+                                    <button class="btn btn-sm btn-green" ng-show="!item.disabled&&validPower('PAYMENTMETHODS', ['PUT'])"
+                                            ng-click="recoverPaymentMethods(item)"
                                             title="{{'table.button.recover' | translate}}">
                                         <em class="fa fa-rotate-left"></em>
                                     </button>
@@ -120,7 +128,8 @@
                             </td>
                         </tr>
                         <tr ng-show="showPaymentMethods.length==0">
-                            <td colspan="8" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan='{{validPower("PAYMENTMETHODS", ["PATCH", "PUT", "DELETE"])?8:7}}'
+                                                               class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

@@ -159,6 +159,10 @@
          */
 
         $scope.savePaymentMethods = function (paymentMethods, item) {
+            if(window.parseFloat(item.min||'')>window.parseFloat(item.max||'')){
+                $rootScope.alertErrorMsg('min should less than max');
+                return '';
+            }
             var tempData = angular.extend({}, paymentMethods, item);
             if ($scope.validIsNew(paymentMethods.id)) {
                 delete tempData.id;
@@ -291,6 +295,14 @@
                 $scope.paymentMethods.splice(index, 1);
             }
         };
+
+        $scope.checkPaymentMethodsMinMax = function(data) {
+            var temp = parseFloat(data)
+            if(!data || temp<0.01 || temp>100000){
+                return '0.01-100000';
+            }
+            return true;
+        }
 
         // 页面加载执行的函数
 

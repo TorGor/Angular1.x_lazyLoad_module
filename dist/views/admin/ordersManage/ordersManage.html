@@ -3,15 +3,12 @@
       <div class="panel-wrapper">
          <div class="panel-body">
             <span class="form-group add-button-class">
-               <button class="btn btn-primary" ng-click="addOrdersManage()" type="button" translate="table.button.add">
+               <button ng-show='validPower("ORDERSMANAGE", ["POST"])' class="btn btn-primary" ng-click="addOrdersManage()" style='margin-left: 15px' type="button" translate="table.button.add">
                   新增
-               </button>
-               <button class="btn btn-primary" ng-click="showAdvanceSearch()" type="button" translate="table.button.advance_search">
-                  高级搜索
                </button>
             </span>
             <div class="clearfix"></div>
-            <form class="form-horizontal" role="form" ng-show="advancedSearch">
+            <form class="form-horizontal" role="form">
                <div class="col-lg-3 col-md-6 margin-bottom-10">
                   <input class="form-control" type="text" ng-model="ordersManageAoData.user_id" placeholder="user id">
                </div>
@@ -24,11 +21,25 @@
                <div class="col-lg-3 col-md-6 margin-bottom-10">
                   <input class="form-control" type="text" ng-model="ordersManageAoData.max_amount" placeholder="{{'max ' + ('table.ordersManage.th1' | translate)}}">
                </div>
-               <div class="col-lg-3 col-md-6 margin-bottom-10">
-                  <input class="form-control" type="text" ng-model="ordersManageAoData.wallet" placeholder="wallet eg. A,B">
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="search.method" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
+                     <ui-select-match placeholder='choose method'>
+                        <span>{{$item.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in methodOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
                </div>
-               <div class="col-lg-3 col-md-6 margin-bottom-10">
-                  <input class="form-control" type="text" ng-model="ordersManageAoData.method" placeholder="method eg. A,B">
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="search.wallet" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
+                     <ui-select-match placeholder='choose wallet'>
+                        <span>{{$item.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in walletOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
                </div>
                <div class="col-lg-3 col-md-6 margin-bottom-10">
                   <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeStart">
