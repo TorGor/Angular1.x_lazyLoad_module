@@ -36,7 +36,7 @@
             $scope.promotionsItem = {
                 banner: '',
                 currency: $scope.currencyOptions[0] && $scope.currencyOptions[0].value || '',
-                brand: $scope.brandOptions[0] && $scope.brandOptions[0].value || '',
+                status: $scope.statusOptions[0] && $scope.statusOptions[0].value || '',
                 startTime: '',
                 endTime: '',
                 categories: [],
@@ -267,6 +267,18 @@
 
 
         $scope.confirmModal = function () {
+            if(!(/(.*?(jpg|jpeg|png))/.test($scope.promotionsItem.banner))){
+                $rootScope.alertErrorMsg('banner is picture should end with jpg,jpeg,png');
+                return '';
+            }
+            if($scope.promotionsItem.title.length == 0){
+                $rootScope.alertErrorMsg('title is required');
+                return '';
+            }
+            if($scope.promotionsItem.content.length == 0){
+                $rootScope.alertErrorMsg('content is required');
+                return '';
+            }
             if($scope.promotionsItem.title && $scope.promotionsItem.title.length){
                 var tempObj1 = {};
                 var sameKey1 = false;
