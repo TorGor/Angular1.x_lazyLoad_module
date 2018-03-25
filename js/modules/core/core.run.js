@@ -65,7 +65,9 @@
         $rootScope.$on('$stateChangeStart',
             function(event, toState, toParams, fromState, fromParams) {
                 if(toState.permission){
-                    console.log(toState.permission, 'toState.permission')
+                    if(window.userInfo && window.userInfo.module && window.userInfo.module.indexOf(toState.permission) == -1){
+                        $state.go('page.403')
+                    }
                 }
 
             });
@@ -76,6 +78,7 @@
                 console.log(unfoundState.to); // "lazy.state"
                 console.log(unfoundState.toParams); // {a:1, b:2}
                 console.log(unfoundState.options); // {inherit:false} + default options
+                $state.go('page.404')
             });
         // Hook error
         $rootScope.$on('$stateChangeError',

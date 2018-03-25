@@ -15,8 +15,8 @@
         })
         .constant('EVN', {
             debug: false,
-            suffix: '.json',
-             //suffix: '',
+            //suffix: '.json',
+            suffix: '',
             server: '',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             //server: 'http://holyplace.ngrok.xiaomiqiu.cn'
