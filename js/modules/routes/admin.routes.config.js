@@ -165,7 +165,7 @@
                                                         $rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
                                                     }
                                                 }
-                                                if(buttonItem.btnType == 2){
+                                                if(buttonItem.btnType == 3){
                                                     $rootScope.URL[URLobj[module]].PATCH = buttonItem.btnUrl;
                                                     $rootScope.URL[URLobj[module]].PATCHID = buttonItem.id;
                                                 }

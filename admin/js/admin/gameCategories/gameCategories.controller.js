@@ -72,38 +72,25 @@
         };
 
         // 展示弹窗
-        $scope.showGameCategoriesNameModal = function (item) {
+        $scope.addGameCategories = function (item) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/paymentMethods/paymentMethodsNameModal.html',
-                controller: 'PaymentMethodsNameModalController',
+                templateUrl: '/views/admin/gameCategories/gameCategoriesModal.html',
+                controller: 'gameCategoriesModalController',
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    MethodsNameItem: item,
+                    edit:false,
+                    MethodsNameItem: {},
                     hasPower:$scope.validPower("GAMECATEGORIES", ["PATCH", "POST"])
                 }
             });
             modalInstance.result.then(function (data) {
-                if(data.type == 'name'){
-                    $scope.gameCategories.forEach(function(gameCategoriesItem) {
-                        if (gameCategoriesItem.id == data.data.id) {
-                            gameCategoriesItem[data.type] = angular.copy(data.data[data.type]);
-                            $scope.gameCategoriesReload++;
-                        }
-                    });
-                }
+                $scope.initGameCategoriesData();
             }, function (data) {
-                if(data.type == 'name'){
-                    $scope.gameCategories.forEach(function(gameCategoriesItem) {
-                        if (gameCategoriesItem.id == data.data.id) {
-                            gameCategoriesItem[data.type] = angular.copy(data.data[data.type]);
-                            $scope.gameCategoriesReload++;
-                        }
-                    });
-                }
+
             });
         };
 
@@ -114,66 +101,26 @@
          * @param item
          */
 
-        $scope.saveGameCategories = function (gameCategories, item) {
-            var tempData = angular.extend({}, gameCategories, item);
-            if ($scope.validIsNew(gameCategories._id)) {
-                delete tempData._id;
-                if(tempData.name && tempData.name.length){
-                    var tempObj = {};
-                    var sameKey = false;
-                    tempData.name.map(function(nameItem) {
-                        if(tempObj[nameItem.locale]){
-                            sameKey = true
-                        }
-                        tempObj[nameItem.locale] = nameItem.value
-                    });
-                    if(sameKey){
-                        $rootScope.alertErrorMsg('you set same local,just remove one');
-                        return '';
-                    }
-                    tempData.name = angular.copy(tempObj)
+        $scope.saveGameCategories = function (item) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/gameCategories/gameCategoriesModal.html',
+                controller: 'gameCategoriesModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:true,
+                    MethodsNameItem: item,
+                    hasPower:$scope.validPower("GAMECATEGORIES", ["PATCH", "POST"])
                 }
-                adminService.postReq($rootScope.URL.GAMECATEGORIES.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initGameCategoriesData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(gameCategories._id) && gameCategories.id) {
-                delete tempData._id;
-                if(tempData.name && tempData.name.length){
-                    var tempObj = {};
-                    var sameKey = false;
-                    tempData.name.map(function(nameItem) {
-                        if(tempObj[nameItem.locale]){
-                            sameKey = true
-                        }
-                        tempObj[nameItem.locale] = nameItem.value
-                    });
-                    if(sameKey){
-                        $rootScope.alertErrorMsg('you set same local,just remove one');
-                        return '';
-                    }
-                    tempData.name = angular.copy(tempObj)
-                }
-                adminService.patchReq($rootScope.URL.GAMECATEGORIES.PATCH+'/'+gameCategories.id, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initGameCategoriesData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initGameCategoriesData();
+            }, function (data) {
+
+            });
         };
 
         // 删除gameCategories
@@ -197,16 +144,6 @@
                     });
                 });
             }
-        };
-
-        // 添加按钮
-        $scope.addGameCategories = function () {
-            $scope.gameCategoriesAoData = {};
-            $scope.gameCategoriesSearch = '';
-            $scope.gameCategories.unshift({
-                '_id': ($scope.gameCategories.length+1) + 'null',
-                'name': []
-            });
         };
 
         /**
