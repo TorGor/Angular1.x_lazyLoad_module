@@ -6,6 +6,7 @@
 
     LocaleLanguageController.$inject = [
         '$scope',
+        '$uibModal',
         '$rootScope',
         'adminService',
         '$translate'
@@ -13,6 +14,7 @@
 
     function LocaleLanguageController(
         $scope,
+        $uibModal,
         $rootScope,
         adminService,
         $translate

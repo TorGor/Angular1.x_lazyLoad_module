@@ -6,6 +6,7 @@
 
     PspsManageController.$inject = [
         '$scope',
+        '$uibModal',
         '$rootScope',
         '$uibModal',
         'adminService'
@@ -13,6 +14,7 @@
 
     function PspsManageController(
         $scope,
+        $uibModal,
         $rootScope,
         $uibModal,
         adminService

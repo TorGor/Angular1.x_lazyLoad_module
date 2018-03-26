@@ -7,6 +7,7 @@
     CurrenciesManageController.$inject = [
         '$scope',
         '$rootScope',
+        '$uibModal',
         '$translate',
         'adminService'
     ];
@@ -14,6 +15,7 @@
     function CurrenciesManageController(
         $scope,
         $rootScope,
+        $uibModal,
         $translate,
         adminService
     ) {

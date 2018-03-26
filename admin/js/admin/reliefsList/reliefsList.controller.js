@@ -6,12 +6,14 @@
 
     ReliefsListController.$inject = [
         '$scope',
+        '$uibModal',
         '$rootScope',
         'adminService'
     ];
 
     function ReliefsListController(
         $scope,
+        $uibModal,
         $rootScope,
         adminService
     ) {

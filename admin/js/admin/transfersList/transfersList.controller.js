@@ -6,12 +6,14 @@
 
     TransfersListController.$inject = [
         '$scope',
+        '$uibModal',
         '$rootScope',
         'adminService'
     ];
 
     function TransfersListController(
         $scope,
+        $uibModal,
         $rootScope,
         adminService
     ) {

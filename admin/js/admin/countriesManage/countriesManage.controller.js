@@ -7,12 +7,14 @@
     CountriesManageController.$inject = [
         '$scope',
         '$rootScope',
+        '$uibModal',
         'adminService'
     ];
 
     function CountriesManageController(
         $scope,
         $rootScope,
+        $uibModal,
         adminService
     ) {
 

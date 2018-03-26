@@ -7,12 +7,14 @@
     BlackListsController.$inject = [
         '$scope',
         '$rootScope',
+        '$uibModal',
         'adminService'
     ];
 
     function BlackListsController(
         $scope,
         $rootScope,
+        $uibModal,
         adminService
     ) {
 

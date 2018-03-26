@@ -12,6 +12,7 @@
         '$window',
         '$templateCache',
         'Colors',
+        '$translate',
         'SweetAlert',
         'toaster'
     ];
@@ -23,6 +24,7 @@
         $window,
         $templateCache,
         Colors,
+        $translate,
         SweetAlert,
         toaster
     ) {
@@ -39,6 +41,7 @@
 
         // Set reference to access them from any scope
         $rootScope.$state = $state;
+        $rootScope.$translate = $translate;
         $rootScope.$stateParams = $stateParams;
         $rootScope.$storage = $window.localStorage;
 

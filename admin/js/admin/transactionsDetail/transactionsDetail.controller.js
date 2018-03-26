@@ -6,12 +6,14 @@
 
     TransactionsDetailController.$inject = [
         '$scope',
+        '$uibModal',
         '$rootScope',
         'adminService'
     ];
 
     function TransactionsDetailController(
         $scope,
+        $uibModal,
         $rootScope,
         adminService
     ) {
