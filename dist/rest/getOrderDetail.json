@@ -1,0 +1,54 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "amount": 0.01,
+        "method": {
+            "code": "CNYALI",
+            "timestamps": {
+                "createdAt": "2017-09-06T07:20:42+00:00",
+                "updatedAt": "2017-09-06T07:20:42+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Alipay"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "支付宝"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "支付寶"
+                }
+            ],
+            "description": {
+                "header": "ALIPAY_QR_SCAN"
+            },
+            "range": {
+                "min": 0.01,
+                "max": 5000
+            },
+            "currency": "CNY",
+            "disabled": false
+        },
+        "timestamps": {
+            "createdAt": "2018-03-07T13:11:12+00:00",
+            "updatedAt": "2018-03-07T13:11:12+00:00"
+        },
+        "extra": null,
+        "destination": "MAIN",
+        "currency": "CNY",
+        "details": [],
+        "id": "6OMy69nbWw",
+        "method_code": "CNYALI",
+        "user": {
+            "affiliate": null,
+            "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+            "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+            "username": "kirinse"
+        },
+        "status": "processing"
+    }
+}

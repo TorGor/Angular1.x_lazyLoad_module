@@ -1,0 +1,185 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": [
+        {
+            "code": "ALIWAP",
+            "timestamps": {
+                "createdAt": "2018-02-05T02:13:12+00:00",
+                "updatedAt": "2018-03-11T14:44:58+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Alipay (Mobile)"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "支付宝 (手机)"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "支付寶 (手機)"
+                },
+                {
+                    "locale": "en-_g",
+                    "value": "4"
+                },
+                {
+                    "locale": "zh-_c",
+                    "value": "支付宝 (手机)"
+                },
+                {
+                    "locale": "zh-_t",
+                    "value": "支付寶 (手機)"
+                }
+            ],
+            "description": {
+                "header": "ALIPAY_WAP"
+            },
+            "range": {
+                "min": 0.01,
+                "max": 5000
+            },
+            "currency": "CNY",
+            "disabled": false
+        },
+        {
+            "code": "CNYALI",
+            "timestamps": {
+                "createdAt": "2017-09-06T07:20:42+00:00",
+                "updatedAt": "2017-09-06T07:20:42+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Alipay"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "支付宝"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "支付寶"
+                }
+            ],
+            "description": {
+                "header": "ALIPAY_QR_SCAN"
+            },
+            "range": {
+                "min": 0.01,
+                "max": 5000
+            },
+            "currency": "CNY",
+            "disabled": false
+        },
+        {
+            "code": "CNYCC",
+            "timestamps": {
+                "createdAt": "2017-09-06T07:20:42+00:00",
+                "updatedAt": "2017-09-06T07:20:42+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Credit/Debit Card"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "在线支付"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "在線支付"
+                }
+            ],
+            "description": null,
+            "range": {
+                "min": 0.01,
+                "max": 10000
+            },
+            "currency": "CNY",
+            "disabled": false
+        },
+        {
+            "code": "CNYWX",
+            "timestamps": {
+                "createdAt": "2017-09-06T07:20:42+00:00",
+                "updatedAt": "2017-09-06T07:20:42+00:00"
+            },
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Wechat Pay"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "微信支付"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "微信付款"
+                }
+            ],
+            "description": {
+                "header": "WX_QR_SCAN"
+            },
+            "range": {
+                "min": 0.01,
+                "max": 3000
+            },
+            "currency": "CNY",
+            "disabled": false
+        },
+        {
+            "code": "TTT",
+            "timestamps": {
+                "createdAt": "2018-03-06T08:49:26+00:00",
+                "deletedAt": "2018-03-13T11:46:20+00:00",
+                "updatedAt": "2018-03-13T11:46:20+00:00"
+            },
+            "name": [
+                {
+                    "locale": "zh-CN",
+                    "value": "在线支付2"
+                },
+                {
+                    "locale": "en-GB",
+                    "value": "online pay"
+                }
+            ],
+            "description": null,
+            "range": {
+                "min": 0.01,
+                "max": 100000
+            },
+            "currency": "CNY",
+            "disabled": true
+        },
+        {
+            "code": "TTTT",
+            "timestamps": {
+                "createdAt": "2018-03-06T13:04:36+00:00",
+                "updatedAt": "2018-03-06T13:04:36+00:00"
+            },
+            "name": [
+                {
+                    "locale": "zh-CN",
+                    "value": "在线支付2"
+                },
+                {
+                    "locale": "en-GB",
+                    "value": "online pay"
+                }
+            ],
+            "description": null,
+            "range": {
+                "min": 0.01,
+                "max": 100000
+            },
+            "currency": "CNY",
+            "disabled": true
+        }
+    ]
+}

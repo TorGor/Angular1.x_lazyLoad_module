@@ -1,0 +1,52 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": [
+        {
+            "product": "SLOTS",
+            "amount": 0.01,
+            "timestamps": {
+                "createdAt": "2017-09-30T01:46:51+00:00",
+                "updatedAt": "2017-09-30T01:46:51+00:00"
+            },
+            "details": {
+                "balance": 0.06,
+                "rate": 0.1,
+                "deposit": 0.1,
+                "consecutive": 0,
+                "withdraw": 0
+            },
+            "id": "109d4b40-a4b8-11e7-ae42-d9acf8a962b1",
+            "user": {
+                "affiliate": null,
+                "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                "affiliateId": "12ccb3a0-991d-11e7-b790-498f5a78a812",
+                "username": "kirinse"
+            },
+            "status": "succeed"
+        },
+        {
+            "product": "SLOTS",
+            "amount": 0.01,
+            "timestamps": {
+                "createdAt": "2017-09-29T01:46:51+00:00",
+                "updatedAt": "2017-09-29T01:46:51+00:00"
+            },
+            "details": {
+                "balance": 0.06,
+                "rate": 0.1,
+                "deposit": 0.1,
+                "consecutive": 0,
+                "withdraw": 0
+            },
+            "id": "109d4b40-a4b8-11e7-ae42-d9acf8a962b0",
+            "user": {
+                "affiliate": null,
+                "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                "affiliateId": "12ccb3a0-991d-11e7-b790-498f5a78a812",
+                "username": "kirinse"
+            },
+            "status": "succeed"
+        }
+    ]
+}

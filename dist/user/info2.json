@@ -1,0 +1,1143 @@
+{
+    "success": true,
+    "msg": "find success!",
+    "data": {
+        "roleId": "402883a761aea4ee0161aebc84180001",
+        "roles": [
+            {
+                "name": "支付渠道",
+                "url": null,
+                "data": [
+                    {
+                        "name": "支付渠道",
+                        "url": "methods",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d8697510084",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getMethods",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 22:18:44",
+                                "optTime": null,
+                                "menuId": "297e88d3625d541e01625d8612430083"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d86edec0085",
+                                "btnName": "详情",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getDetailMethods",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 22:19:06",
+                                "optTime": null,
+                                "menuId": "297e88d3625d541e01625d8612430083"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d872cd00086",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postMethods",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 22:19:22",
+                                "optTime": null,
+                                "menuId": "297e88d3625d541e01625d8612430083"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d8784fb0087",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchMethods",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 22:19:45",
+                                "optTime": null,
+                                "menuId": "297e88d3625d541e01625d8612430083"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d87e6da0088",
+                                "btnName": "删除",
+                                "btnType": "4",
+                                "btnCode": "",
+                                "btnUrl": "rest/deleteMethods",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 22:20:10",
+                                "optTime": null,
+                                "menuId": "297e88d3625d541e01625d8612430083"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d884ca00089",
+                                "btnName": "恢复",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/restoreMethods",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 22:20:36",
+                                "optTime": null,
+                                "menuId": "297e88d3625d541e01625d8612430083"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "银行卡黑名单",
+                "url": null,
+                "data": [
+                    {
+                        "name": "黑名单",
+                        "url": "blacklists",
+                        "data": [
+                            {
+                                "id": "402881e7625d2c2001625d36e51e0007",
+                                "btnName": "查找",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getBlacklists",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 20:51:41",
+                                "optTime": null,
+                                "menuId": "402881e7625d2c2001625d32d7a10002"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d3777bc0008",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postBlacklists",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 20:52:19",
+                                "optTime": null,
+                                "menuId": "402881e7625d2c2001625d32d7a10002"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d3807630009",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchBlacklists",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 20:52:55",
+                                "optTime": null,
+                                "menuId": "402881e7625d2c2001625d32d7a10002"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d3a4166000a",
+                                "btnName": "删除",
+                                "btnType": "4",
+                                "btnCode": "",
+                                "btnUrl": "rest/deleteBlacklists",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 20:55:21",
+                                "optTime": null,
+                                "menuId": "402881e7625d2c2001625d32d7a10002"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "充值订单",
+                "url": null,
+                "data": [
+                    {
+                        "name": "充值订单列表",
+                        "url": "orders",
+                        "data": [
+                            {
+                                "id": "402881e7625d2c2001625d3bdba1000b",
+                                "btnName": "查找",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getOrders",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 20:57:06",
+                                "optTime": null,
+                                "menuId": "402881e7625d2c2001625d33bc2e0004"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d3ff6ea000c",
+                                "btnName": "详情",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getDetailOrders",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:01:35",
+                                "optTime": null,
+                                "menuId": "402881e7625d2c2001625d33bc2e0004"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d413dc9000d",
+                                "btnName": "恢复",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/receiveOrders",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:02:59",
+                                "optTime": null,
+                                "menuId": "402881e7625d2c2001625d33bc2e0004"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "优惠券列表",
+                "url": null,
+                "data": [
+                    {
+                        "name": "优惠券列表",
+                        "url": "coupons",
+                        "data": [
+                            {
+                                "id": "402881e7625d2c2001625d464cc7000e",
+                                "btnName": "查找",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getCoupons",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:08:31",
+                                "optTime": null,
+                                "menuId": "402881e7625d2c2001625d356bcc0006"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d46a196000f",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postCoupons",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:08:52",
+                                "optTime": null,
+                                "menuId": "402881e7625d2c2001625d356bcc0006"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d46fcf30010",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchCoupons",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:09:16",
+                                "optTime": null,
+                                "menuId": "402881e7625d2c2001625d356bcc0006"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d47588b0011",
+                                "btnName": "删除",
+                                "btnType": "4",
+                                "btnCode": "",
+                                "btnUrl": "rest/deleteCoupons",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:09:39",
+                                "optTime": null,
+                                "menuId": "402881e7625d2c2001625d356bcc0006"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d47becb0012",
+                                "btnName": "恢复",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/restoreCoupons",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:10:05",
+                                "optTime": null,
+                                "menuId": "402881e7625d2c2001625d356bcc0006"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "资金明细",
+                "url": null,
+                "data": [
+                    {
+                        "name": "资金明细",
+                        "url": "transactions",
+                        "data": [
+                            {
+                                "id": "402881ea622f02d1016237e660ff0023",
+                                "btnName": "查找",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getTransactions",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-18 14:57:47",
+                                "optTime": "2018-03-25 21:10:36",
+                                "menuId": "402881ea622f02d101623477ff310002"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "优惠券使用",
+                "url": null,
+                "data": [
+                    {
+                        "name": "优惠券",
+                        "url": "applies",
+                        "data": [
+                            {
+                                "id": "402881e7625d2c2001625d48feb50013",
+                                "btnName": "查找",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getApplies",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:11:27",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c3b5a00015"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d4994da0014",
+                                "btnName": "审核",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/auditApplies",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:12:06",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c3b5a00015"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d4a778f0015",
+                                "btnName": "撤销优惠券",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/revokeApplies",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:13:04",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c3b5a00015"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "游戏",
+                "url": null,
+                "data": [
+                    {
+                        "name": "游戏列表",
+                        "url": "games",
+                        "data": [
+                            {
+                                "id": "402881e7625d2c2001625d4b86eb0016",
+                                "btnName": "查找",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getGames",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:14:13",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c46b060016"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d4bcab00017",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postGames",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:14:30",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c46b060016"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d4c94fd0018",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchGames",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:15:22",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c46b060016"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "游戏品牌",
+                        "url": "brands",
+                        "data": [
+                            {
+                                "id": "402881e7625d2c2001625d4cf4d00019",
+                                "btnName": "查找",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getBrands",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:15:47",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c4f4a60017"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d4d3a66001a",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postBrands",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:16:05",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c4f4a60017"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d4d9dbd001b",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchBrands",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:16:30",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c4f4a60017"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "游戏产品",
+                        "url": "products",
+                        "data": [
+                            {
+                                "id": "402881e7625d2c2001625d4e21ec001c",
+                                "btnName": "查找",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getProducts",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:17:04",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c55e1e0018"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d4e9530001d",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postProducts",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:17:33",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c55e1e0018"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d4ed96d001e",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchProducts",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:17:51",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c55e1e0018"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "游戏分类",
+                        "url": "categories",
+                        "data": [
+                            {
+                                "id": "402881e7625d2c2001625d4f2f38001f",
+                                "btnName": "查找",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getCategories",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:18:13",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c5fdfa0019"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d4f85270020",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postCategories",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:18:35",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c5fdfa0019"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d4fc87a0021",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchCategories",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:18:52",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c5fdfa0019"
+                            },
+                            {
+                                "id": "402881e7625d2c2001625d5094220022",
+                                "btnName": "删除",
+                                "btnType": "4",
+                                "btnCode": "",
+                                "btnUrl": "rest/deleteCategories",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:19:44",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c5fdfa0019"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "游戏记录",
+                        "url": "records",
+                        "data": [
+                            {
+                                "id": "402881e7625d2c2001625d5110510023",
+                                "btnName": "查找",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getRecords",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:20:16",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c65450001a"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "充值服务提供商",
+                "url": null,
+                "data": [
+                    {
+                        "name": "充值服务提供商",
+                        "url": "psps",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d54e40f0000",
+                                "btnName": "查找",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getPsps",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:24:27",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c898ae001b"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d55327d0001",
+                                "btnName": "详情",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getDetailPsps",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:24:47",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c898ae001b"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d5598cd0002",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postPsps",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:25:13",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c898ae001b"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d55d2630003",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchPsps",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:25:28",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c898ae001b"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "转账",
+                "url": null,
+                "data": [
+                    {
+                        "name": "转账",
+                        "url": "transfers",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d56f53d0004",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getTransfers",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:26:42",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237c97b4b001c"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "提款",
+                "url": null,
+                "data": [
+                    {
+                        "name": "提款",
+                        "url": "withdraws",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d579e110005",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getWithdraws",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:27:25",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237ca3e51001d"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d5828de0006",
+                                "btnName": "详情",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getDetailWithdraws",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:28:01",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237ca3e51001d"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d58e4980007",
+                                "btnName": "获取提款审核",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getAuditWithdraws",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:28:49",
+                                "optTime": "2018-03-25 21:32:22",
+                                "menuId": "402881ea622f02d1016237ca3e51001d"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d59ae710008",
+                                "btnName": "提款审核",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postAuditWithdraws",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:29:41",
+                                "optTime": "2018-03-25 21:34:11",
+                                "menuId": "402881ea622f02d1016237ca3e51001d"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d5b67150009",
+                                "btnName": "获取付款审核",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getPayWithdraws",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:31:34",
+                                "optTime": "2018-03-25 21:32:37",
+                                "menuId": "402881ea622f02d1016237ca3e51001d"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d5da3ca000a",
+                                "btnName": "付款审核",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postPayWithdraws",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:34:00",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237ca3e51001d"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d5f55e7000b",
+                                "btnName": "获取提款复核",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getReviewWithdraws",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:35:51",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237ca3e51001d"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d5fd853000c",
+                                "btnName": "提款复核",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postReviewWithdraws",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:36:25",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237ca3e51001d"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "钱包",
+                "url": null,
+                "data": [
+                    {
+                        "name": "钱包",
+                        "url": "wallets",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d6097c7000d",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getWallets",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:37:14",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237cac69f001e"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d60e128000e",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postWallets",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:37:32",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237cac69f001e"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d612d6b000f",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchWallets",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:37:52",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237cac69f001e"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d616ef40010",
+                                "btnName": "删除",
+                                "btnType": "4",
+                                "btnCode": "",
+                                "btnUrl": "rest/deleteWallets",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:38:09",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237cac69f001e"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d625bda0011",
+                                "btnName": "恢复",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/restoreWallets",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:39:09",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237cac69f001e"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "返水",
+                "url": null,
+                "data": [
+                    {
+                        "name": "返水",
+                        "url": "rebates",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d635a030012",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getRebates",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:40:14",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237cbcabf001f"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "救援金",
+                "url": null,
+                "data": [
+                    {
+                        "name": "救援金",
+                        "url": "reliefs",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d63d4d90013",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getReliefs",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:40:46",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237cc39d60020"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "千百倍",
+                "url": null,
+                "data": [
+                    {
+                        "name": "千百倍",
+                        "url": "bigwins",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d6472bf0014",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/bigwins",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:41:26",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237cc97810021"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d65b0e40015",
+                                "btnName": "进入审核",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getAuditBigwins",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:42:48",
+                                "optTime": "2018-03-25 21:43:05",
+                                "menuId": "402881ea622f02d1016237cc97810021"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d66a5dd0016",
+                                "btnName": "提交审核",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postAuditBigwins",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:43:51",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237cc97810021"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "优惠活动",
+                "url": null,
+                "data": [
+                    {
+                        "name": "优惠活动",
+                        "url": "promotions",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d6779d70017",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getPromotions",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:44:45",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237cdad8a0022"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d67d42a0018",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postPromotions",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:45:08",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237cdad8a0022"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d681d420019",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchPromotions",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:45:27",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237cdad8a0022"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d687b0a001a",
+                                "btnName": "详情",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getDetailPromotions",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:45:51",
+                                "optTime": null,
+                                "menuId": "402881ea622f02d1016237cdad8a0022"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "用户",
+                "url": null,
+                "data": [
+                    {
+                        "name": "用户列表",
+                        "url": "users",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d695ed4001b",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getUsers",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:46:49",
+                                "optTime": null,
+                                "menuId": "402881e7625d2c2001625d30d6880000"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "配置",
+                "url": null,
+                "data": [
+                    {
+                        "name": "语言",
+                        "url": "locales",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d6b39f8001c",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postLocales",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:48:51",
+                                "optTime": null,
+                                "menuId": "402883a961cb77290161cbb0a49d0003"
+                            },
+                            {
+                                "id": "402883a961cb77290161cbb36b660005",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getLocales",
+                                "btnStatus": "1",
+                                "createTime": "2018-02-25 14:43:08",
+                                "optTime": "2018-03-25 21:48:34",
+                                "menuId": "402883a961cb77290161cbb0a49d0003"
+                            },
+                            {
+                                "id": "402883a961cb77290161cbb3913a0006",
+                                "btnName": "删除",
+                                "btnType": "4",
+                                "btnCode": "",
+                                "btnUrl": "rest/deleteLocales",
+                                "btnStatus": "1",
+                                "createTime": "2018-02-25 14:43:18",
+                                "optTime": "2018-03-25 21:48:05",
+                                "menuId": "402883a961cb77290161cbb0a49d0003"
+                            },
+                            {
+                                "id": "40289fb061f61fb10161f62b00750000",
+                                "btnName": "修改",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchLocales",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-05 20:37:48",
+                                "optTime": "2018-03-25 21:48:24",
+                                "menuId": "402883a961cb77290161cbb0a49d0003"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "国家",
+                        "url": "countries",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d6e9950001d",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getCountries",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:52:32",
+                                "optTime": null,
+                                "menuId": "402883a961cb77290161cbb2ce660004"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d6ee12f001e",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchCountries",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:52:50",
+                                "optTime": null,
+                                "menuId": "402883a961cb77290161cbb2ce660004"
+                            },
+                            {
+                                "id": "402883a961cb77290161cbb3c9a30007",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postCountries",
+                                "btnStatus": "1",
+                                "createTime": "2018-02-25 14:43:32",
+                                "optTime": "2018-03-25 21:52:12",
+                                "menuId": "402883a961cb77290161cbb2ce660004"
+                            },
+                            {
+                                "id": "402883a961cb77290161cbb401a30008",
+                                "btnName": "删除",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/deleteCountries",
+                                "btnStatus": "1",
+                                "createTime": "2018-02-25 14:43:47",
+                                "optTime": "2018-03-25 21:53:03",
+                                "menuId": "402883a961cb77290161cbb2ce660004"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "货币",
+                        "url": "currencies",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d6f7eb9001f",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getCurrencies",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:53:30",
+                                "optTime": null,
+                                "menuId": "8a80828c61fa57940161fa6c21640000"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d6fecd70020",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postCurrencies",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:53:58",
+                                "optTime": null,
+                                "menuId": "8a80828c61fa57940161fa6c21640000"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d70626c0021",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchCurrencies",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:54:29",
+                                "optTime": null,
+                                "menuId": "8a80828c61fa57940161fa6c21640000"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d70ae9b0022",
+                                "btnName": "删除",
+                                "btnType": "4",
+                                "btnCode": "",
+                                "btnUrl": "rest/deleteCurrencies",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:54:48",
+                                "optTime": null,
+                                "menuId": "8a80828c61fa57940161fa6c21640000"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "用户等级",
+                "url": null,
+                "data": [
+                    {
+                        "name": "用户等级",
+                        "url": "ranks",
+                        "data": [
+                            {
+                                "id": "297e88d3625d541e01625d71ab0e0023",
+                                "btnName": "新增",
+                                "btnType": "2",
+                                "btnCode": "",
+                                "btnUrl": "rest/postRanks",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:55:53",
+                                "optTime": null,
+                                "menuId": "402883a961cb77290161cbb60e98000a"
+                            },
+                            {
+                                "id": "297e88d3625d541e01625d7277e20024",
+                                "btnName": "删除",
+                                "btnType": "4",
+                                "btnCode": "",
+                                "btnUrl": "rest/deleteRanks",
+                                "btnStatus": "1",
+                                "createTime": "2018-03-25 21:56:45",
+                                "optTime": null,
+                                "menuId": "402883a961cb77290161cbb60e98000a"
+                            },
+                            {
+                                "id": "402883a961cb77290161cbb68fb2000b",
+                                "btnName": "查询",
+                                "btnType": "1",
+                                "btnCode": "",
+                                "btnUrl": "rest/getRanks",
+                                "btnStatus": "1",
+                                "createTime": "2018-02-25 14:46:34",
+                                "optTime": "2018-03-25 21:55:34",
+                                "menuId": "402883a961cb77290161cbb60e98000a"
+                            },
+                            {
+                                "id": "402883a961cb77290161cbb6b481000c",
+                                "btnName": "编辑",
+                                "btnType": "3",
+                                "btnCode": "",
+                                "btnUrl": "rest/patchRanks",
+                                "btnStatus": "1",
+                                "createTime": "2018-02-25 14:46:44",
+                                "optTime": "2018-03-25 21:56:16",
+                                "menuId": "402883a961cb77290161cbb60e98000a"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "adminId": "402883a761aea4ee0161aec5837f0002",
+        "username": "admin1"
+    }
+}

@@ -1,77 +1,70 @@
-<div class="row">
-    <div class="panel panel-default">
-        <div class="panel-wrapper">
-            <div class="panel-body">
-                <span class="form-group add-button-class">
-                    <button ng-show='validPower("LOCALELANGUAGE", "POST")'
-                            class="btn btn-primary"
-                            ng-click="addLocaleLanguage()"
-                            type="button"
-                            translate="table.button.add"
-                    >
-                        新增
-                    </button>
-                </span>
-                <form class="form-inline pull-right add-button-class" role="form">
-                    <div style="position: relative" class="form-group">
-                        <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                        <input class="form-control" type="text" ng-model="localeLanguageSearch" placeholder="{{searchPlaceholder(['table.localeLanguage.th1', 'table.localeLanguage.th2'])}}">
-                    </div>
-                </form>
-                <div
-                        web-data-table
-                        items="localeLanguage"
-                        ao-data="localeLanguageAoData"
-                        search="localeLanguageSearch"
-                        reload="localeLanguageReload"
-                        show-items="showLocaleLanguage"
-                >
-                    <table width="100%" class="table table-bordered table-hover bg-white">
-                        <thead>
-                            <tr class="bg-gray-light text-bold">
-                                <td style="width: 30%" ao-data="localeLanguageAoData" web-data-table-sort="code">{{'table.localeLanguage.th1' | translate}}</td>
-                                <td style="width: 30%" ao-data="localeLanguageAoData" web-data-table-sort="name">{{'table.localeLanguage.th2' | translate}}</td>
-                                <td style="width: 10%" ao-data="localeLanguageAoData" web-data-table-sort="supported">{{'table.localeLanguage.th3' | translate}}</td>
-                                <td style="width: 17%"
-                                    ng-show='validPower("LOCALELANGUAGE", ["PATCH", "DELETE"])'
-                                >
-                                    {{'table.button.operation' | translate}}
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="item in showLocaleLanguage">
-                            <td>
-                                <span editable-text="item.code" e-name="code" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
-                            </td>
-                            <td>
-                                <span editable-text="item.name" e-name="name" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
-                            </td>
-                            <td>
-                                {{ item.supported == 1 ? ('table.localeLanguage.th3ShowTrue' | translate):('table.localeLanguage.th3ShowFalse' | translate) }}
-                            </td>
-                            <td style="white-space: nowrap;" ng-show='validPower("LOCALELANGUAGE", ["PATCH", "DELETE"])'>
-                                <button
-                                    class="btn btn-sm btn-info" ng-click="saveLocaleLanguage(item)" ng-show='validPower("LOCALELANGUAGE", ["PATCH"])'
-                                    title="{{'table.button.edit' | translate}}">
-                                    <em class="fa fa-pencil"></em>
-                                </button>
-                                <button class="btn btn-sm btn-danger" ng-show='validPower("LOCALELANGUAGE", ["DELETE"])' ng-click="deleteLocaleLanguage(item)"
-                                        title="{{'table.button.delete' | translate}}">
-                                    <em class="fa fa-trash"></em>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr ng-show="showLocaleLanguage.length==0">
-                            <td
-                                colspan='{{validPower("LOCALELANGUAGE", ["PATCH", "DELETE"]) ? 4 : 3}}'
-                            >{{'table.no_date' | translate}}
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+<div class="modal-header">
+    <h3 class="modal-title">{{showEditStatus(edit)+'语言'}}</h3>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="">
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <form class="form-horizontal" name="myForm">
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">{{'table.localeLanguage.th1' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="modalItem.code" name='code' required ng-disabled='!hasPower||edit==3'
+                                       class="form-control"
+                                       type="text"
+                                       placeholder="string">
+                                <span class='text-danger' ng-show="myForm.code.$dirty&&myForm.code.$invalid">
+                                    {{checkRequiredData()}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">{{'table.localeLanguage.th2' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="modalItem.name" name='name' required ng-disabled='!hasPower'
+                                       class="form-control"
+                                       type="text"
+                                       placeholder="eg. zh-CN">
+                                <span class='text-danger' ng-show="myForm.name.$dirty&&myForm.name.$invalid">
+                                    {{checkRequiredData()}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-lg-6 col-md-12">
+                            <label class="col-lg-4 col-md-6 control-label">{{'table.localeLanguage.th3' |
+                                                                           translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                    ng-model="modalItem.supported"
+                                    theme="bootstrap"
+                                    ng-disabled='!hasPower'
+                                    search-enabled="false">
+                                    <ui-select-match placeholder="choose supported">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in supportedOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-disabled='myForm.$invalid' ng-show="hasPower"
+            ng-click="confirmModal()">{{'table.button.save' |
+                                                                             translate}}</button>
+    <button
+        class="btn btn-default" type="button" ng-click="cancelModal()"
+    >{{'table.button.cancel' | translate}}</button>
+</div>
+

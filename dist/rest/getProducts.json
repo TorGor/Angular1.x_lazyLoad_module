@@ -1,0 +1,78 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": [
+        {
+            "code": "LIVE",
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Live"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "真人荷官"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "真人視訊"
+                }
+            ],
+            "disabled": false
+        },
+        {
+            "code": "LOTTERY",
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Lottery"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "彩票"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "彩票"
+                }
+            ],
+            "disabled": false
+        },
+        {
+            "code": "SLOTS",
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Slots"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "老虎机"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "老虎機"
+                }
+            ],
+            "disabled": false
+        },
+        {
+            "code": "SPORTS",
+            "name": [
+                {
+                    "locale": "en-GB",
+                    "value": "Sports"
+                },
+                {
+                    "locale": "zh-CN",
+                    "value": "体育"
+                },
+                {
+                    "locale": "zh-TW",
+                    "value": "體育"
+                }
+            ],
+            "disabled": false
+        }
+    ]
+}

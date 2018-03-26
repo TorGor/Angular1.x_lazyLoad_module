@@ -12,7 +12,7 @@
         'adminService',
         'hasPower',
         'edit',
-        'MethodsNameItem'
+        'modalItem'
     ];
 
     function gameCategoriesModalController(
@@ -23,7 +23,7 @@
         adminService,
         hasPower,
         edit,
-        MethodsNameItem
+        modalItem
     ) {
 
         $scope.edit = edit;
@@ -38,14 +38,14 @@
         $scope.methodsNameModalAoData = {};
         $scope.methodsNameModalSearch = '';
 
-        var baseMethodsName = angular.copy(MethodsNameItem);
+        var baseMethodsName = angular.copy(modalItem);
 
         // 初始化table数据
         $scope.initMethodsNameModalData = function () {
             $scope.methodsNameModal = [];
-            console.log(MethodsNameItem,'MethodsNameItem')
-            if(MethodsNameItem['name']&&MethodsNameItem['name'].length){
-                $scope.methodsNameModal = MethodsNameItem['name'];
+            console.log(modalItem,'modalItem')
+            if(modalItem['name']&&modalItem['name'].length){
+                $scope.methodsNameModal = modalItem['name'];
                 $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
                     methodsNameItem.id = methodsNameIndex + 1;
                 })
@@ -95,12 +95,12 @@
 
         /**
          *
-         * @param MethodsNameItem 添加的渠道名称
+         * @param modalItem 添加的渠道名称
          * @param index 添加的index
          */
 
-        $scope.cancelSaveModal = function (MethodsNameItem, index) {
-            if ($scope.validIsNew(MethodsNameItem.id)) {
+        $scope.cancelSaveModal = function (modalItem, index) {
+            if ($scope.validIsNew(modalItem.id)) {
                 $scope.methodsNameModal.splice(index, 1);
             }
         };
@@ -158,7 +158,7 @@
                     }
                 });
             } else if (edit==3) {
-                adminService.patchReq($rootScope.URL.GAMECATEGORIES.PATCH+'/'+MethodsNameItem.id, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.GAMECATEGORIES.PATCH+'/'+modalItem.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {

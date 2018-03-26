@@ -23,7 +23,7 @@
         // 原始的数据
         $scope.localeLanguage = [];
 
-        $scope.options = [
+        $scope.supportedOptions = [
             {
                 value:'0',
                 label:$translate.instant('table.localeLanguage.th3ShowFalse')
@@ -49,7 +49,6 @@
                     if (res.data.success) {
                         $scope.localeLanguage = angular.copy(res.data.data);
                         $scope.localeLanguage.forEach(function (localeLanguageItem, localeLanguageIndex) {
-                            localeLanguageItem.id = localeLanguageIndex +1;
                             localeLanguageItem.supported = localeLanguageItem.supported ? '1' : '0';
                         });
                     } else {
@@ -60,45 +59,28 @@
         };
 
 
-        // 保存
-        /**
-         *
-         * @param localeLanguage 本地语言数据对象
-         * @param item
-         */
+        $scope.showLocaleLanguageModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/localeLanguage/localeLanguageModal.html',
+                controller: 'localeLanguageModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower:$scope.validPower("LOCALELANGUAGE", ["PATCH", "POST"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initLocaleLanguageData();
+            }, function (data) {
 
-        $scope.saveLocaleLanguage = function (localeLanguage, item) {
-            var tempData = angular.extend({}, localeLanguage, item);
-            if (!tempData.id) {
-                delete tempData.id;
-                adminService.postReq($rootScope.URL.LOCALELANGUAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initLocaleLanguageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (tempData.id && localeLanguage.code) {
-                delete tempData.id;
-                adminService.patchReq($rootScope.URL.LOCALELANGUAGE.PATCH+'/'+localeLanguage.code, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initLocaleLanguageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-
-            return '';
+            });
         };
+
 
         // 删除localeLanguage
         /**
@@ -120,18 +102,6 @@
                     });
                 });
             }
-        };
-
-        // 添加的本地语言
-        $scope.addLocaleLanguage = function () {
-            $scope.localeLanguageAoData = {};
-            $scope.localeLanguageSearch = '';
-            $scope.localeLanguage.unshift({
-                "id": null,
-                "code": "",
-                "name": "",
-                "supported": '1'
-            })
         };
 
         /**

@@ -1,0 +1,142 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "stat": "ok",
+        "data": [
+            {
+                "product": "SLOTS",
+                "period": {
+                    "from": "2017-11-13T16:00:00+00:00",
+                    "to": "2017-11-17T08:11:40+00:00"
+                },
+                "bonus": 20.44,
+                "timestamps": {
+                    "createdAt": "2017-11-17T08:12:10+00:00",
+                    "updatedAt": "2017-11-17T08:12:10+00:00"
+                },
+                "details": [
+                    {
+                        "amount": 3.28,
+                        "wallet": "AG",
+                        "flows": {
+                            "total": 365,
+                            "rebateable": 365
+                        },
+                        "rate": 0.009,
+                        "brand": "AG"
+                    },
+                    {
+                        "amount": 16.43,
+                        "wallet": "FS",
+                        "flows": {
+                            "total": 1826.65,
+                            "rebateable": 1826.65
+                        },
+                        "rate": 0.009,
+                        "brand": "MG"
+                    },
+                    {
+                        "amount": 0.73,
+                        "wallet": "PT",
+                        "flows": {
+                            "total": 91.8,
+                            "rebateable": 91.8
+                        },
+                        "rate": 0.008,
+                        "brand": "PT"
+                    }
+                ],
+                "id": "02832410-cb6f-11e7-8094-670b31702f46",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                }
+            },
+            {
+                "product": "SLOTS",
+                "period": {
+                    "from": "2017-10-24T16:00:00+00:00",
+                    "to": "2017-10-27T20:05:36+00:00"
+                },
+                "bonus": 64.29,
+                "timestamps": {
+                    "createdAt": "2017-10-27T20:08:36+00:00",
+                    "updatedAt": "2017-10-27T20:08:36+00:00"
+                },
+                "details": [
+                    {
+                        "amount": 5.39,
+                        "wallet": "AG",
+                        "flows": {
+                            "total": 598.5,
+                            "rebateable": 598.5
+                        },
+                        "rate": 0.009,
+                        "brand": "AG"
+                    },
+                    {
+                        "amount": 6.66,
+                        "wallet": "FS",
+                        "flows": {
+                            "total": 740.45,
+                            "rebateable": 740.45
+                        },
+                        "rate": 0.009,
+                        "brand": "HABA"
+                    },
+                    {
+                        "amount": 38.94,
+                        "wallet": "FS",
+                        "flows": {
+                            "total": 4326.18,
+                            "rebateable": 4326.18
+                        },
+                        "rate": 0.009,
+                        "brand": "MG"
+                    },
+                    {
+                        "amount": 9.67,
+                        "wallet": "FS",
+                        "flows": {
+                            "total": 1075,
+                            "rebateable": 1075
+                        },
+                        "rate": 0.009,
+                        "brand": "PNG"
+                    },
+                    {
+                        "amount": 3.63,
+                        "wallet": "PT",
+                        "flows": {
+                            "total": 453.15,
+                            "rebateable": 453.15
+                        },
+                        "rate": 0.008,
+                        "brand": "PT"
+                    }
+                ],
+                "id": "9d658130-bb52-11e7-8a82-b3b69a279bf0",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "ae1b8ba0-a81a-11e7-adce-17061c8c184d",
+                    "username": "kirinse"
+                }
+            }
+        ],
+        "meta": {
+            "path": "/rest/rebates",
+            "per_page": "25",
+            "total": 2,
+            "last_page": 1,
+            "from": 1,
+            "to": 2,
+            "current_page": 1
+        },
+        "links": {
+            "last": "/rest/rebates?pageSize=25&page=1",
+            "first": "/rest/rebates?pageSize=25&page=1"
+        }
+    }
+}

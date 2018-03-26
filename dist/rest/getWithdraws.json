@@ -1,0 +1,88 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "stat": "ok",
+        "data": [
+            {
+                "amount": 100,
+                "bank": "ICBC",
+                "wallet": "MAIN",
+                "timestamps": {
+                    "createdAt": "2018-03-17T08:37:29+00:00",
+                    "updatedAt": "2018-03-17T08:50:03+00:00"
+                },
+                "currency": "CNY",
+                "id": "6deb6a00-29be-11e8-bcda-a3962d457595",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                },
+                "account": {
+                    "number": "123123123123123123",
+                    "name": "马哈马的·买买提",
+                    "branch": "我也是玩玩"
+                },
+                "status": "paid"
+            },
+            {
+                "amount": 100,
+                "bank": "ICBC",
+                "wallet": "MAIN",
+                "timestamps": {
+                    "createdAt": "2017-11-17T14:27:00+00:00",
+                    "updatedAt": "2018-03-16T08:17:12+00:00"
+                },
+                "currency": "CNY",
+                "id": "5fe75a80-cba3-11e7-a868-4724fe68cc3e",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                },
+                "account": {
+                    "number": "1234567890123",
+                    "name": "abc",
+                    "branch": "abcdefg"
+                },
+                "status": "finished"
+            },
+            {
+                "amount": 100,
+                "bank": "ICBC",
+                "wallet": "MAIN",
+                "timestamps": {
+                    "createdAt": "2017-10-30T00:12:25+00:00",
+                    "updatedAt": "2017-10-30T00:12:25+00:00"
+                },
+                "currency": "CNY",
+                "id": "01e99dc0-bd07-11e7-8286-2dddf98d0b13",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "ae1b8ba0-a81a-11e7-adce-17061c8c184d",
+                    "username": "kirinse"
+                },
+                "account": {
+                    "number": "123151311",
+                    "name": "马哈马的·买买提",
+                    "branch": "ssd!@$$#%"
+                },
+                "status": "declined"
+            }
+        ],
+        "meta": {
+            "path": "/rest/withdraws",
+            "per_page": 50,
+            "total": 3,
+            "last_page": 1,
+            "from": 1,
+            "to": 3,
+            "current_page": 1
+        },
+        "links": {
+            "last": "/rest/withdraws?page=1",
+            "first": "/rest/withdraws?page=1"
+        }
+    }
+}

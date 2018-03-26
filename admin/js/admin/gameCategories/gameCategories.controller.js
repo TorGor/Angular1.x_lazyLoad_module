@@ -79,7 +79,7 @@
                 scope:$scope,
                 resolve: {
                     edit:edit,
-                    MethodsNameItem: item,
+                    modalItem: item,
                     hasPower:$scope.validPower("GAMECATEGORIES", ["PATCH", "POST"]) && edit !== 1,
                 }
             });
