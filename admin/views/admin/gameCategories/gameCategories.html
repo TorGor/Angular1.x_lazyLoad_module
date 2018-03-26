@@ -16,64 +16,66 @@
                 <form class="form-inline pull-right add-button-class" role="form">
                     <div style="position: relative" class="form-group">
                         <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                        <input class="form-control" type="text" ng-model="gameCategoriesSearch" placeholder="{{searchPlaceholder(['table.paymentMethods.th2'])}}">
+                        <input
+                            class="form-control" type="text" ng-model="gameCategoriesSearch"
+                            placeholder="{{searchPlaceholder(['table.paymentMethods.th2'])}}"
+                        >
                     </div>
                 </form>
                 <div
-                        web-data-table
-                        items="gameCategories"
-                        ao-data="gameCategoriesAoData"
-                        search="gameCategoriesSearch"
-                        reload="gameCategoriesReload"
-                        show-items="showGameCategories"
+                    web-data-table
+                    items="gameCategories"
+                    ao-data="gameCategoriesAoData"
+                    search="gameCategoriesSearch"
+                    reload="gameCategoriesReload"
+                    show-items="showGameCategories"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
                             <td style="width: 80%">
-                                {{'table.paymentMethods.th2' | translate}}
+                                {{'ID'}}
                             </td>
-                            <td style="width: 17%" ng-show='validPower("GAMECATEGORIES", ["PATCH", "DELETE"])'
+                            <td
+                                style="width: 17%" ng-show='validPower("GAMECATEGORIES", ["PATCH", "DELETE"])'
                             >{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in showGameCategories">
                             <td>
-                                <span>
-                                    <button class="btn btn-sm btn-info" ng-click="showGameCategoriesNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>
-                                </span>
+                                <span>{{item.id}}</span>
+                                <!--<span>-->
+                                    <!--<button class="btn btn-sm btn-info" ng-click="showGameCategoriesNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>-->
+                                <!--</span>-->
                             </td>
-                            <td style="white-space: nowrap;" ng-show='validPower("GAMECATEGORIES", ["PATCH", "DELETE"])'>
-                                <form class="form-buttons form-inline" editable-form name="rowform"
-                                      onaftersave="saveGameCategories(item, $data)" ng-show="rowform.$visible"
-                                      shown="validIsNew(item._id)">
-                                    <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
-                                            title="{{'table.button.save' | translate}}">
-                                        <em class="fa fa-save"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
-                                            ng-click="rowform.$cancel();cancelSave(item,$index)"
-                                            title="{{'table.button.cancel' | translate}}">
-                                        <em class="fa fa-times"></em>
-                                    </button>
-                                </form>
-                                <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-info" ng-show='validPower("GAMECATEGORIES", ["PATCH"])' ng-click="rowform.$show()"
-                                            title="{{'table.button.edit' | translate}}">
-                                        <em class="fa fa-pencil"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger"
-                                            ng-show='validPower("GAMECATEGORIES", ["DELETE"])' ng-click="deleteGameCategories(item)"
-                                            title="{{'table.button.delete' | translate}}">
-                                        <em class="fa fa-trash"></em>
-                                    </button>
-                                </div>
+                            <td
+                                style="white-space: nowrap;" ng-show='validPower("GAMECATEGORIES", ["PATCH", "DELETE"])'
+                            >
+                                <button
+                                    class="btn btn-sm btn-info"
+                                    ng-show='validPower("GAMECATEGORIES", ["PATCH"])'
+                                    ng-click="saveGameCategories(item)"
+                                    title="{{'table.button.edit' | translate}}"
+                                >
+                                    <em class="fa fa-pencil"></em>
+                                </button>
+                                <button
+                                    class="btn btn-sm btn-danger"
+                                    ng-show='validPower("GAMECATEGORIES", ["DELETE"])'
+                                    ng-click="deleteGameCategories(item)"
+                                    title="{{'table.button.delete' | translate}}"
+                                >
+                                    <em class="fa fa-trash"></em>
+                                </button>
+
                             </td>
                         </tr>
                         <tr ng-show="showGameCategories.length==0">
-                            <td colspan='{{validPower("GAMECATEGORIES", ["PATCH", "DELETE"])?2:1}}'
-                                class="">{{'table.no_date' | translate}}</td>
+                            <td
+                                colspan='{{validPower("GAMECATEGORIES", ["PATCH", "DELETE"])?2:1}}'
+                                class=""
+                            >{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

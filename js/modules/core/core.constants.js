@@ -14,9 +14,9 @@
             'mobile': 480
         })
         .constant('EVN', {
-            debug: false,
-            //suffix: '.json',
-            suffix: '',
+            debug: true,
+            suffix: '.json',
+            //suffix: '',
             server: '',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             //server: 'http://holyplace.ngrok.xiaomiqiu.cn'

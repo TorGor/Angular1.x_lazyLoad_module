@@ -33,11 +33,16 @@
             if (window.location.pathname.indexOf('superAdmin') !== -1) {
                 $scope.menuItems = SidebarMenuData.superUser;
             } else {
-                if(EVN.debug){
-                    $scope.menuItems = SidebarMenuData.admin;
-                }else{
+                if(window.userInfo&&window.userInfo.menu){
                     $scope.menuItems = window.userInfo.menu;
+                }else{
+                    console.error('server error')
                 }
+                //if(EVN.debug){
+                //    $scope.menuItems = SidebarMenuData.admin;
+                //}else{
+                //    $scope.menuItems = window.userInfo.menu;
+                //}
             }
 
             // Handle sidebar and collapse items

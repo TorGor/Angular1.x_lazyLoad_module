@@ -30,9 +30,10 @@
                 abstract: true,
                 templateUrl: RouteHelpersProvider.basepath('app.html'),
                 resolve: angular.extend(
-                    RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable','ui.select','datetimepicker', 'admin'), {
+                     {
                         // YOUR RESOLVES GO HERE
-                        userInfo: ['userSelfService', 'EVN', '$timeout','$rootScope', 'SidebarMenuData', function (userSelfService, EVN, $timeout,$rootScope,SidebarMenuData) {
+                        userInfo: ['userSelfService', 'EVN', '$timeout','$rootScope', 'SidebarMenuData', '$q', function (userSelfService, EVN, $timeout,$rootScope,SidebarMenuData,$q) {
+                            var deferred = $q.defer();
                             userSelfService.getUserSelfInfo({},{},function (data) {
                                 var roles = data.data.roles;
                                 window.userInfo = {};
@@ -79,8 +80,6 @@
                                         }
                                         window.userInfo.menu.push(tempMenu)
                                     });
-                                    console.log(window.userInfo);
-                                    console.log(tempButtonUrl);
                                 }
 
                                 var URLobj = {
@@ -109,7 +108,7 @@
                                 // 配置预设的url
                                 $rootScope.URL = {
                                     WALLETSMANAGE:{
-                                        GET:'/rest/wallets',
+                                        GET:'/rest/getWallets',
                                     },
                                 };
                                 window.Object.keys(URLobj).map(function(module) {
@@ -183,16 +182,23 @@
                                     }
                                 });
                                 console.log($rootScope.URL,6666)
+
+                                //$rootScope.$broadcast('getUserMenuSuccess');
+
+                                deferred.resolve("userInfo resolved");
+
                                 return true;
 
                             },function (error) {
-                                 $timeout(function() {
-                                     window.location.href = '/login.html';
-                                 }, 300);
-                                return 'get User Info failed';
+                                $timeout(function() {
+                                    window.location.href = '/login.html';
+                                }, 300);
+                                deferred.reject("userInfo reject");
                             });
+
+                            return deferred.promise;
                         }]
-                    }
+                    },RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable','ui.select','datetimepicker', 'admin')
                 )
             })
 

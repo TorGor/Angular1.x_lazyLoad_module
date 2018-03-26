@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-wrapper">
+            <div class="panel-body">
+                <span class="form-group add-button-class">
+                    <button ng-show='validPower("LOCALELANGUAGE", "POST")'
+                            class="btn btn-primary"
+                            ng-click="addLocaleLanguage()"
+                            type="button"
+                            translate="table.button.add"
+                    >
+                        新增
+                    </button>
+                </span>
+                <form class="form-inline pull-right add-button-class" role="form">
+                    <div style="position: relative" class="form-group">
+                        <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
+                        <input class="form-control" type="text" ng-model="localeLanguageSearch" placeholder="{{searchPlaceholder(['table.localeLanguage.th1', 'table.localeLanguage.th2'])}}">
+                    </div>
+                </form>
+                <div
+                        web-data-table
+                        items="localeLanguage"
+                        ao-data="localeLanguageAoData"
+                        search="localeLanguageSearch"
+                        reload="localeLanguageReload"
+                        show-items="showLocaleLanguage"
+                >
+                    <table width="100%" class="table table-bordered table-hover bg-white">
+                        <thead>
+                            <tr class="bg-gray-light text-bold">
+                                <td style="width: 30%" ao-data="localeLanguageAoData" web-data-table-sort="code">{{'table.localeLanguage.th1' | translate}}</td>
+                                <td style="width: 30%" ao-data="localeLanguageAoData" web-data-table-sort="name">{{'table.localeLanguage.th2' | translate}}</td>
+                                <td style="width: 10%" ao-data="localeLanguageAoData" web-data-table-sort="supported">{{'table.localeLanguage.th3' | translate}}</td>
+                                <td style="width: 17%"
+                                    ng-show='validPower("LOCALELANGUAGE", ["PATCH", "DELETE"])'
+                                >
+                                    {{'table.button.operation' | translate}}
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in showLocaleLanguage">
+                            <td>
+                                <span editable-text="item.code" e-name="code" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
+                            </td>
+                            <td>
+                                <span editable-text="item.name" e-name="name" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
+                            </td>
+                            <td>
+                                {{ item.supported == 1 ? ('table.localeLanguage.th3ShowTrue' | translate):('table.localeLanguage.th3ShowFalse' | translate) }}
+                            </td>
+                            <td style="white-space: nowrap;" ng-show='validPower("LOCALELANGUAGE", ["PATCH", "DELETE"])'>
+                                <button
+                                    class="btn btn-sm btn-info" ng-click="saveLocaleLanguage(item)" ng-show='validPower("LOCALELANGUAGE", ["PATCH"])'
+                                    title="{{'table.button.edit' | translate}}">
+                                    <em class="fa fa-pencil"></em>
+                                </button>
+                                <button class="btn btn-sm btn-danger" ng-show='validPower("LOCALELANGUAGE", ["DELETE"])' ng-click="deleteLocaleLanguage(item)"
+                                        title="{{'table.button.delete' | translate}}">
+                                    <em class="fa fa-trash"></em>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr ng-show="showLocaleLanguage.length==0">
+                            <td
+                                colspan='{{validPower("LOCALELANGUAGE", ["PATCH", "DELETE"]) ? 4 : 3}}'
+                            >{{'table.no_date' | translate}}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
