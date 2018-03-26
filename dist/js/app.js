@@ -39,12 +39,6 @@
     'use strict';
 
     angular
-        .module('app.loadingbar', []);
-})();
-(function() {
-    'use strict';
-
-    angular
         .module('app.lazyload', []);
 })();
 (function() {
@@ -81,13 +75,7 @@
     'use strict';
 
     angular
-        .module('app.settings', []);
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.translate', []);
+        .module('app.loadingbar', []);
 })();
 (function() {
 
@@ -95,6 +83,18 @@
         .module('app.routes', [
             'app.lazyload'
         ]);
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.settings', []);
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.translate', []);
 })();
 (function() {
     'use strict';
@@ -161,50 +161,6 @@
 
 })();
 
-(function() {
-    'use strict';
-
-    angular
-        .module('app.loadingbar')
-        .config(loadingbarConfig)
-        ;
-    loadingbarConfig.$inject = ['cfpLoadingBarProvider'];
-    function loadingbarConfig(cfpLoadingBarProvider){
-      cfpLoadingBarProvider.includeBar = true;
-      cfpLoadingBarProvider.includeSpinner = false;
-      cfpLoadingBarProvider.latencyThreshold = 500;
-      cfpLoadingBarProvider.parentSelector = '.wrapper > section';
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.loadingbar')
-        .run(loadingbarRun)
-        ;
-    loadingbarRun.$inject = ['$rootScope', '$timeout', 'cfpLoadingBar'];
-    function loadingbarRun($rootScope, $timeout, cfpLoadingBar){
-
-      // Loading bar transition
-      // ----------------------------------- 
-      var thBar;
-      $rootScope.$on('$stateChangeStart', function() {
-          if($('.wrapper > section').length) // check if bar container exists
-            thBar = $timeout(function() {
-              cfpLoadingBar.start();
-            }, 0); // sets a latency Threshold
-      });
-      $rootScope.$on('$stateChangeSuccess', function(event) {
-          event.targetScope.$watch('$viewContentLoaded', function () {
-            $timeout.cancel(thBar);
-            cfpLoadingBar.complete();
-          });
-      });
-
-    }
-
-})();
 (function() {
     'use strict';
 
@@ -580,8 +536,8 @@
         })
         .constant('EVN', {
             debug: false,
-            suffix: '.json',
-            //suffix: '',
+            //suffix: '.json',
+            suffix: '',
             server: '',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             //server: 'http://holyplace.ngrok.xiaomiqiu.cn'
@@ -1086,6 +1042,134 @@
 
 })();
 (function() {
+    'use strict';
+
+    angular
+        .module('app.loadingbar')
+        .config(loadingbarConfig)
+        ;
+    loadingbarConfig.$inject = ['cfpLoadingBarProvider'];
+    function loadingbarConfig(cfpLoadingBarProvider){
+      cfpLoadingBarProvider.includeBar = true;
+      cfpLoadingBarProvider.includeSpinner = false;
+      cfpLoadingBarProvider.latencyThreshold = 500;
+      cfpLoadingBarProvider.parentSelector = '.wrapper > section';
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.loadingbar')
+        .run(loadingbarRun)
+        ;
+    loadingbarRun.$inject = ['$rootScope', '$timeout', 'cfpLoadingBar'];
+    function loadingbarRun($rootScope, $timeout, cfpLoadingBar){
+
+      // Loading bar transition
+      // ----------------------------------- 
+      var thBar;
+      $rootScope.$on('$stateChangeStart', function() {
+          if($('.wrapper > section').length) // check if bar container exists
+            thBar = $timeout(function() {
+              cfpLoadingBar.start();
+            }, 0); // sets a latency Threshold
+      });
+      $rootScope.$on('$stateChangeSuccess', function(event) {
+          event.targetScope.$watch('$viewContentLoaded', function () {
+            $timeout.cancel(thBar);
+            cfpLoadingBar.complete();
+          });
+      });
+
+    }
+
+})();
+/** =========================================================
+ * Module: helpers.js
+ * Provides helper functions for routes definition
+ ========================================================= */
+
+(function() {
+
+    angular
+        .module('app.routes')
+        .provider('RouteHelpers', RouteHelpersProvider);
+
+    RouteHelpersProvider.$inject = ['APP_REQUIRES'];
+    function RouteHelpersProvider(APP_REQUIRES) {
+
+        /* jshint validthis:true */
+        return {
+        // provider access level
+            basepath: basepath,
+            resolveFor: resolveFor,
+            // controller access level
+            $get: function() {
+                return {
+                    basepath: basepath,
+                    resolveFor: resolveFor
+                };
+            }
+        };
+
+        // Set here the base of the relative path
+        // for all app views
+        function basepath(uri) {
+            return 'views/' + uri;
+        }
+
+        // Generates a resolve object by passing script names
+        // previously configured in constant.APP_REQUIRES
+        function resolveFor() {
+            var _args = arguments;
+            return {
+                deps: ['$ocLazyLoad', '$q', function ($ocLazyLoad, $q) {
+                    // Creates a promise chain for each argument
+                    var promise = $q.when(1); // empty promise
+                    for (var i = 0, len = _args.length; i < len; i++) {
+                        promise = andThen(_args[i]);
+                    }
+                    return promise;
+
+                    // creates promise to chain dynamically
+                    function andThen(_arg) {
+                        // also support a function that returns a promise
+                        if (typeof _arg === 'function') { return promise.then(_arg) }
+                        else { return promise.then(function() {
+                            // if is a module, pass the name. If not, pass the array
+                            var whatToLoad = getRequired(_arg);
+                            // simple error check
+                            if (!whatToLoad) return $.error('Route resolve: Bad resource name [' + _arg + ']');
+                            // finally, return a promise
+                            return $ocLazyLoad.load(whatToLoad);
+                        }); }
+                    }
+                    // check and returns required data
+                    // analyze module items with the form [name: '', files: []]
+                    // and also simple array of script files (for not angular js)
+                    function getRequired(name) {
+                        if (APP_REQUIRES.modules) {
+                            for (var m in APP_REQUIRES.modules) {
+                                if (APP_REQUIRES.modules[m].name && APP_REQUIRES.modules[m].name === name) {
+                                    return APP_REQUIRES.modules[m];
+                                }
+                            }
+                        }
+                        return APP_REQUIRES.scripts && APP_REQUIRES.scripts[name];
+                    }
+
+                }]
+            };
+        } // resolveFor
+
+    }
+
+
+})();
+
+
+(function() {
 
 
     angular
@@ -1234,90 +1318,6 @@
 
     }
 })();
-/** =========================================================
- * Module: helpers.js
- * Provides helper functions for routes definition
- ========================================================= */
-
-(function() {
-
-    angular
-        .module('app.routes')
-        .provider('RouteHelpers', RouteHelpersProvider);
-
-    RouteHelpersProvider.$inject = ['APP_REQUIRES'];
-    function RouteHelpersProvider(APP_REQUIRES) {
-
-        /* jshint validthis:true */
-        return {
-        // provider access level
-            basepath: basepath,
-            resolveFor: resolveFor,
-            // controller access level
-            $get: function() {
-                return {
-                    basepath: basepath,
-                    resolveFor: resolveFor
-                };
-            }
-        };
-
-        // Set here the base of the relative path
-        // for all app views
-        function basepath(uri) {
-            return 'views/' + uri;
-        }
-
-        // Generates a resolve object by passing script names
-        // previously configured in constant.APP_REQUIRES
-        function resolveFor() {
-            var _args = arguments;
-            return {
-                deps: ['$ocLazyLoad', '$q', function ($ocLazyLoad, $q) {
-                    // Creates a promise chain for each argument
-                    var promise = $q.when(1); // empty promise
-                    for (var i = 0, len = _args.length; i < len; i++) {
-                        promise = andThen(_args[i]);
-                    }
-                    return promise;
-
-                    // creates promise to chain dynamically
-                    function andThen(_arg) {
-                        // also support a function that returns a promise
-                        if (typeof _arg === 'function') { return promise.then(_arg) }
-                        else { return promise.then(function() {
-                            // if is a module, pass the name. If not, pass the array
-                            var whatToLoad = getRequired(_arg);
-                            // simple error check
-                            if (!whatToLoad) return $.error('Route resolve: Bad resource name [' + _arg + ']');
-                            // finally, return a promise
-                            return $ocLazyLoad.load(whatToLoad);
-                        }); }
-                    }
-                    // check and returns required data
-                    // analyze module items with the form [name: '', files: []]
-                    // and also simple array of script files (for not angular js)
-                    function getRequired(name) {
-                        if (APP_REQUIRES.modules) {
-                            for (var m in APP_REQUIRES.modules) {
-                                if (APP_REQUIRES.modules[m].name && APP_REQUIRES.modules[m].name === name) {
-                                    return APP_REQUIRES.modules[m];
-                                }
-                            }
-                        }
-                        return APP_REQUIRES.scripts && APP_REQUIRES.scripts[name];
-                    }
-
-                }]
-            };
-        } // resolveFor
-
-    }
-
-
-})();
-
-
 (function() {
     'use strict';
 
