@@ -114,7 +114,6 @@
                                 };
                                 window.Object.keys(URLobj).map(function(module) {
                                     if(tempButtonUrl[module]){
-                                        console.log(tempButtonUrl[module])
                                         if(window.Array.isArray(tempButtonUrl[module])){
                                             $rootScope.URL[URLobj[module]] = {};
                                             tempButtonUrl[module].map(function(buttonItem) {
@@ -123,13 +122,13 @@
                                                         if(buttonItem.btnUrl.indexOf('Audit')){
                                                             $rootScope.URL[URLobj[module]].GETAUDIT = buttonItem.btnUrl;
                                                             $rootScope.URL[URLobj[module]].GETAUDITID = buttonItem.id;
-                                                        }else if(buttonItem.btnUrl.indexOf('Pay')){
+                                                        }else if(buttonItem.btnUrl.indexOf('Pay') !== -1){
                                                             $rootScope.URL[URLobj[module]].GETPAY = buttonItem.btnUrl;
                                                             $rootScope.URL[URLobj[module]].GETPAYID = buttonItem.id;
-                                                        }else if(buttonItem.btnUrl.indexOf('Review')){
+                                                        }else if(buttonItem.btnUrl.indexOf('Review') !== -1){
                                                             $rootScope.URL[URLobj[module]].GETREVIEW = buttonItem.btnUrl;
                                                             $rootScope.URL[URLobj[module]].GETREVIEWID = buttonItem.id;
-                                                        }else if(buttonItem.btnUrl.indexOf('Detail')){
+                                                        }else if(buttonItem.btnUrl.indexOf('Detail') !== -1){
                                                             $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
                                                             $rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
                                                         }else{
@@ -137,7 +136,7 @@
                                                             $rootScope.URL[URLobj[module]].GETID = buttonItem.id;
                                                         }
                                                     }else{
-                                                        if(buttonItem.btnUrl.indexOf('Detail')){
+                                                        if(buttonItem.btnUrl.indexOf('Detail') !== -1){
                                                             $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
                                                             $rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
                                                         }else{
@@ -149,13 +148,13 @@
                                                 }
                                                 if(buttonItem.btnType == 2){
                                                     if(module == 'withdraws'){
-                                                        if(buttonItem.btnUrl.indexOf('Audit')){
+                                                        if(buttonItem.btnUrl.indexOf('Audit') !== -1){
                                                             $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
                                                             $rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
-                                                        }else if(buttonItem.btnUrl.indexOf('Pay')){
+                                                        }else if(buttonItem.btnUrl.indexOf('Pay') !== -1){
                                                             $rootScope.URL[URLobj[module]].POSTPAY = buttonItem.btnUrl;
                                                             $rootScope.URL[URLobj[module]].POSTPAYID = buttonItem.id;
-                                                        }else if(buttonItem.btnUrl.indexOf('Review')){
+                                                        }else if(buttonItem.btnUrl.indexOf('Review') !== -1){
                                                             $rootScope.URL[URLobj[module]].POSTREVIEW = buttonItem.btnUrl;
                                                             $rootScope.URL[URLobj[module]].POSTREVIEWID = buttonItem.id;
                                                         }else{

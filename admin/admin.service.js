@@ -20,6 +20,7 @@
              * @returns $promise
              */
             getReq: function (url, params, data) {
+                console.log(url,88888)
                 return $http({
                     method: 'GET',
                     url: EVN.debug ? (EVN.server + url + EVN.suffix) : url,
