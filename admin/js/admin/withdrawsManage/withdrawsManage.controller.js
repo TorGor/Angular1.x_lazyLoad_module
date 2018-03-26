@@ -103,7 +103,7 @@
                 $rootScope.alertErrorMsg('server data error');
                 return;
             }
-            adminService.getReq($rootScope.URL.WITHDRAWSMANAGE.GET + '/' + item.id, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.WITHDRAWSMANAGE.GETDETAIL + '/' + item.id, {}, {}).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         var modalInstance = $uibModal.open({

@@ -119,12 +119,53 @@
                                             $rootScope.URL[URLobj[module]] = {};
                                             tempButtonUrl[module].map(function(buttonItem) {
                                                 if(buttonItem.btnType == 1){
-                                                    $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
-                                                    $rootScope.URL[URLobj[module]].GETID = buttonItem.id;
+                                                    if(module == 'withdraws'){
+                                                        if(buttonItem.btnUrl.indexOf('Audit')){
+                                                            $rootScope.URL[URLobj[module]].GETAUDIT = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].GETAUDITID = buttonItem.id;
+                                                        }else if(buttonItem.btnUrl.indexOf('Pay')){
+                                                            $rootScope.URL[URLobj[module]].GETPAY = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].GETPAYID = buttonItem.id;
+                                                        }else if(buttonItem.btnUrl.indexOf('Review')){
+                                                            $rootScope.URL[URLobj[module]].GETREVIEW = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].GETREVIEWID = buttonItem.id;
+                                                        }else if(buttonItem.btnUrl.indexOf('Detail')){
+                                                            $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
+                                                        }else{
+                                                            $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].GETID = buttonItem.id;
+                                                        }
+                                                    }else{
+                                                        if(buttonItem.btnUrl.indexOf('Detail')){
+                                                            $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
+                                                        }else{
+                                                            $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].GETID = buttonItem.id;
+                                                        }
+                                                    }
+
                                                 }
                                                 if(buttonItem.btnType == 2){
-                                                    $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                    $rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
+                                                    if(module == 'withdraws'){
+                                                        if(buttonItem.btnUrl.indexOf('Audit')){
+                                                            $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
+                                                        }else if(buttonItem.btnUrl.indexOf('Pay')){
+                                                            $rootScope.URL[URLobj[module]].POSTPAY = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].POSTPAYID = buttonItem.id;
+                                                        }else if(buttonItem.btnUrl.indexOf('Review')){
+                                                            $rootScope.URL[URLobj[module]].POSTREVIEW = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].POSTREVIEWID = buttonItem.id;
+                                                        }else{
+                                                            $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
+                                                        }
+                                                    }else{
+                                                        $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                        $rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
+                                                    }
                                                 }
                                                 if(buttonItem.btnType == 2){
                                                     $rootScope.URL[URLobj[module]].PATCH = buttonItem.btnUrl;
@@ -318,60 +359,6 @@
             
             //new route name will be append here
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-
-
-            .state('admin.buttonManage', {
-                url: '/button/manage',
-                title: 'Button Manage',
-                templateUrl: RouteHelpersProvider.basepath('admin/button/button.html'),
-                controller: 'adminButtonController',
-            })
-            .state('admin.roleInfoManage', {
-                url: '/role/manage',
-                title: 'Role Manage',
-                templateUrl: RouteHelpersProvider.basepath('admin/role/role.html'),
-                controller: 'adminRoleController',
-            })
-            .state('admin.roleRelationManage', {
-                url: '/roleRelation/manage',
-                title: 'RoleRelation Manage',
-                templateUrl: RouteHelpersProvider.basepath('admin/role/roleRelation.html'),
-                controller: 'adminRoleRelationController',
-            })
-            .state('admin.adminInfoManage', {
-                url: '/admin/manage',
-                title: 'Admin Manage',
-                templateUrl: RouteHelpersProvider.basepath('admin/admin/admin.html'),
-                controller: 'adminAdminController',
-            })
-            .state('admin.adminRelationManage', {
-                url: '/adminRelation/manage',
-                title: 'AdminRelation Manage',
-                templateUrl: RouteHelpersProvider.basepath('admin/admin/adminRelation.html'),
-                controller: 'adminAdminRelationController',
-            })
-            //
             // Single Page Routes
             // -----------------------------------
             .state('page', {

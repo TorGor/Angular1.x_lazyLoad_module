@@ -70,6 +70,13 @@
         .module('app.loadingbar', []);
 })();
 (function() {
+
+    angular
+        .module('app.routes', [
+            'app.lazyload'
+        ]);
+})();
+(function() {
     'use strict';
 
     angular
@@ -78,11 +85,10 @@
 
 
 (function() {
+    'use strict';
 
     angular
-        .module('app.routes', [
-            'app.lazyload'
-        ]);
+        .module('app.sidebar', []);
 })();
 (function() {
     'use strict';
@@ -95,12 +101,6 @@
 
     angular
         .module('app.translate', []);
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.sidebar', []);
 })();
 (function() {
     'use strict';
@@ -991,6 +991,90 @@
     }
 
 })();
+/** =========================================================
+ * Module: helpers.js
+ * Provides helper functions for routes definition
+ ========================================================= */
+
+(function() {
+
+    angular
+        .module('app.routes')
+        .provider('RouteHelpers', RouteHelpersProvider);
+
+    RouteHelpersProvider.$inject = ['APP_REQUIRES'];
+    function RouteHelpersProvider(APP_REQUIRES) {
+
+        /* jshint validthis:true */
+        return {
+        // provider access level
+            basepath: basepath,
+            resolveFor: resolveFor,
+            // controller access level
+            $get: function() {
+                return {
+                    basepath: basepath,
+                    resolveFor: resolveFor
+                };
+            }
+        };
+
+        // Set here the base of the relative path
+        // for all app views
+        function basepath(uri) {
+            return 'views/' + uri;
+        }
+
+        // Generates a resolve object by passing script names
+        // previously configured in constant.APP_REQUIRES
+        function resolveFor() {
+            var _args = arguments;
+            return {
+                deps: ['$ocLazyLoad', '$q', function ($ocLazyLoad, $q) {
+                    // Creates a promise chain for each argument
+                    var promise = $q.when(1); // empty promise
+                    for (var i = 0, len = _args.length; i < len; i++) {
+                        promise = andThen(_args[i]);
+                    }
+                    return promise;
+
+                    // creates promise to chain dynamically
+                    function andThen(_arg) {
+                        // also support a function that returns a promise
+                        if (typeof _arg === 'function') { return promise.then(_arg) }
+                        else { return promise.then(function() {
+                            // if is a module, pass the name. If not, pass the array
+                            var whatToLoad = getRequired(_arg);
+                            // simple error check
+                            if (!whatToLoad) return $.error('Route resolve: Bad resource name [' + _arg + ']');
+                            // finally, return a promise
+                            return $ocLazyLoad.load(whatToLoad);
+                        }); }
+                    }
+                    // check and returns required data
+                    // analyze module items with the form [name: '', files: []]
+                    // and also simple array of script files (for not angular js)
+                    function getRequired(name) {
+                        if (APP_REQUIRES.modules) {
+                            for (var m in APP_REQUIRES.modules) {
+                                if (APP_REQUIRES.modules[m].name && APP_REQUIRES.modules[m].name === name) {
+                                    return APP_REQUIRES.modules[m];
+                                }
+                            }
+                        }
+                        return APP_REQUIRES.scripts && APP_REQUIRES.scripts[name];
+                    }
+
+                }]
+            };
+        } // resolveFor
+
+    }
+
+
+})();
+
+
 (function() {
     'use strict';
 
@@ -1084,239 +1168,6 @@
         } //link
     }
 
-})();
-/** =========================================================
- * Module: helpers.js
- * Provides helper functions for routes definition
- ========================================================= */
-
-(function() {
-
-    angular
-        .module('app.routes')
-        .provider('RouteHelpers', RouteHelpersProvider);
-
-    RouteHelpersProvider.$inject = ['APP_REQUIRES'];
-    function RouteHelpersProvider(APP_REQUIRES) {
-
-        /* jshint validthis:true */
-        return {
-        // provider access level
-            basepath: basepath,
-            resolveFor: resolveFor,
-            // controller access level
-            $get: function() {
-                return {
-                    basepath: basepath,
-                    resolveFor: resolveFor
-                };
-            }
-        };
-
-        // Set here the base of the relative path
-        // for all app views
-        function basepath(uri) {
-            return 'views/' + uri;
-        }
-
-        // Generates a resolve object by passing script names
-        // previously configured in constant.APP_REQUIRES
-        function resolveFor() {
-            var _args = arguments;
-            return {
-                deps: ['$ocLazyLoad', '$q', function ($ocLazyLoad, $q) {
-                    // Creates a promise chain for each argument
-                    var promise = $q.when(1); // empty promise
-                    for (var i = 0, len = _args.length; i < len; i++) {
-                        promise = andThen(_args[i]);
-                    }
-                    return promise;
-
-                    // creates promise to chain dynamically
-                    function andThen(_arg) {
-                        // also support a function that returns a promise
-                        if (typeof _arg === 'function') { return promise.then(_arg) }
-                        else { return promise.then(function() {
-                            // if is a module, pass the name. If not, pass the array
-                            var whatToLoad = getRequired(_arg);
-                            // simple error check
-                            if (!whatToLoad) return $.error('Route resolve: Bad resource name [' + _arg + ']');
-                            // finally, return a promise
-                            return $ocLazyLoad.load(whatToLoad);
-                        }); }
-                    }
-                    // check and returns required data
-                    // analyze module items with the form [name: '', files: []]
-                    // and also simple array of script files (for not angular js)
-                    function getRequired(name) {
-                        if (APP_REQUIRES.modules) {
-                            for (var m in APP_REQUIRES.modules) {
-                                if (APP_REQUIRES.modules[m].name && APP_REQUIRES.modules[m].name === name) {
-                                    return APP_REQUIRES.modules[m];
-                                }
-                            }
-                        }
-                        return APP_REQUIRES.scripts && APP_REQUIRES.scripts[name];
-                    }
-
-                }]
-            };
-        } // resolveFor
-
-    }
-
-
-})();
-
-
-(function() {
-
-
-    angular
-        .module('app.settings')
-        .run(settingsRun);
-
-    settingsRun.$inject = [
-        '$rootScope',
-        '$localStorage',
-        'userSelfService',
-        '$translate'
-    ];
-
-    function settingsRun(
-        $rootScope,
-        $localStorage,
-        userSelfService,
-        $translate
-    ) {
-
-
-        // User Settings
-        // -----------------------------------
-        $rootScope.user = {
-            system: 'admin',
-            name: 'admin'
-        };
-
-        // Hides/show user avatar on sidebar from any element
-        $rootScope.toggleUserBlock = function() {
-            $rootScope.$broadcast('toggleUserBlock');
-        };
-
-        $rootScope.userLogout = function () {
-            console.log(userSelfService.getUserLogout)
-            userSelfService.getUserLogout({},{}).$promise.then(function (data) {
-                window.location.href = '/login.html'
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-
-                    } else {
-                        $rootScope.alertErrorMsg(data.msg);
-                    }
-                }
-            })
-        };
-
-        // Global Settings
-        // -----------------------------------
-        $rootScope.app = {
-            name: 'Angle',
-            year: ((new Date()).getFullYear()),
-            layout: {
-                isFixed: true,
-                isCollapsed: false,
-                isBoxed: false,
-                isRTL: false,
-                horizontal: false,
-                isFloat: false,
-                asideHover: false,
-                theme: 'css/theme-e.css',
-                asideScrollbar: false,
-                isCollapsedText: false
-            },
-            useFullLayout: false,
-            hiddenFooter: false,
-            offsidebarOpen: false,
-            asideToggled: false,
-        };
-
-        console.log($rootScope.app.layout, '$rootScope.app.layout');
-
-        // Setup the layout mode
-        $rootScope.app.layout.horizontal = ($rootScope.$stateParams.layout === 'app-h');
-
-        // Restore layout settings
-        if (angular.isDefined($localStorage.layout)) { $rootScope.app.layout = $localStorage.layout }
-        else { $localStorage.layout = $rootScope.app.layout }
-
-        $rootScope.$watch('app.layout', function () {
-            $localStorage.layout = $rootScope.app.layout;
-        }, true);
-
-        // Close submenu when sidebar change from collapsed to normal
-        $rootScope.$watch('app.layout.isCollapsed', function(newValue) {
-            if (newValue === false) { $rootScope.$broadcast('closeSidebarMenu') }
-        });
-
-    }
-
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.translate')
-        .config(translateConfig)
-        ;
-    translateConfig.$inject = ['$translateProvider'];
-    function translateConfig($translateProvider){
-
-      $translateProvider.useStaticFilesLoader({
-          prefix : 'i18n/',
-          suffix : '.json'
-      });
-
-      $translateProvider.preferredLanguage((window.navigator.language || window.navigator.language).indexOf('zh') !== -1 ? 'zh-CN' : 'en');
-      $translateProvider.useLocalStorage();
-      $translateProvider.usePostCompiling(true);
-      $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
-
-    }
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('app.translate')
-        .run(translateRun);
-
-    translateRun.$inject = ['$rootScope', '$translate', '$window'];
-
-    function translateRun($rootScope, $translate, $window) {
-        // Internationalization
-        // ----------------------
-
-        $rootScope.language = {
-            // display always the current ui language
-            init: function () {
-                var proposedLanguage = $translate.proposedLanguage() || $translate.use();
-                var preferredLanguage = $translate.preferredLanguage(); // we know we have set a preferred one in app.config
-                $rootScope.language.selected = proposedLanguage || preferredLanguage;
-            },
-            set: function (localeId) {
-                // Set the new idiom
-                $translate.use(localeId);
-                // save a reference for the current language
-                $rootScope.language.selected = localeId;
-
-                $window.location.reload();
-            }
-        };
-
-        $rootScope.language.init();
-
-    }
 })();
 (function() {
     'use strict';
@@ -1822,6 +1673,155 @@
     }
 })();
 
+(function() {
+
+
+    angular
+        .module('app.settings')
+        .run(settingsRun);
+
+    settingsRun.$inject = [
+        '$rootScope',
+        '$localStorage',
+        'userSelfService',
+        '$translate'
+    ];
+
+    function settingsRun(
+        $rootScope,
+        $localStorage,
+        userSelfService,
+        $translate
+    ) {
+
+
+        // User Settings
+        // -----------------------------------
+        $rootScope.user = {
+            system: 'admin',
+            name: 'admin'
+        };
+
+        // Hides/show user avatar on sidebar from any element
+        $rootScope.toggleUserBlock = function() {
+            $rootScope.$broadcast('toggleUserBlock');
+        };
+
+        $rootScope.userLogout = function () {
+            console.log(userSelfService.getUserLogout)
+            userSelfService.getUserLogout({},{}).$promise.then(function (data) {
+                window.location.href = '/login.html'
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+
+                    } else {
+                        $rootScope.alertErrorMsg(data.msg);
+                    }
+                }
+            })
+        };
+
+        // Global Settings
+        // -----------------------------------
+        $rootScope.app = {
+            name: 'Angle',
+            year: ((new Date()).getFullYear()),
+            layout: {
+                isFixed: true,
+                isCollapsed: false,
+                isBoxed: false,
+                isRTL: false,
+                horizontal: false,
+                isFloat: false,
+                asideHover: false,
+                theme: 'css/theme-e.css',
+                asideScrollbar: false,
+                isCollapsedText: false
+            },
+            useFullLayout: false,
+            hiddenFooter: false,
+            offsidebarOpen: false,
+            asideToggled: false,
+        };
+
+        console.log($rootScope.app.layout, '$rootScope.app.layout');
+
+        // Setup the layout mode
+        $rootScope.app.layout.horizontal = ($rootScope.$stateParams.layout === 'app-h');
+
+        // Restore layout settings
+        if (angular.isDefined($localStorage.layout)) { $rootScope.app.layout = $localStorage.layout }
+        else { $localStorage.layout = $rootScope.app.layout }
+
+        $rootScope.$watch('app.layout', function () {
+            $localStorage.layout = $rootScope.app.layout;
+        }, true);
+
+        // Close submenu when sidebar change from collapsed to normal
+        $rootScope.$watch('app.layout.isCollapsed', function(newValue) {
+            if (newValue === false) { $rootScope.$broadcast('closeSidebarMenu') }
+        });
+
+    }
+
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.translate')
+        .config(translateConfig)
+        ;
+    translateConfig.$inject = ['$translateProvider'];
+    function translateConfig($translateProvider){
+
+      $translateProvider.useStaticFilesLoader({
+          prefix : 'i18n/',
+          suffix : '.json'
+      });
+
+      $translateProvider.preferredLanguage((window.navigator.language || window.navigator.language).indexOf('zh') !== -1 ? 'zh-CN' : 'en');
+      $translateProvider.useLocalStorage();
+      $translateProvider.usePostCompiling(true);
+      $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
+
+    }
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('app.translate')
+        .run(translateRun);
+
+    translateRun.$inject = ['$rootScope', '$translate', '$window'];
+
+    function translateRun($rootScope, $translate, $window) {
+        // Internationalization
+        // ----------------------
+
+        $rootScope.language = {
+            // display always the current ui language
+            init: function () {
+                var proposedLanguage = $translate.proposedLanguage() || $translate.use();
+                var preferredLanguage = $translate.preferredLanguage(); // we know we have set a preferred one in app.config
+                $rootScope.language.selected = proposedLanguage || preferredLanguage;
+            },
+            set: function (localeId) {
+                // Set the new idiom
+                $translate.use(localeId);
+                // save a reference for the current language
+                $rootScope.language.selected = localeId;
+
+                $window.location.reload();
+            }
+        };
+
+        $rootScope.language.init();
+
+    }
+})();
 /**=========================================================
  * Module: animate-enabled.js
  * Enable or disables ngAnimate for element with directive
