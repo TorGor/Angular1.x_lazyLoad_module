@@ -3,7 +3,7 @@
       <div class="panel-wrapper">
          <div class="panel-body">
             <span class="form-group add-button-class">
-               <button ng-show='validPower("GAMECATEGORIES", ["POST"])' class="btn btn-primary" ng-click="addGameCategories()" type="button" translate="table.button.add">
+               <button ng-show='validPower("GAMECATEGORIES", ["POST"])' class="btn btn-primary" ng-click="showGameCategoriesModal({},2)" type="button" translate="table.button.add">
                   新增
                </button>
             </span>
@@ -34,13 +34,15 @@
                            <!--</span>-->
                         </td>
                         <td style="white-space: nowrap;" ng-show='validPower("GAMECATEGORIES", ["PATCH", "DELETE"])'>
-                           <button class="btn btn-sm btn-info" ng-show='validPower("GAMECATEGORIES", ["PATCH"])' ng-click="saveGameCategories(item)" title="{{'table.button.edit' | translate}}">
+                           <button class="btn btn-sm btn-info" ng-show='validPower("GAMECATEGORIES", ["PATCH"])' ng-click="showGameCategoriesModal(item,3)" title="{{'table.button.edit' | translate}}">
                               <em class="fa fa-pencil"></em>
                            </button>
                            <button class="btn btn-sm btn-danger" ng-show='validPower("GAMECATEGORIES", ["DELETE"])' ng-click="deleteGameCategories(item)" title="{{'table.button.delete' | translate}}">
                               <em class="fa fa-trash"></em>
                            </button>
-
+                           <button class="btn btn-sm btn-green" ng-click="showGameCategoriesModal(item,1)" title="{{'table.button.detail' | translate}}">
+                              <em class="fa fa-folder-open-o"></em>
+                           </button>
                         </td>
                      </tr>
                      <tr ng-show="showGameCategories.length==0">

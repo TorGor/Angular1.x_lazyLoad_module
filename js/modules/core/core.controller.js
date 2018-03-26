@@ -40,6 +40,20 @@
             }
         };
 
+        var EDITOBJ = {
+            '1':'查看',
+            '2':'添加',
+            '3':'修改',
+        };
+
+        $scope.showEditStatus = function(edit) {
+
+            if(!edit){
+                return '';
+            }
+            return EDITOBJ[edit]||'';
+        };
+
         $scope.showOptionsValue = function (str, arr) {
             if(str && arr.length){
                 var tempBtnArray = arr.filter(function (optionsItem) {

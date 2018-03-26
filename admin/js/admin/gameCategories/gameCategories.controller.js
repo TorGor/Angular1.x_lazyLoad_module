@@ -61,9 +61,6 @@
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $scope.gameCategories = angular.copy(res.data.data);
-                        $scope.gameCategories.forEach(function (paymentMethodsItem, paymentMethodsIndex) {
-                            paymentMethodsItem._id = paymentMethodsIndex +1;
-                        });
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
@@ -71,8 +68,7 @@
             });
         };
 
-        // 展示弹窗
-        $scope.addGameCategories = function (item) {
+        $scope.showGameCategoriesModal = function (item,edit) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -82,38 +78,9 @@
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    edit:false,
-                    MethodsNameItem: {},
-                    hasPower:$scope.validPower("GAMECATEGORIES", ["PATCH", "POST"])
-                }
-            });
-            modalInstance.result.then(function (data) {
-                $scope.initGameCategoriesData();
-            }, function (data) {
-
-            });
-        };
-
-        // 保存
-        /**
-         *
-         * @param gameCategories GAMECATEGORIESTITLE数据对象
-         * @param item
-         */
-
-        $scope.saveGameCategories = function (item) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/gameCategories/gameCategoriesModal.html',
-                controller: 'gameCategoriesModalController',
-                size: 'lg',
-                scope:$scope,
-                resolve: {
-                    edit:true,
+                    edit:edit,
                     MethodsNameItem: item,
-                    hasPower:$scope.validPower("GAMECATEGORIES", ["PATCH", "POST"])
+                    hasPower:$scope.validPower("GAMECATEGORIES", ["PATCH", "POST"]) && edit !== 1,
                 }
             });
             modalInstance.result.then(function (data) {
@@ -146,17 +113,6 @@
             }
         };
 
-        /**
-         *
-         * @param item 添加的GAMECATEGORIESTITLE
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item._id)) {
-                $scope.gameCategories.splice(index, 1);
-            }
-        };
 
         // 页面加载执行的函数
 

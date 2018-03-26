@@ -145,7 +145,7 @@
                 }
                 tempData.name = angular.copy(tempObj)
             }
-            if (!edit) {
+            if (edit==2) {
                 adminService.postReq($rootScope.URL.GAMECATEGORIES.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -157,7 +157,7 @@
                         }
                     }
                 });
-            } else if (edit) {
+            } else if (edit==3) {
                 adminService.patchReq($rootScope.URL.GAMECATEGORIES.PATCH+'/'+MethodsNameItem.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
