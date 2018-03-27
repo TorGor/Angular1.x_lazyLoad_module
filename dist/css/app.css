@@ -10553,6 +10553,10 @@ body .jvectormap-zoomout {
   background: #5d9cec;
   color: white;
 }
+.ui-select-search {
+  min-height: 28px;
+  padding-left: 15px;
+}
 .self-nav-tree-button {
   position: absolute;
   right: 0;

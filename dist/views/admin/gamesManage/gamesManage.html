@@ -7,6 +7,42 @@
                   新增
                </button>
             </span>
+            <div class='clearfix'></div>
+            <form class="form-horizontal" role="form">
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="searchGameName" ng-blur='gamesManageAoData.keyword=searchGameName' placeholder="name">
+               </div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="gamesManageAoData.product_code" theme="bootstrap" search-enabled="false">
+                     <ui-select-match placeholder='choose product code'>
+                        <span>{{$select.selected.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in productSearchOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="gamesManageAoData.brand_code" theme="bootstrap" search-enabled="false">
+                     <ui-select-match placeholder='choose brand code'>
+                        <span>{{$select.selected.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in brandSearchOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="search.categories" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
+                     <ui-select-match placeholder='choose wallet'>
+                        <span>{{$item.label.substr(0,20)+'...'}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in categoriesOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+            </form>
             <div server-data-table items="gamesManage" ao-data="gamesManageAoData" reload="gamesManageReload" service-name="adminService" service-name-attr="getReq" url="gamesManageUrl" handle-data="handleGamesManageData">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>

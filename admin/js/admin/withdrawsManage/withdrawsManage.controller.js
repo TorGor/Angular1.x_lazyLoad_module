@@ -32,9 +32,10 @@
                                     label:objItem.code||'',
                                     value:objItem.code||''
                                 };
-                                if(!objItem.disabled){
-                                    $scope.walletOptions.push(tempObj)
-                                }
+                                $scope.walletOptions.push(tempObj)
+                                //if(!objItem.disabled){
+                                //    $scope.walletOptions.push(tempObj)
+                                //}
                             })
                         }
                     } else {

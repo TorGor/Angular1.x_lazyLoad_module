@@ -18,10 +18,16 @@
         adminService
     ) {
 
+        $scope.search = {
+            categories: []
+        };
+
         $scope.brandOptions = [];
+        $scope.brandSearchOptions = [];
 
         $scope.initBrandOptionsData = function () {
             $scope.brandOptions = [];
+            $scope.brandSearchOptions = [];
             adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -32,10 +38,10 @@
                                     label:objItem.code||'',
                                     value:objItem.code||''
                                 };
-                                $scope.brandOptions.push(tempObj)
-                                // if(objItem.supported){
-                                //     $scope.brandOptions.push(tempObj)
-                                // }
+                                $scope.brandSearchOptions.push(tempObj)
+                                 if(objItem.supported){
+                                     $scope.brandOptions.push(tempObj)
+                                 }
                             })
                         }
                     } else {
@@ -46,9 +52,11 @@
         };
 
         $scope.productOptions = [];
+        $scope.productSearchOptions = [];
 
         $scope.initProductManageData = function () {
             $scope.productOptions = [];
+            $scope.productSearchOptions = [];
             adminService.getReq($rootScope.URL.GAMESPRODUCTS.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -59,6 +67,7 @@
                                     label:objItem.code||'',
                                     value:objItem.code||''
                                 };
+                                $scope.productSearchOptions.push(tempObj)
                                 if(objItem.disabled == false){
                                     $scope.productOptions.push(tempObj)
                                 }
@@ -262,5 +271,11 @@
 
             $scope.initLocalesOptionsData();
         }
+
+        $scope.$watch('search.categories.length', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                $scope.gamesManageAoData.categories = $scope.search.categories.join(',');
+            }
+        });
     }
 })();
