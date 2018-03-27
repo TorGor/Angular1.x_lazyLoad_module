@@ -9,35 +9,68 @@
                 <div class="panel-body">
                     <form class="form-horizontal" name="myForm">
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">{{'table.localeLanguage.th1' | translate}}</label>
+                            <label class="col-lg-4 col-md-6 control-label">{{'table.currenciesManage.th1' | translate}}</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="modalItem.iso" name='iso' required ng-disabled='!hasPower||edit==3'
+                                <input ng-model="modalItem.code" name='code' required ng-disabled='!hasPower||edit==3'
                                        class="form-control"
                                        type="text"
                                        ng-pattern='/[A-Z]{3}/'
                                        placeholder="XXX">
                                 <span class='text-danger valid-error'
-                                      ng-show="myForm.iso.$dirty&&myForm.iso.$invalid">
+                                      ng-show="myForm.code.$dirty&&myForm.code.$invalid">
                                     {{'eg. XXX'}}
                                 </span>
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">{{'table.localeLanguage.th2' | translate}}</label>
+                            <label class="col-lg-4 col-md-6 control-label">{{'table.currenciesManage.th2' | translate}}</label>
                             <div class="col-lg-8 col-md-6">
                                 <input ng-model="modalItem.name" name='name' required ng-disabled='!hasPower'
                                        class="form-control"
                                        type="text"
-                                       placeholder="eg. zh-CN">
-                                <span class='text-danger valid-error' ng-show="myForm.name.$dirty&&myForm.name.$invalid">
-                                    {{checkRequiredData()}}
+                                       ng-maxlength='100'
+                                       placeholder="max 100 char">
+                                <span class='text-danger valid-error'
+                                      ng-show="myForm.name.$dirty&&myForm.name.$invalid">
+                                    {{'max 100 char'}}
                                 </span>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">{{'table.localeLanguage.th3' |
-                                                                           translate}}</label>
+                            <label class="col-lg-4 col-md-6 control-label">{{'table.currenciesManage.th3' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="modalItem.symbol" name='symbol' required ng-disabled='!hasPower'
+                                       class="form-control"
+                                       type="text"
+                                       ng-maxlength='5'
+                                       placeholder="max 5 char">
+                                <span class='text-danger valid-error'
+                                      ng-show="myForm.symbol.$dirty&&myForm.symbol.$invalid">
+                                    {{'max 5 char'}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">{{'table.currenciesManage.th4' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                    ng-model="modalItem.symbolAfter"
+                                    theme="bootstrap"
+                                    ng-disabled='!hasPower'
+                                    search-enabled="false">
+                                    <ui-select-match placeholder="choose symbol after">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in options">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">{{'table.currenciesManage.th5' | translate}}</label>
                             <div class="col-lg-8 col-md-6">
                                 <ui-select
                                     ng-model="modalItem.supported"
@@ -47,7 +80,7 @@
                                     <ui-select-match placeholder="choose supported">
                                         <span ng-bind="$select.selected.label"></span>
                                     </ui-select-match>
-                                    <ui-select-choices repeat="item.value as item in supportedOptions">
+                                    <ui-select-choices repeat="item.value as item in options">
                                         <span ng-bind="item.label"></span>
                                     </ui-select-choices>
                                 </ui-select>
@@ -63,8 +96,7 @@
 
 <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-disabled='!myForm.$dirty||myForm.$invalid' ng-show="hasPower"
-            ng-click="confirmModal()">{{'table.button.save' |
-                                                                             translate}}</button>
+            ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
     <button
         class="btn btn-default" type="button" ng-click="cancelModal()"
     >{{'table.button.cancel' | translate}}</button>

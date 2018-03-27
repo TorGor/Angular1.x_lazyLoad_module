@@ -1,10 +1,10 @@
 (function() {
 
     angular
-        .module('admin.gameCategories')
-        .controller('countriesManageModalController', countriesManageModalController);
+        .module('admin.currenciesManage')
+        .controller('currenciesManageModalController', currenciesManageModalController);
 
-    countriesManageModalController.$inject = [
+    currenciesManageModalController.$inject = [
         '$scope',
         '$rootScope',
         '$uibModalInstance',
@@ -15,7 +15,7 @@
         'modalItem'
     ];
 
-    function countriesManageModalController(
+    function currenciesManageModalController(
         $scope,
         $rootScope,
         $uibModalInstance,
@@ -30,19 +30,15 @@
         $scope.hasPower = hasPower;
         $scope.modalItem = angular.copy(modalItem);
 
-        console.log(modalItem,'modalItem');
-
         // 初始化table数据
         $scope.initMethodsNameModalData = function () {
             if(edit==2){
                 $scope.modalItem = {
-                    "iso": "",
-                    "iso3": "",
-                    "numcode": '',
-                    "name": "",
-                    "phoneCode": '',
-                    "currencyCode": $scope.currencyOptions[0].value,
-                    "niceName": "",
+                    'code': '',
+                    'name': '',
+                    'symbol': '',
+                    'symbolAfter': $scope.options[0].value,
+                    'supported': $scope.options[1].value
                 }
             }
         };
@@ -50,7 +46,7 @@
         //$rootScope.toasterSuccess(res.data.msg);;
         $scope.confirmModal = function () {
             if (edit==2) {
-                adminService.postReq($rootScope.URL.COUNTRIESMANAGE.POST, {}, $scope.modalItem).then(function (res) {
+                adminService.postReq($rootScope.URL.CURRENCIESMANAGE.POST, {}, $scope.modalItem).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -62,7 +58,7 @@
                     }
                 });
             } else if (edit==3) {
-                adminService.patchReq($rootScope.URL.COUNTRIESMANAGE.PATCH+'/'+modalItem.iso, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.CURRENCIESMANAGE.PATCH+'/'+modalItem.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {

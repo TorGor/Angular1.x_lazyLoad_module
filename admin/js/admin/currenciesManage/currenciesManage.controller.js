@@ -49,7 +49,6 @@
                     if (res.data.success) {
                         $scope.currenciesManage = angular.copy(res.data.data);
                         $scope.currenciesManage.forEach(function (currenciesManageItem, currenciesManageIndex) {
-                            currenciesManageItem.id = currenciesManageIndex +1;
                             currenciesManageItem.supported = currenciesManageItem.supported ? '1' : '0';
                             currenciesManageItem.symbolAfter = currenciesManageItem.symbolAfter ? '1' : '0';
                         });
@@ -61,43 +60,26 @@
         };
 
 
-        // 保存
-        /**
-         *
-         * @param currenciesManage 货币管理数据对象
-         * @param item
-         */
+        $scope.showCurrenciesManageModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/currenciesManage/currenciesManageModal.html',
+                controller: 'currenciesManageModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower:$scope.validPower("CURRENCIESMANAGE", ["PATCH", "POST"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initCurrenciesManageData();
+            }, function (data) {
 
-        $scope.saveCurrenciesManage = function (currenciesManage, item) {
-            var tempData = angular.extend({}, currenciesManage, item);
-            if (!tempData.id) {
-                delete tempData.id;
-                adminService.postReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initCurrenciesManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (currenciesManage.id) {
-                delete tempData.id;
-                adminService.patchReq($rootScope.URL.CURRENCIESMANAGE.PATCH+'/'+currenciesManage.code, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initCurrenciesManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
+            });
         };
 
         // 删除currenciesManage
@@ -120,32 +102,6 @@
                         }
                     });
                 });
-            }
-        };
-
-        // 添加按钮
-        $scope.addCurrenciesManage = function () {
-            $scope.currenciesManageAoData = {};
-            $scope.currenciesManageSearch = '';
-            $scope.currenciesManage.unshift({
-                'id': null,
-                'code': '',
-                'name': '',
-                'symbol': '',
-                'symbolAfter': '0',
-                'supported': '1'
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的货币管理
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.currenciesManage.splice(index, 1);
             }
         };
 
