@@ -764,7 +764,6 @@
                     "isDeleted":$scope.isDeletedOptions[2].value
                 }
             }
-            console.log($scope.typeOptions[0].value);
             $scope.modalItem.adminId = window.userInfo && window.userInfo.adminId
         };
 
