@@ -8,7 +8,7 @@
                             <button
                                 ng-show='validPower("BLACKLISTS", ["POST"])'
                                 class="btn btn-primary"
-                                ng-click="addBlackLists()"
+                                ng-click="showCountriesManageModal({},2)"
                                 type="button"
                                 translate="table.button.add"
                             >
@@ -52,19 +52,19 @@
                                 </ui-select-choices>
                             </ui-select>
                         </div>
-                        <div class="col-lg-3 col-md-6">
-                            <ui-select
-                                    ng-model="blackListsAoData.is_deleted"
-                                    theme="bootstrap"
-                                    search-enabled="false">
-                                <ui-select-match placeholder="{{'table.blackLists.th4' | translate}}">
-                                    <span ng-bind="$select.selected.label"></span>
-                                </ui-select-match>
-                                <ui-select-choices repeat="item.value as item in isDeletedOptions">
-                                    <span ng-bind="item.label"></span>
-                                </ui-select-choices>
-                            </ui-select>
-                        </div>
+                        <!--<div class="col-lg-3 col-md-6">-->
+                            <!--<ui-select-->
+                                    <!--ng-model="blackListsAoData.is_deleted"-->
+                                    <!--theme="bootstrap"-->
+                                    <!--search-enabled="false">-->
+                                <!--<ui-select-match placeholder="{{'table.blackLists.th4' | translate}}">-->
+                                    <!--<span ng-bind="$select.selected.label"></span>-->
+                                <!--</ui-select-match>-->
+                                <!--<ui-select-choices repeat="item.value as item in isDeletedOptions">-->
+                                    <!--<span ng-bind="item.label"></span>-->
+                                <!--</ui-select-choices>-->
+                            <!--</ui-select>-->
+                        <!--</div>-->
                     </form>
                 </div>
                 <div class="clearfix"></div>
@@ -99,50 +99,25 @@
                         <tbody>
                         <tr ng-repeat="item in blackLists">
                             <td>
-                                <span editable-text="item.accountNumber" e-name="accountNumber"
-                                      e-formclass="xeditable-md"
-                                      e-placeholder='9-19 number'
-                                      onbeforesave="validReg('^[0-9]{9,19}$', $data, '9-19 number char')"
-                                      e-form="rowform" e-required="">{{ item.accountNumber || '' }}</span>
+                                <span>{{ item.accountNumber || '' }}</span>
                             </td>
                             <td>
-                                <span editable-text="item.comment" e-name="comment" e-formclass="xeditable-md"
-                                      e-placeholder='max 191 char'
-                                      onbeforesave="validReg('^.{1,191}$', $data, 'max 191 char')" e-form="rowform"
-                                      e-required="">{{ item.comment || '' }}</span>
+                                <span>{{ item.comment || '' }}</span>
                             </td>
                             <td>
-                                    <span editable-select="item.type" e-name="type" e-form="rowform"
-                                          onbeforesave="checkRequiredData($data)"
-                                          e-ng-options="option.value as option.label for option in typeOptions">
-                                        <span>{{showOptionsValue(item.type,typeOptions)}}</span>
-                                    </span>
+                                <span>{{showOptionsValue(item.type,typeOptions)}}</span>
                             </td>
                             <td>
                                 <span>{{item.isDeleted ? 'yes' : 'no'}}</span>
                             </td>
                             <td style="white-space: nowrap;" ng-show='validPower("BLACKLISTS", ["PATCH", "PUT", "DELETE"])'>
-                                <form class="form-buttons form-inline" editable-form name="rowform"
-                                      onaftersave="saveBlackLists(item, $data)" ng-show="rowform.$visible"
-                                      shown="item.id == true">
-                                    <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
-                                            title="{{'table.button.save' | translate}}">
-                                        <em class="fa fa-save"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
-                                            ng-click="rowform.$cancel();cancelSave(item,$index)"
-                                            title="{{'table.button.cancel' | translate}}">
-                                        <em class="fa fa-times"></em>
-                                    </button>
-                                </form>
-                                <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-info" ng-show="validPower('BLACKLISTS', ['PUT'])"
-                                            ng-click="rowform.$show()"
-                                            title="{{'table.button.edit' | translate}}">
+                                <button class="btn btn-sm btn-info" ng-show="validPower('BLACKLISTS', ['PATCH'])"
+                                        ng-click="showCountriesManageModal(item,3)"
+                                        title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
                                     </button>
                                     <button class="btn btn-sm btn-danger"
-                                            ng-show="!item.isDeleted&&validPower('BLACKLISTS', ['PATCH'])"
+                                            ng-show="!item.isDeleted&&validPower('BLACKLISTS', ['DELETE'])"
                                             ng-click="deleteBlackLists(item)"
                                             title="{{'table.button.delete' | translate}}">
                                         <em class="fa fa-trash"></em>
@@ -152,7 +127,6 @@
                                             title="{{'table.button.recover' | translate}}">
                                         <em class="fa fa-rotate-left"></em>
                                     </button>
-                                </div>
                             </td>
                         </tr>
                         <tr ng-show="blackLists.length==0">

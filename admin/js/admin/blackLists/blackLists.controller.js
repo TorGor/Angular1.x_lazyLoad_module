@@ -73,44 +73,26 @@
             $scope.blackListsReload++;
         };
 
+        $scope.showCountriesManageModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/blackLists/blackListsModal.html',
+                controller: 'blackListsModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower:$scope.validPower("BLACKLISTS", ["PATCH", "POST"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initBlackListsData();
+            }, function (data) {
 
-        // 保存
-        /**
-         *
-         * @param blackLists BLACKLISTSTITLE数据对象
-         * @param item
-         */
-
-        $scope.saveBlackLists = function (blackLists, item) {
-            var tempData = angular.extend({}, blackLists, item);
-            tempData.adminId = window.userInfo && window.userInfo.adminId || '';
-            if (tempData.id) {
-                delete tempData.id;
-                adminService.postReq($rootScope.URL.BLACKLISTS.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initBlackListsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!tempData.id && blackLists.accountNumber) {
-                adminService.patchReq($rootScope.URL.BLACKLISTS.PATCH+'/'+blackLists.accountNumber, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initBlackListsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
+            });
         };
 
         // 删除blackLists
@@ -154,29 +136,6 @@
                         }
                     }
                 });
-            }
-        };
-
-        // 添加按钮
-        $scope.addBlackLists = function () {
-            $scope.blackLists.unshift({
-                "id":true,
-                "accountNumber": "",
-                "type": $scope.typeOptions[0].value,
-                "comment":"",
-                "isDeleted":false
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的BLACKLISTSTITLE
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.account_number == '') {
-                $scope.blackLists.splice(index, 1);
             }
         };
 
