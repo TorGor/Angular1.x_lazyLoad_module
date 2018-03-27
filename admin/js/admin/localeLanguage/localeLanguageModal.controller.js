@@ -30,8 +30,6 @@
         $scope.hasPower = hasPower;
         $scope.modalItem = angular.copy(modalItem);
 
-        console.log(modalItem,'modalItem');
-
         // 初始化table数据
         $scope.initMethodsNameModalData = function () {
             if(edit==2){
@@ -54,7 +52,7 @@
                     }
                 });
             } else if (edit==3) {
-                adminService.patchReq($rootScope.URL.LOCALELANGUAGE.PATCH+'/'+$scope.modalItem.code, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.LOCALELANGUAGE.PATCH+'/'+$scope.modalItem.code, {}, $scope.modalItem).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
