@@ -134,8 +134,8 @@
             "th5": "Support"
         },
         "transactionsDetail": {
-            "th1": "User Id",
-            "th2": "Affiliate Id",
+            "th1": "User",
+            "th2": "Affiliate",
             "th3": "Service Id",
             "th4": "Service",
             "th5": "Amount",

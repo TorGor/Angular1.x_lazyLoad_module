@@ -156,10 +156,10 @@
                         <tbody>
                         <tr ng-repeat="item in transactionsDetail">
                             <td>
-                                <span>{{item.userId ? item.userId.substr(0,8) : ''}}</span>
+                                <span>{{item.user && item.user.name || ''}}</span>
                             </td>
                             <td>
-                                <span>{{item.affiliateId ? item.affiliateId.substr(0,8) : ''}}</span>
+                                <span>{{item.user && item.user.affiliate || ''}}</span>
                             </td>
                             <td>
                                 <span>{{item.serviceId  ? item.serviceId.substr(0,8) : ''}}</span>
