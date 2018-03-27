@@ -15,35 +15,28 @@
                                 新增
                             </button>
                         </span>
-                    </div>
-                    <!--<form class="form-inline pull-right add-button-class" role="form">-->
-                    <!--<div style="position: relative" class="form-group">-->
-                    <!--<span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>-->
-                    <!--<input class="form-control" type="text" ng-model="blackListsSearch"-->
-                    <!--placeholder="{{searchPlaceholder(['table.blackLists.th1', 'table.blackLists.th2', 'table.blackLists.th3'])}}">-->
-                    <!--</div>-->
-                    <!--</form>-->
-                    <div class="clearfix"></div>
-                    <form class="form-horizontal" role="form">
-                        <div class="col-lg-3 col-md-6">
+                        <form style="width: 450px" class="form-horizontal pull-right" role="form">
+                        <div class="col-lg-6 col-md-6">
                             <input
-                                    class="form-control"
-                                    type="text"
-                                    ng-model="blackListsAoData.account_number"
-                                    placeholder="{{'table.blackLists.th1' | translate}}">
+                                class="form-control"
+                                type="text"
+                                ng-model="blackListsAoData.account_number"
+                                placeholder="{{'table.blackLists.th1' | translate}}"
+                            >
                         </div>
-                        <div class="col-lg-3 col-md-6">
-                            <input
-                                    class="form-control"
-                                    type="text"
-                                    ng-model="blackListsAoData.comment"
-                                    placeholder="{{'table.blackLists.th2' | translate}}">
-                        </div>
-                        <div class="form-group col-lg-3 col-md-6">
+                            <!--<div class="col-lg-3 col-md-6">-->
+                            <!--<input-->
+                            <!--class="form-control"-->
+                            <!--type="text"-->
+                            <!--ng-model="blackListsAoData.comment"-->
+                            <!--placeholder="{{'table.blackLists.th2' | translate}}">-->
+                            <!--</div>-->
+                        <div class="form-group col-lg-6 col-md-6">
                             <ui-select
-                                    ng-model="blackListsAoData.type"
-                                    theme="bootstrap"
-                                    search-enabled="false">
+                                ng-model="blackListsAoData.type"
+                                theme="bootstrap"
+                                search-enabled="false"
+                            >
                                 <ui-select-match placeholder="{{'table.blackLists.th3' | translate}}">
                                     <span ng-bind="$select.selected.label"></span>
                                 </ui-select-match>
@@ -52,45 +45,47 @@
                                 </ui-select-choices>
                             </ui-select>
                         </div>
-                        <!--<div class="col-lg-3 col-md-6">-->
+                            <!--<div class="col-lg-3 col-md-6">-->
                             <!--<ui-select-->
-                                    <!--ng-model="blackListsAoData.is_deleted"-->
-                                    <!--theme="bootstrap"-->
-                                    <!--search-enabled="false">-->
-                                <!--<ui-select-match placeholder="{{'table.blackLists.th4' | translate}}">-->
-                                    <!--<span ng-bind="$select.selected.label"></span>-->
-                                <!--</ui-select-match>-->
-                                <!--<ui-select-choices repeat="item.value as item in isDeletedOptions">-->
-                                    <!--<span ng-bind="item.label"></span>-->
-                                <!--</ui-select-choices>-->
+                            <!--ng-model="blackListsAoData.is_deleted"-->
+                            <!--theme="bootstrap"-->
+                            <!--search-enabled="false">-->
+                            <!--<ui-select-match placeholder="{{'table.blackLists.th4' | translate}}">-->
+                            <!--<span ng-bind="$select.selected.label"></span>-->
+                            <!--</ui-select-match>-->
+                            <!--<ui-select-choices repeat="item.value as item in isDeletedOptions">-->
+                            <!--<span ng-bind="item.label"></span>-->
+                            <!--</ui-select-choices>-->
                             <!--</ui-select>-->
-                        <!--</div>-->
+                            <!--</div>-->
                     </form>
+                    </div>
+
                 </div>
                 <div class="clearfix"></div>
                 <div
-                        server-data-table
-                        items="blackLists"
-                        ao-data="blackListsAoData"
-                        reload="blackListsReload"
-                        service-name="adminService"
-                        service-name-attr="getReq"
-                        url="blackListsUrl"
-                        handle-data="false"
+                    server-data-table
+                    items="blackLists"
+                    ao-data="blackListsAoData"
+                    reload="blackListsReload"
+                    service-name="adminService"
+                    service-name-attr="getReq"
+                    url="blackListsUrl"
+                    handle-data="false"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 20%" ao-data="blackListsAoData" server-data-table-sort="account_number">
+                            <td style="width: 20%">
                                 {{'table.blackLists.th1' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="blackListsAoData" server-data-table-sort="comment">
+                            <td style="width: 10%">
                                 {{'table.blackLists.th2' | translate}}
                             </td>
-                            <td style="width: 15%" ao-data="blackListsAoData" server-data-table-sort="type">
+                            <td style="width: 15%">
                                 {{'table.blackLists.th3' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="blackListsAoData" server-data-table-sort="is_deleted">
+                            <td style="width: 10%">
                                 {{'table.blackLists.th4' | translate}}
                             </td>
                             <td style="width: 17%" ng-show='validPower("BLACKLISTS", ["PATCH", "PUT", "DELETE"])'>{{'table.button.operation' | translate}}</td>
@@ -111,27 +106,35 @@
                                 <span>{{item.isDeleted ? 'yes' : 'no'}}</span>
                             </td>
                             <td style="white-space: nowrap;" ng-show='validPower("BLACKLISTS", ["PATCH", "PUT", "DELETE"])'>
-                                <button class="btn btn-sm btn-info" ng-show="validPower('BLACKLISTS', ['PATCH'])"
-                                        ng-click="showCountriesManageModal(item,3)"
-                                        title="{{'table.button.edit' | translate}}">
+                                <button
+                                    class="btn btn-sm btn-info" ng-show="validPower('BLACKLISTS', ['PATCH'])"
+                                    ng-click="showCountriesManageModal(item,3)"
+                                    title="{{'table.button.edit' | translate}}"
+                                >
                                         <em class="fa fa-pencil"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-danger"
-                                            ng-show="!item.isDeleted&&validPower('BLACKLISTS', ['DELETE'])"
-                                            ng-click="deleteBlackLists(item)"
-                                            title="{{'table.button.delete' | translate}}">
+                                    <button
+                                        class="btn btn-sm btn-danger"
+                                        ng-show="!checkIsDelete(item)&&validPower('BLACKLISTS', ['DELETE'])"
+                                        ng-click="deleteBlackLists(item)"
+                                        title="{{'table.button.delete' | translate}}"
+                                    >
                                         <em class="fa fa-trash"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-green" ng-show="item.isDeleted&&validPower('BLACKLISTS', ['PUT'])"
-                                            ng-click="recoverBlackLists(item)"
-                                            title="{{'table.button.recover' | translate}}">
+                                    <button
+                                        class="btn btn-sm btn-green" ng-show="checkIsDelete(item)&&validPower('BLACKLISTS', ['PUT'])"
+                                        ng-click="recoverBlackLists(item)"
+                                        title="{{'table.button.recover' | translate}}"
+                                    >
                                         <em class="fa fa-rotate-left"></em>
                                     </button>
                             </td>
                         </tr>
                         <tr ng-show="blackLists.length==0">
-                            <td colspan='{{validPower("BLACKLISTS", ["PATCH", "PUT", "DELETE"])?5:4}}'
-                                class="">{{'table.no_date' | translate}}</td>
+                            <td
+                                colspan='{{validPower("BLACKLISTS", ["PATCH", "PUT", "DELETE"])?5:4}}'
+                                class=""
+                            >{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

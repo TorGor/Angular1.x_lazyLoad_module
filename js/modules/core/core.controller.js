@@ -54,6 +54,12 @@
             return EDITOBJ[edit]||'';
         };
 
+        $scope.checkIsDelete = function(item) {
+            if(item.timestamps&&item.timestamps.deleteAt){
+                return true;
+            }
+        };
+
         $scope.showOptionsValue = function (str, arr) {
             if(str && arr.length){
                 var tempBtnArray = arr.filter(function (optionsItem) {
