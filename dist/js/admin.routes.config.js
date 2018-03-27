@@ -118,7 +118,7 @@
                                             tempButtonUrl[module].map(function(buttonItem) {
                                                 if(buttonItem.btnType == 1){
                                                     if(module == 'withdraws'){
-                                                        if(buttonItem.btnUrl.indexOf('Audit')){
+                                                        if(buttonItem.btnUrl.indexOf('Audit')!==-1){
                                                             $rootScope.URL[URLobj[module]].GETAUDIT = buttonItem.btnUrl;
                                                             $rootScope.URL[URLobj[module]].GETAUDITID = buttonItem.id;
                                                         }else if(buttonItem.btnUrl.indexOf('Pay') !== -1){
@@ -156,6 +156,17 @@
                                                         }else if(buttonItem.btnUrl.indexOf('Review') !== -1){
                                                             $rootScope.URL[URLobj[module]].POSTREVIEW = buttonItem.btnUrl;
                                                             $rootScope.URL[URLobj[module]].POSTREVIEWID = buttonItem.id;
+                                                        }else{
+                                                            $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
+                                                        }
+                                                    }else if(module == 'applies'){
+                                                        if(buttonItem.btnUrl.indexOf('audit') !== -1){
+                                                            $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
+                                                        }else if(buttonItem.btnUrl.indexOf('revoke') !== -1){
+                                                            $rootScope.URL[URLobj[module]].POSTREVOKE = buttonItem.btnUrl;
+                                                            $rootScope.URL[URLobj[module]].POSTREVOKEID = buttonItem.id;
                                                         }else{
                                                             $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
                                                             $rootScope.URL[URLobj[module]].POSTID = buttonItem.id;

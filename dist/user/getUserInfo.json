@@ -171,7 +171,7 @@
                             {
                                 "id": "402881e7625d2c2001625d413dc9000d",
                                 "btnName": "恢复",
-                                "btnType": "3",
+                                "btnType": "5",
                                 "btnCode": "",
                                 "btnUrl": "/rest/receiveOrders",
                                 "btnStatus": "1",
@@ -238,7 +238,7 @@
                             {
                                 "id": "402881e7625d2c2001625d47becb0012",
                                 "btnName": "恢复",
-                                "btnType": "3",
+                                "btnType": "5",
                                 "btnCode": "",
                                 "btnUrl": "/rest/restoreCoupons",
                                 "btnStatus": "1",
@@ -295,23 +295,23 @@
                             {
                                 "id": "402881e7625d2c2001625d4994da0014",
                                 "btnName": "审核",
-                                "btnType": "3",
+                                "btnType": "2",
                                 "btnCode": "",
                                 "btnUrl": "/rest/auditApplies",
                                 "btnStatus": "1",
                                 "createTime": "2018-03-25 21:12:06",
-                                "optTime": null,
+                                "optTime": "2018-03-27 13:21:30",
                                 "menuId": "402881ea622f02d1016237c3b5a00015"
                             },
                             {
                                 "id": "402881e7625d2c2001625d4a778f0015",
                                 "btnName": "撤销优惠券",
-                                "btnType": "3",
+                                "btnType": "2",
                                 "btnCode": "",
                                 "btnUrl": "/rest/revokeApplies",
                                 "btnStatus": "1",
                                 "createTime": "2018-03-25 21:13:04",
-                                "optTime": null,
+                                "optTime": "2018-03-27 13:23:10",
                                 "menuId": "402881ea622f02d1016237c3b5a00015"
                             }
                         ]
@@ -742,7 +742,7 @@
                             {
                                 "id": "297e88d3625d541e01625d625bda0011",
                                 "btnName": "恢复",
-                                "btnType": "2",
+                                "btnType": "5",
                                 "btnCode": "",
                                 "btnUrl": "/rest/restoreWallets",
                                 "btnStatus": "1",
