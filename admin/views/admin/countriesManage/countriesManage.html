@@ -6,7 +6,7 @@
                     <button
                         ng-show='validPower("COUNTRIESMANAGE", ["POST"])'
                         class="btn btn-primary"
-                        ng-click="addCountriesManage()"
+                        ng-click="showCountriesManageModal({},2)"
                         type="button"
                         translate="table.button.add"
                     >
@@ -57,69 +57,38 @@
                         <tbody>
                         <tr ng-repeat="item in showCountriesManage">
                             <td>
-                                <span editable-text="item.iso" e-name="iso" e-formclass="xeditable-xs" e-placeholder='XX'
-                                      onbeforesave="validReg('[A-Z]{2}', $data, 'eg. XX')" e-form="rowform"
-                                      e-required="">{{ item.iso ||
-                                                                                                       '' }}</span>
+                                {{item.iso || ''}}
                             </td>
                             <td>
-                                <span editable-text="item.iso3" e-name="iso3" e-formclass="xeditable-xs"
-                                      e-placeholder='XXX'
-                                      onbeforesave="validReg('[A-Z]{3}', $data, 'eg. XXX')" e-form="rowform"
-                                      e-required="">{{ item.iso3 || '' }}</span>
+                                <span>{{ item.iso3 || '' }}</span>
                             </td>
                             <td>
-                                <span editable-text="item.name" e-name="name" e-formclass="xeditable-sm"
-                                      onbeforesave="validReg('[A-Z ]+', $data, 'eg. XXXXXXXX')" e-form="rowform"
-                                      e-placeholder='XXXXXXXX'
-                                      e-required="">{{ item.name || '' }}</span>
+                                <span>{{ item.name || '' }}</span>
                             </td>
                             <td>
-                                <span editable-text="item.niceName" e-name="niceName" e-formclass="xeditable-sm"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.niceName || '' }}</span>
+                                <span>{{ item.niceName || '' }}</span>
                             </td>
                             <td>
-                                <span editable-text="item.numcode" e-name="numcode" e-formclass="xeditable-xs"
-                                      onbeforesave="validReg('^[0-9]{0,3}$', $data, 'eg. 999')" e-form="rowform"
-                                      e-placeholder='999'
-                                      e-required="">{{ item.numcode || '' }}</span>
+                                <span>{{ item.numcode || '' }}</span>
                             </td>
                             <td>
-                                <span editable-text="item.phoneCode" e-name="phoneCode" e-formclass="xeditable-xs"
-                                      onbeforesave="validReg('^[0-9]{0,4}$$', $data, 'eg. 9999')" e-form="rowform"
-                                      e-placeholder='9999'
-                                      e-required="">{{ item.phoneCode || '' }}</span>
+                                <span>{{ item.phoneCode || '' }}</span>
                             </td>
                             <td>
-                              <span editable-select="item.currencyCode" e-name="currencyCode" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in currencyOptions">
+                              <span>
                                  {{showOptionsValue(item.currencyCode,currencyOptions)}}
                               </span>
                             </td>
 
                             <td style="white-space: nowrap;" ng-show='validPower("COUNTRIESMANAGE", ["PATCH","DELETE"])'>
-                                <form class="form-buttons form-inline" editable-form name="rowform"
-                                      onaftersave="saveCountriesManage(item, $data)" ng-show="rowform.$visible"
-                                      shown="item.id == null">
-                                    <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
-                                            title="{{'table.button.save' | translate}}">
-                                        <em class="fa fa-save"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
-                                            ng-click="rowform.$cancel();cancelSave(item,$index)"
-                                            title="{{'table.button.cancel' | translate}}">
-                                        <em class="fa fa-times"></em>
-                                    </button>
-                                </form>
-                                <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-info" ng-show='validPower("COUNTRIESMANAGE", ["PATCH"])' ng-click="rowform.$show()"
-                                            title="{{'table.button.edit' | translate}}">
+                                <button class="btn btn-sm btn-info" ng-show='validPower("COUNTRIESMANAGE", ["PATCH"])' ng-click="showCountriesManageModal(item,3)"
+                                        title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
                                     </button>
                                     <button class="btn btn-sm btn-danger" ng-show='validPower("COUNTRIESMANAGE", ["DELETE"])' ng-click="deleteCountriesManage(item)"
                                             title="{{'table.button.delete' | translate}}">
                                         <em class="fa fa-trash"></em>
                                     </button>
-                                </div>
                             </td>
                         </tr>
                         <tr ng-show="showCountriesManage.length==0">

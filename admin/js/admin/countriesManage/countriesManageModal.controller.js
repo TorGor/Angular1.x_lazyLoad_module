@@ -1,10 +1,10 @@
 (function() {
 
     angular
-        .module('admin.localeLanguage')
-        .controller('localeLanguageModalController', localeLanguageModalController);
+        .module('admin.countriesManage')
+        .controller('countriesManageModalController', countriesManageModalController);
 
-    localeLanguageModalController.$inject = [
+    countriesManageModalController.$inject = [
         '$scope',
         '$rootScope',
         '$uibModalInstance',
@@ -15,7 +15,7 @@
         'modalItem'
     ];
 
-    function localeLanguageModalController(
+    function countriesManageModalController(
         $scope,
         $rootScope,
         $uibModalInstance,
@@ -30,19 +30,25 @@
         $scope.hasPower = hasPower;
         $scope.modalItem = angular.copy(modalItem);
 
-        console.log(modalItem,'modalItem');
-
         // 初始化table数据
         $scope.initMethodsNameModalData = function () {
             if(edit==2){
-                $scope.modalItem.supported = $scope.supportedOptions[1].value
+                $scope.modalItem = {
+                    "iso": "",
+                    "iso3": "",
+                    "numcode": '',
+                    "name": "",
+                    "phoneCode": '',
+                    "currencyCode": $scope.currencyOptions[0].value,
+                    "niceName": "",
+                }
             }
         };
 
         //$rootScope.toasterSuccess(res.data.msg);;
         $scope.confirmModal = function () {
             if (edit==2) {
-                adminService.postReq($rootScope.URL.LOCALELANGUAGE.POST, {}, $scope.modalItem).then(function (res) {
+                adminService.postReq($rootScope.URL.COUNTRIESMANAGE.POST, {}, $scope.modalItem).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -54,7 +60,7 @@
                     }
                 });
             } else if (edit==3) {
-                adminService.patchReq($rootScope.URL.LOCALELANGUAGE.PATCH+'/'+$scope.modalItem.code, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.COUNTRIESMANAGE.PATCH+'/'+modalItem.iso, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
