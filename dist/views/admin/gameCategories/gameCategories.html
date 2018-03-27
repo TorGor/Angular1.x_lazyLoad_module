@@ -33,7 +33,7 @@
                            <!--<button class="btn btn-sm btn-info" ng-click="showGameCategoriesNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>-->
                            <!--</span>-->
                         </td>
-                        <td style="white-space: nowrap;" ng-show='validPower("GAMECATEGORIES", ["PATCH", "DELETE"])'>
+                        <td style="white-space: nowrap;" ng-show='validPower("GAMECATEGORIES", ["PATCH", "DELETE", "GET"])'>
                            <button class="btn btn-sm btn-info" ng-show='validPower("GAMECATEGORIES", ["PATCH"])' ng-click="showGameCategoriesModal(item,3)" title="{{'table.button.edit' | translate}}">
                               <em class="fa fa-pencil"></em>
                            </button>
@@ -46,7 +46,7 @@
                         </td>
                      </tr>
                      <tr ng-show="showGameCategories.length==0">
-                        <td colspan='{{validPower("GAMECATEGORIES", ["PATCH", "DELETE"])?2:1}}' class="">{{'table.no_date' | translate}}</td>
+                        <td colspan='{{validPower("GAMECATEGORIES", ["PATCH", "DELETE", "GET"])?2:1}}' class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

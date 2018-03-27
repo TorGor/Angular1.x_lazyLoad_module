@@ -50,7 +50,7 @@
                                 <!--</span>-->
                             </td>
                             <td
-                                style="white-space: nowrap;" ng-show='validPower("GAMECATEGORIES", ["PATCH", "DELETE"])'
+                                style="white-space: nowrap;" ng-show='validPower("GAMECATEGORIES", ["PATCH", "DELETE", "GET"])'
                             >
                                 <button
                                     class="btn btn-sm btn-info"
@@ -76,7 +76,7 @@
                         </tr>
                         <tr ng-show="showGameCategories.length==0">
                             <td
-                                colspan='{{validPower("GAMECATEGORIES", ["PATCH", "DELETE"])?2:1}}'
+                                colspan='{{validPower("GAMECATEGORIES", ["PATCH", "DELETE", "GET"])?2:1}}'
                                 class=""
                             >{{'table.no_date' | translate}}</td>
                         </tr>

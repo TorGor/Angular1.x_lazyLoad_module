@@ -8,26 +8,26 @@
          <div class="panel-wrapper">
             <div class="panel-body">
                <form class="form-horizontal" name="myForm">
-                  <div class="form-group col-lg-6 col-md-12">
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
                      <label class="col-lg-4 col-md-6 control-label">{{'table.localeLanguage.th1' | translate}}</label>
                      <div class="col-lg-8 col-md-6">
-                        <input ng-model="modalItem.code" name='code' required ng-disabled='!hasPower||edit==3' class="form-control" type="text" placeholder="string">
-                        <span class='text-danger' ng-show="myForm.code.$dirty&&myForm.code.$invalid">
+                        <input ng-model="modalItem.code" name='code' required ng-disabled='!hasPower||edit==3' class="form-control" type="text" ng-pattern='/^[^/]*$/' placeholder="string no '/'">
+                        <span class='text-danger valid-error' ng-show="myForm.code.$dirty&&myForm.code.$invalid">
                            {{checkRequiredData()}}
                         </span>
                      </div>
                   </div>
-                  <div class="form-group col-lg-6 col-md-12">
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
                      <label class="col-lg-4 col-md-6 control-label">{{'table.localeLanguage.th2' | translate}}</label>
                      <div class="col-lg-8 col-md-6">
                         <input ng-model="modalItem.name" name='name' required ng-disabled='!hasPower' class="form-control" type="text" placeholder="eg. zh-CN">
-                        <span class='text-danger' ng-show="myForm.name.$dirty&&myForm.name.$invalid">
+                        <span class='text-danger valid-error' ng-show="myForm.name.$dirty&&myForm.name.$invalid">
                            {{checkRequiredData()}}
                         </span>
                      </div>
                   </div>
                   <div class="clearfix"></div>
-                  <div class="form-group col-lg-6 col-md-12">
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
                      <label class="col-lg-4 col-md-6 control-label">{{'table.localeLanguage.th3' | translate}}
                      </label>
                      <div class="col-lg-8 col-md-6">
@@ -50,7 +50,7 @@
 </div>
 
 <div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-disabled='myForm.$invalid' ng-show="hasPower" ng-click="confirmModal()">{{'table.button.save' | translate}}
+   <button class="btn btn-primary" type="button" ng-disabled='!myForm.$dirty||myForm.$invalid' ng-show="hasPower" ng-click="confirmModal()">{{'table.button.save' | translate}}
    </button>
    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
 </div>
