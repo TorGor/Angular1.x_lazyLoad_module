@@ -30,7 +30,7 @@
 
         $scope.hasPower = hasPower;
 
-        if(edit){
+        if(edit==3||edit==1){
             $scope.couponsItem = angular.copy(couponsItem)
             if(!$scope.couponsItem.treatments || !$scope.couponsItem.treatments.length){
                 $scope.couponsItem.treatments = [
@@ -57,7 +57,7 @@
                     }
                 })
             }
-        }else{
+        }else if (edit==2){
             $scope.couponsItem = {
                 code: '',
                 name: '',
@@ -265,7 +265,7 @@
                     }
                 })
             }
-            if (!edit) {
+            if (edit==2) {
                 adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -277,7 +277,7 @@
                         }
                     }
                 });
-            } else if (edit) {
+            } else if (edit==3) {
                 adminService.patchReq($rootScope.URL.COUPONSMANAGE.PATCH+'/'+couponsItem.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -302,7 +302,7 @@
                 return 'min 0.01';
             }
             return true;
-        }
+        };
 
         // 页面加载执行的函数
 

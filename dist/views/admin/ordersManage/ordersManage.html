@@ -103,16 +103,16 @@
                         <td>
                            <span>{{item.user.userId.substr(0,10)}}</span>
                         </td>
-                        <td style="white-space: nowrap;">
+                        <td style="white-space: nowrap;" ng-show='validPower("ORDERSMANAGE", ["GETDETAIL"])'>
                            <div class="buttons">
-                              <button class="btn btn-sm btn-green" ng-click="ordersDetailManage(item)" title="{{'table.button.detail' | translate}}">
+                              <button class="btn btn-sm btn-green" ng-show='validPower("ORDERSMANAGE", ["GETDETAIL"])' ng-click="ordersDetailManage(item)" title="{{'table.button.detail' | translate}}">
                                  <em class="fa fa-folder-open-o"></em>
                               </button>
                            </div>
                         </td>
                      </tr>
                      <tr ng-show="ordersManage.length==0">
-                        <td colspan="7" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan='{{validPower("ORDERSMANAGE", ["GETDETAIL"])?7:6}}' class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

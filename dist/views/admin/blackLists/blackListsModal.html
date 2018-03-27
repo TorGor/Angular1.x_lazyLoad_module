@@ -1,0 +1,55 @@
+<div class="modal-header">
+   <h3 class="modal-title">{{showEditStatus(edit)+'银行黑名单'}}</h3>
+</div>
+
+<div class="modal-body">
+   <div class="row">
+      <div class="">
+         <div class="panel-wrapper">
+            <div class="panel-body">
+               <form class="form-horizontal" name="myForm">
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">{{'table.blackLists.th1' | translate}}</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.accountNumber" name='accountNumber' required ng-disabled='!hasPower||edit==3' class="form-control" type="text" ng-pattern='/^[0-9]{9,19}$/' placeholder="9-19 number">
+                        <span class='text-danger valid-error' ng-show="myForm.accountNumber.$dirty&&myForm.accountNumber.$invalid">
+                           {{'9-19 number'}}
+                        </span>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">{{'table.blackLists.th2' | translate}}</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.comment" name='comment' required ng-disabled='!hasPower' class="form-control" type="text" ng-maxlength='191' placeholder="max 191 char">
+                        <span class='text-danger valid-error' ng-show="myForm.comment.$dirty&&myForm.comment.$invalid">
+                           {{'max 191 char'}}
+                        </span>
+                     </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">{{'table.blackLists.th3' | translate}}</label>
+                     <div class="col-lg-8 col-md-6">
+                        <ui-select ng-model="modalItem.type" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
+                           <ui-select-match placeholder="choose type">
+                              <span ng-bind="$select.selected.label"></span>
+                           </ui-select-match>
+                           <ui-select-choices repeat="item.value as item in typeOptions">
+                              <span ng-bind="item.label"></span>
+                           </ui-select-choices>
+                        </ui-select>
+                     </div>
+                  </div>
+                  <div class="clearfix"></div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal-footer">
+   <button class="btn btn-primary" type="button" ng-disabled='!myForm.$dirty||myForm.$invalid' ng-show="hasPower" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+   <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
+</div>
+

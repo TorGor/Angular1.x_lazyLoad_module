@@ -387,21 +387,6 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <legend class="text-center">用户等级</legend>
-                        <form class="form-horizontal">
-                            <div class="col-lg-6 col-xs-12" ng-repeat="rank in ranksOptions">
-                                <div class="checkbox c-checkbox needsclick">
-                                    <label class="needsclick">
-                                        <input
-                                            class="needsclick" ng-disabled='!hasPower'
-                                            ng-click="selectRank(rank.value, $event)"
-                                            ng-checked="couponsItem.ranks.indexOf(rank.value) !== -1" type="checkbox"
-                                            ng-value="rank.value"
-                                        >
-                                        <span class="fa fa-check"></span>{{rank.label}}</label>
-                                </div>
-                            </div>
-                        </form>
                         <legend class="text-center">条件</legend>
                         <div class="">
                             <span class="form-group add-button-class">
@@ -537,6 +522,21 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
+                        <legend class="text-center">用户等级</legend>
+                        <form class="form-horizontal">
+                            <div class="col-lg-6 col-xs-12" ng-repeat="rank in ranksOptions">
+                                <div class="checkbox c-checkbox needsclick">
+                                    <label class="needsclick">
+                                        <input
+                                            class="needsclick" ng-disabled='!hasPower'
+                                            ng-click="selectRank(rank.value, $event)"
+                                            ng-checked="couponsItem.ranks.indexOf(rank.value) !== -1" type="checkbox"
+                                            ng-value="rank.value"
+                                        >
+                                        <span class="fa fa-check"></span>{{rank.label}}</label>
+                                </div>
+                            </div>
+                        </form>
                     </form>
                 </div>
             </div>

@@ -226,14 +226,7 @@
             $scope.couponsManageReload++
         };
 
-
-        // 编辑
-        /**
-         *
-         * @param couponsManage COUPONSMANAGETITLE数据对象
-         */
-
-        $scope.editCouponsManage = function (couponsManage) {
+        $scope.showCouponsManageModal = function (item,edit) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -243,9 +236,9 @@
                 scope: $scope,
                 size: 'lg',
                 resolve:{
-                    couponsItem:couponsManage,
-                    edit:true,
-                    hasPower:$scope.hasPower
+                    couponsItem:item,
+                    edit:edit,
+                    hasPower:$scope.hasPower&&edit!==1
                 }
             });
             modalInstance.result.then(function(data) {
@@ -298,28 +291,6 @@
                     });
                 });
             }
-        };
-
-        // 添加按钮
-        $scope.addCouponsManage = function () {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/couponsManage/couponsManageModal.html',
-                controller: 'addCouponsController',
-                scope: $scope,
-                size: 'lg',
-                resolve:{
-                    couponsItem:false,
-                    edit:false,
-                    hasPower:$scope.hasPower
-                }
-            });
-            modalInstance.result.then(function(data) {
-                $scope.initOrdersManageData()
-            }, function(data) {
-            });
         };
 
         /**

@@ -37,9 +37,10 @@
                                     label:objItem.code||'',
                                     value:objItem.code||''
                                 };
-                                if(!objItem.disabled){
-                                    $scope.walletOptions.push(tempObj)
-                                }
+                                $scope.walletOptions.push(tempObj)
+                                //if(!objItem.disabled){
+                                //    $scope.walletOptions.push(tempObj)
+                                //}
                             })
                         }
                     } else {
@@ -63,9 +64,10 @@
                                     label:objItem.code||'',
                                     value:objItem.code||''
                                 };
-                                if(!objItem.disabled){
-                                    $scope.methodOptions.push(tempObj)
-                                }
+                                $scope.methodOptions.push(tempObj)
+                                //if(!objItem.disabled){
+                                //    $scope.methodOptions.push(tempObj)
+                                //}
                             })
                         }
                     } else {

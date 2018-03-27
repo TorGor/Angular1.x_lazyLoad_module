@@ -33,14 +33,14 @@
 (function() {
 
     angular
-        .module('admin.blackLists', [
+        .module('admin.appliesUse', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.appliesUse', [
+        .module('admin.blackLists', [
             'app.core',
         ]);
 })();
@@ -368,6 +368,219 @@
 (function() {
 
     angular
+        .module('admin.appliesUse')
+        .controller('AppliesUseAuditModalController', AppliesUseAuditModalController);
+
+    AppliesUseAuditModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'adminService',
+        'item',
+        '$translate'
+    ];
+
+    function AppliesUseAuditModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        adminService,
+        item,
+        $translate
+    ) {
+        $scope.resultOptions = [
+            {
+                label:'pass',
+                value:'pass'
+            },
+            {
+                label:'rejected',
+                value:'rejected'
+            },
+            {
+                label:'pending',
+                value:'pending'
+            }
+        ];
+
+        $scope.appliesUseSaveAudit = {
+            result: $scope.resultOptions[0].value,
+            comment: '',
+            adminId: window.userInfo && window.userInfo.adminId || ''
+        };
+
+        $scope.confirmModal = function () {
+            adminService.postReq($rootScope.URL.ORDERSMANAGE.POST+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $uibModalInstance.close('success');
+                        $rootScope.toasterSuccess(res.data.msg);
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.appliesUse')
+        .controller('AppliesUseRevokeModalController', AppliesUseRevokeModalController);
+
+    AppliesUseRevokeModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'adminService',
+        'item',
+        '$translate'
+    ];
+
+    function AppliesUseRevokeModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        adminService,
+        item,
+        $translate
+    ) {
+        $scope.resultOptions = [
+            {
+                label:'revoked',
+                value:'revoked'
+            },
+            {
+                label:'succeed',
+                value:'succeed'
+            }
+        ];
+
+        $scope.appliesUseSaveRevoke = {
+            result: $scope.resultOptions[0].value,
+            comment: '',
+            adminId: window.userInfo && window.userInfo.adminId || ''
+        };
+
+        $scope.confirmModal = function () {
+            adminService.patchReq($rootScope.URL.ORDERSMANAGE.PATCH+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $uibModalInstance.close('success');
+                        $rootScope.toasterSuccess(res.data.msg);
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.appliesUse')
+        .controller('AppliesUseController', AppliesUseController);
+
+    AppliesUseController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModal',
+        'adminService'
+    ];
+
+    function AppliesUseController(
+        $scope,
+        $rootScope,
+        $uibModal,
+        adminService
+    ) {
+
+        $scope.appliesUseUrl = $rootScope.URL.APPLIESUSE.GET;
+
+        // 原始的数据
+        $scope.appliesUse = [];
+
+        // 过滤出来的数据
+        $scope.showAppliesUse = [];
+        $scope.appliesUseReload = 1;
+        $scope.appliesUseAoData = {};
+
+        // 初始化table数据
+        $scope.initAppliesUseData = function () {
+            $scope.appliesUseReload++;
+        };
+
+        $scope.appliesUseAudit = function (item) {
+            if(!item.id){
+                $rootScope.alertErrorMsg('server data error');
+                return;
+            }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/appliesUse/appliesUseAuditModal.html',
+                controller: 'AppliesUseAuditModalController',
+                resolve: {
+                    item: item
+                },
+                size: 'lg',
+            });
+            modalInstance.result.then(function(data) {
+                $scope.initAppliesUseData()
+            }, function(data) {
+            });
+        };
+
+
+        $scope.appliesUseRevoke = function (item) {
+            if(!item.id){
+                $rootScope.alertErrorMsg('server data error');
+                return;
+            }
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/appliesUse/appliesUseRevokeModal.html',
+                controller: 'AppliesUseRevokeModalController',
+                resolve: {
+                    item: item
+                },
+                size: 'lg',
+            });
+            modalInstance.result.then(function(data) {
+                $scope.initAppliesUseData()
+            }, function(data) {
+            });
+        };
+
+
+        // 页面加载执行的函数
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.blackLists')
         .controller('BlackListsController', BlackListsController);
 
@@ -592,219 +805,6 @@
 
         $scope.initMethodsNameModalData();
 
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.appliesUse')
-        .controller('AppliesUseAuditModalController', AppliesUseAuditModalController);
-
-    AppliesUseAuditModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'adminService',
-        'item',
-        '$translate'
-    ];
-
-    function AppliesUseAuditModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        adminService,
-        item,
-        $translate
-    ) {
-        $scope.resultOptions = [
-            {
-                label:'pass',
-                value:'pass'
-            },
-            {
-                label:'rejected',
-                value:'rejected'
-            },
-            {
-                label:'pending',
-                value:'pending'
-            }
-        ];
-
-        $scope.appliesUseSaveAudit = {
-            result: $scope.resultOptions[0].value,
-            comment: '',
-            adminId: window.userInfo && window.userInfo.adminId || ''
-        };
-
-        $scope.confirmModal = function () {
-            adminService.postReq($rootScope.URL.ORDERSMANAGE.POST+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $uibModalInstance.close('success');
-                        $rootScope.toasterSuccess(res.data.msg);
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.appliesUse')
-        .controller('AppliesUseRevokeModalController', AppliesUseRevokeModalController);
-
-    AppliesUseRevokeModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'adminService',
-        'item',
-        '$translate'
-    ];
-
-    function AppliesUseRevokeModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        adminService,
-        item,
-        $translate
-    ) {
-        $scope.resultOptions = [
-            {
-                label:'revoked',
-                value:'revoked'
-            },
-            {
-                label:'succeed',
-                value:'succeed'
-            }
-        ];
-
-        $scope.appliesUseSaveRevoke = {
-            result: $scope.resultOptions[0].value,
-            comment: '',
-            adminId: window.userInfo && window.userInfo.adminId || ''
-        };
-
-        $scope.confirmModal = function () {
-            adminService.patchReq($rootScope.URL.ORDERSMANAGE.PATCH+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $uibModalInstance.close('success');
-                        $rootScope.toasterSuccess(res.data.msg);
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.appliesUse')
-        .controller('AppliesUseController', AppliesUseController);
-
-    AppliesUseController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModal',
-        'adminService'
-    ];
-
-    function AppliesUseController(
-        $scope,
-        $rootScope,
-        $uibModal,
-        adminService
-    ) {
-
-        $scope.appliesUseUrl = $rootScope.URL.APPLIESUSE.GET;
-
-        // 原始的数据
-        $scope.appliesUse = [];
-
-        // 过滤出来的数据
-        $scope.showAppliesUse = [];
-        $scope.appliesUseReload = 1;
-        $scope.appliesUseAoData = {};
-
-        // 初始化table数据
-        $scope.initAppliesUseData = function () {
-            $scope.appliesUseReload++;
-        };
-
-        $scope.appliesUseAudit = function (item) {
-            if(!item.id){
-                $rootScope.alertErrorMsg('server data error');
-                return;
-            }
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/appliesUse/appliesUseAuditModal.html',
-                controller: 'AppliesUseAuditModalController',
-                resolve: {
-                    item: item
-                },
-                size: 'lg',
-            });
-            modalInstance.result.then(function(data) {
-                $scope.initAppliesUseData()
-            }, function(data) {
-            });
-        };
-
-
-        $scope.appliesUseRevoke = function (item) {
-            if(!item.id){
-                $rootScope.alertErrorMsg('server data error');
-                return;
-            }
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/appliesUse/appliesUseRevokeModal.html',
-                controller: 'AppliesUseRevokeModalController',
-                resolve: {
-                    item: item
-                },
-                size: 'lg',
-            });
-            modalInstance.result.then(function(data) {
-                $scope.initAppliesUseData()
-            }, function(data) {
-            });
-        };
-
-
-        // 页面加载执行的函数
     }
 })();
 
@@ -1260,14 +1260,7 @@
             $scope.couponsManageReload++
         };
 
-
-        // 编辑
-        /**
-         *
-         * @param couponsManage COUPONSMANAGETITLE数据对象
-         */
-
-        $scope.editCouponsManage = function (couponsManage) {
+        $scope.showCouponsManageModal = function (item,edit) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -1277,9 +1270,9 @@
                 scope: $scope,
                 size: 'lg',
                 resolve:{
-                    couponsItem:couponsManage,
-                    edit:true,
-                    hasPower:$scope.hasPower
+                    couponsItem:item,
+                    edit:edit,
+                    hasPower:$scope.hasPower&&edit!==1
                 }
             });
             modalInstance.result.then(function(data) {
@@ -1332,28 +1325,6 @@
                     });
                 });
             }
-        };
-
-        // 添加按钮
-        $scope.addCouponsManage = function () {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/couponsManage/couponsManageModal.html',
-                controller: 'addCouponsController',
-                scope: $scope,
-                size: 'lg',
-                resolve:{
-                    couponsItem:false,
-                    edit:false,
-                    hasPower:$scope.hasPower
-                }
-            });
-            modalInstance.result.then(function(data) {
-                $scope.initOrdersManageData()
-            }, function(data) {
-            });
         };
 
         /**
@@ -1421,7 +1392,7 @@
 
         $scope.hasPower = hasPower;
 
-        if(edit){
+        if(edit==3||edit==1){
             $scope.couponsItem = angular.copy(couponsItem)
             if(!$scope.couponsItem.treatments || !$scope.couponsItem.treatments.length){
                 $scope.couponsItem.treatments = [
@@ -1448,7 +1419,7 @@
                     }
                 })
             }
-        }else{
+        }else if (edit==2){
             $scope.couponsItem = {
                 code: '',
                 name: '',
@@ -1656,7 +1627,7 @@
                     }
                 })
             }
-            if (!edit) {
+            if (edit==2) {
                 adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -1668,7 +1639,7 @@
                         }
                     }
                 });
-            } else if (edit) {
+            } else if (edit==3) {
                 adminService.patchReq($rootScope.URL.COUPONSMANAGE.PATCH+'/'+couponsItem.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -1693,7 +1664,7 @@
                 return 'min 0.01';
             }
             return true;
-        }
+        };
 
         // 页面加载执行的函数
 
@@ -4082,9 +4053,10 @@
                                     label:objItem.code||'',
                                     value:objItem.code||''
                                 };
-                                if(!objItem.disabled){
-                                    $scope.walletOptions.push(tempObj)
-                                }
+                                $scope.walletOptions.push(tempObj)
+                                //if(!objItem.disabled){
+                                //    $scope.walletOptions.push(tempObj)
+                                //}
                             })
                         }
                     } else {
@@ -4108,9 +4080,10 @@
                                     label:objItem.code||'',
                                     value:objItem.code||''
                                 };
-                                if(!objItem.disabled){
-                                    $scope.methodOptions.push(tempObj)
-                                }
+                                $scope.methodOptions.push(tempObj)
+                                //if(!objItem.disabled){
+                                //    $scope.methodOptions.push(tempObj)
+                                //}
                             })
                         }
                     } else {

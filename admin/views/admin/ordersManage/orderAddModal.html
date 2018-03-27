@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">{{'添加order'}}</h3>
+    <h3 class="modal-title">{{'添加充值记录'}}</h3>
 </div>
 
 <div class="modal-body">
@@ -7,23 +7,27 @@
         <div class="">
             <div class="panel-wrapper">
                 <div class="panel-body">
-                    <form class="form-horizontal">
-                        <div class="form-group">
+                    <form class="form-horizontal" name="myForm">
+                        <div class="form-group margin-bottom-20">
                             <label class="col-lg-2 control-label">订单号</label>
                             <div class="col-lg-10">
-                                <input ng-model="orderAdd.order_no" class="form-control" type="text" placeholder="order no">
+                                <input ng-model="orderAdd.order_no" ng-pattern='/^[0-9a-ZA-Z]$/' class="form-control" required type="text" placeholder="order no eg. 999xxxXXX">
+                                <span class='text-danger valid-error'
+                                      ng-show="myForm.order_no.$dirty&&myForm.order_no.$invalid">
+                                    {{'only 0-9 a-z A-Z'}}
+                                </span>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group margin-bottom-20">
                             <label class="col-lg-2 control-label">交易号</label>
                             <div class="col-lg-10">
-                                <input ng-model="orderAdd.trade_no" class="form-control" type="text" placeholder="trade no">
+                                <input ng-model="orderAdd.trade_no" class="form-control" required type="text" placeholder="trade no">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group margin-bottom-20">
                             <label class="col-lg-2 control-label">数量</label>
                             <div class="col-lg-10">
-                                <input ng-model="orderAdd.amount" class="form-control" type="number" placeholder="amount">
+                                <input ng-model="orderAdd.amount" class="form-control" required type="number" placeholder="amount">
                             </div>
                         </div>
                     </form>
@@ -34,6 +38,6 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-disabled="!orderAdd.order_no||!orderAdd.trade_no||!orderAdd.amount" ng-click="confirmOrderAddModal()">{{'table.button.save' | translate}}</button>
+    <button class="btn btn-primary" type="button" ng-disabled="ng-disabled='!myForm.$dirty||myForm.$invalid'" ng-click="confirmOrderAddModal()">{{'table.button.save' | translate}}</button>
     <button class="btn btn-default" type="button" ng-click="cancelOrderAddModal()">{{'table.button.cancel' | translate}}</button>
 </div>
