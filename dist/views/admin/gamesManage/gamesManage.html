@@ -3,7 +3,7 @@
       <div class="panel-wrapper">
          <div class="panel-body">
             <span class="form-group add-button-class">
-               <button ng-show='validPower("GAMESMANAGE", ["POST"])' class="btn btn-primary" ng-click="addGamesManage()" type="button" translate="table.button.add">
+               <button ng-show='validPower("GAMESMANAGE", ["POST"])' class="btn btn-primary" ng-click="showEditGamesManageModal({},2)" type="button" translate="table.button.add">
                   新增
                </button>
             </span>
@@ -167,16 +167,19 @@
                         <!--{{showOptionsValue(item.isRecommend,booleanOptons)}}-->
                         <!--</span>-->
                         <!--</td>-->
-                        <td style="white-space: nowrap;" ng-show='validPower("GAMESMANAGE", ["PATCH"])'>
+                        <td style="white-space: nowrap;" ng-show='validPower("GAMESMANAGE", ["PATCH", "GET"])'>
                            <div class="buttons">
-                              <button class="btn btn-sm btn-info" ng-show='validPower("GAMESMANAGE", ["PATCH"])' ng-click="editGamesManage(item)" title="{{'table.button.edit' | translate}}">
+                              <button class="btn btn-sm btn-info" ng-show='validPower("GAMESMANAGE", ["PATCH", "GET"])' ng-click="showEditGamesManageModal(item,3)" title="{{'table.button.edit' | translate}}">
                                  <em class="fa fa-pencil"></em>
+                              </button>
+                              <button class="btn btn-sm btn-green" ng-click="showEditGamesManageModal(item,1)" title="{{'table.button.detail' | translate}}">
+                                 <em class="fa fa-folder-open-o"></em>
                               </button>
                            </div>
                         </td>
                      </tr>
                      <tr ng-show="gamesManage.length==0">
-                        <td colspan='{{validPower("GAMESMANAGE", ["PATCH"])?10:9}}' class="">{{'table.no_date' | translate}}</td>
+                        <td colspan='{{validPower("GAMESMANAGE", ["PATCH", "GET"])?10:9}}' class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

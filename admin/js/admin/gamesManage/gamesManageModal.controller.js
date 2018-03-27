@@ -30,7 +30,7 @@
 
         $scope.hasPower = hasPower;
 
-        if(edit){
+        if(edit == 3||edit ==1){
             $scope.gamesItem = angular.copy(gamesItem)
         }else{
             $scope.gamesItem = {
@@ -194,8 +194,7 @@
                 tempData.name = angular.copy(tempNameObj)
             }
             console.log(tempData,'tempData9999')
-            if (!edit) {
-                alert(111)
+            if (edit==2) {
                 adminService.postReq($rootScope.URL.GAMESMANAGE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -207,7 +206,7 @@
                         }
                     }
                 });
-            } else if (edit) {
+            } else if (edit==3) {
                 adminService.patchReq($rootScope.URL.GAMESMANAGE.PATCH+'/'+gamesItem.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {

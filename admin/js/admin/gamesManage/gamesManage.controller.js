@@ -170,13 +170,7 @@
         };
 
 
-        // 保存
-        /**
-         *
-         * @param game GAMESMANAGETITLE数据对象
-         */
-
-        $scope.editGamesManage = function (game) {
+        $scope.showEditGamesManageModal = function (game,edit) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -187,8 +181,8 @@
                 size: 'lg',
                 resolve:{
                     gamesItem:game,
-                    edit:true,
-                    hasPower:$scope.hasPower
+                    edit:edit,
+                    hasPower:$scope.hasPower && edit!==1
                 }
             });
             modalInstance.result.then(function(data) {
