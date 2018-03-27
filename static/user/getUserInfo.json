@@ -1018,7 +1018,7 @@
                             {
                                 "id": "402883a961cb77290161cbb401a30008",
                                 "btnName": "删除",
-                                "btnType": "2",
+                                "btnType": "4",
                                 "btnCode": "",
                                 "btnUrl": "/rest/deleteCountries",
                                 "btnStatus": "1",

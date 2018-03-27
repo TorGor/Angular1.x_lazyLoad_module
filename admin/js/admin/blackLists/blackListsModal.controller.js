@@ -44,8 +44,9 @@
         };
 
         $scope.confirmModal = function () {
+            var tempData = angular.copy($scope.modalItem);
             if (edit==2) {
-                adminService.postReq($rootScope.URL.BLACKLISTS.POST, {}, $scope.modalItem).then(function (res) {
+                adminService.postReq($rootScope.URL.BLACKLISTS.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -57,7 +58,7 @@
                     }
                 });
             } else if (edit==3) {
-                adminService.patchReq($rootScope.URL.BLACKLISTS.PATCH+'/'+modalItem.accountNumber, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.BLACKLISTS.PATCH+'/'+tempData.accountNumber, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {

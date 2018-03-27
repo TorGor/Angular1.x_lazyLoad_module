@@ -88,7 +88,7 @@
          * @return null
          */
         $scope.deleteCurrenciesManage = function (currenciesManage) {
-            if (currenciesManage.id) {
+            if (currenciesManage.code) {
                 $rootScope.alertConfirm(function () {
                     adminService.deleteReq($rootScope.URL.CURRENCIESMANAGE.DELETE+'/'+currenciesManage.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
