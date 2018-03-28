@@ -100,78 +100,103 @@
                   <div class="clearfix"></div>
                   <legend class="text-center">详细</legend>
                   <div class="form-group" ng-repeat="item in orderDetail.details">
-                     <p class="col-lg-3 control-label text-right">支付渠道代码</p>
-                     <div class="col-lg-9">
-                        <p>{{item.method_code}}</p>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right control-label">支付渠道代码({{$index+1}})</label>
+                        <div class="col-lg-7">
+                           <input ng-model="item.method_code" disabled='true' class="form-control" type="text">
+                        </div>
                      </div>
                      <div class="clearfix"></div>
-                     <p class="col-lg-3 control-label text-right">psp</p>
-                     <div class="col-lg-9">
-                        <p>{{item.psp}}</p>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right control-label">psp({{$index+1}})</label>
+                        <div class="col-lg-7">
+                           <input ng-model="item.psp" disabled='true' class="form-control" type="text">
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right control-label">sequence({{$index+1}})</label>
+                        <div class="col-lg-7">
+                           <input ng-model="item.sequence" disabled='true' class="form-control" type="text">
+                        </div>
                      </div>
                      <div class="clearfix"></div>
-                     <p class="col-lg-3 control-label text-right">sequence</p>
-                     <div class="col-lg-9">
-                        <p>{{item.sequence}}</p>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right control-label">类型({{$index+1}})</label>
+                        <div class="col-lg-7">
+                           <input ng-model="item.type" disabled='true' class="form-control" type="text">
+                        </div>
                      </div>
                      <div class="clearfix"></div>
-                     <p class="col-lg-3 control-label text-right">类型</p>
-                     <div class="col-lg-9">
-                        <p>{{item.type}}</p>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right control-label">payload amount({{$index+1}})</label>
+                        <div class="col-lg-7">
+                           <input ng-model="item.payload.amount" disabled='true' class="form-control" type="text">
+                        </div>
                      </div>
                      <div class="clearfix"></div>
-                     <p class="col-lg-3 control-label text-right">payload amount</p>
-                     <div class="col-lg-9">
-                        <p>{{item.payload.amount}}</p>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right control-label">payload merchant_id({{$index+1}})</label>
+                        <div class="col-lg-7">
+                           <input ng-model="item.payload.merchant_id" disabled='true' class="form-control" type="text">
+                        </div>
                      </div>
                      <div class="clearfix"></div>
-                     <p class="col-lg-3 control-label text-right">payload merchant_id</p>
-                     <div class="col-lg-9">
-                        <p>{{item.payload.merchant_id}}</p>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right control-label">payload notify_url({{$index+1}})</label>
+                        <div class="col-lg-7">
+                           <input ng-model="item.payload.notify_url" disabled='true' class="form-control" type="text">
+                        </div>
                      </div>
                      <div class="clearfix"></div>
-                     <p class="col-lg-3 control-label text-right">payload notify_url</p>
-                     <div class="col-lg-9">
-                        <p>{{item.payload.notify_url}}</p>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right control-label">payload order_no({{$index+1}})</label>
+                        <div class="col-lg-7">
+                           <input ng-model="item.payload.order_no" disabled='true' class="form-control" type="text">
+                        </div>
                      </div>
                      <div class="clearfix"></div>
-                     <p class="col-lg-3 control-label text-right">payload order_no</p>
-                     <div class="col-lg-9">
-                        <p>{{item.payload.order_no}}</p>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right control-label">payload product_name({{$index+1}})</label>
+                        <div class="col-lg-7">
+                           <input ng-model="item.payload.product_name" disabled='true' class="form-control" type="text">
+                        </div>
                      </div>
                      <div class="clearfix"></div>
-                     <p class="col-lg-3 control-label text-right">payload product_name</p>
-                     <div class="col-lg-9">
-                        <p>{{item.payload.product_name}}</p>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right control-label">payload service_type({{$index+1}})</label>
+                        <div class="col-lg-7">
+                           <input ng-model="item.payload.service_type" disabled='true' class="form-control" type="text">
+                        </div>
                      </div>
                      <div class="clearfix"></div>
-                     <p class="col-lg-3 control-label text-right">payload service_type</p>
-                     <div class="col-lg-9">
-                        <p>{{item.payload.service_type}}</p>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right control-label">payload sign({{$index+1}})</label>
+                        <div class="col-lg-7">
+                           <input ng-model="item.payload.sign" disabled='true' class="form-control" type="text">
+                        </div>
                      </div>
                      <div class="clearfix"></div>
-                     <p class="col-lg-3 control-label text-right">payload sign</p>
-                     <div class="col-lg-9">
-                        <p>{{item.payload.sign}}</p>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right control-label">payload sign_type({{$index+1}})</label>
+                        <div class="col-lg-7">
+                           <input ng-model="item.payload.sign_type" disabled='true' class="form-control" type="text">
+                        </div>
                      </div>
                      <div class="clearfix"></div>
-                     <p class="col-lg-3 control-label text-right">payload sign_type</p>
-                     <div class="col-lg-9">
-                        <p>{{item.payload.sign_type}}</p>
-                     </div>
-                     <div class="clearfix"></div>
-                     <p class="col-lg-3 control-label text-right">payload version</p>
-                     <div class="col-lg-9">
-                        <p>{{item.payload.version}}</p>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right control-label">payload version({{$index+1}})</label>
+                        <div class="col-lg-7">
+                           <input ng-model="item.payload.version" disabled='true' class="form-control" type="text">
+                        </div>
                      </div>
                      <div class="clearfix"></div>
                   </div>
                   <div class="clearfix"></div>
                   <legend class="text-center">其他</legend>
                   <div class="form-group">
-                     <p class="col-lg-3 control-label text-right">附件</p>
-                     <div class="col-lg-9">
-                        <p>{{orderDetail.extra?orderDetail.extra:''}}</p>
+                     <label class="col-lg-3 text-right control-label">附件</label>
+                     <div class="col-lg-7">
+                        <input value="{{orderDetail.extra?orderDetail.extra:''}}" disabled='true' class="form-control" type="text">
                      </div>
                   </div>
                   <div class="clearfix"></div>
