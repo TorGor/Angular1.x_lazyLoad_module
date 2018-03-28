@@ -23,11 +23,9 @@
         };
 
         $scope.brandOptions = [];
-        $scope.brandSearchOptions = [];
 
         $scope.initBrandOptionsData = function () {
             $scope.brandOptions = [];
-            $scope.brandSearchOptions = [];
             adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -38,10 +36,7 @@
                                     label:objItem.code||'',
                                     value:objItem.code||''
                                 };
-                                $scope.brandSearchOptions.push(tempObj)
-                                 if(objItem.supported){
-                                     $scope.brandOptions.push(tempObj)
-                                 }
+                                $scope.brandOptions.push(tempObj)
                             })
                         }
                     } else {

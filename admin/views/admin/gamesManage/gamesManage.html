@@ -44,7 +44,7 @@
                             <ui-select-match placeholder='choose brand code'>
                                 <span>{{$select.selected.label}}</span>
                             </ui-select-match>
-                            <ui-select-choices repeat="item.value as item in brandSearchOptions">
+                            <ui-select-choices repeat="item.value as item in brandOptions">
                                 <span ng-bind="item.label"></span>
                             </ui-select-choices>
                         </ui-select>
@@ -56,7 +56,7 @@
                             multiple
                             close-on-select="false"
                             search-enabled="false">
-                            <ui-select-match placeholder='choose wallet'>
+                            <ui-select-match placeholder='choose categories'>
                                 <span>{{$item.label.substr(0,20)+'...'}}</span>
                             </ui-select-match>
                             <ui-select-choices repeat="item.value as item in categoriesOptions">
