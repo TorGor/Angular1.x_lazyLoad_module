@@ -95,7 +95,7 @@
                 }
             });
             modalInstance.result.then(function (data) {
-                $scope.gamesProductsReload++;
+                $scope.initGamesProductsData();
             }, function (data) {
 
             });

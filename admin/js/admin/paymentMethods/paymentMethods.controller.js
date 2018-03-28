@@ -112,7 +112,7 @@
                 }
             });
             modalInstance.result.then(function (data) {
-                $scope.paymentMethodsReload++;
+                $scope.initPaymentMethodsData();
             }, function (data) {
 
             });

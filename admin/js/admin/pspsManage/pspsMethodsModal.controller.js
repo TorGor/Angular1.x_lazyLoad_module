@@ -11,7 +11,8 @@
         '$translate',
         'adminService',
         'hasPower',
-        'PspsMethodsItem'
+        'edit',
+        'modalItem'
     ];
 
     function pspsMethodsModalController(
@@ -21,10 +22,13 @@
         $translate,
         adminService,
         hasPower,
-        PspsMethodsItem
+        edit,
+        modalItem
     ) {
 
         $scope.hasPower = hasPower;
+        $scope.edit = edit;
+        $scope.modalItem = modalItem;
 
         // 原始的数据
         $scope.pspsMethodsModal = [];
@@ -35,23 +39,31 @@
         $scope.pspsMethodsModalAoData = {};
         $scope.pspsMethodsModalSearch = '';
 
-        var basePspsMethods = angular.copy(PspsMethodsItem);
-
         // 初始化table数据
         $scope.initPspsMethodsModalData = function () {
             $scope.pspsMethodsModal = [];
-            console.log(PspsMethodsItem,'PspsMethodsItem')
-            if(PspsMethodsItem['methods'].length){
-                $scope.pspsMethodsModal = PspsMethodsItem['methods'];
-                $scope.pspsMethodsModal.forEach(function (pspsMethodsItem, pspsMethodsIndex) {
-                    pspsMethodsItem.id = pspsMethodsIndex + 1;
-                    if(pspsMethodsItem['extra_setting'] && pspsMethodsItem['extra_setting']['bank'] && window.Array.isArray(pspsMethodsItem['extra_setting']['bank'])){
-                        pspsMethodsItem['extra_setting']['bank'] = pspsMethodsItem['extra_setting']['bank'].join(',')
-                    }else{
-                        pspsMethodsItem['extra_setting'] = {};
-                        pspsMethodsItem['extra_setting']['bank'] = '';
-                    }
-                })
+            if(edit==2){
+                $scope.modalItem = {
+                    code: '',
+                    gateway: '',
+                    account: '',
+                    api_key: '',
+                    activated: $scope.activatedOptions[0].value,
+                    methods: []
+                }
+            }else{
+                if(modalItem['methods'].length){
+                    $scope.pspsMethodsModal = modalItem['methods'];
+                    $scope.pspsMethodsModal.forEach(function (pspsMethodsItem, pspsMethodsIndex) {
+                        pspsMethodsItem.id = pspsMethodsIndex + 1;
+                        if(pspsMethodsItem['extra_setting'] && pspsMethodsItem['extra_setting']['bank'] && window.Array.isArray(pspsMethodsItem['extra_setting']['bank'])){
+                            pspsMethodsItem['extra_setting']['bank'] = pspsMethodsItem['extra_setting']['bank'].join(',')
+                        }else{
+                            pspsMethodsItem['extra_setting'] = {};
+                            pspsMethodsItem['extra_setting']['bank'] = '';
+                        }
+                    })
+                }
             }
         };
 
@@ -106,12 +118,12 @@
 
         /**
          *
-         * @param PspsMethodsItem 添加的渠道名称
+         * @param modalItem 添加的渠道名称
          * @param index 添加的index
          */
 
-        $scope.cancelSaveModal = function (PspsMethodsItem, index) {
-            if ($scope.validIsNew(PspsMethodsItem.id)) {
+        $scope.cancelSaveModal = function (modalItem, index) {
+            if ($scope.validIsNew(modalItem.id)) {
                 $scope.pspsMethodsModal.splice(index, 1);
             }
         };
@@ -131,18 +143,37 @@
                     }
                 }
             });
-            basePspsMethods.methods = $scope.pspsMethodsModal;
-            $uibModalInstance.close({
-                type:'methods',
-                data:basePspsMethods
-            });
+            var tempData = angular.copy($scope.modalItem);
+            tempData.methods = angular.copy($scope.pspsMethodsModal);
+            if(edit==2){
+                adminService.postReq($rootScope.URL.PSPSMANAGE.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }else if(edit==3){
+                adminService.patchReq($rootScope.URL.PSPSMANAGE.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
         };
 
         $scope.cancelModal = function () {
-            $uibModalInstance.dismiss({
-                type:'methods',
-                data:basePspsMethods
-            });
+            $uibModalInstance.dismiss('cancel');
         };
 
         // 页面加载执行的函数

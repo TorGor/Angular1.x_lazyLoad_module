@@ -1,5 +1,5 @@
 <div class="modal-header">
-   <h3 class="modal-title">{{'支付渠道明细'}}</h3>
+   <h3 class="modal-title">{{showEditStatus(edit)+'充值服务供应商'}}</h3>
 </div>
 
 <div class="modal-body">
@@ -7,6 +7,63 @@
       <div class="">
          <div class="panel-wrapper">
             <div class="panel-body">
+               <form class="form-horizontal" name='myForm'>
+                  <legend class="text-center">概况</legend>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">code</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.code" name='code' ng-pattern='/^[A-Z]{1,10}$/' ng-disabled='!hasPower||edit==3' required class="form-control" type="text" placeholder="A-Z max 10 char">
+                        <span class='text-danger valid-error' ng-show="myForm.code.$dirty&&myForm.code.$invalid">
+                           {{'A-Z max 10 char'}}
+                        </span>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">网关</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.gateway" name='gateway' ng-pattern='/^http/' ng-disabled='!hasPower' required class="form-control" type="text" placeholder="should be url">
+                        <span class='text-danger valid-error' ng-show="myForm.gateway.$dirty&&myForm.gateway.$invalid">
+                           {{'should be url'}}
+                        </span>
+                     </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">account</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.account" name='account' ng-maxlength='50' ng-disabled='!hasPower' required class="form-control" type="text" placeholder="max 50 char">
+                        <span class='text-danger valid-error' ng-show="myForm.account.$dirty&&myForm.account.$invalid">
+                           {{'max 50 char'}}
+                        </span>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">api_key</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.api_key" name='api_key' ng-maxlength='50' ng-disabled='!hasPower' required class="form-control" type="text" placeholder="max 50 char">
+                        <span class='text-danger valid-error' ng-show="myForm.api_key.$dirty&&myForm.api_key.$invalid">
+                           {{'max 50 char'}}
+                        </span>
+                     </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">激活</label>
+                     <div class="col-lg-8 col-md-6">
+                        <ui-select ng-model="modalItem.activated" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
+                           <ui-select-match placeholder="choose activated">
+                              <span ng-bind="$select.selected.label"></span>
+                           </ui-select-match>
+                           <ui-select-choices repeat="item.value as item in activatedOptions">
+                              <span ng-bind="item.label"></span>
+                           </ui-select-choices>
+                        </ui-select>
+                     </div>
+                  </div>
+                  <div class="clearfix"></div>
+               </form>
+               <div class='clearfix'></div>
+               <legend class="text-center">渠道</legend>
                <span class="form-group add-button-class">
                   <button ng-show='hasPower' class="btn btn-primary" ng-click="addPspsMethodsModal()" type="button" translate="table.button.add">
                      新增
@@ -81,8 +138,8 @@
 </div>
 
 <div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-show='hasPower' ng-click="confirmModal()">{{'table.button.save' | translate}}
-   </button>
+   <button class="btn btn-primary" type="button" ng-disabled='!myForm.$dirty||myForm.$invalid' ng-show='hasPower' ng-click="confirmModal()">
+      {{'table.button.save' | translate}}</button>
    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
 </div>
 

@@ -6,7 +6,6 @@
 
     PspsManageController.$inject = [
         '$scope',
-        '$uibModal',
         '$rootScope',
         '$uibModal',
         'adminService'
@@ -14,11 +13,21 @@
 
     function PspsManageController(
         $scope,
-        $uibModal,
         $rootScope,
         $uibModal,
         adminService
     ) {
+
+        $scope.activatedOptions = [
+            {
+                label:'Yes',
+                value:true
+            },
+            {
+                label:'No',
+                value:false
+            }
+        ];
 
         $scope.methodsOptions = [];
 
@@ -72,52 +81,12 @@
             });
         };
 
-
-        // 保存
-        /**
-         *
-         * @param pspsManage PSPSMANAGETITLE数据对象
-         * @param item
-         */
-
-        $scope.savePspsManage = function (pspsManage, item) {
-            var tempData = angular.extend({}, pspsManage, item);
-            if ($scope.validIsNew(tempData._id)) {
-                delete tempData._id;
-                adminService.postReq($rootScope.URL.PSPSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initPspsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(tempData._id) && pspsManage.id) {
-                delete tempData._id;
-                adminService.patchReq($rootScope.URL.PSPSMANAGE.PATCH+'/'+pspsManage.id, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initPspsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
         /**
          * 展示methods弹窗
          * @param item
          */
 
-        $scope.showPspsMethodsModal = function (item) {
+        $scope.showPspsMethodsModal = function (item,edit) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -127,28 +96,15 @@
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    PspsMethodsItem: item,
-                    hasPower:$scope.hasPower
+                    edit: edit,
+                    modalItem: item,
+                    hasPower:$scope.hasPower&&edit!==1
                 }
             });
             modalInstance.result.then(function (data) {
-                if(data.type == 'methods'){
-                    $scope.pspsManage.forEach(function(pspsManageItem) {
-                        if (pspsManageItem.id == data.data.id) {
-                            pspsManageItem[data.type] = angular.copy(data.data[data.type]);
-                            $scope.pspsManageReload++;
-                        }
-                    });
-                }
+                $scope.pspsManageReload++;
             }, function (data) {
-                if(data.type == 'methods'){
-                    $scope.pspsManage.forEach(function(pspsManageItem) {
-                        if (pspsManageItem.id == data.data.id) {
-                            pspsManageItem[data.type] = angular.copy(data.data[data.type]);
-                            $scope.pspsManageReload++;
-                        }
-                    });
-                }
+                $scope.pspsManageReload++;
             });
         };
 
@@ -196,33 +152,6 @@
                         }
                     });
                 });
-            }
-        };
-
-        // 添加按钮
-        $scope.addPspsManage = function () {
-            $scope.pspsManageAoData = {};
-            $scope.pspsManageSearch = '';
-            $scope.pspsManage.unshift({
-                '_id': ($scope.pspsManage.length+1) + 'null',
-                code: '',
-                gateway: '',
-                account: '',
-                api_key: '',
-                activated: true,
-                methods: []
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的PSPSMANAGETITLE
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item._id)) {
-                $scope.pspsManage.splice(index, 1);
             }
         };
 
