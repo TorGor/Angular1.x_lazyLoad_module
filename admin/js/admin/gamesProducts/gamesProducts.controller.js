@@ -47,11 +47,11 @@
         $scope.disabledOptions = [
             {
                 label:'YES',
-                value:'1'
+                value:true
             },
             {
                 label:'No',
-                value:'0'
+                value:false
             }
         ];
 
