@@ -73,9 +73,10 @@
                 needCertification: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
                 ranks: [],
                 codeOnly: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || 'true',
-                isDeleted: $scope.booleanOptons[1] && $scope.booleanOptons[1].value || 'false',
+                isDeleted: $scope.booleanOptons[1] && $scope.booleanOptons[1].value,
                 conditions: [],
                 treatments: [],
+                enabled: $scope.booleanOptons[0].value,
             };
         }
 
