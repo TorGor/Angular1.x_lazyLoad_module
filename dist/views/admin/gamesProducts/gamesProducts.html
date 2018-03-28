@@ -3,7 +3,7 @@
       <div class="panel-wrapper">
          <div class="panel-body">
             <span class="form-group add-button-class">
-               <button ng-show='validPower("GAMESPRODUCTS", ["POST"])' class="btn btn-primary" ng-click="addGamesProducts()" type="button" translate="table.button.add">
+               <button ng-show='validPower("GAMESPRODUCTS", ["POST"])' class="btn btn-primary" ng-click="showGameProductNameModal({},2)" type="button" translate="table.button.add">
                   新增
                </button>
             </span>
@@ -22,48 +22,37 @@
                         <td style="width: 40%" ao-data="gamesProductsAoData" web-data-table-sort="code">
                            {{'table.gamesProducts.th1' | translate}}
                         </td>
-                        <td style="width: 40%" ao-data="gamesProductsAoData" web-data-table-sort="name">
-                           {{'table.gamesProducts.th2' | translate}}
-                        </td>
+                        <!--<td style="width: 40%" ao-data="gamesProductsAoData" web-data-table-sort="name">-->
+                        <!--{{'table.gamesProducts.th2' | translate}}-->
+                        <!--</td>-->
                         <td style="width: 40%" ao-data="gamesProductsAoData" web-data-table-sort="disabled">
                            {{'table.gamesProducts.th3' | translate}}
                         </td>
-                        <td style="width: 17%" ng-show='validPower("GAMESPRODUCTS", ["PATCH"])'>{{'table.button.operation' | translate}}</td>
+                        <td style="width: 17%" ng-show='validPower("GAMESPRODUCTS", ["PATCH","GET"])'>{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
                      <tr ng-repeat="item in showGamesProducts">
                         <td>
-                           <span editable-text="item.code" e-name="code" e-formclass="xeditable-md" onbeforesave="validReg('^[A-Z]{1,10}$', $data, 'A-Z max 10 char')" e-form="rowform" e-placeholder='A-Z max 10 char' e-required="">{{ item.code || '' }}</span>
+                           <span>{{ item.code || '' }}</span>
                         </td>
-                        <td>
-                           <button class="btn btn-sm btn-info" ng-click="showGameProductNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>
-                        </td>
+                        <!--<td>-->
+                        <!--<button class="btn btn-sm btn-info" ng-click="showGameProductNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>-->
+                        <!--</td>-->
                         <td>
                            <span>{{item.disable ? 'Yes' : 'No'}}</span>
                         </td>
-                        <td style="white-space: nowrap;" ng-show='validPower("GAMESPRODUCTS", ["PATCH"])'>
-                           <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveGamesProducts(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item._id)">
-                              <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
-                                 <em class="fa fa-save"></em>
-                              </button>
-                              <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSave(item,$index)" title="{{'table.button.cancel' | translate}}">
-                                 <em class="fa fa-times"></em>
-                              </button>
-                           </form>
-                           <div class="buttons" ng-show="!rowform.$visible">
-                              <button class="btn btn-sm btn-info" ng-show='validPower("GAMESPRODUCTS", ["PATCH"])' ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
-                                 <em class="fa fa-pencil"></em>
-                              </button>
-                              <!--<button class="btn btn-sm btn-danger" ng-click="deleteGamesProducts(item)"-->
-                              <!--title="{{'table.button.delete' | translate}}">-->
-                              <!--<em class="fa fa-trash"></em>-->
-                              <!--</button>-->
-                           </div>
+                        <td style="white-space: nowrap;" ng-show='validPower("GAMESPRODUCTS", ["PATCH","GET"])'>
+                           <button class="btn btn-sm btn-info" ng-show='validPower("GAMESPRODUCTS", ["PATCH"])' ng-click="showGameProductNameModal(item,3)" title="{{'table.button.edit' | translate}}">
+                              <em class="fa fa-pencil"></em>
+                           </button>
+                           <button class="btn btn-sm btn-green" ng-click="showGameProductNameModal(item,1)" title="{{'table.button.detail' | translate}}">
+                              <em class="fa fa-folder-open-o"></em>
+                           </button>
                         </td>
                      </tr>
                      <tr ng-show="showGamesProducts.length==0">
-                        <td colspan='{{validPower("GAMESPRODUCTS", ["PATCH"])?4:3}}' class="">{{'table.no_date' | translate}}</td>
+                        <td colspan='{{validPower("GAMESPRODUCTS", ["PATCH","GET"])?4:3}}' class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

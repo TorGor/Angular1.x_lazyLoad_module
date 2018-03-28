@@ -8,20 +8,21 @@
          <div class="panel-wrapper">
             <div class="panel-body">
                <form class="form-horizontal" name='myForm'>
+                  <legend class="text-center">概况</legend>
                   <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
                      <label class="col-lg-4 col-md-6 control-label">code</label>
                      <div class="col-lg-8 col-md-6">
-                        <input ng-model="modalItem.code" ng-disabled='!hasPower||edit==3' required class="form-control" type="text" placeholder="code">
+                        <input ng-model="modalItem.code" name='code' ng-pattern='/^[^/]*$/' ng-disabled='!hasPower||edit==3' required class="form-control" type="text" placeholder="string no '/'">
+                        <span class='text-danger valid-error' ng-show="myForm.code.$dirty&&myForm.code.$invalid">
+                           {{checkRequiredData()}}
+                        </span>
                      </div>
-                     <span class='text-danger valid-error' ng-show="myForm.code.$dirty&&myForm.code.$invalid">
-                        {{checkRequiredData()}}
-                     </span>
                   </div>
                   <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
                      <label class="col-lg-4 col-md-6 control-label">min</label>
                      <div class="col-lg-8 col-md-6">
                         <input ng-model="modalItem.min" name='min' ng-disabled='!hasPower' required class="form-control" type="number" placeholder="0.01-100000">
-                        <span class='text-danger valid-error' ng-show="myForm.min.$dirty&&myForm.min.$invalid&&!checkPaymentMethodsMinMax(modalItem.min)">
+                        <span class='text-danger valid-error' ng-show="myForm.min.$dirty&&(myForm.min.$invalid||!checkPaymentMethodsMinMax(modalItem.min))">
                            {{'0.01-100000'}}
                         </span>
                      </div>
@@ -31,7 +32,7 @@
                      <label class="col-lg-4 col-md-6 control-label">max</label>
                      <div class="col-lg-8 col-md-6">
                         <input ng-model="modalItem.max" name='max' ng-disabled='!hasPower' required class="form-control" type="number" placeholder="0.01-100000">
-                        <span class='text-danger valid-error' ng-show="myForm.max.$dirty&&myForm.max.$invalid&&!checkPaymentMethodsMinMax(modalItem.max)">
+                        <span class='text-danger valid-error' ng-show="myForm.max.$dirty&&(myForm.max.$invalid||!checkPaymentMethodsMinMax(modalItem.max))">
                            {{'0.01-100000'}}
                         </span>
                      </div>
@@ -78,6 +79,7 @@
                   </div>
                </form>
                <div class='clearfix'></div>
+               <legend class="text-center">名称</legend>
                <span class="form-group add-button-class">
                   <button ng-show="hasPower" class="btn btn-primary" ng-click="addMethodsNameModal()" type="button" translate="table.button.add">
                      新增

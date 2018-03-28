@@ -3610,6 +3610,17 @@
             });
         };
 
+        $scope.disabledOptions = [
+            {
+                label:'YES',
+                value:'1'
+            },
+            {
+                label:'No',
+                value:'0'
+            }
+        ];
+
         // 原始的数据
         $scope.gamesProducts = [];
 
@@ -3626,9 +3637,6 @@
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $scope.gamesProducts = angular.copy(res.data.data);
-                        $scope.gamesProducts.forEach(function (gamesProductsItem, gamesProductsIndex) {
-                            gamesProductsItem._id = gamesProductsIndex +1;
-                        });
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
@@ -3637,107 +3645,25 @@
         };
 
 
-        // 保存
-        /**
-         *
-         * @param gamesProducts GAMESPRODUCTSTITLE数据对象
-         * @param item
-         */
-
-        $scope.saveGamesProducts = function (gamesProducts, item) {
-            var tempData = angular.extend({}, gamesProducts, item);
-            if ($scope.validIsNew(gamesProducts._id)) {
-                delete tempData._id;
-                if(tempData.name && tempData.name.length){
-                    var tempObj = {};
-                    var sameKey = false;
-                    tempData.name.map(function(nameItem) {
-                        if(tempObj[nameItem.locale]){
-                            sameKey = true
-                        }
-                        tempObj[nameItem.locale] = nameItem.value
-                    });
-                    if(sameKey){
-                        $rootScope.alertErrorMsg('you set same local,just remove one');
-                        return '';
-                    }
-                    tempData.name = angular.copy(tempObj)
-                }
-                adminService.postReq($rootScope.URL.GAMESPRODUCTS.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initPaymentMethodsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(gamesProducts._id) && gamesProducts.code) {
-                delete tempData._id;
-                if(tempData.name && tempData.name.length){
-                    var tempObj = {};
-                    var sameKey = false;
-                    tempData.name.map(function(nameItem) {
-                        if(tempObj[nameItem.locale]){
-                            sameKey = true
-                        }
-                        tempObj[nameItem.locale] = nameItem.value
-                    });
-                    if(sameKey){
-                        $rootScope.alertErrorMsg('you set same local,just remove one');
-                        return '';
-                    }
-                    tempData.name = angular.copy(tempObj)
-                }
-                adminService.patchReq($rootScope.URL.GAMESPRODUCTS.PATCH+'/'+gamesProducts.code, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initPaymentMethodsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
-        $scope.showGameProductNameModal = function (item) {
+        $scope.showGameProductNameModal = function (item,edit) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/paymentMethods/paymentMethodsNameModal.html',
-                controller: 'PaymentMethodsNameModalController',
+                templateUrl: '/views/admin/gamesProducts/gamesProductsModal.html',
+                controller: 'gamesProductsModalController',
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    MethodsNameItem: item,
-                    hasPower:$scope.hasPower
+                    edit: edit,
+                    modalItem: item,
+                    hasPower:$scope.hasPower&&edit!==1
                 }
             });
             modalInstance.result.then(function (data) {
-                if(data.type == 'name'){
-                    $scope.gamesProducts.forEach(function(gamesProductsItem) {
-                        if (gamesProductsItem.id == data.data.id) {
-                            gamesProductsItem[data.type] = angular.copy(data.data[data.type]);
-                            $scope.gamesProductsReload++;
-                        }
-                    });
-                }
+                $scope.gamesProductsReload++;
             }, function (data) {
-                if(data.type == 'name'){
-                    $scope.gamesProducts.forEach(function(gamesProductsItem) {
-                        if (gamesProductsItem.id == data.data.id) {
-                            gamesProductsItem[data.type] = angular.copy(data.data[data.type]);
-                            $scope.gamesProductsReload++;
-                        }
-                    });
-                }
+
             });
         };
 
@@ -3765,30 +3691,6 @@
             }
         };
 
-        // 添加按钮
-        $scope.addGamesProducts = function () {
-            $scope.gamesProductsAoData = {};
-            $scope.gamesProductsSearch = '';
-            $scope.gamesProducts.unshift({
-                '_id': ($scope.gamesProducts.length+1) + 'null',
-                'code': '',
-                'name': [],
-                'disabled': true
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的GAMESPRODUCTSTITLE
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item._id)) {
-                $scope.gamesProducts.splice(index, 1);
-            }
-        };
-
         $scope.hasPower = $scope.validPower("GAMESPRODUCTS", ["PATCH", "POST"])
 
         // 页面加载执行的函数
@@ -3800,6 +3702,199 @@
             $scope.initLocalesOptionsData();
 
         }
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.gamesProducts')
+        .controller('gamesProductsModalController', gamesProductsModalController);
+
+    gamesProductsModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        '$translate',
+        'adminService',
+        'hasPower',
+        'edit',
+        'modalItem'
+    ];
+
+    function gamesProductsModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        $translate,
+        adminService,
+        hasPower,
+        edit,
+        modalItem
+    ) {
+
+        $scope.hasPower = hasPower;
+
+        $scope.edit = edit;
+
+        $scope.modalItem = angular.copy(modalItem);
+
+        // 原始的数据
+        $scope.methodsNameModal = [];
+
+        // 过滤出来的数据
+        $scope.showMethodsNameModal = [];
+        $scope.methodsNameModalReload = 1;
+        $scope.methodsNameModalAoData = {};
+        $scope.methodsNameModalSearch = '';
+
+        // 初始化table数据
+        $scope.initMethodsNameModalData = function () {
+            if(edit == 2){
+                $scope.modalItem = {
+                    "code": "",
+                    "disabled": $scope.disabledOptions[1].value,
+                    "name": []
+                }
+            }else{
+                if($scope.modalItem['name']&&$scope.modalItem['name'].length){
+                    $scope.methodsNameModal = $scope.modalItem['name'];
+                    $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
+                        methodsNameItem.id = methodsNameIndex + 1;
+                    })
+                }
+            }
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param methodsNameModal 渠道名称数据对象
+         * @param data
+         */
+
+        $scope.saveMethodsNameModal = function (methodsNameModal, data) {
+            $scope.methodsNameModal.forEach(function (methodsNameModalItem) {
+                if(methodsNameModalItem.id == methodsNameModal.id){
+                    window.Object.assign(methodsNameModalItem, data);
+                    if($scope.validIsNew(methodsNameModalItem.id)){
+                        methodsNameModalItem.id = window.parseInt(methodsNameModalItem.id, 10)
+                        $scope.methodsNameModalReload ++
+                    }
+                }
+            });
+        };
+
+        // 删除rebatesModal
+        /**
+         * @param methodsNameModal 渠道名称数据对象
+         * @param index 位置
+         * @return null
+         */
+        $scope.deleteMethodsNameModal = function (methodsNameModal, index) {
+            $scope.methodsNameModal.splice(index, 1)
+        };
+
+        // 添加按钮
+        $scope.addMethodsNameModal = function () {
+            $scope.methodsNameModalAoData = {};
+            $scope.methodsNameModalSearch = '';
+            $scope.methodsNameModal.unshift({
+                'id': ($scope.methodsNameModal.length+1) + 'null',
+                "locale": $scope.localesOptions[0] ? $scope.localesOptions[0].value : '',
+                "value": ''
+            });
+        };
+
+        /**
+         *
+         * @param modalItem 添加的渠道名称
+         * @param index 添加的index
+         */
+
+        $scope.cancelSaveModal = function (item, index) {
+            if ($scope.validIsNew(item.id)) {
+                $scope.methodsNameModal.splice(index, 1);
+            }
+        };
+
+        $scope.confirmModal = function () {
+            if($scope.methodsNameModal && $scope.methodsNameModal.length){
+                var tempObj = {};
+                var sameKey = false;
+                $scope.methodsNameModal.map(function(nameItem) {
+                    if(tempObj[nameItem.locale]){
+                        sameKey = true
+                    }
+                    tempObj[nameItem.locale] = nameItem.value
+                });
+                if(sameKey){
+                    $rootScope.alertErrorMsg('you set same local,just remove one');
+                    return '';
+                }
+            }
+            $scope.methodsNameModal = $scope.methodsNameModal.filter(function (methodsNameItem) {
+                return !$scope.validIsNew(methodsNameItem.id);
+            });
+            $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
+                if(methodsNameItem.id){
+                    delete methodsNameItem.id;
+                }
+            });
+            var tempData = angular.copy($scope.modalItem);
+            if($scope.methodsNameModal && $scope.methodsNameModal.length){
+                var tempObj = {};
+                var sameKey = false;
+                $scope.methodsNameModal.map(function(nameItem) {
+                    if(tempObj[nameItem.locale]){
+                        sameKey = true
+                    }
+                    tempObj[nameItem.locale] = nameItem.value
+                });
+                if(sameKey){
+                    $rootScope.alertErrorMsg('you set same local,just remove one');
+                    return '';
+                }
+                tempData.name = angular.copy(tempObj)
+            }else{
+                tempData.name = {}
+            }
+            if(edit ==2){
+                adminService.postReq($rootScope.URL.GAMESPRODUCTS.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }else if(edit == 3){
+                adminService.patchReq($rootScope.URL.GAMESPRODUCTS.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss({});
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initMethodsNameModalData();
+
     }
 })();
 
@@ -4445,7 +4540,6 @@
                     if (res.data.success) {
                         $scope.paymentMethods = angular.copy(res.data.data);
                         $scope.paymentMethods.forEach(function (paymentMethodsItem, paymentMethodsIndex) {
-                            paymentMethodsItem.id = paymentMethodsIndex +1;
                             paymentMethodsItem.min = paymentMethodsItem['range'] && paymentMethodsItem['range'].min || '';
                             paymentMethodsItem.max = paymentMethodsItem['range'] && paymentMethodsItem['range'].max || '';
                             paymentMethodsItem.disabled = paymentMethodsItem.disabled ? '1' : '0';
@@ -4669,11 +4763,11 @@
                     delete methodsNameItem.id;
                 }
             });
-            var tempData = angular.copy($scope.methodsNameModal)
+            var tempData = angular.copy($scope.modalItem);
             if($scope.methodsNameModal && $scope.methodsNameModal.length){
                 var tempObj = {};
                 var sameKey = false;
-                $scope.methodsNameModal.name.map(function(nameItem) {
+                $scope.methodsNameModal.map(function(nameItem) {
                     if(tempObj[nameItem.locale]){
                         sameKey = true
                     }

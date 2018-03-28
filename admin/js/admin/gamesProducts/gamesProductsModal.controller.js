@@ -1,10 +1,10 @@
 (function() {
 
     angular
-        .module('admin.paymentMethods')
-        .controller('PaymentMethodsNameModalController', PaymentMethodsNameModalController);
+        .module('admin.gamesProducts')
+        .controller('gamesProductsModalController', gamesProductsModalController);
 
-    PaymentMethodsNameModalController.$inject = [
+    gamesProductsModalController.$inject = [
         '$scope',
         '$rootScope',
         '$uibModalInstance',
@@ -15,7 +15,7 @@
         'modalItem'
     ];
 
-    function PaymentMethodsNameModalController(
+    function gamesProductsModalController(
         $scope,
         $rootScope,
         $uibModalInstance,
@@ -46,11 +46,7 @@
             if(edit == 2){
                 $scope.modalItem = {
                     "code": "",
-                    "currency": $scope.currencyOptions[0].value,
-                    "min": '',
-                    "max": '',
                     "disabled": $scope.disabledOptions[1].value,
-                    "type": $scope.typeOptions[0].value,
                     "name": []
                 }
             }else{
@@ -117,10 +113,6 @@
         };
 
         $scope.confirmModal = function () {
-            if(window.parseFloat($scope.modalItem.min||'')>window.parseFloat($scope.modalItem.max||'')){
-                $rootScope.alertErrorMsg('min should less than max');
-                return '';
-            }
             if($scope.methodsNameModal && $scope.methodsNameModal.length){
                 var tempObj = {};
                 var sameKey = false;
@@ -162,7 +154,7 @@
                 tempData.name = {}
             }
             if(edit ==2){
-                adminService.postReq($rootScope.URL.PAYMENTMETHODS.POST, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.GAMESPRODUCTS.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -174,7 +166,7 @@
                     }
                 });
             }else if(edit == 3){
-                adminService.patchReq($rootScope.URL.PAYMENTMETHODS.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.GAMESPRODUCTS.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {

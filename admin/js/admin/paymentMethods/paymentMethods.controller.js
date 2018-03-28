@@ -136,7 +136,6 @@
                     if (res.data.success) {
                         $scope.paymentMethods = angular.copy(res.data.data);
                         $scope.paymentMethods.forEach(function (paymentMethodsItem, paymentMethodsIndex) {
-                            paymentMethodsItem.id = paymentMethodsIndex +1;
                             paymentMethodsItem.min = paymentMethodsItem['range'] && paymentMethodsItem['range'].min || '';
                             paymentMethodsItem.max = paymentMethodsItem['range'] && paymentMethodsItem['range'].max || '';
                             paymentMethodsItem.disabled = paymentMethodsItem.disabled ? '1' : '0';
