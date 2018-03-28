@@ -55,7 +55,7 @@
         };
 
         $scope.checkIsDelete = function(item) {
-            if(item.timestamps&&item.timestamps.deleteAt){
+            if(item.timestamps&&item.timestamps.deletedAt){
                 return true;
             }
         };
