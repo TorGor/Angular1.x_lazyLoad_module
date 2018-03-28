@@ -30,7 +30,7 @@
 
         $scope.edit = edit;
 
-        if(edit){
+        if(edit!==2){
             $scope.promotionsItem = angular.copy(promotionsItem)
         }else{
             $scope.promotionsItem = {
@@ -259,18 +259,8 @@
             $uibModalInstance.dismiss('cancel');
         };
 
-        // 页面加载执行的函数
-
-        $scope.initTitleModalData();
-
-        $scope.initContentModalData();
-
 
         $scope.confirmModal = function () {
-            if(!(/(.*?(jpg|jpeg|png))/.test($scope.promotionsItem.banner))){
-                $rootScope.alertErrorMsg('banner is picture should end with jpg,jpeg,png');
-                return '';
-            }
             if($scope.promotionsItem.title.length == 0){
                 $rootScope.alertErrorMsg('title is required');
                 return '';
@@ -346,7 +336,7 @@
                 });
                 tempData.content = angular.copy(tempNameObj2)
             }
-            if (!edit) {
+            if (edit==2) {
                 adminService.postReq($rootScope.URL.PROMOTIONSMANAGE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
@@ -358,7 +348,7 @@
                         }
                     }
                 });
-            } else if (edit) {
+            } else if (edit==3) {
                 adminService.patchReq($rootScope.URL.PROMOTIONSMANAGE.PATCH+'/'+promotionsItem.id, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {

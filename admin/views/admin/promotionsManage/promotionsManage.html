@@ -18,7 +18,8 @@
                         <ui-select
                             ng-model="promotionsManageAoData.status"
                             theme="bootstrap"
-                            search-enabled="false">
+                            search-enabled="false"
+                        >
                             <ui-select-match placeholder="{{'status'}}">
                                 <span ng-bind="$select.selected.label"></span>
                             </ui-select-match>
@@ -33,25 +34,26 @@
                             theme="bootstrap"
                             multiple
                             close-on-select="false"
-                            search-enabled="false">
+                            search-enabled="false"
+                        >
                             <ui-select-match placeholder="{{'choose currency'}}">
                                 <span>{{$item.label}}</span>
                             </ui-select-match>
-                            <ui-select-choices repeat="item.value as item in currencyOptions">
+                            <ui-select-choices repeat="item.value as item in currencySearchOptions">
                                 <span ng-bind="item.label"></span>
                             </ui-select-choices>
                         </ui-select>
                     </div>
                 </form>
                 <div
-                        server-data-table
-                        items="promotionsManage"
-                        ao-data="promotionsManageAoData"
-                        reload="promotionsManageReload"
-                        service-name="adminService"
-                        service-name-attr="getReq"
-                        url="promotionsManageUrl"
-                        handle-data="false"
+                    server-data-table
+                    items="promotionsManage"
+                    ao-data="promotionsManageAoData"
+                    reload="promotionsManageReload"
+                    service-name="adminService"
+                    service-name-attr="getReq"
+                    url="promotionsManageUrl"
+                    handle-data="false"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
@@ -63,13 +65,13 @@
                                 {{'table.promotionsManage.th2' | translate}}
                             </td>
                             <!--<td style="width: 12%">-->
-                                <!--{{'table.promotionsManage.th3' | translate}}-->
+                            <!--{{'table.promotionsManage.th3' | translate}}-->
                             <!--</td>-->
                             <!--<td style="width: 12%">-->
-                                <!--{{'table.promotionsManage.th4' | translate}}-->
+                            <!--{{'table.promotionsManage.th4' | translate}}-->
                             <!--</td>-->
                             <!--<td style="width: 12%">-->
-                                <!--{{'table.promotionsManage.th5' | translate}}-->
+                            <!--{{'table.promotionsManage.th5' | translate}}-->
                             <!--</td>-->
                             <td style="width: 16%">
                                 {{'table.promotionsManage.th6' | translate}}
@@ -77,8 +79,7 @@
                             <td style="width: 16%">
                                 {{'table.promotionsManage.th7' | translate}}
                             </td>
-                            <td style="width: 17%">{{'table.button.operation' |
-                                                                                 translate}}</td>
+                            <td style="width: 17%" ng-show='validPower("PROMOTIONSMANAGE", ["PATCH", "GETDETAIL"])'>{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -90,13 +91,13 @@
                                 <span>{{item.currency}}</span>
                             </td>
                             <!--<td>-->
-                                <!--<span>{{item.categories}}</span>-->
+                            <!--<span>{{item.categories}}</span>-->
                             <!--</td>-->
                             <!--<td>-->
-                                <!--<span>{{item.title}}</span>-->
+                            <!--<span>{{item.title}}</span>-->
                             <!--</td>-->
                             <!--<td>-->
-                                <!--<span>{{item.content}}</span>-->
+                            <!--<span>{{item.content}}</span>-->
                             <!--</td>-->
                             <td>
                                 <span>{{item.period.from.substr(0, 19)}}</span>
@@ -104,19 +105,23 @@
                             <td>
                                 <span>{{item.status}}</span>
                             </td>
-                            <td style="white-space: nowrap;" >
-                                <div class="buttons">
-                                    <button class="btn btn-sm btn-info"  ng-click="editPromotionsManage(item)"
-                                            title="{{'table.button.edit' | translate}}">
-                                        <em class="fa fa-pencil"></em>
-                                    </button>
-                                </div>
+                            <td style="white-space: nowrap;" ng-show='validPower("PROMOTIONSMANAGE", ["PATCH", "GETDETAIL"])'>
+                                <button
+                                    class="btn btn-sm btn-info" ng-show='validPower("PROMOTIONSMANAGE", ["PATCH"])' ng-click="editPromotionsManage(item,3)"
+                                    title="{{'table.button.edit' | translate}}"
+                                >
+                                    <em class="fa fa-pencil"></em>
+                                </button>
+                                <button
+                                    class="btn btn-sm btn-green" ng-show='validPower("PROMOTIONSMANAGE", ["GETDETAIL"])' ng-click="editPromotionsManage(item,1)"
+                                    title="{{'table.button.detail' | translate}}"
+                                >
+                                    <em class="fa fa-folder-open-o"></em>
+                                </button>
                             </td>
                         </tr>
                         <tr ng-show="promotionsManage.length==0">
-                            <td colspan='5'
-                                class="">{{'table.no_date' |
-                                                                                                 translate}}</td>
+                            <td colspan='{{validPower("PROMOTIONSMANAGE", ["PATCH", "GETDETAIL"])?5:4}}' class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

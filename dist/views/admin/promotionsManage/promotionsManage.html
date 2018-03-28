@@ -23,7 +23,7 @@
                      <ui-select-match placeholder="{{'choose currency'}}">
                         <span>{{$item.label}}</span>
                      </ui-select-match>
-                     <ui-select-choices repeat="item.value as item in currencyOptions">
+                     <ui-select-choices repeat="item.value as item in currencySearchOptions">
                         <span ng-bind="item.label"></span>
                      </ui-select-choices>
                   </ui-select>
@@ -54,8 +54,7 @@
                         <td style="width: 16%">
                            {{'table.promotionsManage.th7' | translate}}
                         </td>
-                        <td style="width: 17%">{{'table.button.operation' | translate}}
-                        </td>
+                        <td style="width: 17%" ng-show='validPower("PROMOTIONSMANAGE", ["PATCH", "GETDETAIL"])'>{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
@@ -81,17 +80,17 @@
                         <td>
                            <span>{{item.status}}</span>
                         </td>
-                        <td style="white-space: nowrap;">
-                           <div class="buttons">
-                              <button class="btn btn-sm btn-info" ng-click="editPromotionsManage(item)" title="{{'table.button.edit' | translate}}">
-                                 <em class="fa fa-pencil"></em>
-                              </button>
-                           </div>
+                        <td style="white-space: nowrap;" ng-show='validPower("PROMOTIONSMANAGE", ["PATCH", "GETDETAIL"])'>
+                           <button class="btn btn-sm btn-info" ng-show='validPower("PROMOTIONSMANAGE", ["PATCH"])' ng-click="editPromotionsManage(item,3)" title="{{'table.button.edit' | translate}}">
+                              <em class="fa fa-pencil"></em>
+                           </button>
+                           <button class="btn btn-sm btn-green" ng-show='validPower("PROMOTIONSMANAGE", ["GETDETAIL"])' ng-click="editPromotionsManage(item,1)" title="{{'table.button.detail' | translate}}">
+                              <em class="fa fa-folder-open-o"></em>
+                           </button>
                         </td>
                      </tr>
                      <tr ng-show="promotionsManage.length==0">
-                        <td colspan='5' class="">{{'table.no_date' | translate}}
-                        </td>
+                        <td colspan='{{validPower("PROMOTIONSMANAGE", ["PATCH", "GETDETAIL"])?5:4}}' class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

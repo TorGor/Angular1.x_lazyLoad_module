@@ -34,9 +34,11 @@
         ];
 
         $scope.currencyOptions = [];
+        $scope.currencySearchOptions = [];
 
         $scope.initCurrenciesManageData = function () {
             $scope.currencyOptions = [];
+            $scope.currencySearchOptions = [];
             adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -47,6 +49,7 @@
                                     label:objItem.name||'',
                                     value:objItem.code||''
                                 };
+                                $scope.currencySearchOptions.push(tempObj);
                                 if(objItem.supported){
                                     $scope.currencyOptions.push(tempObj)
                                 }
@@ -159,7 +162,7 @@
          * @param promotionsManage 转账数据对象
          */
 
-        $scope.editPromotionsManage = function (promotionsManage) {
+        $scope.editPromotionsManage = function (promotionsManage,edit) {
             if(!promotionsManage.id){
                 $rootScope.alertErrorMsg('server data error');
                 return;
@@ -177,8 +180,8 @@
                             size: 'lg',
                             resolve: {
                                 promotionsItem: res.data.data,
-                                edit: true,
-                                hasPower:$scope.hasPower
+                                edit: edit,
+                                hasPower:$scope.hasPower&&edit!==1
                             }
                         });
                         modalInstance.result.then(function(data) {
@@ -204,7 +207,7 @@
                 size: 'lg',
                 resolve: {
                     promotionsItem: false,
-                    edit: false,
+                    edit: 2,
                     hasPower:$scope.hasPower
                 }
             });
