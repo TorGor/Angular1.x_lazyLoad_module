@@ -129,10 +129,11 @@
         };
 
         $scope.confirmModal = function () {
-            $scope.pspsMethodsModal = $scope.pspsMethodsModal.filter(function (pspsMethodsItem) {
+            var tempPspsMethod = angular.copy($scope.pspsMethodsModal);
+            tempPspsMethod = tempPspsMethod.filter(function (pspsMethodsItem) {
                 return !$scope.validIsNew(pspsMethodsItem.id);
             });
-            $scope.pspsMethodsModal.forEach(function (pspsMethodsItem, pspsMethodsIndex) {
+            tempPspsMethod.forEach(function (pspsMethodsItem, pspsMethodsIndex) {
                 if(pspsMethodsItem.id){
                     delete pspsMethodsItem.id;
                 }
@@ -144,7 +145,7 @@
                 }
             });
             var tempData = angular.copy($scope.modalItem);
-            tempData.methods = angular.copy($scope.pspsMethodsModal);
+            tempData.methods = tempPspsMethod;
             if(edit==2){
                 adminService.postReq($rootScope.URL.PSPSMANAGE.POST, {}, tempData).then(function (res) {
                     console.log(res);
