@@ -293,18 +293,11 @@
         //选择货币结束
 
         $scope.confirmModal = function () {
-            basebrandsCurrencies.currencies = $scope.brandsCurrenciesModal;
-            $uibModalInstance.close({
-                type:'currencies',
-                data:basebrandsCurrencies
-            });
+
         };
 
         $scope.cancelModal = function () {
-            $uibModalInstance.dismiss({
-                type:'currencies',
-                data:basebrandsCurrencies
-            });
+
         };
 
     }
