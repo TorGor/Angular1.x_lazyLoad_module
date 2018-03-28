@@ -4394,7 +4394,18 @@
             }
         ];
 
-        $scope.showEditMethodsNameModal = function (item) {
+        $scope.disabledOptions = [
+            {
+                label:'YES',
+                value:'1'
+            },
+            {
+                label:'No',
+                value:'0'
+            }
+        ];
+
+        $scope.showEditMethodsNameModal = function (item,edit) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
@@ -4404,28 +4415,15 @@
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    MethodsNameItem: item,
-                    hasPower: $scope.validPower('PAYMENTMETHODS', ['POST', 'PATCH'])
+                    edit:edit,
+                    modalItem: item,
+                    hasPower: $scope.validPower('PAYMENTMETHODS', ['POST', 'PATCH']) && edit!==1
                 }
             });
             modalInstance.result.then(function (data) {
-                if(data.type == 'name'){
-                    $scope.paymentMethods.forEach(function(paymentMethodsItem) {
-                        if (paymentMethodsItem.id == data.data.id) {
-                            paymentMethodsItem[data.type] = angular.copy(data.data[data.type]);
-                            $scope.paymentMethodsReload++;
-                        }
-                    });
-                }
+                $scope.paymentMethodsReload++;
             }, function (data) {
-                if(data.type == 'name'){
-                    $scope.paymentMethods.forEach(function(paymentMethodsItem) {
-                        if (paymentMethodsItem.id == data.data.id) {
-                            paymentMethodsItem[data.type] = angular.copy(data.data[data.type]);
-                            $scope.paymentMethodsReload++;
-                        }
-                    });
-                }
+
             });
         };
 
@@ -4458,80 +4456,6 @@
                     }
                 }
             });
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param paymentMethods PAYMENTMETHODSTITLE数据对象
-         * @param item
-         */
-
-        $scope.savePaymentMethods = function (paymentMethods, item) {
-            if(window.parseFloat(item.min||'')>window.parseFloat(item.max||'')){
-                $rootScope.alertErrorMsg('min should less than max');
-                return '';
-            }
-            var tempData = angular.extend({}, paymentMethods, item);
-            if ($scope.validIsNew(paymentMethods.id)) {
-                delete tempData.id;
-                if(tempData.name && tempData.name.length){
-                    var tempObj = {};
-                    var sameKey = false;
-                    tempData.name.map(function(nameItem) {
-                        if(tempObj[nameItem.locale]){
-                            sameKey = true
-                        }
-                        tempObj[nameItem.locale] = nameItem.value
-                    });
-                    if(sameKey){
-                        $rootScope.alertErrorMsg('you set same local,just remove one');
-                        return '';
-                    }
-                    tempData.name = angular.copy(tempObj)
-                }
-                adminService.postReq($rootScope.URL.PAYMENTMETHODS.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initPaymentMethodsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(paymentMethods.id) && paymentMethods.code) {
-                delete tempData.id;
-                if(tempData.name && tempData.name.length){
-                    var tempObj = {};
-                    var sameKey = false;
-                    tempData.name.map(function(nameItem) {
-                        if(tempObj[nameItem.locale]){
-                            sameKey = true
-                        }
-                        tempObj[nameItem.locale] = nameItem.value
-                    });
-                    if(sameKey){
-                        $rootScope.alertErrorMsg('you set same local,just remove one');
-                        return '';
-                    }
-                    tempData.name = angular.copy(tempObj)
-                }
-                adminService.patchReq($rootScope.URL.PAYMENTMETHODS.PATCH+'/'+paymentMethods.code, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initPaymentMethodsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
         };
 
         // 删除paymentMethods
@@ -4578,41 +4502,14 @@
             }
         };
 
-        // 添加按钮
-        $scope.addPaymentMethods = function () {
-            $scope.paymentMethodsAoData = {};
-            $scope.paymentMethodsSearch = '';
-            $scope.paymentMethods.unshift({
-                'id': ($scope.paymentMethods.length+1) + 'null',
-                "code": "",
-                "currency": $scope.currencyOptions[0].value,
-                "min": '',
-                "max": '',
-                "disabled": false,
-                "type": $scope.typeOptions[0].value,
-                "name": []
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的PAYMENTMETHODSTITLE
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item.id)) {
-                $scope.paymentMethods.splice(index, 1);
-            }
-        };
 
         $scope.checkPaymentMethodsMinMax = function(data) {
-            var temp = parseFloat(data)
+            var temp = parseFloat(data);
             if(!data || temp<0.01 || temp>100000){
-                return '0.01-100000';
+                return false;
             }
             return true;
-        }
+        };
 
         // 页面加载执行的函数
 
@@ -4640,7 +4537,8 @@
         '$translate',
         'adminService',
         'hasPower',
-        'MethodsNameItem'
+        'edit',
+        'modalItem'
     ];
 
     function PaymentMethodsNameModalController(
@@ -4650,10 +4548,15 @@
         $translate,
         adminService,
         hasPower,
-        MethodsNameItem
+        edit,
+        modalItem
     ) {
 
         $scope.hasPower = hasPower;
+
+        $scope.edit = edit;
+
+        $scope.modalItem = angular.copy(modalItem);
 
         // 原始的数据
         $scope.methodsNameModal = [];
@@ -4664,17 +4567,25 @@
         $scope.methodsNameModalAoData = {};
         $scope.methodsNameModalSearch = '';
 
-        var baseMethodsName = angular.copy(MethodsNameItem);
-
         // 初始化table数据
         $scope.initMethodsNameModalData = function () {
-            $scope.methodsNameModal = [];
-            console.log(MethodsNameItem,'MethodsNameItem')
-            if(MethodsNameItem['name'].length){
-                $scope.methodsNameModal = MethodsNameItem['name'];
-                $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
-                    methodsNameItem.id = methodsNameIndex + 1;
-                })
+            if(edit == 2){
+                $scope.modalItem = {
+                    "code": "",
+                    "currency": $scope.currencyOptions[0].value,
+                    "min": '',
+                    "max": '',
+                    "disabled": $scope.disabledOptions[1].value,
+                    "type": $scope.typeOptions[0].value,
+                    "name": []
+                }
+            }else{
+                if($scope.modalItem['name']&&$scope.modalItem['name'].length){
+                    $scope.methodsNameModal = $scope.modalItem['name'];
+                    $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
+                        methodsNameItem.id = methodsNameIndex + 1;
+                    })
+                }
             }
         };
 
@@ -4721,17 +4632,21 @@
 
         /**
          *
-         * @param MethodsNameItem 添加的渠道名称
+         * @param modalItem 添加的渠道名称
          * @param index 添加的index
          */
 
-        $scope.cancelSaveModal = function (MethodsNameItem, index) {
-            if ($scope.validIsNew(MethodsNameItem.id)) {
+        $scope.cancelSaveModal = function (item, index) {
+            if ($scope.validIsNew(item.id)) {
                 $scope.methodsNameModal.splice(index, 1);
             }
         };
 
         $scope.confirmModal = function () {
+            if(window.parseFloat($scope.modalItem.min||'')>window.parseFloat($scope.modalItem.max||'')){
+                $rootScope.alertErrorMsg('min should less than max');
+                return '';
+            }
             if($scope.methodsNameModal && $scope.methodsNameModal.length){
                 var tempObj = {};
                 var sameKey = false;
@@ -4754,18 +4669,53 @@
                     delete methodsNameItem.id;
                 }
             });
-            baseMethodsName.name = $scope.methodsNameModal;
-            $uibModalInstance.close({
-                type:'name',
-                data:baseMethodsName
-            });
+            var tempData = angular.copy($scope.methodsNameModal)
+            if($scope.methodsNameModal && $scope.methodsNameModal.length){
+                var tempObj = {};
+                var sameKey = false;
+                $scope.methodsNameModal.name.map(function(nameItem) {
+                    if(tempObj[nameItem.locale]){
+                        sameKey = true
+                    }
+                    tempObj[nameItem.locale] = nameItem.value
+                });
+                if(sameKey){
+                    $rootScope.alertErrorMsg('you set same local,just remove one');
+                    return '';
+                }
+                tempData.name = angular.copy(tempObj)
+            }else{
+                tempData.name = {}
+            }
+            if(edit ==2){
+                adminService.postReq($rootScope.URL.PAYMENTMETHODS.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }else if(edit == 3){
+                adminService.patchReq($rootScope.URL.PAYMENTMETHODS.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
         };
 
         $scope.cancelModal = function () {
-            $uibModalInstance.dismiss({
-                type:'name',
-                data:baseMethodsName
-            });
+            $uibModalInstance.dismiss({});
         };
 
         // 页面加载执行的函数

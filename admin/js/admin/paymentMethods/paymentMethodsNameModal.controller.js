@@ -11,7 +11,8 @@
         '$translate',
         'adminService',
         'hasPower',
-        'MethodsNameItem'
+        'edit',
+        'modalItem'
     ];
 
     function PaymentMethodsNameModalController(
@@ -21,10 +22,15 @@
         $translate,
         adminService,
         hasPower,
-        MethodsNameItem
+        edit,
+        modalItem
     ) {
 
         $scope.hasPower = hasPower;
+
+        $scope.edit = edit;
+
+        $scope.modalItem = angular.copy(modalItem);
 
         // 原始的数据
         $scope.methodsNameModal = [];
@@ -35,17 +41,25 @@
         $scope.methodsNameModalAoData = {};
         $scope.methodsNameModalSearch = '';
 
-        var baseMethodsName = angular.copy(MethodsNameItem);
-
         // 初始化table数据
         $scope.initMethodsNameModalData = function () {
-            $scope.methodsNameModal = [];
-            console.log(MethodsNameItem,'MethodsNameItem')
-            if(MethodsNameItem['name'].length){
-                $scope.methodsNameModal = MethodsNameItem['name'];
-                $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
-                    methodsNameItem.id = methodsNameIndex + 1;
-                })
+            if(edit == 2){
+                $scope.modalItem = {
+                    "code": "",
+                    "currency": $scope.currencyOptions[0].value,
+                    "min": '',
+                    "max": '',
+                    "disabled": $scope.disabledOptions[1].value,
+                    "type": $scope.typeOptions[0].value,
+                    "name": []
+                }
+            }else{
+                if($scope.modalItem['name']&&$scope.modalItem['name'].length){
+                    $scope.methodsNameModal = $scope.modalItem['name'];
+                    $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
+                        methodsNameItem.id = methodsNameIndex + 1;
+                    })
+                }
             }
         };
 
@@ -92,17 +106,21 @@
 
         /**
          *
-         * @param MethodsNameItem 添加的渠道名称
+         * @param modalItem 添加的渠道名称
          * @param index 添加的index
          */
 
-        $scope.cancelSaveModal = function (MethodsNameItem, index) {
-            if ($scope.validIsNew(MethodsNameItem.id)) {
+        $scope.cancelSaveModal = function (item, index) {
+            if ($scope.validIsNew(item.id)) {
                 $scope.methodsNameModal.splice(index, 1);
             }
         };
 
         $scope.confirmModal = function () {
+            if(window.parseFloat($scope.modalItem.min||'')>window.parseFloat($scope.modalItem.max||'')){
+                $rootScope.alertErrorMsg('min should less than max');
+                return '';
+            }
             if($scope.methodsNameModal && $scope.methodsNameModal.length){
                 var tempObj = {};
                 var sameKey = false;
@@ -125,18 +143,53 @@
                     delete methodsNameItem.id;
                 }
             });
-            baseMethodsName.name = $scope.methodsNameModal;
-            $uibModalInstance.close({
-                type:'name',
-                data:baseMethodsName
-            });
+            var tempData = angular.copy($scope.methodsNameModal)
+            if($scope.methodsNameModal && $scope.methodsNameModal.length){
+                var tempObj = {};
+                var sameKey = false;
+                $scope.methodsNameModal.name.map(function(nameItem) {
+                    if(tempObj[nameItem.locale]){
+                        sameKey = true
+                    }
+                    tempObj[nameItem.locale] = nameItem.value
+                });
+                if(sameKey){
+                    $rootScope.alertErrorMsg('you set same local,just remove one');
+                    return '';
+                }
+                tempData.name = angular.copy(tempObj)
+            }else{
+                tempData.name = {}
+            }
+            if(edit ==2){
+                adminService.postReq($rootScope.URL.PAYMENTMETHODS.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }else if(edit == 3){
+                adminService.patchReq($rootScope.URL.PAYMENTMETHODS.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
         };
 
         $scope.cancelModal = function () {
-            $uibModalInstance.dismiss({
-                type:'name',
-                data:baseMethodsName
-            });
+            $uibModalInstance.dismiss({});
         };
 
         // 页面加载执行的函数
