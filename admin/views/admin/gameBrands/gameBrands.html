@@ -16,16 +16,16 @@
                 <form class="form-inline pull-right add-button-class" role="form">
                     <div style="position: relative" class="form-group">
                         <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                        <input class="form-control" type="text" ng-model="gameBrandsSearch" placeholder="{{searchPlaceholder(['table.gameBrands.th1', 'table.gameBrands.th2', 'table.gameBrands.th3'])}}">
+                        <input class="form-control" type="text" ng-model="gameBrandsSearch" placeholder="{{searchPlaceholder(['table.gameBrands.th1', 'table.gameBrands.th2', 'table.gameBrands.th3'])}}" >
                     </div>
                 </form>
                 <div
-                        web-data-table
-                        items="gameBrands"
-                        ao-data="gameBrandsAoData"
-                        search="gameBrandsSearch"
-                        reload="gameBrandsReload"
-                        show-items="showGameBrands"
+                    web-data-table
+                    items="gameBrands"
+                    ao-data="gameBrandsAoData"
+                    search="gameBrandsSearch"
+                    reload="gameBrandsReload"
+                    show-items="showGameBrands"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
@@ -36,18 +36,18 @@
                             <td style="width: 20%" ao-data="gameBrandsAoData" web-data-table-sort="wallet">
                                 {{'table.gameBrands.th2' | translate}}
                             </td>
-                            <td style="width: 12%">
-                                {{'table.gameBrands.th3' | translate}}
-                            </td>
-                            <td style="width: 12%">
-                                {{'table.gameBrands.th4' | translate}}
-                            </td>
-                            <td style="width: 12%">
-                                {{'table.gameBrands.th5' | translate}}
-                            </td>
-                            <td style="width: 12%">
-                                {{'table.gameBrands.th6' | translate}}
-                            </td>
+                            <!--<td style="width: 12%">-->
+                                <!--{{'table.gameBrands.th3' | translate}}-->
+                            <!--</td>-->
+                            <!--<td style="width: 12%">-->
+                                <!--{{'table.gameBrands.th4' | translate}}-->
+                            <!--</td>-->
+                            <!--<td style="width: 12%">-->
+                                <!--{{'table.gameBrands.th5' | translate}}-->
+                            <!--</td>-->
+                            <!--<td style="width: 12%">-->
+                                <!--{{'table.gameBrands.th6' | translate}}-->
+                            <!--</td>-->
                             <td style="width: 12%" ao-data="gameBrandsAoData" web-data-table-sort="status">
                                 {{'table.gameBrands.th7' | translate}}
                             </td>
@@ -57,68 +57,75 @@
                         <tbody>
                         <tr ng-repeat="item in showGameBrands">
                             <td>
-                                <span editable-text="item.code" e-name="code" e-formclass="xeditable-sm"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
-                            </td>
-                            <td>
-                                <span editable-select="item.wallet" e-name="wallet" e-form="rowform"
-                                      onbeforesave="checkRequiredData($data)"
-                                      e-ng-options="option.value as option.label for option in walletOptions">
-                                        {{showOptionsValue(item.wallet, walletOptions)}}
-                                    </span>
+                                <span>{{ item.code || '' }}</span>
                             </td>
                             <td>
                                 <span>
-                                    <button class="btn btn-sm btn-info" ng-click="showBrandsCurrenciesModal(item)">{{showAddOrDetail(item.currencies, item._id)}}</button>
+                                    {{ item.wallet || ''}}
                                 </span>
                             </td>
-                            <td>
-                                <span>
-                                    <button class="btn btn-sm btn-info" ng-click="showBrandsNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>
-                                </span>
-                            </td>
-                            <td>
-                                <span>
-                                    <button class="btn btn-sm btn-info" ng-click="showBrandsLangsModal(item)">{{showAddOrDetail(item.langs, item._id)}}</button>
-                                </span>
-                            </td>
-                            <td>
-                                <span>
-                                    <button class="btn btn-sm btn-info" ng-click="showBrandsProductsModal(item)">{{showAddOrDetail(item.products, item._id)}}</button>
-                                </span>
-                            </td>
+                            <!--<td>-->
+                                <!--<span>-->
+                                    <!--<button class="btn btn-sm btn-info" ng-click="showBrandsCurrenciesModal(item)">{{showAddOrDetail(item.currencies, item._id)}}</button>-->
+                                <!--</span>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<span>-->
+                                    <!--<button class="btn btn-sm btn-info" ng-click="showBrandsNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>-->
+                                <!--</span>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<span>-->
+                                    <!--<button class="btn btn-sm btn-info" ng-click="showBrandsLangsModal(item)">{{showAddOrDetail(item.langs, item._id)}}</button>-->
+                                <!--</span>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<span>-->
+                                    <!--<button class="btn btn-sm btn-info" ng-click="showBrandsProductsModal(item)">{{showAddOrDetail(item.products, item._id)}}</button>-->
+                                <!--</span>-->
+                            <!--</td>-->
                             <td>
                                 <span>{{item.status}}</span>
                             </td>
                             <td style="white-space: nowrap;" ng-show='validPower("GAMEBRANDS", ["PATCH"])'>
-                                <form class="form-buttons form-inline" editable-form name="rowform"
-                                      onaftersave="saveGameBrands(item, $data)" ng-show="rowform.$visible"
-                                      shown="validIsNew(item._id)">
-                                    <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
-                                            title="{{'table.button.save' | translate}}">
+                                <form
+                                    class="form-buttons form-inline" editable-form name="rowform"
+                                    onaftersave="saveGameBrands(item, $data)" ng-show="rowform.$visible"
+                                    shown="validIsNew(item._id)"
+                                >
+                                    <button
+                                        class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
+                                        title="{{'table.button.save' | translate}}"
+                                    >
                                         <em class="fa fa-save"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
-                                            ng-click="rowform.$cancel();cancelSave(item,$index)"
-                                            title="{{'table.button.cancel' | translate}}">
+                                    <button
+                                        class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
+                                        ng-click="rowform.$cancel();cancelSave(item,$index)"
+                                        title="{{'table.button.cancel' | translate}}"
+                                    >
                                         <em class="fa fa-times"></em>
                                     </button>
                                 </form>
                                 <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-info" ng-show='validPower("GAMEBRANDS", ["PATCH"])' ng-click="rowform.$show()"
-                                            title="{{'table.button.edit' | translate}}">
+                                    <button
+                                        class="btn btn-sm btn-info" ng-show='validPower("GAMEBRANDS", ["PATCH"])' ng-click="rowform.$show()"
+                                        title="{{'table.button.edit' | translate}}"
+                                    >
                                         <em class="fa fa-pencil"></em>
                                     </button>
                                     <!--<button class="btn btn-sm btn-danger" ng-click="deleteGameBrands(item)"-->
-                                            <!--title="{{'table.button.delete' | translate}}">-->
-                                        <!--<em class="fa fa-trash"></em>-->
+                                    <!--title="{{'table.button.delete' | translate}}">-->
+                                    <!--<em class="fa fa-trash"></em>-->
                                     <!--</button>-->
                                 </div>
                             </td>
                         </tr>
                         <tr ng-show="showGameBrands.length==0">
-                            <td colspan='{{validPower("GAMEBRANDS", ["PATCH"])?8:7}}'
-                                                               class="">{{'table.no_date' | translate}}</td>
+                            <td
+                                colspan='{{validPower("GAMEBRANDS", ["PATCH"])?8:7}}'
+                                class=""
+                            >{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

@@ -10,7 +10,7 @@
         '$uibModalInstance',
         '$translate',
         'adminService',
-        'brandsLangsItem'
+        'modalItem'
     ];
 
     function BrandsLangsModalController(
@@ -19,84 +19,20 @@
         $uibModalInstance,
         $translate,
         adminService,
-        brandsLangsItem
+        modalItem
     ) {
 
-        // 原始的数据
-        $scope.brandsLangsModal = [];
 
-        // 过滤出来的数据
-        $scope.showBrandsLangsModal = [];
-        $scope.brandsLangsModalReload = 1;
-        $scope.brandsLangsModalAoData = {};
-        $scope.brandsLangsModalSearch = '';
 
-        var baseBrandsLangs = angular.copy(brandsLangsItem);
+        var baseBrandsLangs = angular.copy(modalItem);
 
         // 初始化table数据
         $scope.initBrandsLangsModalData = function () {
             $scope.brandsLangsModal = [];
-            console.log(brandsLangsItem,'brandsLangsItem')
-            if(brandsLangsItem['langs'].length){
-                $scope.brandsLangsModal = brandsLangsItem['langs'];
-                $scope.brandsLangsModal.forEach(function (brandsLangsItem, brandsLangsIndex) {
-                    brandsLangsItem.id = brandsLangsIndex + 1;
-                })
-            }
+            console.log(modalItem,'modalItem')
+
         };
 
-
-        // 保存
-        /**
-         *
-         * @param brandsLangsModal 渠道名称数据对象
-         * @param data
-         */
-
-        $scope.saveBrandsLangsModal = function (brandsLangsModal, data) {
-            $scope.brandsLangsModal.forEach(function (brandsLangsModalItem) {
-                if(brandsLangsModalItem.id == brandsLangsModal.id){
-                    window.Object.assign(brandsLangsModalItem, data);
-                    if($scope.validIsNew(brandsLangsModalItem.id)){
-                        brandsLangsModalItem.id = window.parseInt(brandsLangsModalItem.id, 10)
-                        $scope.brandsLangsModalReload ++
-                    }
-                }
-            });
-        };
-
-        // 删除rebatesModal
-        /**
-         * @param brandsLangsModal 渠道名称数据对象
-         * @param index 位置
-         * @return null
-         */
-        $scope.deleteBrandsLangsModal = function (brandsLangsModal, index) {
-            $scope.brandsLangsModal.splice(index, 1)
-        };
-
-        // 添加按钮
-        $scope.addBrandsLangsModal = function () {
-            $scope.brandsLangsModalAoData = {};
-            $scope.brandsLangsModalSearch = '';
-            $scope.brandsLangsModal.unshift({
-                'id': ($scope.brandsLangsModal.length+1) + 'null',
-                "our_locale": $scope.localesOptions[0] ? $scope.localesOptions[0].value : '',
-                "brand_locale": ''
-            });
-        };
-
-        /**
-         *
-         * @param brandsLangsItem 添加的渠道名称
-         * @param index 添加的index
-         */
-
-        $scope.cancelSaveModal = function (brandsLangsItem, index) {
-            if ($scope.validIsNew(brandsLangsItem.id)) {
-                $scope.brandsLangsModal.splice(index, 1);
-            }
-        };
 
         $scope.confirmModal = function () {
             if($scope.brandsLangsModal && $scope.brandsLangsModal.length){
@@ -113,12 +49,12 @@
                     return '';
                 }
             }
-            $scope.brandsLangsModal = $scope.brandsLangsModal.filter(function (brandsLangsItem) {
-                return !$scope.validIsNew(brandsLangsItem.id);
+            $scope.brandsLangsModal = $scope.brandsLangsModal.filter(function (modalItem) {
+                return !$scope.validIsNew(modalItem.id);
             });
-            $scope.brandsLangsModal.forEach(function (brandsLangsItem, brandsLangsIndex) {
-                if(brandsLangsItem.id){
-                    delete brandsLangsItem.id;
+            $scope.brandsLangsModal.forEach(function (modalItem, brandsLangsIndex) {
+                if(modalItem.id){
+                    delete modalItem.id;
                 }
             });
             baseBrandsLangs.langs = $scope.brandsLangsModal;

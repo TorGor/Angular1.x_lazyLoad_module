@@ -5,11 +5,9 @@
 <div class="modal-body">
     <div class="row">
         <div class="">
-            <div class="panel-wrapper">
-                <div class="panel-body">
                 <span class="form-group add-button-class">
                     <button
-                        ng-show='validPower("GAMEBRANDS", ["POST", "POST"])'
+                        ng-show='hasPower'
                         class="btn btn-primary"
                         ng-click="addBrandsProductsModal()"
                         type="button"
@@ -60,7 +58,7 @@
                                 <td style="width: 20%" ao-data="brandsProductsModalAoData" web-data-table-sort="value">
                                     {{'table.gameBrands.products.th5' | translate}}
                                 </td>
-                                <td style="width: 10%" ng-show='validPower("GAMEBRANDS", ["POST", "PATCH"])'>{{'table.button.operation' | translate}}</td>
+                                <td style="width: 10%" ng-show='hasPower'>{{'table.button.operation' | translate}}</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -102,7 +100,7 @@
                                         e-form="rowform"
                                     >{{ item.android_url || '' }}</span>
                                 </td>
-                                <td style="white-space: nowrap;" ng-show='validPower("GAMEBRANDS", ["POST", "PATCH"])'>
+                                <td style="white-space: nowrap;" ng-show='hasPower'>
                                     <form
                                         class="form-buttons form-inline" editable-form name="rowform"
                                         onaftersave="saveBrandsProductsModal(item, $data)" ng-show="rowform.$visible"
@@ -140,13 +138,10 @@
                                 </td>
                             </tr>
                             <tr ng-show="showBrandsProductsModal.length==0">
-                                <td colspan='{{validPower("GAMEBRANDS", ["POST", "PATCH"])?3:2}}'
-                                                                   class="">{{'table.no_date' | translate}}</td>
+                                <td colspan='{{hasPower?3:2}}' class="">{{'table.no_date' | translate}}</td>
                             </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

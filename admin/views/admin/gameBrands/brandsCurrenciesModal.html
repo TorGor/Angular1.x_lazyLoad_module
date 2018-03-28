@@ -7,17 +7,7 @@
         <div class="">
             <div class="panel-wrapper">
                 <div class="panel-body">
-                    <form class="form-horizontal">
-                        <div class="col-lg-6 col-xs-12" ng-repeat="currency in currencyOptions">
-                            <div class="checkbox c-checkbox needsclick">
-                                <label class="needsclick">
-                                    <input class="needsclick" ng-disabled='!validPower("GAMEBRANDS", ["POST", "PATCH"])'
-                                           ng-click="selectCurrency(currency.value, $event)"
-                                           ng-checked="brandsCurrenciesModal.indexOf(currency.value) !== -1" type="checkbox" ng-value="currency.value">
-                                    <span class="fa fa-check"></span>{{currency.label}}</label>
-                            </div>
-                        </div>
-                    </form>
+
                 </div>
             </div>
         </div>

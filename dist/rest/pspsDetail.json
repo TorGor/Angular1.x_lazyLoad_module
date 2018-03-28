@@ -1,0 +1,178 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "code": "PP",
+        "api_key": "a******************************1",
+        "methods": [
+            {
+                "code": "CNYCC",
+                "rate": "0.006",
+                "timestamps": {
+                    "createdAt": "2017-09-06T07:20:42+00:00",
+                    "updatedAt": "2017-09-06T07:20:42+00:00"
+                },
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Credit/Debit Card"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "在线支付"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "在線支付"
+                    }
+                ],
+                "extra_setting": {
+                    "bank": [
+                        "CMB",
+                        "CMBC",
+                        "ICBC",
+                        "ABC",
+                        "BOC",
+                        "CCB",
+                        "SPDB",
+                        "BCOM",
+                        "PSBC",
+                        "CITIC",
+                        "CEB",
+                        "CIB"
+                    ]
+                },
+                "description": null,
+                "range": {
+                    "min": 0.01,
+                    "max": 10000
+                },
+                "currency": "CNY",
+                "disabled": false
+            },
+            {
+                "code": "CNYWX",
+                "rate": "0.010",
+                "timestamps": {
+                    "createdAt": "2017-09-06T07:20:42+00:00",
+                    "updatedAt": "2017-09-06T07:20:42+00:00"
+                },
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Wechat Pay"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "微信支付"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "微信付款"
+                    }
+                ],
+                "extra_setting": {
+                    "description": {
+                        "header": "WX_QR_SCAN"
+                    }
+                },
+                "description": {
+                    "header": "WX_QR_SCAN"
+                },
+                "range": {
+                    "min": 0.01,
+                    "max": 3000
+                },
+                "currency": "CNY",
+                "disabled": false
+            },
+            {
+                "code": "CNYALI",
+                "rate": "0.006",
+                "timestamps": {
+                    "createdAt": "2017-09-06T07:20:42+00:00",
+                    "updatedAt": "2017-09-06T07:20:42+00:00"
+                },
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Alipay"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "支付宝"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "支付寶"
+                    }
+                ],
+                "extra_setting": {
+                    "description": {
+                        "header": "ALIPAY_QR_SCAN"
+                    }
+                },
+                "description": {
+                    "header": "ALIPAY_QR_SCAN"
+                },
+                "range": {
+                    "min": 0.01,
+                    "max": 5000
+                },
+                "currency": "CNY",
+                "disabled": false
+            },
+            {
+                "code": "ALIWAP",
+                "rate": "0.006",
+                "timestamps": {
+                    "createdAt": "2018-02-05T02:13:12+00:00",
+                    "updatedAt": "2018-03-28T09:02:17+00:00"
+                },
+                "name": [
+                    {
+                        "locale": "en-GB",
+                        "value": "Alipay (Mobile)"
+                    },
+                    {
+                        "locale": "zh-CN",
+                        "value": "支付宝 (手机)"
+                    },
+                    {
+                        "locale": "zh-TW",
+                        "value": "支付寶 (手機)"
+                    },
+                    {
+                        "locale": "en-_g",
+                        "value": "4"
+                    },
+                    {
+                        "locale": "zh-_c",
+                        "value": "支付宝 (手机)"
+                    },
+                    {
+                        "locale": "zh-_t",
+                        "value": "支付寶 (手機)"
+                    }
+                ],
+                "extra_setting": {
+                    "description": {
+                        "header": "ALIPAY_WAP"
+                    }
+                },
+                "description": {
+                    "header": "ALIPAY_WAP"
+                },
+                "range": {
+                    "min": 0.01,
+                    "max": 100
+                },
+                "currency": "CNY",
+                "disabled": false
+            }
+        ],
+        "gateway": "https://test.pplsvc.com/gateway",
+        "account": "231401",
+        "activated": true
+    }
+}

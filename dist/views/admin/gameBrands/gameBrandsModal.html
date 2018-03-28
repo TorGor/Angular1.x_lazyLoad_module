@@ -1,0 +1,283 @@
+<div class="modal-header">
+   <h3 class="modal-title">{{showEditStatus(edit) +'游戏品牌'}}</h3>
+</div>
+
+<div class="modal-body">
+   <div class="row">
+      <div class="">
+         <div class="panel-wrapper">
+            <div class="panel-body">
+               <form class="form-horizontal" name='myForm'>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">编码</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.code" name='code' ng-pattern='/^[^/]*$/' ng-disabled='!hasPower||edit==3' class="form-control" type="text" placeholder="string no '/'">
+                        <span class='text-danger valid-error' ng-show="myForm.code.$dirty&&myForm.code.$invalid">
+                           {{checkRequiredData()}}
+                        </span>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">货币</label>
+                     <div class="col-lg-8 col-md-6">
+                        <ui-select ng-model="modalItem.currency" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
+                           <ui-select-match placeholder="choose currency">
+                              <span ng-bind="$select.selected.label"></span>
+                           </ui-select-match>
+                           <ui-select-choices repeat="item.value as item in currencyOptions">
+                              <span ng-bind="item.label"></span>
+                           </ui-select-choices>
+                        </ui-select>
+                     </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">钱包</label>
+                     <div class="col-lg-8 col-md-6">
+                        <ui-select ng-model="modalItem.wallet" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
+                           <ui-select-match placeholder="choose wallet">
+                              <span ng-bind="$select.selected.label"></span>
+                           </ui-select-match>
+                           <ui-select-choices repeat="item.value as item in walletOptions">
+                              <span ng-bind="item.label"></span>
+                           </ui-select-choices>
+                        </ui-select>
+                     </div>
+                  </div>
+
+                  <div class='clearfix'></div>
+                  <legend class="text-center">名称</legend>
+                  <form></form>
+                  <span class="form-group add-button-class">
+                     <button ng-show="hasPower" class="btn btn-primary" ng-click="addMethodsNameModal()" type="button" translate="table.button.add">
+                        新增
+                     </button>
+                  </span>
+                  <form class="form-inline pull-right add-button-class" role="form">
+                     <div style="position: relative" class="form-group">
+                        <span style="position: absolute;left: 4px;top: 6px">
+                           <em class="fa fa-search"></em>
+                        </span>
+                        <input class="form-control" type="text" ng-model="methodsNameModalSearch" placeholder="{{searchPlaceholder(['table.paymentMethods.name.th2'])}}">
+                     </div>
+                  </form>
+                  <div web-data-table items="methodsNameModal" ao-data="methodsNameModalAoData" search="methodsNameModalSearch" reload="methodsNameModalReload" show-items="showMethodsNameModal">
+                     <table width="100%" class="table table-bordered table-hover bg-white">
+                        <thead>
+                           <tr class="bg-gray-light text-bold">
+                              <td style="width: 40%" ao-data="methodsNameModalAoData" web-data-table-sort="locale">
+                                 {{'table.paymentMethods.name.th1' | translate}}
+                              </td>
+                              <td style="width: 40%" ao-data="methodsNameModalAoData" web-data-table-sort="value">
+                                 {{'table.paymentMethods.name.th2' | translate}}
+                              </td>
+                              <td style="width: 17%" ng-show="hasPower">{{'table.button.operation' | translate}}</td>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr ng-repeat="item in showMethodsNameModal">
+                              <td>
+                                 <span editable-select="item.locale" e-name="locale" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in localesOptions">
+                                    {{showOptionsValue(item.locale,localesOptions)}}
+                                 </span>
+                              </td>
+                              <td>
+                                 <span editable-text="item.value" e-name="value" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.value || '' }}</span>
+                              </td>
+                              <td style="white-space: nowrap;" ng-show="hasPower">
+                                 <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveMethodsNameModal(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
+                                    <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
+                                       <em class="fa fa-save"></em>
+                                    </button>
+                                    <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSaveNameModal(item,$index)" title="{{'table.button.cancel' | translate}}">
+                                       <em class="fa fa-times"></em>
+                                    </button>
+                                 </form>
+                                 <div class="buttons" ng-show="!rowform.$visible">
+                                    <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                       <em class="fa fa-pencil"></em>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" ng-click="deleteMethodsNameModal(item, $index)" title="{{'table.button.delete' | translate}}">
+                                       <em class="fa fa-trash"></em>
+                                    </button>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr ng-show="showMethodsNameModal.length==0">
+                              <td colspan="{{hasPower?3:2}}" class="">{{'table.no_date' | translate}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="clearfix"></div>
+                  <legend class="text-center">产品明细</legend>
+                  <form></form>
+                  <div class="">
+                     <span class="form-group add-button-class">
+                        <button ng-show='hasPower' class="btn btn-primary" ng-click="addBrandsProductsModal()" type="button" translate="table.button.add">
+                           新增
+                        </button>
+                     </span>
+                     <form class="form-inline pull-right add-button-class" role="form">
+                        <div style="position: relative" class="form-group">
+                           <span style="position: absolute;left: 4px;top: 6px">
+                              <em class="fa fa-search"></em>
+                           </span>
+                           <input class="form-control" type="text" ng-model="brandsProductsModalSearch" placeholder="{{searchPlaceholder(['table.gameBrands.products.th1', 'table.gameBrands.products.th2', 'table.gameBrands.products.th3', 'table.gameBrands.products.th4', 'table.gameBrands.products.th5'])}}">
+                        </div>
+                     </form>
+                     <div web-data-table items="brandsProductsModal" ao-data="brandsProductsModalAoData" search="brandsProductsModalSearch" reload="brandsProductsModalReload" show-items="showBrandsProductsModal">
+                        <table width="100%" class="table table-bordered table-hover bg-white">
+                           <thead>
+                              <tr class="bg-gray-light text-bold">
+                                 <td style="width: 15%" ao-data="brandsProductsModalAoData" web-data-table-sort="code">
+                                    {{'table.gameBrands.products.th1' | translate}}
+                                 </td>
+                                 <td style="width: 20%" ao-data="brandsProductsModalAoData" web-data-table-sort="osx_url">
+                                    {{'table.gameBrands.products.th2' | translate}}
+                                 </td>
+                                 <td style="width: 20%" ao-data="brandsProductsModalAoData" web-data-table-sort="windows_url">
+                                    {{'table.gameBrands.products.th3' | translate}}
+                                 </td>
+                                 <td style="width: 20%" ao-data="brandsProductsModalAoData" web-data-table-sort="ios_url">
+                                    {{'table.gameBrands.products.th4' | translate}}
+                                 </td>
+                                 <td style="width: 20%" ao-data="brandsProductsModalAoData" web-data-table-sort="value">
+                                    {{'table.gameBrands.products.th5' | translate}}
+                                 </td>
+                                 <td style="width: 10%" ng-show='hasPower'>{{'table.button.operation' | translate}}</td>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr ng-repeat="item in showBrandsProductsModal">
+                                 <td>
+                                    <span editable-select="item.code" e-name="code" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in productOptions">
+                                       {{showOptionsValue(item.code, productOptions)}}
+                                    </span>
+                                 </td>
+                                 <td>
+                                    <span editable-text="item.osx_url" e-placeholder="can be empty" e-name="osx_url" e-formclass="xeditable-md" e-form="rowform">{{ item.osx_url || '' }}</span>
+                                 </td>
+                                 <td>
+                                    <span editable-text="item.windows_url" e-placeholder="can be empty" e-name="windows_url" e-formclass="xeditable-md" e-form="rowform">{{ item.windows_url || '' }}</span>
+                                 </td>
+                                 <td>
+                                    <span editable-text="item.ios_url" e-placeholder="can be empty" e-name="ios_url" e-formclass="xeditable-md" e-form="rowform">{{ item.ios_url || '' }}</span>
+                                 </td>
+                                 <td>
+                                    <span editable-text="item.android_url" e-placeholder="can be empty" e-name="android_url" e-formclass="xeditable-md" e-form="rowform">{{ item.android_url || '' }}</span>
+                                 </td>
+                                 <td style="white-space: nowrap;" ng-show='hasPower'>
+                                    <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveBrandsProductsModal(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
+                                       <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
+                                          <em class="fa fa-save"></em>
+                                       </button>
+                                       <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSaveProductsModal(item,$index)" title="{{'table.button.cancel' | translate}}">
+                                          <em class="fa fa-times"></em>
+                                       </button>
+                                    </form>
+                                    <div class="buttons" ng-show="!rowform.$visible">
+                                       <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                          <em class="fa fa-pencil"></em>
+                                       </button>
+                                       <button class="btn btn-sm btn-danger" ng-click="deleteBrandsProductsModal(item, $index)" title="{{'table.button.delete' | translate}}">
+                                          <em class="fa fa-trash"></em>
+                                       </button>
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr ng-show="showBrandsProductsModal.length==0">
+                                 <td colspan='{{hasPower?3:2}}' class="">{{'table.no_date' | translate}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <legend class="text-center">语言明细</legend>
+                  <form></form>
+                  <div class="">
+                     <span class="form-group add-button-class">
+                        <button ng-show='hasPower' class="btn btn-primary" ng-click="addBrandsLangsModal()" type="button" translate="table.button.add">
+                           新增
+                        </button>
+                     </span>
+                     <form class="form-inline pull-right add-button-class" role="form">
+                        <div style="position: relative" class="form-group">
+                           <span style="position: absolute;left: 4px;top: 6px">
+                              <em class="fa fa-search"></em>
+                           </span>
+                           <input class="form-control" type="text" ng-model="brandsLangsModalSearch" placeholder="{{searchPlaceholder(['table.gameBrands.langs.th1', 'table.gameBrands.langs.th2'])}}">
+                        </div>
+                     </form>
+                     <div web-data-table items="brandsLangsModal" ao-data="brandsLangsModalAoData" search="brandsLangsModalSearch" reload="brandsLangsModalReload" show-items="showBrandsLangsModal">
+                        <table width="100%" class="table table-bordered table-hover bg-white">
+                           <thead>
+                              <tr class="bg-gray-light text-bold">
+                                 <td style="width: 40%" ao-data="brandsLangsModalAoData" web-data-table-sort="our_locale">
+                                    {{'table.gameBrands.langs.th1' | translate}}
+                                 </td>
+                                 <td style="width: 40%" ao-data="brandsLangsModalAoData" web-data-table-sort="brand_locale">
+                                    {{'table.gameBrands.langs.th2' | translate}}
+                                 </td>
+                                 <td style="width: 17%" ng-show='hasPower'>{{'table.button.operation' | translate}}</td>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr ng-repeat="item in showBrandsLangsModal">
+                                 <td>
+                                    <span editable-select="item.our_locale" e-name="our_locale" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in localesOptions">
+                                       {{showOptionsValue(item.our_locale,localesOptions)}}
+                                    </span>
+                                 </td>
+                                 <td>
+                                    <span editable-text="item.brand_locale" e-name="brand_locale" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.brand_locale || '' }}</span>
+                                 </td>
+                                 <td style="white-space: nowrap;" ng-show='validPower("GAMEBRANDS", ["POST", "PATCH"])'>
+                                    <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveBrandsLangsModal(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
+                                       <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
+                                          <em class="fa fa-save"></em>
+                                       </button>
+                                       <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSaveLangsModal(item,$index)" title="{{'table.button.cancel' | translate}}">
+                                          <em class="fa fa-times"></em>
+                                       </button>
+                                    </form>
+                                    <div class="buttons" ng-show="!rowform.$visible">
+                                       <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                          <em class="fa fa-pencil"></em>
+                                       </button>
+                                       <button class="btn btn-sm btn-danger" ng-click="deleteBrandsLangsModal(item, $index)" title="{{'table.button.delete' | translate}}">
+                                          <em class="fa fa-trash"></em>
+                                       </button>
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr ng-show="showBrandsLangsModal.length==0">
+                                 <td colspan='{{hasPower?3:2}}' class="">{{'table.no_date' | translate}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <legend class="text-center">货币</legend>
+                  <form class="form-horizontal">
+                     <div class="col-lg-6 col-xs-12" ng-repeat="currency in currencyOptions">
+                        <div class="checkbox c-checkbox needsclick">
+                           <label class="needsclick">
+                              <input class="needsclick" ng-disabled='!hasPower' ng-click="selectCurrency(currency.value, $event)" ng-checked="brandsCurrenciesModal.indexOf(currency.value) !== -1" type="checkbox" ng-value="currency.value">
+                              <span class="fa fa-check"></span>{{currency.label}}</label>
+                        </div>
+                     </div>
+                  </form>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal-footer">
+   <button class="btn btn-primary" ng-show='hasPower' ng-disabled='!myForm.$dirty||myForm.$invalid' type="button" ng-click="confirmModal()">{{'table.button.save' | translate}}
+   </button>
+   <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
+</div>

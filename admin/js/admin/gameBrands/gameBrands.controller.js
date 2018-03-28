@@ -140,7 +140,6 @@
                     if (res.data.success) {
                         $scope.gameBrands = angular.copy(res.data.data);
                         $scope.gameBrands.forEach(function (gameBrandsItem, gameBrandsIndex) {
-                            gameBrandsItem._id = gameBrandsIndex +1;
                             gameBrandsItem.langs = [];
                             if(gameBrandsItem.languageMap && window.Array.isArray(gameBrandsItem.languageMap) ){
                                 gameBrandsItem.languageMap.forEach(function(languageMapItem) {
@@ -379,33 +378,6 @@
                         }
                     });
                 });
-            }
-        };
-
-        // 添加按钮
-        $scope.addGameBrands = function () {
-            $scope.gameBrandsAoData = {};
-            $scope.gameBrandsSearch = '';
-            $scope.gameBrands.unshift({
-                '_id': ($scope.gameBrands.length+1) + 'null',
-                'code': '',
-                'wallet': '',
-                'status': 'OPEN',
-                'currencies': [],
-                'langs': [],
-                'products': []
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的GAMEBRANDSTITLE
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item._id)) {
-                $scope.gameBrands.splice(index, 1);
             }
         };
 
