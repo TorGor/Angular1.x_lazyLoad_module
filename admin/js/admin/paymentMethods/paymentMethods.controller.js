@@ -129,7 +129,7 @@
 
         // 初始化table数据
         $scope.initPaymentMethodsData = function () {
-            $scope.paymentMethods = [];
+            //$scope.paymentMethods = [];
             adminService.getReq($rootScope.URL.PAYMENTMETHODS.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -140,6 +140,7 @@
                             paymentMethodsItem.max = paymentMethodsItem['range'] && paymentMethodsItem['range'].max || '';
                             paymentMethodsItem.disabled = paymentMethodsItem.disabled ? '1' : '0';
                         });
+                        $scope.paymentMethodsReload++;
                         console.log($scope.paymentMethods)
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);

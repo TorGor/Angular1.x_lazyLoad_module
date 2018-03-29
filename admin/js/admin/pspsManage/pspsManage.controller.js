@@ -65,7 +65,7 @@
 
         // 初始化table数据
         $scope.initPspsManageData = function () {
-            $scope.pspsManage = [];
+            //$scope.pspsManage = [];
             adminService.getReq($rootScope.URL.PSPSMANAGE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -74,6 +74,7 @@
                         $scope.pspsManage.forEach(function (pspsManageItem, pspsManageIndex) {
                             pspsManageItem.id = pspsManageIndex +1;
                         });
+                        $scope.pspsManageReload++;
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }

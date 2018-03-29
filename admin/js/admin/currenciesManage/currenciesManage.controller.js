@@ -42,7 +42,7 @@
 
         // 初始化table数据
         $scope.initCurrenciesManageData = function () {
-            $scope.currenciesManage = [];
+            //$scope.currenciesManage = [];
             adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -52,6 +52,7 @@
                             currenciesManageItem.supported = currenciesManageItem.supported ? '1' : '0';
                             currenciesManageItem.symbolAfter = currenciesManageItem.symbolAfter ? '1' : '0';
                         });
+                        $scope.currenciesManageReload++;
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }

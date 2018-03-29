@@ -133,7 +133,7 @@
 
         // 初始化table数据
         $scope.initGameBrandsData = function () {
-            $scope.gameBrands = [];
+            //$scope.gameBrands = [];
             adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -160,6 +160,7 @@
                                 return tempProducts;
                             })
                         });
+                        $scope.gameBrandsReload++;
                         console.log($scope.gameBrands)
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);

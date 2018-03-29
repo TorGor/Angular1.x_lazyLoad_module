@@ -298,7 +298,7 @@
 
         // 初始化table数据
         $scope.initUserLevelData = function () {
-            $scope.userLevel = [];
+            //$scope.userLevel = [];
             adminService.getReq($rootScope.URL.USERLEVEL.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -309,6 +309,7 @@
                             userLevelItem.default = userLevelItem.isDefault ? '1' : '0'
                             window.Object.assign(userLevelItem, $scope.formatUserLevelData(userLevelItem))
                         });
+                        $scope.userLevelReload++;
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }

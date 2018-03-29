@@ -116,9 +116,7 @@
 
         //页面加载运行的函数
 
-        if($scope.validPower("TRANSACTIONSDETAIL", ["GET"])){
-            $scope.initWalletOptionsData();
-        }
+        $scope.initWalletOptionsData();
 
         $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
             if (newValue !== oldValue) {

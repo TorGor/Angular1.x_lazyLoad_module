@@ -65,12 +65,13 @@
 
         // 初始化table数据
         $scope.initGamesProductsData = function () {
-            $scope.gamesProducts = [];
+            //$scope.gamesProducts = [];
             adminService.getReq($rootScope.URL.GAMESPRODUCTS.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $scope.gamesProducts = angular.copy(res.data.data);
+                        $scope.gamesProductsReload++;
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }

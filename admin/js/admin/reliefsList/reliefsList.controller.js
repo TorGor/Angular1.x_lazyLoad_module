@@ -29,7 +29,7 @@
 
         // 初始化table数据
         $scope.initReliefsListData = function () {
-            $scope.reliefsList = [];
+            //$scope.reliefsList = [];
             adminService.getReq($rootScope.URL.RELIEFSLIST.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -38,6 +38,7 @@
                         $scope.reliefsList.forEach(function (reliefsListItem, reliefsListIndex) {
                             reliefsListItem._id = reliefsListIndex +1;
                         });
+                        $scope.showReliefsList++;
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }

@@ -42,7 +42,7 @@
 
         // 初始化table数据
         $scope.initLocaleLanguageData = function () {
-            $scope.localeLanguage = [];
+            //$scope.localeLanguage = [];
             adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -51,6 +51,7 @@
                         $scope.localeLanguage.forEach(function (localeLanguageItem, localeLanguageIndex) {
                             localeLanguageItem.supported = localeLanguageItem.supported ? '1' : '0';
                         });
+                        $scope.localeLanguageReload++;
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }

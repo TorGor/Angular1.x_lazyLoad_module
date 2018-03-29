@@ -55,7 +55,7 @@
 
         // 初始化table数据
         $scope.initCountriesManageData = function () {
-            $scope.countriesManage = [];
+            //$scope.countriesManage = [];
             adminService.getReq($rootScope.URL.COUNTRIESMANAGE.GET).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -70,7 +70,8 @@
                             if(countriesManageItem.currency){
                                 delete countriesManageItem.currency
                             }
-                        })
+                        });
+                        $scope.countriesManageReload++;
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
