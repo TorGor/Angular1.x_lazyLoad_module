@@ -9,6 +9,7 @@
         '$rootScope',
         '$uibModalInstance',
         'adminService',
+        'item',
         '$translate'
     ];
 
@@ -17,6 +18,7 @@
         $rootScope,
         $uibModalInstance,
         adminService,
+        item,
         $translate
     ) {
 
@@ -28,7 +30,12 @@
         };
 
         $scope.confirmOrderAddModal = function () {
-            adminService.postReq($rootScope.URL.ORDERSMANAGE.POST+'/'+$scope.orderAdd.order_no, {}, $scope.orderAdd).then(function (res) {
+            if(!item.id){
+                $rootScope.alertErrorMsg('server data error');
+                $uibModalInstance.dismiss('cancel');
+                return;
+            }
+            adminService.postReq($rootScope.URL.ORDERSMANAGE.POST+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $uibModalInstance.close('success');

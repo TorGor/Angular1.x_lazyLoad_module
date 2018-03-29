@@ -124,14 +124,17 @@
         };
 
         // 添加按钮
-        $scope.addOrdersManage = function () {
+        $scope.manualOrdersManage = function (item) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
                 templateUrl: '/views/admin/ordersManage/orderAddModal.html',
                 controller: 'OrderAddModalController',
-                size: 'md',
+                resolve: {
+                    item: item
+                },
+                size: 'md'
             });
             modalInstance.result.then(function(data) {
                 $scope.initOrdersManageData()

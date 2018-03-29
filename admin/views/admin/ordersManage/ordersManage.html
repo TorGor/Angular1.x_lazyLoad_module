@@ -3,16 +3,7 @@
         <div class="panel-wrapper">
             <div class="panel-body">
                 <span class="form-group add-button-class">
-                    <button
-                        ng-show='validPower("ORDERSMANAGE", ["POST"])'
-                        class="btn btn-primary"
-                        ng-click="addOrdersManage()"
-                        style='margin-left: 15px'
-                        type="button"
-                        translate="table.button.add"
-                    >
-                        新增
-                    </button>
+
                 </span>
                 <div class="clearfix"></div>
                 <form class="form-horizontal" role="form">
@@ -152,8 +143,12 @@
                             <td>
                                 <span>{{item.user.userId.substr(0,10)}}</span>
                             </td>
-                            <td style="white-space: nowrap;" ng-show='validPower("ORDERSMANAGE", ["GETDETAIL"])'>
+                            <td style="white-space: nowrap;" ng-show='validPower("ORDERSMANAGE", ["GETDETAIL","POST"])'>
                                 <div class="buttons">
+                                    <button class="btn btn-sm btn-info" ng-show='validPower("ORDERSMANAGE", ["POST"])' ng-click="manualOrdersManage(item)"
+                                            title="{{'table.button.save' | translate}}">
+                                        <em class="fa fa-save"></em>
+                                    </button>
                                     <button class="btn btn-sm btn-green" ng-show='validPower("ORDERSMANAGE", ["GETDETAIL"])' ng-click="ordersDetailManage(item)"
                                             title="{{'table.button.detail' | translate}}">
                                         <em class="fa fa-folder-open-o"></em>
@@ -162,7 +157,7 @@
                             </td>
                         </tr>
                         <tr ng-show="ordersManage.length==0">
-                            <td colspan='{{validPower("ORDERSMANAGE", ["GETDETAIL"])?7:6}}' class="">{{'table.no_date' | translate}}</td>
+                            <td colspan='{{validPower("ORDERSMANAGE", ["GETDETAIL","POST"])?7:6}}' class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>
