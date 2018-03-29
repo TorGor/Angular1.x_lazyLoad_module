@@ -180,7 +180,7 @@
                 scope:$scope,
                 resolve: {
                     modalItem: item,
-                    edit: item,
+                    edit: edit,
                     hasPower: $scope.hasPower&&edit!==1,
                 }
             });

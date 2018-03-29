@@ -329,13 +329,13 @@
                 var tempObj = {};
                 var sameKey = false;
                 $scope.brandsLangsModal.map(function(nameItem) {
-                    if(tempObj[nameItem.locale]){
+                    if(tempObj[nameItem.our_locale]){
                         sameKey = true
                     }
-                    tempObj[nameItem.locale] = nameItem.value
+                    tempObj[nameItem.our_locale] = nameItem.our_locale||'';
                 });
                 if(sameKey){
-                    $rootScope.alertErrorMsg('you set same local in brand list,just remove one');
+                    $rootScope.alertErrorMsg('you set same local in langs list,just remove one');
                     return '';
                 }
             }
@@ -346,10 +346,10 @@
                 var tempObj = {};
                 var sameKey = false;
                 $scope.brandsProductsModal.map(function(nameItem) {
-                    if(tempObj[nameItem.locale]){
+                    if(tempObj[nameItem.code]){
                         sameKey = true
                     }
-                    tempObj[nameItem.locale] = nameItem.value
+                    tempObj[nameItem.code] = nameItem.code
                 });
                 if(sameKey){
                     $rootScope.alertErrorMsg('you set same local in product list,just remove one');
@@ -357,13 +357,12 @@
                 }
             }
 
-            alert(444)
-
             //提取数据
 
             var tempData = angular.copy($scope.modalItem);
 
             //提取name数据
+            console.log($scope.methodsNameModal,'$scope.methodsNameModal')
 
             if($scope.methodsNameModal && $scope.methodsNameModal.length){
                 var tempObjName = {};
@@ -426,7 +425,7 @@
                     }
                 });
             }else if(edit==3){
-                adminService.patchReq($rootScope.URL.GAMEBRANDS.PATCH+'/'+gameBrands.code, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.GAMEBRANDS.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
