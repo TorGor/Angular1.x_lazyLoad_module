@@ -2,25 +2,27 @@
 
     angular
         .module('admin.gameBrands')
-        .controller('BrandsCurrenciesModalController', BrandsCurrenciesModalController);
+        .controller('GameBrandsModalController', GameBrandsModalController);
 
-    BrandsCurrenciesModalController.$inject = [
+    GameBrandsModalController.$inject = [
         '$scope',
         '$rootScope',
         '$uibModalInstance',
         '$translate',
         'adminService',
         'edit',
+        'hasPower',
         'modalItem'
     ];
 
-    function BrandsCurrenciesModalController(
+    function GameBrandsModalController(
         $scope,
         $rootScope,
         $uibModalInstance,
         $translate,
         adminService,
         edit,
+        hasPower,
         modalItem
     ) {
 
@@ -43,24 +45,36 @@
                     'products': []
                 }
             }else{
-                if($scope.modalItem['name']&&$scope.modalItem['name'].length){
-                    $scope.methodsNameModal = $scope.modalItem['name'];
-                    $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
-                        methodsNameItem.id = methodsNameIndex + 1;
-                    })
-                }
-                if(modalItem['langs']&&modalItem['langs'].length){
-                    $scope.brandsLangsModal = modalItem['langs'];
-                    $scope.brandsLangsModal.forEach(function (modalItem, brandsLangsIndex) {
-                        modalItem.id = brandsLangsIndex + 1;
-                    })
-                }
-                if(modalItem['products']&&modalItem['products'].length){
-                    $scope.brandsProductsModal = modalItem['products'];
-                    $scope.brandsProductsModal.forEach(function (modalItem, brandsProductsIndex) {
-                        modalItem.id = brandsProductsIndex + 1;
-                    })
-                }
+
+            }
+            if($scope.modalItem['name']&&$scope.modalItem['name'].length){
+                $scope.methodsNameModal = $scope.modalItem['name'];
+                $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
+                    methodsNameItem.id = methodsNameIndex + 1;
+                })
+            }else{
+                $scope.methodsNameModal = [];
+            }
+            if($scope.modalItem['langs']&&$scope.modalItem['langs'].length){
+                $scope.brandsLangsModal = $scope.modalItem['langs'];
+                $scope.brandsLangsModal.forEach(function (modalItem, brandsLangsIndex) {
+                    modalItem.id = brandsLangsIndex + 1;
+                })
+            }else{
+                $scope.brandsLangsModal = [];
+            }
+            if($scope.modalItem['products']&&$scope.modalItem['products'].length){
+                $scope.brandsProductsModal = $scope.modalItem['products'];
+                $scope.brandsProductsModal.forEach(function (modalItem, brandsProductsIndex) {
+                    modalItem.id = brandsProductsIndex + 1;
+                })
+            }else{
+                $scope.brandsProductsModal = [];
+            }
+            if($scope.modalItem['currencies']){
+                $scope.brandsCurrenciesModal = $scope.modalItem['currencies'];
+            }else {
+                $scope.brandsCurrenciesModal = [];
             }
         };
 
@@ -271,9 +285,7 @@
 
         //选择货币开始
 
-        $scope.brandsCurrenciesModal = modalItem['currencies'];
-
-        $scope.selectObj = {};
+        //$scope.selectObj = {};
 
         /**
          * 点击复选框
@@ -294,11 +306,147 @@
 
         $scope.confirmModal = function () {
 
+            //校验name
+
+            if($scope.methodsNameModal && $scope.methodsNameModal.length){
+                var tempObj = {};
+                var sameKey = false;
+                $scope.methodsNameModal.map(function(nameItem) {
+                    if(tempObj[nameItem.locale]){
+                        sameKey = true
+                    }
+                    tempObj[nameItem.locale] = nameItem.value
+                });
+                if(sameKey){
+                    $rootScope.alertErrorMsg('you set same local in name list,just remove one');
+                    return '';
+                }
+            }
+
+            //校验langs
+
+            if($scope.brandsLangsModal && $scope.brandsLangsModal.length){
+                var tempObj = {};
+                var sameKey = false;
+                $scope.brandsLangsModal.map(function(nameItem) {
+                    if(tempObj[nameItem.locale]){
+                        sameKey = true
+                    }
+                    tempObj[nameItem.locale] = nameItem.value
+                });
+                if(sameKey){
+                    $rootScope.alertErrorMsg('you set same local in brand list,just remove one');
+                    return '';
+                }
+            }
+
+            //校验product
+
+            if($scope.brandsProductsModal && $scope.brandsProductsModal.length){
+                var tempObj = {};
+                var sameKey = false;
+                $scope.brandsProductsModal.map(function(nameItem) {
+                    if(tempObj[nameItem.locale]){
+                        sameKey = true
+                    }
+                    tempObj[nameItem.locale] = nameItem.value
+                });
+                if(sameKey){
+                    $rootScope.alertErrorMsg('you set same local in product list,just remove one');
+                    return '';
+                }
+            }
+
+            alert(444)
+
+            //提取数据
+
+            var tempData = angular.copy($scope.modalItem);
+
+            //提取name数据
+
+            if($scope.methodsNameModal && $scope.methodsNameModal.length){
+                var tempObjName = {};
+                var sameKeyName = false;
+                $scope.methodsNameModal.map(function(nameItem) {
+                    if(tempObjName[nameItem.locale]&&!$scope.validIsNew(nameItem.id)){
+                        sameKeyName = true
+                    }
+                    tempObjName[nameItem.locale] = nameItem.value
+                });
+                if(sameKeyName){
+                    $rootScope.alertErrorMsg('you set same local,just remove one');
+                    return '';
+                }
+                tempData.name = angular.copy(tempObjName)
+            }else{
+                tempData.name = {}
+            }
+
+            //提取langs数据
+
+            var tempBrandsLangs = angular.copy($scope.brandsLangsModal);
+
+            tempBrandsLangs = tempBrandsLangs.filter(function (modalItem) {
+                return !$scope.validIsNew(modalItem.id);
+            });
+            tempBrandsLangs.forEach(function (modalItem, brandsLangsIndex) {
+                if(modalItem.id){
+                    delete modalItem.id;
+                }
+            });
+            tempData.langs = tempBrandsLangs;
+
+            //提取product数据
+            var tempBrandsProducts = angular.copy($scope.brandsProductsModal);
+            tempBrandsProducts = tempBrandsProducts.filter(function (modalItem) {
+                return !$scope.validIsNew(modalItem.id);
+            });
+            tempBrandsProducts.forEach(function (modalItem, brandsProductsIndex) {
+                if(modalItem.id){
+                    delete modalItem.id;
+                }
+            });
+            tempData.products = tempBrandsProducts;
+
+            //提取Currency数据
+
+            tempData.currencies = angular.copy($scope.brandsCurrenciesModal);
+
+            if(edit==2){
+                adminService.postReq($rootScope.URL.GAMEBRANDS.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }else if(edit==3){
+                adminService.patchReq($rootScope.URL.GAMEBRANDS.PATCH+'/'+gameBrands.code, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+
         };
 
         $scope.cancelModal = function () {
-
+            $uibModalInstance.dismiss('cancel');
         };
 
+        //页面加载执行
+
+        $scope.initGameBrandModalData();
     }
 })();

@@ -23,25 +23,25 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">货币</label>
-                            <div class="col-lg-8 col-md-6">
-                                <ui-select
-                                    ng-model="modalItem.currency"
-                                    theme="bootstrap"
-                                    ng-disabled='!hasPower'
-                                    search-enabled="false"
-                                >
-                                    <ui-select-match placeholder="choose currency">
-                                        <span ng-bind="$select.selected.label"></span>
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="item.value as item in currencyOptions">
-                                        <span ng-bind="item.label"></span>
-                                    </ui-select-choices>
-                                </ui-select>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
+                        <!--<div class="form-group col-lg-6 col-md-12 margin-bottom-20">-->
+                            <!--<label class="col-lg-4 col-md-6 control-label">货币</label>-->
+                            <!--<div class="col-lg-8 col-md-6">-->
+                                <!--<ui-select-->
+                                    <!--ng-model="modalItem.currency"-->
+                                    <!--theme="bootstrap"-->
+                                    <!--ng-disabled='!hasPower'-->
+                                    <!--search-enabled="false"-->
+                                <!--&gt;-->
+                                    <!--<ui-select-match placeholder="choose currency">-->
+                                        <!--<span ng-bind="$select.selected.label"></span>-->
+                                    <!--</ui-select-match>-->
+                                    <!--<ui-select-choices repeat="item.value as item in currencyOptions">-->
+                                        <!--<span ng-bind="item.label"></span>-->
+                                    <!--</ui-select-choices>-->
+                                <!--</ui-select>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="clearfix"></div>-->
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
                             <label class="col-lg-4 col-md-6 control-label">钱包</label>
                             <div class="col-lg-8 col-md-6">
@@ -203,22 +203,22 @@
                                             {{'table.gameBrands.products.th1' | translate}}
                                         </td>
                                         <td
-                                            style="width: 20%" ao-data="brandsProductsModalAoData" web-data-table-sort="osx_url"
+                                            style="width: 17%" ao-data="brandsProductsModalAoData" web-data-table-sort="osx_url"
                                         >
                                             {{'table.gameBrands.products.th2' | translate}}
                                         </td>
                                         <td
-                                            style="width: 20%" ao-data="brandsProductsModalAoData"
+                                            style="width: 17%" ao-data="brandsProductsModalAoData"
                                             web-data-table-sort="windows_url"
                                         >
                                             {{'table.gameBrands.products.th3' | translate}}
                                         </td>
                                         <td
-                                            style="width: 20%" ao-data="brandsProductsModalAoData" web-data-table-sort="ios_url"
+                                            style="width: 17%" ao-data="brandsProductsModalAoData" web-data-table-sort="ios_url"
                                         >
                                             {{'table.gameBrands.products.th4' | translate}}
                                         </td>
-                                        <td style="width: 20%" ao-data="brandsProductsModalAoData" web-data-table-sort="value">
+                                        <td style="width: 17%" ao-data="brandsProductsModalAoData" web-data-table-sort="value">
                                             {{'table.gameBrands.products.th5' | translate}}
                                         </td>
                                         <td style="width: 10%" ng-show='hasPower'>{{'table.button.operation' | translate}}</td>
@@ -301,7 +301,7 @@
                                         </td>
                                     </tr>
                                     <tr ng-show="showBrandsProductsModal.length==0">
-                                        <td colspan='{{hasPower?3:2}}' class="">{{'table.no_date' | translate}}</td>
+                                        <td colspan='{{hasPower?6:5}}' class="">{{'table.no_date' | translate}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -374,7 +374,7 @@
                                                 onbeforesave="checkRequiredData($data)" e-form="rowform" e-required=""
                                             >{{ item.brand_locale || '' }}</span>
                                         </td>
-                                        <td style="white-space: nowrap;" ng-show='validPower("GAMEBRANDS", ["POST", "PATCH"])'>
+                                        <td style="white-space: nowrap;" ng-show='hasPower'>
                                             <form
                                                 class="form-buttons form-inline" editable-form name="rowform"
                                                 onaftersave="saveBrandsLangsModal(item, $data)" ng-show="rowform.$visible"
@@ -438,7 +438,7 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-show='hasPower' ng-disabled='!myForm.$dirty||myForm.$invalid' type="button" ng-click="confirmModal()">{{'table.button.save' |
+    <button class="btn btn-primary" ng-show='hasPower' ng-disabled='myForm.$invalid' type="button" ng-click="confirmModal()">{{'table.button.save' |
                                                                              translate}}</button>
     <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
 </div>

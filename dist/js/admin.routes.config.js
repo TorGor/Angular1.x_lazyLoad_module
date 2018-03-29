@@ -30,11 +30,12 @@
                 abstract: true,
                 templateUrl: RouteHelpersProvider.basepath('app.html'),
                 resolve: angular.extend(
-                     {
+                    RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'ui.select', 'datetimepicker', 'admin'),
+                    {
                         // YOUR RESOLVES GO HERE
-                        userInfo: ['userSelfService', 'EVN', '$timeout','$rootScope', 'SidebarMenuData', '$q', function (userSelfService, EVN, $timeout,$rootScope,SidebarMenuData,$q) {
+                        userInfo: ['userSelfService', 'EVN', '$timeout', '$rootScope', 'SidebarMenuData', '$q', function(userSelfService, EVN, $timeout, $rootScope, SidebarMenuData, $q) {
                             var deferred = $q.defer();
-                            userSelfService.getUserSelfInfo({},{},function (data) {
+                            userSelfService.getUserSelfInfo({}, {}, function(data) {
                                 var roles = data.data.roles;
                                 window.userInfo = {};
                                 window.userInfo.adminId = angular.copy(data.data.adminId);
@@ -48,22 +49,22 @@
 
                                 var moduleObj = {};
                                 SidebarMenuData.admin.map(function(moduleItem) {
-                                    moduleObj[moduleItem.module] = moduleItem.sref
+                                    moduleObj[moduleItem.module] = moduleItem.sref;
                                 });
 
                                 var tempButtonUrl = {};
 
-                                if(window.Array.isArray(roles)){
+                                if (window.Array.isArray(roles)) {
                                     roles.map(function(roleItem) {
                                         var tempMenu = {};
                                         tempMenu.text = roleItem.name || '';
-                                        if(roleItem.url == null){
+                                        if (roleItem.url == null) {
                                             tempMenu.sref = '#';
                                             tempMenu.icon = 'glyphicon glyphicon-th-large';
                                             tempMenu.submenu = [];
-                                            if(window.Array.isArray(roleItem.data)){
+                                            if (window.Array.isArray(roleItem.data)) {
                                                 roleItem.data.map(function(moduleItem) {
-                                                    if(moduleItem.url){
+                                                    if (moduleItem.url) {
                                                         var tempSubmenu = {
                                                             text: moduleItem.name || '',
                                                             sref: moduleObj[moduleItem.url]
@@ -72,144 +73,144 @@
                                                         window.userInfo.module.push(moduleItem.url);
                                                         tempButtonUrl[moduleItem.url] = moduleItem.data;
                                                     }
-                                                })
+                                                });
                                             }
-                                        }else if(roleItem.url){
+                                        } else if (roleItem.url) {
                                             tempMenu.sref = moduleObj[moduleItem.url];
                                             tempMenu.icon = 'glyphicon glyphicon-th-large';
                                         }
-                                        window.userInfo.menu.push(tempMenu)
+                                        window.userInfo.menu.push(tempMenu);
                                     });
                                 }
 
                                 var URLobj = {
-                                    locales:'LOCALELANGUAGE',
-                                    countries:'COUNTRIESMANAGE',
-                                    transactions:'TRANSACTIONSDETAIL',
-                                    currencies:'CURRENCIESMANAGE',
-                                    blacklists:'BLACKLISTS',
-                                    ranks:'USERLEVEL',
-                                    orders:'ORDERSMANAGE',
-                                    methods:'PAYMENTMETHODS',
-                                    applies:'APPLIESUSE',
-                                    brands:'GAMEBRANDS',
-                                    categories:'GAMECATEGORIES',
-                                    coupons:'COUPONSMANAGE',
-                                    games:'GAMESMANAGE',
-                                    products:'GAMESPRODUCTS',
-                                    psps:'PSPSMANAGE',
-                                    withdraws:'WITHDRAWSMANAGE',
-                                    promotions:'PROMOTIONSMANAGE',
-                                    rebates:'REBATESLIST',
-                                    reliefs:'RELIEFSLIST',
-                                    transfers:'TRANSFERSLIST'
+                                    locales: 'LOCALELANGUAGE',
+                                    countries: 'COUNTRIESMANAGE',
+                                    transactions: 'TRANSACTIONSDETAIL',
+                                    currencies: 'CURRENCIESMANAGE',
+                                    blacklists: 'BLACKLISTS',
+                                    ranks: 'USERLEVEL',
+                                    orders: 'ORDERSMANAGE',
+                                    methods: 'PAYMENTMETHODS',
+                                    applies: 'APPLIESUSE',
+                                    brands: 'GAMEBRANDS',
+                                    categories: 'GAMECATEGORIES',
+                                    coupons: 'COUPONSMANAGE',
+                                    games: 'GAMESMANAGE',
+                                    products: 'GAMESPRODUCTS',
+                                    psps: 'PSPSMANAGE',
+                                    withdraws: 'WITHDRAWSMANAGE',
+                                    promotions: 'PROMOTIONSMANAGE',
+                                    rebates: 'REBATESLIST',
+                                    reliefs: 'RELIEFSLIST',
+                                    transfers: 'TRANSFERSLIST'
                                 };
 
                                 // 配置预设的url
                                 $rootScope.URL = {
-                                    WALLETSMANAGE:{
-                                        GET:'/rest/getWallets',
+                                    WALLETSMANAGE: {
+                                        GET: '/rest/getWallets',
                                     },
                                 };
                                 window.Object.keys(URLobj).map(function(module) {
-                                    if(tempButtonUrl[module]){
-                                        if(window.Array.isArray(tempButtonUrl[module])){
+                                    if (tempButtonUrl[module]) {
+                                        if (window.Array.isArray(tempButtonUrl[module])) {
                                             $rootScope.URL[URLobj[module]] = {};
                                             tempButtonUrl[module].map(function(buttonItem) {
-                                                if(buttonItem.btnType == 1){
-                                                    if(module == 'withdraws'){
-                                                        if(buttonItem.btnUrl.indexOf('Audit')!==-1){
+                                                if (buttonItem.btnType == 1) {
+                                                    if (module == 'withdraws') {
+                                                        if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
                                                             $rootScope.URL[URLobj[module]].GETAUDIT = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].GETAUDITID = buttonItem.id;
-                                                        }else if(buttonItem.btnUrl.indexOf('Pay') !== -1){
+                                                            //$rootScope.URL[URLobj[module]].GETAUDITID = buttonItem.id;
+                                                        } else if (buttonItem.btnUrl.indexOf('Pay') !== -1) {
                                                             $rootScope.URL[URLobj[module]].GETPAY = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].GETPAYID = buttonItem.id;
-                                                        }else if(buttonItem.btnUrl.indexOf('Review') !== -1){
+                                                            //$rootScope.URL[URLobj[module]].GETPAYID = buttonItem.id;
+                                                        } else if (buttonItem.btnUrl.indexOf('Review') !== -1) {
                                                             $rootScope.URL[URLobj[module]].GETREVIEW = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].GETREVIEWID = buttonItem.id;
-                                                        }else if(buttonItem.btnUrl.indexOf('Detail') !== -1){
+                                                            //$rootScope.URL[URLobj[module]].GETREVIEWID = buttonItem.id;
+                                                        } else if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
                                                             $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
-                                                        }else{
+                                                            //$rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
+                                                        } else {
                                                             $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].GETID = buttonItem.id;
+                                                            //$rootScope.URL[URLobj[module]].GETID = buttonItem.id;
                                                         }
-                                                    }else{
-                                                        if(buttonItem.btnUrl.indexOf('Detail') !== -1){
+                                                    } else {
+                                                        if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
                                                             $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
-                                                        }else{
+                                                            //$rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
+                                                        } else {
                                                             $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].GETID = buttonItem.id;
+                                                            //$rootScope.URL[URLobj[module]].GETID = buttonItem.id;
                                                         }
                                                     }
 
                                                 }
-                                                if(buttonItem.btnType == 2){
-                                                    if(module == 'withdraws'){
-                                                        if(buttonItem.btnUrl.indexOf('Audit') !== -1){
+                                                if (buttonItem.btnType == 2) {
+                                                    if (module == 'withdraws') {
+                                                        if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
                                                             $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
-                                                        }else if(buttonItem.btnUrl.indexOf('Pay') !== -1){
+                                                            //$rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
+                                                        } else if (buttonItem.btnUrl.indexOf('Pay') !== -1) {
                                                             $rootScope.URL[URLobj[module]].POSTPAY = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].POSTPAYID = buttonItem.id;
-                                                        }else if(buttonItem.btnUrl.indexOf('Review') !== -1){
+                                                            //$rootScope.URL[URLobj[module]].POSTPAYID = buttonItem.id;
+                                                        } else if (buttonItem.btnUrl.indexOf('Review') !== -1) {
                                                             $rootScope.URL[URLobj[module]].POSTREVIEW = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].POSTREVIEWID = buttonItem.id;
-                                                        }else{
+                                                            //$rootScope.URL[URLobj[module]].POSTREVIEWID = buttonItem.id;
+                                                        } else {
                                                             $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
+                                                            //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
                                                         }
-                                                    }else if(module == 'applies'){
-                                                        if(buttonItem.btnUrl.indexOf('audit') !== -1){
+                                                    } else if (module == 'applies') {
+                                                        if (buttonItem.btnUrl.indexOf('audit') !== -1) {
                                                             $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
-                                                        }else if(buttonItem.btnUrl.indexOf('revoke') !== -1){
+                                                            //$rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
+                                                        } else if (buttonItem.btnUrl.indexOf('revoke') !== -1) {
                                                             $rootScope.URL[URLobj[module]].POSTREVOKE = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].POSTREVOKEID = buttonItem.id;
-                                                        }else{
+                                                            //$rootScope.URL[URLobj[module]].POSTREVOKEID = buttonItem.id;
+                                                        } else {
                                                             $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                            $rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
+                                                            //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
                                                         }
-                                                    }else{
+                                                    } else {
                                                         $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                        $rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
+                                                        //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
                                                     }
                                                 }
-                                                if(buttonItem.btnType == 3){
+                                                if (buttonItem.btnType == 3) {
                                                     $rootScope.URL[URLobj[module]].PATCH = buttonItem.btnUrl;
-                                                    $rootScope.URL[URLobj[module]].PATCHID = buttonItem.id;
+                                                    //$rootScope.URL[URLobj[module]].PATCHID = buttonItem.id;
                                                 }
-                                                if(buttonItem.btnType == 4){
+                                                if (buttonItem.btnType == 4) {
                                                     $rootScope.URL[URLobj[module]].DELETE = buttonItem.btnUrl;
-                                                    $rootScope.URL[URLobj[module]].DELETEID = buttonItem.id;
+                                                    //$rootScope.URL[URLobj[module]].DELETEID = buttonItem.id;
                                                 }
-                                                if(buttonItem.btnType == 5){
+                                                if (buttonItem.btnType == 5) {
                                                     $rootScope.URL[URLobj[module]].PUT = buttonItem.btnUrl;
-                                                    $rootScope.URL[URLobj[module]].PUTID = buttonItem.id;
+                                                    //$rootScope.URL[URLobj[module]].PUTID = buttonItem.id;
                                                 }
-                                            })
+                                            });
                                         }
                                     }
                                 });
-                                console.log($rootScope.URL,6666)
+                                console.log($rootScope.URL, '$rootScope.URL');
 
                                 //$rootScope.$broadcast('getUserMenuSuccess');
 
-                                deferred.resolve("userInfo resolved");
+                                deferred.resolve('userInfo resolved');
 
                                 return true;
 
-                            },function (error) {
+                            }, function(error) {
                                 $timeout(function() {
                                     window.location.href = '/login.html';
                                 }, 300);
-                                deferred.reject("userInfo reject");
+                                deferred.reject('userInfo reject');
                             });
 
                             return deferred.promise;
                         }]
-                    },RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable','ui.select','datetimepicker', 'admin')
+                    }
                 )
             })
 
