@@ -15,10 +15,10 @@
         })
         .constant('EVN', {
             debug: true,
-            //suffix: '.json',
-            suffix: '',
-            //server: '',
-             server: 'http://123.206.33.128',
+            suffix: '.json',
+            //suffix: '',
+            server: '',
+             //server: 'http://123.206.33.128',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             //server: 'http://holyplace.ngrok.xiaomiqiu.cn'
         });

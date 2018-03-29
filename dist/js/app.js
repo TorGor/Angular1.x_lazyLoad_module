@@ -39,6 +39,12 @@
     'use strict';
 
     angular
+        .module('app.loadingbar', []);
+})();
+(function() {
+    'use strict';
+
+    angular
         .module('app.core', [
             'ngRoute',
             'ngAnimate',
@@ -67,12 +73,6 @@
     'use strict';
 
     angular
-        .module('app.loadingbar', []);
-})();
-(function() {
-    'use strict';
-
-    angular
         .module('app.preloader', []);
 })();
 
@@ -88,6 +88,12 @@
     'use strict';
 
     angular
+        .module('app.sidebar', []);
+})();
+(function() {
+    'use strict';
+
+    angular
         .module('app.settings', []);
 })();
 (function() {
@@ -95,12 +101,6 @@
 
     angular
         .module('app.translate', []);
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.sidebar', []);
 })();
 (function() {
     'use strict';
@@ -165,6 +165,50 @@
     'use strict';
 
     angular
+        .module('app.loadingbar')
+        .config(loadingbarConfig)
+        ;
+    loadingbarConfig.$inject = ['cfpLoadingBarProvider'];
+    function loadingbarConfig(cfpLoadingBarProvider){
+      cfpLoadingBarProvider.includeBar = true;
+      cfpLoadingBarProvider.includeSpinner = false;
+      cfpLoadingBarProvider.latencyThreshold = 500;
+      cfpLoadingBarProvider.parentSelector = '.wrapper > section';
+    }
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.loadingbar')
+        .run(loadingbarRun)
+        ;
+    loadingbarRun.$inject = ['$rootScope', '$timeout', 'cfpLoadingBar'];
+    function loadingbarRun($rootScope, $timeout, cfpLoadingBar){
+
+      // Loading bar transition
+      // ----------------------------------- 
+      var thBar;
+      $rootScope.$on('$stateChangeStart', function() {
+          if($('.wrapper > section').length) // check if bar container exists
+            thBar = $timeout(function() {
+              cfpLoadingBar.start();
+            }, 0); // sets a latency Threshold
+      });
+      $rootScope.$on('$stateChangeSuccess', function(event) {
+          event.targetScope.$watch('$viewContentLoaded', function () {
+            $timeout.cancel(thBar);
+            cfpLoadingBar.complete();
+          });
+      });
+
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
         .module('app.core')
         .config(coreConfig);
 
@@ -223,10 +267,10 @@
         })
         .constant('EVN', {
             debug: true,
-            //suffix: '.json',
-            suffix: '',
-            //server: '',
-             server: 'http://123.206.33.128',
+            suffix: '.json',
+            //suffix: '',
+            server: '',
+             //server: 'http://123.206.33.128',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             //server: 'http://holyplace.ngrok.xiaomiqiu.cn'
         });
@@ -975,50 +1019,6 @@
     'use strict';
 
     angular
-        .module('app.loadingbar')
-        .config(loadingbarConfig)
-        ;
-    loadingbarConfig.$inject = ['cfpLoadingBarProvider'];
-    function loadingbarConfig(cfpLoadingBarProvider){
-      cfpLoadingBarProvider.includeBar = true;
-      cfpLoadingBarProvider.includeSpinner = false;
-      cfpLoadingBarProvider.latencyThreshold = 500;
-      cfpLoadingBarProvider.parentSelector = '.wrapper > section';
-    }
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.loadingbar')
-        .run(loadingbarRun)
-        ;
-    loadingbarRun.$inject = ['$rootScope', '$timeout', 'cfpLoadingBar'];
-    function loadingbarRun($rootScope, $timeout, cfpLoadingBar){
-
-      // Loading bar transition
-      // ----------------------------------- 
-      var thBar;
-      $rootScope.$on('$stateChangeStart', function() {
-          if($('.wrapper > section').length) // check if bar container exists
-            thBar = $timeout(function() {
-              cfpLoadingBar.start();
-            }, 0); // sets a latency Threshold
-      });
-      $rootScope.$on('$stateChangeSuccess', function(event) {
-          event.targetScope.$watch('$viewContentLoaded', function () {
-            $timeout.cancel(thBar);
-            cfpLoadingBar.complete();
-          });
-      });
-
-    }
-
-})();
-(function() {
-    'use strict';
-
-    angular
         .module('app.preloader')
         .directive('preloader', preloader);
 
@@ -1193,155 +1193,6 @@
 })();
 
 
-(function() {
-
-
-    angular
-        .module('app.settings')
-        .run(settingsRun);
-
-    settingsRun.$inject = [
-        '$rootScope',
-        '$localStorage',
-        'userSelfService',
-        '$translate'
-    ];
-
-    function settingsRun(
-        $rootScope,
-        $localStorage,
-        userSelfService,
-        $translate
-    ) {
-
-
-        // User Settings
-        // -----------------------------------
-        $rootScope.user = {
-            system: 'admin',
-            name: 'admin'
-        };
-
-        // Hides/show user avatar on sidebar from any element
-        $rootScope.toggleUserBlock = function() {
-            $rootScope.$broadcast('toggleUserBlock');
-        };
-
-        $rootScope.userLogout = function () {
-            console.log(userSelfService.getUserLogout)
-            userSelfService.getUserLogout({},{}).$promise.then(function (data) {
-                window.location.href = '/login.html'
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-
-                    } else {
-                        $rootScope.alertErrorMsg(data.msg);
-                    }
-                }
-            })
-        };
-
-        // Global Settings
-        // -----------------------------------
-        $rootScope.app = {
-            name: 'Angle',
-            year: ((new Date()).getFullYear()),
-            layout: {
-                isFixed: true,
-                isCollapsed: false,
-                isBoxed: false,
-                isRTL: false,
-                horizontal: false,
-                isFloat: false,
-                asideHover: false,
-                theme: 'css/theme-e.css',
-                asideScrollbar: false,
-                isCollapsedText: false
-            },
-            useFullLayout: false,
-            hiddenFooter: false,
-            offsidebarOpen: false,
-            asideToggled: false,
-        };
-
-        console.log($rootScope.app.layout, '$rootScope.app.layout');
-
-        // Setup the layout mode
-        $rootScope.app.layout.horizontal = ($rootScope.$stateParams.layout === 'app-h');
-
-        // Restore layout settings
-        if (angular.isDefined($localStorage.layout)) { $rootScope.app.layout = $localStorage.layout }
-        else { $localStorage.layout = $rootScope.app.layout }
-
-        $rootScope.$watch('app.layout', function () {
-            $localStorage.layout = $rootScope.app.layout;
-        }, true);
-
-        // Close submenu when sidebar change from collapsed to normal
-        $rootScope.$watch('app.layout.isCollapsed', function(newValue) {
-            if (newValue === false) { $rootScope.$broadcast('closeSidebarMenu') }
-        });
-
-    }
-
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.translate')
-        .config(translateConfig)
-        ;
-    translateConfig.$inject = ['$translateProvider'];
-    function translateConfig($translateProvider){
-
-      $translateProvider.useStaticFilesLoader({
-          prefix : 'i18n/',
-          suffix : '.json'
-      });
-
-      $translateProvider.preferredLanguage((window.navigator.language || window.navigator.language).indexOf('zh') !== -1 ? 'zh-CN' : 'en');
-      $translateProvider.useLocalStorage();
-      $translateProvider.usePostCompiling(true);
-      $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
-
-    }
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('app.translate')
-        .run(translateRun);
-
-    translateRun.$inject = ['$rootScope', '$translate', '$window'];
-
-    function translateRun($rootScope, $translate, $window) {
-        // Internationalization
-        // ----------------------
-
-        $rootScope.language = {
-            // display always the current ui language
-            init: function () {
-                var proposedLanguage = $translate.proposedLanguage() || $translate.use();
-                var preferredLanguage = $translate.preferredLanguage(); // we know we have set a preferred one in app.config
-                $rootScope.language.selected = proposedLanguage || preferredLanguage;
-            },
-            set: function (localeId) {
-                // Set the new idiom
-                $translate.use(localeId);
-                // save a reference for the current language
-                $rootScope.language.selected = localeId;
-
-                $window.location.reload();
-            }
-        };
-
-        $rootScope.language.init();
-
-    }
-})();
 (function() {
     'use strict';
 
@@ -1851,6 +1702,155 @@
     }
 })();
 
+(function() {
+
+
+    angular
+        .module('app.settings')
+        .run(settingsRun);
+
+    settingsRun.$inject = [
+        '$rootScope',
+        '$localStorage',
+        'userSelfService',
+        '$translate'
+    ];
+
+    function settingsRun(
+        $rootScope,
+        $localStorage,
+        userSelfService,
+        $translate
+    ) {
+
+
+        // User Settings
+        // -----------------------------------
+        $rootScope.user = {
+            system: 'admin',
+            name: 'admin'
+        };
+
+        // Hides/show user avatar on sidebar from any element
+        $rootScope.toggleUserBlock = function() {
+            $rootScope.$broadcast('toggleUserBlock');
+        };
+
+        $rootScope.userLogout = function () {
+            console.log(userSelfService.getUserLogout)
+            userSelfService.getUserLogout({},{}).$promise.then(function (data) {
+                window.location.href = '/login.html'
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+
+                    } else {
+                        $rootScope.alertErrorMsg(data.msg);
+                    }
+                }
+            })
+        };
+
+        // Global Settings
+        // -----------------------------------
+        $rootScope.app = {
+            name: 'Angle',
+            year: ((new Date()).getFullYear()),
+            layout: {
+                isFixed: true,
+                isCollapsed: false,
+                isBoxed: false,
+                isRTL: false,
+                horizontal: false,
+                isFloat: false,
+                asideHover: false,
+                theme: 'css/theme-e.css',
+                asideScrollbar: false,
+                isCollapsedText: false
+            },
+            useFullLayout: false,
+            hiddenFooter: false,
+            offsidebarOpen: false,
+            asideToggled: false,
+        };
+
+        console.log($rootScope.app.layout, '$rootScope.app.layout');
+
+        // Setup the layout mode
+        $rootScope.app.layout.horizontal = ($rootScope.$stateParams.layout === 'app-h');
+
+        // Restore layout settings
+        if (angular.isDefined($localStorage.layout)) { $rootScope.app.layout = $localStorage.layout }
+        else { $localStorage.layout = $rootScope.app.layout }
+
+        $rootScope.$watch('app.layout', function () {
+            $localStorage.layout = $rootScope.app.layout;
+        }, true);
+
+        // Close submenu when sidebar change from collapsed to normal
+        $rootScope.$watch('app.layout.isCollapsed', function(newValue) {
+            if (newValue === false) { $rootScope.$broadcast('closeSidebarMenu') }
+        });
+
+    }
+
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.translate')
+        .config(translateConfig)
+        ;
+    translateConfig.$inject = ['$translateProvider'];
+    function translateConfig($translateProvider){
+
+      $translateProvider.useStaticFilesLoader({
+          prefix : 'i18n/',
+          suffix : '.json'
+      });
+
+      $translateProvider.preferredLanguage((window.navigator.language || window.navigator.language).indexOf('zh') !== -1 ? 'zh-CN' : 'en');
+      $translateProvider.useLocalStorage();
+      $translateProvider.usePostCompiling(true);
+      $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
+
+    }
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('app.translate')
+        .run(translateRun);
+
+    translateRun.$inject = ['$rootScope', '$translate', '$window'];
+
+    function translateRun($rootScope, $translate, $window) {
+        // Internationalization
+        // ----------------------
+
+        $rootScope.language = {
+            // display always the current ui language
+            init: function () {
+                var proposedLanguage = $translate.proposedLanguage() || $translate.use();
+                var preferredLanguage = $translate.preferredLanguage(); // we know we have set a preferred one in app.config
+                $rootScope.language.selected = proposedLanguage || preferredLanguage;
+            },
+            set: function (localeId) {
+                // Set the new idiom
+                $translate.use(localeId);
+                // save a reference for the current language
+                $rootScope.language.selected = localeId;
+
+                $window.location.reload();
+            }
+        };
+
+        $rootScope.language.init();
+
+    }
+})();
 /**=========================================================
  * Module: animate-enabled.js
  * Enable or disables ngAnimate for element with directive

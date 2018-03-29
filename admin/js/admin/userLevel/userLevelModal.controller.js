@@ -240,6 +240,7 @@
                     if($scope.validIsNew(rebatesModalItem.id)){
                         rebatesModalItem.id = window.parseInt(rebatesModalItem.id, 10)
                     }
+                    $scope.rebatesModalReload++;
                 }
             });
         };
@@ -283,17 +284,18 @@
             modalInstance.result.then(function (data) {
                 if(data.type == 'brands'){
                     $scope.rebatesModal.forEach(function(rebatesModalItem) {
-                        if (rebatesModalItem.id == data.data.id) {
+                        if (window.parseInt(rebatesModalItem.id) == window.parseInt(data.data.id)) {
                             rebatesModalItem[data.type] = angular.copy(data.data[data.type]);
                             $scope.rebatesModalReload++;
                         }
                     });
+                    console.log($scope.rebatesModal,88888)
                 }
                 modalInstance = null
             }, function (data) {
                 if(data.type == 'brands'){
                     $scope.rebatesModal.forEach(function(rebatesModalItem) {
-                        if (rebatesModalItem.id == data.data.id) {
+                        if (window.parseInt(rebatesModalItem.id) == window.parseInt(data.data.id)) {
                             rebatesModalItem[data.type] = angular.copy(data.data[data.type]);
                             $scope.rebatesModalReload++;
                         }
