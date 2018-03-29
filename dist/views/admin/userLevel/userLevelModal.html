@@ -1,0 +1,319 @@
+<div class="modal-header">
+   <h3 class="modal-title">{{showEditStatus(edit) +'用户等级'}}</h3>
+</div>
+
+<div class="modal-body">
+   <div class="row">
+      <div class="">
+         <div class="panel-wrapper">
+            <div class="panel-body">
+               <form class="form-horizontal" name='myForm'>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">编码</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.code" name='code' ng-pattern='/^[A-Z]{1,15}$/' ng-disabled='!hasPower||edit==3' class="form-control" type="text" placeholder="15 A-Z char">
+                        <span class='text-danger valid-error' ng-show="myForm.code.$dirty&&myForm.code.$invalid">
+                           {{'15 A-Z char'}}
+                        </span>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">等级</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.level" name='level' ng-pattern='/^[1-9][0-9]*?$/' ng-disabled='!hasPower' class="form-control" type="text" placeholder="integer number">
+                        <span class='text-danger valid-error' ng-show="myForm.level.$dirty&&myForm.level.$invalid">
+                           {{'integer number 1-999999'}}
+                        </span>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">默认</label>
+                     <div class="col-lg-8 col-md-6">
+                        <ui-select ng-model="modalItem.default" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
+                           <ui-select-match placeholder="choose default">
+                              <span ng-bind="$select.selected.label"></span>
+                           </ui-select-match>
+                           <ui-select-choices repeat="item.value as item in defaultOptions">
+                              <span ng-bind="item.label"></span>
+                           </ui-select-choices>
+                        </ui-select>
+                     </div>
+                  </div>
+                  <div class='clearfix'></div>
+                  <legend class="text-center">条件</legend>
+                  <form></form>
+                  <div class="">
+                     <span class="form-group add-button-class">
+                        <button ng-show='hasPower' class="btn btn-primary" ng-click="addConditionsModal()" type="button" translate="table.button.add">
+                           新增
+                        </button>
+                     </span>
+                     <form class="form-inline pull-right add-button-class" role="form">
+                        <div style="position: relative" class="form-group">
+                           <span style="position: absolute;left: 4px;top: 6px">
+                              <em class="fa fa-search"></em>
+                           </span>
+                           <input class="form-control" type="text" ng-model="conditionsModalSearch" placeholder="{{searchPlaceholder(['table.conditionsModal.th1', 'table.conditionsModal.th2', 'table.conditionsModal.th3', 'table.conditionsModal.th4', 'table.conditionsModal.th5', 'table.conditionsModal.th6'])}}">
+                        </div>
+                     </form>
+                     <div web-data-table items="conditionsModal" ao-data="conditionsModalAoData" search="conditionsModalSearch" reload="conditionsModalReload" show-items="showConditionsModal">
+                        <table width="100%" class="table table-bordered table-hover bg-white">
+                           <thead>
+                              <tr class="bg-gray-light text-bold">
+                                 <td style="width: 22%" ao-data="conditionsModalAoData" web-data-table-sort="currency">
+                                    {{'table.conditionsModal.th1' | translate}}
+                                 </td>
+                                 <td style="width: 14%" ao-data="conditionsModalAoData" web-data-table-sort="designation">
+                                    {{'table.conditionsModal.th2' | translate}}
+                                 </td>
+                                 <td style="width: 14%" ao-data="conditionsModalAoData" web-data-table-sort="comparison">
+                                    {{'table.conditionsModal.th3' | translate}}
+                                 </td>
+                                 <td style="width: 14%" ao-data="conditionsModalAoData" web-data-table-sort="value">
+                                    {{'table.conditionsModal.th4' | translate}}
+                                 </td>
+                                 <td style="width: 14%" ao-data="conditionsModalAoData" web-data-table-sort="type">
+                                    {{'table.conditionsModal.th5' | translate}}
+                                 </td>
+                                 <td style="width: 12%" ao-data="conditionsModalAoData" web-data-table-sort="logicality">
+                                    {{'table.conditionsModal.th6' | translate}}
+                                 </td>
+                                 <td style="width: 15%" ng-show='hasPower'>{{'table.button.operation' | translate}}</td>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr ng-repeat="item in showConditionsModal">
+                                 <td>
+                                    <span editable-select="item.currency" e-name="currency" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in currencyOptions">
+                                       {{showOptionsValue(item.currency,currencyOptions)}}
+                                    </span>
+                                 </td>
+                                 <td>
+                                    <span editable-select="item.designation" e-name="designation" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in designationOptions">
+                                       {{showOptionsValue(item.designation,designationOptions)}}
+                                    </span>
+                                 </td>
+                                 <td>
+                                    <span editable-select="item.comparison" e-name="comparison" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in comparisonOptions">
+                                       {{showOptionsValue(item.comparison,comparisonOptions)}}
+                                    </span>
+                                 </td>
+                                 <td>
+                                    <span editable-text="item.value" e-name="value" e-formclass="xeditable-sm" e-placeholder='integer number' onbeforesave="validReg('^[1-9][0-9]?$', $data, 'integer number')" e-form="rowform" e-required="">{{ item.value || '' }}</span>
+                                 </td>
+                                 <td>
+                                    <span editable-select="item.type" e-name="type" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in typeOptions">
+                                       {{showOptionsValue(item.type,typeOptions)}}
+                                    </span>
+                                 </td>
+                                 <td>
+                                    <span editable-select="item.logicality" e-name="logicality" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in logicalityOptions">
+                                       {{showOptionsValue(item.logicality,logicalityOptions)}}
+                                    </span>
+                                 </td>
+                                 <td style="white-space: nowrap;" ng-show='hasPower'>
+                                    <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveConditionsModal(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
+                                       <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
+                                          <em class="fa fa-save"></em>
+                                       </button>
+                                       <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelConditionsSave(item,$index)" title="{{'table.button.cancel' | translate}}">
+                                          <em class="fa fa-times"></em>
+                                       </button>
+                                    </form>
+                                    <div class="buttons" ng-show="!rowform.$visible">
+                                       <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                          <em class="fa fa-pencil"></em>
+                                       </button>
+                                       <button class="btn btn-sm btn-danger" ng-click="deleteConditionsModal(item, $index)" title="{{'table.button.delete' | translate}}">
+                                          <em class="fa fa-trash"></em>
+                                       </button>
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr ng-show="showConditionsModal.length==0">
+                                 <td colspan='{{hasPower?7:6}}' class="">{{'table.no_date' | translate}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <legend class="text-center">处理</legend>
+                  <form></form>
+                  <div class="">
+                     <span class="form-group add-button-class">
+                        <button ng-show='hasPower' class="btn btn-primary" ng-click="addTreatmentsModal()" type="button" translate="table.button.add">
+                           新增
+                        </button>
+                     </span>
+                     <form class="form-inline pull-right add-button-class" role="form">
+                        <div style="position: relative" class="form-group">
+                           <span style="position: absolute;left: 4px;top: 6px">
+                              <em class="fa fa-search"></em>
+                           </span>
+                           <input class="form-control" type="text" ng-model="treatmentsModalSearch" placeholder="{{searchPlaceholder(['table.treatmentsModal.th1', 'table.treatmentsModal.th2', 'table.treatmentsModal.th3','table.treatmentsModal.th4'])}}">
+                        </div>
+                     </form>
+                     <div web-data-table items="treatmentsModal" ao-data="treatmentsModalAoData" search="treatmentsModalSearch" reload="treatmentsModalReload" show-items="showTreatmentsModal">
+                        <table width="100%" class="table table-bordered table-hover bg-white">
+                           <thead>
+                              <tr class="bg-gray-light text-bold">
+                                 <td style="width: 23%" ao-data="treatmentsModalAoData" web-data-table-sort="currency">
+                                    {{'table.treatmentsModal.th1' | translate}}
+                                 </td>
+                                 <td style="width: 20%" ao-data="treatmentsModalAoData" web-data-table-sort="designation">
+                                    {{'table.treatmentsModal.th2' | translate}}
+                                 </td>
+                                 <td style="width: 12%" ao-data="treatmentsModalAoData" web-data-table-sort="type">
+                                    {{'table.treatmentsModal.th3' | translate}}
+                                 </td>
+                                 <td style="width: 14%" ao-data="treatmentsModalAoData" web-data-table-sort="value">
+                                    {{'table.treatmentsModal.th4' | translate}}
+                                 </td>
+                                 <td style="width: 10%" ng-show='hasPower'>{{'table.button.operation' | translate}}</td>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr ng-repeat="item in showTreatmentsModal">
+                                 <td>
+                                    <span editable-select="item.currency" e-name="currency" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in currencyOptions">
+                                       {{showOptionsValue(item.currency,currencyOptions)}}
+                                    </span>
+                                 </td>
+                                 <td>
+                                    <span editable-select="item.designation" e-name="designation" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in designationOptions">
+                                       {{showOptionsValue(item.designation,designationOptions)}}
+                                    </span>
+                                 </td>
+                                 <td>
+                                    <span editable-select="item.type" e-name="type" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in typeOptions">
+                                       {{showOptionsValue(item.type,typeOptions)}}
+                                    </span>
+                                 </td>
+                                 <td>
+                                    <span editable-text="item.value" e-name="value" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.value || '' }}</span>
+                                 </td>
+                                 <td style="white-space: nowrap;" ng-show='hasPower'>
+                                    <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveTreatmentsModal(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
+                                       <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
+                                          <em class="fa fa-save"></em>
+                                       </button>
+                                       <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelTreatmentsSave(item,$index)" title="{{'table.button.cancel' | translate}}">
+                                          <em class="fa fa-times"></em>
+                                       </button>
+                                    </form>
+                                    <div class="buttons" ng-show="!rowform.$visible">
+                                       <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                          <em class="fa fa-pencil"></em>
+                                       </button>
+                                       <button class="btn btn-sm btn-danger" ng-click="deleteTreatmentsModal(item, $index)" title="{{'table.button.delete' | translate}}">
+                                          <em class="fa fa-trash"></em>
+                                       </button>
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr ng-show="showTreatmentsModal.length==0">
+                                 <td colspan='{{hasPower?5:4}}' class="">{{'table.no_date' | translate}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <legend class="text-center">返利</legend>
+                  <form></form>
+                  <div class="">
+                     <span class="form-group add-button-class">
+                        <button ng-show='hasPower' class="btn btn-primary" ng-click="addRebatesModal()" type="button" translate="table.button.add">
+                           新增
+                        </button>
+                     </span>
+                     <form class="form-inline pull-right add-button-class" role="form">
+                        <div style="position: relative" class="form-group">
+                           <span style="position: absolute;left: 4px;top: 6px">
+                              <em class="fa fa-search"></em>
+                           </span>
+                           <input class="form-control" type="text" ng-model="rebatesModalSearch" placeholder="{{searchPlaceholder(['table.rebatesModal.th1', 'table.rebatesModal.th2', 'table.rebatesModal.th3'])}}">
+                        </div>
+                     </form>
+                     <div web-data-table items="rebatesModal" ao-data="rebatesModalAoData" search="rebatesModalSearch" reload="rebatesModalReload" show-items="showRebatesModal">
+                        <table width="100%" class="table table-bordered table-hover bg-white">
+                           <thead>
+                              <tr class="bg-gray-light text-bold">
+                                 <td style="width: 22%" ao-data="rebatesModalAoData" web-data-table-sort="currency">
+                                    {{'table.rebatesModal.th1' | translate}}
+                                 </td>
+                                 <td style="width: 15%" ao-data="rebatesModalAoData" web-data-table-sort="product">
+                                    {{'table.rebatesModal.th2' | translate}}
+                                 </td>
+                                 <td style="width: 15%" ao-data="rebatesModalAoData" web-data-table-sort="max">
+                                    {{'table.rebatesModal.th3' | translate}}
+                                 </td>
+                                 <td style="width: 10%" ao-data="rebatesModalAoData" web-data-table-sort="days">
+                                    {{'table.rebatesModal.th4' | translate}}
+                                 </td>
+                                 <td style="width: 8%">
+                                    {{'table.rebatesModal.th5' | translate}}
+                                 </td>
+                                 <td style="width: 12%" ng-show='hasPower'>{{'table.button.operation' | translate}}</td>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              <tr ng-repeat="item in showRebatesModal">
+                                 <td>
+                                    <span editable-select="item.currency" e-name="currency" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in currencyOptions">
+                                       {{showOptionsValue(item.currency,currencyOptions)}}
+                                    </span>
+                                 </td>
+                                 <td>
+                                    <span editable-select="item.product" e-name="product" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in productOptions">
+                                       {{showOptionsValue(item.product,productOptions)}}
+                                    </span>
+                                 </td>
+                                 <td>
+                                    <span editable-text="item.max" e-name="max" e-formclass="xeditable-sm" e-placeholder='min 0.01' e-type='number' onbeforesave="checkRebatesMax($data)" e-form="rowform" e-required="">{{ item.max || '' }}</span>
+                                 </td>
+                                 <td>
+                                    <span editable-text="item.days" e-name="days" e-formclass="xeditable-xs" e-placeholder='integer number' onbeforesave="validReg('^[1-9][0-9]?$', $data, 'integer number')" e-form="rowform" e-required="">{{ item.days || '' }}</span>
+                                 </td>
+                                 <td>
+                                    <button class="btn btn-sm btn-info" ng-click="showEditRebatesBrandModal(item)">{{showAddOrDetail(item.brands, item.id)}}</button>
+                                 </td>
+                                 <td style="white-space: nowrap;" ng-show='hasPower'>
+                                    <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveRebatesModal(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
+                                       <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
+                                          <em class="fa fa-save"></em>
+                                       </button>
+                                       <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelRebatesSave(item,$index)" title="{{'table.button.cancel' | translate}}">
+                                          <em class="fa fa-times"></em>
+                                       </button>
+                                    </form>
+                                    <div class="buttons" ng-show="!rowform.$visible">
+                                       <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                          <em class="fa fa-pencil"></em>
+                                       </button>
+                                       <button class="btn btn-sm btn-danger" ng-click="deleteRebatesModal(item, $index)" title="{{'table.button.delete' | translate}}">
+                                          <em class="fa fa-trash"></em>
+                                       </button>
+                                    </div>
+                                 </td>
+                              </tr>
+                              <tr ng-show="showRebatesModal.length==0">
+                                 <td colspan='{{hasPower?6:5}}' class="">{{'table.no_date' | translate}}</td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal-footer">
+   <button class="btn btn-primary" ng-show='hasPower' ng-disabled='myForm.$invalid' type="button" ng-click="confirmModal()">{{'table.button.save' | translate}}
+   </button>
+   <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
+</div>

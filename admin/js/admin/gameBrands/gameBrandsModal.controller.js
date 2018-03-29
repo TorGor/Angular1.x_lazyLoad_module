@@ -32,6 +32,11 @@
 
         $scope.modalItem = angular.copy(modalItem);
 
+        $scope.methodsNameModal = [];
+        $scope.brandsLangsModal = [];
+        $scope.brandsProductsModal = [];
+        $scope.brandsCurrenciesModal = [];
+
         //初始化数据
 
         $scope.initGameBrandModalData = function () {

@@ -18,6 +18,128 @@
         adminService
     ) {
 
+        $scope.designationOptions = [
+            {
+                label: 'deposit',
+                value: 'deposit'
+            },
+            {
+                label: 'bets',
+                value: 'bets'
+            }
+        ];
+
+        $scope.comparisonOptions = [
+            {
+                label: 'eq',
+                value: 'eq'
+            },
+            {
+                label: 'gt',
+                value: 'gt'
+            },
+            {
+                label: 'gte',
+                value: 'gte'
+            },
+            {
+                label: 'lt',
+                value: 'lt'
+            },
+            {
+                label: 'lte',
+                value: 'lte'
+            }
+        ];
+
+        $scope.typeOptions = [
+            {
+                label: 'grading',
+                value: 'grading'
+            },
+            {
+                label: 'upgrading',
+                value: 'upgrading'
+            }
+        ];
+
+        $scope.logicalityOptions = [
+            {
+                label: 'AND',
+                value: 'AND'
+            },
+            {
+                label: 'OR',
+                value: 'OR'
+            }
+        ];
+
+        $scope.designationOptions = [
+            {
+                label: 'member-card',
+                value: 'member-card'
+            },
+            {
+                label: 'upgrading-bonus',
+                value: 'upgrading-bonus'
+            },
+            {
+                label: 'monthly-free-bets',
+                value: 'monthly-free-bets'
+            },
+            {
+                label: 'weekly-deposit-bonus',
+                value: 'weekly-deposit-bonus'
+            },
+            {
+                label: 'birthday-bonus',
+                value: 'birthday-bonus'
+            },
+            {
+                label: 'birthday-party',
+                value: 'birthday-party'
+            },
+            {
+                label: 'cs',
+                value: 'cs'
+            },
+            {
+                label: 'daily-withdraw-limit',
+                value: 'daily-withdraw-limit'
+            },
+            {
+                label: 'big-prize-bonus',
+                value: 'big-prize-bonus'
+            },
+            {
+                label: 'holiday-gift',
+                value: 'holiday-gift'
+            },
+            {
+                label: 'quarterly-travel-benefit',
+                value: 'quarterly-travel-benefit'
+            }
+        ];
+
+        $scope.typeOptions = [
+            {
+                label: 'boolean',
+                value: 'boolean'
+            },
+            {
+                label: 'amount',
+                value: 'amount'
+            },
+            {
+                label: 'coupon',
+                value: 'coupon'
+            },
+            {
+                label: 'string',
+                value: 'string'
+            }
+        ];
+
         $scope.defaultOptions = [
             {
                 label:'YES',
@@ -194,58 +316,25 @@
             });
         };
 
-        /**
-         * 根据传入的modal名称进行弹窗显示
-         * @param modal 弹窗的名称
-         * @param item 弹窗的数据
-         */
-
-        $scope.showEditModal = function (modal,item) {
-            var templateName = '';
-            var controllerName = '';
-            if(modal == 'conditions'){
-                templateName = 'conditionsModal';
-                controllerName = 'UserLevelConditionsModalController';
-            }else if(modal == 'treatments'){
-                templateName = 'treatmentsModal';
-                controllerName = 'UserLevelTreatmentsModalController';
-            }else if(modal == 'rebates'){
-                templateName = 'rebatesModal';
-                controllerName = 'UserLevelRebatesModalController';
-            }else{
-                return;
-            }
+        $scope.showUserLevelModal = function (item,edit) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/userLevel/'+templateName+'.html',
-                controller: controllerName,
+                templateUrl: '/views/admin/userLevel/userLevelModal.html',
+                controller: 'UserLevelModalController',
                 size: 'lg',
                 scope:$scope,
                 resolve: {
-                    item: item
+                    modalItem: item,
+                    edit: edit,
+                    hasPower: $scope.hasPower&&edit!==1,
                 }
             });
             modalInstance.result.then(function(data) {
-                if (['conditions', 'treatments', 'rebates'].indexOf(data.type) !== -1) {
-                    $scope.userLevel.forEach(function(userLevelItem) {
-                        if (userLevelItem.id == data.data.id) {
-                            userLevelItem[data.type] = angular.copy(data.data[data.type]);
-                            $scope.userLevelReload++;
-                        }
-                    });
-                }
+                $scope.initUserLevelData();
                 modalInstance = null;
             }, function(data) {
-                if (['conditions', 'treatments', 'rebates'].indexOf(data.type) !== -1) {
-                    $scope.userLevel.forEach(function(userLevelItem) {
-                        if (userLevelItem.id == data.data.id) {
-                            userLevelItem[data.type] = angular.copy(data.data[data.type]);
-                            $scope.userLevelReload++;
-                        }
-                    });
-                }
                 modalInstance = null;
             });
         };
@@ -315,38 +404,14 @@
             }
         };
 
-        // 添加按钮
-        $scope.addUserLevel = function () {
-            $scope.userLevelAoData = {};
-            $scope.userLevelSearch = '';
-            $scope.userLevel.unshift({
-                'id': ($scope.userLevel.length+1) + 'null',
-                'code': '',
-                'default': '0',
-                'level': '',
-                'conditions': [],
-                'treatments': [],
-                'rebates': []
-            });
-        };
+        $scope.hasPower = $scope.validPower("USERLEVEL", ["PATCH", "POST"]);
 
-        /**
-         *
-         * @param item 添加的用户等级
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item.id)) {
-                $scope.userLevel.splice(index, 1);
-            }
-        };
 
         // 页面加载执行的函数
 
         $scope.initUserLevelData();
 
-        if($scope.validPower("USERLEVEL", ["PATCH", "POST"])){
+        if($scope.hasPower){
             $scope.initCurrenciesManageData();
             $scope.initProductManageData();
             $scope.initBrandOptionsData();

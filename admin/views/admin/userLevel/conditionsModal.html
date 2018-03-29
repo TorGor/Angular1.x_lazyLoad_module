@@ -6,10 +6,10 @@
     <div class="row">
         <div class="">
             <div class="panel-wrapper">
-                <div class="panel-body">
+                <div class="">
                 <span class="form-group add-button-class">
                     <button
-                        ng-show='validPower("USERLEVEL", ["POST", "PATCH"])'
+                        ng-show='hasPower'
                         class="btn btn-primary"
                         ng-click="addConditionsModal()"
                         type="button"
@@ -58,7 +58,7 @@
                                 <td style="width: 12%" ao-data="conditionsModalAoData" web-data-table-sort="logicality">
                                     {{'table.conditionsModal.th6' | translate}}
                                 </td>
-                                <td style="width: 15%" ng-show='validPower("USERLEVEL", ["POST", "PATCH"])'>{{'table.button.operation' | translate}}</td>
+                                <td style="width: 15%" ng-show='hasPower'>{{'table.button.operation' | translate}}</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -116,7 +116,7 @@
                                         {{showOptionsValue(item.logicality,logicalityOptions)}}
                                     </span>
                                 </td>
-                                <td style="white-space: nowrap;" ng-show='validPower("USERLEVEL", ["POST", "PATCH"])'>
+                                <td style="white-space: nowrap;" ng-show='hasPower'>
                                     <form
                                         class="form-buttons form-inline" editable-form name="rowform"
                                         onaftersave="saveConditionsModal(item, $data)" ng-show="rowform.$visible"
@@ -153,8 +153,7 @@
                                 </td>
                             </tr>
                             <tr ng-show="showConditionsModal.length==0">
-                                <td colspan='{{validPower("USERLEVEL", ["POST", "PATCH"])?7:6}}' class="">{{'table.no_date' |
-                                                                                               translate}}</td>
+                                <td colspan='{{hasPower?7:6}}' class="">{{'table.no_date' | translate}}</td>
                             </tr>
                             </tbody>
                         </table>

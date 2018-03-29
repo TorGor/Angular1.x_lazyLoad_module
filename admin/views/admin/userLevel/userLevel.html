@@ -4,9 +4,9 @@
             <div class="panel-body">
                 <span class="form-group add-button-class">
                     <button
-                        ng-show='validPower("USERLEVEL", ["POST", "PATCH", "PUT", "DELETE"])'
+                        ng-show='validPower("USERLEVEL", ["POST"])'
                         class="btn btn-primary"
-                        ng-click="addUserLevel()"
+                        ng-click="showUserLevelModal({},2)"
                         type="button"
                         translate="table.button.add"
                     >
@@ -39,84 +39,65 @@
                             <td style="width: 12%" ao-data="userLevelAoData" web-data-table-sort="level">
                                 {{'table.userLevel.th3' | translate}}
                             </td>
-                            <td style="width: 12%">
-                                {{'table.userLevel.th4' | translate}}
-                            </td>
-                            <td style="width: 12%">
-                                {{'table.userLevel.th5' | translate}}
-                            </td>
-                            <td style="width: 12%">
-                                {{'table.userLevel.th6' | translate}}
-                            </td>
-                            <td style="width: 15%" ng-show='validPower("USERLEVEL", ["PATCH","DELETE"])'>{{'table.button.operation' | translate}}</td>
+                            <!--<td style="width: 12%">-->
+                                <!--{{'table.userLevel.th4' | translate}}-->
+                            <!--</td>-->
+                            <!--<td style="width: 12%">-->
+                                <!--{{'table.userLevel.th5' | translate}}-->
+                            <!--</td>-->
+                            <!--<td style="width: 12%">-->
+                                <!--{{'table.userLevel.th6' | translate}}-->
+                            <!--</td>-->
+                            <td style="width: 15%" ng-show='validPower("USERLEVEL", ["PATCH","DELETE","GET"])'>{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in showUserLevel">
                             <td>
-                                <span editable-text="item.code" e-name="code" e-formclass="xeditable-sm"
-                                      e-placeholder='15 A-Z char'
-                                      onbeforesave="validReg('^[A-Z]{1,15}$', $data, '15 A-Z char')" e-form="rowform"
-                                      e-required="">{{ item.code || '' }}</span>
-                            </td>
-                            <td>
-                                <span editable-select="item.default" e-name="default" e-form="rowform"
-                                      onbeforesave="checkRequiredData($data)"
-                                      e-ng-options="option.value as option.label for option in defaultOptions">
-                                        {{showOptionsValue(item.default,defaultOptions)}}
-                                </span>
-                            </td>
-                            <td>
-                                <span editable-text="item.level" e-name="level" e-formclass="xeditable-sm"
-                                      e-placeholder='integer number'
-                                      onbeforesave="validReg('^[1-9][0-9]?$', $data, 'integer number')"
-                                      e-form="rowform"
-                                      e-required="">{{ item.level || '' }}</span>
+                                <span>{{ item.code || '' }}</span>
                             </td>
                             <td>
                                 <span>
-                                    <button class="btn btn-sm btn-info" ng-click="showEditModal('conditions', item)">{{showAddOrDetail(item.conditions, item.id)}}</button>
+                                    {{showOptionsValue(item.default,defaultOptions)}}
                                 </span>
                             </td>
                             <td>
-                                <span>
-                                    <button class="btn btn-sm btn-info" ng-click="showEditModal('treatments', item)">{{showAddOrDetail(item.treatments, item.id)}}</button>
-                                </span>
+                                <span>{{ item.level === undefined ? '' : item.level }}</span>
                             </td>
-                            <td>
-                                <span>
-                                    <button class="btn btn-sm btn-info" ng-click="showEditModal('rebates', item)">{{showAddOrDetail(item.rebates, item.id)}}</button>
-                                </span>
-                            </td>
-                            <td style="white-space: nowrap;">
-                                <form class="form-buttons form-inline" editable-form name="rowform"
-                                      onaftersave="saveUserLevel(item, $data)" ng-show="rowform.$visible"
-                                      shown="validIsNew(item.id)">
-                                    <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
-                                            title="{{'table.button.save' | translate}}">
-                                        <em class="fa fa-save"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
-                                            ng-click="rowform.$cancel();cancelSave(item,$index)"
-                                            title="{{'table.button.cancel' | translate}}">
-                                        <em class="fa fa-times"></em>
-                                    </button>
-                                </form>
-                                <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-info" ng-show='validPower("USERLEVEL", ["PATCH"])' ng-click="rowform.$show()"
-                                            title="{{'table.button.edit' | translate}}">
+                            <!--<td>-->
+                                <!--<span>-->
+                                    <!--<button class="btn btn-sm btn-info" ng-click="showEditModal('conditions', item)">{{showAddOrDetail(item.conditions, item.id)}}</button>-->
+                                <!--</span>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<span>-->
+                                    <!--<button class="btn btn-sm btn-info" ng-click="showEditModal('treatments', item)">{{showAddOrDetail(item.treatments, item.id)}}</button>-->
+                                <!--</span>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<span>-->
+                                    <!--<button class="btn btn-sm btn-info" ng-click="showEditModal('rebates', item)">{{showAddOrDetail(item.rebates, item.id)}}</button>-->
+                                <!--</span>-->
+                            <!--</td>-->
+                            <td style="white-space: nowrap;" ng-show='validPower("USERLEVEL", ["PATCH","DELETE","GET"])'>
+                                <button class="btn btn-sm btn-info" ng-show='validPower("USERLEVEL", ["PATCH"])' ng-click="showUserLevelModal(item,3)"
+                                        title="{{'table.button.edit' | translate}}">
                                         <em class="fa fa-pencil"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" ng-show='!item.isDeleted&&validPower("USERLEVEL", ["DELETE"])'
-                                            ng-click="deleteUserLevel(item)"
-                                            title="{{'table.button.delete' | translate}}">
-                                        <em class="fa fa-trash"></em>
-                                    </button>
-                                </div>
+                                </button>
+                                <button class="btn btn-sm btn-danger" ng-show='!item.isDeleted&&validPower("USERLEVEL", ["DELETE"])'
+                                        ng-click="deleteUserLevel(item)"
+                                        title="{{'table.button.delete' | translate}}">
+                                    <em class="fa fa-trash"></em>
+                                </button>
+                                <button
+                                    class="btn btn-sm btn-green" ng-click="showUserLevelModal(item,1)"
+                                    title="{{'table.button.detail' | translate}}">
+                                        <em class="fa fa-folder-open-o"></em>
+                                </button>
                             </td>
                         </tr>
                         <tr ng-show="showUserLevel.length==0">
-                            <td colspan='{{validPower("USERLEVEL", ["PATCH","DELETE"])?7:6}}'
+                            <td colspan='{{validPower("USERLEVEL", ["PATCH","DELETE","GET"])?7:6}}'
                                 class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
