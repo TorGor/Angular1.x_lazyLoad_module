@@ -170,22 +170,16 @@
                                     }
                                 });
 
-                                if(window.userInfo.menu && window.Array.isArray(window.userInfo.menu)){
+                                if(window.location.href.indexOf('#!/page/maintenance')!==-1 && window.userInfo.menu && window.Array.isArray(window.userInfo.menu)){
                                     for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
                                         if(window.userInfo.menu[i].sref !== '#'){
                                             $timeout(function() {
-                                                if(!window._isFirstLoad){
-                                                    $state.go(window.userInfo.menu[i].sref);
-                                                    window._isFirstLoad = true;
-                                                }
+                                                $state.go(window.userInfo.menu[i].sref);
                                             },10)
                                             break;
                                         }else if(window.userInfo.menu[i]['submenu'].length){
                                             $timeout(function() {
-                                                if(!window._isFirstLoad){
-                                                    $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
-                                                    window._isFirstLoad = true;
-                                                }
+                                                $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
                                             },10)
                                             break;
                                         }
@@ -517,22 +511,16 @@
                                     }
                                 });
 
-                                if(window.userInfo.menu && window.Array.isArray(window.userInfo.menu)){
+                                if(window.location.href.indexOf('#!/page/maintenance')!==-1 && window.userInfo.menu && window.Array.isArray(window.userInfo.menu)){
                                     for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
                                         if(window.userInfo.menu[i].sref !== '#'){
                                             $timeout(function() {
-                                                if(!window._isFirstLoad){
-                                                    $state.go(window.userInfo.menu[i].sref);
-                                                    window._isFirstLoad = true;
-                                                }
+                                                $state.go(window.userInfo.menu[i].sref);
                                             },10)
                                             break;
                                         }else if(window.userInfo.menu[i]['submenu'].length){
                                             $timeout(function() {
-                                                if(!window._isFirstLoad){
-                                                    $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
-                                                    window._isFirstLoad = true;
-                                                }
+                                                $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
                                             },10)
                                             break;
                                         }

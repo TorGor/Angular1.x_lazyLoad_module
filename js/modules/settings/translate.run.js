@@ -21,6 +21,8 @@
             set: function (localeId) {
                 // Set the new idiom
                 $translate.use(localeId);
+
+                window.localStorage.setItem('NG_TRANSLATE_LANG_KEY',localeId);
                 // save a reference for the current language
                 $rootScope.language.selected = localeId;
 
