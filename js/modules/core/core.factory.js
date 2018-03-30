@@ -20,8 +20,10 @@
 
         return {
             request: function (config) {
-                requestInitiated = true;
-                showLoadingText();
+                if(config.method !== "GET"){
+                    requestInitiated = true;
+                    showLoadingText();
+                }
                 return config;
             },
             response: function (response) {

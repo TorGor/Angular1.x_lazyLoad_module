@@ -19,7 +19,8 @@
         $locationProvider.html5Mode(false);
 
         // defaults to dashboard
-        $urlRouterProvider.otherwise('/admin/localeLanguage/manage');
+        $urlRouterProvider.otherwise('/page/maintenance');
+        //$urlRouterProvider.otherwise('/admin/localeLanguage/manage');
 
         //
         // Application Routes
@@ -33,7 +34,7 @@
                     RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'ui.select', 'datetimepicker', 'admin'),
                     {
                         // YOUR RESOLVES GO HERE
-                        userInfo: ['userSelfService', 'EVN', '$timeout', '$rootScope', 'SidebarMenuData', '$q', function(userSelfService, EVN, $timeout, $rootScope, SidebarMenuData, $q) {
+                        userInfo: ['userSelfService', 'EVN', '$timeout', '$rootScope', 'SidebarMenuData', '$q', '$state',function(userSelfService, EVN, $timeout, $rootScope, SidebarMenuData, $q, $state) {
                             var deferred = $q.defer();
                             userSelfService.getUserSelfInfo({}, {}, function(data) {
                                 var roles = data.data.roles;
@@ -83,35 +84,10 @@
                                     });
                                 }
 
-                                var URLobj = {
-                                    locales: 'LOCALELANGUAGE',
-                                    countries: 'COUNTRIESMANAGE',
-                                    transactions: 'TRANSACTIONSDETAIL',
-                                    currencies: 'CURRENCIESMANAGE',
-                                    blacklists: 'BLACKLISTS',
-                                    ranks: 'USERLEVEL',
-                                    orders: 'ORDERSMANAGE',
-                                    methods: 'PAYMENTMETHODS',
-                                    applies: 'APPLIESUSE',
-                                    brands: 'GAMEBRANDS',
-                                    categories: 'GAMECATEGORIES',
-                                    coupons: 'COUPONSMANAGE',
-                                    games: 'GAMESMANAGE',
-                                    products: 'GAMESPRODUCTS',
-                                    psps: 'PSPSMANAGE',
-                                    withdraws: 'WITHDRAWSMANAGE',
-                                    promotions: 'PROMOTIONSMANAGE',
-                                    rebates: 'REBATESLIST',
-                                    reliefs: 'RELIEFSLIST',
-                                    transfers: 'TRANSFERSLIST'
-                                };
+                                var URLobj = EVN.URLOBJ;
 
                                 // 配置预设的url
-                                $rootScope.URL = {
-                                    WALLETSMANAGE: {
-                                        GET: '/rest/getWallets',
-                                    },
-                                };
+                                $rootScope.URL = {};
                                 window.Object.keys(URLobj).map(function(module) {
                                     if (tempButtonUrl[module]) {
                                         if (window.Array.isArray(tempButtonUrl[module])) {
@@ -193,9 +169,28 @@
                                         }
                                     }
                                 });
-                                console.log($rootScope.URL, '$rootScope.URL');
 
-                                //$rootScope.$broadcast('getUserMenuSuccess');
+                                if(window.userInfo.menu && window.Array.isArray(window.userInfo.menu)){
+                                    for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
+                                        if(window.userInfo.menu[i].sref !== '#'){
+                                            $timeout(function() {
+                                                if(!window._isFirstLoad){
+                                                    $state.go(window.userInfo.menu[i].sref);
+                                                    window._isFirstLoad = true;
+                                                }
+                                            },10)
+                                            break;
+                                        }else if(window.userInfo.menu[i]['submenu'].length){
+                                            $timeout(function() {
+                                                if(!window._isFirstLoad){
+                                                    $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
+                                                    window._isFirstLoad = true;
+                                                }
+                                            },10)
+                                            break;
+                                        }
+                                    }
+                                }
 
                                 deferred.resolve('userInfo resolved');
 
@@ -381,7 +376,184 @@
             .state('page', {
                 url: '/page',
                 templateUrl: 'pages/page.html',
-                resolve: RouteHelpersProvider.resolveFor('modernizr', 'icons')
+                resolve: RouteHelpersProvider.resolveFor('modernizr', 'icons'),
+                resolve: angular.extend(
+                    RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'ui.select', 'datetimepicker', 'admin'),
+                    {
+                        // YOUR RESOLVES GO HERE
+                        userInfo: ['userSelfService', 'EVN', '$timeout', '$rootScope', 'SidebarMenuData', '$q', '$state', function(userSelfService, EVN, $timeout, $rootScope, SidebarMenuData, $q, $state) {
+                            var deferred = $q.defer();
+                            userSelfService.getUserSelfInfo({}, {}, function(data) {
+                                var roles = data.data.roles;
+                                window.userInfo = {};
+                                window.userInfo.adminId = angular.copy(data.data.adminId);
+                                window.userInfo.username = angular.copy(data.data.username);
+                                window.userInfo.module = [];
+                                window.userInfo.menu = [];
+                                $rootScope.user = {
+                                    system: 'admin',
+                                    name: data.data && data.data.username || ''
+                                };
+
+                                var moduleObj = {};
+                                SidebarMenuData.admin.map(function(moduleItem) {
+                                    moduleObj[moduleItem.module] = moduleItem.sref;
+                                });
+
+                                var tempButtonUrl = {};
+
+                                if (window.Array.isArray(roles)) {
+                                    roles.map(function(roleItem) {
+                                        var tempMenu = {};
+                                        tempMenu.text = roleItem.name || '';
+                                        if (roleItem.url == null) {
+                                            tempMenu.sref = '#';
+                                            tempMenu.icon = 'glyphicon glyphicon-th-large';
+                                            tempMenu.submenu = [];
+                                            if (window.Array.isArray(roleItem.data)) {
+                                                roleItem.data.map(function(moduleItem) {
+                                                    if (moduleItem.url) {
+                                                        var tempSubmenu = {
+                                                            text: moduleItem.name || '',
+                                                            sref: moduleObj[moduleItem.url]
+                                                        };
+                                                        tempMenu.submenu.push(tempSubmenu);
+                                                        window.userInfo.module.push(moduleItem.url);
+                                                        tempButtonUrl[moduleItem.url] = moduleItem.data;
+                                                    }
+                                                });
+                                            }
+                                        } else if (roleItem.url) {
+                                            tempMenu.sref = moduleObj[moduleItem.url];
+                                            tempMenu.icon = 'glyphicon glyphicon-th-large';
+                                        }
+                                        window.userInfo.menu.push(tempMenu);
+                                    });
+                                }
+
+                                var URLobj = EVN.URLOBJ;
+
+                                // 配置预设的url
+                                $rootScope.URL = {};
+                                window.Object.keys(URLobj).map(function(module) {
+                                    if (tempButtonUrl[module]) {
+                                        if (window.Array.isArray(tempButtonUrl[module])) {
+                                            $rootScope.URL[URLobj[module]] = {};
+                                            tempButtonUrl[module].map(function(buttonItem) {
+                                                if (buttonItem.btnType == 1) {
+                                                    if (module == 'withdraws') {
+                                                        if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].GETAUDIT = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].GETAUDITID = buttonItem.id;
+                                                        } else if (buttonItem.btnUrl.indexOf('Pay') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].GETPAY = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].GETPAYID = buttonItem.id;
+                                                        } else if (buttonItem.btnUrl.indexOf('Review') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].GETREVIEW = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].GETREVIEWID = buttonItem.id;
+                                                        } else if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
+                                                        } else {
+                                                            $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].GETID = buttonItem.id;
+                                                        }
+                                                    } else {
+                                                        if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
+                                                        } else {
+                                                            $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].GETID = buttonItem.id;
+                                                        }
+                                                    }
+
+                                                }
+                                                if (buttonItem.btnType == 2) {
+                                                    if (module == 'withdraws') {
+                                                        if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
+                                                        } else if (buttonItem.btnUrl.indexOf('Pay') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].POSTPAY = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].POSTPAYID = buttonItem.id;
+                                                        } else if (buttonItem.btnUrl.indexOf('Review') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].POSTREVIEW = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].POSTREVIEWID = buttonItem.id;
+                                                        } else {
+                                                            $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
+                                                        }
+                                                    } else if (module == 'applies') {
+                                                        if (buttonItem.btnUrl.indexOf('audit') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
+                                                        } else if (buttonItem.btnUrl.indexOf('revoke') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].POSTREVOKE = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].POSTREVOKEID = buttonItem.id;
+                                                        } else {
+                                                            $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
+                                                        }
+                                                    } else {
+                                                        $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                        //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
+                                                    }
+                                                }
+                                                if (buttonItem.btnType == 3) {
+                                                    $rootScope.URL[URLobj[module]].PATCH = buttonItem.btnUrl;
+                                                    //$rootScope.URL[URLobj[module]].PATCHID = buttonItem.id;
+                                                }
+                                                if (buttonItem.btnType == 4) {
+                                                    $rootScope.URL[URLobj[module]].DELETE = buttonItem.btnUrl;
+                                                    //$rootScope.URL[URLobj[module]].DELETEID = buttonItem.id;
+                                                }
+                                                if (buttonItem.btnType == 5) {
+                                                    $rootScope.URL[URLobj[module]].PUT = buttonItem.btnUrl;
+                                                    //$rootScope.URL[URLobj[module]].PUTID = buttonItem.id;
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+
+                                if(window.userInfo.menu && window.Array.isArray(window.userInfo.menu)){
+                                    for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
+                                        if(window.userInfo.menu[i].sref !== '#'){
+                                            $timeout(function() {
+                                                if(!window._isFirstLoad){
+                                                    $state.go(window.userInfo.menu[i].sref);
+                                                    window._isFirstLoad = true;
+                                                }
+                                            },10)
+                                            break;
+                                        }else if(window.userInfo.menu[i]['submenu'].length){
+                                            $timeout(function() {
+                                                if(!window._isFirstLoad){
+                                                    $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
+                                                    window._isFirstLoad = true;
+                                                }
+                                            },10)
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                deferred.resolve('userInfo resolved');
+
+                                return true;
+
+                            }, function(error) {
+                                $timeout(function() {
+                                    window.location.href = '/login.html';
+                                }, 300);
+                                deferred.reject('userInfo reject');
+                            });
+
+                            return deferred.promise;
+                        }]
+                    }
+                )
             })
             .state('page.403', {
                 url: '/403',

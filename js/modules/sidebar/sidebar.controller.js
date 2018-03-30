@@ -38,11 +38,6 @@
                 }else{
                     console.error('server error')
                 }
-                //if(EVN.debug){
-                //    $scope.menuItems = SidebarMenuData.admin;
-                //}else{
-                //    $scope.menuItems = window.userInfo.menu;
-                //}
             }
 
             // Handle sidebar and collapse items

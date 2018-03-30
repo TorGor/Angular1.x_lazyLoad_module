@@ -15,11 +15,34 @@
         })
         .constant('EVN', {
             debug: true,
-            //suffix: '.json',
-            suffix: '',
+            suffix: '.json',
+            //suffix: '',
             server: '',
              //server: 'http://123.206.33.128',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
-            server: 'http://holyplace.ngrok.xiaomiqiu.cn'
+            //server: 'http://holyplace.ngrok.xiaomiqiu.cn',
+            URLOBJ:{
+                locales: 'LOCALELANGUAGE',
+                countries: 'COUNTRIESMANAGE',
+                transactions: 'TRANSACTIONSDETAIL',
+                currencies: 'CURRENCIESMANAGE',
+                blacklists: 'BLACKLISTS',
+                ranks: 'USERLEVEL',
+                orders: 'ORDERSMANAGE',
+                methods: 'PAYMENTMETHODS',
+                applies: 'APPLIESUSE',
+                brands: 'GAMEBRANDS',
+                categories: 'GAMECATEGORIES',
+                coupons: 'COUPONSMANAGE',
+                games: 'GAMESMANAGE',
+                products: 'GAMESPRODUCTS',
+                psps: 'PSPSMANAGE',
+                withdraws: 'WITHDRAWSMANAGE',
+                promotions: 'PROMOTIONSMANAGE',
+                rebates: 'REBATESLIST',
+                reliefs: 'RELIEFSLIST',
+                transfers: 'TRANSFERSLIST',
+                wallets: 'WALLETSMANAGE',
+            }
         });
 })();
