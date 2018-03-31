@@ -2,17 +2,84 @@
    <div class="panel panel-default">
       <div class="panel-wrapper">
          <div class="panel-body">
-            <span class="form-group add-button-class">
-               <button class="btn btn-primary" ng-click="addUsersManage()" type="button" translate="table.button.add">
-                  新增
-               </button>
-            </span>
-            <form class="form-inline pull-right add-button-class" role="form">
-               <div style="position: relative" class="form-group">
-                  <span style="position: absolute;left: 4px;top: 6px">
-                     <em class="fa fa-search"></em>
-                  </span>
-                  <input class="form-control" type="text" ng-model="usersManageSearch" placeholder="{{searchPlaceholder(['table.usersManage.th1', 'table.usersManage.th2', 'table.usersManage.th3'])}}">
+            <form class="form-horizontal" role="form">
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-blur='usersManageAoData.username=username' ng-model="username" placeholder="username min 3 char max 11 char">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="usersManageAoData.affiliate_id" placeholder="affiliate id">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="usersManageAoData.email" placeholder="email">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="usersManageAoData.rank" placeholder="rank">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="usersManageAoData.financial_group" placeholder="financial group">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="usersManageAoData.phone" placeholder="phone eg. +8613900000000">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="usersManageAoData.name" placeholder="name">
+               </div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="usersManageAoData.name_verified" theme="bootstrap" search-enabled="false">
+                     <ui-select-match placeholder='choose name verified'>
+                        <span>{{$select.selected.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in booleanOptons">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class='clearfix'></div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="usersManageAoData.otp" theme="bootstrap" search-enabled="false">
+                     <ui-select-match placeholder='choose otp'>
+                        <span>{{$select.selected.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in booleanOptons">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="usersManageAoData.gender" theme="bootstrap" search-enabled="false">
+                     <ui-select-match placeholder='choose gender'>
+                        <span>{{$select.selected.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in genderOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="usersManageAoData.currency" theme="bootstrap" search-enabled="false">
+                     <ui-select-match placeholder='choose currency'>
+                        <span>{{$select.selected.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in currencyOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeStart">
+                     <input type="text" class="form-control" placeholder="start" />
+                     <span class="input-group-addon" style="background:none">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                     </span>
+                  </div>
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeEnd">
+                     <input type="text" class="form-control" placeholder="end" />
+                     <span class="input-group-addon" style="background:none">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                     </span>
+                  </div>
                </div>
             </form>
             <div server-data-table items="usersManage" ao-data="usersManageAoData" reload="usersManageReload" service-name="adminService" service-name-attr="getReq" url="usersManageUrl" handle-data="false">
