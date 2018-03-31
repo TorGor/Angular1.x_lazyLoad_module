@@ -2,21 +2,7 @@
    <div class="panel panel-default">
       <div class="panel-wrapper">
          <div class="panel-body">
-            <span class="form-group add-button-class">
-               <button class="btn btn-primary" ng-click="addBigwinsManage()" type="button" translate="table.button.add">
-                  新增
-               </button>
-            </span>
-            <form class="form-inline pull-right add-button-class" role="form">
-               <div style="position: relative" class="form-group">
-                  <span style="position: absolute;left: 4px;top: 6px">
-                     <em class="fa fa-search"></em>
-                  </span>
-                  <input class="form-control" type="text" ng-model="bigwinsManageSearch" placeholder="{{searchPlaceholder(['table.bigwinsManage.th1', 'table.bigwinsManage.th2', 'table.bigwinsManage.th3'])}}">
-               </div>
-            </form>
-            <div server-data-table items="bigwinsManage" ao-data="bigwinsManageAoData" reload="bigwinsManageReload" service-name="adminService" service-name-attr="getReq" url="bigwinsManageUrl" handle-data="false" web-data-table items="bigwinsManage" ao-data="bigwinsManageAoData"
-            search="bigwinsManageSearch" reload="bigwinsManageReload" show-items="showBigwinsManage">
+            <div server-data-table items="bigwinsManage" ao-data="bigwinsManageAoData" reload="bigwinsManageReload" service-name="adminService" service-name-attr="getReq" url="bigwinsManageUrl" handle-data="false">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
@@ -33,7 +19,7 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <tr ng-repeat="item in showBigwinsManage">
+                     <tr ng-repeat="item in bigwinsManage">
                         <td>
                            <span editable-text="item.code" e-name="code" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
                         </td>
@@ -64,7 +50,7 @@
                            </div>
                         </td>
                      </tr>
-                     <tr ng-show="showBigwinsManage.length==0">
+                     <tr ng-show="bigwinsManage.length==0">
                         <td colspan="4" class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>

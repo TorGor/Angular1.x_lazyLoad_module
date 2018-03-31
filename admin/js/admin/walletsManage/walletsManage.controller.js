@@ -16,6 +16,56 @@
         adminService
     ) {
 
+        $scope.brandOptions = [];
+
+        $scope.initBrandOptionsData = function () {
+            $scope.brandOptions = [];
+            adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                $scope.brandOptions.push(tempObj)
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.booleanOptons = [
+            {
+                label: 'Yes',
+                value: true
+            },
+            {
+                label: 'No',
+                value: false
+            }
+        ];
+
+        $scope.statusOptons = [
+            {
+                label: 'OPEN',
+                value: 'OPEN'
+            },
+            {
+                label: 'MAINTAIN',
+                value: 'MAINTAIN'
+            },
+            {
+                label: 'CLOSED',
+                value: 'CLOSED'
+            }
+        ];
+
         // 原始的数据
         $scope.walletsManage = [];
 
@@ -27,15 +77,43 @@
 
         // 初始化table数据
         $scope.initWalletsManageData = function () {
-            $scope.walletsManage = [];
             adminService.getReq($rootScope.URL.WALLETSMANAGE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $scope.walletsManage = angular.copy(res.data.data);
-                        $scope.walletsManage.forEach(function (walletsManageItem, walletsManageIndex) {
-                            walletsManageItem._id = walletsManageIndex +1;
+                        $scope.walletsManage.forEach(function(walletItem) {
+                            if(walletItem.merchant){
+                                walletItem.merchantKey = walletItem.merchant.key||'';
+                                walletItem.merchantName = walletItem.merchant.name||'';
+                                delete walletItem.merchant;
+                            }else{
+                                walletItem.merchantKey = '';
+                                walletItem.merchantName = '';
+                            }
+                            if(walletItem.setting){
+                                if(walletItem.setting.record){
+                                    walletItem.recordsDuration = walletItem.setting.record.duration||'';
+                                    walletItem.recordsParamsTimeFormat = walletItem.setting.record.timeFormat||'';
+                                    walletItem.recordsParamsTimeZone = walletItem.setting.record.timezone||'';
+                                    delete walletItem.setting.record;
+                                }else{
+                                    walletItem.recordsDuration = '';
+                                    walletItem.recordsParamsTimeFormat = '';
+                                    walletItem.recordsParamsTimeZone = '';
+                                }
+                                if(walletItem.setting.user){
+                                    walletItem.usernamePrefix = walletItem.setting.user.prefix||'';
+                                    walletItem.syncPassword = walletItem.setting.user.syncPassword||'';
+                                    delete walletItem.setting.user
+                                }else{
+                                    walletItem.usernamePrefix = '';
+                                    walletItem.syncPassword = '';
+                                }
+                                delete walletItem.setting;
+                            }
                         });
+                        $scope.walletsManageReload++;
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }

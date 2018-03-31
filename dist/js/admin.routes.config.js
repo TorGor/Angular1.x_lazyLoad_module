@@ -170,8 +170,6 @@
                                     }
                                 });
 
-                                console.log(window.userInfo.menu,9999)
-
                                 if(window.location.href.indexOf('#!/page/maintenance')!==-1 && window.userInfo.menu && window.Array.isArray(window.userInfo.menu)){
                                     for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
                                         if(window.userInfo.menu[i].sref !== '#'){
@@ -193,9 +191,7 @@
                                 return true;
 
                             }, function(error) {
-                                $timeout(function() {
-                                    window.location.href = '/login.html';
-                                }, 300);
+                                window.location.href = '/login.html';
                                 deferred.reject('userInfo reject');
                             });
 
@@ -432,8 +428,6 @@
                                     moduleObj[moduleItem.module] = moduleItem.sref;
                                 });
 
-                                var tempButtonUrl = {};
-
                                 if (window.Array.isArray(roles)) {
                                     roles.map(function(roleItem) {
                                         var tempMenu = {};
@@ -451,7 +445,6 @@
                                                         };
                                                         tempMenu.submenu.push(tempSubmenu);
                                                         window.userInfo.module.push(moduleItem.url);
-                                                        tempButtonUrl[moduleItem.url] = moduleItem.data;
                                                     }
                                                 });
                                             }
@@ -462,92 +455,6 @@
                                         window.userInfo.menu.push(tempMenu);
                                     });
                                 }
-
-                                var URLobj = EVN.URLOBJ;
-
-                                // 配置预设的url
-                                $rootScope.URL = {};
-                                window.Object.keys(URLobj).map(function(module) {
-                                    if (tempButtonUrl[module]) {
-                                        if (window.Array.isArray(tempButtonUrl[module])) {
-                                            $rootScope.URL[URLobj[module]] = {};
-                                            tempButtonUrl[module].map(function(buttonItem) {
-                                                if (buttonItem.btnType == 1) {
-                                                    if (module == 'withdraws') {
-                                                        if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].GETAUDIT = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].GETAUDITID = buttonItem.id;
-                                                        } else if (buttonItem.btnUrl.indexOf('Pay') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].GETPAY = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].GETPAYID = buttonItem.id;
-                                                        } else if (buttonItem.btnUrl.indexOf('Review') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].GETREVIEW = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].GETREVIEWID = buttonItem.id;
-                                                        } else if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
-                                                        } else {
-                                                            $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].GETID = buttonItem.id;
-                                                        }
-                                                    } else {
-                                                        if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
-                                                        } else {
-                                                            $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].GETID = buttonItem.id;
-                                                        }
-                                                    }
-
-                                                }
-                                                if (buttonItem.btnType == 2) {
-                                                    if (module == 'withdraws') {
-                                                        if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
-                                                        } else if (buttonItem.btnUrl.indexOf('Pay') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].POSTPAY = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTPAYID = buttonItem.id;
-                                                        } else if (buttonItem.btnUrl.indexOf('Review') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].POSTREVIEW = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTREVIEWID = buttonItem.id;
-                                                        } else {
-                                                            $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
-                                                        }
-                                                    } else if (module == 'applies') {
-                                                        if (buttonItem.btnUrl.indexOf('audit') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
-                                                        } else if (buttonItem.btnUrl.indexOf('revoke') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].POSTREVOKE = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTREVOKEID = buttonItem.id;
-                                                        } else {
-                                                            $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
-                                                        }
-                                                    } else {
-                                                        $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                        //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
-                                                    }
-                                                }
-                                                if (buttonItem.btnType == 3) {
-                                                    $rootScope.URL[URLobj[module]].PATCH = buttonItem.btnUrl;
-                                                    //$rootScope.URL[URLobj[module]].PATCHID = buttonItem.id;
-                                                }
-                                                if (buttonItem.btnType == 4) {
-                                                    $rootScope.URL[URLobj[module]].DELETE = buttonItem.btnUrl;
-                                                    //$rootScope.URL[URLobj[module]].DELETEID = buttonItem.id;
-                                                }
-                                                if (buttonItem.btnType == 5) {
-                                                    $rootScope.URL[URLobj[module]].PUT = buttonItem.btnUrl;
-                                                    //$rootScope.URL[URLobj[module]].PUTID = buttonItem.id;
-                                                }
-                                            });
-                                        }
-                                    }
-                                });
 
                                 if(window.location.href.indexOf('#!/page/maintenance')!==-1 && window.userInfo.menu && window.Array.isArray(window.userInfo.menu)){
                                     for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
@@ -570,9 +477,7 @@
                                 return true;
 
                             }, function(error) {
-                                $timeout(function() {
-                                    window.location.href = '/login.html';
-                                }, 300);
+                                window.location.href = '/login.html';
                                 deferred.reject('userInfo reject');
                             });
 

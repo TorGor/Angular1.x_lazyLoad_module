@@ -1,5 +1,5 @@
 <div class="modal-header">
-   <h3 class="modal-title">{{showEditStatus(edit) +'游戏'}}</h3>
+   <h3 class="modal-title">{{showEditStatus(edit) +'钱包'}}</h3>
 </div>
 
 <div class="modal-body">
@@ -217,11 +217,11 @@
                   <div class="clearfix"></div>
                   <legend class="text-center">种类</legend>
                   <form class="form-horizontal">
-                     <div class="col-lg-6 col-xs-12" ng-repeat="categories in categoriesOptions">
+                     <div class="col-lg-6 col-xs-12" ng-repeat="brand in brandOptions">
                         <div class="checkbox c-checkbox needsclick">
                            <label class="needsclick">
-                              <input class="needsclick" ng-disabled='!hasPower' ng-click="selectCategories(categories.value, $event)" ng-checked="gamesItem.categories.indexOf(categories.value) !== -1" type="checkbox" ng-value="categories.value">
-                              <span class="fa fa-check"></span>{{categories.label}}</label>
+                              <input class="needsclick" ng-disabled='!hasPower' ng-click="selectBrands(brand.value, $event)" ng-checked="gamesItem.brands.indexOf(brand.value) !== -1" type="checkbox" ng-value="brand.value">
+                              <span class="fa fa-check"></span>{{brand.label}}</label>
                         </div>
                      </div>
                   </form>

@@ -342,6 +342,18 @@
             "th7": "Round",
             "th8": "Username",
             "th9": "Wallet"
+        },
+        "walletsManage": {
+            "th1": "Code",
+            "th2": "Merchant Key",
+            "th3": "Merchant Name",
+            "th4": "Duration",
+            "th5": "Time Format",
+            "th6": "Time Zone",
+            "th7": "Username Prefix",
+            "th8": "Sync Password",
+            "th9": "Status",
+            "th10": "Disabled"
         }
     },
     "panel_tile": {

@@ -58,14 +58,14 @@
 (function() {
 
     angular
-        .module('admin.couponsManage', [
+        .module('admin.countriesManage', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.countriesManage', [
+        .module('admin.couponsManage', [
             'app.core',
         ]);
 })();
@@ -121,14 +121,14 @@
 (function() {
 
     angular
-        .module('admin.paymentMethods', [
+        .module('admin.ordersManage', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.ordersManage', [
+        .module('admin.paymentMethods', [
             'app.core',
         ]);
 })();
@@ -695,31 +695,16 @@
         adminService
     ) {
 
+        $scope.bigwinsManageUrl = $rootScope.URL.BIGWINSMANAGE.GET;
+
         // 原始的数据
         $scope.bigwinsManage = [];
-
-        // 过滤出来的数据
-        $scope.showBigwinsManage = [];
         $scope.bigwinsManageReload = 1;
         $scope.bigwinsManageAoData = {};
-        $scope.bigwinsManageSearch = '';
 
         // 初始化table数据
         $scope.initBigwinsManageData = function () {
-            $scope.bigwinsManage = [];
-            adminService.getReq($rootScope.URL.BIGWINSMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.bigwinsManage = angular.copy(res.data.data);
-                        $scope.bigwinsManage.forEach(function (bigwinsManageItem, bigwinsManageIndex) {
-                            bigwinsManageItem._id = bigwinsManageIndex +1;
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
+            $scope.bigwinsManageReload++;
         };
 
 
@@ -800,21 +785,8 @@
             });
         };
 
-        /**
-         *
-         * @param item 添加的BIGWINSMANAGETITLE
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item._id)) {
-                $scope.bigwinsManage.splice(index, 1);
-            }
-        };
-
         // 页面加载执行的函数
 
-        $scope.initBigwinsManageData();
     }
 })();
 
@@ -1023,6 +995,232 @@
                 });
             } else if (edit==3) {
                 adminService.patchReq($rootScope.URL.BLACKLISTS.PATCH+'/'+tempData.accountNumber, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initMethodsNameModalData();
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.countriesManage')
+        .controller('CountriesManageController', CountriesManageController);
+
+    CountriesManageController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModal',
+        'adminService'
+    ];
+
+    function CountriesManageController(
+        $scope,
+        $rootScope,
+        $uibModal,
+        adminService
+    ) {
+
+        $scope.currencyOptions = [];
+
+        $scope.initCurrenciesManageData = function () {
+            $scope.currencyOptions = [];
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.currencyOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        // 原始的数据
+        $scope.countriesManage = [];
+
+        // 过滤出来的数据
+        $scope.showCountriesManage = [];
+        $scope.countriesManageReload = 1;
+        $scope.countriesManageAoData = {};
+        $scope.countriesManageSearch = '';
+
+        // 初始化table数据
+        $scope.initCountriesManageData = function () {
+            //$scope.countriesManage = [];
+            adminService.getReq($rootScope.URL.COUNTRIESMANAGE.GET).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.countriesManage = angular.copy(res.data.data);
+                        $scope.countriesManage.forEach(function (countriesManageItem, countriesManageIndex) {
+                            countriesManageItem.currencyCode = countriesManageItem.currency && countriesManageItem.currency.code || '';
+                            countriesManageItem.numcode = countriesManageItem.numCode || '';
+                            if(countriesManageItem.numCode){
+                                delete countriesManageItem.numCode
+                            }
+                            if(countriesManageItem.currency){
+                                delete countriesManageItem.currency
+                            }
+                        });
+                        $scope.countriesManageReload++;
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        $scope.showCountriesManageModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/countriesManage/countriesManageModal.html',
+                controller: 'countriesManageModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower:$scope.validPower("COUNTRIESMANAGE", ["PATCH", "POST"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initCountriesManageData();
+            }, function (data) {
+
+            });
+        };
+
+        // 删除countriesManage
+        /**
+         * @param countriesManage 国家管理数据对象
+         * @return null
+         */
+        $scope.deleteCountriesManage = function (countriesManage) {
+            if (countriesManage.iso) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.COUNTRIESMANAGE.DELETE+'/'+countriesManage.iso, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initCountriesManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initCountriesManageData();
+
+        if($scope.validPower("COUNTRIESMANAGE", ["PATCH"])){
+            $scope.initCurrenciesManageData();
+        }
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.countriesManage')
+        .controller('countriesManageModalController', countriesManageModalController);
+
+    countriesManageModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        '$translate',
+        'adminService',
+        'hasPower',
+        'edit',
+        'modalItem'
+    ];
+
+    function countriesManageModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        $translate,
+        adminService,
+        hasPower,
+        edit,
+        modalItem
+    ) {
+
+        $scope.edit = edit;
+        $scope.hasPower = hasPower;
+        $scope.modalItem = angular.copy(modalItem);
+
+        // 初始化table数据
+        $scope.initMethodsNameModalData = function () {
+            if(edit==2){
+                $scope.modalItem = {
+                    "iso": "",
+                    "iso3": "",
+                    "numcode": '',
+                    "name": "",
+                    "phoneCode": '',
+                    "currencyCode": $scope.currencyOptions[0].value,
+                    "niceName": "",
+                }
+            }
+        };
+
+        //$rootScope.toasterSuccess(res.data.msg);;
+        $scope.confirmModal = function () {
+            var tempData = angular.copy($scope.modalItem);
+            if (edit==2) {
+                adminService.postReq($rootScope.URL.COUNTRIESMANAGE.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (edit==3) {
+                adminService.patchReq($rootScope.URL.COUNTRIESMANAGE.PATCH+'/'+tempData.iso, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -1703,232 +1901,6 @@
                 }
             }
         });
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.countriesManage')
-        .controller('CountriesManageController', CountriesManageController);
-
-    CountriesManageController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModal',
-        'adminService'
-    ];
-
-    function CountriesManageController(
-        $scope,
-        $rootScope,
-        $uibModal,
-        adminService
-    ) {
-
-        $scope.currencyOptions = [];
-
-        $scope.initCurrenciesManageData = function () {
-            $scope.currencyOptions = [];
-            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        if(window.Array.isArray(res.data.data)){
-                            res.data.data.map(function (objItem) {
-                                var tempObj ={
-                                    label:objItem.name||'',
-                                    value:objItem.code||''
-                                };
-                                if(objItem.supported){
-                                    $scope.currencyOptions.push(tempObj)
-                                }
-                            })
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        // 原始的数据
-        $scope.countriesManage = [];
-
-        // 过滤出来的数据
-        $scope.showCountriesManage = [];
-        $scope.countriesManageReload = 1;
-        $scope.countriesManageAoData = {};
-        $scope.countriesManageSearch = '';
-
-        // 初始化table数据
-        $scope.initCountriesManageData = function () {
-            //$scope.countriesManage = [];
-            adminService.getReq($rootScope.URL.COUNTRIESMANAGE.GET).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.countriesManage = angular.copy(res.data.data);
-                        $scope.countriesManage.forEach(function (countriesManageItem, countriesManageIndex) {
-                            countriesManageItem.currencyCode = countriesManageItem.currency && countriesManageItem.currency.code || '';
-                            countriesManageItem.numcode = countriesManageItem.numCode || '';
-                            if(countriesManageItem.numCode){
-                                delete countriesManageItem.numCode
-                            }
-                            if(countriesManageItem.currency){
-                                delete countriesManageItem.currency
-                            }
-                        });
-                        $scope.countriesManageReload++;
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-
-        $scope.showCountriesManageModal = function (item,edit) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/countriesManage/countriesManageModal.html',
-                controller: 'countriesManageModalController',
-                size: 'lg',
-                scope:$scope,
-                resolve: {
-                    edit:edit,
-                    modalItem: item,
-                    hasPower:$scope.validPower("COUNTRIESMANAGE", ["PATCH", "POST"]) && edit !== 1,
-                }
-            });
-            modalInstance.result.then(function (data) {
-                $scope.initCountriesManageData();
-            }, function (data) {
-
-            });
-        };
-
-        // 删除countriesManage
-        /**
-         * @param countriesManage 国家管理数据对象
-         * @return null
-         */
-        $scope.deleteCountriesManage = function (countriesManage) {
-            if (countriesManage.iso) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.COUNTRIESMANAGE.DELETE+'/'+countriesManage.iso, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initCountriesManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initCountriesManageData();
-
-        if($scope.validPower("COUNTRIESMANAGE", ["PATCH"])){
-            $scope.initCurrenciesManageData();
-        }
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.countriesManage')
-        .controller('countriesManageModalController', countriesManageModalController);
-
-    countriesManageModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        '$translate',
-        'adminService',
-        'hasPower',
-        'edit',
-        'modalItem'
-    ];
-
-    function countriesManageModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        $translate,
-        adminService,
-        hasPower,
-        edit,
-        modalItem
-    ) {
-
-        $scope.edit = edit;
-        $scope.hasPower = hasPower;
-        $scope.modalItem = angular.copy(modalItem);
-
-        // 初始化table数据
-        $scope.initMethodsNameModalData = function () {
-            if(edit==2){
-                $scope.modalItem = {
-                    "iso": "",
-                    "iso3": "",
-                    "numcode": '',
-                    "name": "",
-                    "phoneCode": '',
-                    "currencyCode": $scope.currencyOptions[0].value,
-                    "niceName": "",
-                }
-            }
-        };
-
-        //$rootScope.toasterSuccess(res.data.msg);;
-        $scope.confirmModal = function () {
-            var tempData = angular.copy($scope.modalItem);
-            if (edit==2) {
-                adminService.postReq($rootScope.URL.COUNTRIESMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('OK');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (edit==3) {
-                adminService.patchReq($rootScope.URL.COUNTRIESMANAGE.PATCH+'/'+tempData.iso, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('OK');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initMethodsNameModalData();
 
     }
 })();
@@ -3611,7 +3583,7 @@
                     $scope.gamesItem.categories.push(value)
                 }
             }else{
-                $scope.gamesItem.categories.splice($scope.gamesItem.ranks.indexOf(value), 1)
+                $scope.gamesItem.categories.splice($scope.gamesItem.categories.indexOf(value), 1)
             }
         };
 
@@ -4316,6 +4288,325 @@
 (function() {
 
     angular
+        .module('admin.ordersManage')
+        .controller('OrderAddModalController', OrderAddModalController);
+
+    OrderAddModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'adminService',
+        'item',
+        '$translate'
+    ];
+
+    function OrderAddModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        adminService,
+        item,
+        $translate
+    ) {
+
+        $scope.orderAdd = {
+            order_no: '',
+            trade_no: '',
+            amount: '',
+            adminId: window.userInfo && window.userInfo.adminId || ''
+        };
+
+        $scope.confirmOrderAddModal = function () {
+            if(!item.id){
+                $rootScope.alertErrorMsg('server data error');
+                $uibModalInstance.dismiss('cancel');
+                return;
+            }
+            adminService.postReq($rootScope.URL.ORDERSMANAGE.POST+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $uibModalInstance.close('success');
+                        $rootScope.toasterSuccess(res.data.msg);
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.cancelOrderAddModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.ordersManage')
+        .controller('OrderDetailModalController', OrderDetailModalController);
+
+    OrderDetailModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'orderDetail',
+        '$translate'
+    ];
+
+    function OrderDetailModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        orderDetail,
+        $translate
+    ) {
+
+        $scope.orderDetail = orderDetail;
+
+        $scope.showDetailName = function(data) {
+            var str = '';
+            if(window.Array.isArray(data)){
+                data.map(function(item, index) {
+                    str = str + (item.locale||'') + ':' + (item.value||'') + (index === (data.length-1)?'':',')
+                })
+            }
+            return str;
+        };
+
+        $scope.closeModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.ordersManage')
+        .controller('OrdersManageController', OrdersManageController);
+
+    OrdersManageController.$inject = [
+        '$scope',
+        '$uibModal',
+        '$rootScope',
+        'adminService'
+    ];
+
+    function OrdersManageController(
+        $scope,
+        $uibModal,
+        $rootScope,
+        adminService
+    ) {
+
+        $scope.search = {
+            wallet: [],
+            method: []
+        };
+
+        $scope.walletOptions = [];
+
+        $scope.initWalletOptionsData = function () {
+            $scope.walletOptions = [];
+            adminService.getReq($rootScope.URL.WALLETSMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                $scope.walletOptions.push(tempObj)
+                                //if(!objItem.disabled){
+                                //    $scope.walletOptions.push(tempObj)
+                                //}
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.methodOptions = [];
+
+        $scope.initMethodOptionsData = function () {
+            $scope.methodOptions = [];
+            adminService.getReq($rootScope.URL.PAYMENTMETHODS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                $scope.methodOptions.push(tempObj)
+                                //if(!objItem.disabled){
+                                //    $scope.methodOptions.push(tempObj)
+                                //}
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.ordersManageUrl = $rootScope.URL.ORDERSMANAGE.GET;
+
+        // 原始的数据
+        $scope.ordersManage = [];
+
+        $scope.advancedSearch = false;
+
+        // 过滤出来的数据
+        $scope.ordersManageReload = 1;
+        $scope.ordersManageAoData = {};
+
+        $scope.ordersManageAoData.wallet = ''
+        $scope.ordersManageAoData.method = ''
+
+        $scope.initOrdersManageData = function() {
+            $scope.ordersManageReload++
+        };
+
+        $scope.showAdvanceSearch = function() {
+            $scope.advancedSearch = !$scope.advancedSearch
+        };
+
+
+        // 删除ordersManage
+        /**
+         * @param ordersManage ORDERSMANAGETITLE数据对象
+         * @return null
+         */
+        $scope.deleteOrdersManage = function (ordersManage) {
+            if (ordersManage.code) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.ORDERSMANAGE.DELETE+'/'+ordersManage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initOrdersManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 添加按钮
+        $scope.manualOrdersManage = function (item) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/ordersManage/orderAddModal.html',
+                controller: 'OrderAddModalController',
+                resolve: {
+                    item: item
+                },
+                size: 'md'
+            });
+            modalInstance.result.then(function(data) {
+                $scope.initOrdersManageData()
+            }, function(data) {
+            });
+        };
+
+        // 详细按钮
+        $scope.ordersDetailManage = function (item) {
+            if(!item.id){
+                $rootScope.alertErrorMsg('server data error');
+                return;
+            }
+            adminService.getReq($rootScope.URL.ORDERSMANAGE.GETDETAIL + '/' + item.id, {}, {}).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    console.log(res.data.data)
+                    if (res.data.success) {
+                        var modalInstance = $uibModal.open({
+                            animation: true,
+                            ariaLabelledBy: 'modal-title',
+                            ariaDescribedBy: 'modal-body',
+                            templateUrl: '/views/admin/ordersManage/orderDetailModal.html',
+                            controller: 'OrderDetailModalController',
+                            resolve: {
+                                orderDetail: res.data.data
+                            },
+                            size: 'lg',
+                        });
+                        modalInstance.result.then(function(data) {
+                        }, function(data) {
+                        });
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的ORDERSMANAGETITLE
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.ordersManage.splice(index, 1);
+            }
+        };
+
+        //页面加载执行
+        $scope.initWalletOptionsData();
+        $scope.initMethodOptionsData();
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.ordersManageAoData.start_time = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                } else {
+                    if ($scope.ordersManageAoData.start_time) {
+                        delete $scope.ordersManageAoData.start_time;
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.ordersManageAoData.end_time = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                } else {
+                    if ($scope.ordersManageAoData.end_time) {
+                        delete $scope.ordersManageAoData.end_time;
+                    }
+                }
+            }
+        });
+
+        $scope.$watch('search.wallet.length+search.method.length', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                $scope.ordersManageAoData.wallet = $scope.search.wallet.join(',');
+                $scope.ordersManageAoData.method = $scope.search.method.join(',');
+            }
+        });
+
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.paymentMethods')
         .controller('PaymentMethodsController', PaymentMethodsController);
 
@@ -4727,325 +5018,6 @@
         // 页面加载执行的函数
 
         $scope.initMethodsNameModalData();
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.ordersManage')
-        .controller('OrderAddModalController', OrderAddModalController);
-
-    OrderAddModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'adminService',
-        'item',
-        '$translate'
-    ];
-
-    function OrderAddModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        adminService,
-        item,
-        $translate
-    ) {
-
-        $scope.orderAdd = {
-            order_no: '',
-            trade_no: '',
-            amount: '',
-            adminId: window.userInfo && window.userInfo.adminId || ''
-        };
-
-        $scope.confirmOrderAddModal = function () {
-            if(!item.id){
-                $rootScope.alertErrorMsg('server data error');
-                $uibModalInstance.dismiss('cancel');
-                return;
-            }
-            adminService.postReq($rootScope.URL.ORDERSMANAGE.POST+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $uibModalInstance.close('success');
-                        $rootScope.toasterSuccess(res.data.msg);
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.cancelOrderAddModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.ordersManage')
-        .controller('OrderDetailModalController', OrderDetailModalController);
-
-    OrderDetailModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'orderDetail',
-        '$translate'
-    ];
-
-    function OrderDetailModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        orderDetail,
-        $translate
-    ) {
-
-        $scope.orderDetail = orderDetail;
-
-        $scope.showDetailName = function(data) {
-            var str = '';
-            if(window.Array.isArray(data)){
-                data.map(function(item, index) {
-                    str = str + (item.locale||'') + ':' + (item.value||'') + (index === (data.length-1)?'':',')
-                })
-            }
-            return str;
-        };
-
-        $scope.closeModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.ordersManage')
-        .controller('OrdersManageController', OrdersManageController);
-
-    OrdersManageController.$inject = [
-        '$scope',
-        '$uibModal',
-        '$rootScope',
-        'adminService'
-    ];
-
-    function OrdersManageController(
-        $scope,
-        $uibModal,
-        $rootScope,
-        adminService
-    ) {
-
-        $scope.search = {
-            wallet: [],
-            method: []
-        };
-
-        $scope.walletOptions = [];
-
-        $scope.initWalletOptionsData = function () {
-            $scope.walletOptions = [];
-            adminService.getReq($rootScope.URL.WALLETSMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        if(window.Array.isArray(res.data.data)){
-                            res.data.data.map(function (objItem) {
-                                var tempObj ={
-                                    label:objItem.code||'',
-                                    value:objItem.code||''
-                                };
-                                $scope.walletOptions.push(tempObj)
-                                //if(!objItem.disabled){
-                                //    $scope.walletOptions.push(tempObj)
-                                //}
-                            })
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.methodOptions = [];
-
-        $scope.initMethodOptionsData = function () {
-            $scope.methodOptions = [];
-            adminService.getReq($rootScope.URL.PAYMENTMETHODS.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        if(window.Array.isArray(res.data.data)){
-                            res.data.data.map(function (objItem) {
-                                var tempObj ={
-                                    label:objItem.code||'',
-                                    value:objItem.code||''
-                                };
-                                $scope.methodOptions.push(tempObj)
-                                //if(!objItem.disabled){
-                                //    $scope.methodOptions.push(tempObj)
-                                //}
-                            })
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.ordersManageUrl = $rootScope.URL.ORDERSMANAGE.GET;
-
-        // 原始的数据
-        $scope.ordersManage = [];
-
-        $scope.advancedSearch = false;
-
-        // 过滤出来的数据
-        $scope.ordersManageReload = 1;
-        $scope.ordersManageAoData = {};
-
-        $scope.ordersManageAoData.wallet = ''
-        $scope.ordersManageAoData.method = ''
-
-        $scope.initOrdersManageData = function() {
-            $scope.ordersManageReload++
-        };
-
-        $scope.showAdvanceSearch = function() {
-            $scope.advancedSearch = !$scope.advancedSearch
-        };
-
-
-        // 删除ordersManage
-        /**
-         * @param ordersManage ORDERSMANAGETITLE数据对象
-         * @return null
-         */
-        $scope.deleteOrdersManage = function (ordersManage) {
-            if (ordersManage.code) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.ORDERSMANAGE.DELETE+'/'+ordersManage.code, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initOrdersManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 添加按钮
-        $scope.manualOrdersManage = function (item) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/ordersManage/orderAddModal.html',
-                controller: 'OrderAddModalController',
-                resolve: {
-                    item: item
-                },
-                size: 'md'
-            });
-            modalInstance.result.then(function(data) {
-                $scope.initOrdersManageData()
-            }, function(data) {
-            });
-        };
-
-        // 详细按钮
-        $scope.ordersDetailManage = function (item) {
-            if(!item.id){
-                $rootScope.alertErrorMsg('server data error');
-                return;
-            }
-            adminService.getReq($rootScope.URL.ORDERSMANAGE.GETDETAIL + '/' + item.id, {}, {}).then(function (res) {
-                if (typeof res.data.success === 'boolean') {
-                    console.log(res.data.data)
-                    if (res.data.success) {
-                        var modalInstance = $uibModal.open({
-                            animation: true,
-                            ariaLabelledBy: 'modal-title',
-                            ariaDescribedBy: 'modal-body',
-                            templateUrl: '/views/admin/ordersManage/orderDetailModal.html',
-                            controller: 'OrderDetailModalController',
-                            resolve: {
-                                orderDetail: res.data.data
-                            },
-                            size: 'lg',
-                        });
-                        modalInstance.result.then(function(data) {
-                        }, function(data) {
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的ORDERSMANAGETITLE
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.ordersManage.splice(index, 1);
-            }
-        };
-
-        //页面加载执行
-        $scope.initWalletOptionsData();
-        $scope.initMethodOptionsData();
-
-        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.searchTimeStart) {
-                    $scope.ordersManageAoData.start_time = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
-                } else {
-                    if ($scope.ordersManageAoData.start_time) {
-                        delete $scope.ordersManageAoData.start_time;
-                    }
-                }
-                if ($scope.searchTimeEnd) {
-                    $scope.ordersManageAoData.end_time = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
-                } else {
-                    if ($scope.ordersManageAoData.end_time) {
-                        delete $scope.ordersManageAoData.end_time;
-                    }
-                }
-            }
-        });
-
-        $scope.$watch('search.wallet.length+search.method.length', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                $scope.ordersManageAoData.wallet = $scope.search.wallet.join(',');
-                $scope.ordersManageAoData.method = $scope.search.method.join(',');
-            }
-        });
 
     }
 })();
@@ -7713,6 +7685,56 @@
         adminService
     ) {
 
+        $scope.brandOptions = [];
+
+        $scope.initBrandOptionsData = function () {
+            $scope.brandOptions = [];
+            adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                $scope.brandOptions.push(tempObj)
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.booleanOptons = [
+            {
+                label: 'Yes',
+                value: true
+            },
+            {
+                label: 'No',
+                value: false
+            }
+        ];
+
+        $scope.statusOptons = [
+            {
+                label: 'OPEN',
+                value: 'OPEN'
+            },
+            {
+                label: 'MAINTAIN',
+                value: 'MAINTAIN'
+            },
+            {
+                label: 'CLOSED',
+                value: 'CLOSED'
+            }
+        ];
+
         // 原始的数据
         $scope.walletsManage = [];
 
@@ -7724,15 +7746,43 @@
 
         // 初始化table数据
         $scope.initWalletsManageData = function () {
-            $scope.walletsManage = [];
             adminService.getReq($rootScope.URL.WALLETSMANAGE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $scope.walletsManage = angular.copy(res.data.data);
-                        $scope.walletsManage.forEach(function (walletsManageItem, walletsManageIndex) {
-                            walletsManageItem._id = walletsManageIndex +1;
+                        $scope.walletsManage.forEach(function(walletItem) {
+                            if(walletItem.merchant){
+                                walletItem.merchantKey = walletItem.merchant.key||'';
+                                walletItem.merchantName = walletItem.merchant.name||'';
+                                delete walletItem.merchant;
+                            }else{
+                                walletItem.merchantKey = '';
+                                walletItem.merchantName = '';
+                            }
+                            if(walletItem.setting){
+                                if(walletItem.setting.record){
+                                    walletItem.recordsDuration = walletItem.setting.record.duration||'';
+                                    walletItem.recordsParamsTimeFormat = walletItem.setting.record.timeFormat||'';
+                                    walletItem.recordsParamsTimeZone = walletItem.setting.record.timezone||'';
+                                    delete walletItem.setting.record;
+                                }else{
+                                    walletItem.recordsDuration = '';
+                                    walletItem.recordsParamsTimeFormat = '';
+                                    walletItem.recordsParamsTimeZone = '';
+                                }
+                                if(walletItem.setting.user){
+                                    walletItem.usernamePrefix = walletItem.setting.user.prefix||'';
+                                    walletItem.syncPassword = walletItem.setting.user.syncPassword||'';
+                                    delete walletItem.setting.user
+                                }else{
+                                    walletItem.usernamePrefix = '';
+                                    walletItem.syncPassword = '';
+                                }
+                                delete walletItem.setting;
+                            }
                         });
+                        $scope.walletsManageReload++;
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
@@ -7833,6 +7883,211 @@
         // 页面加载执行的函数
 
         $scope.initWalletsManageData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.walletsManage')
+        .controller('walletsManageModalController', walletsManageModalController);
+
+    walletsManageModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'adminService',
+        'modalItem',
+        'edit',
+        'hasPower',
+        '$translate'
+    ];
+
+    function walletsManageModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        adminService,
+        modalItem,
+        edit,
+        hasPower,
+        $translate
+    ) {
+
+        $scope.edit = edit;
+
+        $scope.hasPower = hasPower;
+
+        if(edit == 3||edit ==1){
+            $scope.modalItem = angular.copy(modalItem)
+        }else{
+            $scope.modalItem = {
+                name: [],
+                brands: [],
+                syncPassword: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || '',
+                disabled: $scope.booleanOptons[1] && $scope.booleanOptons[1].value || '',
+                status: $scope.statusOptons[0] && $scope.statusOptons[0].value || '',
+                code:'',
+                apiEndpoint:'',
+                usernamePrefix:'',
+                apkCode:'',
+                recordsDuration: '',
+                recordsParamsTimeFormat: ''
+            };
+        }
+
+        if($scope.modalItem.recordsParamsTimeZone){
+            delete $scope.modalItem.recordsParamsTimeZone
+        }
+
+        /**
+         * 点击复选框
+         * @param value value值
+         * @param $event 点击事件
+         */
+        $scope.selectBrands = function(value, $event) {
+            if($event.target.checked){
+                if($scope.modalItem.brands.indexOf(value) === -1){
+                    $scope.modalItem.brands.push(value)
+                }
+            }else{
+                $scope.modalItem.brands.splice($scope.modalItem.brands.indexOf(value), 1)
+            }
+        };
+
+        // 过滤出来的数据
+        $scope.showNameModal = [];
+        $scope.nameModalReload = 1;
+        $scope.nameModalAoData = {};
+        $scope.nameModalSearch = '';
+
+        // 初始化table数据
+        $scope.initNameModalData = function () {
+            $scope.modalItem['name'].forEach(function (nameItem, nameIndex) {
+                nameItem.id = nameIndex + 1;
+            })
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param nameModal name数据对象
+         * @param data
+         */
+
+        $scope.saveNameModal = function (nameModal, data) {
+            $scope.modalItem['name'].forEach(function (nameModalItem) {
+                if(nameModalItem.id == nameModal.id){
+                    window.Object.assign(nameModalItem, data);
+                    if($scope.validIsNew(nameModalItem.id)){
+                        nameModalItem.id = window.parseInt(nameModalItem.id, 10)
+                        $scope.nameModalReload ++
+                    }
+                }
+            });
+        };
+
+        // 删除rebatesModal
+        /**
+         * @param nameModal name数据对象
+         * @param index 位置
+         * @return null
+         */
+        $scope.deleteNameModal = function (nameModal, index) {
+            $scope.modalItem['name'].splice(index, 1)
+        };
+
+        // 添加按钮
+        $scope.addNameModal = function () {
+            $scope.nameModalAoData = {};
+            $scope.nameModalSearch = '';
+            $scope.modalItem['name'].unshift({
+                'id': ($scope.modalItem['name'].length+1) + 'null',
+                "locale": $scope.localesOptions[0] ? $scope.localesOptions[0].value : '',
+                "value": ''
+            });
+        };
+
+        /**
+         *
+         * @param NameItem name项目
+         * @param index 添加的index
+         */
+
+        $scope.cancelSaveNameModal = function (NameItem, index) {
+            if ($scope.validIsNew(NameItem.id)) {
+                $scope.modalItem['name'].splice(index, 1);
+            }
+        };
+
+        $scope.confirmModal = function () {
+            if($scope.modalItem.name && $scope.modalItem.name.length){
+                var tempObj = {};
+                var sameKey = false;
+                $scope.modalItem.name.map(function(nameItem) {
+                    if(tempObj[nameItem.locale]){
+                        sameKey = true
+                    }
+                    tempObj[nameItem.locale] = nameItem.value
+                });
+                if(sameKey){
+                    $rootScope.alertErrorMsg('you set same local, just remove one');
+                    return '';
+                }
+            }
+            var tempData = angular.copy($scope.modalItem);
+            tempData['name'] = tempData['name'].filter(function (item) {
+                return !$scope.validIsNew(item.id);
+            });
+            if(window.Array.isArray(tempData['name'])){
+                tempData['name'].forEach(function(nameItem) {
+                    if(nameItem.id){
+                        delete nameItem.id;
+                    }
+                })
+            }
+            if(tempData.name && tempData.name.length){
+                var tempNameObj = {};
+                tempData.name.map(function(nameItem) {
+                    tempNameObj[nameItem.locale] = nameItem.value
+                });
+                tempData.name = angular.copy(tempNameObj)
+            }
+            if (edit==2) {
+                adminService.postReq($rootScope.URL.WALLETSMANAGE.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('success');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (edit==3) {
+                adminService.patchReq($rootScope.URL.WALLETSMANAGE.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('success');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+        $scope.initNameModalData();
+
     }
 })();
 

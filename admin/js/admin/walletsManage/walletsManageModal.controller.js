@@ -1,26 +1,26 @@
 (function() {
 
     angular
-        .module('admin.gamesManage')
-        .controller('addGamesController', addGamesController);
+        .module('admin.walletsManage')
+        .controller('walletsManageModalController', walletsManageModalController);
 
-    addGamesController.$inject = [
+    walletsManageModalController.$inject = [
         '$scope',
         '$rootScope',
         '$uibModalInstance',
         'adminService',
-        'gamesItem',
+        'modalItem',
         'edit',
         'hasPower',
         '$translate'
     ];
 
-    function addGamesController(
+    function walletsManageModalController(
         $scope,
         $rootScope,
         $uibModalInstance,
         adminService,
-        gamesItem,
+        modalItem,
         edit,
         hasPower,
         $translate
@@ -31,32 +31,25 @@
         $scope.hasPower = hasPower;
 
         if(edit == 3||edit ==1){
-            $scope.gamesItem = angular.copy(gamesItem)
+            $scope.modalItem = angular.copy(modalItem)
         }else{
-            $scope.gamesItem = {
+            $scope.modalItem = {
                 name: [],
-                productCode: $scope.productOptions[0] && $scope.productOptions[0].value || '',
-                brandCode: $scope.brandOptions[0] && $scope.brandOptions[0].value || '',
-                flashCode:'',
-                html5Code:'',
-                appCode:'',
+                brands: [],
+                syncPassword: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || '',
+                disabled: $scope.booleanOptons[1] && $scope.booleanOptons[1].value || '',
+                status: $scope.statusOptons[0] && $scope.statusOptons[0].value || '',
+                code:'',
+                apiEndpoint:'',
+                usernamePrefix:'',
                 apkCode:'',
-                windowsCode: '',
-                ftpCode: '',
-                flashDemoSupported: '',
-                html5DemoSupported: '',
-                image: '',
-                lines: '',
-                hasJackpot: '',
-                currentJackpot: '',
-                disabled: false,
-                rebateable: '',
-                bigwinable: '',
-                categories: [],
-                isNew: '',
-                isComingSoon: '',
-                isRecommend: ''
+                recordsDuration: '',
+                recordsParamsTimeFormat: ''
             };
+        }
+
+        if($scope.modalItem.recordsParamsTimeZone){
+            delete $scope.modalItem.recordsParamsTimeZone
         }
 
         /**
@@ -64,13 +57,13 @@
          * @param value value值
          * @param $event 点击事件
          */
-        $scope.selectCategories = function(value, $event) {
+        $scope.selectBrands = function(value, $event) {
             if($event.target.checked){
-                if($scope.gamesItem.categories.indexOf(value) === -1){
-                    $scope.gamesItem.categories.push(value)
+                if($scope.modalItem.brands.indexOf(value) === -1){
+                    $scope.modalItem.brands.push(value)
                 }
             }else{
-                $scope.gamesItem.categories.splice($scope.gamesItem.categories.indexOf(value), 1)
+                $scope.modalItem.brands.splice($scope.modalItem.brands.indexOf(value), 1)
             }
         };
 
@@ -82,7 +75,7 @@
 
         // 初始化table数据
         $scope.initNameModalData = function () {
-            $scope.gamesItem['name'].forEach(function (nameItem, nameIndex) {
+            $scope.modalItem['name'].forEach(function (nameItem, nameIndex) {
                 nameItem.id = nameIndex + 1;
             })
         };
@@ -96,7 +89,7 @@
          */
 
         $scope.saveNameModal = function (nameModal, data) {
-            $scope.gamesItem['name'].forEach(function (nameModalItem) {
+            $scope.modalItem['name'].forEach(function (nameModalItem) {
                 if(nameModalItem.id == nameModal.id){
                     window.Object.assign(nameModalItem, data);
                     if($scope.validIsNew(nameModalItem.id)){
@@ -114,15 +107,15 @@
          * @return null
          */
         $scope.deleteNameModal = function (nameModal, index) {
-            $scope.gamesItem['name'].splice(index, 1)
+            $scope.modalItem['name'].splice(index, 1)
         };
 
         // 添加按钮
         $scope.addNameModal = function () {
             $scope.nameModalAoData = {};
             $scope.nameModalSearch = '';
-            $scope.gamesItem['name'].unshift({
-                'id': ($scope.gamesItem['name'].length+1) + 'null',
+            $scope.modalItem['name'].unshift({
+                'id': ($scope.modalItem['name'].length+1) + 'null',
                 "locale": $scope.localesOptions[0] ? $scope.localesOptions[0].value : '',
                 "value": ''
             });
@@ -136,35 +129,15 @@
 
         $scope.cancelSaveNameModal = function (NameItem, index) {
             if ($scope.validIsNew(NameItem.id)) {
-                $scope.gamesItem['name'].splice(index, 1);
+                $scope.modalItem['name'].splice(index, 1);
             }
         };
 
         $scope.confirmModal = function () {
-            if(!($scope.gamesItem.flashCode || $scope.gamesItem.html5Code || $scope.gamesItem.appCode || $scope.gamesItem.apkCode || $scope.gamesItem.windowsCode)){
-                $rootScope.alertErrorMsg('flashCode html5Code appCode apkCode windowsCode, should has one');
-                return '';
-            }
-            if($scope.gamesItem.productCode == 'SLOTS'){
-                if(typeof $scope.gamesItem.bigwinable !== 'boolean'){
-                    $rootScope.alertErrorMsg('bigwinable is required');
-                    return;
-                }
-                if(typeof $scope.gamesItem.hasJackpot !== 'boolean'){
-                    $rootScope.alertErrorMsg('hasJackpot is required');
-                    return;
-                }
-            }
-            if($scope.gamesItem.html5Code){
-                $scope.gamesItem.html5DemoSupported = true;
-            }
-            if($scope.gamesItem.flashCode){
-                $scope.gamesItem.flashDemoSupported = true;
-            }
-            if($scope.gamesItem.name && $scope.gamesItem.name.length){
+            if($scope.modalItem.name && $scope.modalItem.name.length){
                 var tempObj = {};
                 var sameKey = false;
-                $scope.gamesItem.name.map(function(nameItem) {
+                $scope.modalItem.name.map(function(nameItem) {
                     if(tempObj[nameItem.locale]){
                         sameKey = true
                     }
@@ -175,7 +148,7 @@
                     return '';
                 }
             }
-            var tempData = angular.copy($scope.gamesItem);
+            var tempData = angular.copy($scope.modalItem);
             tempData['name'] = tempData['name'].filter(function (item) {
                 return !$scope.validIsNew(item.id);
             });
@@ -193,9 +166,8 @@
                 });
                 tempData.name = angular.copy(tempNameObj)
             }
-            console.log(tempData,'tempData9999')
             if (edit==2) {
-                adminService.postReq($rootScope.URL.GAMESMANAGE.POST, {}, tempData).then(function (res) {
+                adminService.postReq($rootScope.URL.WALLETSMANAGE.POST, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -207,7 +179,7 @@
                     }
                 });
             } else if (edit==3) {
-                adminService.patchReq($rootScope.URL.GAMESMANAGE.PATCH+'/'+gamesItem.id, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.WALLETSMANAGE.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {

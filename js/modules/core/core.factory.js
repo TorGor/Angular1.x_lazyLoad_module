@@ -20,7 +20,9 @@
 
         return {
             request: function (config) {
-                if(config.method !== "GET"){
+                if(config.method === "GET"&&(config.url.indexOf('getDetail')===-1||config.url.indexOf('getAudit')===-1||config.url.indexOf('getPay')===-1||config.url.indexOf('getReview')===-1)){
+
+                }else{
                     requestInitiated = true;
                     showLoadingText();
                 }
@@ -35,7 +37,7 @@
                     if (requestInitiated) return;
                     hideLoadingText();
 
-                }, 300);
+                }, 400);
 
                 return response;
             },

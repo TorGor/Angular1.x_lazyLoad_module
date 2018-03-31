@@ -18,7 +18,7 @@
             suffix: '.json',
             //suffix: '',
             server: '',
-             //server: 'http://123.206.33.128',
+             //server: 'http://193.112.155.213',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             //server: 'http://holyplace.ngrok.xiaomiqiu.cn',
             URLOBJ:{

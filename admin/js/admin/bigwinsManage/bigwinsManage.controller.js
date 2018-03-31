@@ -16,31 +16,16 @@
         adminService
     ) {
 
+        $scope.bigwinsManageUrl = $rootScope.URL.BIGWINSMANAGE.GET;
+
         // 原始的数据
         $scope.bigwinsManage = [];
-
-        // 过滤出来的数据
-        $scope.showBigwinsManage = [];
         $scope.bigwinsManageReload = 1;
         $scope.bigwinsManageAoData = {};
-        $scope.bigwinsManageSearch = '';
 
         // 初始化table数据
         $scope.initBigwinsManageData = function () {
-            $scope.bigwinsManage = [];
-            adminService.getReq($rootScope.URL.BIGWINSMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.bigwinsManage = angular.copy(res.data.data);
-                        $scope.bigwinsManage.forEach(function (bigwinsManageItem, bigwinsManageIndex) {
-                            bigwinsManageItem._id = bigwinsManageIndex +1;
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
+            $scope.bigwinsManageReload++;
         };
 
 
@@ -121,20 +106,7 @@
             });
         };
 
-        /**
-         *
-         * @param item 添加的BIGWINSMANAGETITLE
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item._id)) {
-                $scope.bigwinsManage.splice(index, 1);
-            }
-        };
-
         // 页面加载执行的函数
 
-        $scope.initBigwinsManageData();
     }
 })();

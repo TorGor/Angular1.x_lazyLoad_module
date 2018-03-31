@@ -15,35 +15,74 @@
                   <input class="form-control" type="text" ng-model="walletsManageSearch" placeholder="{{searchPlaceholder(['table.walletsManage.th1', 'table.walletsManage.th2', 'table.walletsManage.th3'])}}">
                </div>
             </form>
-            <div server-data-table items="walletsManage" ao-data="walletsManageAoData" reload="walletsManageReload" service-name="adminService" service-name-attr="getReq" url="walletsManageUrl" handle-data="false" web-data-table items="walletsManage" ao-data="walletsManageAoData"
-            search="walletsManageSearch" reload="walletsManageReload" show-items="showWalletsManage">
+            <div web-data-table items="walletsManage" ao-data="walletsManageAoData" search="walletsManageSearch" reload="walletsManageReload" show-items="showWalletsManage">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
-                        <td style="width: 40%" ao-data="walletsManageAoData" web-data-table-sort="roleName">
+                        <td style="width: 10%" ao-data="walletsManageAoData" web-data-table-sort="code">
                            {{'table.walletsManage.th1' | translate}}
                         </td>
-                        <td style="width: 40%" ao-data="walletsManageAoData" web-data-table-sort="roleName">
-                           {{'table.walletsManage.th1' | translate}}
-                        </td>
-                        <td style="width: 40%" ao-data="walletsManageAoData" web-data-table-sort="roleStatus">
+                        <td style="width: 10%" ao-data="walletsManageAoData" web-data-table-sort="code">
                            {{'table.walletsManage.th2' | translate}}
                         </td>
-                        <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                        <td style="width: 10%" ao-data="walletsManageAoData" web-data-table-sort="code">
+                           {{'table.walletsManage.th3' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="walletsManageAoData" web-data-table-sort="code">
+                           {{'table.walletsManage.th4' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="walletsManageAoData" web-data-table-sort="code">
+                           {{'table.walletsManage.th5' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="walletsManageAoData" web-data-table-sort="code">
+                           {{'table.walletsManage.th6' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="walletsManageAoData" web-data-table-sort="code">
+                           {{'table.walletsManage.th7' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="walletsManageAoData" web-data-table-sort="code">
+                           {{'table.walletsManage.th8' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="walletsManageAoData" web-data-table-sort="code">
+                           {{'table.walletsManage.th9' | translate}}
+                        </td>
+                        <td style="width: 10%" ao-data="walletsManageAoData" web-data-table-sort="code">
+                           {{'table.walletsManage.th10' | translate}}
+                        </td>
+                        <td style="width: 10%">{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
                      <tr ng-repeat="item in showWalletsManage">
                         <td>
-                           <span editable-text="item.code" e-name="code" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
+                           <span>{{ item.code || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.name" e-name="name" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
+                           <span>{{item.merchantKey&&item.merchantKey.length>0?((item.merchantKey || '').substr(0,6)+'...'):'' }}</span>
                         </td>
                         <td>
-                           <span editable-select="item.roleStatus" e-name="roleStatus" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in adminSelect012.options">
-                              <span ng-bind-html="filter012OptionsValue(item.roleStatus)"></span>
-                           </span>
+                           <span>{{ item.merchantName || '' }}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.recordsDuration || '' }}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.recordsParamsTimeFormat || '' }}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.recordsParamsTimeZone || '' }}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.usernamePrefix || '' }}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.syncPassword?'Yes':'No'}}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.status || '' }}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.disabled?'Yes':'No' }}</span>
                         </td>
                         <td style="white-space: nowrap;">
                            <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveWalletsManage(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item._id)">
