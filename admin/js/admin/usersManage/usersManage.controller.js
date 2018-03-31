@@ -16,14 +16,12 @@
         adminService
     ) {
 
+        $scope.usersManageUrl = $rootScope.URL.USERSMANAGE.GET;
+
         // 原始的数据
         $scope.usersManage = [];
-
-        // 过滤出来的数据
-        $scope.showUsersManage = [];
         $scope.usersManageReload = 1;
         $scope.usersManageAoData = {};
-        $scope.usersManageSearch = '';
 
         // 初始化table数据
         $scope.initUsersManageData = function () {
@@ -33,9 +31,6 @@
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $scope.usersManage = angular.copy(res.data.data);
-                        $scope.usersManage.forEach(function (usersManageItem, usersManageIndex) {
-                            usersManageItem._id = usersManageIndex +1;
-                        });
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
