@@ -18,7 +18,7 @@
                         <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
                         <input
                             class="form-control" type="text" ng-model="gameCategoriesSearch"
-                            placeholder="{{searchPlaceholder(['table.paymentMethods.th1'])}}"
+                            placeholder="{{searchPlaceholder(['ID', 'table.gamesProducts.th2'])}}"
                         >
                     </div>
                 </form>
@@ -33,8 +33,12 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 80%">
+                            <td style="width: 50%">
                                 {{'ID'}}
+                            </td>
+
+                            <td style="width: 30%">
+                                {{'table.gamesProducts.th2' | translate}}
                             </td>
                             <td
                                 style="width: 17%" ng-show='validPower("GAMECATEGORIES", ["PATCH", "DELETE"])'
@@ -48,6 +52,10 @@
                                 <!--<span>-->
                                     <!--<button class="btn btn-sm btn-info" ng-click="showGameCategoriesNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>-->
                                 <!--</span>-->
+                            </td>
+
+                            <td>
+                                {{showArrayName(item.name)}}
                             </td>
                             <td
                                 style="white-space: nowrap;" ng-show='validPower("GAMECATEGORIES", ["PATCH", "DELETE", "GET"])'

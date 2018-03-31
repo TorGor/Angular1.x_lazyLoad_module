@@ -200,6 +200,25 @@
             format: 'YYYY-MM-DD HH:MM'
         };
 
+        $scope.showArrayName = function(arr) {
+            if(window.Array.isArray(arr)){
+                for(var i=0,j=arr.length;i<j;i++){
+                    if(arr[i].locale == 'en-GB'){
+                        break;
+                        return arr[i].value || ''
+                    }
+                    if(arr[i].locale == 'zh-CN'){
+                        break;
+                        return arr[i].value || ''
+                    }
+                }
+                if(arr[0]){
+                    return arr[0].value || ''
+                }
+            }
+            return '';
+        };
+
         /**
          *
          * @param callback 回调函数
