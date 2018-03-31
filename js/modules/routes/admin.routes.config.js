@@ -170,6 +170,8 @@
                                     }
                                 });
 
+                                console.log(window.userInfo.menu,9999)
+
                                 if(window.location.href.indexOf('#!/page/maintenance')!==-1 && window.userInfo.menu && window.Array.isArray(window.userInfo.menu)){
                                     for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
                                         if(window.userInfo.menu[i].sref !== '#'){

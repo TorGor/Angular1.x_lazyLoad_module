@@ -608,7 +608,7 @@ gulp.task('addModuleNameToAppSidebar', function () {
                 {
                     "text": "${needRepalce['COMMONMODULETITLE']}",
                     "sref": "admin.${needRepalce['commonModule']}",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "${moduleSetting.common||''}",
                 }//new sidebar name will be append here
             `))
         .pipe(gulp.dest('.'));

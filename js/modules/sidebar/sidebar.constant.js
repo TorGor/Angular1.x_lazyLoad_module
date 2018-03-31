@@ -162,22 +162,22 @@
                 {
                     "text": "游戏记录",
                     "sref": "admin.gameRecords",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "records",
                 },
                 {
                     "text": "用户管理",
                     "sref": "admin.usersManage",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "users",
                 },
                 {
                     "text": "钱包管理",
                     "sref": "admin.walletsManage",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "wallets",
                 },
                 {
                     "text": "千百倍",
                     "sref": "admin.bigwinsManage",
-                    "icon": "glyphicon glyphicon-th-large",
+                    "module": "bigwins",
                 }//new sidebar name will be append here
             
             

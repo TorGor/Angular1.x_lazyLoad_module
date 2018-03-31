@@ -44,7 +44,7 @@
                 transfers: 'TRANSFERSLIST',
                 wallets: 'WALLETSMANAGE',
                 bigwins: 'BIGWINSMANAGE',
-                records: 'RECORDSMANAGE',
+                records: 'GAMERECORDS',
                 users: 'USERSMANAGE',
             }
         });
