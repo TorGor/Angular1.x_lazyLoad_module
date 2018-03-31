@@ -107,7 +107,7 @@
                            <span>{{item.user && item.user.username || ''}}</span>
                         </td>
                         <td>
-                           <span>{{item.user && item.user.affiliate || ''}}</span>
+                           <span>{{item.user && item.user.affiliateId?((item.user && item.user.affiliateId || '').substr(0,6)+'...'):''}}</span>
                         </td>
                         <td>
                            <span>{{item.serviceId ? item.serviceId.substr(0,8) : ''}}</span>
