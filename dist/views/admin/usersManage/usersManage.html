@@ -23,46 +23,43 @@
                            {{'table.usersManage.th1' | translate}}
                         </td>
                         <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="userId">
-                           {{'table.usersManage.th1' | translate}}
-                        </td>
-                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
-                           {{'table.usersManage.th1' | translate}}
-                        </td>
-                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
                            {{'table.usersManage.th2' | translate}}
                         </td>
-                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="affiliateId">
                            {{'table.usersManage.th3' | translate}}
                         </td>
-                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="currency">
                            {{'table.usersManage.th4' | translate}}
                         </td>
-                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                        <td style="width: 7%">
                            {{'table.usersManage.th5' | translate}}
                         </td>
-                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                        <td style="width: 7%">
                            {{'table.usersManage.th6' | translate}}
                         </td>
-                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="timezone">
                            {{'table.usersManage.th7' | translate}}
                         </td>
-                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="email">
                            {{'table.usersManage.th8' | translate}}
                         </td>
-                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                        <td style="width: 7%">
                            {{'table.usersManage.th9' | translate}}
                         </td>
-                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                        <td style="width: 7%">
                            {{'table.usersManage.th10' | translate}}
                         </td>
-                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                        <td style="width: 7%">
                            {{'table.usersManage.th11' | translate}}
                         </td>
-                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                        <td style="width: 7%">
                            {{'table.usersManage.th12' | translate}}
                         </td>
-                        <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                        <td style="width: 7%">
                            {{'table.usersManage.th13' | translate}}
+                        </td>
+                        <td style="width: 7%">
+                           {{'table.usersManage.th14' | translate}}
                         </td>
                         <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                      </tr>
@@ -73,16 +70,16 @@
                            <span>{{item.username || ''}}</span>
                         </td>
                         <td>
-                           <span>{{(item.userId || '').substr(0.6)+'...'}}</span>
+                           <span>{{(item.userId || '').substr(0,6)+'...'}}</span>
                         </td>
                         <td>
-                           <span>{{(item.affiliateId || '').substr(0.6)+'...'}}</span>
+                           <span>{{(item.affiliateId || '').substr(0,6)+'...'}}</span>
                         </td>
                         <td>
                            <span>{{item.currency || ''}}</span>
                         </td>
                         <td>
-                           <span>{{item.country.ios || ''}}</span>
+                           <span>{{item.country.iso || ''}}</span>
                         </td>
                         <td>
                            <span>{{item.rank.code || ''}}</span>
@@ -108,14 +105,17 @@
                         <td>
                            <span>{{item.otp?'Yes':'No'}}</span>
                         </td>
+                        <td>
+                           <span>{{showOptionsValue(item.gender, genderOptions)}}</span>
+                        </td>
                         <td style="white-space: nowrap;">
-                           <button class="btn btn-sm btn-green" ng-click="showWalletsManageModal(item,1)" title="{{'table.button.detail' | translate}}">
-                              <em class="fa fa-folder-open-o"></em>
+                           <button class="btn btn-sm btn-info" ng-click="showWalletsManageModal(item,1)" title="{{'table.button.detail' | translate}}">
+                              <em class="fa fa-eye"></em>
                            </button>
                         </td>
                      </tr>
                      <tr ng-show="usersManage.length==0">
-                        <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan="15" class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

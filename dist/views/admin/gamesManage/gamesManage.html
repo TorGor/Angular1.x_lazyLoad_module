@@ -35,7 +35,7 @@
                <div class='col-lg-3 col-md-6 margin-bottom-10'>
                   <ui-select ng-model="search.categories" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
                      <ui-select-match placeholder='choose categories'>
-                        <span>{{$item.label.substr(0,20)+'...'}}</span>
+                        <span>{{$item.label}}</span>
                      </ui-select-match>
                      <ui-select-choices repeat="item.value as item in categoriesOptions">
                         <span ng-bind="item.label"></span>

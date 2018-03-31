@@ -354,6 +354,22 @@
             "th8": "Sync Password",
             "th9": "Status",
             "th10": "Disabled"
+        },
+        "usersManage": {
+            "th1": "Username",
+            "th2": "UserId",
+            "th3": "AffiliateId",
+            "th4": "Currency",
+            "th5": "Country",
+            "th6": "Rank",
+            "th7": "Timezone",
+            "th8": "Email",
+            "th9": "Financial",
+            "th10": "Verifi Identity",
+            "th11": "Verifi Name",
+            "th12": "Verifi Phone",
+            "th13": "OTP",
+            "th14": "Sex"
         }
     },
     "panel_tile": {

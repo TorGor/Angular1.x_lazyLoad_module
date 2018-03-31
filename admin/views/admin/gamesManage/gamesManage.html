@@ -57,7 +57,7 @@
                             close-on-select="false"
                             search-enabled="false">
                             <ui-select-match placeholder='choose categories'>
-                                <span>{{$item.label.substr(0,20)+'...'}}</span>
+                                <span>{{$item.label}}</span>
                             </ui-select-match>
                             <ui-select-choices repeat="item.value as item in categoriesOptions">
                                 <span ng-bind="item.label"></span>
@@ -242,8 +242,7 @@
                             </td>
                         </tr>
                         <tr ng-show="gamesManage.length==0">
-                            <td colspan='{{validPower("GAMESMANAGE", ["PATCH", "GET"])?10:9}}'
-                                                               class="">{{'table.no_date' | translate}}</td>
+                            <td colspan='{{validPower("GAMESMANAGE", ["PATCH", "GET"])?10:9}}' class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

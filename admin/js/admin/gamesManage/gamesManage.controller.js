@@ -86,7 +86,7 @@
                         if(window.Array.isArray(res.data.data)){
                             res.data.data.map(function (objItem) {
                                 var tempObj ={
-                                    label:objItem.id||'',
+                                    label:$scope.showArrayName(objItem.name)||'',
                                     value:objItem.id||''
                                 };
                                 $scope.categoriesOptions.push(tempObj)
