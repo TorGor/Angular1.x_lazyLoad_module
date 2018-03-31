@@ -2244,7 +2244,6 @@
                 var timeout = null;
                 $scope.$watch('aoData',function(newVal,oldVal){
                     if (newVal!=oldVal) {
-                        console.log(newVal)
 
                         if($scope.pageNeedChange||$scope.currentPage==1){
 
