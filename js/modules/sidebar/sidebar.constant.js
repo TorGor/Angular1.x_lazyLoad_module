@@ -158,7 +158,31 @@
                     "text": "转账列表",
                     "sref": "admin.transfersList",
                     "module": "transfers",
+                },
+                {
+                    "text": "游戏记录",
+                    "sref": "admin.gameRecords",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "用户管理",
+                    "sref": "admin.usersManage",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "钱包管理",
+                    "sref": "admin.walletsManage",
+                    "icon": "glyphicon glyphicon-th-large",
+                },
+                {
+                    "text": "千百倍",
+                    "sref": "admin.bigwinsManage",
+                    "icon": "glyphicon glyphicon-th-large",
                 }//new sidebar name will be append here
+            
+            
+            
+            
             ]
 
         });

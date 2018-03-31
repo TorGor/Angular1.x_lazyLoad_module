@@ -26,6 +26,10 @@
 			'admin.rebatesList',
 			'admin.reliefsList',
 			'admin.transfersList',
+			'admin.gameRecords',
+			'admin.usersManage',
+			'admin.walletsManage',
+			'admin.bigwinsManage',
 			//new module name will be append here
 
         ]);

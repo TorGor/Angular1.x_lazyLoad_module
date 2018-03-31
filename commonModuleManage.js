@@ -3,11 +3,11 @@
  */
 var moduleSetting = {
     //模块主要名称
-    common: 'transfers',
+    common: 'bigwins',
     //模块主要名称2
-    module: 'List',
+    module: 'manage',
     //模块标题
-    title: '救济金列表',
+    title: '千百倍',
     // url地址
     url: '/rest/transfers',
 };

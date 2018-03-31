@@ -363,7 +363,43 @@
                 permission: 'transfers'
             })
             
+            .state('admin.gameRecords', {
+                url: '/gameRecords/manage',
+                title: 'gameRecords Manage',
+                controller: 'GameRecordsController',
+                templateUrl: RouteHelpersProvider.basepath('admin/gameRecords/gameRecords.html'),
+                permission: 'records'
+            })
+            
+            .state('admin.usersManage', {
+                url: '/usersManage/manage',
+                title: 'usersManage Manage',
+                controller: 'UsersManageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/usersManage/usersManage.html'),
+                permission: 'users'
+            })
+            
+            .state('admin.walletsManage', {
+                url: '/walletsManage/manage',
+                title: 'walletsManage Manage',
+                controller: 'WalletsManageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/walletsManage/walletsManage.html'),
+                permission: 'wallets'
+            })
+            
+            .state('admin.bigwinsManage', {
+                url: '/bigwinsManage/manage',
+                title: 'bigwinsManage Manage',
+                controller: 'BigwinsManageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/bigwinsManage/bigwinsManage.html'),
+                permission: 'bigwins'
+            })
+            
             //new route name will be append here
+            
+            
+            
+            
             
             // Single Page Routes
             // -----------------------------------
