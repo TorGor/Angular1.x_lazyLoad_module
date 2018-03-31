@@ -7,12 +7,14 @@
     WalletsManageController.$inject = [
         '$scope',
         '$rootScope',
+        '$uibModal',
         'adminService'
     ];
 
     function WalletsManageController(
         $scope,
         $rootScope,
+        $uibModal,
         adminService
     ) {
 
@@ -31,6 +33,32 @@
                                     value:objItem.code||''
                                 };
                                 $scope.brandOptions.push(tempObj)
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.localesOptions = [];
+
+        $scope.initLocalesOptionsData = function () {
+            $scope.localesOptions = [];
+            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.localesOptions.push(tempObj)
+                                }
                             })
                         }
                     } else {
@@ -121,44 +149,25 @@
             });
         };
 
-
-        // 保存
-        /**
-         *
-         * @param walletsManage WALLETSMANAGETITLE数据对象
-         * @param item
-         */
-
-        $scope.saveWalletsManage = function (walletsManage, item) {
-            var tempData = angular.extend({}, walletsManage, item);
-            if ($scope.validIsNew(tempData._id)) {
-                delete tempData._id;
-                adminService.postReq($rootScope.URL.WALLETSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initWalletsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(tempData._id) && walletsManage.id) {
-                delete tempData._id;
-                adminService.patchReq($rootScope.URL.WALLETSMANAGE.PATCH+'/'+walletsManage.id, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initWalletsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
+        $scope.showWalletsManageModal = function (modalItem,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/walletsManage/walletsManageModal.html',
+                controller: 'walletsManageModalController',
+                scope: $scope,
+                size: 'lg',
+                resolve:{
+                    modalItem:modalItem,
+                    edit:edit,
+                    hasPower:$scope.hasPower && edit!==1
+                }
+            });
+            modalInstance.result.then(function(data) {
+                $scope.initWalletsManageData();
+            }, function(data) {
+            });
         };
 
         // 删除walletsManage
@@ -169,7 +178,7 @@
         $scope.deleteWalletsManage = function (walletsManage) {
             if (!$scope.validIsNew(walletsManage._id)) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.WALLETSMANAGE.DELETE+'/'+walletsManage.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.WALLETSMANAGE.DELETE+'/'+walletsManage.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initWalletsManageData();
@@ -184,35 +193,42 @@
             }
         };
 
-        // 添加按钮
-        $scope.addWalletsManage = function () {
-            $scope.walletsManageAoData = {};
-            $scope.walletsManageSearch = '';
-            $scope.walletsManage.unshift({
-                '_id': ($scope.walletsManage.length+1) + 'null',
-                'walletsManageName': '',
-                'walletsManageType': '',
-                'walletsManageStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
-            });
-        };
-
+        // 恢复walletsManage
         /**
-         *
-         * @param item 添加的WALLETSMANAGETITLE
-         * @param index 添加的index
+         * @param walletsManage WALLETSMANAGETITLE数据对象
+         * @return null
          */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item._id)) {
-                $scope.walletsManage.splice(index, 1);
+        $scope.recoverWalletsManage = function (walletsManage) {
+            if (!$scope.validIsNew(walletsManage._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.WALLETSMANAGE.PUT+'/'+walletsManage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initWalletsManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
             }
         };
+
+        $scope.hasPower = $scope.validPower("WALLETSMANAGE", ["PATCH", "POST"]);
 
         // 页面加载执行的函数
 
         $scope.initWalletsManageData();
+
+
+        if($scope.hasPower){
+
+            $scope.initBrandOptionsData();
+
+            $scope.initLocalesOptionsData();
+        }
+
     }
 })();

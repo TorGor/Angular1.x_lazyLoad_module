@@ -26,6 +26,8 @@
         $translate
     ) {
 
+        console.log(modalItem,88888777776666)
+
         $scope.edit = edit;
 
         $scope.hasPower = hasPower;
@@ -37,12 +39,10 @@
                 name: [],
                 brands: [],
                 syncPassword: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || '',
-                disabled: $scope.booleanOptons[1] && $scope.booleanOptons[1].value || '',
+                disabled: '',
                 status: $scope.statusOptons[0] && $scope.statusOptons[0].value || '',
                 code:'',
-                apiEndpoint:'',
                 usernamePrefix:'',
-                apkCode:'',
                 recordsDuration: '',
                 recordsParamsTimeFormat: ''
             };
@@ -50,6 +50,9 @@
 
         if($scope.modalItem.recordsParamsTimeZone){
             delete $scope.modalItem.recordsParamsTimeZone
+        }
+        if(!$scope.modalItem.apiEndpoint){
+            $scope.modalItem.apiEndpoint = '';
         }
 
         /**
@@ -75,9 +78,11 @@
 
         // 初始化table数据
         $scope.initNameModalData = function () {
-            $scope.modalItem['name'].forEach(function (nameItem, nameIndex) {
-                nameItem.id = nameIndex + 1;
-            })
+            if(window.Array.isArray($scope.modalItem['name'])){
+                $scope.modalItem['name'].forEach(function (nameItem, nameIndex) {
+                    nameItem.id = nameIndex + 1;
+                })
+            }
         };
 
 

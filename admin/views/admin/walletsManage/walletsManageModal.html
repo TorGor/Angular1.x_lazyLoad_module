@@ -7,206 +7,111 @@
         <div class="">
             <div class="panel-wrapper">
                 <div class="panel-body">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" name='myForm'>
+                        <legend class="text-center">概况</legend>
+                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">编码</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="modalItem.code" name='code' ng-pattern='/^[A-Z]{1,5}$/' ng-disabled='!hasPower||edit==3' required class="form-control" type="text"
+                                       placeholder="A-Z max 5 char">
+                                <span class='text-danger valid-error'
+                                      ng-show="myForm.code.$dirty&&myForm.code.$invalid">
+                                {{'A-Z max 5 char'}}
+                            </span>
+                            </div>
+                        </div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">品牌</label>
+                            <label class="col-lg-4 col-md-6 control-label">url</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="modalItem.apiEndpoint" name='apiEndpoint' ng-pattern='/^http[.]*/' ng-disabled='!hasPower' required class="form-control" type="text"
+                                       placeholder="url">
+                                <span class='text-danger valid-error'
+                                      ng-show="myForm.apiEndpoint.$dirty&&myForm.apiEndpoint.$invalid">
+                                {{'should be url'}}
+                            </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">商业名称</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="modalItem.merchantName" name='merchantName' ng-maxlength='15' ng-disabled='!hasPower' required class="form-control" type="text"
+                                       placeholder="max 15 char">
+                                <span class='text-danger valid-error'
+                                      ng-show="myForm.merchantName.$dirty&&myForm.merchantName.$invalid">
+                                {{'max 15 char'}}
+                            </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">商业KEY</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="modalItem.merchantKey" name='merchantKey' ng-maxlength='32' ng-disabled='!hasPower' required class="form-control" type="text"
+                                       placeholder="max 32 char">
+                                <span class='text-danger valid-error'
+                                      ng-show="myForm.merchantKey.$dirty&&myForm.merchantKey.$invalid">
+                                {{'max 32 char'}}
+                            </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">时间间隔</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="modalItem.recordsDuration" name='recordsDuration' ng-pattern='/^[0-9]*$/' ng-disabled='!hasPower' required class="form-control" type="number"
+                                       placeholder="number">
+                                <span class='text-danger valid-error'
+                                      ng-show="myForm.recordsDuration.$dirty&&myForm.recordsDuration.$invalid">
+                                {{'should be number'}}
+                            </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">时间格式</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="modalItem.recordsParamsTimeFormat" name='recordsParamsTimeFormat' ng-maxlength='15' ng-disabled='!hasPower' required class="form-control" type="text"
+                                       placeholder="max 15 char">
+                                <span class='text-danger valid-error'
+                                      ng-show="myForm.recordsParamsTimeFormat.$dirty&&myForm.recordsParamsTimeFormat.$invalid">
+                                {{'max 15 char'}}
+                            </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">状态</label>
                             <div class="col-lg-8 col-md-6">
                                 <ui-select
-                                        ng-model="gamesItem.brandCode"
-                                        theme="bootstrap"
-                                        ng-disabled='!hasPower'
-                                        search-enabled="false">
-                                    <ui-select-match placeholder="choose brand code">
-                                        <span ng-bind="$select.selected.label"></span>
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="item.value as item in brandOptions">
-                                        <span ng-bind="item.label"></span>
-                                    </ui-select-choices>
-                                </ui-select>
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">产品</label>
-                            <div class="col-lg-8 col-md-6">
-                                <ui-select
-                                        ng-model="gamesItem.productCode"
-                                        theme="bootstrap"
-                                        ng-disabled='!hasPower'
-                                        search-enabled="false">
-                                    <ui-select-match placeholder="choose product code">
-                                        <span ng-bind="$select.selected.label"></span>
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="item.value as item in productOptions">
-                                        <span ng-bind="item.label"></span>
-                                    </ui-select-choices>
-                                </ui-select>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">windows编码</label>
-                            <div class="col-lg-8 col-md-6">
-                                <input ng-model="gamesItem.windowsCode" ng-disabled='!hasPower' class="form-control" type="text"
-                                       placeholder="game windows code">
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">ftp编码</label>
-                            <div class="col-lg-8 col-md-6">
-                                <input ng-model="gamesItem.ftpCode" ng-disabled='!hasPower' class="form-control" type="text"
-                                       placeholder="game ftp code">
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">app编码</label>
-                            <div class="col-lg-8 col-md-6">
-                                <input ng-model="gamesItem.appCode" ng-disabled='!hasPower' class="form-control" type="text"
-                                       placeholder="game app code">
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">apk编码</label>
-                            <div class="col-lg-8 col-md-6">
-                                <input ng-model="gamesItem.apkCode" ng-disabled='!hasPower' class="form-control" type="text"
-                                       placeholder="game apk code">
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">flash编码</label>
-                            <div class="col-lg-8 col-md-6">
-                                <input ng-model="gamesItem.flashCode" ng-disabled='!hasPower' class="form-control" type="text"
-                                       placeholder="game flash code">
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">flash例子</label>
-                            <div class="col-lg-8 col-md-6">
-                                <ui-select
-                                        ng-model="gamesItem.flashDemoSupported"
-                                        theme="bootstrap"
-                                        ng-disabled='!hasPower'
-                                        search-enabled="false">
-                                    <ui-select-match placeholder="choose flash demo supported">
-                                        <span ng-bind="$select.selected.label"></span>
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="item.value as item in booleanOptons">
-                                        <span ng-bind="item.label"></span>
-                                    </ui-select-choices>
-                                </ui-select>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">html5编码</label>
-                            <div class="col-lg-8 col-md-6">
-                                <input ng-model="gamesItem.html5Code" ng-disabled='!hasPower' class="form-control" type="text"
-                                       placeholder="game html code">
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">html5例子</label>
-                            <div class="col-lg-8 col-md-6">
-                                <ui-select
-                                        ng-model="gamesItem.html5DemoSupported"
-                                        theme="bootstrap"
-                                        ng-disabled='!hasPower'
-                                        search-enabled="false">
-                                    <ui-select-match placeholder="choose html5 demo supported">
-                                        <span ng-bind="$select.selected.label"></span>
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="item.value as item in booleanOptons">
-                                        <span ng-bind="item.label"></span>
-                                    </ui-select-choices>
-                                </ui-select>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">图片</label>
-                            <div class="col-lg-8 col-md-6">
-                                <input ng-model="gamesItem.image" ng-disabled='!hasPower' class="form-control" type="text"
-                                       placeholder="game img src">
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">lines</label>
-                            <div class="col-lg-8 col-md-6">
-                                <input ng-model="gamesItem.lines" ng-disabled='!hasPower' class="form-control" type="number"
-                                       placeholder="game lines">
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">Jackpot</label>
-                            <div class="col-lg-8 col-md-6">
-                                <input ng-model="gamesItem.currentJackpot" ng-disabled='!hasPower' class="form-control" type="text"
-                                       placeholder="current Jackpot">
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">含有Jackpot</label>
-                            <div class="col-lg-8 col-md-6">
-                                <ui-select
-                                    ng-model="gamesItem.hasJackpot"
+                                    ng-model="modalItem.status"
                                     theme="bootstrap"
                                     ng-disabled='!hasPower'
                                     search-enabled="false">
-                                    <ui-select-match placeholder="choose has Jackpot">
+                                    <ui-select-match placeholder="choose status">
                                         <span ng-bind="$select.selected.label"></span>
                                     </ui-select-match>
-                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                    <ui-select-choices repeat="item.value as item in statusOptons">
                                         <span ng-bind="item.label"></span>
                                     </ui-select-choices>
                                 </ui-select>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">返水</label>
+                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">用户名前缀</label>
                             <div class="col-lg-8 col-md-6">
-                                <ui-select
-                                        ng-model="gamesItem.rebateable"
-                                        theme="bootstrap"
-                                        ng-disabled='!hasPower'
-                                        search-enabled="false">
-                                    <ui-select-match placeholder="choose rebateable">
-                                        <span ng-bind="$select.selected.label"></span>
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="item.value as item in booleanOptons">
-                                        <span ng-bind="item.label"></span>
-                                    </ui-select-choices>
-                                </ui-select>
+                                <input ng-model="modalItem.usernamePrefix" name='usernamePrefix' ng-maxlength='5' ng-disabled='!hasPower' required class="form-control" type="text"
+                                       placeholder="max 5 char">
+                                <span class='text-danger valid-error'
+                                      ng-show="myForm.usernamePrefix.$dirty&&myForm.usernamePrefix.$invalid">
+                                {{'max 5 char'}}
+                            </span>
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">bigwinable</label>
+                            <label class="col-lg-4 col-md-6 control-label">同步密码</label>
                             <div class="col-lg-8 col-md-6">
                                 <ui-select
-                                        ng-model="gamesItem.bigwinable"
-                                        theme="bootstrap"
-                                        ng-disabled='!hasPower'
-                                        search-enabled="false">
-                                    <ui-select-match placeholder="choose bigwinable">
-                                        <span ng-bind="$select.selected.label"></span>
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="item.value as item in booleanOptons">
-                                        <span ng-bind="item.label"></span>
-                                    </ui-select-choices>
-                                </ui-select>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">新的</label>
-                            <div class="col-lg-8 col-md-6">
-                                <ui-select
-                                        ng-model="gamesItem.isNew"
-                                        theme="bootstrap"
-                                        ng-disabled='!hasPower'
-                                        search-enabled="false">
-                                    <ui-select-match placeholder="choose is new">
+                                    ng-model="modalItem.syncPassword"
+                                    theme="bootstrap"
+                                    ng-disabled='!hasPower'
+                                    search-enabled="false">
+                                    <ui-select-match placeholder="choose is sync password">
                                         <span ng-bind="$select.selected.label"></span>
                                     </ui-select-match>
                                     <ui-select-choices repeat="item.value as item in booleanOptons">
@@ -216,48 +121,13 @@
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">将到来</label>
+                            <label class="col-lg-4 col-md-6 control-label">禁用</label>
                             <div class="col-lg-8 col-md-6">
                                 <ui-select
-                                        ng-model="gamesItem.isComingSoon"
-                                        theme="bootstrap"
-                                        ng-disabled='!hasPower'
-                                        search-enabled="false">
-                                    <ui-select-match placeholder="choose is coming soon">
-                                        <span ng-bind="$select.selected.label"></span>
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="item.value as item in booleanOptons">
-                                        <span ng-bind="item.label"></span>
-                                    </ui-select-choices>
-                                </ui-select>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">推荐</label>
-                            <div class="col-lg-8 col-md-6">
-                                <ui-select
-                                        ng-model="gamesItem.isRecommend"
-                                        theme="bootstrap"
-                                        ng-disabled='!hasPower'
-                                        search-enabled="false">
-                                    <ui-select-match placeholder="choose is recommend">
-                                        <span ng-bind="$select.selected.label"></span>
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="item.value as item in booleanOptons">
-                                        <span ng-bind="item.label"></span>
-                                    </ui-select-choices>
-                                </ui-select>
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">禁止</label>
-                            <div class="col-lg-8 col-md-6">
-                                <ui-select
-                                        ng-model="gamesItem.disabled"
-                                        theme="bootstrap"
-                                        ng-disabled='!hasPower'
-                                        search-enabled="false">
+                                    ng-model="modalItem.disabled"
+                                    theme="bootstrap"
+                                    ng-disabled='!hasPower'
+                                    search-enabled="false">
                                     <ui-select-match placeholder="choose is disabled">
                                         <span ng-bind="$select.selected.label"></span>
                                     </ui-select-match>
@@ -268,17 +138,8 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <legend class="text-center">种类</legend>
-                        <form class="form-horizontal">
-                            <div class="col-lg-6 col-xs-12" ng-repeat="brand in brandOptions">
-                                <div class="checkbox c-checkbox needsclick">
-                                    <label class="needsclick">
-                                        <input class="needsclick" ng-disabled='!hasPower' ng-click="selectBrands(brand.value, $event)" ng-checked="gamesItem.brands.indexOf(brand.value) !== -1" type="checkbox" ng-value="brand.value">
-                                        <span class="fa fa-check"></span>{{brand.label}}</label>
-                                </div>
-                            </div>
-                        </form>
                         <legend class="text-center">名称</legend>
+                        <form></form>
                         <div class=''>
                             <span class='form-group add-button-class'>
                                 <button
@@ -302,7 +163,7 @@
                             </form>
                             <div
                                 web-data-table
-                                items="gamesItem.name"
+                                items="modalItem.name"
                                 ao-data="nameModalAoData"
                                 search="nameModalSearch"
                                 reload="nameModalReload"
@@ -382,6 +243,16 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
+                        <legend class="text-center">品牌</legend>
+                        <form class="form-horizontal">
+                            <div class="col-lg-6 col-xs-12" ng-repeat="brand in brandOptions">
+                                <div class="checkbox c-checkbox needsclick">
+                                    <label class="needsclick">
+                                        <input class="needsclick" ng-disabled='!hasPower' ng-click="selectBrands(brand.value, $event)" ng-checked="modalItem.brands.indexOf(brand.value) !== -1" type="checkbox" ng-value="brand.value">
+                                        <span class="fa fa-check"></span>{{brand.label}}</label>
+                                </div>
+                            </div>
+                        </form>
                     </form>
                 </div>
             </div>
@@ -390,7 +261,6 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-show='hasPower' ng-click="confirmModal()">{{'table.button.save' |
-                                                                             translate}}</button>
+    <button class="btn btn-primary" type="button" ng-show='hasPower' ng-disabled='myForm.$invalid' ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
     <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
 </div>
