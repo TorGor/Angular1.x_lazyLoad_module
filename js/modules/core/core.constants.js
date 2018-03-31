@@ -43,6 +43,9 @@
                 reliefs: 'RELIEFSLIST',
                 transfers: 'TRANSFERSLIST',
                 wallets: 'WALLETSMANAGE',
+                bigwins: 'BIGWINSMANAGE',
+                records: 'RECORDSMANAGE',
+                users: 'USERSMANAGE',
             }
         });
 })();

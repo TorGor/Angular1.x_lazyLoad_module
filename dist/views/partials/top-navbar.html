@@ -29,19 +29,46 @@
       </ul>
       <!-- START Right Navbar-->
       <ul class="nav navbar-nav navbar-right">
-         <!-- START User avatar toggle-->
-         <li>
-            <a href="" ng-click="toggleUserBlock()">
+         <!-- START Alert menu-->
+         <li class="dropdown dropdown-list" uib-dropdown="">
+            <a uib-dropdown-toggle="">
                <em class="icon-user"></em>
                {{user.name ? user.name.substr(0,8) : ''}}
             </a>
+            <!-- START Dropdown menu-->
+            <ul class="dropdown-menu animated flipInX">
+               <li>
+                  <!-- START list group-->
+                  <div class="list-group">
+                     <!-- list item-->
+                     <a class="list-group-item" href='/changePassowrd.html'>
+                        <div class="media-box">
+                           <div class="pull-left">
+                              <em class="fa icon-key text-info"></em>
+                           </div>
+                           <div class="media-box-body clearfix">
+                              <p style='line-height: 15px' class="m0">change password</p>
+                           </div>
+                        </div>
+                     </a>
+                     <!-- list item-->
+                     <a class="list-group-item" ng-click="userLogout()">
+                        <div class="media-box">
+                           <div class="pull-left">
+                              <em class="fa icon-logout text-warning"></em>
+                           </div>
+                           <div class="media-box-body clearfix">
+                              <p style='line-height: 15px' class="m0">logout out</p>
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+                  <!-- END list group-->
+               </li>
+            </ul>
+            <!-- END Dropdown menu-->
          </li>
-         <!-- START User avatar toggle-->
-         <li class="">
-            <a href="" ng-click="userLogout()">
-               <em class="icon-logout"></em>
-            </a>
-         </li>
+         <!-- END Alert menu-->
          <!-- Fullscreen (only desktops)-->
          <li class="visible-lg">
             <a href="" toggle-fullscreen="toggle-fullscreen">

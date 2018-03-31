@@ -9,6 +9,7 @@
         '$rootScope',
         '$localStorage',
         'userSelfService',
+        'SweetAlert',
         '$translate'
     ];
 
@@ -16,6 +17,7 @@
         $rootScope,
         $localStorage,
         userSelfService,
+        SweetAlert,
         $translate
     ) {
 
@@ -33,17 +35,22 @@
         };
 
         $rootScope.userLogout = function () {
-            console.log(userSelfService.getUserLogout)
-            userSelfService.getUserLogout({},{}).$promise.then(function (data) {
-                window.location.href = '/login.html'
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-
-                    } else {
-                        $rootScope.alertErrorMsg(data.msg);
-                    }
+            SweetAlert.swal({
+                title: 'logout',
+                text: 'are you sure?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'logout',
+                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
+                closeOnConfirm: true
+            }, function(yes) {
+                if (yes) {
+                    userSelfService.getUserLogout({},{}).$promise.then(function (data) {
+                        window.location.href = '/login.html';
+                    })
                 }
-            })
+            });
         };
 
         // Global Settings
