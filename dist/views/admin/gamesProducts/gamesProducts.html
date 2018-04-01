@@ -19,16 +19,16 @@
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
-                        <td style="width: 40%" ao-data="gamesProductsAoData" web-data-table-sort="code">
+                        <td style="width: 20%" ao-data="gamesProductsAoData" web-data-table-sort="code">
                            {{'table.gamesProducts.th1' | translate}}
                         </td>
-                        <!--<td style="width: 40%" ao-data="gamesProductsAoData" web-data-table-sort="name">-->
-                        <!--{{'table.gamesProducts.th2' | translate}}-->
-                        <!--</td>-->
-                        <td style="width: 40%" ao-data="gamesProductsAoData" web-data-table-sort="disabled">
+                        <td style="width: 20%">
+                           {{'table.gamesProducts.th2' | translate}}
+                        </td>
+                        <td style="width: 20%" ao-data="gamesProductsAoData" web-data-table-sort="disabled">
                            {{'table.gamesProducts.th3' | translate}}
                         </td>
-                        <td style="width: 17%" ng-show='validPower("GAMESPRODUCTS", ["PATCH","GET"])'>{{'table.button.operation' | translate}}</td>
+                        <td style="width: 10%" ng-show='validPower("GAMESPRODUCTS", ["PATCH","GET"])'>{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
@@ -36,11 +36,13 @@
                         <td>
                            <span>{{ item.code || '' }}</span>
                         </td>
-                        <!--<td>-->
-                        <!--<button class="btn btn-sm btn-info" ng-click="showGameProductNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>-->
-                        <!--</td>-->
                         <td>
-                           <span>{{item.disable ? 'Yes' : 'No'}}</span>
+                           <span>
+                              {{showArrayName(item.name)}}
+                           </span>
+                        </td>
+                        <td>
+                           <span>{{item.disabled ? 'Yes' : 'No'}}</span>
                         </td>
                         <td style="white-space: nowrap;" ng-show='validPower("GAMESPRODUCTS", ["PATCH","GET"])'>
                            <button class="btn btn-sm btn-info" ng-show='validPower("GAMESPRODUCTS", ["PATCH"])' ng-click="showGameProductNameModal(item,3)" title="{{'table.button.edit' | translate}}">
