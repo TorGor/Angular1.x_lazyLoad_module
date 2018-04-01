@@ -19,10 +19,9 @@
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
-                        <td style="width: 50%">
-                           {{'ID'}}
-                        </td>
-
+                        <!--<td style="width: 50%">-->
+                        <!--{{'ID'}}-->
+                        <!--</td>-->
                         <td style="width: 30%">
                            {{'table.gamesProducts.th2' | translate}}
                         </td>
@@ -31,12 +30,12 @@
                   </thead>
                   <tbody>
                      <tr ng-repeat="item in showGameCategories">
-                        <td>
-                           <span>{{item.id}}</span>
-                           <!--<span>-->
-                           <!--<button class="btn btn-sm btn-info" ng-click="showGameCategoriesNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>-->
-                           <!--</span>-->
-                        </td>
+                        <!--<td>-->
+                        <!--<span>{{item.id}}</span>-->
+                        <!--&lt;!&ndash;<span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button class="btn btn-sm btn-info" ng-click="showGameCategoriesNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                        <!--</td>-->
 
                         <td>
                            {{showArrayName(item.name)}}

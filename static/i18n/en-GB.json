@@ -1,0 +1,397 @@
+{
+    "offsidebar": {
+        "setting": {
+            "SETTINGS": "Settings",
+            "LANGUAGE": "Language",
+            "THEMES": "Themes",
+            "LAYOUT": "layout",
+            "ASIDE": "Aside",
+            "layout": {
+                "FIXED": "Fixed"
+            },
+            "aside": {
+                "COLLAPSED": "Collapsed",
+                "COLLAPSED_TEXT": "Collapsed Text",
+                "FLOAT": "Float",
+                "HOVER": "Hover",
+                "SHOW_SCROLLBAR": "Show Scrollbar"
+            }
+        }
+    },
+    "sidebar": {
+        "nav": {
+            "super_admin": {
+                "MENU_MANAGE": "Menu Manage",
+                "MENU_MAINTAIN": "Menu Maintain",
+                "BUTTON_MAINTAIN": "Button Maintain",
+                "ROLE_MAINTAIN": "Role Maintain",
+                "ROLE_INFO_MAINTAIN": "Role Info",
+                "ROLE_RELATE_MENU": "Role Relate Menu",
+                "ADMIN_AND_ROLE": "Admin And Role",
+                "ADMIN_INFO": "Admin Info",
+                "ADMIN_RELATE_ROLE": "Admin Relate Role"
+            }
+        }
+    },
+    "table": {
+        "common": {
+            "per_page": "Per page",
+            "showing_item_to": "Showing items {{ from }} to {{ to }},total {{ totalItem }}",
+            "cur_page_first": "Cur page",
+            "cur_page_last": "",
+            "total_page": "Total page {{ totalPage }}"
+        },
+        "no_date": "Nothing Found",
+        "button": {
+            "add": "Add",
+            "search": "Search",
+            "advance_search": "Show Advance Search",
+            "save": "Save",
+            "edit": "Edit",
+            "detail": "Detail",
+            "delete": "Delete",
+            "cancel": "Cancel",
+            "recover": "Recover",
+            "operation": "Operation"
+        },
+        "menu": {
+            "th1": "Sort No",
+            "th2": "Menu Name",
+            "th3": "URL",
+            "th4": "Status",
+            "modal_title": " Root Menu"
+        },
+        "button_manage": {
+            "th1": "Button Name",
+            "th2": "Button Type",
+            "th3": "URL",
+            "th4": "Status"
+        },
+        "role": {
+            "th1": "Role",
+            "th2": "Status"
+        },
+        "admin": {
+            "th1": "Username",
+            "th2": "Password",
+            "th3": "Create Time",
+            "th4": "Status"
+        },
+        "localeLanguage": {
+            "th1": "Code",
+            "th2": "Name",
+            "th3": "Supported",
+            "th3ShowTrue": "Yes",
+            "th3ShowFalse": "No"
+        },
+        "countriesManage": {
+            "th1": "Iso",
+            "th2": "Ios3",
+            "th3": "Name",
+            "th4": "NiceName",
+            "th5": "NumCode",
+            "th6": "PhoneCode",
+            "th7": "Currency"
+        },
+        "userLevel": {
+            "th1": "Code",
+            "th2": "Default",
+            "th3": "Level",
+            "th4": "Conditions",
+            "th5": "Treatments",
+            "th6": "Rebates"
+        },
+        "conditionsModal": {
+            "th1": "Currency",
+            "th2": "Designation",
+            "th3": "Comparison",
+            "th4": "Value",
+            "th5": "Type",
+            "th6": "Logicality"
+        },
+        "treatmentsModal": {
+            "th1": "Currency",
+            "th2": "Designation",
+            "th3": "Type",
+            "th4": "Value"
+        },
+        "rebatesModal": {
+            "th1": "Currency",
+            "th2": "Product",
+            "th3": "Max",
+            "th4": "Days",
+            "th5": "Brands",
+            "brands": {
+                "th1": "Brand",
+                "th2": "Rate"
+            }
+        },
+        "currenciesManage": {
+            "th1": "Code",
+            "th2": "Name",
+            "th3": "Symbol",
+            "th4": "Symbol After",
+            "th5": "Support"
+        },
+        "transactionsDetail": {
+            "th1": "User",
+            "th2": "Affiliate",
+            "th3": "Service Id",
+            "th4": "Service",
+            "th5": "Amount",
+            "th6": "PreBalance",
+            "th7": "PostBalance",
+            "th8": "WalletCode",
+            "th9": "Description"
+        },
+        "blackLists": {
+            "th1": "AccountNumber",
+            "th2": "Comment",
+            "th3": "Type",
+            "th4": "IsDeleted"
+        },
+        "paymentMethods": {
+            "th1": "Code",
+            "th2": "Name",
+            "th3": "Currency",
+            "th4": "Min",
+            "th5": "Max",
+            "th6": "Type",
+            "th7": "Disabled",
+            "name": {
+                "th1": "Locals",
+                "th2": "Value"
+            }
+        },
+        "ordersManage": {
+            "th1": "Amount",
+            "th2": "Currency",
+            "th3": "Destination",
+            "th4": "Method Code",
+            "th5": "Status",
+            "th6": "User"
+        },
+        "appliesUse": {
+            "th1": "Bets",
+            "th2": "Bonus",
+            "th3": "Brand",
+            "th4": "Coupon",
+            "th5": "Principal",
+            "th6": "Product",
+            "th7": "Wallet",
+            "th8": "Status"
+        },
+        "gamesProducts": {
+            "th1": "Code",
+            "th2": "Name",
+            "th3": "Disable"
+        },
+        "pspsManage": {
+            "th1": "Code",
+            "th2": "Gateway",
+            "th3": "Account",
+            "th4": "Api Key",
+            "th5": "Methods",
+            "th6": "Activated",
+            "methods": {
+                "th1": "Code",
+                "th2": "Rate",
+                "th3": "Other"
+            }
+        },
+        "gameBrands": {
+            "th1": "Code",
+            "th2": "Wallet",
+            "th3": "Currencies",
+            "th4": "Name",
+            "th5": "Langs",
+            "th6": "Products",
+            "th7": "Status",
+            "langs": {
+                "th1": "System Locale",
+                "th2": "Define Locale"
+            },
+            "products": {
+                "th1": "Code",
+                "th2": "Osx Url",
+                "th3": "Windows Url",
+                "th4": "Ios Url",
+                "th5": "Android Url"
+            }
+        },
+        "couponsManage": {
+            "th1": "Code",
+            "th2": "Name",
+            "th3": "Currency",
+            "th4": "Name",
+            "th5": "Brand",
+            "th6": "Product",
+            "th7": "Multiple Use",
+            "th8": "Need Certification",
+            "th9": "Type",
+            "th10": "Need Audit",
+            "th11": "Code Only",
+            "th12": "Enabled",
+            "conditions": {
+                "th1": "Type",
+                "th2": "Value Type",
+                "th3": "Value"
+            },
+            "treatments": {
+                "th1": "Type",
+                "th2": "Value",
+                "th3": "Max Bonus"
+            }
+        },
+        "gamesManage": {
+            "th1": "Name",
+            "th2": "Product",
+            "th3": "Brand",
+            "th4": "Flash",
+            "th5": "Html5",
+            "th6": "App",
+            "th7": "Apk",
+            "th8": "windows",
+            "th9": "Ftp",
+            "th10": "Flash Demo",
+            "th11": "Html5 Demo",
+            "th12": "Image",
+            "th13": "Lines",
+            "th14": "Has Jackpot",
+            "th15": "Current Jackpot",
+            "th16": "Disabled",
+            "th17": "Rebateable",
+            "th18": "Bigwinable",
+            "th19": "Categories",
+            "th20": "Is New",
+            "th21": "Is Coming Soon",
+            "th22": "Is Recommend"
+        },
+        "withdrawsManage": {
+            "th1": "Amount",
+            "th2": "Bank",
+            "th3": "Wallet",
+            "th4": "Currency",
+            "th5": "Account No",
+            "th6": "Account Name",
+            "th7": "Account branch",
+            "th8": "Status",
+            "detail": {
+                "th1": "Admin Id",
+                "th2": "Action",
+                "th3": "Comment",
+                "th4": "Result"
+            }
+        },
+        "promotionsManage": {
+            "th1": "Banner",
+            "th2": "Currency",
+            "th3": "Categories",
+            "th4": "Title",
+            "th5": "Content",
+            "th6": "Period",
+            "th7": "Status"
+        },
+        "rebatesList": {
+            "th1": "Product",
+            "th2": "From",
+            "th3": "To",
+            "th4": "Bonus",
+            "th5": "Username",
+            "th6": "UserId",
+            "th7": "AffiliateId",
+            "detail": {
+                "th1": "Amount",
+                "th2": "Brand",
+                "th3": "Rate",
+                "th4": "Wallet",
+                "th5": "Flows Rebateable",
+                "th6": "Flows Total"
+            }
+        },
+        "reliefsList": {
+            "th1": "Product",
+            "th2": "Amount",
+            "th3": "Balance",
+            "th4": "Rate",
+            "th5": "Deposit",
+            "th6": "Consecutive",
+            "th7": "Withdraw",
+            "th8": "Affiliate",
+            "th9": "Username",
+            "th10": "Status"
+        },
+        "transfersList": {
+            "th1": "Coupon",
+            "th2": "Amount",
+            "th3": "Bonus",
+            "th4": "Wallets Source",
+            "th5": "Wallets Destination",
+            "th6": "User Username",
+            "th7": "User UserId",
+            "th8": "User AffiliateId",
+            "th9": "Result"
+        },
+        "gameRecords": {
+            "th1": "Bet",
+            "th2": "Brand",
+            "th3": "Name",
+            "th4": "Payout",
+            "th5": "Pay At",
+            "th6": "Product",
+            "th7": "Round",
+            "th8": "Username",
+            "th9": "Wallet"
+        },
+        "walletsManage": {
+            "th1": "Code",
+            "th2": "Merchant Key",
+            "th3": "Merchant Name",
+            "th4": "Duration",
+            "th5": "Time Format",
+            "th6": "Time Zone",
+            "th7": "Username Prefix",
+            "th8": "Sync Password",
+            "th9": "Status",
+            "th10": "Disabled"
+        },
+        "usersManage": {
+            "th1": "Username",
+            "th2": "UserId",
+            "th3": "AffiliateId",
+            "th4": "Currency",
+            "th5": "Country",
+            "th6": "Rank",
+            "th7": "Timezone",
+            "th8": "Email",
+            "th9": "Financial",
+            "th10": "Verifi Identity",
+            "th11": "Verifi Name",
+            "th12": "Verifi Phone",
+            "th13": "OTP",
+            "th14": "Sex"
+        }
+    },
+    "panel_tile": {
+        "menu": "Menu",
+        "role": "Role",
+        "admin": "Admin",
+        "buttons": "Buttons",
+        "configure": "Power Overview"
+    },
+    "alert_confirm": {
+        "success": "success",
+        "error": "error",
+        "title": "Are you sure?",
+        "text": "Deleted data will not be able to recover!",
+        "cancelButtonText": "cancel",
+        "confirmButtonText": "Yes, delete it!"
+    },
+    "required_message": "is required",
+    "options": {
+        "all": "All",
+        "forbid": "Forbid",
+        "delete": "Delete",
+        "enable": "Enable"
+    }
+}

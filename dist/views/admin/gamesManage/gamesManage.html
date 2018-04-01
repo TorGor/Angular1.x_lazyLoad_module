@@ -47,9 +47,9 @@
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
-                        <!--<td style="width: 4%">-->
-                        <!--{{'table.gamesManage.th1' | translate}}-->
-                        <!--</td>-->
+                        <td style="width: 4%">
+                           {{'table.gamesManage.th1' | translate}}
+                        </td>
                         <td style="width: 4%">
                            {{'table.gamesManage.th2' | translate}}
                         </td>
@@ -68,27 +68,27 @@
                         <!--<td style="width: 4%">-->
                         <!--{{'table.gamesManage.th7' | translate}}-->
                         <!--</td>-->
-                        <td style="width: 4%">
-                           {{'table.gamesManage.th8' | translate}}
-                        </td>
-                        <td style="width: 4%">
-                           {{'table.gamesManage.th9' | translate}}
-                        </td>
-                        <td style="width: 4%">
-                           {{'table.gamesManage.th10' | translate}}
-                        </td>
-                        <td style="width: 4%">
-                           {{'table.gamesManage.th11' | translate}}
-                        </td>
+                        <!--<td style="width: 4%">-->
+                        <!--{{'table.gamesManage.th8' | translate}}-->
+                        <!--</td>-->
+                        <!--<td style="width: 4%">-->
+                        <!--{{'table.gamesManage.th9' | translate}}-->
+                        <!--</td>-->
+                        <!--<td style="width: 4%">-->
+                        <!--{{'table.gamesManage.th10' | translate}}-->
+                        <!--</td>-->
+                        <!--<td style="width: 4%">-->
+                        <!--{{'table.gamesManage.th11' | translate}}-->
+                        <!--</td>-->
                         <td style="width: 4%">
                            {{'table.gamesManage.th12' | translate}}
                         </td>
                         <td style="width: 4%">
                            {{'table.gamesManage.th13' | translate}}
                         </td>
-                        <td style="width: 4%">
-                           {{'table.gamesManage.th14' | translate}}
-                        </td>
+                        <!--<td style="width: 4%">-->
+                        <!--{{'table.gamesManage.th14' | translate}}-->
+                        <!--</td>-->
                         <!--<td style="width: 4%">-->
                         <!--{{'table.gamesManage.th15' | translate}}-->
                         <!--</td>-->
@@ -119,20 +119,20 @@
                   </thead>
                   <tbody>
                      <tr ng-repeat="item in gamesManage">
-                        <!--<td>-->
-                        <!--<span>-->
-                        <!--<button class="btn btn-sm btn-info" ng-click="showEditMethodsNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>-->
-                        <!--</span>-->
-                        <!--</td>-->
+                        <td>
+                           <span>
+                              {{showArrayName(item.name)}}
+                           </span>
+                        </td>
                         <td>
                            <span>{{showOptionsValue(item.productCode,productOptions)}}</span>
                         </td>
                         <td>
                            <span>{{showOptionsValue(item.brandCode,brandOptions)}}</span>
                         </td>
-                        <td>
-                           <span>{{ item.flashCode || '' }}</span>
-                        </td>
+                        <!--<td>-->
+                        <!--<span>{{ item.flashCode || '' }}</span>-->
+                        <!--</td>-->
                         <!--<td>-->
                         <!--<span>{{ item.html5Code || '' }}</span>-->
                         <!--</td>-->
@@ -145,24 +145,24 @@
                         <!--<td>-->
                         <!--<span>{{ item.windowsCode || '' }}</span>-->
                         <!--</td>-->
-                        <td>
-                           <span>{{ item.ftpCode || '' }}</span>
-                        </td>
-                        <td>
-                           <span>{{showOptionsValue(item.flashDemoSupported,booleanOptons)}}</span>
-                        </td>
-                        <td>
-                           <span>{{showOptionsValue(item.html5DemoSupported,booleanOptons)}}</span>
-                        </td>
+                        <!--<td>-->
+                        <!--<span>{{ item.ftpCode || '' }}</span>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                        <!--<span>{{showOptionsValue(item.flashDemoSupported,booleanOptons)}}</span>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                        <!--<span>{{showOptionsValue(item.html5DemoSupported,booleanOptons)}}</span>-->
+                        <!--</td>-->
                         <td>
                            <span>{{ item.image || '' }}</span>
                         </td>
                         <td>
                            <span>{{ item.lines || '' }}</span>
                         </td>
-                        <td>
-                           <span>{{item.hasJackpot ? 'Yes' : 'No'}}</span>
-                        </td>
+                        <!--<td>-->
+                        <!--<span>{{item.hasJackpot ? 'Yes' : 'No'}}</span>-->
+                        <!--</td>-->
                         <!--<td>-->
                         <!--<span>{{ item.currentJackpot || '' }}</span>-->
                         <!--</td>-->
@@ -207,7 +207,7 @@
                         </td>
                      </tr>
                      <tr ng-show="gamesManage.length==0">
-                        <td colspan='{{validPower("GAMESMANAGE", ["PATCH", "GET"])?10:9}}' class="">{{'table.no_date' | translate}}</td>
+                        <td colspan='{{validPower("GAMESMANAGE", ["PATCH", "GET"])?6:5}}' class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

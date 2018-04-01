@@ -459,14 +459,15 @@
             format: 'YYYY-MM-DD HH:MM'
         };
 
-        var locale = window.localStorage.getItem('NG_TRANSLATE_LANG_KEY')||((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en');
+        var locale = window.localStorage.getItem('NG_TRANSLATE_LANG_KEY')||((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en-GB');
 
+        console.log(locale,'locale')
         $scope.showArrayName = function(arr) {
             if(window.Array.isArray(arr)){
                 for(var i=0,j=arr.length;i<j;i++){
                     if(arr[i].locale == locale){
+                        return arr[i].value || '';
                         break;
-                        return arr[i].value || ''
                     }
                 }
                 if(arr[0]){
@@ -1353,7 +1354,7 @@
           suffix : '.json'
       });
 
-      $translateProvider.preferredLanguage((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en');
+      $translateProvider.preferredLanguage((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en-GB');
       $translateProvider.useLocalStorage();
       $translateProvider.usePostCompiling(true);
       $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
