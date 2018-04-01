@@ -20,12 +20,13 @@
 
         return {
             request: function (config) {
-                if(config.method === "GET"&&(config.url.indexOf('getDetail')===-1||config.url.indexOf('getAudit')===-1||config.url.indexOf('getPay')===-1||config.url.indexOf('getReview')===-1)){
-
-                }else{
-                    requestInitiated = true;
-                    showLoadingText();
-                }
+                //if(config.method === "GET"&&(config.url.indexOf('getDetail')!==-1||config.url.indexOf('getAudit')!==-1||config.url.indexOf('getPay')!==-1||config.url.indexOf('getReview')!==-1)){
+                //
+                //}else{
+                //
+                //}
+                requestInitiated = true;
+                showLoadingText();
                 return config;
             },
             response: function (response) {

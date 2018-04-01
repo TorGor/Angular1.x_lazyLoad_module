@@ -8,98 +8,116 @@
          <div class="panel-wrapper">
             <div class="panel-body">
                <form class="form-horizontal">
-                  <legend class="text-center">用户信息</legend>
-                  <div class="form-group">
-                     <label class="col-lg-3 text-right control-label">user id</label>
-                     <div class="col-lg-7">
-                        <input ng-model="orderDetail.user.userId" disabled='true' class="form-control" type="text">
-                     </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  <div class="form-group">
-                     <label class="col-lg-3 text-right text-right control-label">username</label>
-                     <div class="col-lg-7">
-                        <input ng-model="orderDetail.user.username" disabled='true' class="form-control" type="text">
-                     </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  <div class="form-group">
-                     <label class="col-lg-3 control-label text-right">user affiliateId</label>
-                     <div class="col-lg-7">
-                        <input ng-model="orderDetail.user.affiliateId" disabled='true' class="form-control" type="text">
-                     </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  <div class="form-group">
-                     <label class="col-lg-3 control-label text-right">user affiliate</label>
-                     <div class="col-lg-7">
-                        <input ng-model="orderDetail.user.affiliate" disabled='true' class="form-control" type="text">
-                     </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  <legend class="text-center">概览</legend>
-                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                     <label class="col-lg-4 col-md-6 control-label">目标</label>
-                     <div class="col-lg-8 col-md-6">
-                        <input ng-model="orderDetail.destination" class="form-control" type="text" disabled='true'>
-                     </div>
-                  </div>
-                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                     <label class="col-lg-4 col-md-6 control-label">amount</label>
-                     <div class="col-lg-8 col-md-6">
-                        <input ng-model="orderDetail.amount" class="form-control" type="text" disabled='true'>
-                     </div>
-                  </div>
-                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                     <label class="col-lg-4 col-md-6 control-label">状态</label>
-                     <div class="col-lg-8 col-md-6">
-                        <input ng-model="orderDetail.status" class="form-control" type="text" disabled='true'>
-                     </div>
-                  </div>
-                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                     <label class="col-lg-4 col-md-6 control-label">货币</label>
-                     <div class="col-lg-8 col-md-6">
-                        <input ng-model="orderDetail.currency" class="form-control" type="text" disabled='true'>
-                     </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  <legend class="text-center">支付渠道</legend>
-                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                     <label class="col-lg-4 col-md-6 control-label">编码</label>
-                     <div class="col-lg-8 col-md-6">
-                        <input ng-model="orderDetail.method.code" class="form-control" type="text" disabled='true'>
-                     </div>
-                  </div>
-                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                     <label class="col-lg-4 col-md-6 control-label">范围</label>
-                     <div class="col-lg-8 col-md-6">
-                        <input value="{{orderDetail.method.range.min + ' ~ ' + orderDetail.method.range.max}}" class="form-control" type="text" disabled='true'>
-                     </div>
-                  </div>
-                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                     <label class="col-lg-4 col-md-6 control-label">货币</label>
-                     <div class="col-lg-8 col-md-6">
-                        <input ng-model="orderDetail.method.currency" class="form-control" type="text" disabled='true'>
-                     </div>
-                  </div>
-                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                     <label class="col-lg-4 col-md-6 control-label">禁用</label>
-                     <div class="col-lg-8 col-md-6">
-                        <input value="{{orderDetail.method.disabled?'yes':'no'}}" class="form-control" type="text" disabled='true'>
-                     </div>
-                  </div>
-                  <div class="clearfix"></div>
-                  <div class="form-group col-xs-12 margin-bottom-20">
+                  <legend class="text-center">
+                     用户信息
+                     <span ng-click='orderDetailShowUser=!orderDetailShowUser' ng-init='orderDetailShowUser=false' ng-class="{true :'icon-arrow-up', false :'icon-arrow-down'}[orderDetailShowUser]" class='pull-right show-detail-icon'></span>
+                  </legend>
+                  <div ng-show='orderDetailShowUser'>
                      <div class="form-group">
-                        <label class="col-lg-2 text-right text-right control-label">名称</label>
-                        <div class="col-lg-10">
-                           <input value="{{showDetailName(orderDetail.method.name)}}" disabled='true' class="form-control" type="text">
+                        <label class="col-lg-3 text-right control-label">user id</label>
+                        <div class="col-lg-7">
+                           <input ng-model="orderDetail.user.userId" disabled='true' class="form-control" type="text">
+                        </div>
+                     </div>
+                     <div class="clearfix"></div>
+                     <div class="form-group">
+                        <label class="col-lg-3 text-right text-right control-label">username</label>
+                        <div class="col-lg-7">
+                           <input ng-model="orderDetail.user.username" disabled='true' class="form-control" type="text">
+                        </div>
+                     </div>
+                     <div class="clearfix"></div>
+                     <div class="form-group">
+                        <label class="col-lg-3 control-label text-right">user affiliateId</label>
+                        <div class="col-lg-7">
+                           <input ng-model="orderDetail.user.affiliateId" disabled='true' class="form-control" type="text">
+                        </div>
+                     </div>
+                     <div class="clearfix"></div>
+                     <div class="form-group">
+                        <label class="col-lg-3 control-label text-right">user affiliate</label>
+                        <div class="col-lg-7">
+                           <input ng-model="orderDetail.user.affiliate" disabled='true' class="form-control" type="text">
                         </div>
                      </div>
                   </div>
                   <div class="clearfix"></div>
-                  <legend class="text-center">详细</legend>
-                  <div class="form-group" ng-repeat="item in orderDetail.details">
+                  <legend class="text-center">
+                     概览
+                     <span ng-click='orderDetailShowOverview=!orderDetailShowOverview' ng-init='orderDetailShowOverview=false' ng-class="{true :'icon-arrow-up', false :'icon-arrow-down'}[orderDetailShowOverview]" class='pull-right show-detail-icon'></span>
+                  </legend>
+                  <div ng-show='orderDetailShowOverview'>
+                     <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                        <label class="col-lg-4 col-md-6 control-label">目标</label>
+                        <div class="col-lg-8 col-md-6">
+                           <input ng-model="orderDetail.destination" class="form-control" type="text" disabled='true'>
+                        </div>
+                     </div>
+                     <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                        <label class="col-lg-4 col-md-6 control-label">amount</label>
+                        <div class="col-lg-8 col-md-6">
+                           <input ng-model="orderDetail.amount" class="form-control" type="text" disabled='true'>
+                        </div>
+                     </div>
+                     <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                        <label class="col-lg-4 col-md-6 control-label">状态</label>
+                        <div class="col-lg-8 col-md-6">
+                           <input ng-model="orderDetail.status" class="form-control" type="text" disabled='true'>
+                        </div>
+                     </div>
+                     <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                        <label class="col-lg-4 col-md-6 control-label">货币</label>
+                        <div class="col-lg-8 col-md-6">
+                           <input ng-model="orderDetail.currency" class="form-control" type="text" disabled='true'>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <legend class="text-center">
+                     支付渠道
+                     <span ng-click='orderDetailShowMethod=!orderDetailShowMethod' ng-init='orderDetailShowMethod=false' ng-class="{true :'icon-arrow-up', false :'icon-arrow-down'}[orderDetailShowMethod]" class='pull-right show-detail-icon'></span>
+                  </legend>
+                  <div ng-show='orderDetailShowMethod'>
+                     <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                        <label class="col-lg-4 col-md-6 control-label">编码</label>
+                        <div class="col-lg-8 col-md-6">
+                           <input ng-model="orderDetail.method.code" class="form-control" type="text" disabled='true'>
+                        </div>
+                     </div>
+                     <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                        <label class="col-lg-4 col-md-6 control-label">范围</label>
+                        <div class="col-lg-8 col-md-6">
+                           <input value="{{orderDetail.method.range.min + ' ~ ' + orderDetail.method.range.max}}" class="form-control" type="text" disabled='true'>
+                        </div>
+                     </div>
+                     <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                        <label class="col-lg-4 col-md-6 control-label">货币</label>
+                        <div class="col-lg-8 col-md-6">
+                           <input ng-model="orderDetail.method.currency" class="form-control" type="text" disabled='true'>
+                        </div>
+                     </div>
+                     <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                        <label class="col-lg-4 col-md-6 control-label">禁用</label>
+                        <div class="col-lg-8 col-md-6">
+                           <input value="{{orderDetail.method.disabled?'yes':'no'}}" class="form-control" type="text" disabled='true'>
+                        </div>
+                     </div>
+                     <div class="clearfix"></div>
+                     <div class="form-group col-xs-12 margin-bottom-20">
+                        <div class="form-group">
+                           <label class="col-lg-2 text-right text-right control-label">名称</label>
+                           <div class="col-lg-10">
+                              <input value="{{showDetailName(orderDetail.method.name)}}" disabled='true' class="form-control" type="text">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <legend class="text-center">
+                     详细
+                     <span ng-click='orderDetailShowDetail=!orderDetailShowDetail' ng-init='orderDetailShowDetail=false' ng-class="{true :'icon-arrow-up', false :'icon-arrow-down'}[orderDetailShowDetail]" class='pull-right show-detail-icon'></span>
+                  </legend>
+                  <div class="form-group" ng-show='orderDetailShowDetail' ng-repeat="item in orderDetail.details">
                      <div class="form-group">
                         <label class="col-lg-3 text-right control-label">支付渠道代码({{$index+1}})</label>
                         <div class="col-lg-7">
@@ -192,8 +210,11 @@
                      <div class="clearfix"></div>
                   </div>
                   <div class="clearfix"></div>
-                  <legend class="text-center">其他</legend>
-                  <div class="form-group">
+                  <legend class="text-center">
+                     其他
+                     <span ng-click='orderDetailShowOther=!orderDetailShowOther' ng-init='orderDetailShowOther=false' ng-class="{true :'icon-arrow-up', false :'icon-arrow-down'}[orderDetailShowOther]" class='pull-right show-detail-icon'></span>
+                  </legend>
+                  <div class="form-group" ng-show='orderDetailShowOther'>
                      <label class="col-lg-3 text-right control-label">附件</label>
                      <div class="col-lg-7">
                         <input value="{{orderDetail.extra?orderDetail.extra:''}}" disabled='true' class="form-control" type="text">
