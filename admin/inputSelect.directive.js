@@ -86,10 +86,8 @@
                     $($element).find('.ui-select-search').val($model)
                 };
 
-                $scope.searchDataFromServer();
-
                 $timeout(function() {
-                    $($element).find('.ui-select-search').keyup(function(e) {
+                    $($element).find('.ui-select-search').bind('keyup', function(e) {
                         var tempvalue = e.target.value;
                         if(!tempvalue){
                             $scope.outputValue = '';
@@ -106,6 +104,10 @@
                         timer = $timeout(function() {
                             $scope.searchDataFromServer(tempvalue);
                         }, 300);
+                    })
+                    $($element).find('.ui-select-search').bind('focus',function(e) {
+                        var tempvalue = e.target.value;
+                        $scope.searchDataFromServer(tempvalue);
                     })
                 },10)
             }
