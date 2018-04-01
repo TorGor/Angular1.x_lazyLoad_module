@@ -20,6 +20,7 @@
 
         $scope.search = {
             sourceWallet: [],
+            result: [],
             destinationWallet: []
         };
 
@@ -61,6 +62,20 @@
             });
         };
 
+        $scope.resultOptions = [
+            {
+                label:'succeed',
+                value:'succeed'
+            },
+            {
+                label:'failed',
+                value:'failed'
+            },
+            {
+                label:'processing',
+                value:'processing'
+            },
+        ];
 
         // 页面加载执行的函数
 
@@ -85,10 +100,11 @@
             }
         });
 
-        $scope.$watch('search.sourceWallet.length+search.destinationWallet.length', function (newValue, oldValue) {
+        $scope.$watch('search.sourceWallet.length+search.destinationWallet.length+search.result.length', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 $scope.transfersListAoData.source_wallet = $scope.search.sourceWallet.join(',')
                 $scope.transfersListAoData.destination_wallet = $scope.search.destinationWallet.join(',')
+                $scope.transfersListAoData.result = $scope.search.result.join(',')
             }
         });
     }

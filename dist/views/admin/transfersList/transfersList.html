@@ -17,7 +17,14 @@
                   <input class='form-control' type='text' ng-model='transfersListAoData.max_amount' placeholder="{{'max ' + ('table.ordersManage.th1' | translate)}}">
                </div>
                <div class='col-lg-3 col-md-6 margin-bottom-10'>
-                  <input class='form-control' type='text' ng-model='transfersListAoData.result' placeholder='result eg. succeed,failed'>
+                  <ui-select ng-model="search.result" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
+                     <ui-select-match placeholder="{{'source result'}}">
+                        <span>{{$item.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in resultOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
                </div>
                <div class='col-lg-3 col-md-6 margin-bottom-10'>
                   <ui-select ng-model="search.sourceWallet" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
@@ -64,29 +71,29 @@
                         <td style='width: 10%'>
                            {{'table.transfersList.th1' | translate}}
                         </td>
-                        <td style='width: 10%' ao-data='transfersListAoData' server-data-table-sort='amount'>
+                        <td style='width: 7%' ao-data='transfersListAoData' server-data-table-sort='amount'>
                            {{'table.transfersList.th2' | translate}}
                         </td>
-                        <td style='width: 10%'>
-                           {{'table.transfersList.th3' | translate}}
-                        </td>
-                        <td style='width: 10%'>
+                        <td style='width: 8%'>
                            {{'table.transfersList.th4' | translate}}
                         </td>
-                        <td style='width: 10%'>
+                        <td style='width: 8%'>
                            {{'table.transfersList.th5' | translate}}
                         </td>
-                        <td style='width: 10%'>
+                        <td style='width: 13%'>
                            {{'table.transfersList.th6' | translate}}
                         </td>
-                        <td style='width: 10%'>
-                           {{'table.transfersList.th7' | translate}}
-                        </td>
-                        <td style='width: 10%'>
-                           {{'table.transfersList.th8' | translate}}
-                        </td>
-                        <td style='width: 10%'>
+                        <!--<td style='width: 10%'>-->
+                        <!--{{'table.transfersList.th7' | translate}}-->
+                        <!--</td>-->
+                        <!--<td style='width: 10%'>-->
+                        <!--{{'table.transfersList.th8' | translate}}-->
+                        <!--</td>-->
+                        <td style='width: 7%'>
                            {{'table.transfersList.th9' | translate}}
+                        </td>
+                        <td style='width: 15%'>
+                           {{'table.transfersList.th3' | translate}}
                         </td>
                      </tr>
                   </thead>
@@ -99,9 +106,6 @@
                            <span>{{item.amount || ''}}</span>
                         </td>
                         <td>
-                           <span>{{item.bonus || ''}}</span>
-                        </td>
-                        <td>
                            <span>{{item.wallets.source || ''}}</span>
                         </td>
                         <td>
@@ -110,14 +114,17 @@
                         <td>
                            <span>{{item.user.username || ''}}</span>
                         </td>
-                        <td>
-                           <span>{{item.user.userId || ''}}</span>
-                        </td>
-                        <td>
-                           <span>{{item.user.affiliateId || ''}}</span>
-                        </td>
+                        <!--<td>-->
+                        <!--<span>{{item.user.userId || ''}}</span>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                        <!--<span>{{item.user.affiliateId || ''}}</span>-->
+                        <!--</td>-->
                         <td>
                            <span>{{item.result || ''}}</span>
+                        </td>
+                        <td>
+                           <span>{{(item.timestamps.createdAt || '').substr(0,19)}}</span>
                         </td>
                      </tr>
                      <tr ng-show='transfersList.length==0'>
