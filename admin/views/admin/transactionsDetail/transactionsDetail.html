@@ -133,32 +133,29 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 10%" ao-data="transactionsDetailAoData" server-data-table-sort="user_id">
+                            <td style="width: 10%">
                                 {{'table.transactionsDetail.th1' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="transactionsDetailAoData" server-data-table-sort="affiliate_id">
+                            <td style="width: 6%">
                                 {{'table.transactionsDetail.th2' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="transactionsDetailAoData" server-data-table-sort="service_id">
+                            <td style="width: 6%">
                                 {{'table.transactionsDetail.th3' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="transactionsDetailAoData" server-data-table-sort="service">
+                            <td style="width: 6%">
                                 {{'table.transactionsDetail.th4' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="transactionsDetailAoData" server-data-table-sort="amount">
+                            <td style="width: 6%" ao-data="transactionsDetailAoData" server-data-table-sort="amount">
                                 {{'table.transactionsDetail.th5' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="transactionsDetailAoData" server-data-table-sort="pre_balance">
+                            <td style="width: 6%">
                                 {{'table.transactionsDetail.th6' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="transactionsDetailAoData" server-data-table-sort="post_balance">
+                            <td style="width: 10%">
                                 {{'table.transactionsDetail.th7' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="transactionsDetailAoData" server-data-table-sort="wallet_code">
+                            <td style="width: 13%">
                                 {{'table.transactionsDetail.th8' | translate}}
-                            </td>
-                            <td style="width: 10%">
-                                {{'table.transactionsDetail.th9' | translate}}
                             </td>
                         </tr>
                         </thead>
@@ -168,28 +165,25 @@
                                 <span>{{item.user && item.user.username || ''}}</span>
                             </td>
                             <td>
-                                <span>{{item.user && item.user.affiliateId?((item.user && item.user.affiliateId || '').substr(0,6)+'...'):''}}</span>
-                            </td>
-                            <td>
-                                <span>{{item.serviceId  ? item.serviceId.substr(0,8) : ''}}</span>
-                            </td>
-                            <td>
                                 <span>{{item.service}}</span>
-                            </td>
-                            <td>
-                                <span>{{item.amount}}</span>
-                            </td>
-                            <td>
-                                <span>{{item.preBalance}}</span>
-                            </td>
-                            <td>
-                                <span>{{item.postBalance}}</span>
                             </td>
                             <td>
                                 <span>{{item.walletCode}}</span>
                             </td>
                             <td>
-                                <span>{{item.description && item.description.coupon}}</span>
+                                <span>{{item.preBalance}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.amount}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.postBalance}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.description | json}}</span>
+                            </td>
+                            <td>
+                                <span>{{(item.timestamps && item.timestamps.createdAt||'').substr(0,19)}}</span>
                             </td>
                         </tr>
                         <tr ng-show="transactionsDetail.length==0">

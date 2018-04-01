@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "msg": "NOT_FOUND",
+    "data": {
+        "id": 6,
+        "adminId": "1",
+        "action": "audit",
+        "result": null,
+        "comment": null,
+        "timestamps": {
+            "createdAt": "2018-03-06T10:55:23+00:00",
+            "updatedAt": "2018-03-06T10:55:23+00:00"
+        }
+    }
+}

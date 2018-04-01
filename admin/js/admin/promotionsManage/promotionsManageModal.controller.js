@@ -47,8 +47,8 @@
 
 
         if($scope.promotionsItem.period){
-            $scope.promotionsItem.startTime = $scope.promotionsItem.period.from || '';
-            $scope.promotionsItem.endTime = $scope.promotionsItem.period.to || '';
+            $scope.promotionsItem.startTime = ($scope.promotionsItem.period.from || '').substr(0,10);
+            $scope.promotionsItem.endTime = ($scope.promotionsItem.period.to || '').substr(0,10);
             delete $scope.promotionsItem.period
         }
 

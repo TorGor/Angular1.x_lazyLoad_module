@@ -1,0 +1,94 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "stat": "ok",
+        "data": [
+            {
+                "bet": 2,
+                "game": {
+                    "image": "",
+                    "isRecommend": false,
+                    "isComingSoon": false,
+                    "name": [
+                        {
+                            "locale": "en-GB",
+                            "value": "Dragonz"
+                        },
+                        {
+                            "locale": "zh-CN",
+                            "value": "幸运龙宝贝"
+                        },
+                        {
+                            "locale": "zh-TW",
+                            "value": "幸運龍寶貝"
+                        }
+                    ],
+                    "worksOn": {
+                        "androidApp": true,
+                        "pcBrowser": true,
+                        "iosApp": true,
+                        "windowsDownload": true,
+                        "mobileBrowser": true
+                    },
+                    "id": "beb8f670-a1dd-11e7-be5d-3fa2a5e1bcaa",
+                    "isNew": false,
+                    "lines": 0,
+                    "demo": {
+                        "html5": false,
+                        "flash": true
+                    },
+                    "brand": {
+                        "code": "MG",
+                        "name": [
+                            {
+                                "locale": "en-GB",
+                                "value": "MicroGaming"
+                            },
+                            {
+                                "locale": "zh-CN",
+                                "value": "MG"
+                            },
+                            {
+                                "locale": "zh-TW",
+                                "value": "MG"
+                            }
+                        ],
+                        "status": "OPEN"
+                    },
+                    "hasJackpot": false
+                },
+                "times": 110,
+                "round": "1774",
+                "bonus": 199,
+                "timestamps": {
+                    "createdAt": "2017-11-19T12:47:41+00:00",
+                    "updatedAt": "2018-03-17T07:35:17+00:00"
+                },
+                "id": "d4ea85e0-cd27-11e7-8474-2bf44cbaa137",
+                "user": {
+                    "userId": "246c7170-71e7-11e7-b6a2-dbb4fae9b3b7",
+                    "affiliateId": "e687ddd0-bd31-11e7-8d72-adb26a89da33",
+                    "username": "kirinse"
+                },
+                "brand": "MG",
+                "win": 220,
+                "play_time": "2017-11-14 14:53:38",
+                "status": "succeed"
+            }
+        ],
+        "meta": {
+            "path": "/rest/bigwins",
+            "per_page": 50,
+            "total": 1,
+            "last_page": 1,
+            "from": 1,
+            "to": 1,
+            "current_page": 1
+        },
+        "links": {
+            "last": "/rest/bigwins?page=1",
+            "first": "/rest/bigwins?page=1"
+        }
+    }
+}

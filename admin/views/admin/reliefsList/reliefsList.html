@@ -20,35 +20,38 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 10%" ao-data="reliefsListAoData" web-data-table-sort="product">
+                            <td style="width: 8%" ao-data="reliefsListAoData" web-data-table-sort="product">
                                 {{'table.reliefsList.th1' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="reliefsListAoData" web-data-table-sort="amount">
+                            <td style="width: 8%" ao-data="reliefsListAoData" web-data-table-sort="amount">
                                 {{'table.reliefsList.th2' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style="width: 8%">
                                 {{'table.reliefsList.th3' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style="width: 6%">
                                 {{'table.reliefsList.th4' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style="width: 6%">
                                 {{'table.reliefsList.th5' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style="width: 6%">
                                 {{'table.reliefsList.th6' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style="width: 8%">
                                 {{'table.reliefsList.th7' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style="width: 8%">
                                 {{'table.reliefsList.th8' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style="width: 8%">
                                 {{'table.reliefsList.th9' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="reliefsListAoData" web-data-table-sort="status">
+                            <td style="width: 8%" ao-data="reliefsListAoData" web-data-table-sort="status">
                                 {{'table.reliefsList.th10' | translate}}
+                            </td>
+                            <td style="width: 14%">
+                                {{'table.reliefsList.th11' | translate}}
                             </td>
                         </tr>
                         </thead>
@@ -84,9 +87,12 @@
                             <td>
                                 <span>{{item.status || ''}}</span>
                             </td>
+                            <td>
+                                <span>{{(item.timestamps.createdAt || '').substr(0,19)}}</span>
+                            </td>
                         </tr>
                         <tr ng-show="showReliefsList.length==0">
-                            <td colspan="9" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan="20" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

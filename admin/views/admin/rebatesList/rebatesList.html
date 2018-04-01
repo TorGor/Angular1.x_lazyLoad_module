@@ -82,28 +82,48 @@
                     <table width='100%' class='table table-bordered table-hover bg-white'>
                         <thead>
                         <tr class='bg-gray-light text-bold'>
-                            <td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='product'>
+                            <td style='width: 13%'>
                                 {{'table.rebatesList.th1' | translate}}
                             </td>
-                            <td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='from'>
+                            <td style='width: 16%'>
                                 {{'table.rebatesList.th2' | translate}}
                             </td>
-                            <td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='to'>
+                            <td style='width: 16%'>
                                 {{'table.rebatesList.th3' | translate}}
                             </td>
-                            <td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='bonus'>
+                            <td style='width: 13%'>
                                 {{'table.rebatesList.th4' | translate}}
                             </td>
-                            <td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='username'>
+                            <td style='width: 13%'>
                                 {{'table.rebatesList.th5' | translate}}
                             </td>
-                            <td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='userId'>
-                                {{'table.rebatesList.th6' | translate}}
+                            <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='userId'>-->
+                                <!--{{'table.rebatesList.th6' | translate}}-->
+                            <!--</td>-->
+                            <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='affiliateId'>-->
+                                <!--{{'table.rebatesList.th7' | translate}}-->
+                            <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='product'>-->
+                                <!--{{'table.rebatesList.th1' | translate}}-->
+                            <!--</td>-->
+                            <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='from'>-->
+                                <!--{{'table.rebatesList.th2' | translate}}-->
+                            <!--</td>-->
+                            <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='to'>-->
+                                <!--{{'table.rebatesList.th3' | translate}}-->
+                            <!--</td>-->
+                            <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='bonus'>-->
+                                <!--{{'table.rebatesList.th4' | translate}}-->
+                            <!--</td>-->
+                            <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='username'>-->
+                                <!--{{'table.rebatesList.th5' | translate}}-->
+                            <!--</td>-->
+                            <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='userId'>-->
+                                <!--{{'table.rebatesList.th6' | translate}}-->
+                            <!--</td>-->
+                            <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='affiliateId'>-->
+                                <!--{{'table.rebatesList.th7' | translate}}-->
                             </td>
-                            <td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='affiliateId'>
-                                {{'table.rebatesList.th7' | translate}}
-                            </td>
-                            <td style='width: 17%'>{{'table.button.operation' | translate}}</td>
+                            <td style='width: 10%'>{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -123,12 +143,12 @@
                             <td>
                                 <span>{{item.user.username || ''}}</span>
                             </td>
-                            <td>
-                                <span>{{item.user.userId || ''}}</span>
-                            </td>
-                            <td>
-                                <span>{{item.user.affiliateId || ''}}</span>
-                            </td>
+                            <!--<td>-->
+                                <!--<span>{{item.user.userId || ''}}</span>-->
+                            <!--</td>-->
+                            <!--<td>-->
+                                <!--<span>{{item.user.affiliateId || ''}}</span>-->
+                            <!--</td>-->
                             <td style='white-space: nowrap;'>
                                 <div class='buttons'>
                                     <button
@@ -141,7 +161,7 @@
                             </td>
                         </tr>
                         <tr ng-show='rebatesList.length==0'>
-                            <td colspan='8' class=''>{{'table.no_date' | translate}}</td>
+                            <td colspan='100' class=''>{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

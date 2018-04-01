@@ -58,10 +58,10 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 16%">
+                            <td style="width: 25%">
                                 {{'table.promotionsManage.th1' | translate}}
                             </td>
-                            <td style="width: 16%">
+                            <td style="width: 8%">
                                 {{'table.promotionsManage.th2' | translate}}
                             </td>
                             <!--<td style="width: 12%">-->
@@ -73,13 +73,16 @@
                             <!--<td style="width: 12%">-->
                             <!--{{'table.promotionsManage.th5' | translate}}-->
                             <!--</td>-->
-                            <td style="width: 16%">
+                            <td style="width: 14%">
                                 {{'table.promotionsManage.th6' | translate}}
                             </td>
-                            <td style="width: 16%">
+                            <td style="width: 14%">
                                 {{'table.promotionsManage.th7' | translate}}
                             </td>
-                            <td style="width: 17%" ng-show='validPower("PROMOTIONSMANAGE", ["PATCH", "GETDETAIL"])'>{{'table.button.operation' | translate}}</td>
+                            <td style="width: 7%">
+                                {{'table.promotionsManage.th8' | translate}}
+                            </td>
+                            <td style="width: 10%" ng-show='validPower("PROMOTIONSMANAGE", ["PATCH", "GETDETAIL"])'>{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -103,6 +106,9 @@
                                 <span>{{item.period.from.substr(0, 19)}}</span>
                             </td>
                             <td>
+                                <span>{{item.period.to.substr(0, 19)}}</span>
+                            </td>
+                            <td>
                                 <span>{{item.status}}</span>
                             </td>
                             <td style="white-space: nowrap;" ng-show='validPower("PROMOTIONSMANAGE", ["PATCH", "GETDETAIL"])'>
@@ -121,7 +127,7 @@
                             </td>
                         </tr>
                         <tr ng-show="promotionsManage.length==0">
-                            <td colspan='{{validPower("PROMOTIONSMANAGE", ["PATCH", "GETDETAIL"])?5:4}}' class="">{{'table.no_date' | translate}}</td>
+                            <td colspan='20' class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

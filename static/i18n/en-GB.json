@@ -135,14 +135,13 @@
         },
         "transactionsDetail": {
             "th1": "User",
-            "th2": "Affiliate",
-            "th3": "Service Id",
-            "th4": "Service",
+            "th2": "Service",
+            "th3": "Wallet",
+            "th4": "PreBalance",
             "th5": "Amount",
-            "th6": "PreBalance",
-            "th7": "PostBalance",
-            "th8": "WalletCode",
-            "th9": "Description"
+            "th6": "PostBalance",
+            "th7": "Description",
+            "th8": "Create At"
         },
         "blackLists": {
             "th1": "AccountNumber",
@@ -289,8 +288,9 @@
             "th3": "Categories",
             "th4": "Title",
             "th5": "Content",
-            "th6": "Period",
-            "th7": "Status"
+            "th6": "Start",
+            "th7": "End",
+            "th8": "Status"
         },
         "rebatesList": {
             "th1": "Product",
@@ -319,7 +319,8 @@
             "th7": "Withdraw",
             "th8": "Affiliate",
             "th9": "Username",
-            "th10": "Status"
+            "th10": "Status",
+            "th11": "Create At"
         },
         "transfersList": {
             "th1": "Coupon",

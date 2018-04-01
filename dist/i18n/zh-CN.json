@@ -135,14 +135,13 @@
         },
         "transactionsDetail": {
             "th1": "用户",
-            "th2": "隶属",
-            "th3": "服务Id",
-            "th4": "服务",
+            "th2": "服务",
+            "th3": "钱包",
+            "th4": "PreBalance",
             "th5": "数量",
-            "th6": "preBalance",
-            "th7": "postBalance",
-            "th8": "钱包编码",
-            "th9": "描述"
+            "th6": "PostBalance",
+            "th7": "描述",
+            "th8": "创建时间"
         },
         "blackLists": {
             "th1": "数量",
@@ -289,8 +288,9 @@
             "th3": "种类",
             "th4": "标题",
             "th5": "内容",
-            "th6": "时间",
-            "th7": "状态"
+            "th6": "开始",
+            "th7": "结束",
+            "th8": "状态"
         },
         "rebatesList": {
             "th1": "产品",
