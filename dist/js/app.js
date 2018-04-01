@@ -772,14 +772,12 @@
             format: 'YYYY-MM-DD HH:MM'
         };
 
+        var locale = window.localStorage.getItem('NG_TRANSLATE_LANG_KEY')||((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en');
+
         $scope.showArrayName = function(arr) {
             if(window.Array.isArray(arr)){
                 for(var i=0,j=arr.length;i<j;i++){
-                    if(arr[i].locale == 'en-GB'){
-                        break;
-                        return arr[i].value || ''
-                    }
-                    if(arr[i].locale == 'zh-CN'){
+                    if(arr[i].locale == locale){
                         break;
                         return arr[i].value || ''
                     }
@@ -1354,7 +1352,7 @@
           suffix : '.json'
       });
 
-      $translateProvider.preferredLanguage((window.navigator.language || window.navigator.language).indexOf('zh') !== -1 ? 'zh-CN' : 'en');
+      $translateProvider.preferredLanguage((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en');
       $translateProvider.useLocalStorage();
       $translateProvider.usePostCompiling(true);
       $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
