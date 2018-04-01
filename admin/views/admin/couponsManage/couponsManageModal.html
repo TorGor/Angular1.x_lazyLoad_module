@@ -12,7 +12,7 @@
                             <label class="col-lg-4 col-md-6 control-label">编码</label>
                             <div class="col-lg-8 col-md-6">
                                 <input
-                                    ng-model="couponsItem.code" name='code' ng-disabled="edit==3&&!hasPower" class="form-control"
+                                    ng-model="couponsItem.code" name='code' ng-disabled="edit!==3&&!hasPower" class="form-control"
                                     type="text" ng-pattern='/^[0-9A-Z]{1,20}$/' placeholder="A-Z0-9 max 20 char"
                                 >
                                 <span class='text-danger valid-error'
@@ -571,7 +571,7 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-disabled='!myForm.$dirty||myForm.$invalid' ng-show='hasPower' ng-click="confirmModal()">{{'table.button.save' |
+    <button class="btn btn-primary" type="button" ng-disabled='myForm.$invalid' ng-show='hasPower' ng-click="confirmModal()">{{'table.button.save' |
                                                                              translate}}</button>
     <button
         class="btn btn-default" type="button" ng-click="cancelModal()"

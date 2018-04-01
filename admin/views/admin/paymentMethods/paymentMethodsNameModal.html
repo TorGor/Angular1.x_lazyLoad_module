@@ -205,7 +205,7 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-disabled='!checkPaymentMethodsMinMax(modalItem.min)||!checkPaymentMethodsMinMax(modalItem.max)||!myForm.$dirty||myForm.$invalid' ng-show="hasPower" ng-click="confirmModal()">
+    <button class="btn btn-primary" type="button" ng-disabled='!checkPaymentMethodsMinMax(modalItem.min)||!checkPaymentMethodsMinMax(modalItem.max)||myForm.$invalid' ng-show="hasPower" ng-click="confirmModal()">
         {{'table.button.save' | translate}}</button>
     <button
         class="btn btn-default" type="button" ng-click="cancelModal()"

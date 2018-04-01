@@ -72,7 +72,7 @@
 </div>
 
 <div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-disabled='!myForm.$dirty||myForm.$invalid' ng-show="hasPower" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+   <button class="btn btn-primary" type="button" ng-disabled='myForm.$invalid' ng-show="hasPower" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
 </div>
 
