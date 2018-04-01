@@ -25,18 +25,27 @@
                     <div class="clearfix"></div>
                     <form class="form-horizontal" role="form" ng-show="advancedSearch">
                         <div class="col-lg-3 col-md-6 margin-bottom-10">
-                            <input
-                                    class="form-control"
-                                    type="text"
-                                    ng-model="transactionsDetailAoData.user_id"
-                                    placeholder="{{'table.transactionsDetail.th1' | translate}}">
+                            <input-select
+                                inputkey='username'
+                                outputkey='affiliateId'
+                                input-placeholder="{{'table.transactionsDetail.th1' | translate}}"
+                                searchkey='username'
+                                min-length='3'
+                                output-value='transactionsDetailAoData.user_id'
+                                url='{{URL.USERSMANAGE.GET}}'
+                            >
+                            </input-select>
                         </div>
                         <div class="col-lg-3 col-md-6 margin-bottom-10">
-                            <input
-                                    class="form-control"
-                                    type="text"
-                                    ng-model="transactionsDetailAoData.affiliate_id"
-                                    placeholder="{{'table.transactionsDetail.th2' | translate}}">
+                            <input-select
+                                inputkey='username'
+                                outputkey='affiliateId'
+                                input-placeholder="{{'table.transactionsDetail.th2' | translate}}"
+                                searchkey='username'
+                                min-length='3'
+                                output-value='transactionsDetailAoData.affiliate_id'
+                                url='{{URL.USERSMANAGE.GET}}'
+                            >
                         </div>
                         <div class="col-lg-3 col-md-6 margin-bottom-10">
                             <input

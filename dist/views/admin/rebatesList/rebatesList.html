@@ -3,11 +3,12 @@
       <div class='panel-wrapper'>
          <div class='panel-body'>
             <form class='form-horizontal' role='form'>
-               <div class='col-lg-3 col-md-6 margin-bottom-10'>
-                  <input class='form-control' type='text' ng-model='rebatesListAoData.user_id' placeholder='user id'>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input-select inputkey='username' outputkey='affiliateId' input-placeholder="{{'table.transactionsDetail.th1' | translate}}" searchkey='username' min-length='3' output-value='rebatesListAoData.user_id' url='{{URL.USERSMANAGE.GET}}'>
+                  </input-select>
                </div>
-               <div class='col-lg-3 col-md-6 margin-bottom-10'>
-                  <input class='form-control' type='text' ng-model='rebatesListAoData.affiliate_id' placeholder='affiliate id'>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input-select inputkey='username' outputkey='affiliateId' input-placeholder="{{'table.transactionsDetail.th2' | translate}}" searchkey='username' min-length='3' output-value='rebatesListAoData.affiliate_id' url='{{URL.USERSMANAGE.GET}}'>
                </div>
                <div class='col-lg-3 col-md-6 margin-bottom-10'>
                   <input class='form-control' type='number' ng-model='rebatesListAoData.min_amount' placeholder="{{'min ' + ('table.rebatesList.th4' | translate)}}">

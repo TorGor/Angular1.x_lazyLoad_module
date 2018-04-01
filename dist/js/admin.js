@@ -44,14 +44,14 @@
 (function() {
 
     angular
-        .module('admin.bigwinsManage', [
+        .module('admin.blackLists', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.blackLists', [
+        .module('admin.bigwinsManage', [
             'app.core',
         ]);
 })();
@@ -86,14 +86,14 @@
 (function() {
 
     angular
-        .module('admin.gameRecords', [
+        .module('admin.gameCategories', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.gameCategories', [
+        .module('admin.gameRecords', [
             'app.core',
         ]);
 })();
@@ -163,14 +163,14 @@
 (function() {
 
     angular
-        .module('admin.transactionsDetail', [
+        .module('admin.transfersList', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.transfersList', [
+        .module('admin.transactionsDetail', [
             'app.core',
         ]);
 })();
@@ -409,61 +409,104 @@
         .module('admin')
         .directive('inputSelect', inputSelect);
 
-    inputSelect.$inject=['adminService'];
+    inputSelect.$inject=['adminService','$timeout'];
     /* @ngInject */
-    function inputSelect(adminService) {
+    function inputSelect(adminService,$timeout) {
         return{
             restrict: 'EA',
-            template:'<div class="">' +
-            '    <input class="form-control" type="text"  style="margin-bottom: 0px" ng-model="personPeople.other" ng-focus="personStatus=true;searchDataFromServer()"  ng-blur="personStatus=false">' +
-            '    <div class="col-xs-12" style="position: absolute;left: 0;z-index: 1" ng-show="personStatus||selectSelectStatus" ng-mouseover="selectSelectStatus=true" ng-mouseleave="selectSelectStatus=false">' +
-            '        <select  class="form-control" multiple ng-model="tempSelectItem" ng-click="selectSelectStatus=false;handelClick()"  ng-options="select as select.other for select in allItems" ></select>' +
-            '    </div>' +
-            '</div>',
+            template:
+            '<div>'+
+            '<ui-select\n' +
+            '                                ng-model="searchValue"\n' +
+            '                                on-select="handelSelect($item, $model)"\n' +
+            '                                theme="bootstrap"\n' +
+            '                            >\n' +
+            '                                <ui-select-match placeholder="{{inputPlaceholder}}">\n' +
+            '                                    <span ng-bind="$select.selected._label"></span>\n' +
+            '                                </ui-select-match>\n' +
+            '                                <ui-select-choices repeat="item._label as item in allItems | filter: {\'_label\':$select.search}">\n' +
+            '                                    <span ng-bind="item._label"></span>\n' +
+            '                                </ui-select-choices>\n' +
+            '                            </ui-select></div>',
             replace:true,
             scope:{
-                //inputValue:'=',
-                className:'@'
+                inputPlaceholder:'@',
+                inputkey:'@',
+                outputkey:'@',
+                searchkey:'@',
+                url:'@',
+                minLength:'@',
+                outputValue:'='
             },
             link:function($scope,$element,$attrs){
                 var timer = null;
-                $scope.personStatus = false;
-                $scope.selectSelectStatus = false;
-                $scope.tempSelectItem = [];
 
-                if(!$scope.className){
-                    $scope.className = ''
+                $scope.allItems = [];
+
+                if(!$scope.outputValue){
+                    $scope.outputValue = ''
+                }
+
+                if(!$scope.outputkey){
+                    $scope.outputkey = ''
+                }
+                if(!$scope.searchkey){
+                    $scope.searchkey = $scope.outputValue
+                }
+                if(!$scope.inputPlaceholder){
+                    $scope.inputPlaceholder = 'search value'
                 }
 
                 $scope.inputStatu=$scope.inputStatu||false;
-                $scope.searchDataFromServer = function () {
+                $scope.searchDataFromServer = function (value) {
                     var temAoData = {};
-                    adminService.getReq('/rest/getUsers',temAoData,{}).then(function (data){
+                    if($scope.searchkey){
+                        temAoData[$scope.searchkey] = value||'';
+                    }
+                    adminService.getReq($scope.url,temAoData,{}).then(function (data){
                         var result = data.data && data.data.data;
-                        console.log(result, 'result')
                         if(result && result.data && result.meta){
-                            $scope.allItems=angular.copy(result.data);
-                            $scope.allItems.forEach(function(item) {
-                                item['other'] = item['username']
-                            })
+                            if(window.Array.isArray(result.data)){
+                                $scope.allItems = [];
+                                result.data.forEach(function(dataItem) {
+                                    var tempObj={};
+                                    tempObj['_label']=dataItem[$scope.inputkey]||'';
+                                    tempObj['_value']=dataItem[$scope.outputkey]||'';
+                                    $scope.allItems.push(tempObj)
+                                })
+                            }
                         }else{
                             $scope.allItems=[];
                         }
                     });
                 };
-                $scope.handelClick = function() {
-                    console.log($scope.tempSelectItem,'111111')
+                $scope.handelSelect = function($item, $model) {
+                    $scope.outputValue = $item['_value']||'';
+                    $($element).find('.ui-select-search').val($model)
                 };
-                $scope.$watch('inputValue', function (newValue, oldValue) {
-                    if (newValue != oldValue && ($scope.personStatus||$scope.selectSelectStatus)) {
+
+                $scope.searchDataFromServer();
+
+                $timeout(function() {
+                    $($element).find('.ui-select-search').keyup(function(e) {
+                        var tempvalue = e.target.value;
+                        if(!tempvalue){
+                            $scope.outputValue = '';
+                           return;
+                        }
+                        if($scope.minLength){
+                            if(tempvalue.length<parseInt($scope.minLength)){
+                                return;
+                            }
+                        }
                         if (timer) {
                             $timeout.cancel(timer);
                         }
                         timer = $timeout(function() {
-                            $scope.searchDataFromServer($scope.inputValue);
+                            $scope.searchDataFromServer(tempvalue);
                         }, 300);
-                    }
-                });
+                    })
+                },10)
             }
         }
     }
@@ -680,119 +723,6 @@
 
 
         // 页面加载执行的函数
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.bigwinsManage')
-        .controller('BigwinsManageController', BigwinsManageController);
-
-    BigwinsManageController.$inject = [
-        '$scope',
-        '$rootScope',
-        'adminService'
-    ];
-
-    function BigwinsManageController(
-        $scope,
-        $rootScope,
-        adminService
-    ) {
-
-        $scope.bigwinsManageUrl = $rootScope.URL.BIGWINSMANAGE.GET;
-
-        // 原始的数据
-        $scope.bigwinsManage = [];
-        $scope.bigwinsManageReload = 1;
-        $scope.bigwinsManageAoData = {};
-
-        // 初始化table数据
-        $scope.initBigwinsManageData = function () {
-            $scope.bigwinsManageReload++;
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param bigwinsManage BIGWINSMANAGETITLE数据对象
-         * @param item
-         */
-
-        $scope.saveBigwinsManage = function (bigwinsManage, item) {
-            var tempData = angular.extend({}, bigwinsManage, item);
-            if ($scope.validIsNew(tempData._id)) {
-                delete tempData._id;
-                adminService.postReq($rootScope.URL.BIGWINSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initBigwinsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(tempData._id) && bigwinsManage.id) {
-                delete tempData._id;
-                adminService.patchReq($rootScope.URL.BIGWINSMANAGE.PATCH+'/'+bigwinsManage.id, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initBigwinsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
-        // 删除bigwinsManage
-        /**
-         * @param bigwinsManage BIGWINSMANAGETITLE数据对象
-         * @return null
-         */
-        $scope.deleteBigwinsManage = function (bigwinsManage) {
-            if (!$scope.validIsNew(bigwinsManage._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.BIGWINSMANAGE.DELETE+'/'+bigwinsManage.id, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initBigwinsManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 添加按钮
-        $scope.addBigwinsManage = function () {
-            $scope.bigwinsManageAoData = {};
-            $scope.bigwinsManageSearch = '';
-            $scope.bigwinsManage.unshift({
-                '_id': ($scope.bigwinsManage.length+1) + 'null',
-                'bigwinsManageName': '',
-                'bigwinsManageType': '',
-                'bigwinsManageStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
-            });
-        };
-
-        // 页面加载执行的函数
-
     }
 })();
 
@@ -1022,6 +952,119 @@
         // 页面加载执行的函数
 
         $scope.initMethodsNameModalData();
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.bigwinsManage')
+        .controller('BigwinsManageController', BigwinsManageController);
+
+    BigwinsManageController.$inject = [
+        '$scope',
+        '$rootScope',
+        'adminService'
+    ];
+
+    function BigwinsManageController(
+        $scope,
+        $rootScope,
+        adminService
+    ) {
+
+        $scope.bigwinsManageUrl = $rootScope.URL.BIGWINSMANAGE.GET;
+
+        // 原始的数据
+        $scope.bigwinsManage = [];
+        $scope.bigwinsManageReload = 1;
+        $scope.bigwinsManageAoData = {};
+
+        // 初始化table数据
+        $scope.initBigwinsManageData = function () {
+            $scope.bigwinsManageReload++;
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param bigwinsManage BIGWINSMANAGETITLE数据对象
+         * @param item
+         */
+
+        $scope.saveBigwinsManage = function (bigwinsManage, item) {
+            var tempData = angular.extend({}, bigwinsManage, item);
+            if ($scope.validIsNew(tempData._id)) {
+                delete tempData._id;
+                adminService.postReq($rootScope.URL.BIGWINSMANAGE.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initBigwinsManageData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (!$scope.validIsNew(tempData._id) && bigwinsManage.id) {
+                delete tempData._id;
+                adminService.patchReq($rootScope.URL.BIGWINSMANAGE.PATCH+'/'+bigwinsManage.id, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initBigwinsManageData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+        };
+
+        // 删除bigwinsManage
+        /**
+         * @param bigwinsManage BIGWINSMANAGETITLE数据对象
+         * @return null
+         */
+        $scope.deleteBigwinsManage = function (bigwinsManage) {
+            if (!$scope.validIsNew(bigwinsManage._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.BIGWINSMANAGE.DELETE+'/'+bigwinsManage.id, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initBigwinsManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 添加按钮
+        $scope.addBigwinsManage = function () {
+            $scope.bigwinsManageAoData = {};
+            $scope.bigwinsManageSearch = '';
+            $scope.bigwinsManage.unshift({
+                '_id': ($scope.bigwinsManage.length+1) + 'null',
+                'bigwinsManageName': '',
+                'bigwinsManageType': '',
+                'bigwinsManageStatus': '1',
+                'createTime': null,
+                'optTime': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        // 页面加载执行的函数
 
     }
 })();
@@ -2809,130 +2852,6 @@
 (function() {
 
     angular
-        .module('admin.gameRecords')
-        .controller('GameRecordsController', GameRecordsController);
-
-    GameRecordsController.$inject = [
-        '$scope',
-        '$rootScope',
-        'adminService'
-    ];
-
-    function GameRecordsController(
-        $scope,
-        $rootScope,
-        adminService
-    ) {
-
-        $scope.search = {
-            products: [],
-            brands: []
-        };
-
-        $scope.brandOptions = [];
-
-        $scope.initBrandOptionsData = function () {
-            $scope.brandOptions = [];
-            adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        if(window.Array.isArray(res.data.data)){
-                            res.data.data.map(function (objItem) {
-                                var tempObj ={
-                                    label:objItem.code||'',
-                                    value:objItem.code||''
-                                };
-                                $scope.brandOptions.push(tempObj)
-                            })
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.productOptions = [];
-        $scope.productSearchOptions = [];
-
-        $scope.initProductManageData = function () {
-            $scope.productOptions = [];
-            $scope.productSearchOptions = [];
-            adminService.getReq($rootScope.URL.GAMESPRODUCTS.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        if(window.Array.isArray(res.data.data)){
-                            res.data.data.map(function (objItem) {
-                                var tempObj ={
-                                    label:objItem.code||'',
-                                    value:objItem.code||''
-                                };
-                                $scope.productSearchOptions.push(tempObj)
-                                if(objItem.disabled == false){
-                                    $scope.productOptions.push(tempObj)
-                                }
-                            })
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.gameRecordsUrl = $rootScope.URL.GAMERECORDS.GET;
-
-        // 原始的数据
-        $scope.gameRecords = [];
-        $scope.gameRecordsReload = 1;
-        $scope.gameRecordsAoData = {};
-
-        // 初始化table数据
-        $scope.initGameRecordsData = function () {
-            $scope.gameRecordsReload++;
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initProductManageData();
-
-        $scope.initBrandOptionsData();
-
-        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.searchTimeStart) {
-                    $scope.gameRecordsAoData.start_time = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
-                } else {
-                    if ($scope.gameRecordsAoData.start_time) {
-                        delete $scope.gameRecordsAoData.start_time;
-                    }
-                }
-                if ($scope.searchTimeEnd) {
-                    $scope.gameRecordsAoData.end_time = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
-                } else {
-                    if ($scope.gameRecordsAoData.end_time) {
-                        delete $scope.gameRecordsAoData.end_time;
-                    }
-                }
-            }
-        });
-
-        $scope.$watch('search.products.length+search.brands.length', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                $scope.gameRecordsAoData.products = $scope.search.products.join(',');
-                $scope.gameRecordsAoData.brands = $scope.search.brands.join(',');
-            }
-        });
-
-
-    }
-})();
-
-(function() {
-
-    angular
         .module('admin.gameCategories')
         .controller('GameCategoriesController', GameCategoriesController);
 
@@ -3236,6 +3155,130 @@
         // 页面加载执行的函数
 
         $scope.initMethodsNameModalData();
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.gameRecords')
+        .controller('GameRecordsController', GameRecordsController);
+
+    GameRecordsController.$inject = [
+        '$scope',
+        '$rootScope',
+        'adminService'
+    ];
+
+    function GameRecordsController(
+        $scope,
+        $rootScope,
+        adminService
+    ) {
+
+        $scope.search = {
+            products: [],
+            brands: []
+        };
+
+        $scope.brandOptions = [];
+
+        $scope.initBrandOptionsData = function () {
+            $scope.brandOptions = [];
+            adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                $scope.brandOptions.push(tempObj)
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.productOptions = [];
+        $scope.productSearchOptions = [];
+
+        $scope.initProductManageData = function () {
+            $scope.productOptions = [];
+            $scope.productSearchOptions = [];
+            adminService.getReq($rootScope.URL.GAMESPRODUCTS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                $scope.productSearchOptions.push(tempObj)
+                                if(objItem.disabled == false){
+                                    $scope.productOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.gameRecordsUrl = $rootScope.URL.GAMERECORDS.GET;
+
+        // 原始的数据
+        $scope.gameRecords = [];
+        $scope.gameRecordsReload = 1;
+        $scope.gameRecordsAoData = {};
+
+        // 初始化table数据
+        $scope.initGameRecordsData = function () {
+            $scope.gameRecordsReload++;
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initProductManageData();
+
+        $scope.initBrandOptionsData();
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.gameRecordsAoData.start_time = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                } else {
+                    if ($scope.gameRecordsAoData.start_time) {
+                        delete $scope.gameRecordsAoData.start_time;
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.gameRecordsAoData.end_time = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                } else {
+                    if ($scope.gameRecordsAoData.end_time) {
+                        delete $scope.gameRecordsAoData.end_time;
+                    }
+                }
+            }
+        });
+
+        $scope.$watch('search.products.length+search.brands.length', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                $scope.gameRecordsAoData.products = $scope.search.products.join(',');
+                $scope.gameRecordsAoData.brands = $scope.search.brands.join(',');
+            }
+        });
+
 
     }
 })();
@@ -6187,6 +6230,102 @@
 (function() {
 
     angular
+        .module('admin.transfersList')
+        .controller('TransfersListController', TransfersListController);
+
+    TransfersListController.$inject = [
+        '$scope',
+        '$uibModal',
+        '$rootScope',
+        'adminService'
+    ];
+
+    function TransfersListController(
+        $scope,
+        $uibModal,
+        $rootScope,
+        adminService
+    ) {
+
+        $scope.search = {
+            sourceWallet: [],
+            destinationWallet: []
+        };
+
+        $scope.transfersListUrl = $rootScope.URL.TRANSFERSLIST.GET;
+
+        // 原始的数据
+        $scope.transfersList = [];
+        $scope.transfersListReload = 1;
+        $scope.transfersListAoData = {};
+
+        // 初始化table数据
+        $scope.initTransfersListData = function () {
+            $scope.transfersListReload++;
+        };
+
+        $scope.walletOptions = [];
+
+        $scope.initWalletOptionsData = function () {
+            $scope.walletOptions = [];
+            adminService.getReq($rootScope.URL.WALLETSMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                if(!objItem.disabled){
+                                    $scope.walletOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        // 页面加载执行的函数
+
+        $scope.initWalletOptionsData();
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.transfersListAoData.start_time = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                } else {
+                    if ($scope.transfersListAoData.start_time) {
+                        delete $scope.transfersListAoData.start_time;
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.transfersListAoData.end_time = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                } else {
+                    if ($scope.transfersListAoData.end_time) {
+                        delete $scope.transfersListAoData.end_time;
+                    }
+                }
+            }
+        });
+
+        $scope.$watch('search.sourceWallet.length+search.destinationWallet.length', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                $scope.transfersListAoData.source_wallet = $scope.search.sourceWallet.join(',')
+                $scope.transfersListAoData.destination_wallet = $scope.search.destinationWallet.join(',')
+            }
+        });
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.transactionsDetail')
         .controller('TransactionsDetailController', TransactionsDetailController);
 
@@ -6323,102 +6462,6 @@
             }
         });
 
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.transfersList')
-        .controller('TransfersListController', TransfersListController);
-
-    TransfersListController.$inject = [
-        '$scope',
-        '$uibModal',
-        '$rootScope',
-        'adminService'
-    ];
-
-    function TransfersListController(
-        $scope,
-        $uibModal,
-        $rootScope,
-        adminService
-    ) {
-
-        $scope.search = {
-            sourceWallet: [],
-            destinationWallet: []
-        };
-
-        $scope.transfersListUrl = $rootScope.URL.TRANSFERSLIST.GET;
-
-        // 原始的数据
-        $scope.transfersList = [];
-        $scope.transfersListReload = 1;
-        $scope.transfersListAoData = {};
-
-        // 初始化table数据
-        $scope.initTransfersListData = function () {
-            $scope.transfersListReload++;
-        };
-
-        $scope.walletOptions = [];
-
-        $scope.initWalletOptionsData = function () {
-            $scope.walletOptions = [];
-            adminService.getReq($rootScope.URL.WALLETSMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        if(window.Array.isArray(res.data.data)){
-                            res.data.data.map(function (objItem) {
-                                var tempObj ={
-                                    label:objItem.code||'',
-                                    value:objItem.code||''
-                                };
-                                if(!objItem.disabled){
-                                    $scope.walletOptions.push(tempObj)
-                                }
-                            })
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-
-        // 页面加载执行的函数
-
-        $scope.initWalletOptionsData();
-
-        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.searchTimeStart) {
-                    $scope.transfersListAoData.start_time = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
-                } else {
-                    if ($scope.transfersListAoData.start_time) {
-                        delete $scope.transfersListAoData.start_time;
-                    }
-                }
-                if ($scope.searchTimeEnd) {
-                    $scope.transfersListAoData.end_time = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
-                } else {
-                    if ($scope.transfersListAoData.end_time) {
-                        delete $scope.transfersListAoData.end_time;
-                    }
-                }
-            }
-        });
-
-        $scope.$watch('search.sourceWallet.length+search.destinationWallet.length', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                $scope.transfersListAoData.source_wallet = $scope.search.sourceWallet.join(',')
-                $scope.transfersListAoData.destination_wallet = $scope.search.destinationWallet.join(',')
-            }
-        });
     }
 })();
 

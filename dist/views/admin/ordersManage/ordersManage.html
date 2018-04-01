@@ -8,13 +8,11 @@
             <div class="clearfix"></div>
             <form class="form-horizontal" role="form">
                <div class="col-lg-3 col-md-6 margin-bottom-10">
-                  <input-select></input-select>
+                  <input-select inputkey='username' outputkey='affiliateId' input-placeholder='username' searchkey='username' min-length='3' output-value='ordersManageAoData.user_id' url='{{URL.USERSMANAGE.GET}}'>
+                  </input-select>
                </div>
                <div class="col-lg-3 col-md-6 margin-bottom-10">
-                  <input class="form-control" type="text" ng-model="ordersManageAoData.user_id" placeholder="user id">
-               </div>
-               <div class="col-lg-3 col-md-6 margin-bottom-10">
-                  <input class="form-control" type="text" ng-model="ordersManageAoData.affiliate_id" placeholder="affiliate id">
+                  <input-select inputkey='username' outputkey='affiliateId' input-placeholder='affiliate' searchkey='username' min-length='3' output-value='ordersManageAoData.affiliate_id' url='{{URL.USERSMANAGE.GET}}'>
                </div>
                <div class="col-lg-3 col-md-6 margin-bottom-10">
                   <input class="form-control" type="text" ng-model="ordersManageAoData.min_amount" placeholder="{{'min ' + ('table.ordersManage.th1' | translate)}}">

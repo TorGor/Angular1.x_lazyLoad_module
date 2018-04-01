@@ -10,61 +10,104 @@
         .module('admin')
         .directive('inputSelect', inputSelect);
 
-    inputSelect.$inject=['adminService'];
+    inputSelect.$inject=['adminService','$timeout'];
     /* @ngInject */
-    function inputSelect(adminService) {
+    function inputSelect(adminService,$timeout) {
         return{
             restrict: 'EA',
-            template:'<div class="">' +
-            '    <input class="form-control" type="text"  style="margin-bottom: 0px" ng-model="personPeople.other" ng-focus="personStatus=true;searchDataFromServer()"  ng-blur="personStatus=false">' +
-            '    <div class="col-xs-12" style="position: absolute;left: 0;z-index: 1" ng-show="personStatus||selectSelectStatus" ng-mouseover="selectSelectStatus=true" ng-mouseleave="selectSelectStatus=false">' +
-            '        <select  class="form-control" multiple ng-model="tempSelectItem" ng-click="selectSelectStatus=false;handelClick()"  ng-options="select as select.other for select in allItems" ></select>' +
-            '    </div>' +
-            '</div>',
+            template:
+            '<div>'+
+            '<ui-select\n' +
+            '                                ng-model="searchValue"\n' +
+            '                                on-select="handelSelect($item, $model)"\n' +
+            '                                theme="bootstrap"\n' +
+            '                            >\n' +
+            '                                <ui-select-match placeholder="{{inputPlaceholder}}">\n' +
+            '                                    <span ng-bind="$select.selected._label"></span>\n' +
+            '                                </ui-select-match>\n' +
+            '                                <ui-select-choices repeat="item._label as item in allItems | filter: {\'_label\':$select.search}">\n' +
+            '                                    <span ng-bind="item._label"></span>\n' +
+            '                                </ui-select-choices>\n' +
+            '                            </ui-select></div>',
             replace:true,
             scope:{
-                //inputValue:'=',
-                className:'@'
+                inputPlaceholder:'@',
+                inputkey:'@',
+                outputkey:'@',
+                searchkey:'@',
+                url:'@',
+                minLength:'@',
+                outputValue:'='
             },
             link:function($scope,$element,$attrs){
                 var timer = null;
-                $scope.personStatus = false;
-                $scope.selectSelectStatus = false;
-                $scope.tempSelectItem = [];
 
-                if(!$scope.className){
-                    $scope.className = ''
+                $scope.allItems = [];
+
+                if(!$scope.outputValue){
+                    $scope.outputValue = ''
+                }
+
+                if(!$scope.outputkey){
+                    $scope.outputkey = ''
+                }
+                if(!$scope.searchkey){
+                    $scope.searchkey = $scope.outputValue
+                }
+                if(!$scope.inputPlaceholder){
+                    $scope.inputPlaceholder = 'search value'
                 }
 
                 $scope.inputStatu=$scope.inputStatu||false;
-                $scope.searchDataFromServer = function () {
+                $scope.searchDataFromServer = function (value) {
                     var temAoData = {};
-                    adminService.getReq('/rest/getUsers',temAoData,{}).then(function (data){
+                    if($scope.searchkey){
+                        temAoData[$scope.searchkey] = value||'';
+                    }
+                    adminService.getReq($scope.url,temAoData,{}).then(function (data){
                         var result = data.data && data.data.data;
-                        console.log(result, 'result')
                         if(result && result.data && result.meta){
-                            $scope.allItems=angular.copy(result.data);
-                            $scope.allItems.forEach(function(item) {
-                                item['other'] = item['username']
-                            })
+                            if(window.Array.isArray(result.data)){
+                                $scope.allItems = [];
+                                result.data.forEach(function(dataItem) {
+                                    var tempObj={};
+                                    tempObj['_label']=dataItem[$scope.inputkey]||'';
+                                    tempObj['_value']=dataItem[$scope.outputkey]||'';
+                                    $scope.allItems.push(tempObj)
+                                })
+                            }
                         }else{
                             $scope.allItems=[];
                         }
                     });
                 };
-                $scope.handelClick = function() {
-                    console.log($scope.tempSelectItem,'111111')
+                $scope.handelSelect = function($item, $model) {
+                    $scope.outputValue = $item['_value']||'';
+                    $($element).find('.ui-select-search').val($model)
                 };
-                $scope.$watch('inputValue', function (newValue, oldValue) {
-                    if (newValue != oldValue && ($scope.personStatus||$scope.selectSelectStatus)) {
+
+                $scope.searchDataFromServer();
+
+                $timeout(function() {
+                    $($element).find('.ui-select-search').keyup(function(e) {
+                        var tempvalue = e.target.value;
+                        if(!tempvalue){
+                            $scope.outputValue = '';
+                           return;
+                        }
+                        if($scope.minLength){
+                            if(tempvalue.length<parseInt($scope.minLength)){
+                                return;
+                            }
+                        }
                         if (timer) {
                             $timeout.cancel(timer);
                         }
                         timer = $timeout(function() {
-                            $scope.searchDataFromServer($scope.inputValue);
+                            $scope.searchDataFromServer(tempvalue);
                         }, 300);
-                    }
-                });
+                    })
+                },10)
             }
         }
     }
