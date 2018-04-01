@@ -51,6 +51,9 @@
                     'rebates': []
                 }
             }
+            if(typeof $scope.modalItem.default !== 'undefined'){
+                delete $scope.modalItem.default;
+            }
             if(modalItem['conditions']&&modalItem['conditions'].length){
                 $scope.conditionsModal = modalItem['conditions'];
                 $scope.conditionsModal.forEach(function (conditionsItem, conditionsIndex) {

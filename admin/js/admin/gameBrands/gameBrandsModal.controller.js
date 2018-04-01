@@ -52,6 +52,9 @@
             }else{
 
             }
+            if(!$scope.modalItem.jackpotUrl){
+                $scope.modalItem.jackpotUrl = '';
+            }
             if($scope.modalItem['name']&&$scope.modalItem['name'].length){
                 $scope.methodsNameModal = $scope.modalItem['name'];
                 $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
@@ -311,6 +314,14 @@
 
         $scope.confirmModal = function () {
 
+            //校验jackpotUrl
+            if($scope.modalItem.jackpotUrl){
+                if(!/^http[.]*/.test($scope.modalItem.jackpotUrl)){
+                    $rootScope.alertErrorMsg('jackpotUrl should be url');
+                    return '';
+                }
+            }
+
             //校验name
 
             if($scope.methodsNameModal && $scope.methodsNameModal.length){
@@ -430,6 +441,9 @@
                     }
                 });
             }else if(edit==3){
+                if(!tempData.jackpotUrl){
+                    delete tempData.jackpotUrl;
+                }
                 adminService.patchReq($rootScope.URL.GAMEBRANDS.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
