@@ -22,9 +22,9 @@
                         <td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="code">
                            {{'table.paymentMethods.th1' | translate}}
                         </td>
-                        <!--<td style="width: 10%" ao-data="paymentMethodsAoData" web-data-table-sort="name">-->
-                        <!--{{'table.paymentMethods.th2' | translate}}-->
-                        <!--</td>-->
+                        <td style="width: 10%">
+                           {{'table.paymentMethods.th2' | translate}}
+                        </td>
                         <td style="width: 20%" ao-data="paymentMethodsAoData" web-data-table-sort="currency">
                            {{'table.paymentMethods.th3' | translate}}
                         </td>
@@ -48,11 +48,11 @@
                         <td>
                            <span>{{ item.code || '' }}</span>
                         </td>
-                        <!--<td>-->
-                        <!--<span>-->
-                        <!--<button class="btn btn-sm btn-info" ng-click="showEditMethodsNameModal(item)">{{showAddOrDetail(item.name, item.id)}}</button>-->
-                        <!--</span>-->
-                        <!--</td>-->
+                        <td>
+                           <span>
+                              {{showArrayName(item.name)}}
+                           </span>
+                        </td>
                         <td>
                            <span>
                               {{showOptionsValue(item.currency,currencyOptions)}}
@@ -88,7 +88,7 @@
                         </td>
                      </tr>
                      <tr ng-show="showPaymentMethods.length==0">
-                        <td colspan='7' class="">{{'table.no_date' | translate}}</td>
+                        <td colspan='20' class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

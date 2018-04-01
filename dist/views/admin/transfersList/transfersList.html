@@ -9,6 +9,7 @@
                </div>
                <div class="col-lg-3 col-md-6 margin-bottom-10">
                   <input-select inputkey='username' outputkey='affiliateId' input-placeholder="{{'table.transactionsDetail.th2' | translate}}" searchkey='username' min-length='3' output-value='transfersListAoData.affiliate_id' url='{{URL.USERSMANAGE.GET}}'>
+                  </input-select>
                </div>
                <div class='col-lg-3 col-md-6 margin-bottom-10'>
                   <input class='form-control' type='text' ng-model='transfersListAoData.min_amount' placeholder="{{'min ' + ('table.ordersManage.th1' | translate)}}">
@@ -68,6 +69,10 @@
                <table width='100%' class='table table-bordered table-hover bg-white'>
                   <thead>
                      <tr class='bg-gray-light text-bold'>
+
+                        <td style='width: 13%'>
+                           {{'table.transfersList.th6' | translate}}
+                        </td>
                         <td style='width: 10%'>
                            {{'table.transfersList.th1' | translate}}
                         </td>
@@ -79,9 +84,6 @@
                         </td>
                         <td style='width: 8%'>
                            {{'table.transfersList.th5' | translate}}
-                        </td>
-                        <td style='width: 13%'>
-                           {{'table.transfersList.th6' | translate}}
                         </td>
                         <!--<td style='width: 10%'>-->
                         <!--{{'table.transfersList.th7' | translate}}-->
@@ -100,6 +102,9 @@
                   <tbody>
                      <tr ng-repeat='item in transfersList'>
                         <td>
+                           <span>{{item.user.username || ''}}</span>
+                        </td>
+                        <td>
                            <span>{{item.coupon || ''}}</span>
                         </td>
                         <td>
@@ -111,9 +116,6 @@
                         <td>
                            <span>{{item.wallets.destination || ''}}</span>
                         </td>
-                        <td>
-                           <span>{{item.user.username || ''}}</span>
-                        </td>
                         <!--<td>-->
                         <!--<span>{{item.user.userId || ''}}</span>-->
                         <!--</td>-->
@@ -124,7 +126,7 @@
                            <span>{{item.result || ''}}</span>
                         </td>
                         <td>
-                           <span>{{(item.timestamps.createdAt || '').substr(0,19)}}</span>
+                           <span>{{formatTime(item.timestamps.createdAt || '')}}</span>
                         </td>
                      </tr>
                      <tr ng-show='transfersList.length==0'>

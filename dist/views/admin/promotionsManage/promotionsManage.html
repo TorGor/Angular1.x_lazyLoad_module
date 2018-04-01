@@ -48,16 +48,16 @@
                         <!--<td style="width: 12%">-->
                         <!--{{'table.promotionsManage.th5' | translate}}-->
                         <!--</td>-->
-                        <td style="width: 14%">
+                        <td style="width: 25%">
                            {{'table.promotionsManage.th6' | translate}}
-                        </td>
-                        <td style="width: 14%">
-                           {{'table.promotionsManage.th7' | translate}}
-                        </td>
-                        <td style="width: 7%">
-                           {{'table.promotionsManage.th8' | translate}}
-                        </td>
-                        <td style="width: 10%" ng-show='validPower("PROMOTIONSMANAGE", ["PATCH", "GETDETAIL"])'>{{'table.button.operation' | translate}}</td>
+                           <!--</td>-->
+                           <!--<td style="width: 14%">-->
+                           <!--{{'table.promotionsManage.th7' | translate}}-->
+                           <!--</td>-->
+                           <td style="width: 7%">
+                              {{'table.promotionsManage.th8' | translate}}
+                           </td>
+                           <td style="width: 10%" ng-show='validPower("PROMOTIONSMANAGE", ["PATCH", "GETDETAIL"])'>{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
@@ -78,10 +78,7 @@
                         <!--<span>{{item.content}}</span>-->
                         <!--</td>-->
                         <td>
-                           <span>{{item.period.from.substr(0, 19)}}</span>
-                        </td>
-                        <td>
-                           <span>{{item.period.to.substr(0, 19)}}</span>
+                           <span>{{formatTime(item.period.from || '')+(item.period.to?' ~ ':'')+formatTime(item.period.to || '')}}</span>
                         </td>
                         <td>
                            <span>{{item.status}}</span>

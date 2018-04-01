@@ -197,12 +197,11 @@
         $rootScope.dateOptionsYYYMMDDHHMM = {
             useCurrent: false,
             locale: $rootScope.language.selected || 'en',
-            format: 'YYYY-MM-DD HH:MM'
+            format: 'YYYY-MM-DD HH:MM:SS'
         };
 
         var locale = window.localStorage.getItem('NG_TRANSLATE_LANG_KEY')||((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en-GB');
 
-        console.log(locale,'locale')
         $scope.showArrayName = function(arr) {
             if(window.Array.isArray(arr)){
                 for(var i=0,j=arr.length;i<j;i++){
@@ -216,6 +215,13 @@
                 }
             }
             return '';
+        };
+
+        $scope.formatTime = function(str) {
+            if(!str){
+                return '';
+            }
+            return new window.moment(str).format($rootScope.dateOptionsYYYMMDDHHMM.format)
         };
 
         /**

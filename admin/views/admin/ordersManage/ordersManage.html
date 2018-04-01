@@ -111,6 +111,9 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
+                            <td>
+                                {{'table.ordersManage.th6' | translate}}
+                            </td>
                             <td style="width: 15%" ao-data="ordersManageAoData" server-data-table-sort="amount">
                                 {{'table.ordersManage.th1' | translate}}
                             </td>
@@ -126,14 +129,14 @@
                             <td style="width: 15%" ao-data="ordersManageAoData" server-data-table-sort="status">
                                 {{'table.ordersManage.th5' | translate}}
                             </td>
-                            <td>
-                                {{'table.ordersManage.th6' | translate}}
-                            </td>
                             <td style="width: 10%">{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in ordersManage">
+                            <td>
+                                <span>{{item.user.username}}</span>
+                            </td>
                             <td>
                                 <span>{{item.amount}}</span>
                             </td>
@@ -148,9 +151,6 @@
                             </td>
                             <td>
                                 <span>{{item.status}}</span>
-                            </td>
-                            <td>
-                                <span>{{item.user.username}}</span>
                             </td>
                             <td style="white-space: nowrap;" ng-show='validPower("ORDERSMANAGE", ["GETDETAIL","POST"])'>
                                 <div class="buttons">

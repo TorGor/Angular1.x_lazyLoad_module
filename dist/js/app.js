@@ -39,12 +39,6 @@
     'use strict';
 
     angular
-        .module('app.lazyload', []);
-})();
-(function() {
-    'use strict';
-
-    angular
         .module('app.core', [
             'ngRoute',
             'ngAnimate',
@@ -62,6 +56,12 @@
             'oitozero.ngSweetAlert',
             'toaster'
         ]);
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.lazyload', []);
 })();
 (function() {
     'use strict';
@@ -88,12 +88,6 @@
     'use strict';
 
     angular
-        .module('app.sidebar', []);
-})();
-(function() {
-    'use strict';
-
-    angular
         .module('app.settings', []);
 })();
 (function() {
@@ -101,6 +95,12 @@
 
     angular
         .module('app.translate', []);
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.sidebar', []);
 })();
 (function() {
     'use strict';
@@ -160,6 +160,555 @@
     }
 
 })();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.core')
+        .config(coreConfig);
+
+    coreConfig.$inject = [
+        '$controllerProvider',
+        '$compileProvider',
+        '$filterProvider',
+        '$provide',
+        '$httpProvider',
+        '$animateProvider'
+    ];
+    function coreConfig(
+        $controllerProvider,
+        $compileProvider,
+        $filterProvider,
+        $provide,
+        $httpProvider,
+        $animateProvider
+    ){
+
+      var core = angular.module('app.core');
+      // registering components after bootstrap
+      core.controller = $controllerProvider.register;
+      core.directive  = $compileProvider.directive;
+      core.filter     = $filterProvider.register;
+      core.factory    = $provide.factory;
+      core.service    = $provide.service;
+      core.constant   = $provide.constant;
+      core.value      = $provide.value;
+
+      // Disables animation on items with class .ng-no-animation
+      $animateProvider.classNameFilter(/^((?!(ng-no-animation)).)*$/);
+
+      // Improve performance disabling debugging features
+      // $compileProvider.debugInfoEnabled(false);
+
+      $httpProvider.interceptors.push('customeInterceptor');
+
+    }
+
+})();
+/** =========================================================
+ * Module: constants.js
+ * Define constants to inject across the application
+ ========================================================= */
+
+(function() {
+
+    angular
+        .module('app.core')
+        .constant('APP_MEDIAQUERY', {
+            'desktopLG': 1200,
+            'desktop': 992,
+            'tablet': 768,
+            'mobile': 480
+        })
+        .constant('EVN', {
+            debug: true,
+            suffix: '.json',
+            //suffix: '',
+            server: '',
+             //server: 'http://193.112.155.213',
+            // server: 'http://madmin.ngrok.xiaomiqiu.cn',
+            //server: 'http://holyplace.ngrok.xiaomiqiu.cn',
+            URLOBJ:{
+                locales: 'LOCALELANGUAGE',
+                countries: 'COUNTRIESMANAGE',
+                transactions: 'TRANSACTIONSDETAIL',
+                currencies: 'CURRENCIESMANAGE',
+                blacklists: 'BLACKLISTS',
+                ranks: 'USERLEVEL',
+                orders: 'ORDERSMANAGE',
+                methods: 'PAYMENTMETHODS',
+                applies: 'APPLIESUSE',
+                brands: 'GAMEBRANDS',
+                categories: 'GAMECATEGORIES',
+                coupons: 'COUPONSMANAGE',
+                games: 'GAMESMANAGE',
+                products: 'GAMESPRODUCTS',
+                psps: 'PSPSMANAGE',
+                withdraws: 'WITHDRAWSMANAGE',
+                promotions: 'PROMOTIONSMANAGE',
+                rebates: 'REBATESLIST',
+                reliefs: 'RELIEFSLIST',
+                transfers: 'TRANSFERSLIST',
+                wallets: 'WALLETSMANAGE',
+                bigwins: 'BIGWINSMANAGE',
+                records: 'GAMERECORDS',
+                users: 'USERSMANAGE',
+            }
+        });
+})();
+(function() {
+
+
+    angular
+        .module('app.core')
+        .controller('MainController', MainController);
+
+    MainController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$translate',
+        'SweetAlert',
+        'toaster'
+    ];
+
+    function MainController(
+        $scope,
+        $rootScope,
+        $translate,
+        SweetAlert,
+        toaster
+    ) {
+
+        /**
+         *
+         * @param value 0-禁用；1-启用；2-删除；
+         * @return {*}
+         */
+
+        // 0-禁用；1-启用；2-删除；
+        $scope.filter012OptionsValue = function (value) {
+            if (value == 0) {
+                return '<div class="label label-warning">' + $translate.instant('options.forbid') + '</div>';
+            } else if (value == 1) {
+                return '<div class="label label-success">' + $translate.instant('options.enable') + '</div>';
+            } else if (value == 2) {
+                return '<div class="label label-danger">' + $translate.instant('options.delete') + '</div>';
+            } else {
+                return '';
+            }
+        };
+
+        var EDITOBJ = {
+            '1':'查看',
+            '2':'添加',
+            '3':'修改',
+        };
+
+        $scope.showEditStatus = function(edit) {
+
+            if(!edit){
+                return '';
+            }
+            return EDITOBJ[edit]||'';
+        };
+
+        $scope.checkIsDelete = function(item) {
+            if(item.timestamps&&item.timestamps.deletedAt){
+                return true;
+            }
+        };
+
+        $scope.showOptionsValue = function (str, arr) {
+            if(str && arr.length){
+                var tempBtnArray = arr.filter(function (optionsItem) {
+                    return optionsItem.value == str;
+                });
+                if(tempBtnArray.length){
+                    return tempBtnArray[0].label;
+                }
+            }
+            if(typeof str === 'string'){
+                return str;
+            }
+            return str || '';
+        };
+
+
+        $scope.searchPlaceholder = function(param) {
+            if (window.Array.isArray(param)) {
+                var tempArr = param.map(function(item) {
+                    return $translate.instant(item);
+                });
+                return tempArr.join('/');
+            }
+            if (typeof param === 'string') {
+                return $translate.instant(param);
+            }
+            return ' search all';
+        };
+
+        // 判断是否是一个新添加的
+        $scope.validIsNew = function (str) {
+            if (str && str.toString().indexOf('null') !== -1) {
+                return true;
+            }
+            return false;
+        };
+
+        /**
+         *  检测是否有权限
+         * @param module 模块名称
+         * @param arr arr或str GET,POST,DELETE
+         * @returns {boolean}
+         */
+        $scope.validPower = function (module, arr) {
+            var result = false;
+            if(typeof arr == 'string'){
+                if($rootScope.URL[module] && $rootScope.URL[module][arr]){
+                    return true;
+                }
+            }
+            if (window.Array.isArray(arr)) {
+                if(!$rootScope.URL[module]){
+                    return false;
+                }
+                arr.forEach(function(item) {
+                    if($rootScope.URL[module][item]){
+                        result = true;
+                    }
+                });
+                return result;
+            }
+            return false;
+        };
+
+        /**
+         *
+         * @param data 重复的项目
+         * @param id 重复项的id
+         * @returns {string}
+         */
+        $scope.showAddOrDetail = function(data, id) {
+            if($scope.validIsNew(id)){
+                return '新增';
+            }
+            if(window.Array.isArray(data) && data.length){
+                return '明细';
+            } else if (window.Array.isArray(data) && !data.length){
+                return '新增';
+            }
+            return '';
+        };
+
+        /**
+         * 用正则进行验证
+         * @param Reg 正则表达式
+         * @param str 传入的字符串
+         * @param msg 提示信息
+         */
+        $scope.validReg = function (Reg,str,msg) {
+            if(!str){
+                return msg;
+            }
+            var tempReg = new RegExp(Reg);
+            if(tempReg.test(str)){
+                return true;
+            }else{
+                return msg;
+            }
+        };
+
+
+        /**
+         *
+         * @param data 传入的值是否为空
+         * @return {string}
+         */
+
+        $scope.checkRequiredData = function(data) {
+            if (typeof data !=='boolean' && !data) {
+                return $translate.instant('required_message');
+            }
+        };
+
+        /**
+         *
+         * @param msg string
+         */
+
+        // 全局报错机制成功
+        $rootScope.toasterSuccess = function (msg) {
+            toaster.pop('success', $translate.instant('alert_confirm.success'), msg);
+        };
+
+        $rootScope.alertErrorMsg = function (msg) {
+            SweetAlert.error($translate.instant('alert_confirm.error'), msg);
+        };
+
+
+        $rootScope.dateOptionsYYYMMDD = {
+            useCurrent: false,
+            locale: $rootScope.language.selected || 'en',
+            format: 'YYYY-MM-DD'
+        };
+
+        $rootScope.dateOptionsYYYMMDDHHMM = {
+            useCurrent: false,
+            locale: $rootScope.language.selected || 'en',
+            format: 'YYYY-MM-DD HH:MM:SS'
+        };
+
+        var locale = window.localStorage.getItem('NG_TRANSLATE_LANG_KEY')||((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en-GB');
+
+        $scope.showArrayName = function(arr) {
+            if(window.Array.isArray(arr)){
+                for(var i=0,j=arr.length;i<j;i++){
+                    if(arr[i].locale == locale){
+                        return arr[i].value || '';
+                        break;
+                    }
+                }
+                if(arr[0]){
+                    return arr[0].value || ''
+                }
+            }
+            return '';
+        };
+
+        $scope.formatTime = function(str) {
+            if(!str){
+                return '';
+            }
+            return new window.moment(str).format($rootScope.dateOptionsYYYMMDDHHMM.format)
+        };
+
+        /**
+         *
+         * @param callback 回调函数
+         */
+
+        // 删除确认
+        $rootScope.alertConfirm = function (callback) {
+            SweetAlert.swal({
+                title: $translate.instant('alert_confirm.title'),
+                text: $translate.instant('alert_confirm.text'),
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
+                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
+                closeOnConfirm: true
+            }, function(yes) {
+                if (yes) {
+                    callback();
+                }
+            });
+        };
+    }
+
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.core')
+        .factory('customeInterceptor', customeInterceptor);
+
+    customeInterceptor.$inject = ['$rootScope', '$timeout', '$injector', '$q','$window'];
+
+    function customeInterceptor($rootScope, $timeout, $injector, $q, $window) {
+        var requestInitiated;
+
+        function showLoadingText() {
+            $rootScope.isShowLoadingSpinner = true;
+        };
+
+        function hideLoadingText() {
+            $rootScope.isShowLoadingSpinner = false;
+        };
+
+        return {
+            request: function (config) {
+                //if(config.method === "GET"&&(config.url.indexOf('getDetail')!==-1||config.url.indexOf('getAudit')!==-1||config.url.indexOf('getPay')!==-1||config.url.indexOf('getReview')!==-1)){
+                //
+                //}else{
+                //
+                //}
+                requestInitiated = true;
+                showLoadingText();
+                return config;
+            },
+            response: function (response) {
+                requestInitiated = false;
+
+                // Show delay of 300ms so the popup will not appear for multiple http request
+                $timeout(function () {
+
+                    if (requestInitiated) return;
+                    hideLoadingText();
+
+                }, 400);
+
+                return response;
+            },
+            requestError: function (err) {
+                hideLoadingText();
+                return err;
+            },
+            responseError: function (err) {
+                hideLoadingText();
+                return $q.reject(err);
+            }
+        }
+    }
+
+})();
+(function() {
+
+
+    angular
+        .module('app.core')
+        .run(appRun);
+
+    appRun.$inject = [
+        '$rootScope',
+        '$state',
+        '$stateParams',
+        '$window',
+        '$templateCache',
+        'Colors',
+        '$translate',
+        'SweetAlert',
+        'toaster'
+    ];
+
+    function appRun(
+        $rootScope,
+        $state,
+        $stateParams,
+        $window,
+        $templateCache,
+        Colors,
+        $translate,
+        SweetAlert,
+        toaster
+    ) {
+
+        // Hook into ocLazyLoad to setup AngularGrid before inject into the app
+        // See "Creating the AngularJS Module" at
+        // https://www.ag-grid.com/best-angularjs-data-grid/index.php
+        var offevent = $rootScope.$on('ocLazyLoad.fileLoaded', function(e, file) {
+            if (file.indexOf('ag-grid.js') > -1) {
+                agGrid.initialiseAgGridWithAngular1(angular);
+                offevent();
+            }
+        });
+
+        // Set reference to access them from any scope
+        $rootScope.$state = $state;
+        $rootScope.$translate = $translate;
+        $rootScope.$stateParams = $stateParams;
+        $rootScope.$storage = $window.localStorage;
+
+        // Uncomment this to disable template cache
+        // $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        //     if (typeof(toState) !== 'undefined'){
+        //       $templateCache.remove(toState.templateUrl);
+        //     }
+        // });
+
+        // Allows to use branding color with interpolation
+        // {{ colorByName('primary') }}
+        $rootScope.colorByName = Colors.byName;
+
+        // cancel click event easily
+        $rootScope.cancel = function($event) {
+            $event.stopPropagation();
+        };
+
+        // Hooks Example
+        // -----------------------------------
+
+        // Hook not start
+        $rootScope.$on('$stateChangeStart',
+            function(event, toState, toParams, fromState, fromParams) {
+                if(toState.permission){
+                    if(window.userInfo && window.userInfo.module && window.userInfo.module.indexOf(toState.permission) == -1){
+                        $state.go('page.403')
+                    }
+                }
+
+            });
+
+        // Hook not found
+        $rootScope.$on('$stateNotFound',
+            function(event, unfoundState /* , fromState, fromParams */) {
+                $state.go('page.404')
+            });
+        // Hook error
+        $rootScope.$on('$stateChangeError',
+            function(event, toState, toParams, fromState, fromParams, error) {
+                console.log(error);
+            });
+        // Hook success
+        $rootScope.$on('$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams) {
+                // display new view from top
+                $window.scrollTo(0, 0);
+                // Save the route title
+                // $rootScope.currTitle = $state.current.title;
+                $window.document.title = $state.current.title;
+            });
+
+        // Load a title dynamically
+        // $rootScope.currTitle = $state.current.title;
+        // $rootScope.pageTitle = function() {
+        //     var title = $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
+        //     document.title = title;
+        //     return title;
+        // };
+
+        $window.document.title = '';
+
+    }
+
+})();
+(function (angular) {
+    
+
+    angular
+        .module('app.core')
+        .factory('userSelfService', userSelfService);
+
+    userSelfService.$inject = ['$resource', 'EVN'];
+
+    /* @ngInject */
+    function userSelfService($resource, EVN) {
+        return $resource(EVN.server + '/user/:action',
+            {},
+            {
+                // 获取用户自己的信息
+                getUserSelfInfo: {
+                    method: 'GET',
+                    params: {
+                        action: 'getUserInfo' + EVN.suffix
+                    }
+                },
+                // 用户登出
+                getUserLogout: {
+                    method: 'GET',
+                    params: {
+                        action: 'logout' + EVN.suffix
+                    }
+                },
+
+            }
+        );
+    }
+
+})(angular);
+
 
 (function() {
     'use strict';
@@ -478,549 +1027,6 @@
     'use strict';
 
     angular
-        .module('app.core')
-        .config(coreConfig);
-
-    coreConfig.$inject = [
-        '$controllerProvider',
-        '$compileProvider',
-        '$filterProvider',
-        '$provide',
-        '$httpProvider',
-        '$animateProvider'
-    ];
-    function coreConfig(
-        $controllerProvider,
-        $compileProvider,
-        $filterProvider,
-        $provide,
-        $httpProvider,
-        $animateProvider
-    ){
-
-      var core = angular.module('app.core');
-      // registering components after bootstrap
-      core.controller = $controllerProvider.register;
-      core.directive  = $compileProvider.directive;
-      core.filter     = $filterProvider.register;
-      core.factory    = $provide.factory;
-      core.service    = $provide.service;
-      core.constant   = $provide.constant;
-      core.value      = $provide.value;
-
-      // Disables animation on items with class .ng-no-animation
-      $animateProvider.classNameFilter(/^((?!(ng-no-animation)).)*$/);
-
-      // Improve performance disabling debugging features
-      // $compileProvider.debugInfoEnabled(false);
-
-      $httpProvider.interceptors.push('customeInterceptor');
-
-    }
-
-})();
-/** =========================================================
- * Module: constants.js
- * Define constants to inject across the application
- ========================================================= */
-
-(function() {
-
-    angular
-        .module('app.core')
-        .constant('APP_MEDIAQUERY', {
-            'desktopLG': 1200,
-            'desktop': 992,
-            'tablet': 768,
-            'mobile': 480
-        })
-        .constant('EVN', {
-            debug: true,
-            //suffix: '.json',
-            suffix: '',
-            //server: '',
-             server: 'http://193.112.155.213',
-            // server: 'http://madmin.ngrok.xiaomiqiu.cn',
-            //server: 'http://holyplace.ngrok.xiaomiqiu.cn',
-            URLOBJ:{
-                locales: 'LOCALELANGUAGE',
-                countries: 'COUNTRIESMANAGE',
-                transactions: 'TRANSACTIONSDETAIL',
-                currencies: 'CURRENCIESMANAGE',
-                blacklists: 'BLACKLISTS',
-                ranks: 'USERLEVEL',
-                orders: 'ORDERSMANAGE',
-                methods: 'PAYMENTMETHODS',
-                applies: 'APPLIESUSE',
-                brands: 'GAMEBRANDS',
-                categories: 'GAMECATEGORIES',
-                coupons: 'COUPONSMANAGE',
-                games: 'GAMESMANAGE',
-                products: 'GAMESPRODUCTS',
-                psps: 'PSPSMANAGE',
-                withdraws: 'WITHDRAWSMANAGE',
-                promotions: 'PROMOTIONSMANAGE',
-                rebates: 'REBATESLIST',
-                reliefs: 'RELIEFSLIST',
-                transfers: 'TRANSFERSLIST',
-                wallets: 'WALLETSMANAGE',
-                bigwins: 'BIGWINSMANAGE',
-                records: 'GAMERECORDS',
-                users: 'USERSMANAGE',
-            }
-        });
-})();
-(function() {
-
-
-    angular
-        .module('app.core')
-        .controller('MainController', MainController);
-
-    MainController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$translate',
-        'SweetAlert',
-        'toaster'
-    ];
-
-    function MainController(
-        $scope,
-        $rootScope,
-        $translate,
-        SweetAlert,
-        toaster
-    ) {
-
-        /**
-         *
-         * @param value 0-禁用；1-启用；2-删除；
-         * @return {*}
-         */
-
-        // 0-禁用；1-启用；2-删除；
-        $scope.filter012OptionsValue = function (value) {
-            if (value == 0) {
-                return '<div class="label label-warning">' + $translate.instant('options.forbid') + '</div>';
-            } else if (value == 1) {
-                return '<div class="label label-success">' + $translate.instant('options.enable') + '</div>';
-            } else if (value == 2) {
-                return '<div class="label label-danger">' + $translate.instant('options.delete') + '</div>';
-            } else {
-                return '';
-            }
-        };
-
-        var EDITOBJ = {
-            '1':'查看',
-            '2':'添加',
-            '3':'修改',
-        };
-
-        $scope.showEditStatus = function(edit) {
-
-            if(!edit){
-                return '';
-            }
-            return EDITOBJ[edit]||'';
-        };
-
-        $scope.checkIsDelete = function(item) {
-            if(item.timestamps&&item.timestamps.deletedAt){
-                return true;
-            }
-        };
-
-        $scope.showOptionsValue = function (str, arr) {
-            if(str && arr.length){
-                var tempBtnArray = arr.filter(function (optionsItem) {
-                    return optionsItem.value == str;
-                });
-                if(tempBtnArray.length){
-                    return tempBtnArray[0].label;
-                }
-            }
-            if(typeof str === 'string'){
-                return str;
-            }
-            return str || '';
-        };
-
-
-        $scope.searchPlaceholder = function(param) {
-            if (window.Array.isArray(param)) {
-                var tempArr = param.map(function(item) {
-                    return $translate.instant(item);
-                });
-                return tempArr.join('/');
-            }
-            if (typeof param === 'string') {
-                return $translate.instant(param);
-            }
-            return ' search all';
-        };
-
-        // 判断是否是一个新添加的
-        $scope.validIsNew = function (str) {
-            if (str && str.toString().indexOf('null') !== -1) {
-                return true;
-            }
-            return false;
-        };
-
-        /**
-         *  检测是否有权限
-         * @param module 模块名称
-         * @param arr arr或str GET,POST,DELETE
-         * @returns {boolean}
-         */
-        $scope.validPower = function (module, arr) {
-            var result = false;
-            if(typeof arr == 'string'){
-                if($rootScope.URL[module] && $rootScope.URL[module][arr]){
-                    return true;
-                }
-            }
-            if (window.Array.isArray(arr)) {
-                if(!$rootScope.URL[module]){
-                    return false;
-                }
-                arr.forEach(function(item) {
-                    if($rootScope.URL[module][item]){
-                        result = true;
-                    }
-                });
-                return result;
-            }
-            return false;
-        };
-
-        /**
-         *
-         * @param data 重复的项目
-         * @param id 重复项的id
-         * @returns {string}
-         */
-        $scope.showAddOrDetail = function(data, id) {
-            if($scope.validIsNew(id)){
-                return '新增';
-            }
-            if(window.Array.isArray(data) && data.length){
-                return '明细';
-            } else if (window.Array.isArray(data) && !data.length){
-                return '新增';
-            }
-            return '';
-        };
-
-        /**
-         * 用正则进行验证
-         * @param Reg 正则表达式
-         * @param str 传入的字符串
-         * @param msg 提示信息
-         */
-        $scope.validReg = function (Reg,str,msg) {
-            if(!str){
-                return msg;
-            }
-            var tempReg = new RegExp(Reg);
-            if(tempReg.test(str)){
-                return true;
-            }else{
-                return msg;
-            }
-        };
-
-
-        /**
-         *
-         * @param data 传入的值是否为空
-         * @return {string}
-         */
-
-        $scope.checkRequiredData = function(data) {
-            if (typeof data !=='boolean' && !data) {
-                return $translate.instant('required_message');
-            }
-        };
-
-        /**
-         *
-         * @param msg string
-         */
-
-        // 全局报错机制成功
-        $rootScope.toasterSuccess = function (msg) {
-            toaster.pop('success', $translate.instant('alert_confirm.success'), msg);
-        };
-
-        $rootScope.alertErrorMsg = function (msg) {
-            SweetAlert.error($translate.instant('alert_confirm.error'), msg);
-        };
-
-
-        $rootScope.dateOptionsYYYMMDD = {
-            useCurrent: false,
-            locale: $rootScope.language.selected || 'en',
-            format: 'YYYY-MM-DD'
-        };
-
-        $rootScope.dateOptionsYYYMMDDHHMM = {
-            useCurrent: false,
-            locale: $rootScope.language.selected || 'en',
-            format: 'YYYY-MM-DD HH:MM'
-        };
-
-        var locale = window.localStorage.getItem('NG_TRANSLATE_LANG_KEY')||((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en-GB');
-
-        console.log(locale,'locale')
-        $scope.showArrayName = function(arr) {
-            if(window.Array.isArray(arr)){
-                for(var i=0,j=arr.length;i<j;i++){
-                    if(arr[i].locale == locale){
-                        return arr[i].value || '';
-                        break;
-                    }
-                }
-                if(arr[0]){
-                    return arr[0].value || ''
-                }
-            }
-            return '';
-        };
-
-        /**
-         *
-         * @param callback 回调函数
-         */
-
-        // 删除确认
-        $rootScope.alertConfirm = function (callback) {
-            SweetAlert.swal({
-                title: $translate.instant('alert_confirm.title'),
-                text: $translate.instant('alert_confirm.text'),
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
-                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
-                closeOnConfirm: true
-            }, function(yes) {
-                if (yes) {
-                    callback();
-                }
-            });
-        };
-    }
-
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.core')
-        .factory('customeInterceptor', customeInterceptor);
-
-    customeInterceptor.$inject = ['$rootScope', '$timeout', '$injector', '$q','$window'];
-
-    function customeInterceptor($rootScope, $timeout, $injector, $q, $window) {
-        var requestInitiated;
-
-        function showLoadingText() {
-            $rootScope.isShowLoadingSpinner = true;
-        };
-
-        function hideLoadingText() {
-            $rootScope.isShowLoadingSpinner = false;
-        };
-
-        return {
-            request: function (config) {
-                //if(config.method === "GET"&&(config.url.indexOf('getDetail')!==-1||config.url.indexOf('getAudit')!==-1||config.url.indexOf('getPay')!==-1||config.url.indexOf('getReview')!==-1)){
-                //
-                //}else{
-                //
-                //}
-                requestInitiated = true;
-                showLoadingText();
-                return config;
-            },
-            response: function (response) {
-                requestInitiated = false;
-
-                // Show delay of 300ms so the popup will not appear for multiple http request
-                $timeout(function () {
-
-                    if (requestInitiated) return;
-                    hideLoadingText();
-
-                }, 400);
-
-                return response;
-            },
-            requestError: function (err) {
-                hideLoadingText();
-                return err;
-            },
-            responseError: function (err) {
-                hideLoadingText();
-                return $q.reject(err);
-            }
-        }
-    }
-
-})();
-(function() {
-
-
-    angular
-        .module('app.core')
-        .run(appRun);
-
-    appRun.$inject = [
-        '$rootScope',
-        '$state',
-        '$stateParams',
-        '$window',
-        '$templateCache',
-        'Colors',
-        '$translate',
-        'SweetAlert',
-        'toaster'
-    ];
-
-    function appRun(
-        $rootScope,
-        $state,
-        $stateParams,
-        $window,
-        $templateCache,
-        Colors,
-        $translate,
-        SweetAlert,
-        toaster
-    ) {
-
-        // Hook into ocLazyLoad to setup AngularGrid before inject into the app
-        // See "Creating the AngularJS Module" at
-        // https://www.ag-grid.com/best-angularjs-data-grid/index.php
-        var offevent = $rootScope.$on('ocLazyLoad.fileLoaded', function(e, file) {
-            if (file.indexOf('ag-grid.js') > -1) {
-                agGrid.initialiseAgGridWithAngular1(angular);
-                offevent();
-            }
-        });
-
-        // Set reference to access them from any scope
-        $rootScope.$state = $state;
-        $rootScope.$translate = $translate;
-        $rootScope.$stateParams = $stateParams;
-        $rootScope.$storage = $window.localStorage;
-
-        // Uncomment this to disable template cache
-        // $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        //     if (typeof(toState) !== 'undefined'){
-        //       $templateCache.remove(toState.templateUrl);
-        //     }
-        // });
-
-        // Allows to use branding color with interpolation
-        // {{ colorByName('primary') }}
-        $rootScope.colorByName = Colors.byName;
-
-        // cancel click event easily
-        $rootScope.cancel = function($event) {
-            $event.stopPropagation();
-        };
-
-        // Hooks Example
-        // -----------------------------------
-
-        // Hook not start
-        $rootScope.$on('$stateChangeStart',
-            function(event, toState, toParams, fromState, fromParams) {
-                if(toState.permission){
-                    if(window.userInfo && window.userInfo.module && window.userInfo.module.indexOf(toState.permission) == -1){
-                        $state.go('page.403')
-                    }
-                }
-
-            });
-
-        // Hook not found
-        $rootScope.$on('$stateNotFound',
-            function(event, unfoundState /* , fromState, fromParams */) {
-                $state.go('page.404')
-            });
-        // Hook error
-        $rootScope.$on('$stateChangeError',
-            function(event, toState, toParams, fromState, fromParams, error) {
-                console.log(error);
-            });
-        // Hook success
-        $rootScope.$on('$stateChangeSuccess',
-            function(event, toState, toParams, fromState, fromParams) {
-                // display new view from top
-                $window.scrollTo(0, 0);
-                // Save the route title
-                // $rootScope.currTitle = $state.current.title;
-                $window.document.title = $state.current.title;
-            });
-
-        // Load a title dynamically
-        // $rootScope.currTitle = $state.current.title;
-        // $rootScope.pageTitle = function() {
-        //     var title = $rootScope.app.name + ' - ' + ($rootScope.currTitle || $rootScope.app.description);
-        //     document.title = title;
-        //     return title;
-        // };
-
-        $window.document.title = '';
-
-    }
-
-})();
-(function (angular) {
-    
-
-    angular
-        .module('app.core')
-        .factory('userSelfService', userSelfService);
-
-    userSelfService.$inject = ['$resource', 'EVN'];
-
-    /* @ngInject */
-    function userSelfService($resource, EVN) {
-        return $resource(EVN.server + '/user/:action',
-            {},
-            {
-                // 获取用户自己的信息
-                getUserSelfInfo: {
-                    method: 'GET',
-                    params: {
-                        action: 'getUserInfo' + EVN.suffix
-                    }
-                },
-                // 用户登出
-                getUserLogout: {
-                    method: 'GET',
-                    params: {
-                        action: 'logout' + EVN.suffix
-                    }
-                },
-
-            }
-        );
-    }
-
-})(angular);
-
-
-(function() {
-    'use strict';
-
-    angular
         .module('app.loadingbar')
         .config(loadingbarConfig)
         ;
@@ -1239,6 +1245,164 @@
 })();
 
 
+(function() {
+
+
+    angular
+        .module('app.settings')
+        .run(settingsRun);
+
+    settingsRun.$inject = [
+        '$rootScope',
+        '$localStorage',
+        'userSelfService',
+        'SweetAlert',
+        '$translate'
+    ];
+
+    function settingsRun(
+        $rootScope,
+        $localStorage,
+        userSelfService,
+        SweetAlert,
+        $translate
+    ) {
+
+
+        // User Settings
+        // -----------------------------------
+        $rootScope.user = {
+            system: 'admin',
+            name: 'admin'
+        };
+
+        // Hides/show user avatar on sidebar from any element
+        $rootScope.toggleUserBlock = function() {
+            $rootScope.$broadcast('toggleUserBlock');
+        };
+
+        $rootScope.userLogout = function () {
+            SweetAlert.swal({
+                title: 'logout',
+                text: 'are you sure?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'logout',
+                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
+                closeOnConfirm: true
+            }, function(yes) {
+                if (yes) {
+                    userSelfService.getUserLogout({},{}).$promise.then(function (data) {
+                        window.location.href = '/login.html';
+                    })
+                }
+            });
+        };
+
+        // Global Settings
+        // -----------------------------------
+        $rootScope.app = {
+            name: 'Angle',
+            year: ((new Date()).getFullYear()),
+            layout: {
+                isFixed: true,
+                isCollapsed: false,
+                isBoxed: false,
+                isRTL: false,
+                horizontal: false,
+                isFloat: false,
+                asideHover: false,
+                theme: 'css/theme-e.css',
+                asideScrollbar: false,
+                isCollapsedText: false
+            },
+            useFullLayout: false,
+            hiddenFooter: false,
+            offsidebarOpen: false,
+            asideToggled: false,
+        };
+
+        console.log($rootScope.app.layout, '$rootScope.app.layout');
+
+        // Setup the layout mode
+        $rootScope.app.layout.horizontal = ($rootScope.$stateParams.layout === 'app-h');
+
+        // Restore layout settings
+        if (angular.isDefined($localStorage.layout)) { $rootScope.app.layout = $localStorage.layout }
+        else { $localStorage.layout = $rootScope.app.layout }
+
+        $rootScope.$watch('app.layout', function () {
+            $localStorage.layout = $rootScope.app.layout;
+        }, true);
+
+        // Close submenu when sidebar change from collapsed to normal
+        $rootScope.$watch('app.layout.isCollapsed', function(newValue) {
+            if (newValue === false) { $rootScope.$broadcast('closeSidebarMenu') }
+        });
+
+    }
+
+})();
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.translate')
+        .config(translateConfig)
+        ;
+    translateConfig.$inject = ['$translateProvider'];
+    function translateConfig($translateProvider){
+
+      $translateProvider.useStaticFilesLoader({
+          prefix : 'i18n/',
+          suffix : '.json'
+      });
+
+      $translateProvider.preferredLanguage((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en-GB');
+      $translateProvider.useLocalStorage();
+      $translateProvider.usePostCompiling(true);
+      $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
+
+    }
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('app.translate')
+        .run(translateRun);
+
+    translateRun.$inject = ['$rootScope', '$translate', '$window'];
+
+    function translateRun($rootScope, $translate, $window) {
+        // Internationalization
+        // ----------------------
+
+        $rootScope.language = {
+            // display always the current ui language
+            init: function () {
+                var proposedLanguage = $translate.proposedLanguage() || $translate.use();
+                var preferredLanguage = $translate.preferredLanguage(); // we know we have set a preferred one in app.config
+                $rootScope.language.selected = proposedLanguage || preferredLanguage;
+            },
+            set: function (localeId) {
+                // Set the new idiom
+                $translate.use(localeId);
+
+                window.localStorage.setItem('NG_TRANSLATE_LANG_KEY',localeId);
+                // save a reference for the current language
+                $rootScope.language.selected = localeId;
+
+                $window.location.reload();
+            }
+        };
+
+        $rootScope.language.init();
+
+    }
+})();
 (function() {
     'use strict';
 
@@ -1767,164 +1931,6 @@
     }
 })();
 
-(function() {
-
-
-    angular
-        .module('app.settings')
-        .run(settingsRun);
-
-    settingsRun.$inject = [
-        '$rootScope',
-        '$localStorage',
-        'userSelfService',
-        'SweetAlert',
-        '$translate'
-    ];
-
-    function settingsRun(
-        $rootScope,
-        $localStorage,
-        userSelfService,
-        SweetAlert,
-        $translate
-    ) {
-
-
-        // User Settings
-        // -----------------------------------
-        $rootScope.user = {
-            system: 'admin',
-            name: 'admin'
-        };
-
-        // Hides/show user avatar on sidebar from any element
-        $rootScope.toggleUserBlock = function() {
-            $rootScope.$broadcast('toggleUserBlock');
-        };
-
-        $rootScope.userLogout = function () {
-            SweetAlert.swal({
-                title: 'logout',
-                text: 'are you sure?',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'logout',
-                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
-                closeOnConfirm: true
-            }, function(yes) {
-                if (yes) {
-                    userSelfService.getUserLogout({},{}).$promise.then(function (data) {
-                        window.location.href = '/login.html';
-                    })
-                }
-            });
-        };
-
-        // Global Settings
-        // -----------------------------------
-        $rootScope.app = {
-            name: 'Angle',
-            year: ((new Date()).getFullYear()),
-            layout: {
-                isFixed: true,
-                isCollapsed: false,
-                isBoxed: false,
-                isRTL: false,
-                horizontal: false,
-                isFloat: false,
-                asideHover: false,
-                theme: 'css/theme-e.css',
-                asideScrollbar: false,
-                isCollapsedText: false
-            },
-            useFullLayout: false,
-            hiddenFooter: false,
-            offsidebarOpen: false,
-            asideToggled: false,
-        };
-
-        console.log($rootScope.app.layout, '$rootScope.app.layout');
-
-        // Setup the layout mode
-        $rootScope.app.layout.horizontal = ($rootScope.$stateParams.layout === 'app-h');
-
-        // Restore layout settings
-        if (angular.isDefined($localStorage.layout)) { $rootScope.app.layout = $localStorage.layout }
-        else { $localStorage.layout = $rootScope.app.layout }
-
-        $rootScope.$watch('app.layout', function () {
-            $localStorage.layout = $rootScope.app.layout;
-        }, true);
-
-        // Close submenu when sidebar change from collapsed to normal
-        $rootScope.$watch('app.layout.isCollapsed', function(newValue) {
-            if (newValue === false) { $rootScope.$broadcast('closeSidebarMenu') }
-        });
-
-    }
-
-})();
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.translate')
-        .config(translateConfig)
-        ;
-    translateConfig.$inject = ['$translateProvider'];
-    function translateConfig($translateProvider){
-
-      $translateProvider.useStaticFilesLoader({
-          prefix : 'i18n/',
-          suffix : '.json'
-      });
-
-      $translateProvider.preferredLanguage((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en-GB');
-      $translateProvider.useLocalStorage();
-      $translateProvider.usePostCompiling(true);
-      $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
-
-    }
-})();
-(function () {
-    'use strict';
-
-    angular
-        .module('app.translate')
-        .run(translateRun);
-
-    translateRun.$inject = ['$rootScope', '$translate', '$window'];
-
-    function translateRun($rootScope, $translate, $window) {
-        // Internationalization
-        // ----------------------
-
-        $rootScope.language = {
-            // display always the current ui language
-            init: function () {
-                var proposedLanguage = $translate.proposedLanguage() || $translate.use();
-                var preferredLanguage = $translate.preferredLanguage(); // we know we have set a preferred one in app.config
-                $rootScope.language.selected = proposedLanguage || preferredLanguage;
-            },
-            set: function (localeId) {
-                // Set the new idiom
-                $translate.use(localeId);
-
-                window.localStorage.setItem('NG_TRANSLATE_LANG_KEY',localeId);
-                // save a reference for the current language
-                $rootScope.language.selected = localeId;
-
-                $window.location.reload();
-            }
-        };
-
-        $rootScope.language.init();
-
-    }
-})();
 /**=========================================================
  * Module: animate-enabled.js
  * Enable or disables ngAnimate for element with directive

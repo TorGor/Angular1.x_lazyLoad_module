@@ -288,13 +288,13 @@
             "th3": "Categories",
             "th4": "Title",
             "th5": "Content",
-            "th6": "Start",
+            "th6": "Period",
             "th7": "End",
             "th8": "Status"
         },
         "rebatesList": {
             "th1": "Product",
-            "th2": "From",
+            "th2": "Period",
             "th3": "To",
             "th4": "Create At",
             "th5": "Username",

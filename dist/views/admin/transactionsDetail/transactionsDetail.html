@@ -20,6 +20,7 @@
                   </div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
                      <input-select inputkey='username' outputkey='affiliateId' input-placeholder="{{'table.transactionsDetail.th2' | translate}}" searchkey='username' min-length='3' output-value='transactionsDetailAoData.affiliate_id' url='{{URL.USERSMANAGE.GET}}'>
+                     </input-select>
                   </div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
                      <input class="form-control" type="text" style="width: 100%" ng-model="transactionsDetailAoData.service_id" placeholder="{{'table.transactionsDetail.th3' | translate}}">
@@ -123,7 +124,7 @@
                            <span>{{item.description | json}}</span>
                         </td>
                         <td>
-                           <span>{{(item.timestamps && item.timestamps.createdAt||'').substr(0,19)}}</span>
+                           <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
                         </td>
                      </tr>
                      <tr ng-show="transactionsDetail.length==0">

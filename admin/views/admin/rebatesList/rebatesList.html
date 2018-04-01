@@ -25,6 +25,7 @@
                             output-value='rebatesListAoData.affiliate_id'
                             url='{{URL.USERSMANAGE.GET}}'
                         >
+                        </input-select>
                     </div>
                     <div class='col-lg-3 col-md-6 margin-bottom-10'>
                         <input
@@ -83,19 +84,19 @@
                         <thead>
                         <tr class='bg-gray-light text-bold'>
                             <td style='width: 13%'>
+                                {{'table.rebatesList.th5' | translate}}
+                            </td>
+                            <td style='width: 13%'>
                                 {{'table.rebatesList.th1' | translate}}
                             </td>
-                            <td style='width: 16%'>
+                            <td style='width: 25%'>
                                 {{'table.rebatesList.th2' | translate}}
                             </td>
-                            <td style='width: 16%'>
-                                {{'table.rebatesList.th3' | translate}}
-                            </td>
+                            <!--<td style='width: 10%'>-->
+                                <!--{{'table.rebatesList.th3' | translate}}-->
+                            <!--</td>-->
                             <td style='width: 13%'>
                                 {{'table.rebatesList.th4' | translate}}
-                            </td>
-                            <td style='width: 13%'>
-                                {{'table.rebatesList.th5' | translate}}
                             </td>
                             <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='userId'>-->
                                 <!--{{'table.rebatesList.th6' | translate}}-->
@@ -129,19 +130,19 @@
                         <tbody>
                         <tr ng-repeat='item in rebatesList'>
                             <td>
+                                <span>{{item.user.username || ''}}</span>
+                            </td>
+                            <td>
                                 <span>{{item.product || ''}}</span>
                             </td>
                             <td>
-                                <span>{{item.period.from.substr(0, 19) || ''}}</span>
+                                <span>{{formatTime(item.period.from || '')+(item.period.to?' ~ ':'')+formatTime(item.period.to || '')}}</span>
                             </td>
-                            <td>
-                                <span>{{item.period.to.substr(0, 19) || ''}}</span>
-                            </td>
+                            <!--<td>-->
+                                <!--<span>{{item.period.to.substr(0, 19) || ''}}</span>-->
+                            <!--</td>-->
                             <td>
                                 <span>{{item.bonus || ''}}</span>
-                            </td>
-                            <td>
-                                <span>{{item.user.username || ''}}</span>
                             </td>
                             <!--<td>-->
                                 <!--<span>{{item.user.userId || ''}}</span>-->

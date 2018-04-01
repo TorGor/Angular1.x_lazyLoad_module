@@ -9,15 +9,13 @@
                </div>
                <div class="col-lg-3 col-md-6 margin-bottom-10">
                   <input-select inputkey='username' outputkey='affiliateId' input-placeholder="{{'table.transactionsDetail.th2' | translate}}" searchkey='username' min-length='3' output-value='withdrawsManageAoData.affiliate_id' url='{{URL.USERSMANAGE.GET}}'>
+                  </input-select>
                </div>
                <div class='col-lg-3 col-md-6 margin-bottom-10'>
                   <input class='form-control' type='text' ng-model='withdrawsManageAoData.min_amount' placeholder="{{'min ' + ('table.ordersManage.th1' | translate)}}">
                </div>
                <div class='col-lg-3 col-md-6 margin-bottom-10'>
                   <input class='form-control' type='text' ng-model='withdrawsManageAoData.max_amount' placeholder="{{'max ' + ('table.ordersManage.th1' | translate)}}">
-               </div>
-               <div class='col-lg-3 col-md-6 margin-bottom-10'>
-                  <input class='form-control' type='text' ng-model='withdrawsManageAoData.statusOptions' placeholder='result eg. succeed,failed'>
                </div>
                <div class='col-lg-3 col-md-6 margin-bottom-10'>
                   <ui-select ng-model="search.status" theme="bootstrap" multiple close-on-select="false" search-enabled="false">

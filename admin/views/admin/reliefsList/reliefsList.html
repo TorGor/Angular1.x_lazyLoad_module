@@ -88,7 +88,7 @@
                                 <span>{{item.status || ''}}</span>
                             </td>
                             <td>
-                                <span>{{(item.timestamps.createdAt || '').substr(0,19)}}</span>
+                                <span>{{formatTime(item.timestamps.createdAt || '')}}</span>
                             </td>
                         </tr>
                         <tr ng-show="showReliefsList.length==0">

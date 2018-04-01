@@ -33,15 +33,16 @@
                             <td style="width: 20%" ao-data="gameBrandsAoData" web-data-table-sort="code">
                                 {{'table.gameBrands.th1' | translate}}
                             </td>
+                            <td style="width: 12%">
+                                {{'table.gameBrands.th4' | translate}}
+                            </td>
                             <td style="width: 20%" ao-data="gameBrandsAoData" web-data-table-sort="wallet">
                                 {{'table.gameBrands.th2' | translate}}
                             </td>
                             <!--<td style="width: 12%">-->
                                 <!--{{'table.gameBrands.th3' | translate}}-->
                             <!--</td>-->
-                            <!--<td style="width: 12%">-->
-                                <!--{{'table.gameBrands.th4' | translate}}-->
-                            <!--</td>-->
+
                             <!--<td style="width: 12%">-->
                                 <!--{{'table.gameBrands.th5' | translate}}-->
                             <!--</td>-->
@@ -61,14 +62,14 @@
                             </td>
                             <td>
                                 <span>
+                                    {{showArrayName(item.name)}}
+                                </span>
+                            </td>
+                            <td>
+                                <span>
                                     {{ item.wallet || ''}}
                                 </span>
                             </td>
-                            <!--<td>-->
-                                <!--<span>-->
-                                    <!--<button class="btn btn-sm btn-info" ng-click="showBrandsCurrenciesModal(item)">{{showAddOrDetail(item.currencies, item._id)}}</button>-->
-                                <!--</span>-->
-                            <!--</td>-->
                             <!--<td>-->
                                 <!--<span>-->
                                     <!--<button class="btn btn-sm btn-info" ng-click="showBrandsNameModal(item)">{{showAddOrDetail(item.name, item._id)}}</button>-->
@@ -102,7 +103,7 @@
                         </tr>
                         <tr ng-show="showGameBrands.length==0">
                             <td
-                                colspan='{{validPower("GAMEBRANDS", ["PATCH","GET"])?8:7}}'
+                                colspan='20'
                                 class=""
                             >{{'table.no_date' | translate}}</td>
                         </tr>
