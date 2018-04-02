@@ -10,9 +10,9 @@
         .module('admin')
         .directive('inputSelect', inputSelect);
 
-    inputSelect.$inject=['adminService','$timeout'];
+    inputSelect.$inject=['$rootScope','adminService','$timeout'];
     /* @ngInject */
-    function inputSelect(adminService,$timeout) {
+    function inputSelect($rootScope, adminService, $timeout) {
         return{
             restrict: 'EA',
             template:
@@ -60,7 +60,10 @@
 
                 $scope.inputStatu=$scope.inputStatu||false;
                 $scope.searchDataFromServer = function (value) {
-                    var temAoData = {};
+                    var temAoData = {
+                        page: 1,
+                        pageSize: 25
+                    };
                     if($scope.searchkey){
                         temAoData[$scope.searchkey] = value||'';
                     }
@@ -71,7 +74,11 @@
                                 $scope.allItems = [];
                                 result.data.forEach(function(dataItem) {
                                     var tempObj={};
-                                    tempObj['_label']=dataItem[$scope.inputkey]||'';
+                                    if(window.Array.isArray(dataItem[$scope.inputkey])){
+                                        tempObj['_label'] = $rootScope.showArrayName(dataItem[$scope.inputkey])
+                                    }else{
+                                        tempObj['_label']=dataItem[$scope.inputkey]||'';
+                                    }
                                     tempObj['_value']=dataItem[$scope.outputkey]||'';
                                     $scope.allItems.push(tempObj)
                                 })
@@ -104,7 +111,7 @@
                         timer = $timeout(function() {
                             $scope.searchDataFromServer(tempvalue);
                         }, 300);
-                    })
+                    });
                     $($element).find('.ui-select-search').bind('focus',function(e) {
                         var tempvalue = e.target.value;
                         $scope.searchDataFromServer(tempvalue);

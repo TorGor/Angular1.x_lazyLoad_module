@@ -32,11 +32,16 @@
                         </input-select>
                     </div>
                     <div class="col-lg-3 col-md-6 margin-bottom-10">
-                        <input
-                            class="form-control"
-                            type="text"
-                            ng-model="gameRecordsAoData.game_id"
-                            placeholder="game id">
+                        <input-select
+                            inputkey='name'
+                            outputkey='id'
+                            input-placeholder="game name"
+                            searchkey='keyword'
+                            min-length='3'
+                            output-value='gameRecordsAoData.game_id'
+                            url='{{URL.GAMESMANAGE.GET}}'
+                        >
+                        </input-select>
                     </div>
                     <div class="col-lg-3 col-md-6 margin-bottom-10">
                         <input
@@ -135,20 +140,17 @@
                             <td style="width: 10%">
                                 {{'table.gameRecords.th8' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="gameRecordsAoData" server-data-table-sort="bet">
-                                {{'table.gameRecords.th1' | translate}}
-                            </td>
-                            <td style="width: 10%">
-                                {{'table.gameRecords.th2' | translate}}
-                            </td>
                             <td style="width: 10%">
                                 {{'table.gameRecords.th3' | translate}}
                             </td>
                             <td style="width: 10%" ao-data="gameRecordsAoData" server-data-table-sort="payout">
                                 {{'table.gameRecords.th4' | translate}}
                             </td>
-                            <td style="width: 10%" ao-data="gameRecordsAoData" server-data-table-sort="play_time">
-                                {{'table.gameRecords.th5' | translate}}
+                            <td style="width: 10%" ao-data="gameRecordsAoData" server-data-table-sort="bet">
+                                {{'table.gameRecords.th1' | translate}}
+                            </td>
+                            <td style="width: 10%">
+                                {{'table.gameRecords.th2' | translate}}
                             </td>
                             <td style="width: 10%">
                                 {{'table.gameRecords.th6' | translate}}
@@ -159,6 +161,9 @@
                             <td style="width: 10%">
                                 {{'table.gameRecords.th9' | translate}}
                             </td>
+                            <td style="width: 10%" ao-data="gameRecordsAoData" server-data-table-sort="play_time">
+                                {{'table.gameRecords.th5' | translate}}
+                            </td>
                         </tr>
                         </thead>
                         <tbody>
@@ -167,19 +172,16 @@
                                 <span>{{ item.user && item.user.username || '' }}</span>
                             </td>
                             <td>
-                                <span>{{ item.bet || '' }}</span>
-                            </td>
-                            <td>
-                                <span>{{ item.brand || '' }}</span>
-                            </td>
-                            <td>
                                 <span>{{showArrayName(item.game&&item.game.name||'')}}</span>
                             </td>
                             <td>
                                 <span>{{ item.payout || '' }}</span>
                             </td>
                             <td>
-                                <span>{{formatTime(item.playAt || '')}}</span>
+                                <span>{{ item.bet || '' }}</span>
+                            </td>
+                            <td>
+                                <span>{{ item.brand || '' }}</span>
                             </td>
                             <td>
                                 <span>{{ item.product || '' }}</span>
@@ -189,6 +191,9 @@
                             </td>
                             <td>
                                 <span>{{ item.wallet || '' }}</span>
+                            </td>
+                            <td>
+                                <span>{{formatTime(item.playAt || '')}}</span>
                             </td>
                         </tr>
                         <tr ng-show="gameRecords.length==0">

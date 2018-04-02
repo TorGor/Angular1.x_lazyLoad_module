@@ -223,10 +223,10 @@
         })
         .constant('EVN', {
             debug: true,
-            suffix: '.json',
-            //suffix: '',
-            server: '',
-             //server: 'http://193.112.155.213',
+            //suffix: '.json',
+            suffix: '',
+            //server: '',
+             server: 'http://193.112.155.213',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             //server: 'http://holyplace.ngrok.xiaomiqiu.cn',
             URLOBJ:{
@@ -461,7 +461,7 @@
 
         var locale = window.localStorage.getItem('NG_TRANSLATE_LANG_KEY')||((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en-GB');
 
-        $scope.showArrayName = function(arr) {
+        $rootScope.showArrayName = function(arr) {
             if(window.Array.isArray(arr)){
                 for(var i=0,j=arr.length;i<j;i++){
                     if(arr[i].locale == locale){
