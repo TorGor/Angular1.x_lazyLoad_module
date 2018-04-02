@@ -278,7 +278,7 @@
         $scope.recoverCouponsManage = function (couponsManage) {
             if (couponsManage.code) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.COUPONSMANAGE.PUT+'/'+couponsManage.code, {}, {}).then(function (res) {
+                    adminService.putReq($rootScope.URL.COUPONSMANAGE.PUT+'/'+couponsManage.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initCouponsManageData();
@@ -289,7 +289,7 @@
                             }
                         }
                     });
-                });
+                }, 'recover');
             }
         };
 

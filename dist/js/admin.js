@@ -629,7 +629,7 @@
         };
 
         $scope.confirmModal = function () {
-            adminService.patchReq($rootScope.URL.ORDERSMANAGE.PATCH+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
+            adminService.postReq($rootScope.URL.ORDERSMANAGE.PATCH+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $uibModalInstance.close('success');
@@ -975,17 +975,19 @@
          */
         $scope.recoverBlackLists = function (blackLists) {
             if (blackLists.accountNumber) {
-                adminService.putReq($rootScope.URL.BLACKLISTS.PUT+'/'+blackLists.accountNumber, {}, {}).then(function (res) {
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initBlackListsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                            return '';
+                $rootScope.alertConfirm(function () {
+                    adminService.putReq($rootScope.URL.BLACKLISTS.PUT+'/'+blackLists.accountNumber, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initBlackListsData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
                         }
-                    }
-                });
+                    });
+                },'recover');
             }
         };
 
@@ -1584,7 +1586,7 @@
         $scope.recoverCouponsManage = function (couponsManage) {
             if (couponsManage.code) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.COUPONSMANAGE.PUT+'/'+couponsManage.code, {}, {}).then(function (res) {
+                    adminService.putReq($rootScope.URL.COUPONSMANAGE.PUT+'/'+couponsManage.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initCouponsManageData();
@@ -1595,7 +1597,7 @@
                             }
                         }
                     });
-                });
+                }, 'recover');
             }
         };
 
@@ -4856,18 +4858,20 @@
          * @return null
          */
         $scope.recoverPaymentMethods = function (paymentMethods) {
-            if (!$scope.validIsNew(paymentMethods.id) && paymentMethods.code) {
-                adminService.putReq($rootScope.URL.PAYMENTMETHODS.DELETE+'/'+paymentMethods.code, {}, {}).then(function (res) {
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initPaymentMethodsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                            return '';
+            if (!$scope.validIsNew(paymentMethods.id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.putReq($rootScope.URL.PAYMENTMETHODS.PUT+'/'+paymentMethods.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initPaymentMethodsData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
                         }
-                    }
-                });
+                    });
+                }, 'recover');
             }
         };
 
@@ -7929,7 +7933,7 @@
         $scope.recoverWalletsManage = function (walletsManage) {
             if (!$scope.validIsNew(walletsManage._id)) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.WALLETSMANAGE.PUT+'/'+walletsManage.code, {}, {}).then(function (res) {
+                    adminService.putReq($rootScope.URL.WALLETSMANAGE.PUT+'/'+walletsManage.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initWalletsManageData();
@@ -7940,7 +7944,7 @@
                             }
                         }
                     });
-                });
+                }, 'recover');
             }
         };
 

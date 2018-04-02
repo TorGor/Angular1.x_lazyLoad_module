@@ -388,6 +388,14 @@
         "cancelButtonText": "取消",
         "confirmButtonText": "确认删除"
     },
+    "alert_recover": {
+        "success": "success",
+        "error": "error",
+        "title": "确认提示?",
+        "text": "确认恢复该数据吗？",
+        "cancelButtonText": "取消",
+        "confirmButtonText": "确认恢复"
+    },
     "required_message": "该字段必填",
     "options": {
         "all": "全部",

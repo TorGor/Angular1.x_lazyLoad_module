@@ -44,7 +44,7 @@
                            <button class="btn btn-sm btn-info" ng-show='validPower("GAMECATEGORIES", ["PATCH"])' ng-click="showGameCategoriesModal(item,3)" title="{{'table.button.edit' | translate}}">
                               <em class="fa fa-pencil"></em>
                            </button>
-                           <button class="btn btn-sm btn-danger" ng-show='validPower("GAMECATEGORIES", ["DELETE"])' ng-click="deleteGameCategories(item)" title="{{'table.button.delete' | translate}}">
+                           <button class="btn btn-sm btn-danger" ng-show='validPower("GAMECATEGORIES", ["DELETE"])&&!checkIsDelete(item)' ng-click="deleteGameCategories(item)" title="{{'table.button.delete' | translate}}">
                               <em class="fa fa-trash"></em>
                            </button>
                            <button class="btn btn-sm btn-green" ng-click="showGameCategoriesModal(item,1)" title="{{'table.button.detail' | translate}}">
@@ -53,7 +53,7 @@
                         </td>
                      </tr>
                      <tr ng-show="showGameCategories.length==0">
-                        <td colspan='{{validPower("GAMECATEGORIES", ["PATCH", "DELETE", "GET"])?2:1}}' class="">{{'table.no_date' | translate}}</td>
+                        <td colspan='20' class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

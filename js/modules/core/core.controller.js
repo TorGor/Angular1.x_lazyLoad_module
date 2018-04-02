@@ -230,21 +230,39 @@
          */
 
         // 删除确认
-        $rootScope.alertConfirm = function (callback) {
-            SweetAlert.swal({
-                title: $translate.instant('alert_confirm.title'),
-                text: $translate.instant('alert_confirm.text'),
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
-                cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
-                closeOnConfirm: true
-            }, function(yes) {
-                if (yes) {
-                    callback();
-                }
-            });
+        $rootScope.alertConfirm = function (callback,type) {
+            if(type == 'recover'){
+                SweetAlert.swal({
+                    title: $translate.instant('alert_recover.title'),
+                    text: $translate.instant('alert_recover.text'),
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#37bc9b',
+                    confirmButtonText: $translate.instant('alert_recover.confirmButtonText'),
+                    cancelButtonText: $translate.instant('alert_recover.cancelButtonText'),
+                    closeOnConfirm: true
+                }, function(yes) {
+                    if (yes) {
+                        callback();
+                    }
+                });
+            }else{
+                SweetAlert.swal({
+                    title: $translate.instant('alert_confirm.title'),
+                    text: $translate.instant('alert_confirm.text'),
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
+                    cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
+                    closeOnConfirm: true
+                }, function(yes) {
+                    if (yes) {
+                        callback();
+                    }
+                });
+            }
+
         };
     }
 

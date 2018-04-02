@@ -388,6 +388,14 @@
         "cancelButtonText": "cancel",
         "confirmButtonText": "Yes, delete it!"
     },
+    "alert_recover": {
+        "success": "success",
+        "error": "error",
+        "title": "Are you sure?",
+        "text": "Do you want to recover ?",
+        "cancelButtonText": "cancel",
+        "confirmButtonText": "Yes, recover it!"
+    },
     "required_message": "is required",
     "options": {
         "all": "All",

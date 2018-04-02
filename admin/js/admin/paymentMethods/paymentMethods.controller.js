@@ -178,18 +178,20 @@
          * @return null
          */
         $scope.recoverPaymentMethods = function (paymentMethods) {
-            if (!$scope.validIsNew(paymentMethods.id) && paymentMethods.code) {
-                adminService.putReq($rootScope.URL.PAYMENTMETHODS.DELETE+'/'+paymentMethods.code, {}, {}).then(function (res) {
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initPaymentMethodsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                            return '';
+            if (!$scope.validIsNew(paymentMethods.id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.putReq($rootScope.URL.PAYMENTMETHODS.PUT+'/'+paymentMethods.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initPaymentMethodsData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
                         }
-                    }
-                });
+                    });
+                }, 'recover');
             }
         };
 

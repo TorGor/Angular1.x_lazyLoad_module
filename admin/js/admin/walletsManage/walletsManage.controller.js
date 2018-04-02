@@ -201,7 +201,7 @@
         $scope.recoverWalletsManage = function (walletsManage) {
             if (!$scope.validIsNew(walletsManage._id)) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.WALLETSMANAGE.PUT+'/'+walletsManage.code, {}, {}).then(function (res) {
+                    adminService.putReq($rootScope.URL.WALLETSMANAGE.PUT+'/'+walletsManage.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initWalletsManageData();
@@ -212,7 +212,7 @@
                             }
                         }
                     });
-                });
+                }, 'recover');
             }
         };
 
