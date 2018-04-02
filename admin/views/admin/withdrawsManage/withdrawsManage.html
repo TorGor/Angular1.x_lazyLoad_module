@@ -113,6 +113,10 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
+
+                            <td style="width: 12%">
+                                {{'module.user' | translate}}
+                            </td>
                             <td style="width: 12%" ao-data="withdrawsManageAoData" server-data-table-sort="amount">
                                 {{'table.withdrawsManage.th1' | translate}}
                             </td>
@@ -142,6 +146,9 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in withdrawsManage">
+                            <td>
+                                <span>{{item.user.username || ''}}</span>
+                            </td>
                             <td>
                                 <span>{{item.amount || ''}}</span>
                             </td>
@@ -190,7 +197,7 @@
                             </td>
                         </tr>
                         <tr ng-show="withdrawsManage.length==0">
-                            <td colspan="9" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan="20" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

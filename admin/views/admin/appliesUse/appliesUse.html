@@ -121,6 +121,9 @@
                         <thead>
                         <tr class="bg-gray-light text-bold">
                             <td style="width: 10%" >
+                                {{'module.user' | translate}}
+                            </td>
+                            <td style="width: 10%" >
                                 {{'table.appliesUse.th1' | translate}}
                             </td>
                             <td style="width: 10%" >
@@ -149,6 +152,9 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in appliesUse">
+                            <td>
+                                <span>{{item.user.username}}</span>
+                            </td>
                             <td>
                                 <span>{{item.bets}}</span>
                             </td>

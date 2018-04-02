@@ -33,6 +33,9 @@
             }
         }
     },
+    "module":{
+        "user":"user"
+    },
     "table": {
         "common": {
             "per_page": "Per page",
@@ -372,6 +375,18 @@
             "th12": "Verifi Phone",
             "th13": "OTP",
             "th14": "Sex"
+        },
+        "bigwinsManage": {
+            "th1": "Username",
+            "th2": "Game",
+            "th3": "Times",
+            "th4": "Bet",
+            "th5": "Bonus",
+            "th6": "Win",
+            "th7": "Brand",
+            "th8": "Round",
+            "th9": "Play Time",
+            "th10": "Status"
         }
     },
     "panel_tile": {

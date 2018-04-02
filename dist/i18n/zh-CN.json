@@ -33,6 +33,9 @@
             }
         }
     },
+    "module":{
+        "user":"用户"
+    },
     "table": {
         "common": {
             "per_page": "每页",
@@ -372,6 +375,18 @@
             "th12": "验证手机",
             "th13": "手机令牌",
             "th14": "性别"
+        },
+        "bigwinsManage": {
+            "th1": "Username",
+            "th2": "Game",
+            "th3": "Times",
+            "th4": "Bet",
+            "th5": "Bonus",
+            "th6": "Win",
+            "th7": "Brand",
+            "th8": "Round",
+            "th9": "Play Time",
+            "th10": "Status"
         }
     },
     "panel_tile": {
