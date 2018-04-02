@@ -242,7 +242,7 @@
                 }
             });
             modalInstance.result.then(function(data) {
-                $scope.initOrdersManageData()
+                $scope.initCouponsManageData()
             }, function(data) {
             });
         };
