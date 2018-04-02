@@ -2,22 +2,68 @@
    <div class="panel panel-default">
       <div class="panel-wrapper">
          <div class="panel-body">
-            <span class="form-group add-button-class">
-               <!--<button-->
-               <!--class="btn btn-primary"-->
-               <!--ng-click="addAppliesUse()"-->
-               <!--type="button"-->
-               <!--translate="table.button.add"-->
+            <form class="form-horizontal" role="form">
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input-select inputkey='username' outputkey='affiliateId' input-placeholder="{{'table.transactionsDetail.th1' | translate}}" searchkey='username' min-length='3' output-value='appliesUseAoData.user_id' url='{{URL.USERSMANAGE.GET}}'>
+                  </input-select>
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input-select inputkey='username' outputkey='affiliateId' input-placeholder="{{'table.transactionsDetail.th2' | translate}}" searchkey='username' min-length='3' output-value='appliesUseAoData.affiliate_id' url='{{URL.USERSMANAGE.GET}}'>
+                  </input-select>
+               </div>
+               <div class="col-lg-3 col-md-6">
+                  <input class="form-control" type="text" ng-model="appliesUseAoData.code" placeholder="coupons code A,B">
+               </div>
+               <!--<div class="col-lg-3 col-md-6 margin-bottom-10">-->
+               <!--<input-select-->
+               <!--inputkey='name'-->
+               <!--outputkey='code'-->
+               <!--input-placeholder="coupons code"-->
+               <!--searchkey='name'-->
+               <!--output-value='appliesUseAoData.game_id'-->
+               <!--url='{{URL.COUPONSMANAGE.GET}}'-->
                <!--&gt;-->
-               <!--新增-->
-               <!--</button>-->
-            </span>
-            <form class="form-inline pull-right add-button-class" role="form">
-               <div style="position: relative" class="form-group">
-                  <span style="position: absolute;left: 4px;top: 6px">
-                     <em class="fa fa-search"></em>
-                  </span>
-                  <input class="form-control" type="text" ng-model="appliesUseSearch" placeholder="{{searchPlaceholder(['table.appliesUse.th1', 'table.appliesUse.th2', 'table.appliesUse.th3'])}}">
+               <!--</input-select>-->
+               <!--</div>-->
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="search.products" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
+                     <ui-select-match placeholder='choose products'>
+                        <span>{{$item.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in productSearchOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="search.status" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
+                     <ui-select-match placeholder='choose status'>
+                        <span>{{$item.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in statusOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="search.brands" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
+                     <ui-select-match placeholder='choose brands'>
+                        <span>{{$item.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in brandOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="search.wallets" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
+                     <ui-select-match placeholder='choose wallets'>
+                        <span>{{$item.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in walletsOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
                </div>
             </form>
             <div server-data-table items="appliesUse" ao-data="appliesUseAoData" reload="appliesUseReload" service-name="adminService" service-name-attr="getReq" url="appliesUseUrl" handle-data="false">

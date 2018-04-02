@@ -7,12 +7,14 @@
     CommonModuleController.$inject = [
         '$scope',
         '$rootScope',
+        '$uibModal',
         'adminService'
     ];
 
     function CommonModuleController(
         $scope,
         $rootScope,
+        $uibModal,
         adminService
     ) {
 
@@ -106,30 +108,26 @@
             }
         };
 
-        // 添加按钮
-        $scope.addCommonModule = function () {
-            $scope.commonModuleAoData = {};
-            $scope.commonModuleSearch = '';
-            $scope.commonModule.unshift({
-                '_id': ($scope.commonModule.length+1) + 'null',
-                'commonModuleName': '',
-                'commonModuleType': '',
-                'commonModuleStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
-            });
-        };
-
+        // 恢复commonModule
         /**
-         *
-         * @param item 添加的COMMONMODULETITLE
-         * @param index 添加的index
+         * @param commonModule COMMONMODULETITLE数据对象
+         * @return null
          */
-
-        $scope.cancelSave = function (item, index) {
-            if ($scope.validIsNew(item._id)) {
-                $scope.commonModule.splice(index, 1);
+        $scope.recoverCommonModule = function (commonModule) {
+            if (!$scope.validIsNew(commonModule._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.COMMONMODULE.PUT+'/'+commonModule.id, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initCommonModuleData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                }, 'recover');
             }
         };
 

@@ -7,12 +7,14 @@
     BigwinsManageController.$inject = [
         '$scope',
         '$rootScope',
+        '$uibModal',
         'adminService'
     ];
 
     function BigwinsManageController(
         $scope,
         $rootScope,
+        $uibModal,
         adminService
     ) {
 
@@ -91,19 +93,27 @@
             }
         };
 
-        // 添加按钮
-        $scope.addBigwinsManage = function () {
-            $scope.bigwinsManageAoData = {};
-            $scope.bigwinsManageSearch = '';
-            $scope.bigwinsManage.unshift({
-                '_id': ($scope.bigwinsManage.length+1) + 'null',
-                'bigwinsManageName': '',
-                'bigwinsManageType': '',
-                'bigwinsManageStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
-            });
+        // 恢复bigwinsManage
+        /**
+         * @param bigwinsManage BIGWINSMANAGETITLE数据对象
+         * @return null
+         */
+        $scope.recoverBigwinsManage = function (bigwinsManage) {
+            if (!$scope.validIsNew(bigwinsManage._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.BIGWINSMANAGE.PUT+'/'+bigwinsManage.id, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initBigwinsManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                }, 'recover');
+            }
         };
 
         // 页面加载执行的函数

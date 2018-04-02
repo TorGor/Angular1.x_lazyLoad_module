@@ -135,13 +135,14 @@
         },
         "transactionsDetail": {
             "th1": "用户",
-            "th2": "服务",
+            "th2": "隶属",
             "th3": "钱包",
             "th4": "PreBalance",
             "th5": "数量",
             "th6": "PostBalance",
             "th7": "描述",
-            "th8": "创建时间"
+            "th8": "创建时间",
+            "th9": "服务"
         },
         "blackLists": {
             "th1": "数量",

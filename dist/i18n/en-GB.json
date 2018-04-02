@@ -135,13 +135,14 @@
         },
         "transactionsDetail": {
             "th1": "User",
-            "th2": "Service",
+            "th2": "Affiliate",
             "th3": "Wallet",
             "th4": "PreBalance",
             "th5": "Amount",
             "th6": "PostBalance",
             "th7": "Description",
-            "th8": "Create At"
+            "th8": "Create At",
+            "th9": "Service"
         },
         "blackLists": {
             "th1": "AccountNumber",
