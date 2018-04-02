@@ -49,5 +49,24 @@
         // 页面加载执行的函数
 
         $scope.initReliefsListData();
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.reliefsListAoData.start_time = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                } else {
+                    if ($scope.reliefsListAoData.start_time) {
+                        delete $scope.reliefsListAoData.start_time;
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.reliefsListAoData.end_time = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                } else {
+                    if ($scope.reliefsListAoData.end_time) {
+                        delete $scope.reliefsListAoData.end_time;
+                    }
+                }
+            }
+        });
     }
 })();
