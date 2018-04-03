@@ -46,6 +46,8 @@
                 bigwins: 'BIGWINSMANAGE',
                 records: 'GAMERECORDS',
                 users: 'USERSMANAGE',
+                domains: 'DOMAINSMANAGE',
+                affiliates: 'AFFILIATESMANAGE',
             }
         });
 })();

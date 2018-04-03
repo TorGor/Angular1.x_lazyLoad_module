@@ -30,6 +30,8 @@
 			'admin.usersManage',
 			'admin.walletsManage',
 			'admin.bigwinsManage',
+			'admin.domainsManage',
+			'admin.affiliatesManage',
 			//new module name will be append here
 
         ]);

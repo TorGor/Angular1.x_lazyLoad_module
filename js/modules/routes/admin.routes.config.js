@@ -402,7 +402,25 @@
                 permission: 'bigwins'
             })
             
+            .state('admin.domainsManage', {
+                url: '/domainsManage/manage',
+                title: 'domainsManage Manage',
+                controller: 'DomainsManageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/domainsManage/domainsManage.html'),
+                permission: 'domains'
+            })
+            
+            .state('admin.affiliatesManage', {
+                url: '/affiliatesManage/manage',
+                title: 'affiliatesManage Manage',
+                controller: 'AffiliatesManageController',
+                templateUrl: RouteHelpersProvider.basepath('admin/affiliatesManage/affiliatesManage.html'),
+                permission: 'affiliates'
+            })
+            
             //new route name will be append here
+            
+            
             
             
             

@@ -178,7 +178,19 @@
                     "text": "千百倍",
                     "sref": "admin.bigwinsManage",
                     "module": "bigwins",
+                },
+                {
+                    "text": "域名管理",
+                    "sref": "admin.domainsManage",
+                    "module": "domains",
+                },
+                {
+                    "text": "代理管理",
+                    "sref": "admin.affiliatesManage",
+                    "module": "affiliates",
                 }//new sidebar name will be append here
+            
+            
             
             
             

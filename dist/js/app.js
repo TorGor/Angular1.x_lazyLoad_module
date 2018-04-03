@@ -61,23 +61,16 @@
     'use strict';
 
     angular
-        .module('app.preloader', []);
-})();
-
-
-(function() {
-
-    angular
-        .module('app.routes', [
-            'app.lazyload'
-        ]);
+        .module('app.lazyload', []);
 })();
 (function() {
     'use strict';
 
     angular
-        .module('app.lazyload', []);
+        .module('app.preloader', []);
 })();
+
+
 (function() {
     'use strict';
 
@@ -101,6 +94,13 @@
 
     angular
         .module('app.sidebar', []);
+})();
+(function() {
+
+    angular
+        .module('app.routes', [
+            'app.lazyload'
+        ]);
 })();
 (function() {
     'use strict';
@@ -254,6 +254,8 @@
                 bigwins: 'BIGWINSMANAGE',
                 records: 'GAMERECORDS',
                 users: 'USERSMANAGE',
+                domains: 'DOMAINSMANAGE',
+                affiliates: 'AFFILIATESMANAGE',
             }
         });
 })();
@@ -732,184 +734,6 @@
     'use strict';
 
     angular
-        .module('app.preloader')
-        .directive('preloader', preloader);
-
-    preloader.$inject = ['$animate', '$timeout', '$q'];
-    function preloader ($animate, $timeout, $q) {
-
-        var directive = {
-            restrict: 'EAC',
-            template: 
-              '<div class="preloader-progress">' +
-                  '<div class="preloader-progress-bar" ' +
-                       'ng-style="{width: loadCounter + \'%\'}"></div>' +
-              '</div>'
-            ,
-            link: link
-        };
-        return directive;
-
-        ///////
-
-        function link(scope, el) {
-
-          scope.loadCounter = 0;
-
-          var counter  = 0,
-              timeout;
-
-          // disables scrollbar
-          angular.element('body').css('overflow', 'hidden');
-          // ensure class is present for styling
-          el.addClass('preloader');
-
-          appReady().then(endCounter);
-
-          timeout = $timeout(startCounter);
-
-          ///////
-
-          function startCounter() {
-
-            var remaining = 100 - counter;
-            counter = counter + (0.015 * Math.pow(1 - Math.sqrt(remaining), 2));
-
-            scope.loadCounter = parseInt(counter, 10);
-
-            timeout = $timeout(startCounter, 20);
-          }
-
-          function endCounter() {
-
-            $timeout.cancel(timeout);
-
-            scope.loadCounter = 100;
-
-            $timeout(function(){
-              // animate preloader hiding
-              $animate.addClass(el, 'preloader-hidden');
-              // retore scrollbar
-              angular.element('body').css('overflow', '');
-            }, 300);
-          }
-
-          function appReady() {
-            var deferred = $q.defer();
-            var viewsLoaded = 0;
-            // if this doesn't sync with the real app ready
-            // a custom event must be used instead
-            var off = scope.$on('$viewContentLoaded', function () {
-              viewsLoaded ++;
-              console.log(viewsLoaded,'viewsLoaded')
-              // we know there are at least two views to be loaded 
-              // before the app is ready (1-index.html 2-app*.html)
-              if ( viewsLoaded === 2) {
-                // with resolve this fires only once
-                $timeout(function(){
-                  deferred.resolve();
-                }, 1000);
-
-                off();
-              }
-
-            });
-
-            return deferred.promise;
-          }
-
-        } //link
-    }
-
-})();
-/** =========================================================
- * Module: helpers.js
- * Provides helper functions for routes definition
- ========================================================= */
-
-(function() {
-
-    angular
-        .module('app.routes')
-        .provider('RouteHelpers', RouteHelpersProvider);
-
-    RouteHelpersProvider.$inject = ['APP_REQUIRES'];
-    function RouteHelpersProvider(APP_REQUIRES) {
-
-        /* jshint validthis:true */
-        return {
-        // provider access level
-            basepath: basepath,
-            resolveFor: resolveFor,
-            // controller access level
-            $get: function() {
-                return {
-                    basepath: basepath,
-                    resolveFor: resolveFor
-                };
-            }
-        };
-
-        // Set here the base of the relative path
-        // for all app views
-        function basepath(uri) {
-            return 'views/' + uri;
-        }
-
-        // Generates a resolve object by passing script names
-        // previously configured in constant.APP_REQUIRES
-        function resolveFor() {
-            var _args = arguments;
-            return {
-                deps: ['$ocLazyLoad', '$q', function ($ocLazyLoad, $q) {
-                    // Creates a promise chain for each argument
-                    var promise = $q.when(1); // empty promise
-                    for (var i = 0, len = _args.length; i < len; i++) {
-                        promise = andThen(_args[i]);
-                    }
-                    return promise;
-
-                    // creates promise to chain dynamically
-                    function andThen(_arg) {
-                        // also support a function that returns a promise
-                        if (typeof _arg === 'function') { return promise.then(_arg) }
-                        else { return promise.then(function() {
-                            // if is a module, pass the name. If not, pass the array
-                            var whatToLoad = getRequired(_arg);
-                            // simple error check
-                            if (!whatToLoad) return $.error('Route resolve: Bad resource name [' + _arg + ']');
-                            // finally, return a promise
-                            return $ocLazyLoad.load(whatToLoad);
-                        }); }
-                    }
-                    // check and returns required data
-                    // analyze module items with the form [name: '', files: []]
-                    // and also simple array of script files (for not angular js)
-                    function getRequired(name) {
-                        if (APP_REQUIRES.modules) {
-                            for (var m in APP_REQUIRES.modules) {
-                                if (APP_REQUIRES.modules[m].name && APP_REQUIRES.modules[m].name === name) {
-                                    return APP_REQUIRES.modules[m];
-                                }
-                            }
-                        }
-                        return APP_REQUIRES.scripts && APP_REQUIRES.scripts[name];
-                    }
-
-                }]
-            };
-        } // resolveFor
-
-    }
-
-
-})();
-
-
-(function() {
-    'use strict';
-
-    angular
         .module('app.lazyload')
         .config(lazyloadConfig);
 
@@ -1219,6 +1043,100 @@
         });
 })();
 
+(function() {
+    'use strict';
+
+    angular
+        .module('app.preloader')
+        .directive('preloader', preloader);
+
+    preloader.$inject = ['$animate', '$timeout', '$q'];
+    function preloader ($animate, $timeout, $q) {
+
+        var directive = {
+            restrict: 'EAC',
+            template: 
+              '<div class="preloader-progress">' +
+                  '<div class="preloader-progress-bar" ' +
+                       'ng-style="{width: loadCounter + \'%\'}"></div>' +
+              '</div>'
+            ,
+            link: link
+        };
+        return directive;
+
+        ///////
+
+        function link(scope, el) {
+
+          scope.loadCounter = 0;
+
+          var counter  = 0,
+              timeout;
+
+          // disables scrollbar
+          angular.element('body').css('overflow', 'hidden');
+          // ensure class is present for styling
+          el.addClass('preloader');
+
+          appReady().then(endCounter);
+
+          timeout = $timeout(startCounter);
+
+          ///////
+
+          function startCounter() {
+
+            var remaining = 100 - counter;
+            counter = counter + (0.015 * Math.pow(1 - Math.sqrt(remaining), 2));
+
+            scope.loadCounter = parseInt(counter, 10);
+
+            timeout = $timeout(startCounter, 20);
+          }
+
+          function endCounter() {
+
+            $timeout.cancel(timeout);
+
+            scope.loadCounter = 100;
+
+            $timeout(function(){
+              // animate preloader hiding
+              $animate.addClass(el, 'preloader-hidden');
+              // retore scrollbar
+              angular.element('body').css('overflow', '');
+            }, 300);
+          }
+
+          function appReady() {
+            var deferred = $q.defer();
+            var viewsLoaded = 0;
+            // if this doesn't sync with the real app ready
+            // a custom event must be used instead
+            var off = scope.$on('$viewContentLoaded', function () {
+              viewsLoaded ++;
+              console.log(viewsLoaded,'viewsLoaded')
+              // we know there are at least two views to be loaded 
+              // before the app is ready (1-index.html 2-app*.html)
+              if ( viewsLoaded === 2) {
+                // with resolve this fires only once
+                $timeout(function(){
+                  deferred.resolve();
+                }, 1000);
+
+                off();
+              }
+
+            });
+
+            return deferred.promise;
+          }
+
+        } //link
+    }
+
+})();
 (function() {
     'use strict';
 
@@ -1601,7 +1519,19 @@
                     "text": "千百倍",
                     "sref": "admin.bigwinsManage",
                     "module": "bigwins",
+                },
+                {
+                    "text": "域名管理",
+                    "sref": "admin.domainsManage",
+                    "module": "domains",
+                },
+                {
+                    "text": "代理管理",
+                    "sref": "admin.affiliatesManage",
+                    "module": "affiliates",
                 }//new sidebar name will be append here
+            
+            
             
             
             
@@ -1948,6 +1878,90 @@
         // }
     }
 })();
+
+/** =========================================================
+ * Module: helpers.js
+ * Provides helper functions for routes definition
+ ========================================================= */
+
+(function() {
+
+    angular
+        .module('app.routes')
+        .provider('RouteHelpers', RouteHelpersProvider);
+
+    RouteHelpersProvider.$inject = ['APP_REQUIRES'];
+    function RouteHelpersProvider(APP_REQUIRES) {
+
+        /* jshint validthis:true */
+        return {
+        // provider access level
+            basepath: basepath,
+            resolveFor: resolveFor,
+            // controller access level
+            $get: function() {
+                return {
+                    basepath: basepath,
+                    resolveFor: resolveFor
+                };
+            }
+        };
+
+        // Set here the base of the relative path
+        // for all app views
+        function basepath(uri) {
+            return 'views/' + uri;
+        }
+
+        // Generates a resolve object by passing script names
+        // previously configured in constant.APP_REQUIRES
+        function resolveFor() {
+            var _args = arguments;
+            return {
+                deps: ['$ocLazyLoad', '$q', function ($ocLazyLoad, $q) {
+                    // Creates a promise chain for each argument
+                    var promise = $q.when(1); // empty promise
+                    for (var i = 0, len = _args.length; i < len; i++) {
+                        promise = andThen(_args[i]);
+                    }
+                    return promise;
+
+                    // creates promise to chain dynamically
+                    function andThen(_arg) {
+                        // also support a function that returns a promise
+                        if (typeof _arg === 'function') { return promise.then(_arg) }
+                        else { return promise.then(function() {
+                            // if is a module, pass the name. If not, pass the array
+                            var whatToLoad = getRequired(_arg);
+                            // simple error check
+                            if (!whatToLoad) return $.error('Route resolve: Bad resource name [' + _arg + ']');
+                            // finally, return a promise
+                            return $ocLazyLoad.load(whatToLoad);
+                        }); }
+                    }
+                    // check and returns required data
+                    // analyze module items with the form [name: '', files: []]
+                    // and also simple array of script files (for not angular js)
+                    function getRequired(name) {
+                        if (APP_REQUIRES.modules) {
+                            for (var m in APP_REQUIRES.modules) {
+                                if (APP_REQUIRES.modules[m].name && APP_REQUIRES.modules[m].name === name) {
+                                    return APP_REQUIRES.modules[m];
+                                }
+                            }
+                        }
+                        return APP_REQUIRES.scripts && APP_REQUIRES.scripts[name];
+                    }
+
+                }]
+            };
+        } // resolveFor
+
+    }
+
+
+})();
+
 
 /**=========================================================
  * Module: animate-enabled.js
