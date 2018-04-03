@@ -18,6 +18,53 @@
         adminService
     ) {
 
+        $scope.brandOptions = [];
+
+        $scope.initBrandOptionsData = function () {
+            $scope.brandOptions = [];
+            adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                $scope.brandOptions.push(tempObj)
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.statusOptions = [
+            {
+                label:'pending',
+                value:'pending'
+            },
+            {
+                label:'approved',
+                value:'approved'
+            },
+            {
+                label:'reviewing',
+                value:'reviewing'
+            },
+            {
+                label:'succeed',
+                value:'succeed'
+            },
+            {
+                label:'revoked',
+                value:'revoked'
+            }
+        ];
+
         $scope.bigwinsManageUrl = $rootScope.URL.BIGWINSMANAGE.GET;
 
         // 原始的数据
@@ -36,7 +83,7 @@
                 $rootScope.alertErrorMsg('server data error');
                 return;
             }
-            adminService.getReq($rootScope.URL.BIGWINSMANAGE.GETAUDIT + '/' + item.id, {}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.BIGWINSMANAGE.GETAUDIT + '/' + item.id, {admin_id:window.userInfo.adminId || ''}, {}).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     console.log(res.data.data)
                     if (res.data.success) {
@@ -63,93 +110,28 @@
             });
         };
 
-
-        // 保存
-        /**
-         *
-         * @param bigwinsManage BIGWINSMANAGETITLE数据对象
-         * @param item
-         */
-
-        $scope.saveBigwinsManage = function (bigwinsManage, item) {
-            var tempData = angular.extend({}, bigwinsManage, item);
-            if ($scope.validIsNew(tempData._id)) {
-                delete tempData._id;
-                adminService.postReq($rootScope.URL.BIGWINSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initBigwinsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(tempData._id) && bigwinsManage.id) {
-                delete tempData._id;
-                adminService.patchReq($rootScope.URL.BIGWINSMANAGE.PATCH+'/'+bigwinsManage.id, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initBigwinsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
-        // 删除bigwinsManage
-        /**
-         * @param bigwinsManage BIGWINSMANAGETITLE数据对象
-         * @return null
-         */
-        $scope.deleteBigwinsManage = function (bigwinsManage) {
-            if (!$scope.validIsNew(bigwinsManage._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.BIGWINSMANAGE.DELETE+'/'+bigwinsManage.id, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initBigwinsManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 恢复bigwinsManage
-        /**
-         * @param bigwinsManage BIGWINSMANAGETITLE数据对象
-         * @return null
-         */
-        $scope.recoverBigwinsManage = function (bigwinsManage) {
-            if (!$scope.validIsNew(bigwinsManage._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.BIGWINSMANAGE.PUT+'/'+bigwinsManage.id, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initBigwinsManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                }, 'recover');
-            }
-        };
-
         // 页面加载执行的函数
+
+        $scope.initBrandOptionsData();
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.bigwinsManageAoData.start_time = $scope.searchTimeStart.format('YYYY-MM-DD') + ' 00:00:00';
+                } else {
+                    if ($scope.bigwinsManageAoData.start_time) {
+                        delete $scope.bigwinsManageAoData.start_time;
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.bigwinsManageAoData.end_time = $scope.searchTimeEnd.format('YYYY-MM-DD') + ' 23:59:59';
+                } else {
+                    if ($scope.bigwinsManageAoData.end_time) {
+                        delete $scope.bigwinsManageAoData.end_time;
+                    }
+                }
+            }
+        });
 
     }
 })();

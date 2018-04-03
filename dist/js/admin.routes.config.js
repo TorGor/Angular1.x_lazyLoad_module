@@ -149,6 +149,14 @@
                                                             $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
                                                             //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
                                                         }
+                                                    }  else if (module == 'bigwins') {
+                                                        if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
+                                                        } else {
+                                                            $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                            //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
+                                                        }
                                                     } else {
                                                         $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
                                                         //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;

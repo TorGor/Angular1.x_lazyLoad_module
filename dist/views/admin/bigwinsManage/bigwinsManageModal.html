@@ -33,6 +33,6 @@
 </div>
 
 <div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-disabled="!" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+   <button class="btn btn-primary" type="button" ng-show='validPower("BIGWINSMANAGE", ["POSTAUDIT"])' ng-disabled="!item.comment" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
 </div>

@@ -2,6 +2,89 @@
    <div class="panel panel-default">
       <div class="panel-wrapper">
          <div class="panel-body">
+            <form class="form-horizontal" role="form">
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input-select inputkey='username' outputkey='affiliateId' input-placeholder="{{'table.transactionsDetail.th1' | translate}}" searchkey='username' min-length='3' output-value='bigwinsManageAoData.user_id' url='{{URL.USERSMANAGE.GET}}'>
+                  </input-select>
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input-select inputkey='username' outputkey='affiliateId' input-placeholder="{{'table.transactionsDetail.th2' | translate}}" searchkey='username' min-length='3' output-value='bigwinsManageAoData.affiliate_id' url='{{URL.USERSMANAGE.GET}}'>
+                  </input-select>
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input-select inputkey='name' outputkey='id' input-placeholder="game name" searchkey='keyword' min-length='3' output-value='bigwinsManageAoData.game_id' url='{{URL.GAMESMANAGE.GET}}'>
+                  </input-select>
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="bigwinsManageAoData.min_bet" placeholder="{{'min ' + ('table.bigwinsManage.th4' | translate)}}">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="bigwinsManageAoData.max_bet" placeholder="{{'max ' + ('table.bigwinsManage.th4' | translate)}}">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="bigwinsManageAoData.min_win" placeholder="{{'min ' + ('table.bigwinsManage.th6' | translate)}}">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="bigwinsManageAoData.max_win" placeholder="{{'max ' + ('table.bigwinsManage.th6' | translate)}}">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="bigwinsManageAoData.min_times" placeholder="{{'min ' + ('table.bigwinsManage.th3' | translate)}}">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="bigwinsManageAoData.max_times" placeholder="{{'max ' + ('table.bigwinsManage.th3' | translate)}}">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <ui-select ng-model="bigwinsManageAoData.brand" theme="bootstrap" search-enabled="false">
+                     <ui-select-match placeholder="choose brand">
+                        <span ng-bind="$select.selected.label"></span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in brandOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <ui-select ng-model="bigwinsManageAoData.status" theme="bootstrap" search-enabled="false">
+                     <ui-select-match placeholder="choose status">
+                        <span ng-bind="$select.selected.label"></span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in statusOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <!--<div class='col-lg-3 col-md-6 margin-bottom-10'>-->
+               <!--<ui-select-->
+               <!--ng-model="search.brands"-->
+               <!--theme="bootstrap"-->
+               <!--multiple-->
+               <!--close-on-select="false"-->
+               <!--search-enabled="false">-->
+               <!--<ui-select-match placeholder='choose brands'>-->
+               <!--<span>{{$item.label}}</span>-->
+               <!--</ui-select-match>-->
+               <!--<ui-select-choices repeat="item.value as item in brandOptions">-->
+               <!--<span ng-bind="item.label"></span>-->
+               <!--</ui-select-choices>-->
+               <!--</ui-select>-->
+               <!--</div>-->
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeStart">
+                     <input type="text" class="form-control" placeholder="start" />
+                     <span class="input-group-addon" style="background:none">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                     </span>
+                  </div>
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeEnd">
+                     <input type="text" class="form-control" placeholder="end" />
+                     <span class="input-group-addon" style="background:none">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                     </span>
+                  </div>
+               </div>
+            </form>
             <div server-data-table items="bigwinsManage" ao-data="bigwinsManageAoData" reload="bigwinsManageReload" service-name="adminService" service-name-attr="getReq" url="bigwinsManageUrl" handle-data="false">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
@@ -36,7 +119,7 @@
                         <td style="width: 8%">
                            {{'table.bigwinsManage.th10' | translate}}
                         </td>
-                        <td style="width: 10%" ng-show='validPower("BIGWINSMANAGE", ["POSTAUDIT"])'>{{'table.button.operation' | translate}}</td>
+                        <td style="width: 6%" ng-show='validPower("BIGWINSMANAGE", ["POSTAUDIT"])&&item.status.status!=="succeed"'>{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
@@ -71,9 +154,9 @@
                         <td>
                            <span>{{item.status}}</span>
                         </td>
-                        <td style="white-space: nowrap;" ng-show='validPower("BIGWINSMANAGE", ["POSTAUDIT"])'>
+                        <td style="white-space: nowrap;" ng-show='validPower("BIGWINSMANAGE", ["POSTAUDIT"])&&item.status.status!=="succeed"'>
                            <div class="buttons">
-                              <button class="btn btn-sm btn-info" ng-show='validPower("BIGWINSMANAGE", ["POSTAUDIT"])' ng-click='auditBigwinsManage(item)' type="submit" title="{{'table.button.save' | translate}}">
+                              <button class="btn btn-sm btn-info" ng-show='validPower("BIGWINSMANAGE", ["POSTAUDIT"])&&item.status.status!=="succeed"' ng-click='auditBigwinsManage(item)' type="submit" title="{{'table.button.save' | translate}}">
                                  <em class="fa fa-save"></em>
                               </button>
                            </div>
