@@ -45,7 +45,7 @@
                             <td style="width: 8%">
                                 {{'table.bigwinsManage.th10' | translate}}
                             </td>
-                            <td style="width: 10%">{{'table.button.operation' | translate}}</td>
+                            <td style="width: 10%" ng-show='validPower("BIGWINSMANAGE", ["POSTAUDIT"])'>{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -80,9 +80,9 @@
                             <td>
                                 <span>{{item.status}}</span>
                             </td>
-                            <td style="white-space: nowrap;">
+                            <td style="white-space: nowrap;" ng-show='validPower("BIGWINSMANAGE", ["POSTAUDIT"])'>
                                 <div class="buttons">
-                                    <button class="btn btn-sm btn-info" type="submit"
+                                    <button class="btn btn-sm btn-info" ng-show='validPower("BIGWINSMANAGE", ["POSTAUDIT"])' ng-click='auditBigwinsManage(item)' type="submit"
                                             title="{{'table.button.save' | translate}}">
                                         <em class="fa fa-save"></em>
                                     </button>

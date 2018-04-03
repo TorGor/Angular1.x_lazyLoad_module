@@ -171,21 +171,21 @@
                                     }
                                 });
 
-                                if(window.location.href.indexOf('#!/page/maintenance')!==-1 && window.userInfo.menu && window.Array.isArray(window.userInfo.menu)){
-                                    for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
-                                        if(window.userInfo.menu[i].sref !== '#'){
-                                            $timeout(function() {
-                                                $state.go(window.userInfo.menu[i].sref);
-                                            },10)
-                                            break;
-                                        }else if(window.userInfo.menu[i]['submenu'].length){
-                                            $timeout(function() {
-                                                $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
-                                            },10)
-                                            break;
-                                        }
-                                    }
-                                }
+                                //if(window.location.href.indexOf('#!/page/maintenance')!==-1 && window.userInfo.menu && window.Array.isArray(window.userInfo.menu)){
+                                //    for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
+                                //        if(window.userInfo.menu[i].sref !== '#'){
+                                //            $timeout(function() {
+                                //                $state.go(window.userInfo.menu[i].sref);
+                                //            },10)
+                                //            break;
+                                //        }else if(window.userInfo.menu[i]['submenu'].length){
+                                //            $timeout(function() {
+                                //                $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
+                                //            },10)
+                                //            break;
+                                //        }
+                                //    }
+                                //}
 
                                 deferred.resolve('userInfo resolved');
 
@@ -406,8 +406,23 @@
                 url: '/page',
                 templateUrl: 'pages/page.html',
                 resolve: RouteHelpersProvider.resolveFor('modernizr', 'icons'),
+            })
+            .state('page.403', {
+                url: '/403',
+                title: 'Permission denied',
+                templateUrl: 'pages/403.html'
+            })
+            .state('page.500', {
+                url: '/500',
+                title: 'Server error',
+                templateUrl: 'pages/500.html'
+            })
+            .state('page.maintenance', {
+                url: '/maintenance',
+                title: 'Maintenance',
+                templateUrl: 'pages/maintenance.html',
                 resolve: angular.extend(
-                    RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'ui.select', 'datetimepicker', 'admin'),
+                    RouteHelpersProvider.resolveFor('admin'),
                     {
                         // YOUR RESOLVES GO HERE
                         userInfo: ['userSelfService', 'EVN', '$timeout', '$rootScope', 'SidebarMenuData', '$q', '$state', function(userSelfService, EVN, $timeout, $rootScope, SidebarMenuData, $q, $state) {
@@ -457,19 +472,17 @@
                                     });
                                 }
 
-                                if(window.location.href.indexOf('#!/page/maintenance')!==-1 && window.userInfo.menu && window.Array.isArray(window.userInfo.menu)){
-                                    for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
-                                        if(window.userInfo.menu[i].sref !== '#'){
-                                            $timeout(function() {
-                                                $state.go(window.userInfo.menu[i].sref);
-                                            },10)
-                                            break;
-                                        }else if(window.userInfo.menu[i]['submenu'].length){
-                                            $timeout(function() {
-                                                $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
-                                            },10)
-                                            break;
-                                        }
+                                for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
+                                    if(window.userInfo.menu[i].sref !== '#'){
+                                        $timeout(function() {
+                                            $state.go(window.userInfo.menu[i].sref);
+                                        },10)
+                                        break;
+                                    }else if(window.userInfo.menu[i]['submenu'].length){
+                                        $timeout(function() {
+                                            $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
+                                        },10)
+                                        break;
                                     }
                                 }
 
@@ -480,27 +493,13 @@
                             }, function(error) {
                                 window.location.href = '/login.html';
                                 deferred.reject('userInfo reject');
+                                return;
                             });
 
                             return deferred.promise;
                         }]
                     }
                 )
-            })
-            .state('page.403', {
-                url: '/403',
-                title: 'Permission denied',
-                templateUrl: 'pages/403.html'
-            })
-            .state('page.500', {
-                url: '/500',
-                title: 'Server error',
-                templateUrl: 'pages/500.html'
-            })
-            .state('page.maintenance', {
-                url: '/maintenance',
-                title: 'Maintenance',
-                templateUrl: 'pages/maintenance.html'
             });
         //
         // CUSTOM RESOLVES
