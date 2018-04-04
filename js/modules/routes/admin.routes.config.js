@@ -94,106 +94,72 @@
                                             $rootScope.URL[URLobj[module]] = {};
                                             tempButtonUrl[module].map(function(buttonItem) {
                                                 if (buttonItem.btnType == 1) {
-                                                    if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
-                                                        $rootScope.URL[URLobj[module]].GETAUDIT = buttonItem.btnUrl;
-                                                        //$rootScope.URL[URLobj[module]].GETAUDITID = buttonItem.id;
-                                                    } else if (buttonItem.btnUrl.indexOf('Pay') !== -1) {
-                                                        $rootScope.URL[URLobj[module]].GETPAY = buttonItem.btnUrl;
-                                                        //$rootScope.URL[URLobj[module]].GETPAYID = buttonItem.id;
-                                                    } else if (buttonItem.btnUrl.indexOf('Review') !== -1) {
-                                                        $rootScope.URL[URLobj[module]].GETREVIEW = buttonItem.btnUrl;
-                                                        //$rootScope.URL[URLobj[module]].GETREVIEWID = buttonItem.id;
-                                                    } else if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
-                                                        $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
-                                                        //$rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
-                                                    } else {
-                                                        $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
-                                                        //$rootScope.URL[URLobj[module]].GETID = buttonItem.id;
+                                                    if(module == 'affiliates'){
+                                                        if (buttonItem.btnUrl.indexOf('Cards') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].GETCARDS = buttonItem.btnUrl;
+                                                        } else if (buttonItem.btnUrl.indexOf('Summary') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].GETPAY = buttonItem.btnUrl;
+                                                        } else {
+                                                            $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
+                                                        }
+                                                    }else{
+                                                        if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].GETAUDIT = buttonItem.btnUrl;
+                                                        } else if (buttonItem.btnUrl.indexOf('Pay') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].GETPAY = buttonItem.btnUrl;
+                                                        } else if (buttonItem.btnUrl.indexOf('Review') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].GETREVIEW = buttonItem.btnUrl;
+                                                        } else if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
+                                                            $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
+                                                        } else {
+                                                            $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
+                                                        }
                                                     }
-                                                    //if (module == 'withdraws') {
-                                                    //
-                                                    //} else {
-                                                    //    if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
-                                                    //        $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
-                                                    //        //$rootScope.URL[URLobj[module]].GETDETAILID = buttonItem.id;
-                                                    //    } else {
-                                                    //        $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
-                                                    //        //$rootScope.URL[URLobj[module]].GETID = buttonItem.id;
-                                                    //    }
-                                                    //}
-
                                                 }
                                                 if (buttonItem.btnType == 2) {
                                                     if (module == 'withdraws') {
                                                         if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
                                                             $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
                                                         } else if (buttonItem.btnUrl.indexOf('Pay') !== -1) {
                                                             $rootScope.URL[URLobj[module]].POSTPAY = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTPAYID = buttonItem.id;
                                                         } else if (buttonItem.btnUrl.indexOf('Review') !== -1) {
                                                             $rootScope.URL[URLobj[module]].POSTREVIEW = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTREVIEWID = buttonItem.id;
                                                         } else {
                                                             $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
                                                         }
                                                     } else if (module == 'applies') {
                                                         if (buttonItem.btnUrl.indexOf('audit') !== -1) {
                                                             $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
                                                         } else if (buttonItem.btnUrl.indexOf('revoke') !== -1) {
                                                             $rootScope.URL[URLobj[module]].POSTREVOKE = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTREVOKEID = buttonItem.id;
                                                         } else {
                                                             $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
                                                         }
                                                     }  else if (module == 'bigwins') {
                                                         if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
                                                             $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTAUDITID = buttonItem.id;
                                                         } else {
                                                             $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                            //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
                                                         }
                                                     } else {
                                                         $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                        //$rootScope.URL[URLobj[module]].POSTID = buttonItem.id;
                                                     }
                                                 }
                                                 if (buttonItem.btnType == 3) {
                                                     $rootScope.URL[URLobj[module]].PATCH = buttonItem.btnUrl;
-                                                    //$rootScope.URL[URLobj[module]].PATCHID = buttonItem.id;
                                                 }
                                                 if (buttonItem.btnType == 4) {
                                                     $rootScope.URL[URLobj[module]].DELETE = buttonItem.btnUrl;
-                                                    //$rootScope.URL[URLobj[module]].DELETEID = buttonItem.id;
                                                 }
                                                 if (buttonItem.btnType == 5) {
                                                     $rootScope.URL[URLobj[module]].PUT = buttonItem.btnUrl;
-                                                    //$rootScope.URL[URLobj[module]].PUTID = buttonItem.id;
                                                 }
                                             });
                                         }
                                     }
                                 });
 
-                                //if(window.location.href.indexOf('#!/page/maintenance')!==-1 && window.userInfo.menu && window.Array.isArray(window.userInfo.menu)){
-                                //    for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
-                                //        if(window.userInfo.menu[i].sref !== '#'){
-                                //            $timeout(function() {
-                                //                $state.go(window.userInfo.menu[i].sref);
-                                //            },10)
-                                //            break;
-                                //        }else if(window.userInfo.menu[i]['submenu'].length){
-                                //            $timeout(function() {
-                                //                $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
-                                //            },10)
-                                //            break;
-                                //        }
-                                //    }
-                                //}
+                                console.log($rootScope.URL,'$rootScope.URL')
 
                                 deferred.resolve('userInfo resolved');
 

@@ -113,6 +113,7 @@
                             ariaDescribedBy: 'modal-body',
                             templateUrl: '/views/admin/withdrawsManage/withdrawsManageDetailModal.html',
                             controller: 'WithdrawsManageModalController',
+                            scope:$scope,
                             resolve: {
                                 withdrawsDetail: res.data.data
                             },
@@ -138,19 +139,23 @@
                 $rootScope.alertErrorMsg('server data error');
                 return;
             }
+            console.log(approve,'approve')
             var tempUrl = $rootScope.URL.WITHDRAWSMANAGE && $rootScope.URL.WITHDRAWSMANAGE['GET'+approve.toUpperCase()];
             adminService.getReq(tempUrl + '/' + item.id, {admin_id:window.userInfo.adminId || ''}, {}).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
+                        var tempData = angular.copy(res.data.data);
+                        tempData.approve = approve;
+                        tempData.itemId = item.id;
                         var modalInstance = $uibModal.open({
                             animation: true,
                             ariaLabelledBy: 'modal-title',
                             ariaDescribedBy: 'modal-body',
                             templateUrl: '/views/admin/withdrawsManage/withdrawsManageModal.html',
-                            controller: 'WithdrawsManageApproveController',
+                            controller: 'WithdrawsManageApproveModalController',
+                            scope:$scope,
                             resolve: {
-                                withdrawsDetail: res.data.data,
-                                approve: approve
+                                withdrawsDetail: tempData
                             },
                             size: 'lg',
                         });

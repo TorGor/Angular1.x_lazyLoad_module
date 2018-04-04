@@ -181,8 +181,9 @@
             "th4": "优惠券",
             "th5": "本金",
             "th6": "产品",
-            "th7": "产品",
-            "th8": "状态"
+            "th7": "钱包",
+            "th8": "状态",
+            "th9": "时间"
         },
         "gamesProducts": {
             "th1": "编码",
@@ -279,11 +280,13 @@
             "th6": "账目 名称",
             "th7": "账目 分支",
             "th8": "状态",
+            "th9": "创建时间",
             "detail": {
                 "th1": "管理员Id",
                 "th2": "动作",
                 "th3": "意见",
-                "th4": "结果"
+                "th4": "结果",
+                "th5": "创建时间"
             }
         },
         "promotionsManage": {
@@ -387,6 +390,26 @@
             "th8": "Round",
             "th9": "Play Time",
             "th10": "Status"
+        },
+        "affiliatesManage": {
+            "th1": "Username",
+            "th2": "Name",
+            "th3": "Gender",
+            "th4": "Locale",
+            "th5": "Email",
+            "th6": "Currency",
+            "th7": "Domains User",
+            "th8": "OTP",
+            "th9": "Plan Default",
+            "th10": "Verifications Name",
+            "th11": "isLocked",
+            "th12": "isApproved"
+        },
+        "domainsManage": {
+            "th1": "Domain",
+            "th2": "Type",
+            "th3": "Affiliate Id",
+            "th4": "isDeleted"
         }
     },
     "panel_tile": {

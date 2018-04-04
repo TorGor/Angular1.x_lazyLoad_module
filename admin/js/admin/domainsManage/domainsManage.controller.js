@@ -29,7 +29,6 @@
 
         // 初始化table数据
         $scope.initDomainsManageData = function () {
-            $scope.domainsManage = [];
             adminService.getReq($rootScope.URL.DOMAINSMANAGE.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -38,6 +37,7 @@
                         $scope.domainsManage.forEach(function (domainsManageItem, domainsManageIndex) {
                             domainsManageItem._id = domainsManageIndex +1;
                         });
+                        $scope.domainsManageReload++;
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
@@ -46,43 +46,26 @@
         };
 
 
-        // 保存
-        /**
-         *
-         * @param domainsManage DOMAINSMANAGETITLE数据对象
-         * @param item
-         */
+        $scope.showDomainsManageModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/domainsManage/domainsManageModal.html',
+                controller: 'domainsManageModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower:$scope.validPower("DOMAINSMANAGE", ["PATCH", "POST"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initDomainsManageData();
+            }, function (data) {
 
-        $scope.saveDomainsManage = function (domainsManage, item) {
-            var tempData = angular.extend({}, domainsManage, item);
-            if ($scope.validIsNew(tempData._id)) {
-                delete tempData._id;
-                adminService.postReq($rootScope.URL.DOMAINSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initDomainsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(tempData._id) && domainsManage.id) {
-                delete tempData._id;
-                adminService.patchReq($rootScope.URL.DOMAINSMANAGE.PATCH+'/'+domainsManage.id, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initDomainsManageData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
+            });
         };
 
         // 删除domainsManage
@@ -93,7 +76,7 @@
         $scope.deleteDomainsManage = function (domainsManage) {
             if (!$scope.validIsNew(domainsManage._id)) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.DOMAINSMANAGE.DELETE+'/'+domainsManage.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.DOMAINSMANAGE.DELETE+'/'+domainsManage.domain, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initDomainsManageData();
@@ -116,7 +99,7 @@
         $scope.recoverDomainsManage = function (domainsManage) {
             if (!$scope.validIsNew(domainsManage._id)) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.DOMAINSMANAGE.PUT+'/'+domainsManage.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.DOMAINSMANAGE.PUT+'/'+domainsManage.domain, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initDomainsManageData();

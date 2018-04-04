@@ -5,7 +5,8 @@
                 <span class="form-group add-button-class">
                     <button
                         class="btn btn-primary"
-                        ng-click="addDomainsManage()"
+                        ng-show="validPower('PAYMENTMETHODS', ['POST'])"
+                        ng-click="showDomainsManageModal({},2)"
                         type="button"
                         translate="table.button.add"
                     >
@@ -15,36 +16,32 @@
                 <form class="form-inline pull-right add-button-class" role="form">
                     <div style="position: relative" class="form-group">
                         <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                        <input class="form-control" type="text" ng-model="domainsManageSearch" placeholder="{{searchPlaceholder(['table.domainsManage.th1', 'table.domainsManage.th2', 'table.domainsManage.th3'])}}">
+                        <input class="form-control" type="text" ng-model="domainsManageSearch" placeholder="{{searchPlaceholder(['table.domainsManage.th1', 'table.domainsManage.th2', 'table.domainsManage.th3'])}}" >
                     </div>
                 </form>
                 <div
-                        server-data-table
-                        items="domainsManage"
-                        ao-data="domainsManageAoData"
-                        reload="domainsManageReload"
-                        service-name="adminService"
-                        service-name-attr="getReq"
-                        url="domainsManageUrl"
-                        handle-data="false"
-                        web-data-table
-                        items="domainsManage"
-                        ao-data="domainsManageAoData"
-                        search="domainsManageSearch"
-                        reload="domainsManageReload"
-                        show-items="showDomainsManage"
+                    handle-data="false"
+                    web-data-table
+                    items="domainsManage"
+                    ao-data="domainsManageAoData"
+                    search="domainsManageSearch"
+                    reload="domainsManageReload"
+                    show-items="showDomainsManage"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 40%" ao-data="domainsManageAoData" web-data-table-sort="roleName">
+                            <td style="width: 20%">
                                 {{'table.domainsManage.th1' | translate}}
                             </td>
-                            <td style="width: 40%" ao-data="domainsManageAoData" web-data-table-sort="roleName">
-                                {{'table.domainsManage.th1' | translate}}
-                            </td>
-                            <td style="width: 40%" ao-data="domainsManageAoData" web-data-table-sort="roleStatus">
+                            <td style="width: 20%" ao-data="domainsManageAoData" web-data-table-sort="type">
                                 {{'table.domainsManage.th2' | translate}}
+                            </td>
+                            <td style="width: 30%">
+                                {{'table.domainsManage.th3' | translate}}
+                            </td>
+                            <td style="width: 10%">
+                                {{'table.domainsManage.th4' | translate}}
                             </td>
                             <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                         </tr>
@@ -52,48 +49,52 @@
                         <tbody>
                         <tr ng-repeat="item in showDomainsManage">
                             <td>
-                                <span editable-text="item.code" e-name="code" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
+                                <span>
+                                    {{item.domain || ''}}
+                                </span>
                             </td>
                             <td>
-                                <span editable-text="item.name" e-name="name" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
+                                <span>
+                                    {{item.type || ''}}
+                                </span>
                             </td>
                             <td>
-                                    <span editable-select="item.roleStatus" e-name="roleStatus" e-form="rowform"
-                                          onbeforesave="checkRequiredData($data)"
-                                          e-ng-options="option.value as option.label for option in adminSelect012.options">
-                                        <span ng-bind-html="filter012OptionsValue(item.roleStatus)"></span>
-                                    </span>
+                                <span>
+                                    {{item.affiliateId || ''}}
+                                </span>
                             </td>
-                            <td style="white-space: nowrap;">
-                                <form class="form-buttons form-inline" editable-form name="rowform"
-                                      onaftersave="saveDomainsManage(item, $data)" ng-show="rowform.$visible"
-                                      shown="validIsNew(item._id)">
-                                    <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
-                                            title="{{'table.button.save' | translate}}">
-                                        <em class="fa fa-save"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
-                                            ng-click="rowform.$cancel();cancelSave(item,$index)"
-                                            title="{{'table.button.cancel' | translate}}">
-                                        <em class="fa fa-times"></em>
-                                    </button>
-                                </form>
-                                <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-info" ng-click="rowform.$show()"
-                                            title="{{'table.button.edit' | translate}}">
-                                        <em class="fa fa-pencil"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" ng-click="deleteDomainsManage(item)"
-                                            title="{{'table.button.delete' | translate}}">
-                                        <em class="fa fa-trash"></em>
-                                    </button>
-                                </div>
+                            <td>
+                                <span>
+                                    {{item.isDeleted?'Yes':'No'}}
+                                </span>
+                            </td>
+                            <td style="white-space: nowrap;" ng-show="validPower('PAYMENTMETHODS', ['PATCH', 'DELETE', 'PUT'])">
+                                <button
+                                    class="btn btn-sm btn-info"
+                                    ng-show="validPower('PAYMENTMETHODS', ['PATCH'])" ng-click="showDomainsManageModal(item,3)"
+                                    title="{{'table.button.edit' | translate}}"
+                                >
+                                    <em class="fa fa-pencil"></em>
+                                </button>
+                                <button
+                                    class="btn btn-sm btn-danger"
+                                    ng-show="!item.isDeleted&&validPower('PAYMENTMETHODS', ['DELETE'])"
+                                    ng-click="deleteDomainsManage(item)"
+                                    title="{{'table.button.delete' | translate}}"
+                                >
+                                    <em class="fa fa-trash"></em>
+                                </button>
+                                <button
+                                    class="btn btn-sm btn-green" ng-show="item.isDeleted&&validPower('PAYMENTMETHODS', ['PUT'])"
+                                    ng-click="recoverDomainsManage(item)"
+                                    title="{{'table.button.recover' | translate}}"
+                                >
+                                    <em class="fa fa-rotate-left"></em>
+                                </button>
                             </td>
                         </tr>
                         <tr ng-show="showDomainsManage.length==0">
-                            <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                            <td colspan="20" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

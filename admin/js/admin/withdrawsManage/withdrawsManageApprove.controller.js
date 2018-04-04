@@ -2,27 +2,35 @@
 
     angular
         .module('admin.withdrawsManage')
-        .controller('WithdrawsManageApproveController', WithdrawsManageApproveController);
+        .controller('WithdrawsManageApproveModalController', WithdrawsManageApproveModalController);
 
-    WithdrawsManageApproveController.$inject = [
+    WithdrawsManageApproveModalController.$inject = [
         '$scope',
         '$rootScope',
         '$uibModalInstance',
         'withdrawsDetail',
-        'approve',
+        'adminService',
         '$translate'
     ];
 
-    function WithdrawsManageApproveController(
+    function WithdrawsManageApproveModalController(
         $scope,
         $rootScope,
         $uibModalInstance,
         withdrawsDetail,
-        approve,
+        adminService,
         $translate
     ) {
 
         $scope.withdrawsDetail = withdrawsDetail;
+        if($scope.withdrawsDetail.approve){
+            $scope.approve = $scope.withdrawsDetail.approve;
+            delete $scope.withdrawsDetail.approve;
+        }
+        if($scope.withdrawsDetail.itemId){
+            $scope.itemId = $scope.withdrawsDetail.itemId;
+            delete $scope.withdrawsDetail.itemId
+        }
 
         $scope.detailModalAoData = {};
         $scope.detailModalSearch = '';
@@ -30,7 +38,7 @@
         $scope.showDetailModal = [];
 
         $scope.resultOptions = [];
-        if(approve == 'audit'){
+        if($scope.approve == 'audit'){
         //‘pending’, ‘approved’, ‘declined’
             $scope.resultOptions = [
                 {
@@ -46,7 +54,7 @@
                     value:'declined'
                 }
             ];
-        }else if(approve == 'pay'){
+        }else if($scope.approve == 'pay'){
         //‘paid’, ‘approved’
             $scope.resultOptions = [
                 {
@@ -58,7 +66,7 @@
                     value:'approved'
                 }
             ];
-        }else if(approve == 'pay'){
+        }else if($scope.approve == 'pay'){
         //‘paid’, ‘finished’
             $scope.resultOptions = [
                 {
@@ -95,8 +103,8 @@
                 result: $scope.withdrawsDetail.result,
                 comment: $scope.withdrawsDetail.comment
             };
-            var tempUrl = $rootScope.URL.WITHDRAWSMANAGE && $rootScope.URL.WITHDRAWSMANAGE['POST'+approve.toUpperCase()];
-            adminService.postReq(tempUrl+'/'+withdrawsDetail.id+'/'+withdrawsDetail.withdraw.id, {}, approveData).then(function (res) {
+            var tempUrl = $rootScope.URL.WITHDRAWSMANAGE && $rootScope.URL.WITHDRAWSMANAGE['POST'+$scope.approve.toUpperCase()];
+            adminService.postReq(tempUrl+'/'+$scope.itemId+'/'+withdrawsDetail.id, {}, approveData).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {

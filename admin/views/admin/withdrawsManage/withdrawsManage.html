@@ -120,26 +120,29 @@
                             <td style="width: 12%" ao-data="withdrawsManageAoData" server-data-table-sort="amount">
                                 {{'table.withdrawsManage.th1' | translate}}
                             </td>
-                            <td style="width: 12%">
+                            <td style="width: 8%">
                                 {{'table.withdrawsManage.th2' | translate}}
                             </td>
-                            <td style="width: 12%">
+                            <td style="width: 8%">
                                 {{'table.withdrawsManage.th3' | translate}}
                             </td>
-                            <td style="width: 12%">
+                            <td style="width: 8%">
                                 {{'table.withdrawsManage.th4' | translate}}
-                            </td>
-                            <td style="width: 12%">
-                                {{'table.withdrawsManage.th5' | translate}}
-                            </td>
+                            <!--</td>-->
+                            <!--<td style="width: 12%">-->
+                                <!--{{'table.withdrawsManage.th5' | translate}}-->
+                            <!--</td>-->
                             <td style="width: 12%">
                                 {{'table.withdrawsManage.th6' | translate}}
                             </td>
-                            <td style="width: 12%">
-                                {{'table.withdrawsManage.th7' | translate}}
-                            </td>
+                            <!--<td style="width: 12%">-->
+                                <!--{{'table.withdrawsManage.th7' | translate}}-->
+                            <!--</td>-->
                             <td style="width: 12%">
                                 {{'table.withdrawsManage.th8' | translate}}
+                            </td>
+                            <td style="width: 12%">
+                                {{'table.withdrawsManage.th9' | translate}}
                             </td>
                             <td style="width: 13%">{{'table.button.operation' | translate}}</td>
                         </tr>
@@ -161,17 +164,20 @@
                             <td>
                                 <span>{{item.currency  || ''}}</span>
                             </td>
-                            <td>
-                                <span>{{item.account.number  || ''}}</span>
-                            </td>
+                            <!--<td>-->
+                                <!--<span>{{item.account.number  || ''}}</span>-->
+                            <!--</td>-->
                             <td>
                                 <span>{{item.account.name  || ''}}</span>
                             </td>
-                            <td>
-                                <span>{{item.account.branch  || ''}}</span>
-                            </td>
+                            <!--<td>-->
+                                <!--<span>{{item.account.branch  || ''}}</span>-->
+                            <!--</td>-->
                             <td>
                                 <span>{{item.status  || ''}}</span>
+                            </td>
+                            <td>
+                                <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
                             </td>
                             <td style="white-space: nowrap;">
                                 <div class="buttons">

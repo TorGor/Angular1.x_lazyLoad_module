@@ -70,34 +70,37 @@
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
-                        <td style="width: 10%">
+                        <td style="width: 8%">
                            {{'module.user' | translate}}
                         </td>
-                        <td style="width: 10%">
+                        <td style="width: 8%">
                            {{'table.appliesUse.th1' | translate}}
                         </td>
-                        <td style="width: 10%">
+                        <td style="width: 8%">
                            {{'table.appliesUse.th2' | translate}}
                         </td>
-                        <td style="width: 10%">
+                        <td style="width: 8%">
                            {{'table.appliesUse.th3' | translate}}
                         </td>
-                        <td style="width: 10%">
+                        <td style="width: 8%">
                            {{'table.appliesUse.th4' | translate}}
                         </td>
-                        <td style="width: 10%">
+                        <td style="width: 8%">
                            {{'table.appliesUse.th5' | translate}}
                         </td>
-                        <td style="width: 10%">
+                        <td style="width: 8%">
                            {{'table.appliesUse.th6' | translate}}
                         </td>
-                        <td style="width: 10%">
+                        <td style="width: 8%">
                            {{'table.appliesUse.th7' | translate}}
                         </td>
                         <td style="width: 10%">
                            {{'table.appliesUse.th8' | translate}}
                         </td>
-                        <td style="width: 10%" ng-show='validPower("APPLIESUSE", ["POSTAUDIT", "POSTREVOKE"])'>{{'table.button.operation' | translate}}</td>
+                        <td style="width: 16%">
+                           {{'table.appliesUse.th9' | translate}}
+                        </td>
+                        <td style="width: 8%" ng-show='validPower("APPLIESUSE", ["POSTAUDIT", "POSTREVOKE"])'>{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
@@ -129,6 +132,9 @@
                         <td>
                            <span>{{item.status}}</span>
                         </td>
+                        <td>
+                           <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
+                        </td>
                         <td style="white-space: nowrap;" ng-show='validPower("APPLIESUSE", ["POSTAUDIT", "POSTREVOKE"])'>
                            <div class="buttons">
                               <button class="btn btn-sm btn-primary" ng-show='validPower("APPLIESUSE", ["POSTAUDIT"])' ng-click="appliesUseAudit(item)" title="{{'table.button.save' | translate}}">
@@ -141,7 +147,7 @@
                         </td>
                      </tr>
                      <tr ng-show="appliesUse.length==0">
-                        <td colspan='{{validPower("APPLIESUSE", ["POSTAUDIT", "POSTREVOKE"])?9:8}}' class="">{{'table.no_date' | translate}}</td>
+                        <td colspan='20' class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>
