@@ -7,7 +7,7 @@
                         <input-select
                             inputkey='username'
                             outputkey='affiliateId'
-                            input-placeholder="{{'table.transactionsDetail.th1' | translate}}"
+                            input-placeholder='username'
                             searchkey='username'
                             min-length='3'
                             output-value='reliefsListAoData.user_id'
@@ -19,7 +19,7 @@
                         <input-select
                             inputkey='username'
                             outputkey='affiliateId'
-                            input-placeholder="{{'table.transactionsDetail.th2' | translate}}"
+                            input-placeholder='affiliate'
                             searchkey='username'
                             min-length='3'
                             output-value='reliefsListAoData.affiliate_id'
@@ -78,12 +78,14 @@
                     <!--</div>-->
                 <!--</form>-->
                 <div
-                        web-data-table
-                        items="reliefsList"
-                        ao-data="reliefsListAoData"
-                        search="reliefsListSearch"
-                        reload="reliefsListReload"
-                        show-items="showReliefsList"
+                    server-data-table
+                    items='reliefsList'
+                    ao-data='reliefsListAoData'
+                    reload='reliefsListAoData'
+                    service-name='adminService'
+                    service-name-attr='getReq'
+                    url='reliefsListUrl'
+                    handle-data='false'
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
@@ -91,10 +93,10 @@
                             <td style="width: 8%">
                                 {{'table.reliefsList.th9' | translate}}
                             </td>
-                            <td style="width: 8%" ao-data="reliefsListAoData" web-data-table-sort="product">
+                            <td style="width: 8%">
                                 {{'table.reliefsList.th1' | translate}}
                             </td>
-                            <td style="width: 8%" ao-data="reliefsListAoData" web-data-table-sort="amount">
+                            <td style="width: 8%" ao-data="reliefsListAoData" server-data-table-sort="amount">
                                 {{'table.reliefsList.th2' | translate}}
                             </td>
                             <td style="width: 8%">
@@ -115,7 +117,7 @@
                             <td style="width: 8%">
                                 {{'table.reliefsList.th8' | translate}}
                             </td>
-                            <td style="width: 8%" ao-data="reliefsListAoData" web-data-table-sort="status">
+                            <td style="width: 8%">
                                 {{'table.reliefsList.th10' | translate}}
                             </td>
                             <td style="width: 14%">
@@ -124,7 +126,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in showReliefsList">
+                        <tr ng-repeat="item in reliefsList">
                             <td>
                                 <span>{{item.user.username || ''}}</span>
                             </td>
@@ -159,7 +161,7 @@
                                 <span>{{formatTime(item.timestamps.createdAt || '')}}</span>
                             </td>
                         </tr>
-                        <tr ng-show="showReliefsList.length==0">
+                        <tr ng-show="reliefsList.length==0">
                             <td colspan="20" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>

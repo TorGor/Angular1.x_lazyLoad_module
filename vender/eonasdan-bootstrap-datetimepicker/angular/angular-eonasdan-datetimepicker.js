@@ -14,7 +14,7 @@
             onClick: '&'
           },
           link: function($scope, $element, $attrs, controller) {
-            $element.on('dp.change', function() {
+            $element.on('dp.hide', function() {
               $timeout(function() {
                 var dtp = $element.data('DateTimePicker');
                 controller.$setViewValue(dtp.date());

@@ -190,12 +190,16 @@
 
         $rootScope.dateOptionsYYYMMDD = {
             useCurrent: false,
+            showClose: true,
+            showClear: true,
             locale: $rootScope.language.selected || 'en',
             format: 'YYYY-MM-DD'
         };
 
         $rootScope.dateOptionsYYYMMDDHHmmss = {
             useCurrent: false,
+            showClose: true,
+            showClear: true,
             locale: $rootScope.language.selected || 'en',
             format: 'YYYY-MM-DD HH:mm:ss'
         };
@@ -221,7 +225,7 @@
             if(!str){
                 return '';
             }
-            return new window.moment(str).format($rootScope.dateOptionsYYYMMDDHHMM.format)
+            return new window.moment(str).format($rootScope.dateOptionsYYYMMDDHHmmss.format)
         };
 
         /**
