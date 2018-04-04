@@ -194,10 +194,10 @@
             format: 'YYYY-MM-DD'
         };
 
-        $rootScope.dateOptionsYYYMMDDHHMM = {
+        $rootScope.dateOptionsYYYMMDDHHmmss = {
             useCurrent: false,
             locale: $rootScope.language.selected || 'en',
-            format: 'YYYY-MM-DD HH:MM:SS'
+            format: 'YYYY-MM-DD HH:mm:ss'
         };
 
         var locale = window.localStorage.getItem('NG_TRANSLATE_LANG_KEY')||((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en-GB');

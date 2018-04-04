@@ -1,0 +1,61 @@
+<div class="row">
+   <div class="panel panel-default">
+      <div class="panel-wrapper">
+         <div class="panel-body">
+            <span class="form-group add-button-class">
+               <button class="btn btn-primary" ng-click="addAffiliatesManage()" type="button" translate="table.button.add">
+                  新增
+               </button>
+            </span>
+            <form class="form-inline pull-right add-button-class" role="form">
+               <div style="position: relative" class="form-group">
+                  <span style="position: absolute;left: 4px;top: 6px">
+                     <em class="fa fa-search"></em>
+                  </span>
+                  <input class="form-control" type="text" ng-model="affiliatesManageSearch" placeholder="{{searchPlaceholder(['table.affiliatesManage.th1', 'table.affiliatesManage.th2', 'table.affiliatesManage.th3'])}}">
+               </div>
+            </form>
+            <div server-data-table items="affiliatesManage" ao-data="affiliatesManageAoData" reload="affiliatesManageReload" service-name="adminService" service-name-attr="getReq" url="affiliatesManageUrl" handle-data="false">
+               <table width="100%" class="table table-bordered table-hover bg-white">
+                  <thead>
+                     <tr class="bg-gray-light text-bold">
+                        <td style="width: 40%" ao-data="affiliatesManageAoData" web-data-table-sort="roleName">
+                           {{'table.affiliatesManage.th1' | translate}}
+                        </td>
+                        <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng-repeat="item in showAffiliatesManage">
+                        <td>
+                           <span>{{item. || ''}}</span>
+                        </td>
+                        <td style="white-space: nowrap;">
+                           <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveAffiliatesManage(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item._id)">
+                              <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
+                                 <em class="fa fa-save"></em>
+                              </button>
+                              <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSave(item,$index)" title="{{'table.button.cancel' | translate}}">
+                                 <em class="fa fa-times"></em>
+                              </button>
+                           </form>
+                           <div class="buttons" ng-show="!rowform.$visible">
+                              <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                 <em class="fa fa-pencil"></em>
+                              </button>
+                              <button class="btn btn-sm btn-danger" ng-click="deleteAffiliatesManage(item)" title="{{'table.button.delete' | translate}}">
+                                 <em class="fa fa-trash"></em>
+                              </button>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr ng-show="showAffiliatesManage.length==0">
+                        <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
