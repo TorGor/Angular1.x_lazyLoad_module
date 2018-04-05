@@ -43,7 +43,7 @@
         };
 
         $scope.confirmModal = function () {
-            adminService.postReq($rootScope.URL.ORDERSMANAGE.POST+'/'+item.id, {}, $scope.orderAdd).then(function (res) {
+            adminService.postReq($rootScope.URL.APPLIESUSE.POSTAUDIT+'/'+item.id, {}, $scope.appliesUseSaveAudit).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $uibModalInstance.close('success');

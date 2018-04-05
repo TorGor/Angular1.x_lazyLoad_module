@@ -30,6 +30,8 @@
 
         $scope.hasPower = hasPower;
 
+
+
         if(edit==3||edit==1){
             $scope.couponsItem = angular.copy(couponsItem)
             if(!$scope.couponsItem.treatments || !$scope.couponsItem.treatments.length){
