@@ -2,9 +2,16 @@
    <div class="panel panel-default">
       <div class="panel-wrapper">
          <div class="panel-body">
+            <span style='margin-left: 15px' class="form-group add-button-class">
+               <button class="btn btn-info" ng-click="trigerSearch()" type="button" translate="table.button.search">
+               </button>
+               <button class="btn btn-info" ng-click="resetSearch()" type="button" translate="table.button.reset">
+               </button>
+            </span>
+            <div class='clearfix'></div>
             <form class="form-horizontal" role="form">
                <div class="col-lg-3 col-md-6 margin-bottom-10">
-                  <input class="form-control" type="text" ng-blur='usersManageAoData.username=username' ng-model="username" placeholder="username min 3 char max 11 char">
+                  <input class="form-control" type="text" ng-model="usersManageAoData.username" placeholder="username min 3 char">
                </div>
                <div class="col-lg-3 col-md-6 margin-bottom-10">
                   <input class="form-control" type="text" ng-model="usersManageAoData.affiliate_id" placeholder="affiliate id">
@@ -82,7 +89,7 @@
                   </div>
                </div>
             </form>
-            <div server-data-table items="usersManage" ao-data="usersManageAoData" reload="usersManageReload" service-name="adminService" service-name-attr="getReq" url="usersManageUrl" handle-data="false">
+            <div server-data-table items="usersManage" ao-data="tempUsersManageAoData" reload="usersManageReload" service-name="adminService" service-name-attr="getReq" url="usersManageUrl" handle-data="false">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">

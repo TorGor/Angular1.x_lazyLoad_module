@@ -89,6 +89,26 @@
         $scope.withdrawsManage = [];
         $scope.withdrawsManageReload = 1;
         $scope.withdrawsManageAoData = {};
+        $scope.tempWithdrawsManageAoData = {};
+
+        $scope.trigerSearch = function() {
+            $scope.tempWithdrawsManageAoData = angular.extend($scope.tempWithdrawsManageAoData,$scope.withdrawsManageAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.withdrawsManageAoData = {};
+            $scope.search = {
+                wallet: [],
+                status: []
+            };
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            var tempData = $scope.tempWithdrawsManageAoData;
+            $scope.tempWithdrawsManageAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+        };
 
         // 初始化table数据
         $scope.initWithdrawsManageData = function () {

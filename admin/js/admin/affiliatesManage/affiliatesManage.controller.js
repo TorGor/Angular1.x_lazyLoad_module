@@ -18,12 +18,85 @@
         adminService
     ) {
 
+        $scope.currencyOptions = [];
+
+        $scope.initCurrenciesManageData = function () {
+            $scope.currencyOptions = [];
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.currencyOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        $scope.genderOptions = [
+            {
+                label:'male',
+                value:'M'
+            },
+            {
+                label:'female',
+                value:'F'
+            },
+            {
+                label:'unknown',
+                value:'U'
+            },
+        ];
+
+        $scope.booleanOptons = [
+            {
+                label: 'Yes',
+                value: true
+            },
+            {
+                label: 'No',
+                value: false
+            }
+        ];
+
         $scope.affiliatesManageUrl = $scope.URL.AFFILIATESMANAGE.GET
 
         // 原始的数据
         $scope.affiliatesManage = [];
         $scope.affiliatesManageReload = 1;
         $scope.affiliatesManageAoData = {};
+        $scope.tempAffiliatesManageAoData = {};
+
+        $scope.trigerSearch = function() {
+            if($scope.tempAffiliatesManageAoData.username&&$scope.tempAffiliatesManageAoData.username.length&&($scope.tempAffiliatesManageAoData.username.length<3||$scope.tempAffiliatesManageAoData.username.length>11)){
+                $rootScope.alertErrorMsg('username char length should between 3 and 11');
+                return;
+            }
+            $scope.tempAffiliatesManageAoData = angular.extend($scope.tempAffiliatesManageAoData,$scope.affiliatesManageAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.affiliatesManageAoData = {};
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            var tempData = $scope.tempAffiliatesManageAoData;
+            $scope.tempAffiliatesManageAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+        };
 
         // 初始化table数据
         $scope.initAffiliatesManageData = function () {
@@ -117,5 +190,7 @@
         };
 
         // 页面加载执行的函数
+
+        $scope.initCurrenciesManageData();
     }
 })();

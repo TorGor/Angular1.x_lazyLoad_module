@@ -309,6 +309,7 @@
                 title: 'promotionsManage Manage',
                 controller: 'PromotionsManageController',
                 templateUrl: RouteHelpersProvider.basepath('admin/promotionsManage/promotionsManage.html'),
+                resolve: RouteHelpersProvider.resolveFor('summernote'),
                 permission: 'promotions'
             })
             

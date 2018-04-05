@@ -149,10 +149,29 @@
         $scope.promotionsManage = [];
         $scope.promotionsManageReload = 1;
         $scope.promotionsManageAoData = {};
+        $scope.tempPromotionsManageAoData = {};
 
         // 初始化table数据
         $scope.initPromotionsManageData = function () {
             $scope.promotionsManageReload++;
+        };
+
+        $scope.trigerSearch = function() {
+            $scope.tempPromotionsManageAoData = angular.extend($scope.tempPromotionsManageAoData,$scope.promotionsManageAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.promotionsManageAoData = {};
+            $scope.search = {
+                currency: []
+            };
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            var tempData = $scope.tempPromotionsManageAoData;
+            $scope.tempPromotionsManageAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
         };
 
 

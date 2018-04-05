@@ -2,6 +2,23 @@
     <div class="panel panel-default">
         <div class="panel-wrapper">
             <div class="panel-body">
+                <span style='margin-left: 15px' class="form-group add-button-class">
+                    <button
+                        class="btn btn-info"
+                        ng-click="trigerSearch()"
+                        type="button"
+                        translate="table.button.search"
+                    >
+                    </button>
+                    <button
+                        class="btn btn-info"
+                        ng-click="resetSearch()"
+                        type="button"
+                        translate="table.button.reset"
+                    >
+                    </button>
+                </span>
+                <div class='clearfix'></div>
                 <form class='form-horizontal' role='form'>
                     <div class="col-lg-3 col-md-6 margin-bottom-10">
                         <input-select
@@ -80,7 +97,7 @@
                 <div
                     server-data-table
                     items='reliefsList'
-                    ao-data='reliefsListAoData'
+                    ao-data='tempReliefsListAoData'
                     reload='reliefsListAoData'
                     service-name='adminService'
                     service-name-attr='getReq'

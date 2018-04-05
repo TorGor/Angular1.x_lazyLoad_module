@@ -2,7 +2,94 @@
    <div class="panel panel-default">
       <div class="panel-wrapper">
          <div class="panel-body">
-            <div server-data-table items="affiliatesManage" ao-data="affiliatesManageAoData" reload="affiliatesManageReload" service-name="adminService" service-name-attr="getReq" url="affiliatesManageUrl" handle-data="false">
+            <span style='margin-left: 15px' class="form-group add-button-class">
+               <button class="btn btn-info" ng-click="trigerSearch()" type="button" translate="table.button.search">
+               </button>
+               <button class="btn btn-info" ng-click="resetSearch()" type="button" translate="table.button.reset">
+               </button>
+            </span>
+            <div class='clearfix'></div>
+            <form class="form-horizontal" role="form">
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="affiliatesManageAoData.username" placeholder="username min 3 char">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="affiliatesManageAoData.affiliate_id" placeholder="affiliate id">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="affiliatesManageAoData.email" placeholder="email">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="affiliatesManageAoData.rank" placeholder="rank">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="affiliatesManageAoData.financial_group" placeholder="financial group">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="affiliatesManageAoData.phone" placeholder="phone eg. +8613900000000">
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <input class="form-control" type="text" ng-model="affiliatesManageAoData.name" placeholder="name">
+               </div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="affiliatesManageAoData.name_verified" theme="bootstrap" search-enabled="false">
+                     <ui-select-match placeholder='choose name verified'>
+                        <span>{{$select.selected.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in booleanOptons">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class='clearfix'></div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="affiliatesManageAoData.otp" theme="bootstrap" search-enabled="false">
+                     <ui-select-match placeholder='choose otp'>
+                        <span>{{$select.selected.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in booleanOptons">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="affiliatesManageAoData.gender" theme="bootstrap" search-enabled="false">
+                     <ui-select-match placeholder='choose gender'>
+                        <span>{{$select.selected.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in genderOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="affiliatesManageAoData.currency" theme="bootstrap" search-enabled="false">
+                     <ui-select-match placeholder='choose currency'>
+                        <span>{{$select.selected.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in currencyOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDDHHmmss}} ng-model="searchTimeStart">
+                     <input type="text" class="form-control" placeholder="start" />
+                     <span class="input-group-addon" style="background:none">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                     </span>
+                  </div>
+               </div>
+               <div class="col-lg-3 col-md-6 margin-bottom-10">
+                  <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDDHHmmss}} ng-model="searchTimeEnd">
+                     <input type="text" class="form-control" placeholder="end" />
+                     <span class="input-group-addon" style="background:none">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                     </span>
+                  </div>
+               </div>
+            </form>
+            <div server-data-table items="affiliatesManage" ao-data="tempAffiliatesManageAoData" reload="affiliatesManageReload" service-name="adminService" service-name-attr="getReq" url="affiliatesManageUrl" handle-data="false">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
