@@ -4,14 +4,14 @@
             <div class="panel-body">
                 <span style='margin-left: 15px' class="form-group add-button-class">
                     <button
-                        class="btn btn-info"
+                        class="btn btn-green"
                         ng-click="trigerSearch()"
                         type="button"
                         translate="table.button.search"
                     >
                     </button>
                     <button
-                        class="btn btn-info"
+                        class="btn btn-warning"
                         ng-click="resetSearch()"
                         type="button"
                         translate="table.button.reset"
@@ -207,7 +207,7 @@
                                     <button class="btn btn-sm btn-primary"
                                             ng-show='validPower("APPLIESUSE", ["POSTAUDIT"])' ng-click="appliesUseAudit(item)"
                                             title="{{'table.button.save' | translate}}">
-                                        <em class="fa fa-save"></em>
+                                        <em class="fa fa-pencil-square-o"></em>
                                     </button>
                                     <button class="btn btn-sm btn-green"
                                             ng-show='validPower("APPLIESUSE", ["POSTREVOKE"])' ng-click="appliesUseRevoke(item)"
