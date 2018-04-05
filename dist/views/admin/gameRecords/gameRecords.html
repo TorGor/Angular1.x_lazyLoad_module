@@ -2,8 +2,11 @@
    <div class="panel panel-default">
       <div class="panel-wrapper">
          <div class="panel-body">
-            <span class="form-group add-button-class">
-
+            <span style='margin-left: 15px' class="form-group add-button-class">
+               <button class="btn btn-info" ng-click="trigerSearch()" type="button" translate="table.button.search">
+               </button>
+               <button class="btn btn-info" ng-click="resetSearch()" type="button" translate="table.button.reset">
+               </button>
             </span>
             <div class="clearfix"></div>
             <form class="form-horizontal" role="form">
@@ -68,7 +71,7 @@
                   </div>
                </div>
             </form>
-            <div server-data-table items="gameRecords" ao-data="gameRecordsAoData" reload="gameRecordsReload" service-name="adminService" service-name-attr="getReq" url="gameRecordsUrl" handle-data="false">
+            <div server-data-table items="gameRecords" ao-data="tempGameRecordsAoData" reload="gameRecordsReload" service-name="adminService" service-name-attr="getReq" url="gameRecordsUrl" handle-data="false">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">

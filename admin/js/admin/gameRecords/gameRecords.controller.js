@@ -80,6 +80,26 @@
         $scope.gameRecords = [];
         $scope.gameRecordsReload = 1;
         $scope.gameRecordsAoData = {};
+        $scope.tempGameRecordsAoData = {};
+
+        $scope.trigerSearch = function() {
+            $scope.tempGameRecordsAoData = angular.extend($scope.tempGameRecordsAoData,$scope.gameRecordsAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.gameRecordsAoData = {};
+            $scope.search = {
+                products: [],
+                brands: []
+            };
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            var tempData = $scope.tempGameRecordsAoData;
+            $scope.tempGameRecordsAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+        };
 
         // 初始化table数据
         $scope.initGameRecordsData = function () {

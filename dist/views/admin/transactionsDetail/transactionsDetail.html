@@ -5,10 +5,14 @@
             <div class="row" style="margin-bottom: 15px">
                <form class="form-horizontal" role="form" style="height: 45px;width: 100%">
                   <div class="col-lg-3 col-md-6 margin-bottom-10 pull-right">
-                     <input class="form-control" type="text" ng-blur="validTimeZone()" ng-model="timezone" placeholder="timezone">
+                     <input class="form-control" type="text" ng-model="transactionsDetailAoData.timezone" placeholder="timezone">
                   </div>
-                  <div class="col-lg-3 col-md-6 margin-bottom-10 pull-right">
-                     <button class="btn btn-primary pull-right" ng-click="switchAdvancedSearch()" type="button" translate="table.button.advance_search">
+                  <div class="col-lg-6 col-md-6 margin-bottom-10 form-group pull-right text-right">
+                     <button class="btn btn-primary" ng-click="switchAdvancedSearch()" type="button" translate="table.button.advance_search">
+                     </button>
+                     <button class="btn btn-info" ng-click="trigerSearch()" type="button" translate="table.button.search">
+                     </button>
+                     <button class="btn btn-info" ng-click="resetSearch()" type="button" translate="table.button.reset">
                      </button>
                   </div>
                </form>
@@ -23,11 +27,11 @@
                      </input-select>
                   </div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
-                     <input class="form-control" type="text" style="width: 100%" ng-model="transactionsDetailAoData.service_id" placeholder="{{'table.transactionsDetail.th3' | translate}}">
+                     <input class="form-control" type="text" style="width: 100%" ng-model="transactionsDetailAoData.service_id" placeholder="{{'server id'}}">
                   </div>
                   <div class="col-lg-3 col-md-6 margin-bottom-10">
                      <ui-select ng-model="transactionsDetailAoData.wallet" theme="bootstrap" search-enabled="false">
-                        <ui-select-match placeholder="{{'table.transactionsDetail.th8' | translate}}">
+                        <ui-select-match placeholder="{{'table.transactionsDetail.th3' | translate}}">
                            <span>{{$select.selected.label}}</span>
                         </ui-select-match>
                         <ui-select-choices repeat="item.value as item in walletOptions">
@@ -70,7 +74,7 @@
                   </div>
                </form>
             </div>
-            <div server-data-table items="transactionsDetail" ao-data="transactionsDetailAoData" reload="transactionsDetailReload" service-name="adminService" service-name-attr="getReq" url="transactionsUrl" handle-data="false">
+            <div server-data-table items="transactionsDetail" ao-data="tempTransactionsDetailAoData" reload="transactionsDetailReload" service-name="adminService" service-name-attr="getReq" url="transactionsUrl" handle-data="false">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">

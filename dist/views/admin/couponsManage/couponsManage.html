@@ -4,7 +4,10 @@
          <div class="panel-body">
             <span class="form-group add-button-class">
                <button ng-show='validPower("COUPONSMANAGE", ["POST"])' class="btn btn-primary" ng-click="showCouponsManageModal({},2)" type="button" translate="table.button.add">
-                  新增
+               </button>
+               <button class="btn btn-info" ng-click="trigerSearch()" type="button" translate="table.button.search">
+               </button>
+               <button class="btn btn-info" ng-click="resetSearch()" type="button" translate="table.button.reset">
                </button>
             </span>
             <form style="width: 450px" class="form-horizontal pull-right" role="form">
@@ -22,7 +25,7 @@
                   </ui-select>
                </div>
             </form>
-            <div server-data-table items="couponsManage" ao-data="couponsManageAoData" reload="couponsManageReload" service-name="adminService" service-name-attr="getReq" url="couponsManageUrl" handle-data="false">
+            <div server-data-table items="couponsManage" ao-data="tempCouponsManageAoData" reload="couponsManageReload" service-name="adminService" service-name-attr="getReq" url="couponsManageUrl" handle-data="false">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">

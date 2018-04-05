@@ -10,22 +10,37 @@
                         type="button"
                         translate="table.button.add"
                     >
-                        新增
+                    </button>
+                    <button
+                        class="btn btn-info"
+                        ng-click="trigerSearch()"
+                        type="button"
+                        translate="table.button.search"
+                    >
+                    </button>
+                    <button
+                        class="btn btn-info"
+                        ng-click="resetSearch()"
+                        type="button"
+                        translate="table.button.reset"
+                    >
                     </button>
                 </span>
                 <form style="width: 450px" class="form-horizontal pull-right" role="form">
                     <div class="col-lg-6 col-md-6 margin-bottom-10">
                         <input
-                                class="form-control"
-                                type="text"
-                                ng-model="couponsManageAoData.code"
-                                placeholder="code">
+                            class="form-control"
+                            type="text"
+                            ng-model="couponsManageAoData.code"
+                            placeholder="code"
+                        >
                     </div>
                     <div class="col-lg-6 col-md-6 margin-bottom-10">
                         <ui-select
-                                ng-model="couponsManageAoData.currency"
-                                theme="bootstrap"
-                                search-enabled="false">
+                            ng-model="couponsManageAoData.currency"
+                            theme="bootstrap"
+                            search-enabled="false"
+                        >
                             <ui-select-match placeholder="{{'currency'}}">
                                 <span ng-bind="$select.selected.label"></span>
                             </ui-select-match>
@@ -36,15 +51,14 @@
                     </div>
                 </form>
                 <div
-                        server-data-table
-                        items="couponsManage"
-                        ao-data="couponsManageAoData"
-                        reload="couponsManageReload"
-                        service-name="adminService"
-                        service-name-attr="getReq"
-                        url="couponsManageUrl"
-                        handle-data="false"
-
+                    server-data-table
+                    items="couponsManage"
+                    ao-data="tempCouponsManageAoData"
+                    reload="couponsManageReload"
+                    service-name="adminService"
+                    service-name-attr="getReq"
+                    url="couponsManageUrl"
+                    handle-data="false"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
@@ -83,10 +97,12 @@
                                 {{'table.couponsManage.th11' | translate}}
                             </td>
                             <!--<td style="width: 8%">-->
-                                <!--{{'table.couponsManage.th12' | translate}}-->
+                            <!--{{'table.couponsManage.th12' | translate}}-->
                             <!--</td>-->
-                            <td style="width: 10%"
-                                ng-show='validPower("COUPONSMANAGE", ["PATCH", "PUT", "DELETE"])'>{{'table.button.operation' | translate}}</td>
+                            <td
+                                style="width: 10%"
+                                ng-show='validPower("COUPONSMANAGE", ["PATCH", "PUT", "DELETE"])'
+                            >{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -125,37 +141,47 @@
                                 <span>{{item.codeOnly ? 'Yes' : 'No'}}</span>
                             </td>
                             <!--<td>-->
-                                <!--<span>{{item.isDeleted ? 'Yes' : 'No'}}</span>-->
+                            <!--<span>{{item.isDeleted ? 'Yes' : 'No'}}</span>-->
                             <!--</td>-->
                             <td style="white-space: nowrap;" ng-show='validPower("COUPONSMANAGE", ["PATCH", "PUT", "DELETE", "GET"])'>
                                 <div class="buttons">
-                                    <button class="btn btn-sm btn-info"
-                                            ng-show="validPower('COUPONSMANAGE', ['PATCH'])" ng-click="showCouponsManageModal(item,3)"
-                                            title="{{'table.button.edit' | translate}}">
+                                    <button
+                                        class="btn btn-sm btn-info"
+                                        ng-show="validPower('COUPONSMANAGE', ['PATCH'])" ng-click="showCouponsManageModal(item,3)"
+                                        title="{{'table.button.edit' | translate}}"
+                                    >
                                         <em class="fa fa-pencil"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-danger"
-                                            ng-show="!item.isDeleted&&validPower('COUPONSMANAGE', ['DELETE'])"
-                                            ng-click="deleteCouponsManage(item)"
-                                            title="{{'table.button.delete' | translate}}">
+                                    <button
+                                        class="btn btn-sm btn-danger"
+                                        ng-show="!item.isDeleted&&validPower('COUPONSMANAGE', ['DELETE'])"
+                                        ng-click="deleteCouponsManage(item)"
+                                        title="{{'table.button.delete' | translate}}"
+                                    >
                                         <em class="fa fa-trash"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-green"
-                                            ng-show="item.isDeleted&&validPower('COUPONSMANAGE', ['PUT'])"
-                                            ng-click="recoverCouponsManage(item)"
-                                            title="{{'table.button.recover' | translate}}">
+                                    <button
+                                        class="btn btn-sm btn-green"
+                                        ng-show="item.isDeleted&&validPower('COUPONSMANAGE', ['PUT'])"
+                                        ng-click="recoverCouponsManage(item)"
+                                        title="{{'table.button.recover' | translate}}"
+                                    >
                                         <em class="fa fa-rotate-left"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-green" ng-click="showCouponsManageModal(item,1)"
-                                            title="{{'table.button.detail' | translate}}">
+                                    <button
+                                        class="btn btn-sm btn-green" ng-click="showCouponsManageModal(item,1)"
+                                        title="{{'table.button.detail' | translate}}"
+                                    >
                                             <em class="fa fa-folder-open-o"></em>
                                 </button>
                                 </div>
                             </td>
                         </tr>
                         <tr ng-show="couponsManage.length==0">
-                            <td colspan='{{validPower("COUPONSMANAGE", ["PATCH", "PUT", "DELETE", "GET"])?12:11}}'
-                                class="">{{'table.no_date' | translate}}</td>
+                            <td
+                                colspan='{{validPower("COUPONSMANAGE", ["PATCH", "PUT", "DELETE", "GET"])?12:11}}'
+                                class=""
+                            >{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

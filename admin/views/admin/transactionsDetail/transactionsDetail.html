@@ -8,16 +8,29 @@
                             <input
                                 class="form-control"
                                 type="text"
-                                ng-blur="validTimeZone()"
-                                ng-model="timezone"
+                                ng-model="transactionsDetailAoData.timezone"
                                 placeholder="timezone">
                         </div>
-                        <div class="col-lg-3 col-md-6 margin-bottom-10 pull-right">
+                        <div class="col-lg-6 col-md-6 margin-bottom-10 form-group pull-right text-right">
                             <button
-                                class="btn btn-primary pull-right"
+                                class="btn btn-primary"
                                 ng-click="switchAdvancedSearch()"
                                 type="button"
                                 translate="table.button.advance_search"
+                            >
+                            </button>
+                            <button
+                                class="btn btn-info"
+                                ng-click="trigerSearch()"
+                                type="button"
+                                translate="table.button.search"
+                            >
+                            </button>
+                            <button
+                                class="btn btn-info"
+                                ng-click="resetSearch()"
+                                type="button"
+                                translate="table.button.reset"
                             >
                             </button>
                         </div>
@@ -54,14 +67,14 @@
                                     type="text"
                                     style="width: 100%"
                                     ng-model="transactionsDetailAoData.service_id"
-                                    placeholder="{{'table.transactionsDetail.th3' | translate}}">
+                                    placeholder="{{'server id'}}">
                         </div>
                         <div class="col-lg-3 col-md-6 margin-bottom-10">
                             <ui-select
                                 ng-model="transactionsDetailAoData.wallet"
                                 theme="bootstrap"
                                 search-enabled="false">
-                                <ui-select-match placeholder="{{'table.transactionsDetail.th8' | translate}}">
+                                <ui-select-match placeholder="{{'table.transactionsDetail.th3' | translate}}">
                                     <span>{{$select.selected.label}}</span>
                                 </ui-select-match>
                                 <ui-select-choices repeat="item.value as item in walletOptions">
@@ -124,7 +137,7 @@
                 <div
                         server-data-table
                         items="transactionsDetail"
-                        ao-data="transactionsDetailAoData"
+                        ao-data="tempTransactionsDetailAoData"
                         reload="transactionsDetailReload"
                         service-name="adminService"
                         service-name-attr="getReq"

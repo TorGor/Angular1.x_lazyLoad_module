@@ -83,23 +83,57 @@
 
         $scope.transactionsDetail = [];
         $scope.transactionsDetailReload = 1;
+        $scope.tempTransactionsDetailAoData = {
+            user_id: '',
+            affiliate_id: '',
+            service_id: '',
+            min_amount: '',
+            max_amount: '',
+            wallet_code: '',
+            timezone: "+00:00"
+        };
         $scope.transactionsDetailAoData = {
             user_id: '',
             affiliate_id: '',
             service_id: '',
-            // service: '',
             min_amount: '',
             max_amount: '',
             wallet_code: '',
             timezone: "+00:00"
         };
 
-        $scope.validTimeZone = function () {
-            console.log($scope.validReg('[+-]\\d{2}:\\d{2}$',$scope.timezone,'77777'))
-            if(/[+-]\d{2}:\d{2}$/.test($scope.timezone)){
-                $scope.transactionsDetailAoData.timezone = $scope.timezone;
+        $scope.trigerSearch = function() {
+            if(/[+-]\d{2}:\d{2}$/.test($scope.transactionsDetailAoData.timezone)){
             }else{
                 $rootScope.alertErrorMsg('Formatting error,The right example +00:00');
+                return;
+            }
+            $scope.tempTransactionsDetailAoData = angular.extend($scope.tempTransactionsDetailAoData,$scope.transactionsDetailAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.transactionsDetailAoData = {
+                user_id: '',
+                affiliate_id: '',
+                service_id: '',
+                min_amount: '',
+                max_amount: '',
+                wallet_code: '',
+                timezone: "+00:00"
+            };
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            var tempData = $scope.tempTransactionsDetailAoData;
+            $scope.tempTransactionsDetailAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize,
+                user_id: '',
+                affiliate_id: '',
+                service_id: '',
+                min_amount: '',
+                max_amount: '',
+                wallet_code: '',
+                timezone: "+00:00"
             }
         };
 

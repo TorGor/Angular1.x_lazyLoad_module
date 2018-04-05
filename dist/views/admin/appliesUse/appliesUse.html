@@ -2,6 +2,13 @@
    <div class="panel panel-default">
       <div class="panel-wrapper">
          <div class="panel-body">
+            <span style='margin-left: 15px' class="form-group add-button-class">
+               <button class="btn btn-info" ng-click="trigerSearch()" type="button" translate="table.button.search">
+               </button>
+               <button class="btn btn-info" ng-click="resetSearch()" type="button" translate="table.button.reset">
+               </button>
+            </span>
+            <div class='clearfix'></div>
             <form class="form-horizontal" role="form">
                <div class="col-lg-3 col-md-6 margin-bottom-10">
                   <input-select inputkey='username' outputkey='affiliateId' input-placeholder="{{'table.transactionsDetail.th1' | translate}}" searchkey='username' min-length='3' output-value='appliesUseAoData.user_id' url='{{URL.USERSMANAGE.GET}}'>
@@ -60,13 +67,13 @@
                      <ui-select-match placeholder='choose wallets'>
                         <span>{{$item.label}}</span>
                      </ui-select-match>
-                     <ui-select-choices repeat="item.value as item in walletsOptions">
+                     <ui-select-choices repeat="item.value as item in walletOptions">
                         <span ng-bind="item.label"></span>
                      </ui-select-choices>
                   </ui-select>
                </div>
             </form>
-            <div server-data-table items="appliesUse" ao-data="appliesUseAoData" reload="appliesUseReload" service-name="adminService" service-name-attr="getReq" url="appliesUseUrl" handle-data="false">
+            <div server-data-table items="appliesUse" ao-data="tempAppliesUseAoData" reload="appliesUseReload" service-name="adminService" service-name-attr="getReq" url="appliesUseUrl" handle-data="false">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">

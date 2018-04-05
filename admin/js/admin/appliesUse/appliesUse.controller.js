@@ -137,7 +137,26 @@
         $scope.showAppliesUse = [];
         $scope.appliesUseReload = 1;
         $scope.appliesUseAoData = {};
+        $scope.tempAppliesUseAoData = {};
 
+        $scope.trigerSearch = function() {
+            $scope.tempAppliesUseAoData = angular.extend($scope.tempAppliesUseAoData,$scope.appliesUseAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.search = {
+                products: [],
+                status: [],
+                brands: [],
+                wallets: [],
+            };
+            $scope.appliesUseAoData = {};
+            var tempData = $scope.tempAppliesUseAoData;
+            $scope.tempAppliesUseAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+        };
 
         // 初始化table数据
         $scope.initAppliesUseData = function () {

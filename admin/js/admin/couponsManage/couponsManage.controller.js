@@ -221,6 +221,24 @@
             currency:''
         };
 
+        $scope.tempCouponsManageAoData = {
+            code:'',
+            currency:''
+        };
+
+        $scope.trigerSearch = function() {
+            $scope.tempCouponsManageAoData = angular.extend($scope.tempCouponsManageAoData,$scope.couponsManageAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.couponsManageAoData = {};
+            var tempData = $scope.tempCouponsManageAoData;
+            $scope.tempCouponsManageAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+        };
+
         // 初始化table数据
         $scope.initCouponsManageData = function () {
             $scope.couponsManageReload++

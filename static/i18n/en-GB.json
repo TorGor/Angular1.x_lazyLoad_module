@@ -339,7 +339,8 @@
             "th6": "User Username",
             "th7": "User UserId",
             "th8": "User AffiliateId",
-            "th9": "Result"
+            "th9": "Result",
+            "th10": "Create At"
         },
         "gameRecords": {
             "th1": "Bet",

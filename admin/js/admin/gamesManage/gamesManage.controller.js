@@ -141,7 +141,28 @@
         // 原始的数据
         $scope.gamesManage = [];
         $scope.gamesManageReload = 1;
+        $scope.tempGamesManageAoData = {};
         $scope.gamesManageAoData = {};
+
+        $scope.trigerSearch = function() {
+            if($scope.gamesManageAoData.keyword.length!==0&&$scope.gamesManageAoData.keyword.length<3){
+                $rootScope.alertErrorMsg('min name char length 3');
+                return;
+            }
+            $scope.tempGamesManageAoData = angular.extend($scope.tempGamesManageAoData,$scope.gamesManageAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.search = {
+                categories: []
+            };
+            $scope.gamesManageAoData = {};
+            var tempData = $scope.tempGamesManageAoData;
+            $scope.tempGamesManageAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+        };
 
         // 初始化table数据
         $scope.initGamesManageData = function () {
