@@ -3,7 +3,20 @@
         <div class="panel-wrapper">
             <div class="panel-body">
                 <span class="form-group add-button-class">
-
+                    <button
+                        class="btn btn-info"
+                        ng-click="trigerSearch()"
+                        type="button"
+                        translate="table.button.search"
+                    >
+                    </button>
+                    <button
+                        class="btn btn-info"
+                        ng-click="resetSearch()"
+                        type="button"
+                        translate="table.button.reset"
+                    >
+                    </button>
                 </span>
                 <div class="clearfix"></div>
                 <form class="form-horizontal" role="form">
@@ -33,17 +46,19 @@
                     </div>
                     <div class="col-lg-3 col-md-6 margin-bottom-10">
                         <input
-                                class="form-control"
-                                type="text"
-                                ng-model="ordersManageAoData.min_amount"
-                                placeholder="{{'min ' + ('table.ordersManage.th1' | translate)}}">
+                            class="form-control"
+                            type="text"
+                            ng-model="ordersManageAoData.min_amount"
+                            placeholder="{{'min ' + ('table.ordersManage.th1' | translate)}}"
+                        >
                     </div>
                     <div class="col-lg-3 col-md-6 margin-bottom-10">
                         <input
-                                class="form-control"
-                                type="text"
-                                ng-model="ordersManageAoData.max_amount"
-                                placeholder="{{'max ' + ('table.ordersManage.th1' | translate)}}">
+                            class="form-control"
+                            type="text"
+                            ng-model="ordersManageAoData.max_amount"
+                            placeholder="{{'max ' + ('table.ordersManage.th1' | translate)}}"
+                        >
                     </div>
                     <div class='col-lg-3 col-md-6 margin-bottom-10'>
                         <ui-select
@@ -51,7 +66,8 @@
                             theme="bootstrap"
                             multiple
                             close-on-select="false"
-                            search-enabled="false">
+                            search-enabled="false"
+                        >
                             <ui-select-match placeholder='choose method'>
                                 <span>{{$item.label}}</span>
                             </ui-select-match>
@@ -66,7 +82,8 @@
                             theme="bootstrap"
                             multiple
                             close-on-select="false"
-                            search-enabled="false">
+                            search-enabled="false"
+                        >
                             <ui-select-match placeholder='choose wallet'>
                                 <span>{{$item.label}}</span>
                             </ui-select-match>
@@ -76,22 +93,26 @@
                         </ui-select>
                     </div>
                     <div class="col-lg-3 col-md-6 margin-bottom-10">
-                        <div class="input-group date"
-                             datetimepicker
-                             options={{dateOptionsYYYMMDDHHmmss}}
-                             ng-model="searchTimeStart">
-                            <input type="text" class="form-control" placeholder="start"/>
+                        <div
+                            class="input-group date"
+                            datetimepicker
+                            options={{dateOptionsYYYMMDDHHmmss}}
+                            ng-model="searchTimeStart"
+                        >
+                            <input type="text" class="form-control" placeholder="start" />
                             <span class="input-group-addon" style="background:none">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 margin-bottom-10">
-                        <div class="input-group date"
-                             datetimepicker
-                             options={{dateOptionsYYYMMDDHHmmss}}
-                             ng-model="searchTimeEnd">
-                            <input type="text" class="form-control" placeholder="end"/>
+                        <div
+                            class="input-group date"
+                            datetimepicker
+                            options={{dateOptionsYYYMMDDHHmmss}}
+                            ng-model="searchTimeEnd"
+                        >
+                            <input type="text" class="form-control" placeholder="end" />
                             <span class="input-group-addon" style="background:none">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -99,15 +120,14 @@
                     </div>
                 </form>
                 <div
-                        server-data-table
-                        items="ordersManage"
-                        ao-data="ordersManageAoData"
-                        reload="ordersManageReload"
-                        service-name="adminService"
-                        service-name-attr="getReq"
-                        url="ordersManageUrl"
-                        handle-data="false"
-
+                    server-data-table
+                    items="ordersManage"
+                    ao-data="tempOrdersManageAoData"
+                    reload="ordersManageReload"
+                    service-name="adminService"
+                    service-name-attr="getReq"
+                    url="ordersManageUrl"
+                    handle-data="false"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
@@ -155,12 +175,16 @@
                             </td>
                             <td style="white-space: nowrap;" ng-show='validPower("ORDERSMANAGE", ["GETDETAIL","POST"])'>
                                 <div class="buttons">
-                                    <button class="btn btn-sm btn-info" ng-show='validPower("ORDERSMANAGE", ["POST"])&&item.status!=="finished"' ng-click="manualOrdersManage(item)"
-                                            title="{{'table.button.save' | translate}}">
+                                    <button
+                                        class="btn btn-sm btn-info" ng-show='validPower("ORDERSMANAGE", ["POST"])&&item.status!=="finished"' ng-click="manualOrdersManage(item)"
+                                        title="{{'table.button.save' | translate}}"
+                                    >
                                         <em class="fa fa-save"></em>
                                     </button>
-                                    <button class="btn btn-sm btn-green" ng-show='validPower("ORDERSMANAGE", ["GETDETAIL"])' ng-click="ordersDetailManage(item)"
-                                            title="{{'table.button.detail' | translate}}">
+                                    <button
+                                        class="btn btn-sm btn-green" ng-show='validPower("ORDERSMANAGE", ["GETDETAIL"])' ng-click="ordersDetailManage(item)"
+                                        title="{{'table.button.detail' | translate}}"
+                                    >
                                         <em class="fa fa-folder-open-o"></em>
                                     </button>
                                 </div>

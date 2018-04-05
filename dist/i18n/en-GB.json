@@ -48,6 +48,7 @@
         "button": {
             "add": "Add",
             "search": "Search",
+            "reset": "Reset",
             "advance_search": "Show Advance Search",
             "save": "Save",
             "edit": "Edit",

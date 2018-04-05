@@ -14,6 +14,20 @@
                             >
                                 新增
                             </button>
+                            <button
+                                class="btn btn-info"
+                                ng-click="trigerSearch()"
+                                type="button"
+                                translate="table.button.search"
+                            >
+                            </button>
+                            <button
+                                class="btn btn-info"
+                                ng-click="resetSearch()"
+                                type="button"
+                                translate="table.button.reset"
+                            >
+                            </button>
                         </span>
                         <form style="width: 450px" class="form-horizontal pull-right" role="form">
                         <div class="col-lg-6 col-md-6">
@@ -66,7 +80,7 @@
                 <div
                     server-data-table
                     items="blackLists"
-                    ao-data="blackListsAoData"
+                    ao-data="tempBlackListsAoData"
                     reload="blackListsReload"
                     service-name="adminService"
                     service-name-attr="getReq"

@@ -46,10 +46,6 @@
 
         $scope.typeOptionsSearch = [
             {
-                label:'All',
-                value:''
-            },
-            {
                 label:'Fraud',
                 value:'fraud'
             },
@@ -64,7 +60,21 @@
 
         $scope.blackListsReload = 1;
         $scope.blackListsAoData = {};
+        $scope.tempBlackListsAoData = {};
         $scope.blackListsSearch = '';
+
+        $scope.trigerSearch = function() {
+            $scope.tempBlackListsAoData = angular.extend($scope.tempBlackListsAoData,$scope.blackListsAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.blackListsAoData = {};
+            var tempData = $scope.tempBlackListsAoData;
+            $scope.tempBlackListsAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+        };
 
         $scope.blackListsUrl = $rootScope.URL.BLACKLISTS.GET;
 

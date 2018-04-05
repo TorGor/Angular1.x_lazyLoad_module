@@ -48,6 +48,7 @@
         "button": {
             "add": "添加",
             "search": "查找",
+            "reset": "重置",
             "advance_search": "显示高级搜索",
             "save": "保存",
             "edit": "编辑",

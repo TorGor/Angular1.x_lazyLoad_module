@@ -87,9 +87,30 @@
         // 过滤出来的数据
         $scope.ordersManageReload = 1;
         $scope.ordersManageAoData = {};
-
+        $scope.tempOrdersManageAoData = {};
         $scope.ordersManageAoData.wallet = ''
         $scope.ordersManageAoData.method = ''
+
+        $scope.trigerSearch = function() {
+            $scope.tempOrdersManageAoData = angular.extend($scope.tempOrdersManageAoData,$scope.ordersManageAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.ordersManageAoData = {};
+            $scope.ordersManageAoData.wallet = ''
+            $scope.ordersManageAoData.method = ''
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            $scope.search = {
+                wallet: [],
+                method: []
+            };
+            var tempData = $scope.tempOrdersManageAoData;
+            $scope.tempOrdersManageAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+        };
 
         $scope.initOrdersManageData = function() {
             $scope.ordersManageReload++

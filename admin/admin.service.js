@@ -17,15 +17,15 @@
              * @param url 请求的url
              * @param params 请求的参数
              * @param data 请求的数据
+             * @param header 请求的 header
              * @returns $promise
              */
-            getReq: function (url, params, data) {
-                console.log(url,88888)
+            getReq: function (url, params, data, header) {
                 return $http({
                     method: 'GET',
                     url: EVN.debug ? (EVN.server + url + EVN.suffix) : url,
                     params: params||{},
-                    // headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    headers: header||{},
                     // data: data||{}
                 })
             },

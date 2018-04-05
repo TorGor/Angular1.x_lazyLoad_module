@@ -18,7 +18,7 @@
             template:
             '<div>'+
             '<ui-select\n' +
-            '                                ng-model="searchValue"\n' +
+            '                                ng-model="searchValue.select"\n' +
             '                                on-select="handelSelect($item, $model)"\n' +
             '                                theme="bootstrap"\n' +
             '                            >\n' +
@@ -58,6 +58,8 @@
                     $scope.inputPlaceholder = 'search value'
                 }
 
+                $scope.searchValue = {};
+
                 $scope.inputStatu=$scope.inputStatu||false;
                 $scope.searchDataFromServer = function (value) {
                     var temAoData = {
@@ -67,7 +69,7 @@
                     if($scope.searchkey){
                         temAoData[$scope.searchkey] = value||'';
                     }
-                    adminService.getReq($scope.url,temAoData,{}).then(function (data){
+                    adminService.getReq($scope.url,temAoData,{},{_loading:false}).then(function (data){
                         var result = data.data && data.data.data;
                         if(result && result.data && result.meta){
                             if(window.Array.isArray(result.data)){
@@ -92,6 +94,15 @@
                     $scope.outputValue = $item['_value']||'';
                     $($element).find('.ui-select-search').val($model)
                 };
+
+                $scope.$watch('outputValue',function(newValue, oldValue) {
+                    if(newValue!==oldValue){
+                        if(!newValue){
+                            $($element).find('.ui-select-search').val('');
+                            $scope.searchValue.select = undefined;
+                        }
+                    }
+                })
 
                 $timeout(function() {
                     $($element).find('.ui-select-search').bind('keyup', function(e) {
