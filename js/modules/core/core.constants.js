@@ -17,8 +17,8 @@
             debug: true,
             //suffix: '.json',
             suffix: '',
-            server: '',
-             //server: 'http://193.112.155.213',
+            //server: '',
+             server: 'http://193.112.155.213',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             //server: 'http://holyplace.ngrok.xiaomiqiu.cn',
             URLOBJ:{
@@ -48,6 +48,7 @@
                 users: 'USERSMANAGE',
                 domains: 'DOMAINSMANAGE',
                 affiliates: 'AFFILIATESMANAGE',
+                plans: 'AFFILIATESPLANS',
             }
         });
 })();

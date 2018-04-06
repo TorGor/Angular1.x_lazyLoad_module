@@ -385,7 +385,17 @@
                 permission: 'affiliates'
             })
             
+            .state('admin.affiliatesPlans', {
+                url: '/affiliatesPlans/manage',
+                title: 'affiliatesPlans Manage',
+                controller: 'AffiliatesPlansController',
+                templateUrl: RouteHelpersProvider.basepath('admin/affiliatesPlans/affiliatesPlans.html'),
+                permission: 'plans'
+            })
+            
             //new route name will be append here
+            
+            
             
             
             

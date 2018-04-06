@@ -236,11 +236,23 @@
                                 <span>{{item.isApproved || ''}}</span>
                             </td>
                             <td style="white-space: nowrap;">
-                                 <button
-                                     class="btn btn-sm btn-info" ng-click="showWalletsManageModal(item,1)"
-                                     title="{{'table.button.detail' | translate}}">
-                                    <em class="fa fa-eye"></em>
-                                </button>
+                                <div class="btn-group" uib-dropdown="dropdown">
+                                    <button
+                                        class="btn btn-sm btn-info" ng-click="showWalletsManageModal(item,1)"
+                                        title="{{'table.button.detail' | translate}}">
+                                        <em class="fa fa-eye"></em>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <li><a href="#">Cancel</a>
+                                        </li>
+                                        <li><a href="#">Delay</a>
+                                        </li>
+                                        <li><a href="#">Re Plan </a>
+                                        </li>
+                                        <li><a href="#">Invoke meeting</a>
+                                        </li>
+                                   </ul>
+                                </div>
                             </td>
                         </tr>
                         <tr ng-show="affiliatesManage.length==0">

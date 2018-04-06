@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-wrapper">
+            <div class="panel-body">
+                <span class="form-group add-button-class">
+                    <button
+                        class="btn btn-primary"
+                        ng-click="addAffiliatesPlans()"
+                        type="button"
+                        translate="table.button.add"
+                    >
+                        新增
+                    </button>
+                </span>
+                <form class="form-inline pull-right add-button-class" role="form">
+                    <div style="position: relative" class="form-group">
+                        <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
+                        <input class="form-control" type="text" ng-model="affiliatesPlansSearch" placeholder="{{searchPlaceholder(['table.affiliatesPlans.th1', 'table.affiliatesPlans.th2', 'table.affiliatesPlans.th3'])}}" >
+                    </div>
+                </form>
+                <div
+                    web-data-table
+                    items="affiliatesPlans"
+                    ao-data="affiliatesPlansAoData"
+                    search="affiliatesPlansSearch"
+                    reload="affiliatesPlansReload"
+                    show-items="showAffiliatesPlans"
+                >
+                    <table width="100%" class="table table-bordered table-hover bg-white">
+                        <thead>
+                        <tr class="bg-gray-light text-bold">
+                            <td style="width: 40%" ao-data="affiliatesPlansAoData" web-data-table-sort="roleName">
+                                {{'table.affiliatesPlans.th1' | translate}}
+                            </td>
+                            <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in showAffiliatesPlans">
+                            <td>
+                                <span>
+                                    {{ item.code || '' }}
+                                </span>
+                            </td>
+                            <td style="white-space: nowrap;">
+
+                            </td>
+                        </tr>
+                        <tr ng-show="showAffiliatesPlans.length==0">
+                            <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

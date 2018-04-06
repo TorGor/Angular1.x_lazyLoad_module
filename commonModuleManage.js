@@ -5,9 +5,9 @@ var moduleSetting = {
     //模块主要名称
     common: 'affiliates',
     //模块主要名称2
-    module: 'manage',
+    module: 'plans',
     //模块标题
-    title: '代理管理',
+    title: '代理计划',
     // url地址
     url: '/rest/affiliates',
 };

@@ -188,12 +188,12 @@
                     "text": "代理管理",
                     "sref": "admin.affiliatesManage",
                     "module": "affiliates",
+                },
+                {
+                    "text": "代理计划",
+                    "sref": "admin.affiliatesPlans",
+                    "module": "plans",
                 }//new sidebar name will be append here
-            
-            
-            
-            
-            
             
             ]
 
