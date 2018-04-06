@@ -153,7 +153,7 @@
                   <legend class="text-center">内容</legend>
                   <div class="">
                      <span class="form-group add-button-class">
-                        <button ng-show='hasPower' class="btn btn-primary" ng-click="addContentModal()" type="button" translate="table.button.add">
+                        <button ng-show='hasPower' class="btn btn-primary" ng-click="showEditHtmlContentModal({},'content')" type="button" translate="table.button.add">
                            新增
                         </button>
                      </span>
@@ -175,46 +175,41 @@
                                  <td style='width: 50%' ao-data='contentModalAoData' web-data-table-sort='value'>
                                     {{'table.paymentMethods.name.th2' | translate}}
                                  </td>
-                                 <td style="width: 15%" ng-show='hasPower'>{{'table.button.operation' | translate}}</td>
+                                 <td style="width: 15%">{{'table.button.operation' | translate}}</td>
                               </tr>
                            </thead>
                            <tbody>
                               <tr ng-repeat="item in showContentModal">
                                  <td>
-                                    <span editable-select='item.locale' e-name='locale' e-form='rowform' onbeforesave='checkRequiredData($data)' e-ng-options='option.value as option.label for option in localesOptions'>
+                                    <span>
                                        {{showOptionsValue(item.locale,localesOptions)}}
                                     </span>
                                  </td>
                                  <td>
-                                    <span editable-text='item.value' e-name='value' e-formclass='xeditable-lg' onbeforesave='checkRequiredData($data)' e-form='rowform' e-required=''>{{ item.value || '' }}</span>
+                                    <span>{{ (item.value && item.value.length>50)? item.value.substr(0,50)+'...' : item.value||'' }}</span>
                                  </td>
-                                 <td style="white-space: nowrap;" ng-show='hasPower'>
-                                    <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveContentModal(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
-                                       <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
-                                          <em class="fa fa-save"></em>
-                                       </button>
-                                       <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSaveContentModal(item,$index)" title="{{'table.button.cancel' | translate}}">
-                                          <em class="fa fa-times"></em>
-                                       </button>
-                                    </form>
-                                    <div class="buttons" ng-show="!rowform.$visible">
-                                       <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                 <td style="white-space: nowrap;">
+                                    <div class="buttons">
+                                       <button class="btn btn-sm btn-info" ng-show='edit!==1' ng-click="showEditHtmlContentModal(item,'content')" title="{{'table.button.edit' | translate}}">
                                           <em class="fa fa-pencil"></em>
                                        </button>
-                                       <button class="btn btn-sm btn-danger" ng-click="deleteContentModal(item, $index)" title="{{'table.button.delete' | translate}}">
+                                       <button class="btn btn-sm btn-danger" ng-show='edit!==1' ng-click="deleteContentModal(item, $index)" title="{{'table.button.delete' | translate}}">
                                           <em class="fa fa-trash"></em>
+                                       </button>
+                                       </button>
+                                       <button class="btn btn-sm btn-green" ng-show='edit==1' ng-click="showEditHtmlContentModal(item,'content')" title="{{'table.button.detail' | translate}}">
+                                          <em class="fa fa-folder-open-o"></em>
                                        </button>
                                     </div>
                                  </td>
                               </tr>
                               <tr ng-show="showContentModal.length==0">
-                                 <td colspan="{{hasPower?3:2}}" class="">{{'table.no_date' | translate}}</td>
+                                 <td colspan="20" class="">{{'table.no_date' | translate}}</td>
                               </tr>
                            </tbody>
                         </table>
                      </div>
                   </div>
-                  <div class="clearfix"></div>
                   <div class="clearfix"></div>
                   <legend class="text-center">种类</legend>
                   <form class="form-horizontal">

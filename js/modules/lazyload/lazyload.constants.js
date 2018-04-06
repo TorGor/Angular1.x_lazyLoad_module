@@ -159,6 +159,8 @@
                         'vendor/bootstrap/js/tooltip.js',
                         'vendor/summernote/dist/summernote.css',
                         'vendor/summernote/dist/summernote.js',
+                        //'vendor/summernote/dist/lang/summernote-es-ES.js',
+                        //'vendor/summernote/dist/lang/summernote-zh-CN.js',
                         'vendor/angular-summernote/dist/angular-summernote.js'
                     ],
                     serie: true

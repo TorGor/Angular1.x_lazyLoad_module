@@ -11,6 +11,7 @@
         'adminService',
         'promotionsItem',
         'edit',
+        '$uibModal',
         'hasPower',
         '$translate'
     ];
@@ -22,6 +23,7 @@
         adminService,
         promotionsItem,
         edit,
+        $uibModal,
         hasPower,
         $translate
     ) {
@@ -47,10 +49,11 @@
 
 
         if($scope.promotionsItem.period){
-            $scope.promotionsItem.startTime = ($scope.promotionsItem.period.from || '').substr(0,10);
-            $scope.promotionsItem.endTime = ($scope.promotionsItem.period.to || '').substr(0,10);
+            $scope.promotionsItem.startTime = $scope.promotionsItem.period.from?$scope.formatTime($scope.promotionsItem.period.from):"";
+            $scope.promotionsItem.endTime = $scope.promotionsItem.period.to?$scope.formatTime($scope.promotionsItem.period.to):"";
             delete $scope.promotionsItem.period
         }
+
 
         $scope.timeStart = $scope.promotionsItem.startTime || '';
         $scope.timeEnd = $scope.promotionsItem.endTime || '';
@@ -178,7 +181,9 @@
          * @return null
          */
         $scope.deleteContentModal = function (contentModal, index) {
-            $scope.promotionsItem['content'].splice(index, 1)
+            $scope.promotionsItem['content'].splice(index, 1);
+            $scope.initContentModalData();
+            $scope.contentModalReload ++;
         };
 
         // 添加按钮
@@ -204,55 +209,94 @@
             }
         };
 
-        $scope.confirmModal = function () {
-            console.log($scope.promotionsItem,6666)
-            return;
-            var tempData = angular.copy($scope.promotionsItem);
-            tempData['title'] = tempData['title'].filter(function (item) {
-                return !$scope.validIsNew(item.id);
+        //$scope.confirmModal = function () {
+        //    console.log($scope.promotionsItem,6666)
+        //    return;
+        //    var tempData = angular.copy($scope.promotionsItem);
+        //    tempData['title'] = tempData['title'].filter(function (item) {
+        //        return !$scope.validIsNew(item.id);
+        //    });
+        //    if(window.Array.isArray(tempData['title'])){
+        //        tempData['title'].forEach(function(titleItem) {
+        //            if(titleItem.id){
+        //                delete titleItem.id;
+        //            }
+        //        })
+        //    }
+        //    tempData['content'] = tempData['content'].filter(function (item) {
+        //        return !$scope.validIsNew(item.id);
+        //    });
+        //    if(window.Array.isArray(tempData['content'])){
+        //        tempData['content'].forEach(function(contentItem) {
+        //            if(contentItem.id){
+        //                delete contentItem.id;
+        //            }
+        //        })
+        //    }
+        //    if (!edit) {
+        //        adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, tempData).then(function (res) {
+        //            console.log(res);
+        //            if (typeof res.data.success === 'boolean') {
+        //                if (res.data.success) {
+        //                    $uibModalInstance.close('success');
+        //                    $rootScope.toasterSuccess(res.data.msg);
+        //                } else {
+        //                    $rootScope.alertErrorMsg(res.data.msg);
+        //                }
+        //            }
+        //        });
+        //    } else if (edit) {
+        //        adminService.patchReq($rootScope.URL.COUPONSMANAGE.PATCH+'/'+promotionsItem.code, {}, tempData).then(function (res) {
+        //            console.log(res);
+        //            if (typeof res.data.success === 'boolean') {
+        //                if (res.data.success) {
+        //                    $uibModalInstance.close('success');
+        //                    $rootScope.toasterSuccess(res.data.msg);
+        //                } else {
+        //                    $rootScope.alertErrorMsg(res.data.msg);
+        //                }
+        //            }
+        //        });
+        //    }
+        //};
+
+        $scope.showEditHtmlContentModal = function (modalItem,type) {
+            var tempData = angular.copy(modalItem);
+            tempData._type = type;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/promotionsManage/promotionsEditContentModal.html',
+                controller: 'promotionsEditContentModalController',
+                size: 'lg',
+                windowClass: 'full-screen-modal-window',
+                scope:$scope,
+                resolve: {
+                    modalItem: tempData
+                }
             });
-            if(window.Array.isArray(tempData['title'])){
-                tempData['title'].forEach(function(titleItem) {
-                    if(titleItem.id){
-                        delete titleItem.id;
+            modalInstance.result.then(function (data) {
+                if(['title','content'].indexOf(data.type)){
+                    if(data.type == 'content'){
+                        console.log(data)
+                        if(data.data.id){
+                            $scope.promotionsItem[data.type].forEach(function(item,index) {
+                                if (item.id == data.data.id) {
+                                    $scope.promotionsItem[data.type].splice(index,1,angular.copy(data.data))
+                                }
+                            });
+                        }else{
+                            $scope.promotionsItem[data.type].unshift(angular.copy(data.data))
+                            $scope.initContentModalData();
+                        }
+                        $scope.contentModalReload ++;
                     }
-                })
-            }
-            tempData['content'] = tempData['content'].filter(function (item) {
-                return !$scope.validIsNew(item.id);
+                    $scope.titleModalReload ++;
+                }
+            }, function (data) {
+
             });
-            if(window.Array.isArray(tempData['content'])){
-                tempData['content'].forEach(function(contentItem) {
-                    if(contentItem.id){
-                        delete contentItem.id;
-                    }
-                })
-            }
-            if (!edit) {
-                adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('success');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (edit) {
-                adminService.patchReq($rootScope.URL.COUPONSMANAGE.PATCH+'/'+promotionsItem.code, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('success');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
         };
 
         $scope.cancelModal = function () {

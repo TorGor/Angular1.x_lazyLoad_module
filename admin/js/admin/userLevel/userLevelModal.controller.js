@@ -292,7 +292,6 @@
                             $scope.rebatesModalReload++;
                         }
                     });
-                    console.log($scope.rebatesModal,88888)
                 }
                 modalInstance = null
             }, function (data) {

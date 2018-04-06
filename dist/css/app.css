@@ -11124,6 +11124,9 @@ body .jvectormap-zoomout {
   left: 20px;
   text-align: left;
 }
+.full-screen-modal-window .modal-lg {
+  width: 90% !important;
+}
 @media (max-height: 720px) {
   .abs-center {
     position: relative;

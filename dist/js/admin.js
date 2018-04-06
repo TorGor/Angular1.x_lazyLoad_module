@@ -53,14 +53,14 @@
 (function() {
 
     angular
-        .module('admin.blackLists', [
+        .module('admin.bigwinsManage', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.bigwinsManage', [
+        .module('admin.blackLists', [
             'app.core',
         ]);
 })();
@@ -88,14 +88,14 @@
 (function() {
 
     angular
-        .module('admin.gameBrands', [
+        .module('admin.domainsManage', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.domainsManage', [
+        .module('admin.gameBrands', [
             'app.core',
         ]);
 })();
@@ -1106,6 +1106,231 @@
 (function() {
 
     angular
+        .module('admin.bigwinsManage')
+        .controller('BigwinsManageController', BigwinsManageController);
+
+    BigwinsManageController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModal',
+        'adminService'
+    ];
+
+    function BigwinsManageController(
+        $scope,
+        $rootScope,
+        $uibModal,
+        adminService
+    ) {
+
+        $scope.brandOptions = [];
+
+        $scope.initBrandOptionsData = function () {
+            $scope.brandOptions = [];
+            adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                $scope.brandOptions.push(tempObj)
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.statusOptions = [
+            {
+                label:'pending',
+                value:'pending'
+            },
+            {
+                label:'approved',
+                value:'approved'
+            },
+            {
+                label:'reviewing',
+                value:'reviewing'
+            },
+            {
+                label:'succeed',
+                value:'succeed'
+            },
+            {
+                label:'revoked',
+                value:'revoked'
+            }
+        ];
+
+        $scope.bigwinsManageUrl = $rootScope.URL.BIGWINSMANAGE.GET;
+
+        // 原始的数据
+        $scope.bigwinsManage = [];
+        $scope.bigwinsManageReload = 1;
+        $scope.bigwinsManageAoData = {};
+        $scope.tempBigwinsManageAoData = {};
+
+        $scope.trigerSearch = function() {
+            $scope.tempBigwinsManageAoData = angular.extend($scope.tempBigwinsManageAoData,$scope.bigwinsManageAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.bigwinsManageAoData = {};
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            var tempData = $scope.tempBigwinsManageAoData;
+            $scope.tempBigwinsManageAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+        };
+
+        // 初始化table数据
+        $scope.initBigwinsManageData = function () {
+            $scope.bigwinsManageReload++;
+        };
+
+
+        $scope.auditBigwinsManage = function (item) {
+            if(!item.id){
+                $rootScope.alertErrorMsg('server data error');
+                return;
+            }
+            adminService.getReq($rootScope.URL.BIGWINSMANAGE.GETAUDIT + '/' + item.id, {admin_id:window.userInfo.adminId || ''}, {}).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    console.log(res.data.data)
+                    if (res.data.success) {
+                        var modalInstance = $uibModal.open({
+                            animation: true,
+                            ariaLabelledBy: 'modal-title',
+                            ariaDescribedBy: 'modal-body',
+                            templateUrl: '/views/admin/bigwinsManage/bigwinsManageModal.html',
+                            controller: 'bigwinsManageModalController',
+                            resolve: {
+                                modalItem: res.data.data,
+                                id: item.id,
+                            },
+                            size: 'lg',
+                        });
+                        modalInstance.result.then(function(data) {
+                            $scope.initBigwinsManageData();
+                        }, function(data) {
+                        });
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initBrandOptionsData();
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.bigwinsManageAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.bigwinsManageAoData.start_time) {
+                        delete $scope.bigwinsManageAoData.start_time;
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.bigwinsManageAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.bigwinsManageAoData.end_time) {
+                        delete $scope.bigwinsManageAoData.end_time;
+                    }
+                }
+            }
+        });
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.bigwinsManage')
+        .controller('bigwinsManageModalController', bigwinsManageModalController);
+
+    bigwinsManageModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'adminService',
+        'modalItem',
+        'id',
+        '$translate'
+    ];
+
+    function bigwinsManageModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        adminService,
+        modalItem,
+        id,
+        $translate
+    ) {
+
+        $scope.resultOptions = [
+            {
+                label:'pending',
+                value:'pending'
+            },
+            {
+                label:'approved',
+                value:'approved'
+            },
+            {
+                label:'declined',
+                value:'declined'
+            },
+        ];
+
+        $scope.item = {
+            result:$scope.resultOptions[0].value,
+            comment:''
+        };
+
+        $scope.confirmModal = function () {
+            var tempData = angular.copy($scope.item);
+            tempData.adminId = modalItem.adminId;
+            tempData.adminId = modalItem.adminId;
+            adminService.postReq($rootScope.URL.BIGWINSMANAGE.POSTAUDIT+'/'+id+'/'+modalItem.id, {}, tempData).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $uibModalInstance.close('success');
+                        $rootScope.toasterSuccess(res.data.msg);
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.blackLists')
         .controller('BlackListsController', BlackListsController);
 
@@ -1341,231 +1566,6 @@
         // 页面加载执行的函数
 
         $scope.initMethodsNameModalData();
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.bigwinsManage')
-        .controller('BigwinsManageController', BigwinsManageController);
-
-    BigwinsManageController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModal',
-        'adminService'
-    ];
-
-    function BigwinsManageController(
-        $scope,
-        $rootScope,
-        $uibModal,
-        adminService
-    ) {
-
-        $scope.brandOptions = [];
-
-        $scope.initBrandOptionsData = function () {
-            $scope.brandOptions = [];
-            adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        if(window.Array.isArray(res.data.data)){
-                            res.data.data.map(function (objItem) {
-                                var tempObj ={
-                                    label:objItem.code||'',
-                                    value:objItem.code||''
-                                };
-                                $scope.brandOptions.push(tempObj)
-                            })
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.statusOptions = [
-            {
-                label:'pending',
-                value:'pending'
-            },
-            {
-                label:'approved',
-                value:'approved'
-            },
-            {
-                label:'reviewing',
-                value:'reviewing'
-            },
-            {
-                label:'succeed',
-                value:'succeed'
-            },
-            {
-                label:'revoked',
-                value:'revoked'
-            }
-        ];
-
-        $scope.bigwinsManageUrl = $rootScope.URL.BIGWINSMANAGE.GET;
-
-        // 原始的数据
-        $scope.bigwinsManage = [];
-        $scope.bigwinsManageReload = 1;
-        $scope.bigwinsManageAoData = {};
-        $scope.tempBigwinsManageAoData = {};
-
-        $scope.trigerSearch = function() {
-            $scope.tempBigwinsManageAoData = angular.extend($scope.tempBigwinsManageAoData,$scope.bigwinsManageAoData)
-        };
-
-        $scope.resetSearch = function() {
-            $scope.bigwinsManageAoData = {};
-            $scope.searchTimeStart = undefined
-            $scope.searchTimeEnd = undefined
-            var tempData = $scope.tempBigwinsManageAoData;
-            $scope.tempBigwinsManageAoData = {
-                page:tempData.page,
-                pageSize:tempData.pageSize
-            }
-        };
-
-        // 初始化table数据
-        $scope.initBigwinsManageData = function () {
-            $scope.bigwinsManageReload++;
-        };
-
-
-        $scope.auditBigwinsManage = function (item) {
-            if(!item.id){
-                $rootScope.alertErrorMsg('server data error');
-                return;
-            }
-            adminService.getReq($rootScope.URL.BIGWINSMANAGE.GETAUDIT + '/' + item.id, {admin_id:window.userInfo.adminId || ''}, {}).then(function (res) {
-                if (typeof res.data.success === 'boolean') {
-                    console.log(res.data.data)
-                    if (res.data.success) {
-                        var modalInstance = $uibModal.open({
-                            animation: true,
-                            ariaLabelledBy: 'modal-title',
-                            ariaDescribedBy: 'modal-body',
-                            templateUrl: '/views/admin/bigwinsManage/bigwinsManageModal.html',
-                            controller: 'bigwinsManageModalController',
-                            resolve: {
-                                modalItem: res.data.data,
-                                id: item.id,
-                            },
-                            size: 'lg',
-                        });
-                        modalInstance.result.then(function(data) {
-                            $scope.initBigwinsManageData();
-                        }, function(data) {
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initBrandOptionsData();
-
-        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.searchTimeStart) {
-                    $scope.bigwinsManageAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.bigwinsManageAoData.start_time) {
-                        delete $scope.bigwinsManageAoData.start_time;
-                    }
-                }
-                if ($scope.searchTimeEnd) {
-                    $scope.bigwinsManageAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.bigwinsManageAoData.end_time) {
-                        delete $scope.bigwinsManageAoData.end_time;
-                    }
-                }
-            }
-        });
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.bigwinsManage')
-        .controller('bigwinsManageModalController', bigwinsManageModalController);
-
-    bigwinsManageModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'adminService',
-        'modalItem',
-        'id',
-        '$translate'
-    ];
-
-    function bigwinsManageModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        adminService,
-        modalItem,
-        id,
-        $translate
-    ) {
-
-        $scope.resultOptions = [
-            {
-                label:'pending',
-                value:'pending'
-            },
-            {
-                label:'approved',
-                value:'approved'
-            },
-            {
-                label:'declined',
-                value:'declined'
-            },
-        ];
-
-        $scope.item = {
-            result:$scope.resultOptions[0].value,
-            comment:''
-        };
-
-        $scope.confirmModal = function () {
-            var tempData = angular.copy($scope.item);
-            tempData.adminId = modalItem.adminId;
-            tempData.adminId = modalItem.adminId;
-            adminService.postReq($rootScope.URL.BIGWINSMANAGE.POSTAUDIT+'/'+id+'/'+modalItem.id, {}, tempData).then(function (res) {
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $uibModalInstance.close('success');
-                        $rootScope.toasterSuccess(res.data.msg);
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
 
     }
 })();
@@ -2227,8 +2227,8 @@
         }
 
         if($scope.couponsItem.period){
-            $scope.couponsItem.startTime = $scope.couponsItem.period.from || '';
-            $scope.couponsItem.endTime = $scope.couponsItem.period.to || '';
+            $scope.couponsItem.startTime = $scope.couponsItem.period.from ? $scope.formatTime($scope.couponsItem.period.from) : '';
+            $scope.couponsItem.endTime = $scope.couponsItem.period.to ? $scope.formatTime($scope.couponsItem.period.to) : '';
             delete $scope.couponsItem.period
         }
 
@@ -2673,6 +2673,222 @@
         // 页面加载执行的函数
 
         $scope.initCurrenciesManageData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.domainsManage')
+        .controller('DomainsManageController', DomainsManageController);
+
+    DomainsManageController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModal',
+        'adminService'
+    ];
+
+    function DomainsManageController(
+        $scope,
+        $rootScope,
+        $uibModal,
+        adminService
+    ) {
+
+        // 原始的数据
+        $scope.domainsManage = [];
+
+        // 过滤出来的数据
+        $scope.showDomainsManage = [];
+        $scope.domainsManageReload = 1;
+        $scope.domainsManageAoData = {};
+        $scope.domainsManageSearch = '';
+
+        // 初始化table数据
+        $scope.initDomainsManageData = function () {
+            adminService.getReq($rootScope.URL.DOMAINSMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.domainsManage = angular.copy(res.data.data);
+                        $scope.domainsManage.forEach(function (domainsManageItem, domainsManageIndex) {
+                            domainsManageItem._id = domainsManageIndex +1;
+                        });
+                        $scope.domainsManageReload++;
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        $scope.showDomainsManageModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/domainsManage/domainsManageModal.html',
+                controller: 'domainsManageModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower:$scope.validPower("DOMAINSMANAGE", ["PATCH", "POST"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initDomainsManageData();
+            }, function (data) {
+
+            });
+        };
+
+        // 删除domainsManage
+        /**
+         * @param domainsManage DOMAINSMANAGETITLE数据对象
+         * @return null
+         */
+        $scope.deleteDomainsManage = function (domainsManage) {
+            if (!$scope.validIsNew(domainsManage._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.DOMAINSMANAGE.DELETE+'/'+domainsManage.domain, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initDomainsManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 恢复domainsManage
+        /**
+         * @param domainsManage DOMAINSMANAGETITLE数据对象
+         * @return null
+         */
+        $scope.recoverDomainsManage = function (domainsManage) {
+            if (!$scope.validIsNew(domainsManage._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.DOMAINSMANAGE.PUT+'/'+domainsManage.domain, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initDomainsManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                }, 'recover');
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initDomainsManageData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.domainsManage')
+        .controller('domainsManageModalController', domainsManageModalController);
+
+    domainsManageModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        '$translate',
+        'adminService',
+        'hasPower',
+        'edit',
+        'modalItem'
+    ];
+
+    function domainsManageModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        $translate,
+        adminService,
+        hasPower,
+        edit,
+        modalItem
+    ) {
+
+        $scope.edit = edit;
+        $scope.hasPower = hasPower;
+        $scope.modalItem = angular.copy(modalItem);
+
+        $scope.typeOptions = [
+            {
+                label:'user',
+                value:'user'
+            },
+            {
+                label:'affiliate',
+                value:'affiliate'
+            },
+        ];
+
+        // 初始化table数据
+        $scope.initMethodsNameModalData = function () {
+            if(edit==2){
+                $scope.modalItem = {
+                    type:$scope.typeOptions[0].value
+                }
+            }
+        };
+
+        //$rootScope.toasterSuccess(res.data.msg);;
+        $scope.confirmModal = function () {
+            var tempData = angular.copy($scope.modalItem);
+            if (edit==2) {
+                adminService.postReq($rootScope.URL.DOMAINSMANAGE.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (edit==3) {
+                adminService.patchReq($rootScope.URL.DOMAINSMANAGE.PATCH+'/'+tempData.domain, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initMethodsNameModalData();
+
     }
 })();
 
@@ -3381,222 +3597,6 @@
         //页面加载执行
 
         $scope.initGameBrandModalData();
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.domainsManage')
-        .controller('DomainsManageController', DomainsManageController);
-
-    DomainsManageController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModal',
-        'adminService'
-    ];
-
-    function DomainsManageController(
-        $scope,
-        $rootScope,
-        $uibModal,
-        adminService
-    ) {
-
-        // 原始的数据
-        $scope.domainsManage = [];
-
-        // 过滤出来的数据
-        $scope.showDomainsManage = [];
-        $scope.domainsManageReload = 1;
-        $scope.domainsManageAoData = {};
-        $scope.domainsManageSearch = '';
-
-        // 初始化table数据
-        $scope.initDomainsManageData = function () {
-            adminService.getReq($rootScope.URL.DOMAINSMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.domainsManage = angular.copy(res.data.data);
-                        $scope.domainsManage.forEach(function (domainsManageItem, domainsManageIndex) {
-                            domainsManageItem._id = domainsManageIndex +1;
-                        });
-                        $scope.domainsManageReload++;
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-
-        $scope.showDomainsManageModal = function (item,edit) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/domainsManage/domainsManageModal.html',
-                controller: 'domainsManageModalController',
-                size: 'lg',
-                scope:$scope,
-                resolve: {
-                    edit:edit,
-                    modalItem: item,
-                    hasPower:$scope.validPower("DOMAINSMANAGE", ["PATCH", "POST"]) && edit !== 1,
-                }
-            });
-            modalInstance.result.then(function (data) {
-                $scope.initDomainsManageData();
-            }, function (data) {
-
-            });
-        };
-
-        // 删除domainsManage
-        /**
-         * @param domainsManage DOMAINSMANAGETITLE数据对象
-         * @return null
-         */
-        $scope.deleteDomainsManage = function (domainsManage) {
-            if (!$scope.validIsNew(domainsManage._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.DOMAINSMANAGE.DELETE+'/'+domainsManage.domain, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initDomainsManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 恢复domainsManage
-        /**
-         * @param domainsManage DOMAINSMANAGETITLE数据对象
-         * @return null
-         */
-        $scope.recoverDomainsManage = function (domainsManage) {
-            if (!$scope.validIsNew(domainsManage._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.DOMAINSMANAGE.PUT+'/'+domainsManage.domain, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initDomainsManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                }, 'recover');
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initDomainsManageData();
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.domainsManage')
-        .controller('domainsManageModalController', domainsManageModalController);
-
-    domainsManageModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        '$translate',
-        'adminService',
-        'hasPower',
-        'edit',
-        'modalItem'
-    ];
-
-    function domainsManageModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        $translate,
-        adminService,
-        hasPower,
-        edit,
-        modalItem
-    ) {
-
-        $scope.edit = edit;
-        $scope.hasPower = hasPower;
-        $scope.modalItem = angular.copy(modalItem);
-
-        $scope.typeOptions = [
-            {
-                label:'user',
-                value:'user'
-            },
-            {
-                label:'affiliate',
-                value:'affiliate'
-            },
-        ];
-
-        // 初始化table数据
-        $scope.initMethodsNameModalData = function () {
-            if(edit==2){
-                $scope.modalItem = {
-                    type:$scope.typeOptions[0].value
-                }
-            }
-        };
-
-        //$rootScope.toasterSuccess(res.data.msg);;
-        $scope.confirmModal = function () {
-            var tempData = angular.copy($scope.modalItem);
-            if (edit==2) {
-                adminService.postReq($rootScope.URL.DOMAINSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('OK');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (edit==3) {
-                adminService.patchReq($rootScope.URL.DOMAINSMANAGE.PATCH+'/'+tempData.domain, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('OK');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initMethodsNameModalData();
-
     }
 })();
 
@@ -5920,6 +5920,77 @@
 
     angular
         .module('admin.promotionsManage')
+        .controller('promotionsEditContentModalController', promotionsEditContentModalController);
+
+    promotionsEditContentModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        '$translate',
+        'modalItem'
+    ];
+
+    function promotionsEditContentModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        $translate,
+        modalItem
+    ) {
+        $scope.type = modalItem._type
+        if(modalItem._type){
+            delete modalItem._type
+        }
+
+        $scope.options = {
+            height: 400,
+            focus: true,
+            airMode: !$scope.hasPower||$scope.edit==1,
+            toolbar: [
+                ['edit',['undo','redo']],
+                ['headline', ['style']],
+                ['style', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']],
+                ['fontface', ['fontname']],
+                ['textsize', ['fontsize']],
+                ['fontclr', ['color']],
+                ['alignment', ['ul', 'ol', 'paragraph', 'lineheight']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link','picture','video','hr']],
+                ['view', ['codeview']],
+                ['help', ['help']]
+            ]
+        };
+
+        // 初始化table数据
+        $scope.initModalItemModalData = function () {
+            $scope.modalItem = angular.copy(modalItem);
+            if(!$scope.modalItem.locale){
+                $scope.modalItem.locale = $scope.localesOptions[0].value
+            }
+        };
+
+        $scope.confirmModalRebatesBrand = function () {
+            $uibModalInstance.close({
+                type:$scope.type,
+                data:$scope.modalItem
+            });
+        };
+
+        $scope.cancelModalRebatesBrand = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initModalItemModalData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.promotionsManage')
         .controller('PromotionsManageController', PromotionsManageController);
 
     PromotionsManageController.$inject = [
@@ -6188,6 +6259,7 @@
         'adminService',
         'promotionsItem',
         'edit',
+        '$uibModal',
         'hasPower',
         '$translate'
     ];
@@ -6199,6 +6271,7 @@
         adminService,
         promotionsItem,
         edit,
+        $uibModal,
         hasPower,
         $translate
     ) {
@@ -6224,10 +6297,11 @@
 
 
         if($scope.promotionsItem.period){
-            $scope.promotionsItem.startTime = ($scope.promotionsItem.period.from || '').substr(0,10);
-            $scope.promotionsItem.endTime = ($scope.promotionsItem.period.to || '').substr(0,10);
+            $scope.promotionsItem.startTime = $scope.promotionsItem.period.from?$scope.formatTime($scope.promotionsItem.period.from):"";
+            $scope.promotionsItem.endTime = $scope.promotionsItem.period.to?$scope.formatTime($scope.promotionsItem.period.to):"";
             delete $scope.promotionsItem.period
         }
+
 
         $scope.timeStart = $scope.promotionsItem.startTime || '';
         $scope.timeEnd = $scope.promotionsItem.endTime || '';
@@ -6355,7 +6429,9 @@
          * @return null
          */
         $scope.deleteContentModal = function (contentModal, index) {
-            $scope.promotionsItem['content'].splice(index, 1)
+            $scope.promotionsItem['content'].splice(index, 1);
+            $scope.initContentModalData();
+            $scope.contentModalReload ++;
         };
 
         // 添加按钮
@@ -6381,55 +6457,94 @@
             }
         };
 
-        $scope.confirmModal = function () {
-            console.log($scope.promotionsItem,6666)
-            return;
-            var tempData = angular.copy($scope.promotionsItem);
-            tempData['title'] = tempData['title'].filter(function (item) {
-                return !$scope.validIsNew(item.id);
+        //$scope.confirmModal = function () {
+        //    console.log($scope.promotionsItem,6666)
+        //    return;
+        //    var tempData = angular.copy($scope.promotionsItem);
+        //    tempData['title'] = tempData['title'].filter(function (item) {
+        //        return !$scope.validIsNew(item.id);
+        //    });
+        //    if(window.Array.isArray(tempData['title'])){
+        //        tempData['title'].forEach(function(titleItem) {
+        //            if(titleItem.id){
+        //                delete titleItem.id;
+        //            }
+        //        })
+        //    }
+        //    tempData['content'] = tempData['content'].filter(function (item) {
+        //        return !$scope.validIsNew(item.id);
+        //    });
+        //    if(window.Array.isArray(tempData['content'])){
+        //        tempData['content'].forEach(function(contentItem) {
+        //            if(contentItem.id){
+        //                delete contentItem.id;
+        //            }
+        //        })
+        //    }
+        //    if (!edit) {
+        //        adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, tempData).then(function (res) {
+        //            console.log(res);
+        //            if (typeof res.data.success === 'boolean') {
+        //                if (res.data.success) {
+        //                    $uibModalInstance.close('success');
+        //                    $rootScope.toasterSuccess(res.data.msg);
+        //                } else {
+        //                    $rootScope.alertErrorMsg(res.data.msg);
+        //                }
+        //            }
+        //        });
+        //    } else if (edit) {
+        //        adminService.patchReq($rootScope.URL.COUPONSMANAGE.PATCH+'/'+promotionsItem.code, {}, tempData).then(function (res) {
+        //            console.log(res);
+        //            if (typeof res.data.success === 'boolean') {
+        //                if (res.data.success) {
+        //                    $uibModalInstance.close('success');
+        //                    $rootScope.toasterSuccess(res.data.msg);
+        //                } else {
+        //                    $rootScope.alertErrorMsg(res.data.msg);
+        //                }
+        //            }
+        //        });
+        //    }
+        //};
+
+        $scope.showEditHtmlContentModal = function (modalItem,type) {
+            var tempData = angular.copy(modalItem);
+            tempData._type = type;
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/promotionsManage/promotionsEditContentModal.html',
+                controller: 'promotionsEditContentModalController',
+                size: 'lg',
+                windowClass: 'full-screen-modal-window',
+                scope:$scope,
+                resolve: {
+                    modalItem: tempData
+                }
             });
-            if(window.Array.isArray(tempData['title'])){
-                tempData['title'].forEach(function(titleItem) {
-                    if(titleItem.id){
-                        delete titleItem.id;
+            modalInstance.result.then(function (data) {
+                if(['title','content'].indexOf(data.type)){
+                    if(data.type == 'content'){
+                        console.log(data)
+                        if(data.data.id){
+                            $scope.promotionsItem[data.type].forEach(function(item,index) {
+                                if (item.id == data.data.id) {
+                                    $scope.promotionsItem[data.type].splice(index,1,angular.copy(data.data))
+                                }
+                            });
+                        }else{
+                            $scope.promotionsItem[data.type].unshift(angular.copy(data.data))
+                            $scope.initContentModalData();
+                        }
+                        $scope.contentModalReload ++;
                     }
-                })
-            }
-            tempData['content'] = tempData['content'].filter(function (item) {
-                return !$scope.validIsNew(item.id);
+                    $scope.titleModalReload ++;
+                }
+            }, function (data) {
+
             });
-            if(window.Array.isArray(tempData['content'])){
-                tempData['content'].forEach(function(contentItem) {
-                    if(contentItem.id){
-                        delete contentItem.id;
-                    }
-                })
-            }
-            if (!edit) {
-                adminService.postReq($rootScope.URL.COUPONSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('success');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (edit) {
-                adminService.patchReq($rootScope.URL.COUPONSMANAGE.PATCH+'/'+promotionsItem.code, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('success');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
         };
 
         $scope.cancelModal = function () {
@@ -8443,7 +8558,6 @@
                             $scope.rebatesModalReload++;
                         }
                     });
-                    console.log($scope.rebatesModal,88888)
                 }
                 modalInstance = null
             }, function (data) {

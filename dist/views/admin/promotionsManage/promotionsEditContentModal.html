@@ -1,0 +1,33 @@
+<div class="modal-header">
+   <h3 class="modal-title">{{showEditStatus(edit) + '内容'}}</h3>
+</div>
+
+<div class="modal-body">
+   <form class="form-horizontal">
+      <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+         <label class="col-lg-4 col-md-6 control-label">语言</label>
+         <div class="col-lg-8 col-md-6">
+            <ui-select ng-model="modalItem.locale" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
+               <ui-select-match placeholder="choose locale">
+                  <span ng-bind="$select.selected.label"></span>
+               </ui-select-match>
+               <ui-select-choices repeat="item.value as item in localesOptions">
+                  <span ng-bind="item.label"></span>
+               </ui-select-choices>
+            </ui-select>
+         </div>
+      </div>
+   </form>
+   <div class='clearfix'></div>
+   <legend class="text-center">
+      html content
+   </legend>
+   <summernote config="options" ng-model="modalItem.value"></summernote>
+</div>
+
+<div class="modal-footer">
+   <button class="btn btn-primary" type="button" ng-show='hasPower' ng-click="confirmModalRebatesBrand()">{{'table.button.save' | translate}}
+   </button>
+   <button class="btn btn-default" type="button" ng-click="cancelModalRebatesBrand()">{{'table.button.cancel' | translate}}</button>
+</div>
+

@@ -83,8 +83,8 @@
         }
 
         if($scope.couponsItem.period){
-            $scope.couponsItem.startTime = $scope.couponsItem.period.from || '';
-            $scope.couponsItem.endTime = $scope.couponsItem.period.to || '';
+            $scope.couponsItem.startTime = $scope.couponsItem.period.from ? $scope.formatTime($scope.couponsItem.period.from) : '';
+            $scope.couponsItem.endTime = $scope.couponsItem.period.to ? $scope.formatTime($scope.couponsItem.period.to) : '';
             delete $scope.couponsItem.period
         }
 
