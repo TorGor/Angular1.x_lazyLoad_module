@@ -100,34 +100,38 @@
                                 </div>
                             </div>
                             <div class="clearfix"></div>
-                             <div class="form-group col-xs-12 margin-bottom-20">
-                                 <div class="form-group">
-                                    <label class="col-lg-2 text-right text-right control-label">名称</label>
-                                    <div class="col-lg-10">
-                                        <input value="{{showDetailName(orderDetail.method.name)}}" disabled='true' class="form-control" type="text" >
-                                    </div>
-                                 </div>
+                            <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                                <label class="col-lg-4 col-md-6 control-label">名称</label>
+                                <div class="col-lg-8 col-md-6">
+                                    <input value="{{showArrayName(orderDetail.method.name)}}" class="form-control" type="text" disabled='true'>
+                                </div>
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <legend class="text-center">详细<span ng-click='orderDetailShowDetail=!orderDetailShowDetail' ng-init='orderDetailShowDetail=false' ng-class="{true :'icon-arrow-up', false :'icon-arrow-down'}[orderDetailShowDetail]" class='pull-right show-detail-icon'></span>
-                        </legend>
-                        <div ng-show='orderDetailShowDetail'>
+                        <!--<legend class="text-center">详细-->
+                        <!--</legend>-->
+                        <div>
                             <h4 ng-show='orderDetail.details.length==0' class='text-center'>{{'table.no_date' | translate}}</h4>
                             <div class="form-group" ng-repeat="item in orderDetail.details">
+                                 <div class='text-center' ng-click='orderDetailShowDetail=!orderDetailShowDetail' ng-init='orderDetailShowDetail=false'>
+                                     详细({{$index+1}})
+                                     <span ng-class="{true :'icon-arrow-up', false :'icon-arrow-down'}[orderDetailShowDetail]"></span>
+                                     <hr>
+                                 </div>
+                                 <div ng-show='orderDetailShowDetail'>
+                                     <div class="form-group">
+                                          <label class="col-lg-3 text-right control-label">支付渠道代码({{$index+1}})</label>
+                                          <div class="col-lg-7">
+                                              <input ng-model="item.method_code" disabled='true' class="form-control" type="text" >
+                                          </div>
+                                 </div>
+                                 <div class="clearfix"></div>
                                  <div class="form-group">
-                                    <label class="col-lg-3 text-right control-label">支付渠道代码({{$index+1}})</label>
-                                    <div class="col-lg-7">
-                                        <input ng-model="item.method_code" disabled='true' class="form-control" type="text" >
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                 <div class="form-group">
-                                    <label class="col-lg-3 text-right control-label">psp({{$index+1}})</label>
-                                    <div class="col-lg-7">
+                                     <label class="col-lg-3 text-right control-label">psp({{$index+1}})</label>
+                                     <div class="col-lg-7">
                                         <input ng-model="item.psp" disabled='true' class="form-control" type="text" >
-                                    </div>
-                                </div>
+                                     </div>
+                                 </div>
                                  <div class="form-group">
                                     <label class="col-lg-3 text-right control-label">sequence({{$index+1}})</label>
                                     <div class="col-lg-7">
@@ -205,6 +209,7 @@
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
+                                 </div>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -212,7 +217,7 @@
                         <div class="form-group">
                             <label class="col-lg-3 text-right control-label">附件</label>
                             <div class="col-lg-7">
-                                <input value="{{orderDetail.extra?orderDetail.extra:''}}" disabled='true' class="form-control" type="text" >
+                                <input value="{{orderDetail.extra?orderDetail.extra.bank||'':''}}" disabled='true' class="form-control" type="text" >
                             </div>
                         </div>
                         <div class="clearfix"></div>

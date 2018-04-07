@@ -18,6 +18,8 @@
         adminService
     ) {
 
+        $scope.urlUsername = '';
+
         $scope.serviceOptions = [
             {
                 label:'all',
@@ -170,6 +172,19 @@
                 }
             }
         });
+
+        try {
+            var urlParams = $scope.getUrlParams();
+            if(urlParams._username){
+                $scope.urlUsername = urlParams._username;
+            }
+            if(urlParams.user_id){
+                $scope.tempTransactionsDetailAoData.user_id = urlParams.user_id;
+            }
+        }catch (e){
+            console.error(e)
+        }
+
 
     }
 })();

@@ -41,7 +41,8 @@
                             <input-select
                                 inputkey='username'
                                 outputkey='affiliateId'
-                                input-placeholder="{{'table.transactionsDetail.th1' | translate}}"
+                                init-placeholder='{{urlUsername}}'
+                                input-placeholder="{{('table.transactionsDetail.th1' | translate)}}"
                                 searchkey='username'
                                 min-length='3'
                                 output-value='transactionsDetailAoData.user_id'

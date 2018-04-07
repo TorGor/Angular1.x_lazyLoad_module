@@ -257,14 +257,13 @@
                                         <em class="fa fa-eye"></em>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <li><a href="#">Cancel</a>
-                                        </li>
-                                        <li><a href="#">Delay</a>
-                                        </li>
-                                        <li><a href="#">Re Plan </a>
-                                        </li>
-                                        <li><a href="#">Invoke meeting</a>
-                                        </li>
+                                        <li><a ng-click='openNewTab(item,"admin.transactionsDetail")'>资金明细</a></li>
+                                        <li><a ng-click='openNewTab(item,"admin.ordersManage")'>充值记录</a></li>
+                                        <li><a ng-click='openNewTab(item,"admin.withdrawsManage")'>提款记录</a></li>
+                                        <li><a ng-click='openNewTab(item,"admin.transfersList")'>转账记录</a></li>
+                                        <li><a ng-click='openNewTab(item,"admin.gameRecords")'>游戏记录</a></li>
+                                        <li><a ng-click='openNewTab(item,"admin.rebatesList")'>返水记录</a></li>
+                                        <li><a ng-click='openNewTab(item,"admin.appliesUse")'>优惠券使用记录</a></li>
                                    </ul>
                                 </div>
                             </td>

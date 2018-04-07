@@ -29,10 +29,31 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 40%" ao-data="affiliatesPlansAoData" web-data-table-sort="roleName">
+                            <td style="width: 10%" ao-data="affiliatesPlansAoData" web-data-table-sort="code">
                                 {{'table.affiliatesPlans.th1' | translate}}
                             </td>
-                            <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                            <td style="width: 10%" ao-data="affiliatesPlansAoData" web-data-table-sort="level">
+                                {{'table.affiliatesPlans.th2' | translate}}
+                            </td>
+                            <td style="width: 10%">
+                                {{'table.affiliatesPlans.th3' | translate}}
+                            </td>
+                            <td style="width: 10%">
+                                {{'table.affiliatesPlans.th4' | translate}}
+                            </td>
+                            <td style="width: 10%">
+                                {{'table.affiliatesPlans.th5' | translate}}
+                            </td>
+                            <td style="width: 10%">
+                                {{'table.affiliatesPlans.th6' | translate}}
+                            </td>
+                            <td style="width: 10%">
+                                {{'table.affiliatesPlans.th7' | translate}}
+                            </td>
+                            <td style="width: 15%">
+                                {{'table.affiliatesPlans.th8' | translate}}
+                            </td>
+                            <td style="width: 13%">{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -42,8 +63,68 @@
                                     {{ item.code || '' }}
                                 </span>
                             </td>
+                            <td>
+                                <span>
+                                    {{ item.level || '' }}
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    {{ item.rates.bonus || '' }}
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    {{ item.rates.brand || '' }}
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    {{ item.rates.financial || '' }}
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    {{ item.rates.subsidiary || '' }}
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    {{ item.isDeleted ? 'Yes' : 'No' }}
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    {{formatTime(item.timestamps && item.timestamps.createdAt||'')}}
+                                </span>
+                            </td>
                             <td style="white-space: nowrap;">
-
+                                <button
+                                    class="btn btn-sm btn-info"
+                                    ng-show="validPower('AFFILIATESPLANS', ['PATCH'])" ng-click="showEditMethodsNameModal(item,3)"
+                                    title="{{'table.button.edit' | translate}}"
+                                >
+                                    <em class="fa fa-pencil"></em>
+                                </button>
+                                <button
+                                    class="btn btn-sm btn-danger"
+                                    ng-show="!checkIsDelete(item)&&validPower('AFFILIATESPLANS', ['DELETE'])"
+                                    ng-click="deletePaymentMethods(item)"
+                                    title="{{'table.button.delete' | translate}}"
+                                >
+                                    <em class="fa fa-trash"></em>
+                                </button>
+                                <button
+                                    class="btn btn-sm btn-green" ng-show="checkIsDelete(item)&&validPower('AFFILIATESPLANS', ['PUT'])"
+                                    ng-click="recoverPaymentMethods(item)"
+                                    title="{{'table.button.recover' | translate}}"
+                                >
+                                    <em class="fa fa-rotate-left"></em>
+                                </button>
+                                <button class="btn btn-sm btn-green" ng-click="showEditMethodsNameModal(item,1)"
+                                        title="{{'table.button.detail' | translate}}">
+                                            <em class="fa fa-folder-open-o"></em>
+                                </button>
                             </td>
                         </tr>
                         <tr ng-show="showAffiliatesPlans.length==0">

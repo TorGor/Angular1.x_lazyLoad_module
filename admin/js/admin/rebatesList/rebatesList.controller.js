@@ -86,5 +86,19 @@
                 }
             }
         });
+
+        $scope.urlUsername = '';
+
+        try {
+            var urlParams = $scope.getUrlParams();
+            if(urlParams._username){
+                $scope.urlUsername = urlParams._username;
+            }
+            if(urlParams.user_id){
+                $scope.tempRebatesListAoData.user_id = urlParams.user_id;
+            }
+        }catch (e){
+            console.error(e)
+        }
     }
 })();

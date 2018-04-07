@@ -6,12 +6,14 @@
 
     UsersManageController.$inject = [
         '$scope',
+        '$state',
         '$rootScope',
         'adminService'
     ];
 
     function UsersManageController(
         $scope,
+        $state,
         $rootScope,
         adminService
     ) {
@@ -123,6 +125,11 @@
                 }
             }
         });
+        
+        $scope.openNewTab = function(item,state) {
+            var url = window.location.pathname+$rootScope.$state.href(state)+'?_username='+(item.username||'')+'&user_id='+(item.userId||'');
+            window.open(url,'_blank');
+        }
 
     }
 })();

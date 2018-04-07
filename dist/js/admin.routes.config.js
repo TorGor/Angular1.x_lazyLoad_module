@@ -208,6 +208,14 @@
                 permission: 'transactions'
             })
 
+            //.state('admin.transactionsDetailSearch', {
+            //    url: '/transactionsDetail/manage/:_username/:user_id',
+            //    title: 'transactionsDetail Manage',
+            //    controller: 'TransactionsDetailController',
+            //    templateUrl: RouteHelpersProvider.basepath('admin/transactionsDetail/transactionsDetail.html'),
+            //    permission: 'transactions'
+            //})
+
             .state('admin.currenciesManage', {
                 url: '/currenciesManage/manage',
                 title: 'currenciesManage Manage',

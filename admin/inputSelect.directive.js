@@ -22,7 +22,7 @@
             '                                on-select="handelSelect($item, $model)"\n' +
             '                                theme="bootstrap"\n' +
             '                            >\n' +
-            '                                <ui-select-match placeholder="{{inputPlaceholder}}">\n' +
+            '                                <ui-select-match placeholder="{{initPlaceholder||inputPlaceholder}}">\n' +
             '                                    <span ng-bind="$select.selected._label"></span>\n' +
             '                                </ui-select-match>\n' +
             '                                <ui-select-choices repeat="item._label as item in allItems | filter: {\'_label\':$select.search}">\n' +
@@ -32,6 +32,7 @@
             replace:true,
             scope:{
                 inputPlaceholder:'@',
+                initPlaceholder:'@',
                 inputkey:'@',
                 outputkey:'@',
                 searchkey:'@',
@@ -91,6 +92,7 @@
                     });
                 };
                 $scope.handelSelect = function($item, $model) {
+                    $scope.initPlaceholder = false;
                     $scope.outputValue = $item['_value']||'';
                     $($element).find('.ui-select-search').val($model)
                 };
@@ -102,7 +104,7 @@
                             $scope.searchValue.select = undefined;
                         }
                     }
-                })
+                });
 
                 $timeout(function() {
                     $($element).find('.ui-select-search').bind('keyup', function(e) {
