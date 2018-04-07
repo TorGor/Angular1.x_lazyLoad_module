@@ -8308,8 +8308,20 @@ flot .legend .legendColorBox > div > div {
  *    - Rounded inputs
  */
 .add-button-class {
-  display: inline-block;
+  display: block;
+  position: relative;
+  height: 35px;
   margin-bottom: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.add-button-class.no-block {
+  display: inline;
+}
+.add-button-class .btn-search {
+  position: absolute;
+  left: 0px;
+  top: 0;
 }
 .table-bottom-notice {
   height: 35px;

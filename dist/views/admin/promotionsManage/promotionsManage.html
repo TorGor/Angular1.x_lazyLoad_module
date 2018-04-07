@@ -5,10 +5,12 @@
             <span class="form-group add-button-class">
                <button ng-show='validPower("PROMOTIONSMANAGE", ["POST"])' class="btn btn-primary" ng-click="addPromotionsManage()" type="button" translate="table.button.add">
                </button>
-               <button class="btn btn-green" ng-click="trigerSearch()" type="button" translate="table.button.search">
-               </button>
-               <button class="btn btn-warning" ng-click="resetSearch()" type="button" translate="table.button.reset">
-               </button>
+               <span class='btn-search'>
+                  <button class="btn btn-green" ng-click="trigerSearch()" type="button" translate="table.button.search">
+                  </button>
+                  <button class="btn btn-warning" ng-click="resetSearch()" type="button" translate="table.button.reset">
+                  </button>
+               </span>
             </span>
             <form style="width: 450px" class="form-horizontal pull-right" role="form">
                <div class="col-lg-6 col-md-6 margin-bottom-10">

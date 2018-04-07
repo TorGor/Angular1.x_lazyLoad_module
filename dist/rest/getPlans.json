@@ -1,0 +1,73 @@
+{
+    "success": true,
+    "msg": "Read Success",
+    "data": {
+        "code": "DEFAULT",
+        "isDeleted": false,
+        "level": 0,
+        "timestamps": {
+            "createdAt": "2018-03-23T09:24:10+00:00",
+            "updatedAt": "2018-03-23T09:24:10+00:00"
+        },
+        "rates": {
+            "financial": "0.015",
+            "bonus": "1.000",
+            "brand": "0.100",
+            "subsidiary": "0.10"
+        },
+        "stages": [
+            {
+                "level": 1,
+                "rate": "0.30",
+                "timestamps": {
+                    "createdAt": "2018-03-23T10:32:57+00:00",
+                    "updatedAt": "2018-03-23T10:32:59+00:00"
+                },
+                "activeUsers": 5,
+                "profit": {
+                    "min": 1,
+                    "max": 50000
+                }
+            },
+            {
+                "level": 2,
+                "rate": "0.35",
+                "timestamps": {
+                    "createdAt": "2018-03-23T10:33:32+00:00",
+                    "updatedAt": "2018-03-23T10:33:33+00:00"
+                },
+                "activeUsers": 5,
+                "profit": {
+                    "min": 50001,
+                    "max": 100000
+                }
+            },
+            {
+                "level": 3,
+                "rate": "0.45",
+                "timestamps": {
+                    "createdAt": "2018-03-23T10:33:32+00:00",
+                    "updatedAt": "2018-03-23T10:33:33+00:00"
+                },
+                "activeUsers": 15,
+                "profit": {
+                    "min": 100001,
+                    "max": 1000000
+                }
+            },
+            {
+                "level": 4,
+                "rate": "0.50",
+                "timestamps": {
+                    "createdAt": "2018-03-23T10:33:32+00:00",
+                    "updatedAt": "2018-03-23T10:33:33+00:00"
+                },
+                "activeUsers": 30,
+                "profit": {
+                    "min": 1000001,
+                    "max": 99999999
+                }
+            }
+        ]
+    }
+}

@@ -13,21 +13,24 @@
                                 translate="table.button.add"
                             >
                             </button>
-                            <button
-                                class="btn btn-green"
-                                ng-click="trigerSearch()"
-                                type="button"
-                                translate="table.button.search"
-                            >
-                            </button>
-                            <button
-                                class="btn btn-warning"
-                                ng-click="resetSearch()"
-                                type="button"
-                                translate="table.button.reset"
-                            >
-                            </button>
+                            <span class='btn-search'>
+                                <button
+                                    class="btn btn-green"
+                                    ng-click="trigerSearch()"
+                                    type="button"
+                                    translate="table.button.search"
+                                >
+                                </button>
+                                <button
+                                    class="btn btn-warning"
+                                    ng-click="resetSearch()"
+                                    type="button"
+                                    translate="table.button.reset"
+                                >
+                                </button>
+                            </span>
                         </span>
+                        <div class='clearfix'></div>
                         <form style="width: 450px" class="form-horizontal pull-right" role="form">
                         <div class="col-lg-6 col-md-6">
                             <input
@@ -44,7 +47,7 @@
                             <!--ng-model="blackListsAoData.comment"-->
                             <!--placeholder="{{'table.blackLists.th2' | translate}}">-->
                             <!--</div>-->
-                        <div class="form-group col-lg-6 col-md-6">
+                        <div class="col-lg-6 col-md-6">
                             <ui-select
                                 ng-model="blackListsAoData.type"
                                 theme="bootstrap"

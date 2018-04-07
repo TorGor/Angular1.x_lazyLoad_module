@@ -32,7 +32,6 @@
 			'admin.bigwinsManage',
 			'admin.domainsManage',
 			'admin.affiliatesManage',
-			'admin.affiliatesPlan',
 			'admin.affiliatesPlans',
 			//new module name will be append here
 
