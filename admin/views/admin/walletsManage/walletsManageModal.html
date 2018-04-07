@@ -71,8 +71,19 @@
                                        placeholder="max 15 char">
                                 <span class='text-danger valid-error'
                                       ng-show="myForm.recordsParamsTimeFormat.$dirty&&myForm.recordsParamsTimeFormat.$invalid">
-                                {{'max 15 char'}}
-                            </span>
+                                    {{'max 15 char'}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">时区</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input ng-model="modalItem.recordsTimezone" name='recordsTimezone' ng-disabled='!hasPower' required class="form-control" type="text"
+                                       placeholder="Asia/Shanghai or +08:00">
+                                <span class='text-danger valid-error'
+                                      ng-show="myForm.recordsTimezone.$dirty&&myForm.recordsTimezone.$invalid">
+                                    {{'Asia/Shanghai or +08:00'}}
+                                </span>
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
@@ -92,6 +103,7 @@
                                 </ui-select>
                             </div>
                         </div>
+                        <div class='clearfix'></div>
                          <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
                             <label class="col-lg-4 col-md-6 control-label">用户名前缀</label>
                             <div class="col-lg-8 col-md-6">
@@ -120,6 +132,7 @@
                                 </ui-select>
                             </div>
                         </div>
+                        <div class='clearfix'></div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
                             <label class="col-lg-4 col-md-6 control-label">禁用</label>
                             <div class="col-lg-8 col-md-6">

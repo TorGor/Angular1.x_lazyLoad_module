@@ -123,12 +123,12 @@
                                 if(walletItem.setting.record){
                                     walletItem.recordsDuration = walletItem.setting.record.duration||'';
                                     walletItem.recordsParamsTimeFormat = walletItem.setting.record.timeFormat||'';
-                                    walletItem.recordsParamsTimeZone = walletItem.setting.record.timezone||'';
+                                    walletItem.recordsTimezone = walletItem.setting.record.timezone||'';
                                     delete walletItem.setting.record;
                                 }else{
                                     walletItem.recordsDuration = '';
                                     walletItem.recordsParamsTimeFormat = '';
-                                    walletItem.recordsParamsTimeZone = '';
+                                    walletItem.recordsTimezone = '';
                                 }
                                 if(walletItem.setting.user){
                                     walletItem.usernamePrefix = walletItem.setting.user.prefix||'';
