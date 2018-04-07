@@ -5,11 +5,11 @@
                 <span class="form-group add-button-class no-block">
                     <button
                         class="btn btn-primary"
-                        ng-click="addAffiliatesPlans()"
+                        ng-show="validPower('AFFILIATESPLANS', ['POST'])"
+                        ng-click="showAffiliatesPlansModal({},2)"
                         type="button"
                         translate="table.button.add"
                     >
-                        新增
                     </button>
                 </span>
                 <form class="form-inline pull-right add-button-class" role="form">
@@ -47,10 +47,10 @@
                             <td style="width: 10%">
                                 {{'table.affiliatesPlans.th6' | translate}}
                             </td>
-                            <td style="width: 10%">
+                            <td style="width: 7%">
                                 {{'table.affiliatesPlans.th7' | translate}}
                             </td>
-                            <td style="width: 15%">
+                            <td style="width: 18%">
                                 {{'table.affiliatesPlans.th8' | translate}}
                             </td>
                             <td style="width: 13%">{{'table.button.operation' | translate}}</td>
@@ -101,27 +101,27 @@
                             <td style="white-space: nowrap;">
                                 <button
                                     class="btn btn-sm btn-info"
-                                    ng-show="validPower('AFFILIATESPLANS', ['PATCH'])" ng-click="showEditMethodsNameModal(item,3)"
+                                    ng-show="validPower('AFFILIATESPLANS', ['PATCH'])" ng-click="showAffiliatesPlansModal(item,3)"
                                     title="{{'table.button.edit' | translate}}"
                                 >
                                     <em class="fa fa-pencil"></em>
                                 </button>
                                 <button
                                     class="btn btn-sm btn-danger"
-                                    ng-show="!checkIsDelete(item)&&validPower('AFFILIATESPLANS', ['DELETE'])"
-                                    ng-click="deletePaymentMethods(item)"
+                                    ng-show="!item.isDeleted&&validPower('AFFILIATESPLANS', ['DELETE'])"
+                                    ng-click="deleteAffiliatesPlans(item)"
                                     title="{{'table.button.delete' | translate}}"
                                 >
                                     <em class="fa fa-trash"></em>
                                 </button>
                                 <button
-                                    class="btn btn-sm btn-green" ng-show="checkIsDelete(item)&&validPower('AFFILIATESPLANS', ['PUT'])"
-                                    ng-click="recoverPaymentMethods(item)"
+                                    class="btn btn-sm btn-green" ng-show="item.isDeleted&&validPower('AFFILIATESPLANS', ['PUT'])"
+                                    ng-click="recoverAffiliatesPlans(item)"
                                     title="{{'table.button.recover' | translate}}"
                                 >
                                     <em class="fa fa-rotate-left"></em>
                                 </button>
-                                <button class="btn btn-sm btn-green" ng-click="showEditMethodsNameModal(item,1)"
+                                <button class="btn btn-sm btn-green" ng-click="showAffiliatesPlansModal(item,1)"
                                         title="{{'table.button.detail' | translate}}">
                                             <em class="fa fa-folder-open-o"></em>
                                 </button>

@@ -421,7 +421,14 @@
             "th5": "Rates Financial",
             "th6": "Rates subsidiary",
             "th7": "isDeleted",
-            "th8": "Create At"
+            "th8": "Create At",
+            "stages":{
+                "th1": "level",
+                "th2": "Active Users",
+                "th3": "Rate",
+                "th4": "Min Profit",
+                "th5": "Max Profit"
+            }
         }
     },
     "panel_tile": {

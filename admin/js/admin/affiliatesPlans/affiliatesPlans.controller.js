@@ -45,43 +45,26 @@
             });
         };
 
+        $scope.showAffiliatesPlansModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/affiliatesPlans/affiliatesPlansModal.html',
+                controller: 'affiliatesPlansModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower:$scope.validPower("AFFILIATESPLANS", ["PATCH", "POST"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initAffiliatesPlansData();
+            }, function (data) {
 
-        // 保存
-        /**
-         *
-         * @param affiliatesPlans AFFILIATESPLANSTITLE数据对象
-         * @param item
-         */
-
-        $scope.saveAffiliatesPlans = function (affiliatesPlans, item) {
-            var tempData = angular.extend({}, affiliatesPlans, item);
-            if ($scope.validIsNew(tempData._id)) {
-                delete tempData._id;
-                adminService.postReq($rootScope.URL.AFFILIATESPLANS.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initAffiliatesPlansData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(tempData._id) && affiliatesPlans.id) {
-                delete tempData._id;
-                adminService.patchReq($rootScope.URL.AFFILIATESPLANS.PATCH+'/'+affiliatesPlans.id, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initAffiliatesPlansData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
+            });
         };
 
         // 删除affiliatesPlans
@@ -92,7 +75,7 @@
         $scope.deleteAffiliatesPlans = function (affiliatesPlans) {
             if (!$scope.validIsNew(affiliatesPlans._id)) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.AFFILIATESPLANS.DELETE+'/'+affiliatesPlans.id, {}, {}).then(function (res) {
+                    adminService.deleteReq($rootScope.URL.AFFILIATESPLANS.DELETE+'/'+affiliatesPlans.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initAffiliatesPlansData();
@@ -115,7 +98,7 @@
         $scope.recoverAffiliatesPlans = function (affiliatesPlans) {
             if (!$scope.validIsNew(affiliatesPlans._id)) {
                 $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.AFFILIATESPLANS.PUT+'/'+affiliatesPlans.id, {}, {}).then(function (res) {
+                    adminService.putReq($rootScope.URL.AFFILIATESPLANS.PUT+'/'+affiliatesPlans.code, {}, {}).then(function (res) {
                         if (typeof res.data.success === 'boolean') {
                             if (res.data.success) {
                                 $scope.initAffiliatesPlansData();

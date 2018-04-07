@@ -1,0 +1,126 @@
+<div class="modal-header">
+   <h3 class="modal-title">{{showEditStatus(edit)+'代理计划'}}</h3>
+</div>
+
+<div class="modal-body">
+   <div class="row">
+      <div class="">
+         <div class="panel-wrapper">
+            <div class="panel-body">
+               <form class="form-horizontal" name='myForm'>
+                  <legend class="text-center">概况</legend>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">code</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.code" name='code' ng-pattern='/^[A-Z]{3,10}$/' ng-disabled='!hasPower||edit==3' required class="form-control" type="text" placeholder="3-10 A-Z char">
+                        <span class='text-danger valid-error' ng-show="myForm.code.$dirty&&myForm.code.$invalid">
+                           {{'3-10 A-Z char'}}
+                        </span>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">level</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.level" name='level' ng-pattern='/^[1-9][0-9]*?$/' ng-disabled='!hasPower' required class="form-control" type="number" placeholder="integer number">
+                        <span class='text-danger valid-error' ng-show="myForm.level.$dirty&&myForm.level.$invalid">
+                           {{'integer number'}}
+                        </span>
+                     </div>
+                  </div>
+               </form>
+               <div class='clearfix'></div>
+               <legend class="text-center">stages</legend>
+               <span class="form-group add-button-class no-block">
+                  <button ng-show="hasPower" class="btn btn-primary" ng-click="addMethodsNameModal()" type="button" translate="table.button.add">
+                  </button>
+               </span>
+               <form class="form-inline pull-right add-button-class" role="form">
+                  <div style="position: relative" class="form-group">
+                     <span style="position: absolute;left: 4px;top: 6px">
+                        <em class="fa fa-search"></em>
+                     </span>
+                     <input class="form-control" type="text" ng-model="methodsNameModalSearch" placeholder="{{searchPlaceholder(['table.paymentMethods.name.th2'])}}">
+                  </div>
+               </form>
+               <div web-data-table items="methodsNameModal" ao-data="methodsNameModalAoData" search="methodsNameModalSearch" reload="methodsNameModalReload" show-items="showMethodsNameModal">
+                  <table width="100%" class="table table-bordered table-hover bg-white">
+                     <thead>
+                        <tr class="bg-gray-light text-bold">
+                           <td style="width: 10%" ao-data="methodsNameModalAoData" web-data-table-sort="level">
+                              {{'table.affiliatesPlans.stages.th1' | translate}}
+                           </td>
+                           <td style="width: 10%" ao-data="methodsNameModalAoData" web-data-table-sort="activeUsers">
+                              {{'table.affiliatesPlans.stages.th2' | translate}}
+                           </td>
+                           <td style="width: 10%" ao-data="methodsNameModalAoData" web-data-table-sort="rate">
+                              {{'table.affiliatesPlans.stages.th3' | translate}}
+                           </td>
+                           <td style="width: 10%">
+                              {{'table.affiliatesPlans.stages.th4' | translate}}
+                           </td>
+                           <td style="width: 10%">
+                              {{'table.affiliatesPlans.stages.th5' | translate}}
+                           </td>
+                           <!--<td style="width: 16%">-->
+                           <!--{{'table.affiliatesPlans.stages.th6' | translate}}-->
+                           <!--</td>-->
+                           <td style="width: 10%" ng-show="hasPower">{{'table.button.operation' | translate}}</td>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="item in showMethodsNameModal">
+                           <td>
+                              <span editable-text="item.level" e-name="level" e-formclass="xeditable-sm" e-type='number' e-placeholder='integer number' onbeforesave="validReg('^[1-9][0-9]?$', $data, 'integer number')" e-form="rowform" e-required="">{{ item.level || '' }}</span>
+                           </td>
+                           <td>
+                              <span editable-text="item.activeUsers" e-name="activeUsers" e-formclass="xeditable-sm" e-type='number' e-placeholder='integer number min 5' onbeforesave="checkStagesDataActiveUsers($data)" e-form="rowform" e-required="">{{ item.activeUsers || '' }}</span>
+                           </td>
+                           <td>
+                              <span editable-text="item.rate" e-name="rate" e-formclass="xeditable-sm" e-placeholder='0.01-0.6' e-type='number' onbeforesave="checkStagesDataRate($data)" e-form="rowform" e-required="">{{ item.rate || '' }}</span>
+                           </td>
+                           <td>
+                              <span editable-text="item.minProfit" e-name="minProfit" e-formclass="xeditable-sm" e-placeholder='integer number' e-type='number' onbeforesave="validReg('^[1-9][0-9]?$', $data, 'integer number')" e-form="rowform" e-required="">{{ item.minProfit || '' }}</span>
+                           </td>
+                           <td>
+                              <span editable-text="item.maxProfit" e-name="maxProfit" e-formclass="xeditable-sm" e-placeholder='integer number' e-type='number' onbeforesave="validReg('^[1-9][0-9]?$', $data, 'integer number')" e-form="rowform" e-required="">{{ item.maxProfit || '' }}</span>
+                           </td>
+                           <!--<td>-->
+                           <!--<span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>-->
+                           <!--</td>-->
+                           <td style="white-space: nowrap;" ng-show="hasPower">
+                              <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveMethodsNameModal(item, $data)" ng-show="rowform.$visible" shown="validIsNew(item.id)">
+                                 <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
+                                    <em class="fa fa-save"></em>
+                                 </button>
+                                 <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSaveModal(item,$index)" title="{{'table.button.cancel' | translate}}">
+                                    <em class="fa fa-times"></em>
+                                 </button>
+                              </form>
+                              <div class="buttons" ng-show="!rowform.$visible">
+                                 <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                    <em class="fa fa-pencil"></em>
+                                 </button>
+                                 <button class="btn btn-sm btn-danger" ng-click="deleteMethodsNameModal(item, $index)" title="{{'table.button.delete' | translate}}">
+                                    <em class="fa fa-trash"></em>
+                                 </button>
+                              </div>
+                           </td>
+                        </tr>
+                        <tr ng-show="showMethodsNameModal.length==0">
+                           <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal-footer">
+   <button class="btn btn-primary" type="button" ng-disabled='myForm.$invalid' ng-show="hasPower" ng-click="confirmModal()">
+      {{'table.button.save' | translate}}</button>
+   <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
+</div>
+
