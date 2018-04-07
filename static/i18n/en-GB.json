@@ -412,6 +412,16 @@
             "th2": "Type",
             "th3": "Affiliate Id",
             "th4": "isDeleted"
+        },
+        "affiliatesPlans": {
+            "th1": "Code",
+            "th2": "Level",
+            "th3": "Rates Bonus",
+            "th4": "Rates Brand",
+            "th5": "Rates Financial",
+            "th6": "Rates subsidiary",
+            "th7": "isDeleted",
+            "th8": "Create At"
         }
     },
     "panel_tile": {

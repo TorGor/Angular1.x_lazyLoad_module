@@ -80,7 +80,7 @@
                </form>
                <div class='clearfix'></div>
                <legend class="text-center">名称</legend>
-               <span class="form-group add-button-class">
+               <span class="form-group add-button-class no-block">
                   <button ng-show="hasPower" class="btn btn-primary" ng-click="addMethodsNameModal()" type="button" translate="table.button.add">
                      新增
                   </button>
@@ -136,7 +136,7 @@
                            </td>
                         </tr>
                         <tr ng-show="showMethodsNameModal.length==0">
-                           <td colspan="{{hasPower?3:2}}" class="">{{'table.no_date' | translate}}</td>
+                           <td colspan="20" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                      </tbody>
                   </table>

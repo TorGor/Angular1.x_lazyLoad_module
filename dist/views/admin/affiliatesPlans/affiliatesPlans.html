@@ -2,7 +2,7 @@
    <div class="panel panel-default">
       <div class="panel-wrapper">
          <div class="panel-body">
-            <span class="form-group add-button-class">
+            <span class="form-group add-button-class no-block">
                <button class="btn btn-primary" ng-click="addAffiliatesPlans()" type="button" translate="table.button.add">
                   新增
                </button>
@@ -12,7 +12,7 @@
                   <span style="position: absolute;left: 4px;top: 6px">
                      <em class="fa fa-search"></em>
                   </span>
-                  <input class="form-control" type="text" ng-model="affiliatesPlansSearch" placeholder="{{searchPlaceholder(['table.affiliatesPlans.th1', 'table.affiliatesPlans.th2', 'table.affiliatesPlans.th3'])}}">
+                  <input class="form-control" type="text" ng-model="affiliatesPlansSearch" placeholder="{{searchPlaceholder(['table.affiliatesPlans.th1', 'table.affiliatesPlans.th2'])}}">
                </div>
             </form>
             <div web-data-table items="affiliatesPlans" ao-data="affiliatesPlansAoData" search="affiliatesPlansSearch" reload="affiliatesPlansReload" show-items="showAffiliatesPlans">
@@ -55,7 +55,7 @@
                         </td>
                         <td>
                            <span>
-                              {{ item.level || '' }}
+                              {{ item.level}}
                            </span>
                         </td>
                         <td>
