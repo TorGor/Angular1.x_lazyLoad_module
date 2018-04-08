@@ -64,7 +64,7 @@
         $scope.blackListsSearch = '';
 
         $scope.trigerSearch = function() {
-            $scope.tempBlackListsAoData = angular.extend($scope.tempBlackListsAoData,$scope.blackListsAoData)
+            $scope.tempBlackListsAoData = Object.assign($scope.tempBlackListsAoData,$scope.blackListsAoData)
         };
 
         $scope.resetSearch = function() {

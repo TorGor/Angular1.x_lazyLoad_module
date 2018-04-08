@@ -33,7 +33,7 @@
         $scope.tempTransfersListAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempTransfersListAoData = angular.extend($scope.tempTransfersListAoData,$scope.transfersListAoData)
+            $scope.tempTransfersListAoData = Object.assign($scope.tempTransfersListAoData,$scope.transfersListAoData)
         };
 
         $scope.resetSearch = function() {

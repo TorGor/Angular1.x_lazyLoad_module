@@ -74,7 +74,7 @@
         $scope.tempBigwinsManageAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempBigwinsManageAoData = angular.extend($scope.tempBigwinsManageAoData,$scope.bigwinsManageAoData)
+            $scope.tempBigwinsManageAoData = Object.assign($scope.tempBigwinsManageAoData,$scope.bigwinsManageAoData)
         };
 
         $scope.resetSearch = function() {

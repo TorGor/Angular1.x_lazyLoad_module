@@ -92,7 +92,7 @@
         $scope.ordersManageAoData.method = ''
 
         $scope.trigerSearch = function() {
-            $scope.tempOrdersManageAoData = angular.extend($scope.tempOrdersManageAoData,$scope.ordersManageAoData)
+            $scope.tempOrdersManageAoData = Object.assign($scope.tempOrdersManageAoData,$scope.ordersManageAoData)
         };
 
         $scope.resetSearch = function() {

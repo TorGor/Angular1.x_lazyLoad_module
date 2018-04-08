@@ -92,7 +92,7 @@
         $scope.tempWithdrawsManageAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempWithdrawsManageAoData = angular.extend($scope.tempWithdrawsManageAoData,$scope.withdrawsManageAoData)
+            $scope.tempWithdrawsManageAoData = Object.assign($scope.tempWithdrawsManageAoData,$scope.withdrawsManageAoData)
         };
 
         $scope.resetSearch = function() {

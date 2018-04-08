@@ -83,7 +83,7 @@
         $scope.tempGameRecordsAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempGameRecordsAoData = angular.extend($scope.tempGameRecordsAoData,$scope.gameRecordsAoData)
+            $scope.tempGameRecordsAoData = Object.assign($scope.tempGameRecordsAoData,$scope.gameRecordsAoData)
         };
 
         $scope.resetSearch = function() {

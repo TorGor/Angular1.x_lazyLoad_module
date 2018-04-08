@@ -111,7 +111,8 @@
                         var tempvalue = e.target.value;
                         if(!tempvalue){
                             $scope.outputValue = '';
-                           return;
+                            console.log($scope.outputValue)
+                            return;
                         }
                         if($scope.minLength){
                             if(tempvalue.length<parseInt($scope.minLength)){

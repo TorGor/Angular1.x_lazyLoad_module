@@ -110,7 +110,7 @@
                 $rootScope.alertErrorMsg('Formatting error,The right example +00:00');
                 return;
             }
-            $scope.tempTransactionsDetailAoData = angular.extend($scope.tempTransactionsDetailAoData,$scope.transactionsDetailAoData)
+            $scope.tempTransactionsDetailAoData = Object.assign($scope.tempTransactionsDetailAoData,$scope.transactionsDetailAoData)
         };
 
         $scope.resetSearch = function() {

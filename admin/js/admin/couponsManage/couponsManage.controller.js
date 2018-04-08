@@ -227,7 +227,7 @@
         };
 
         $scope.trigerSearch = function() {
-            $scope.tempCouponsManageAoData = angular.extend($scope.tempCouponsManageAoData,$scope.couponsManageAoData)
+            $scope.tempCouponsManageAoData = Object.assign($scope.tempCouponsManageAoData,$scope.couponsManageAoData)
         };
 
         $scope.resetSearch = function() {

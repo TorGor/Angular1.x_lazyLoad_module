@@ -140,7 +140,7 @@
         $scope.tempAppliesUseAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempAppliesUseAoData = angular.extend($scope.tempAppliesUseAoData,$scope.appliesUseAoData)
+            $scope.tempAppliesUseAoData = Object.assign($scope.tempAppliesUseAoData,$scope.appliesUseAoData)
         };
 
         $scope.resetSearch = function() {

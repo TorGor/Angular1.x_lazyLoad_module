@@ -26,7 +26,7 @@
         $scope.tempRebatesListAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempRebatesListAoData = angular.extend($scope.tempRebatesListAoData,$scope.rebatesListAoData)
+            $scope.tempRebatesListAoData = Object.assign($scope.tempRebatesListAoData,$scope.rebatesListAoData)
         };
 
         $scope.resetSearch = function() {

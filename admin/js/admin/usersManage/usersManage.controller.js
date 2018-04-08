@@ -108,7 +108,7 @@
                 $rootScope.alertErrorMsg('username char length should between 3 and 11');
                 return;
             }
-            $scope.tempUsersManageAoData = angular.extend($scope.tempUsersManageAoData,$scope.usersManageAoData)
+            $scope.tempUsersManageAoData = Object.assign($scope.tempUsersManageAoData,$scope.usersManageAoData)
         };
 
         $scope.resetSearch = function() {

@@ -27,7 +27,7 @@
         $scope.tempReliefsListAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempReliefsListAoData = angular.extend($scope.tempReliefsListAoData,$scope.reliefsListAoData)
+            $scope.tempReliefsListAoData = Object.assign($scope.tempReliefsListAoData,$scope.reliefsListAoData)
         };
 
         $scope.resetSearch = function() {

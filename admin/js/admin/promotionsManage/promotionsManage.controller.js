@@ -157,7 +157,7 @@
         };
 
         $scope.trigerSearch = function() {
-            $scope.tempPromotionsManageAoData = angular.extend($scope.tempPromotionsManageAoData,$scope.promotionsManageAoData)
+            $scope.tempPromotionsManageAoData = Object.assign($scope.tempPromotionsManageAoData,$scope.promotionsManageAoData)
         };
 
         $scope.resetSearch = function() {
