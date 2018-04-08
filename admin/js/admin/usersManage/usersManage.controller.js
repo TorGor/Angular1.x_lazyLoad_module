@@ -6,6 +6,7 @@
 
     UsersManageController.$inject = [
         '$scope',
+        '$uibModal',
         '$state',
         '$rootScope',
         'adminService'
@@ -14,6 +15,7 @@
     function UsersManageController(
         $scope,
         $state,
+        $uibModal,
         $rootScope,
         adminService
     ) {
@@ -70,6 +72,28 @@
                 value: false
             }
         ];
+
+        $scope.showEditUserManageModal = function(item) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/usersManage/userManageEditModal.html',
+                controller: 'usersManageModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower:$scope.validPower("USERSMANAGE", ["PATCH"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initUsersManageData();
+            }, function (data) {
+
+            });
+        };
 
         $scope.usersManageUrl = $rootScope.URL.USERSMANAGE.GET;
 

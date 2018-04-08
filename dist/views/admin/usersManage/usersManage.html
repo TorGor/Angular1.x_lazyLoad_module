@@ -185,8 +185,11 @@
                            <span>{{showOptionsValue(item.gender, genderOptions)}}</span>
                         </td>
                         <td style="white-space: nowrap;">
+                           <button class="btn btn-sm btn-info" ng-show="validPower('USERSMANAGE', ['PATCH'])" ng-click="showEditUserManageModal(item,3)" title="{{'table.button.edit' | translate}}">
+                              <em class="fa fa-pencil"></em>
+                           </button>
                            <div class="btn-group" uib-dropdown="dropdown">
-                              <button class="btn btn-sm btn-info" uib-dropdown-toggle="" title="{{'table.button.detail' | translate}}">
+                              <button class="btn btn-sm btn-green" uib-dropdown-toggle="" title="{{'table.button.detail' | translate}}">
                                  <em class="fa fa-eye"></em>
                               </button>
                               <ul class="dropdown-menu dropdown-menu-right" role="menu">
