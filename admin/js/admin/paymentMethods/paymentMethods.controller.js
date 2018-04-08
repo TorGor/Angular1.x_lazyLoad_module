@@ -171,7 +171,6 @@
                             paymentMethodsItem.disabled = paymentMethodsItem.disabled ? '1' : '0';
                         });
                         $scope.paymentMethodsReload++;
-                        console.log($scope.paymentMethods)
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }

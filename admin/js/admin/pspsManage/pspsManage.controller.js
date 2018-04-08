@@ -41,9 +41,11 @@
                         $scope.paymentMethods.forEach(function (paymentMethodsItem, paymentMethodsIndex) {
                             if(!paymentMethodsItem.disabled){
                                 var temp = {};
-                                temp.label = paymentMethodsItem.code;
+                                temp.label = $scope.showArrayName(paymentMethodsItem.name);
                                 temp.value = paymentMethodsItem.code;
-                                $scope.methodsOptions.push(temp)
+                                if(!$scope.checkIsDelete(paymentMethodsItem)){
+                                    $scope.methodsOptions.push(temp)
+                                }
                             }
                         });
                         console.log($scope.paymentMethods)
