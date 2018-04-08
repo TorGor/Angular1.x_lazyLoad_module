@@ -103,9 +103,8 @@
                 }
             });
             modalInstance.result.then(function (data) {
-                $scope.pspsManageReload++;
+                $scope.initPspsManageData();
             }, function (data) {
-                $scope.pspsManageReload++;
             });
         };
 
