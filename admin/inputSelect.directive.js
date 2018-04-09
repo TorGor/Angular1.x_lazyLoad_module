@@ -22,7 +22,7 @@
             '                                on-select="handelSelect($item, $model)"\n' +
             '                                theme="bootstrap"\n' +
             '                            >\n' +
-            '                                <ui-select-match placeholder="{{initPlaceholder||inputPlaceholder}}">\n' +
+            '                                <ui-select-match placeholder="{{inputPlaceholder}}">\n' +
             '                                    <span ng-bind="$select.selected._label"></span>\n' +
             '                                </ui-select-match>\n' +
             '                                <ui-select-choices repeat="item._label as item in allItems | filter: {\'_label\':$select.search}">\n' +
@@ -84,6 +84,11 @@
                                     }
                                     tempObj['_value']=dataItem[$scope.outputkey]||'';
                                     $scope.allItems.push(tempObj)
+                                    if($scope.initPlaceholder&&$scope.allItems[0]){
+                                        $scope.searchValue.select = $scope.allItems[0];
+                                        $($element).find('.ui-select-search').val($scope.initPlaceholder);
+                                        $scope.initPlaceholder = false;
+                                    }
                                 })
                             }
                         }else{
@@ -96,6 +101,10 @@
                     $scope.outputValue = $item['_value']||'';
                     $($element).find('.ui-select-search').val($model)
                 };
+
+                if($scope.initPlaceholder){
+                    $scope.searchDataFromServer($scope.initPlaceholder)
+                }
 
                 $scope.$watch('outputValue',function(newValue, oldValue) {
                     if(newValue!==oldValue){
