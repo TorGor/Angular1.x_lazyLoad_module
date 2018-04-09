@@ -208,12 +208,12 @@
                             <td style="white-space: nowrap;" ng-show='validPower("APPLIESUSE", ["POSTAUDIT", "POSTREVOKE"])'>
                                 <div class="buttons">
                                     <button class="btn btn-sm btn-primary"
-                                            ng-show='validPower("APPLIESUSE", ["POSTAUDIT"])' ng-click="appliesUseAudit(item)"
+                                            ng-show='validPower("APPLIESUSE", ["POSTAUDIT"])&&item.status=="pending"' ng-click="appliesUseAudit(item)"
                                             title="{{'table.button.save' | translate}}">
                                         <em class="fa fa-pencil-square-o"></em>
                                     </button>
                                     <button class="btn btn-sm btn-green"
-                                            ng-show='validPower("APPLIESUSE", ["POSTREVOKE"])' ng-click="appliesUseRevoke(item)"
+                                            ng-show='validPower("APPLIESUSE", ["POSTREVOKE"])&&item.status=="succeed"' ng-click="appliesUseRevoke(item)"
                                             title="{{'table.button.recover' | translate}}">
                                         <em class="fa fa-rotate-left"></em>
                                     </button>
