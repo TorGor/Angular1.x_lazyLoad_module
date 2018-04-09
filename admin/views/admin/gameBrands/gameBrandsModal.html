@@ -249,28 +249,40 @@
                                                 editable-text="item.osx_url" e-placeholder="can be empty" e-name="osx_url"
                                                 e-formclass="xeditable-md"
                                                 e-form="rowform"
-                                            >{{ item.osx_url || '' }}</span>
+                                            >
+                                                <span ng-if='item.osx_url&&item.osx_url.length>15' uib-popover="{{ item.osx_url || '' }}" popover-trigger="'mouseenter'">{{item.osx_url.substr(0,15)+'...'}}</span>
+                                                <span ng-if='!item.osx_url||item.osx_url&&item.osx_url.length<15'>{{item.osx_url}}</span>
+                                            </span>
                                         </td>
                                         <td>
                                             <span
                                                 editable-text="item.windows_url" e-placeholder="can be empty"
                                                 e-name="windows_url" e-formclass="xeditable-md"
                                                 e-form="rowform"
-                                            >{{ item.windows_url || '' }}</span>
+                                            >
+                                                <span ng-if='item.windows_url&&item.windows_url.length>15' uib-popover="{{ item.windows_url || '' }}" popover-trigger="'mouseenter'">{{item.windows_url.substr(0,15)+'...'}}</span>
+                                                <span ng-if='!item.windows_url||item.windows_url&&item.windows_url.length<15'>{{item.windows_url}}</span>
+                                            </span>
                                         </td>
                                         <td>
                                             <span
                                                 editable-text="item.ios_url" e-placeholder="can be empty" e-name="ios_url"
                                                 e-formclass="xeditable-md"
                                                 e-form="rowform"
-                                            >{{ item.ios_url || '' }}</span>
+                                            >
+                                                <span ng-if='item.ios_url&&item.ios_url.length>15' uib-popover="{{ item.ios_url || '' }}" popover-trigger="'mouseenter'">{{item.ios_url.substr(0,15)+'...'}}</span>
+                                                <span ng-if='!item.ios_url||item.ios_url&&item.ios_url.length<15'>{{item.ios_url}}</span>
+                                            </span>
                                         </td>
                                         <td>
                                             <span
                                                 editable-text="item.android_url" e-placeholder="can be empty"
                                                 e-name="android_url" e-formclass="xeditable-md"
                                                 e-form="rowform"
-                                            >{{ item.android_url || '' }}</span>
+                                            >
+                                                <span ng-if='item.android_url&&item.android_url.length>15' uib-popover="{{ item.android_url || '' }}" popover-trigger="'mouseenter'">{{item.android_url.substr(0,15)+'...'}}</span>
+                                                <span ng-if='!item.android_url||item.android_url&&item.android_url.length<15'>{{item.android_url}}</span>
+                                            </span>
                                         </td>
                                         <td style="white-space: nowrap;" ng-show='hasPower'>
                                             <form
