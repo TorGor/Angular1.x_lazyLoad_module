@@ -50,7 +50,7 @@
                 hasJackpot: '',
                 currentJackpot: '',
                 disabled: false,
-                rebateable: '',
+                rebateable: $scope.booleanOptons[1].value,
                 bigwinable: '',
                 categories: [],
                 isNew: '',

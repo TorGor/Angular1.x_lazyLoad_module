@@ -173,7 +173,6 @@
             arr.forEach(function (gamesManageItem, gamesManageIndex) {
                 gamesManageItem._id = gamesManageIndex +1;
                 gamesManageItem.currentJackpot = '';
-                gamesManageItem.categories = [];
                 gamesManageItem.flashCode = gamesManageItem.codes && gamesManageItem.codes.flash || '',
                 gamesManageItem.html5Code = gamesManageItem.codes && gamesManageItem.codes.html5 || '',
                 gamesManageItem.appCode = gamesManageItem.codes && gamesManageItem.codes.ios || '',
@@ -189,6 +188,13 @@
                 }
                 if(gamesManageItem.worksOn){
                     delete gamesManageItem.worksOn;
+                }
+                if(window.Array.isArray(gamesManageItem.categories)){
+                    gamesManageItem.categories = gamesManageItem.categories.map(function (item) {
+                        return item.id;
+                    });
+                }else{
+                    gamesManageItem.categories = [];
                 }
             });
             return arr;

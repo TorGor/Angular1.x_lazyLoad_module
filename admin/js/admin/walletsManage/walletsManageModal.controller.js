@@ -26,8 +26,6 @@
         $translate
     ) {
 
-        console.log(modalItem,88888777776666)
-
         $scope.edit = edit;
 
         $scope.hasPower = hasPower;
@@ -39,7 +37,7 @@
                 name: [],
                 brands: [],
                 syncPassword: $scope.booleanOptons[0] && $scope.booleanOptons[0].value || '',
-                disabled: '',
+                disabled: $scope.booleanOptons[1] && $scope.booleanOptons[1].value,
                 status: $scope.statusOptons[0] && $scope.statusOptons[0].value || '',
                 code:'',
                 usernamePrefix:'',

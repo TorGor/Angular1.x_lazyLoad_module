@@ -112,10 +112,12 @@
                         $scope.walletsManage = angular.copy(res.data.data);
                         $scope.walletsManage.forEach(function(walletItem) {
                             if(walletItem.merchant){
+                                walletItem.apiEndpoint = walletItem.merchant.api||'';
                                 walletItem.merchantKey = walletItem.merchant.key||'';
                                 walletItem.merchantName = walletItem.merchant.name||'';
                                 delete walletItem.merchant;
                             }else{
+                                walletItem.apiEndpoint = '';
                                 walletItem.merchantKey = '';
                                 walletItem.merchantName = '';
                             }
