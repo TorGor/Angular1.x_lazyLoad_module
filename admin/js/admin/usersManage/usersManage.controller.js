@@ -14,8 +14,8 @@
 
     function UsersManageController(
         $scope,
-        $state,
         $uibModal,
+        $state,
         $rootScope,
         adminService
     ) {
@@ -73,7 +73,7 @@
             }
         ];
 
-        $scope.showEditUserManageModal = function(item) {
+        $scope.showEditUserManageModal = function(item,edit) {
             var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',

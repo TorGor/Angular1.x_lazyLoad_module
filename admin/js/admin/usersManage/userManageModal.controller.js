@@ -29,15 +29,17 @@
         $scope.edit = edit;
         $scope.hasPower = hasPower;
 
+        $scope.userId = modalItem.userId;
+
         // 初始化table数据
         $scope.initMethodsNameModalData = function () {
             if(edit==3){
                 $scope.modalItem = {
-                    userId:modalItem.userId,
-                    name:modalItem.name || '',
-                    userId:modalItem.userId,
-                    userId:modalItem.userId,
-                    userId:modalItem.userId,
+                    name:modalItem.username || '',
+                    nameVerified:modalItem.verifications.name,
+                    phone:modalItem.phone||'',
+                    phoneVerified:modalItem.verifications.phone,
+                    locked:modalItem.locked,
                 }
             }else{
                 $scope.modalItem = {};
@@ -46,9 +48,15 @@
 
         //$rootScope.toasterSuccess(res.data.msg);;
         $scope.confirmModal = function () {
+            if($scope.modalItem.name){
+                if($scope.modalItem.name.length<3||$scope.modalItem.name.length>11){
+                    $rootScope.alertErrorMsg('name length should between 3 and 11');
+                    return;
+                }
+            }
             var tempData = angular.copy($scope.modalItem);
             if (edit==3) {
-                adminService.patchReq($rootScope.URL.USERSMANAGE.PATCH+'/'+tempData.userId, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.USERSMANAGE.PATCH+'/'+$scope.userId, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {

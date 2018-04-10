@@ -7,58 +7,83 @@
         <div class="">
             <div class="panel-wrapper">
                 <div class="panel-body">
-                    <form class="form-horizontal" name="myForm">
+                    <form class="form-horizontal" >
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">{{'table.localeLanguage.th1' |
+                            <label class="col-lg-4 col-md-6 control-label">{{'name' |
                                 translate}}</label>
                             <div class="col-lg-8 col-md-6">
                                 <input
-                                    ng-model="modalItem.code" name='code' required ng-disabled='!hasPower||edit==3'
+                                    ng-model="modalItem.name" name='name' ng-disabled='!hasPower'
                                     class="form-control"
                                     type="text"
-                                    ng-pattern='/^[^/]*$/'
-                                    placeholder="string no '/'"
+                                    placeholder="3-11 char"
                                 >
-                                <span
-                                    class='text-danger valid-error'
-                                    ng-show="myForm.code.$dirty&&myForm.code.$invalid"
-                                >
-                                    {{checkRequiredData()}}
-                                </span>
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">{{'table.localeLanguage.th2' |
+                            <label class="col-lg-4 col-md-6 control-label">{{'phone' |
                                 translate}}</label>
                             <div class="col-lg-8 col-md-6">
                                 <input
-                                    ng-model="modalItem.name" name='name' required ng-disabled='!hasPower'
+                                    ng-model="modalItem.phone" name='phone' ng-disabled='!hasPower'
                                     class="form-control"
                                     type="text"
-                                    placeholder="eg. zh-CN"
+                                    placeholder="+8613900000000"
                                 >
-                                <span
-                                    class='text-danger valid-error' ng-show="myForm.name.$dirty&&myForm.name.$invalid"
-                                >
-                                    {{checkRequiredData()}}
-                                </span>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">{{'table.localeLanguage.th3' |
+                            <label class="col-lg-4 col-md-6 control-label">{{'table.usersManage.th11' |
                                 translate}}</label>
                             <div class="col-lg-8 col-md-6">
                                 <ui-select
-                                    ng-model="modalItem.supported"
+                                    ng-model="modalItem.nameVerified"
                                     theme="bootstrap"
                                     ng-disabled='!hasPower'
                                     search-enabled="false"
                                 >
-                                    <ui-select-match placeholder="choose supported">
+                                    <ui-select-match placeholder="choose name verified">
                                         <span ng-bind="$select.selected.label"></span>
                                     </ui-select-match>
-                                    <ui-select-choices repeat="item.value as item in supportedOptions">
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">{{'table.usersManage.th12' |
+                                translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                    ng-model="modalItem.phoneVerified"
+                                    theme="bootstrap"
+                                    ng-disabled='!hasPower'
+                                    search-enabled="false"
+                                >
+                                    <ui-select-match placeholder="choose phone verified">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">{{'locked' |
+                                translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                    ng-model="modalItem.locked"
+                                    theme="bootstrap"
+                                    ng-disabled='!hasPower'
+                                    search-enabled="false"
+                                >
+                                    <ui-select-match placeholder="choose locked">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in booleanOptons">
                                         <span ng-bind="item.label"></span>
                                     </ui-select-choices>
                                 </ui-select>
@@ -74,7 +99,7 @@
 
 <div class="modal-footer">
     <button
-        class="btn btn-primary" type="button" ng-disabled='myForm.$invalid' ng-show="hasPower"
+        class="btn btn-primary" type="button" ng-show="hasPower"
         ng-click="confirmModal()"
     >{{'table.button.save' | translate}}
     </button>
