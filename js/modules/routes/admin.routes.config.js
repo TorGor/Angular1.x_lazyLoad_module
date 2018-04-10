@@ -401,7 +401,16 @@
                 permission: 'plans'
             })
             
+            .state('admin.bankCards', {
+                url: '/bankCards/manage',
+                title: 'bankCards Manage',
+                controller: 'BankCardsController',
+                templateUrl: RouteHelpersProvider.basepath('admin/bankCards/bankCards.html'),
+                permission: 'users'
+            })
+            
             //new route name will be append here
+            
             
             
             

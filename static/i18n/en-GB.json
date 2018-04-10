@@ -429,6 +429,16 @@
                 "th4": "Min Profit",
                 "th5": "Max Profit"
             }
+        },
+        "bankCards": {
+            "th1": "User",
+            "th2": "Account",
+            "th3": "Bank",
+            "th4": "Has Withdrew",
+            "th5": "Type",
+            "th6": "isDeleted",
+            "th7": "Create At",
+            "th8": "Account No"
         }
     },
     "panel_tile": {

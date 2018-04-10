@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-wrapper">
+            <div class="panel-body">
+                <div class="col-xs-12">
+                    <span class="form-group add-button-class">
+                        <span class='btn-search'>
+                            <button
+                                class="btn btn-green"
+                                ng-click="trigerSearch()"
+                                type="button"
+                                translate="table.button.search"
+                            >
+                            </button>
+                            <button
+                                class="btn btn-warning"
+                                ng-click="resetSearch()"
+                                type="button"
+                                translate="table.button.reset"
+                            >
+                            </button>
+                        </span>
+                    </span>
+                    <div class='clearfix'></div>
+                    <form style="width: 450px;margin-bottom: 15px" class="form-horizontal pull-right" role="form">
+                        <div class="col-lg-6 col-md-6">
+                            <input
+                                class="form-control"
+                                type="text"
+                                ng-model="bankCardsAoData.account_number"
+                                placeholder="{{'table.bankCards.th8' | translate}}"
+                            >
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <input
+                                class="form-control"
+                                type="text"
+                                ng-model="bankCardsAoData.account_name"
+                                placeholder="{{'table.bankCards.th2' | translate}}"
+                            >
+                        </div>
+                    </form>
+                </div>
+                <div class='clearfix'></div>
+                <div
+                    server-data-table
+                    items="bankCards"
+                    ao-data="tempBankCardsAoData"
+                    reload="bankCardsReload"
+                    service-name="adminService"
+                    service-name-attr="getReq"
+                    url="bankCardsUrl"
+                    handle-data="false"
+                >
+                    <table width="100%" class="table table-bordered table-hover bg-white">
+                        <thead>
+                        <tr class="bg-gray-light text-bold">
+                            <td style="width: 10%">
+                                {{'table.bankCards.th1' | translate}}
+                            </td>
+                            <td style="width: 14%">
+                                {{'table.bankCards.th2' | translate}}
+                            </td>
+                            <td style="width: 20%">
+                                {{'table.bankCards.th8' | translate}}
+                            </td>
+                            <td style="width: 8%">
+                                {{'table.bankCards.th3' | translate}}
+                            </td>
+                            <td style="width: 13%">
+                                {{'table.bankCards.th4' | translate}}
+                            </td>
+                            <td style="width: 8%">
+                                {{'table.bankCards.th5' | translate}}
+                            </td>
+                            <td style="width: 8%">
+                                {{'table.bankCards.th6' | translate}}
+                            </td>
+                            <td style="width: 18%">
+                                {{'table.bankCards.th7' | translate}}
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in bankCards">
+                            <td>
+                                <span>{{ item.user.username || '' }}</span>
+                            </td>
+                            <td>
+                                <span>{{ item.account.name || '' }}</span>
+                            </td>
+                            <td>
+                                <span>{{ item.account.number || '' }}</span>
+                            </td>
+                            <td>
+                                <span>{{ item.bank || '' }}</span>
+                            </td>
+                            <td>
+                                <span>{{ item.hasWithdrew?'Yes':'No'}}</span>
+                            </td>
+                            <td>
+                                <span>{{ item.type || ''}}</span>
+                            </td>
+                            <td>
+                                <span>{{ item.isDeleted?'Yes':'No'}}</span>
+                            </td>
+                            <td>
+                                <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
+                            </td>
+                        </tr>
+                        <tr ng-show="bankCards.length==0">
+                            <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

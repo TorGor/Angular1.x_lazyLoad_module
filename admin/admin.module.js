@@ -33,6 +33,7 @@
 			'admin.domainsManage',
 			'admin.affiliatesManage',
 			'admin.affiliatesPlans',
+			'admin.bankCards',
 			//new module name will be append here
 
         ]);

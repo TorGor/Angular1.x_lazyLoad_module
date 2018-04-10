@@ -3,11 +3,11 @@
  */
 var moduleSetting = {
     //模块主要名称
-    common: 'affiliates',
+    common: 'bank',
     //模块主要名称2
-    module: 'plans',
+    module: 'cards',
     //模块标题
-    title: '代理计划',
+    title: '银行卡搜索',
     // url地址
     url: '/rest/affiliates',
 };

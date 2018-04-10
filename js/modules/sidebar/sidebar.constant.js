@@ -193,7 +193,13 @@
                     "text": "代理计划",
                     "sref": "admin.affiliatesPlans",
                     "module": "plans",
+                },
+                {
+                    "text": "银行卡搜索",
+                    "sref": "admin.bankCards",
+                    "module": "cards",
                 }//new sidebar name will be append here
+            
             
             ]
 

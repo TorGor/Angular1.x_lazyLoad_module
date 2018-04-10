@@ -225,8 +225,8 @@
             debug: true,
             //suffix: '.json',
             suffix: '',
-            // server: '',
-             server: 'http://193.112.155.213',
+            server: '',
+             // server: 'http://193.112.155.213',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             //server: 'http://holyplace.ngrok.xiaomiqiu.cn',
             URLOBJ:{
@@ -257,6 +257,7 @@
                 domains: 'DOMAINSMANAGE',
                 affiliates: 'AFFILIATESMANAGE',
                 plans: 'AFFILIATESPLANS',
+                cards: 'BANKCARDS',
             }
         });
 })();
@@ -1637,7 +1638,13 @@
                     "text": "代理计划",
                     "sref": "admin.affiliatesPlans",
                     "module": "plans",
+                },
+                {
+                    "text": "银行卡搜索",
+                    "sref": "admin.bankCards",
+                    "module": "cards",
                 }//new sidebar name will be append here
+            
             
             ]
 
