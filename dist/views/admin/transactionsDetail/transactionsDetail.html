@@ -125,7 +125,8 @@
                            <span>{{item.postBalance}}</span>
                         </td>
                         <td>
-                           <span>{{item.description | json}}</span>
+                           <span ng-if='showDescriptionDetail(item.description)&&showDescriptionDetail(item.description).length>16' uib-popover="{{ showDescriptionDetail(item.description) }}" popover-trigger="'mouseenter'">{{showDescriptionDetail(item.description).substr(0,16)+'...'}}</span>
+                           <span ng-if='showDescriptionDetail(item.description).length<16'>{{showDescriptionDetail(item.description)}}</span>
                         </td>
                         <td>
                            <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
