@@ -10,9 +10,9 @@
         .module('app.routes')
         .config(routesConfig);
 
-    routesConfig.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteHelpersProvider'];
+    routesConfig.$inject = ['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteHelpersProvider', '$injector'];
 
-    function routesConfig($stateProvider, $locationProvider, $urlRouterProvider, RouteHelpersProvider) {
+    function routesConfig($stateProvider, $locationProvider, $urlRouterProvider, RouteHelpersProvider, $injector) {
 
         // Set the following to true to enable the HTML5 Mode
         // You may have to set <base> tag in index and a routing configuration in your server
@@ -21,6 +21,10 @@
         // defaults to dashboard
         $urlRouterProvider.otherwise('/page/maintenance');
         //$urlRouterProvider.otherwise('/admin/localeLanguage/manage');
+        $urlRouterProvider.otherwise(function($injector) {
+            var $state = $injector.get('$state');
+            return $state.go('admin.localeLanguage');
+        });
 
         //
         // Application Routes
@@ -160,6 +164,21 @@
                                 });
 
                                 console.log($rootScope.URL,'$rootScope.URL')
+
+                                console.log(window.userInfo.menu)
+                                for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
+                                    if(window.userInfo.menu[i].sref !== '#'){
+                                        $timeout(function() {
+                                            $state.go(window.userInfo.menu[i].sref);
+                                        },10)
+                                        break;
+                                    }else if(window.userInfo.menu[i]['submenu'][0]&&window.userInfo.menu[i]['submenu'][0]['sref']!=='#'){
+                                        $timeout(function() {
+                                            $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
+                                        },10)
+                                        break;
+                                    }
+                                }
 
                                 deferred.resolve('userInfo resolved');
 
@@ -412,14 +431,6 @@
             //new route name will be append here
             
             
-            
-            
-            
-            
-            
-            
-            
-            
             // Single Page Routes
             // -----------------------------------
             .state('page', {
@@ -441,85 +452,6 @@
                 url: '/maintenance',
                 title: 'Maintenance',
                 templateUrl: 'pages/maintenance.html',
-                resolve: angular.extend(
-                    RouteHelpersProvider.resolveFor('admin'),
-                    {
-                        // YOUR RESOLVES GO HERE
-                        userInfo: ['userSelfService', 'EVN', '$timeout', '$rootScope', 'SidebarMenuData', '$q', '$state', function(userSelfService, EVN, $timeout, $rootScope, SidebarMenuData, $q, $state) {
-                            var deferred = $q.defer();
-                            userSelfService.getUserSelfInfo({}, {}, function(data) {
-                                var roles = data.data.roles;
-                                window.userInfo = {};
-                                window.userInfo.adminId = angular.copy(data.data.adminId);
-                                window.userInfo.username = angular.copy(data.data.username);
-                                window.userInfo.module = [];
-                                window.userInfo.menu = [];
-                                $rootScope.user = {
-                                    system: 'admin',
-                                    name: data.data && data.data.username || ''
-                                };
-
-                                var moduleObj = {};
-                                SidebarMenuData.admin.map(function(moduleItem) {
-                                    moduleObj[moduleItem.module] = moduleItem.sref;
-                                });
-
-                                if (window.Array.isArray(roles)) {
-                                    roles.map(function(roleItem) {
-                                        var tempMenu = {};
-                                        tempMenu.text = roleItem.name || '';
-                                        if (roleItem.url == null) {
-                                            tempMenu.sref = '#';
-                                            tempMenu.icon = 'glyphicon glyphicon-th-large';
-                                            tempMenu.submenu = [];
-                                            if (window.Array.isArray(roleItem.data)) {
-                                                roleItem.data.map(function(moduleItem) {
-                                                    if (moduleItem.url) {
-                                                        var tempSubmenu = {
-                                                            text: moduleItem.name || '',
-                                                            sref: moduleObj[moduleItem.url]
-                                                        };
-                                                        tempMenu.submenu.push(tempSubmenu);
-                                                        window.userInfo.module.push(moduleItem.url);
-                                                    }
-                                                });
-                                            }
-                                        } else if (roleItem.url) {
-                                            tempMenu.sref = moduleObj[moduleItem.url];
-                                            tempMenu.icon = 'glyphicon glyphicon-th-large';
-                                        }
-                                        window.userInfo.menu.push(tempMenu);
-                                    });
-                                }
-
-                                for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
-                                    if(window.userInfo.menu[i].sref !== '#'){
-                                        $timeout(function() {
-                                            $state.go(window.userInfo.menu[i].sref);
-                                        },10)
-                                        break;
-                                    }else if(window.userInfo.menu[i]['submenu'].length){
-                                        $timeout(function() {
-                                            $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
-                                        },10)
-                                        break;
-                                    }
-                                }
-
-                                deferred.resolve('userInfo resolved');
-
-                                return true;
-
-                            }, function(error) {
-                                window.location.href = '/login.html';
-                                deferred.reject('userInfo reject');
-                                return;
-                            });
-
-                            return deferred.promise;
-                        }]
-                    }
-                )
             });
         //
         // CUSTOM RESOLVES

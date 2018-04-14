@@ -698,12 +698,13 @@
         // Hook not found
         $rootScope.$on('$stateNotFound',
             function(event, unfoundState /* , fromState, fromParams */) {
-                $state.go('page.404')
+                $state.go('page.maintenance')
             });
         // Hook error
         $rootScope.$on('$stateChangeError',
             function(event, toState, toParams, fromState, fromParams, error) {
-                console.log(error);
+                event.preventDefault();
+                $state.go("page.maintenance");
             });
         // Hook success
         $rootScope.$on('$stateChangeSuccess',

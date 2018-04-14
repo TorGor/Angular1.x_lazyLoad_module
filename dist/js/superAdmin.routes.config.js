@@ -111,22 +111,6 @@
                 title: 'Maintenance',
                 templateUrl: 'pages/maintenance.html'
             });
-        //
-        // CUSTOM RESOLVES
-        //   Add your own resolves properties
-        //   following this object extend
-        //   method
-        // -----------------------------------
-        // .state('app.someroute', {
-        //   url: '/some_url',
-        //   templateUrl: 'path_to_template.html',
-        //   controller: 'someController',
-        //   resolve: angular.extend(
-        //     RouteHelpersProvider.resolveFor(), {
-        //     // YOUR RESOLVES GO HERE
-        //     }
-        //   )
-        // })
     } // routesConfig
 
 })();
