@@ -193,7 +193,23 @@
 
         // 全局报错机制成功
         $rootScope.toasterSuccess = function (msg) {
-            toaster.pop('success', $translate.instant('alert_confirm.success'), msg);
+            toaster.pop({
+                type: 'success',
+                title: $translate.instant('alert_confirm.success'),
+                body: msg,
+                showCloseButton: true,
+                timeout: 2000
+            })
+        };
+
+        $rootScope.toasterInfo = function (msg) {
+            toaster.pop({
+                type: 'info',
+                title: $translate.instant('alert_confirm.info'),
+                body: msg,
+                showCloseButton: true,
+                timeout: 0
+            });
         };
 
         $rootScope.alertErrorMsg = function (msg) {

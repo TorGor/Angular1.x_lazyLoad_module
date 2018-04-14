@@ -450,6 +450,7 @@
     },
     "alert_confirm": {
         "success": "success",
+        "info": "info",
         "error": "error",
         "title": "Are you sure?",
         "text": "Deleted data will not be able to recover!",

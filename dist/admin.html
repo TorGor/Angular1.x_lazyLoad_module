@@ -18,7 +18,7 @@
 
 <body ng-controller="MainController" data-ng-class="{ 'layout-fixed' : app.layout.isFixed, 'aside-collapsed' : app.layout.isCollapsed, 'layout-fs': app.useFullLayout, 'hidden-footer': app.hiddenFooter, 'layout-h': app.layout.horizontal, 'offsidebar-open': app.offsidebarOpen, 'aside-toggled': app.asideToggled, 'aside-collapsed-text': app.layout.isCollapsedText}">
    <!--<div data-preloader=""></div>-->
-   <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true, 'time-out': 2000}"></toaster-container>
+   <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true, 'time-out':{ 'toast-success': 2000} }"></toaster-container>
    <div class="wrapper" data-ui-view="" data-autoscroll="false"></div>
    <div style="z-index: 1051" class="modal-backdrop fade in" ng-show="isShowLoadingSpinner" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div style="width: 100%;height: 100%;position: relative" role="document">

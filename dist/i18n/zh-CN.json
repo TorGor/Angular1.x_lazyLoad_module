@@ -450,6 +450,7 @@
     },
     "alert_confirm": {
         "success": "成功",
+        "info": "消息",
         "error": "错误",
         "title": "确认删除?",
         "text": "删除后可能无法恢复",
