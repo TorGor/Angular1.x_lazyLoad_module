@@ -31,7 +31,7 @@
                 abstract: true,
                 templateUrl: RouteHelpersProvider.basepath('app.html'),
                 resolve: angular.extend(
-                    RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'ui.select', 'datetimepicker', 'admin'),
+                    RouteHelpersProvider.resolveFor('modernizr', 'icons', 'screenfull', 'moment', 'xeditable', 'ui.select', 'datetimepicker', 'pusher-angular', 'admin'),
                     {
                         // YOUR RESOLVES GO HERE
                         userInfo: ['userSelfService', 'EVN', '$timeout', '$rootScope', 'SidebarMenuData', '$q', '$state',function(userSelfService, EVN, $timeout, $rootScope, SidebarMenuData, $q, $state) {

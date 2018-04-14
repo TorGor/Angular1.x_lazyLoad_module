@@ -290,6 +290,14 @@
                     ],
                     serie: true
                 },
+                {
+                    name: 'pusher-angular',
+                    files: [
+                        'vendor/pusher-js/dist/web/pusher.min.js',
+                        'vendor/pusher-angular/lib/pusher-angular.min.js'
+                    ],
+                    serie: true
+                },
             ]
         });
 })();

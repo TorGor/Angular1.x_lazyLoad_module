@@ -5,14 +5,19 @@
         .run(appRun);
 
     appRun.$inject = [
+        '$pusher',
         '$rootScope',
         '$translate'
     ];
 
     function appRun(
+        $pusher,
         $rootScope,
         $translate
     ) {
+
+        var client = new Pusher('aobo-tech');
+        var pusher = $pusher(client);
 
         $rootScope.adminSelect012 = {
             // 0-禁用；1-启用；

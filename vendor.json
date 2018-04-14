@@ -138,5 +138,7 @@
   "bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
   "bower_components/eonasdan-bootstrap-datetimepicker/angular/angular-eonasdan-datetimepicker.js",
   "bower_components/bootstrap/dist/css/bootstrap.css",
-  "bower_components/bootstrap/dist/fonts/*"
+  "bower_components/bootstrap/dist/fonts/*",
+  "bower_components/pusher-angular/lib/pusher-angular.min.js",
+  "bower_components/pusher-js/dist/web/pusher.min.js"
 ]
