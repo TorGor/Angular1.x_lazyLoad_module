@@ -240,20 +240,17 @@
                             <td style="white-space: nowrap;">
                                 <div class="btn-group" uib-dropdown="dropdown">
                                     <button
-                                        class="btn btn-sm btn-info" ng-click="showWalletsManageModal(item,1)"
+                                        class="btn btn-sm btn-green" uib-dropdown-toggle=""
                                         title="{{'table.button.detail' | translate}}">
                                         <em class="fa fa-eye"></em>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <li><a href="#">Cancel</a>
-                                        </li>
-                                        <li><a href="#">Delay</a>
-                                        </li>
-                                        <li><a href="#">Re Plan </a>
-                                        </li>
-                                        <li><a href="#">Invoke meeting</a>
-                                        </li>
-                                   </ul>
+                                        <li><a ng-click='openNewTab(item,"admin.usersManage")'>客户</a></li>
+                                        <li><a ng-click='openNewTab(item,"admin.ordersManage")'>充值记录</a></li>
+                                        <li><a ng-click='openNewTab(item,"admin.withdrawsManage")'>提款记录</a></li>
+                                        <li><a ng-click='openNewTab(item,"admin.rebatesList")'>返水记录</a></li>
+                                        <li><a ng-click='openNewTab(item,"admin.appliesUse")'>优惠券使用记录</a></li>
+                                    </ul>
                                 </div>
                             </td>
                         </tr>

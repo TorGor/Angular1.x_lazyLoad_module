@@ -40,154 +40,164 @@
                         // YOUR RESOLVES GO HERE
                         userInfo: ['userSelfService', 'EVN', '$timeout', '$rootScope', 'SidebarMenuData', '$q', '$state',function(userSelfService, EVN, $timeout, $rootScope, SidebarMenuData, $q, $state) {
                             var deferred = $q.defer();
-                            userSelfService.getUserSelfInfo({}, {}, function(data) {
-                                var roles = data.data.roles;
-                                window.userInfo = {};
-                                window.userInfo.adminId = angular.copy(data.data.adminId);
-                                window.userInfo.username = angular.copy(data.data.username);
-                                window.userInfo.module = [];
-                                window.userInfo.menu = [];
-                                $rootScope.user = {
-                                    system: 'admin',
-                                    name: data.data && data.data.username || ''
-                                };
-
-                                var moduleObj = {};
-                                SidebarMenuData.admin.map(function(moduleItem) {
-                                    moduleObj[moduleItem.module] = moduleItem.sref;
-                                });
-
-                                var tempButtonUrl = {};
-
-                                if (window.Array.isArray(roles)) {
-                                    roles.map(function(roleItem) {
-                                        var tempMenu = {};
-                                        tempMenu.text = roleItem.name || '';
-                                        if (roleItem.url == null) {
-                                            tempMenu.sref = '#';
-                                            tempMenu.icon = 'glyphicon glyphicon-th-large';
-                                            tempMenu.submenu = [];
-                                            if (window.Array.isArray(roleItem.data)) {
-                                                roleItem.data.map(function(moduleItem) {
-                                                    if (moduleItem.url) {
-                                                        var tempSubmenu = {
-                                                            text: moduleItem.name || '',
-                                                            sref: moduleObj[moduleItem.url]
-                                                        };
-                                                        tempMenu.submenu.push(tempSubmenu);
-                                                        window.userInfo.module.push(moduleItem.url);
-                                                        tempButtonUrl[moduleItem.url] = moduleItem.data;
-                                                    }
-                                                });
-                                            }
-                                        } else if (roleItem.url) {
-                                            tempMenu.sref = moduleObj[moduleItem.url];
-                                            tempMenu.icon = 'glyphicon glyphicon-th-large';
-                                        }
-                                        window.userInfo.menu.push(tempMenu);
-                                    });
-                                }
-
-                                var URLobj = EVN.URLOBJ;
-
-                                // 配置预设的url
-                                $rootScope.URL = {};
-                                window.Object.keys(URLobj).map(function(module) {
-                                    if (tempButtonUrl[module]) {
-                                        if (window.Array.isArray(tempButtonUrl[module])) {
-                                            $rootScope.URL[URLobj[module]] = {};
-                                            tempButtonUrl[module].map(function(buttonItem) {
-                                                if (buttonItem.btnType == 1) {
-                                                    if(module == 'affiliates'){
-                                                        if (buttonItem.btnUrl.indexOf('Cards') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].GETCARDS = buttonItem.btnUrl;
-                                                        } else if (buttonItem.btnUrl.indexOf('Summary') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].GETPAY = buttonItem.btnUrl;
-                                                        } else {
-                                                            $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
-                                                        }
-                                                    }else{
-                                                        if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].GETAUDIT = buttonItem.btnUrl;
-                                                        } else if (buttonItem.btnUrl.indexOf('Pay') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].GETPAY = buttonItem.btnUrl;
-                                                        } else if (buttonItem.btnUrl.indexOf('Review') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].GETREVIEW = buttonItem.btnUrl;
-                                                        } else if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
-                                                        } else {
-                                                            $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
-                                                        }
-                                                    }
-                                                }
-                                                if (buttonItem.btnType == 2) {
-                                                    if (module == 'withdraws') {
-                                                        if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
-                                                        } else if (buttonItem.btnUrl.indexOf('Pay') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].POSTPAY = buttonItem.btnUrl;
-                                                        } else if (buttonItem.btnUrl.indexOf('Review') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].POSTREVIEW = buttonItem.btnUrl;
-                                                        } else {
-                                                            $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                        }
-                                                    } else if (module == 'applies') {
-                                                        if (buttonItem.btnUrl.indexOf('audit') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
-                                                        } else if (buttonItem.btnUrl.indexOf('revoke') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].POSTREVOKE = buttonItem.btnUrl;
-                                                        } else {
-                                                            $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                        }
-                                                    }  else if (module == 'bigwins') {
-                                                        if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
-                                                            $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
-                                                        } else {
-                                                            $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                        }
-                                                    } else {
-                                                        $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
-                                                    }
-                                                }
-                                                if (buttonItem.btnType == 3) {
-                                                    $rootScope.URL[URLobj[module]].PATCH = buttonItem.btnUrl;
-                                                }
-                                                if (buttonItem.btnType == 4) {
-                                                    $rootScope.URL[URLobj[module]].DELETE = buttonItem.btnUrl;
-                                                }
-                                                if (buttonItem.btnType == 5) {
-                                                    $rootScope.URL[URLobj[module]].PUT = buttonItem.btnUrl;
-                                                }
-                                            });
-                                        }
-                                    }
-                                });
-
-                                console.log($rootScope.URL,'$rootScope.URL')
-
-                                console.log(window.userInfo.menu)
-                                for(var i = 0,j=window.userInfo.menu.length;i<j;i++){
-                                    if(window.userInfo.menu[i].sref !== '#'){
-                                        $timeout(function() {
-                                            $state.go(window.userInfo.menu[i].sref);
-                                        },10)
-                                        break;
-                                    }else if(window.userInfo.menu[i]['submenu'][0]&&window.userInfo.menu[i]['submenu'][0]['sref']!=='#'){
-                                        $timeout(function() {
-                                            $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
-                                        },10)
-                                        break;
-                                    }
-                                }
+                            if(window.userInfo && window.userInfo.menu && window.userInfo.menu.length){
 
                                 deferred.resolve('userInfo resolved');
 
                                 return true;
 
-                            }, function(error) {
-                                window.location.href = '/login.html';
-                                deferred.reject('userInfo reject');
-                            });
+                            }else{
+
+                                userSelfService.getUserSelfInfo({}, {}, function(data) {
+                                    var roles = data.data.roles;
+                                    window.userInfo = {};
+                                    window.userInfo.adminId = angular.copy(data.data.adminId);
+                                    window.userInfo.username = angular.copy(data.data.username);
+                                    window.userInfo.module = [];
+                                    window.userInfo.menu = [];
+                                    $rootScope.user = {
+                                        system: 'admin',
+                                        name: data.data && data.data.username || ''
+                                    };
+
+                                    var moduleObj = {};
+                                    SidebarMenuData.admin.map(function(moduleItem) {
+                                        moduleObj[moduleItem.module] = moduleItem.sref;
+                                    });
+
+                                    var tempButtonUrl = {};
+
+                                    if (window.Array.isArray(roles)) {
+                                        roles.map(function(roleItem) {
+                                            var tempMenu = {};
+                                            tempMenu.text = roleItem.name || '';
+                                            if (roleItem.url == null) {
+                                                tempMenu.sref = '#';
+                                                tempMenu.icon = 'glyphicon glyphicon-th-large';
+                                                tempMenu.submenu = [];
+                                                if (window.Array.isArray(roleItem.data)) {
+                                                    roleItem.data.map(function(moduleItem) {
+                                                        if (moduleItem.url) {
+                                                            var tempSubmenu = {
+                                                                text: moduleItem.name || '',
+                                                                sref: moduleObj[moduleItem.url]
+                                                            };
+                                                            tempMenu.submenu.push(tempSubmenu);
+                                                            window.userInfo.module.push(moduleItem.url);
+                                                            tempButtonUrl[moduleItem.url] = moduleItem.data;
+                                                        }
+                                                    });
+                                                }
+                                            } else if (roleItem.url) {
+                                                tempMenu.sref = moduleObj[moduleItem.url];
+                                                tempMenu.icon = 'glyphicon glyphicon-th-large';
+                                            }
+                                            window.userInfo.menu.push(tempMenu);
+                                        });
+                                    }
+
+                                    var URLobj = EVN.URLOBJ;
+
+                                    // 配置预设的url
+                                    $rootScope.URL = {};
+                                    window.Object.keys(URLobj).map(function(module) {
+                                        if (tempButtonUrl[module]) {
+                                            if (window.Array.isArray(tempButtonUrl[module])) {
+                                                $rootScope.URL[URLobj[module]] = {};
+                                                tempButtonUrl[module].map(function(buttonItem) {
+                                                    if (buttonItem.btnType == 1) {
+                                                        if(module == 'affiliates'){
+                                                            if (buttonItem.btnUrl.indexOf('Cards') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].GETCARDS = buttonItem.btnUrl;
+                                                            } else if (buttonItem.btnUrl.indexOf('Summary') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].GETPAY = buttonItem.btnUrl;
+                                                            } else {
+                                                                $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
+                                                            }
+                                                        }else{
+                                                            if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].GETAUDIT = buttonItem.btnUrl;
+                                                            } else if (buttonItem.btnUrl.indexOf('Pay') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].GETPAY = buttonItem.btnUrl;
+                                                            } else if (buttonItem.btnUrl.indexOf('Review') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].GETREVIEW = buttonItem.btnUrl;
+                                                            } else if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
+                                                            } else {
+                                                                $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
+                                                            }
+                                                        }
+                                                    }
+                                                    if (buttonItem.btnType == 2) {
+                                                        if (module == 'withdraws') {
+                                                            if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
+                                                            } else if (buttonItem.btnUrl.indexOf('Pay') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].POSTPAY = buttonItem.btnUrl;
+                                                            } else if (buttonItem.btnUrl.indexOf('Review') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].POSTREVIEW = buttonItem.btnUrl;
+                                                            } else {
+                                                                $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                            }
+                                                        } else if (module == 'applies') {
+                                                            if (buttonItem.btnUrl.indexOf('audit') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
+                                                            } else if (buttonItem.btnUrl.indexOf('revoke') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].POSTREVOKE = buttonItem.btnUrl;
+                                                            } else {
+                                                                $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                            }
+                                                        }  else if (module == 'bigwins') {
+                                                            if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
+                                                            } else {
+                                                                $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                            }
+                                                        } else {
+                                                            $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                        }
+                                                    }
+                                                    if (buttonItem.btnType == 3) {
+                                                        $rootScope.URL[URLobj[module]].PATCH = buttonItem.btnUrl;
+                                                    }
+                                                    if (buttonItem.btnType == 4) {
+                                                        $rootScope.URL[URLobj[module]].DELETE = buttonItem.btnUrl;
+                                                    }
+                                                    if (buttonItem.btnType == 5) {
+                                                        $rootScope.URL[URLobj[module]].PUT = buttonItem.btnUrl;
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+
+                                    console.log($rootScope.URL, '$rootScope.URL');
+
+                                    if (window.location.href.indexOf('#!/') === -1) {
+                                        for (var i = 0, j = window.userInfo.menu.length; i < j; i++) {
+                                            if (window.userInfo.menu[i].sref !== '#') {
+                                                $timeout(function () {
+                                                    $state.go(window.userInfo.menu[i].sref);
+                                                }, 10);
+                                                break;
+                                            } else if (window.userInfo.menu[i]['submenu'][0] && window.userInfo.menu[i]['submenu'][0]['sref'] !== '#') {
+                                                $timeout(function () {
+                                                    $state.go(window.userInfo.menu[i]['submenu'][0]['sref']);
+                                                }, 10);
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    deferred.resolve('userInfo resolved');
+
+                                    return true;
+
+                                }, function(error) {
+                                    window.location.href = '/login.html';
+                                    deferred.reject('userInfo reject');
+                                });
+                            }
 
                             return deferred.promise;
                         }]
@@ -425,6 +435,14 @@
                 title: 'bankCards Manage',
                 controller: 'BankCardsController',
                 templateUrl: RouteHelpersProvider.basepath('admin/bankCards/bankCards.html'),
+                permission: 'users'
+            })
+
+            .state('admin.bankCardsUser', {
+                url: '/bankCards/user',
+                title: 'user bankCards',
+                controller: 'UserBankCardsController',
+                templateUrl: RouteHelpersProvider.basepath('admin/bankCards/userBankCards.html'),
                 permission: 'users'
             })
             

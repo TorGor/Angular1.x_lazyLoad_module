@@ -136,15 +136,5 @@
         };
 
         // 页面加载执行的函数
-
-        try {
-            var urlParams = $scope.getUrlParams();
-            if(urlParams._username){
-                $scope.tempBankCardsAoData.account_name = urlParams._username;
-                $scope.bankCardsAoData.account_name = urlParams._username;
-            }
-        }catch (e){
-            console.error(e)
-        }
     }
 })();

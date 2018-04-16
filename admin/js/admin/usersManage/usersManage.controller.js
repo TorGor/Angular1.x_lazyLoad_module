@@ -155,5 +155,17 @@
             window.open(url,'_blank');
         }
 
+        // 页面加载执行
+
+        try {
+            var urlParams = $scope.getUrlParams();
+            if(urlParams.user_id){
+                $scope.tempUsersManageAoData.affiliate_id = urlParams.user_id;
+                $scope.usersManageAoData.affiliate_id = urlParams.user_id;
+            }
+        }catch (e){
+            console.error(e)
+        }
+
     }
 })();

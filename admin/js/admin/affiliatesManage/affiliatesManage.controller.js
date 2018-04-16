@@ -189,6 +189,11 @@
             }
         };
 
+        $scope.openNewTab = function(item,state) {
+            var url = window.location.pathname+$rootScope.$state.href(state)+'?_username='+(item.username||'')+'&user_id='+(item.userId||'');
+            window.open(url,'_blank');
+        }
+
         // 页面加载执行的函数
 
         $scope.initCurrenciesManageData();
