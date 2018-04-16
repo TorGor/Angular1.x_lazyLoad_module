@@ -12,14 +12,14 @@
                   </button>
                </span>
             </span>
-            <form class="form-inline pull-right" role="form">
-               <div class="input-group date margin-bottom-10" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeStart">
+            <form class="form-inline pull-right" role="form" style='margin-right: 15px'>
+               <div class="input-group date margin-bottom-10" datetimepicker options={{dateOptionsYYYMMDDHHmmss}} ng-model="searchTimeStart">
                   <input type="text" class="form-control" placeholder="start" />
                   <span class="input-group-addon" style="background:none">
                      <span class="glyphicon glyphicon-calendar"></span>
                   </span>
                </div>
-               <div class="input-group date margin-bottom-10" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeEnd">
+               <div class="input-group date margin-bottom-10" datetimepicker options={{dateOptionsYYYMMDDHHmmss}} ng-model="searchTimeEnd">
                   <input type="text" class="form-control" placeholder="end" />
                   <span class="input-group-addon" style="background:none">
                      <span class="glyphicon glyphicon-calendar"></span>
@@ -83,7 +83,7 @@
                         </td>
                      </tr>
                      <tr ng-show="admins.length==0">
-                        <td colspan="5" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan="20" class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

@@ -22,8 +22,8 @@
         var pusher = $pusher(client);
 
         $timeout(function () {
-            $rootScope.toasterInfo('info test')
-        },3000)
+            // $rootScope.toasterInfo('info test')
+        },3000);
 
         $rootScope.adminSelect012 = {
             // 0-禁用；1-启用；

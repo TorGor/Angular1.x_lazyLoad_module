@@ -401,14 +401,14 @@
         $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 if ($scope.searchTimeStart) {
-                    $scope.adminsAoData.start = $scope.searchTimeStart.utc().format('YYYY-MM-DD') + ' 00:00:00';
+                    $scope.adminsAoData.start = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.adminsAoData.start) {
                         delete $scope.adminsAoData.start;
                     }
                 }
                 if ($scope.searchTimeEnd) {
-                    $scope.adminsAoData.end = $scope.searchTimeEnd.utc().format('YYYY-MM-DD') + ' 23:59:59';
+                    $scope.adminsAoData.end = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.adminsAoData.end) {
                         delete $scope.adminsAoData.end;
@@ -672,24 +672,40 @@
         superAdminService
     ) {
 
-        $scope.admins = [];
-        $scope.adminsReload = 1;
-        $scope.adminsAoData = {};
+        $scope.adminsLog = [];
+        $scope.adminsLogReload = 1;
+        $scope.tempAdminsLogAoData = {};
+        $scope.adminsLogAoData = {};
+
+        $scope.trigerSearch = function() {
+            $scope.tempAdminsLogAoData = Object.assign($scope.tempAdminsLogAoData,$scope.adminsLogAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.adminsLogAoData = {};
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            var tempData = $scope.tempAdminsLogAoData;
+            $scope.tempAdminsLogAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+        };
 
         $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 if ($scope.searchTimeStart) {
-                    $scope.adminsAoData.start = $scope.searchTimeStart.utc().format('YYYY-MM-DD') + ' 00:00:00';
+                    $scope.adminsAoData.beginTime = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
-                    if ($scope.adminsAoData.start) {
-                        delete $scope.adminsAoData.start;
+                    if ($scope.adminsAoData.beginTime) {
+                        delete $scope.adminsAoData.beginTime;
                     }
                 }
                 if ($scope.searchTimeEnd) {
-                    $scope.adminsAoData.end = $scope.searchTimeEnd.utc().format('YYYY-MM-DD') + ' 23:59:59';
+                    $scope.adminsAoData.endTime = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
-                    if ($scope.adminsAoData.end) {
-                        delete $scope.adminsAoData.end;
+                    if ($scope.adminsAoData.endTime) {
+                        delete $scope.adminsAoData.endTime;
                     }
                 }
             }

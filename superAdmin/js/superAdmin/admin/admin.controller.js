@@ -70,14 +70,14 @@
         $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 if ($scope.searchTimeStart) {
-                    $scope.adminsAoData.start = $scope.searchTimeStart.utc().format('YYYY-MM-DD') + ' 00:00:00';
+                    $scope.adminsAoData.start = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.adminsAoData.start) {
                         delete $scope.adminsAoData.start;
                     }
                 }
                 if ($scope.searchTimeEnd) {
-                    $scope.adminsAoData.end = $scope.searchTimeEnd.utc().format('YYYY-MM-DD') + ' 23:59:59';
+                    $scope.adminsAoData.end = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.adminsAoData.end) {
                         delete $scope.adminsAoData.end;
