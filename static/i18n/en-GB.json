@@ -29,7 +29,8 @@
                 "ROLE_RELATE_MENU": "Role Relate Menu",
                 "ADMIN_AND_ROLE": "Admin And Role",
                 "ADMIN_INFO": "Admin Info",
-                "ADMIN_RELATE_ROLE": "Admin Relate Role"
+                "ADMIN_RELATE_ROLE": "Admin Relate Role",
+                "ADMIN_LOG": "Admin Log"
             }
         }
     },
@@ -80,6 +81,15 @@
             "th2": "Password",
             "th3": "Create Time",
             "th4": "Status"
+        },
+        "adminLog": {
+            "th1": "Username",
+            "th2": "User ID",
+            "th3": "optUrl",
+            "th4": "optIp",
+            "th5": "logType",
+            "th6": "optTime",
+            "th7": "optDescribe"
         },
         "localeLanguage": {
             "th1": "Code",

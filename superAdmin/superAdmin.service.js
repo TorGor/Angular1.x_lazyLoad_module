@@ -9,7 +9,7 @@
 
     /* @ngInject */
     function superAdminService($resource, EVN) {
-        return $resource(EVN.server + '/admin/:action',
+        return $resource(EVN.server + '/admin/:action0/:action',
             {},
             {
                 // 菜单维护模块
@@ -178,6 +178,15 @@
                 },
 
                 // 管理员模块
+
+                // 3.1 查询用户
+                getFindUserLog: {
+                    method: 'GET',
+                    params: {
+                        action0:'log',
+                        action: 'findLogListByParams' + EVN.suffix
+                    }
+                },
 
                 // 3.1 查询用户
                 getFindUserInfo: {

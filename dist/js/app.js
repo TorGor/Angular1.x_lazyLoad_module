@@ -223,10 +223,10 @@
         })
         .constant('EVN', {
             debug: true,
-            //suffix: '.json',
-            suffix: '',
-            // server: '',
-             server: 'http://193.112.155.213',
+            suffix: '.json',
+            // suffix: '',
+            server: '',
+             // server: 'http://193.112.155.213',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             //server: 'http://holyplace.ngrok.xiaomiqiu.cn',
             URLOBJ:{
@@ -1523,6 +1523,11 @@
                             "text": "管理员关联角色",
                             "sref": "superAdmin.adminRelationManage",
                             "translate": "sidebar.nav.super_admin.ADMIN_RELATE_ROLE"
+                        },
+                        {
+                            "text": "管理员日志",
+                            "sref": "superAdmin.adminLog",
+                            "translate": "sidebar.nav.super_admin.ADMIN_LOG"
                         },
                     ],
                     "translate": "sidebar.nav.super_admin.ADMIN_AND_ROLE"

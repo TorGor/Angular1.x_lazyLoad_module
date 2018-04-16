@@ -79,6 +79,12 @@
                 templateUrl: RouteHelpersProvider.basepath('superAdmin/admin/admin.html'),
                 controller: 'SuperAdminAdminController',
             })
+            .state('superAdmin.adminLog', {
+                url: '/superAdmin/log',
+                title: 'Admin Manage',
+                templateUrl: RouteHelpersProvider.basepath('superAdmin/admin/adminLog.html'),
+                controller: 'SuperAdminAdminLogController',
+            })
             .state('superAdmin.adminRelationManage', {
                 url: '/adminRelation/manage',
                 title: 'AdminRelation Manage',

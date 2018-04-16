@@ -22,8 +22,9 @@
 (function() {
 
     angular
-        .module('superAdmin.role', [
+        .module('superAdmin.button', [
             'app.core',
+            /* ... */
         ]);
 })();
 (function() {
@@ -36,9 +37,8 @@
 (function() {
 
     angular
-        .module('superAdmin.button', [
+        .module('superAdmin.role', [
             'app.core',
-            /* ... */
         ]);
 })();
 (function() {
@@ -104,7 +104,7 @@
 
     /* @ngInject */
     function superAdminService($resource, EVN) {
-        return $resource(EVN.server + '/admin/:action',
+        return $resource(EVN.server + '/admin/:action0/:action',
             {},
             {
                 // 菜单维护模块
@@ -273,6 +273,15 @@
                 },
 
                 // 管理员模块
+
+                // 3.1 查询用户
+                getFindUserLog: {
+                    method: 'GET',
+                    params: {
+                        action0:'log',
+                        action: 'findLogListByParams' + EVN.suffix
+                    }
+                },
 
                 // 3.1 查询用户
                 getFindUserInfo: {
@@ -625,223 +634,149 @@
 
 (function() {
 
-    angular
-        .module('superAdmin.role')
-        .controller('SuperAdminRoleController', SuperAdminRoleController);
 
-    SuperAdminRoleController.$inject = [
+    angular
+        .module('superAdmin.admin')
+        .controller('SuperAdminAdminLogController', SuperAdminAdminLogController);
+
+    SuperAdminAdminLogController.$inject = [
         '$scope',
         '$rootScope',
         'superAdminService'
     ];
 
-    function SuperAdminRoleController(
+    function SuperAdminAdminLogController(
         $scope,
         $rootScope,
         superAdminService
     ) {
 
-        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
+        $scope.admins = [];
+        $scope.adminsReload = 1;
+        $scope.adminsAoData = {};
 
-        // 原始的二级数据
-        $scope.roles = [];
-
-        // 过滤出来的二级数据
-        $scope.showRoles = [];
-        $scope.rolesReload = 1;
-        $scope.rolesAoData = {};
-
-        // 初始化table数据
-        $scope.initRolesData = function () {
-            $scope.roles = [];
-            superAdminService.getFindPageRoleInfo({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.roles = angular.copy(data.data.list);
-                    } else {
-                        $rootScope.alertErrorMsg(data.msg);
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.adminsAoData.start = $scope.searchTimeStart.utc().format('YYYY-MM-DD') + ' 00:00:00';
+                } else {
+                    if ($scope.adminsAoData.start) {
+                        delete $scope.adminsAoData.start;
                     }
                 }
-            });
-        };
-
-
-        // 保存角色
-        /**
-         * @param role 角色对象
-         * @param item 输入的内容
-         * @return null
-         */
-        $scope.saveRole = function (role, item) {
-            var tempData = angular.extend({}, role, item);
-            if (!tempData.id) {
-                delete tempData.id;
-                superAdminService.postSaveRoleInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $scope.initRolesData();
-                            $rootScope.toasterSuccess(data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
+                if ($scope.searchTimeEnd) {
+                    $scope.adminsAoData.end = $scope.searchTimeEnd.utc().format('YYYY-MM-DD') + ' 23:59:59';
+                } else {
+                    if ($scope.adminsAoData.end) {
+                        delete $scope.adminsAoData.end;
                     }
-                });
-            } else if (tempData.id) {
-                superAdminService.postUpdateRoleInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $scope.initRolesData();
-                            $rootScope.toasterSuccess(data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
+                }
             }
-            return '';
-        };
+        });
 
-        // 删除role
-        /**
-         * @param role 角色数据对象
-         * @return null
-         */
-        $scope.deleteRole = function (role) {
-            if (role.id) {
-                $rootScope.alertConfirm(function () {
-                    superAdminService.getDeleteRoleInfoById({ id: role.id }, {}, function (data) {
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
-                                $scope.initRolesData();
-                                $rootScope.toasterSuccess(data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(data.msg);
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 添加按钮
-        $scope.addRoles = function () {
-            $scope.rolesAoData = {};
-            $scope.roles.unshift({
-                'id': null,
-                'roleName': '',
-                'roleType': '',
-                'roleStatus': '1',
-                'createTime': null,
-                'optTime': null,
-                'isShowTrEdit': true
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的对象
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.roles.splice(index, 1);
-            }
-        };
 
         // 页面加载执行的函数
-
-        $scope.initRolesData();
     }
 })();
 
 (function() {
 
     angular
-        .module('superAdmin.role')
-        .controller('SuperAdminRoleRelationController', SuperAdminRoleRelationController);
+        .module('superAdmin.button')
+        .controller('SuperAdminButtonController', SuperAdminButtonController);
 
-    SuperAdminRoleRelationController.$inject = [
+    SuperAdminButtonController.$inject = [
         '$scope',
         '$rootScope',
+        '$translate',
         'superAdminService'
     ];
 
-    function SuperAdminRoleRelationController(
+    function SuperAdminButtonController(
         $scope,
         $rootScope,
+        $translate,
         superAdminService
     ) {
 
-        $scope.roles = [];
-        $scope.oneLevelMenus = [];
-        $scope.buttons = [];
-
-        $scope.currentRole = {};
-        $scope.currentOneLevelMenu = {};
-        $scope.currentSecondLevelMenu = {};
-
-        // 获取角色关系
-        /**
-         * @param role 角色对象
-         * @param isClick 是否是click动作
-         * @return null
-         */
-        $scope.getRoleRelationById = function (role, isClick) {
-            $scope.currentRole = angular.copy(role);
-            if (role.id) {
-                superAdminService.getFindMenuByRoleId({ 'roleId': role.id }, {}, function (data) {
-                    console.log(data, 'getRoleRelationById');
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            var allMenus = angular.copy(data.data);
-                            $scope.oneLevelMenus = allMenus.filter(function (allMenusItem) {
-                                return allMenusItem.parentId == 'root';
-                            });
-                            $scope.oneLevelMenus = angular.copy($scope.oneLevelMenus);
-                            $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
-                                oneLevelMenusItem.showSecond = true;
-                                oneLevelMenusItem.secondLevelMenus = angular.copy(allMenus.filter(function (allMenusItem) {
-                                    return allMenusItem.parentId == oneLevelMenusItem.id;
-                                }));
-                            });
-                            console.log($scope.oneLevelMenus, '$scope.oneLevelMenus');
-                            if (isClick) {
-                                $scope.buttons = [];
-                                $scope.currentSecondLevelMenu = {};
-                            } else {
-                                if (!$scope.currentSecondLevelMenu.id) {
-                                    for (var i = 0, j = $scope.oneLevelMenus.length; i < j; i++) {
-                                        if ($scope.oneLevelMenus[i]['secondLevelMenus'][0]) {
-                                            $scope.oneLevelMenus[i]['showSecond'] = true;
-                                            $scope.currentSecondLevelMenu = angular.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
-                                            $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
+        $scope.buttonsOptions = [
+            {
+                label: $translate.instant('table.button.search'),
+                value: '1'
+            },
+            {
+                label: $translate.instant('table.button.add'),
+                value: '2'
+            },
+            {
+                label: $translate.instant('table.button.edit'),
+                value: '3'
+            },
+            {
+                label: $translate.instant('table.button.delete'),
+                value: '4'
+            },
+            {
+                label: $translate.instant('table.button.recover'),
+                value: '5'
             }
+        ];
+
+        /**
+         *
+         * @param btnType 1234数字
+         * @returns {string} 显示的内容
+         */
+        $scope.showBtnType = function (btnType) {
+            var tempBtnArray = $scope.buttonsOptions.filter(function (optionsItem) {
+                return optionsItem.value == btnType;
+            });
+            if(tempBtnArray.length){
+                return tempBtnArray[0].label;
+            }
+            return '';
         };
 
-        // 初始化role数据
-        $scope.initRolesData = function () {
-            superAdminService.getFindRoleInfoList({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
-                console.log(data, 'initRolesData');
+        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
+
+        $scope.oneLevelMenus = [];
+
+        // 原始的二级数据
+        $scope.buttons = [];
+
+        // 过滤出来的二级数据
+        $scope.showButtons = [];
+        $scope.buttonsReload = 1;
+        $scope.buttonsAoData = {};
+
+        $scope.currentSelectMenu = {};
+
+        // 初始化一级菜单
+        $scope.initOneLevelMenus = function () {
+            superAdminService.getFindAllMenuInfo({}, {}, function (data) {
+                console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
-                        $scope.roles = angular.copy(data.data);
-                        if ($scope.roles[0]) {
-                            $scope.currentRole = angular.copy($scope.roles[0]);
-                            $scope.getRoleRelationById($scope.currentRole, false);
+                        var allMenus = angular.copy(data.data);
+                        $scope.oneLevelMenus = allMenus.filter(function (allMenusItem) {
+                            return allMenusItem.parentId == 'root';
+                        });
+                        $scope.oneLevelMenus = angular.copy($scope.oneLevelMenus);
+                        $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
+                            oneLevelMenusItem.showSecond = false;
+                            oneLevelMenusItem.secondLevelMenus = angular.copy(allMenus.filter(function (allMenusItem) {
+                                return allMenusItem.parentId == oneLevelMenusItem.id;
+                            }));
+                        });
+                        if (!$scope.currentSelectMenu.id) {
+                            for (var i = 0, j = $scope.oneLevelMenus.length; i < j; i++) {
+                                if ($scope.oneLevelMenus[i]['secondLevelMenus'][0]) {
+                                    $scope.oneLevelMenus[i]['showSecond'] = true;
+                                    $scope.currentSelectMenu = angular.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
+                                    $scope.getSecondLevelButtons($scope.currentSelectMenu);
+                                    break;
+                                }
+                            }
                         }
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
@@ -859,17 +794,12 @@
             if ($event) {
                 $event.stopPropagation();
             }
-            if (!$scope.currentRole.id) {
-                $rootScope.alertErrorMsg('select role first!');
-                return;
-            }
-            $scope.currentSecondLevelMenu = angular.copy(secondLevelMenu);
+            $scope.buttons = [];
+            console.log(secondLevelMenu, 'getSecondLevelButtons');
+            $scope.currentSelectMenu = angular.copy(secondLevelMenu);
             if (secondLevelMenu.id) {
                 $scope.buttons = [];
-                superAdminService.getFindButtonInfoList({
-                    'roleId': $scope.currentRole.id,
-                    'menuId': secondLevelMenu.id
-                }, {}, function (data) {
+                superAdminService.getFindButtonInfoByMenuId({ 'menuId': secondLevelMenu.id }, {}, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -882,61 +812,99 @@
             }
         };
 
-        // 点击修改button状态
+        // 保存按钮
         /**
-         * @param button 按钮对象
+         * @param button 按钮数据对象
+         * @param item 显示输入的数据
          * @return null
          */
-        $scope.handelClickButton = function (button, $event) {
-            $event.preventDefault();
-            if (!$scope.currentRole.id || !$scope.currentSecondLevelMenu.id) {
-                $rootScope.alertErrorMsg('select role and menu first!');
-                return;
+        $scope.saveButton = function (button, item) {
+            var tempData = angular.extend({}, button, item);
+            if (!tempData.id) {
+                delete tempData.id;
+                superAdminService.postSaveButtonInfo({}, tempData, function (data) {
+                    console.log(data);
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.getSecondLevelButtons($scope.currentSelectMenu);
+                            $rootScope.toasterSuccess(data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            } else if (tempData.id) {
+                superAdminService.postUpdateButtonInfo({}, tempData, function (data) {
+                    console.log(data);
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.getSecondLevelButtons($scope.currentSelectMenu);
+                            $rootScope.toasterSuccess(data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
             }
+            return '';
+        };
+
+        // 删除按钮
+        /**
+         * @param button 按钮数据对象
+         * @return null
+         */
+        $scope.deleteButton = function (button) {
             if (button.id) {
-                console.log(button, 'button');
-                if (button.checked) {
-                    superAdminService.postAddRoleAndMenuAndBtn({}, {
-                        'roleId': $scope.currentRole.id,
-                        'btnId': button.id,
-                        'menuId': $scope.currentSecondLevelMenu.id
-                    }, function (data) {
-                        console.log(data);
+                $rootScope.alertConfirm(function () {
+                    superAdminService.getDeleteButtonInfoById({ id: button.id }, {}, function (data) {
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
-                                $scope.getRoleRelationById($scope.currentRole, false);
-                                $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
+                                $scope.getSecondLevelButtons($scope.currentSelectMenu);
                                 $rootScope.toasterSuccess(data.msg);
                             } else {
                                 $rootScope.alertErrorMsg(data.msg);
                             }
                         }
                     });
-                } else {
-                    superAdminService.getDeleteRoleAndMenuAndBtn({
-                        'roleId': $scope.currentRole.id,
-                        'btnId': button.id,
-                        'menuId': $scope.currentSecondLevelMenu.id
-                    }, {}, function (data) {
-                        console.log(data);
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
-                                $scope.getRoleRelationById($scope.currentRole, false);
-                                $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
-                                $rootScope.toasterSuccess(data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(data.msg);
-                            }
-                        }
-                    });
-                }
+                });
             }
         };
 
+        // 添加按钮
+        $scope.addButtons = function () {
+            if ($scope.currentSelectMenu.id) {
+                $scope.buttonsAoData = {};
+                $scope.buttons.unshift({
+                    'id': null,
+                    'btnName': '',
+                    'btnType': '',
+                    'btnCode': '',
+                    'btnUrl': '',
+                    'btnStatus': '1',
+                    'createTime': null,
+                    'optTime': null,
+                    'menuId': $scope.currentSelectMenu.id,
+                    'isShowTrEdit': true
+                });
+            }
+        };
+
+        /**
+         *
+         * @param item 添加的对象
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.buttons.splice(index, 1);
+            }
+        };
 
         // 页面加载执行的函数
 
-        $scope.initRolesData();
+        $scope.initOneLevelMenus();
     }
 })();
 
@@ -1303,101 +1271,222 @@
 (function() {
 
     angular
-        .module('superAdmin.button')
-        .controller('SuperAdminButtonController', SuperAdminButtonController);
+        .module('superAdmin.role')
+        .controller('SuperAdminRoleController', SuperAdminRoleController);
 
-    SuperAdminButtonController.$inject = [
+    SuperAdminRoleController.$inject = [
         '$scope',
         '$rootScope',
-        '$translate',
         'superAdminService'
     ];
 
-    function SuperAdminButtonController(
+    function SuperAdminRoleController(
         $scope,
         $rootScope,
-        $translate,
         superAdminService
     ) {
 
-        $scope.buttonsOptions = [
-            {
-                label: $translate.instant('table.button.search'),
-                value: '1'
-            },
-            {
-                label: $translate.instant('table.button.add'),
-                value: '2'
-            },
-            {
-                label: $translate.instant('table.button.edit'),
-                value: '3'
-            },
-            {
-                label: $translate.instant('table.button.delete'),
-                value: '4'
-            },
-            {
-                label: $translate.instant('table.button.recover'),
-                value: '5'
-            }
-        ];
+        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
 
-        /**
-         *
-         * @param btnType 1234数字
-         * @returns {string} 显示的内容
-         */
-        $scope.showBtnType = function (btnType) {
-            var tempBtnArray = $scope.buttonsOptions.filter(function (optionsItem) {
-                return optionsItem.value == btnType;
+        // 原始的二级数据
+        $scope.roles = [];
+
+        // 过滤出来的二级数据
+        $scope.showRoles = [];
+        $scope.rolesReload = 1;
+        $scope.rolesAoData = {};
+
+        // 初始化table数据
+        $scope.initRolesData = function () {
+            $scope.roles = [];
+            superAdminService.getFindPageRoleInfo({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
+                console.log(data);
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+                        $scope.roles = angular.copy(data.data.list);
+                    } else {
+                        $rootScope.alertErrorMsg(data.msg);
+                    }
+                }
             });
-            if(tempBtnArray.length){
-                return tempBtnArray[0].label;
+        };
+
+
+        // 保存角色
+        /**
+         * @param role 角色对象
+         * @param item 输入的内容
+         * @return null
+         */
+        $scope.saveRole = function (role, item) {
+            var tempData = angular.extend({}, role, item);
+            if (!tempData.id) {
+                delete tempData.id;
+                superAdminService.postSaveRoleInfo({}, tempData, function (data) {
+                    console.log(data);
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.initRolesData();
+                            $rootScope.toasterSuccess(data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            } else if (tempData.id) {
+                superAdminService.postUpdateRoleInfo({}, tempData, function (data) {
+                    console.log(data);
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.initRolesData();
+                            $rootScope.toasterSuccess(data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
             }
             return '';
         };
 
-        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
+        // 删除role
+        /**
+         * @param role 角色数据对象
+         * @return null
+         */
+        $scope.deleteRole = function (role) {
+            if (role.id) {
+                $rootScope.alertConfirm(function () {
+                    superAdminService.getDeleteRoleInfoById({ id: role.id }, {}, function (data) {
+                        if (typeof data.success === 'boolean') {
+                            if (data.success) {
+                                $scope.initRolesData();
+                                $rootScope.toasterSuccess(data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(data.msg);
+                            }
+                        }
+                    });
+                });
+            }
+        };
 
+        // 添加按钮
+        $scope.addRoles = function () {
+            $scope.rolesAoData = {};
+            $scope.roles.unshift({
+                'id': null,
+                'roleName': '',
+                'roleType': '',
+                'roleStatus': '1',
+                'createTime': null,
+                'optTime': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的对象
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.roles.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initRolesData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('superAdmin.role')
+        .controller('SuperAdminRoleRelationController', SuperAdminRoleRelationController);
+
+    SuperAdminRoleRelationController.$inject = [
+        '$scope',
+        '$rootScope',
+        'superAdminService'
+    ];
+
+    function SuperAdminRoleRelationController(
+        $scope,
+        $rootScope,
+        superAdminService
+    ) {
+
+        $scope.roles = [];
         $scope.oneLevelMenus = [];
-
-        // 原始的二级数据
         $scope.buttons = [];
 
-        // 过滤出来的二级数据
-        $scope.showButtons = [];
-        $scope.buttonsReload = 1;
-        $scope.buttonsAoData = {};
+        $scope.currentRole = {};
+        $scope.currentOneLevelMenu = {};
+        $scope.currentSecondLevelMenu = {};
 
-        $scope.currentSelectMenu = {};
-
-        // 初始化一级菜单
-        $scope.initOneLevelMenus = function () {
-            superAdminService.getFindAllMenuInfo({}, {}, function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        var allMenus = angular.copy(data.data);
-                        $scope.oneLevelMenus = allMenus.filter(function (allMenusItem) {
-                            return allMenusItem.parentId == 'root';
-                        });
-                        $scope.oneLevelMenus = angular.copy($scope.oneLevelMenus);
-                        $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
-                            oneLevelMenusItem.showSecond = false;
-                            oneLevelMenusItem.secondLevelMenus = angular.copy(allMenus.filter(function (allMenusItem) {
-                                return allMenusItem.parentId == oneLevelMenusItem.id;
-                            }));
-                        });
-                        if (!$scope.currentSelectMenu.id) {
-                            for (var i = 0, j = $scope.oneLevelMenus.length; i < j; i++) {
-                                if ($scope.oneLevelMenus[i]['secondLevelMenus'][0]) {
-                                    $scope.oneLevelMenus[i]['showSecond'] = true;
-                                    $scope.currentSelectMenu = angular.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
-                                    $scope.getSecondLevelButtons($scope.currentSelectMenu);
-                                    break;
+        // 获取角色关系
+        /**
+         * @param role 角色对象
+         * @param isClick 是否是click动作
+         * @return null
+         */
+        $scope.getRoleRelationById = function (role, isClick) {
+            $scope.currentRole = angular.copy(role);
+            if (role.id) {
+                superAdminService.getFindMenuByRoleId({ 'roleId': role.id }, {}, function (data) {
+                    console.log(data, 'getRoleRelationById');
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            var allMenus = angular.copy(data.data);
+                            $scope.oneLevelMenus = allMenus.filter(function (allMenusItem) {
+                                return allMenusItem.parentId == 'root';
+                            });
+                            $scope.oneLevelMenus = angular.copy($scope.oneLevelMenus);
+                            $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
+                                oneLevelMenusItem.showSecond = true;
+                                oneLevelMenusItem.secondLevelMenus = angular.copy(allMenus.filter(function (allMenusItem) {
+                                    return allMenusItem.parentId == oneLevelMenusItem.id;
+                                }));
+                            });
+                            console.log($scope.oneLevelMenus, '$scope.oneLevelMenus');
+                            if (isClick) {
+                                $scope.buttons = [];
+                                $scope.currentSecondLevelMenu = {};
+                            } else {
+                                if (!$scope.currentSecondLevelMenu.id) {
+                                    for (var i = 0, j = $scope.oneLevelMenus.length; i < j; i++) {
+                                        if ($scope.oneLevelMenus[i]['secondLevelMenus'][0]) {
+                                            $scope.oneLevelMenus[i]['showSecond'] = true;
+                                            $scope.currentSecondLevelMenu = angular.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
+                                            $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
+                                            break;
+                                        }
+                                    }
                                 }
                             }
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            }
+        };
+
+        // 初始化role数据
+        $scope.initRolesData = function () {
+            superAdminService.getFindRoleInfoList({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
+                console.log(data, 'initRolesData');
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+                        $scope.roles = angular.copy(data.data);
+                        if ($scope.roles[0]) {
+                            $scope.currentRole = angular.copy($scope.roles[0]);
+                            $scope.getRoleRelationById($scope.currentRole, false);
                         }
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
@@ -1415,12 +1504,17 @@
             if ($event) {
                 $event.stopPropagation();
             }
-            $scope.buttons = [];
-            console.log(secondLevelMenu, 'getSecondLevelButtons');
-            $scope.currentSelectMenu = angular.copy(secondLevelMenu);
+            if (!$scope.currentRole.id) {
+                $rootScope.alertErrorMsg('select role first!');
+                return;
+            }
+            $scope.currentSecondLevelMenu = angular.copy(secondLevelMenu);
             if (secondLevelMenu.id) {
                 $scope.buttons = [];
-                superAdminService.getFindButtonInfoByMenuId({ 'menuId': secondLevelMenu.id }, {}, function (data) {
+                superAdminService.getFindButtonInfoList({
+                    'roleId': $scope.currentRole.id,
+                    'menuId': secondLevelMenu.id
+                }, {}, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -1433,98 +1527,60 @@
             }
         };
 
-        // 保存按钮
+        // 点击修改button状态
         /**
-         * @param button 按钮数据对象
-         * @param item 显示输入的数据
+         * @param button 按钮对象
          * @return null
          */
-        $scope.saveButton = function (button, item) {
-            var tempData = angular.extend({}, button, item);
-            if (!tempData.id) {
-                delete tempData.id;
-                superAdminService.postSaveButtonInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $scope.getSecondLevelButtons($scope.currentSelectMenu);
-                            $rootScope.toasterSuccess(data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            } else if (tempData.id) {
-                superAdminService.postUpdateButtonInfo({}, tempData, function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $scope.getSecondLevelButtons($scope.currentSelectMenu);
-                            $rootScope.toasterSuccess(data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
+        $scope.handelClickButton = function (button, $event) {
+            $event.preventDefault();
+            if (!$scope.currentRole.id || !$scope.currentSecondLevelMenu.id) {
+                $rootScope.alertErrorMsg('select role and menu first!');
+                return;
             }
-            return '';
-        };
-
-        // 删除按钮
-        /**
-         * @param button 按钮数据对象
-         * @return null
-         */
-        $scope.deleteButton = function (button) {
             if (button.id) {
-                $rootScope.alertConfirm(function () {
-                    superAdminService.getDeleteButtonInfoById({ id: button.id }, {}, function (data) {
+                console.log(button, 'button');
+                if (button.checked) {
+                    superAdminService.postAddRoleAndMenuAndBtn({}, {
+                        'roleId': $scope.currentRole.id,
+                        'btnId': button.id,
+                        'menuId': $scope.currentSecondLevelMenu.id
+                    }, function (data) {
+                        console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
-                                $scope.getSecondLevelButtons($scope.currentSelectMenu);
+                                $scope.getRoleRelationById($scope.currentRole, false);
+                                $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
                                 $rootScope.toasterSuccess(data.msg);
                             } else {
                                 $rootScope.alertErrorMsg(data.msg);
                             }
                         }
                     });
-                });
+                } else {
+                    superAdminService.getDeleteRoleAndMenuAndBtn({
+                        'roleId': $scope.currentRole.id,
+                        'btnId': button.id,
+                        'menuId': $scope.currentSecondLevelMenu.id
+                    }, {}, function (data) {
+                        console.log(data);
+                        if (typeof data.success === 'boolean') {
+                            if (data.success) {
+                                $scope.getRoleRelationById($scope.currentRole, false);
+                                $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
+                                $rootScope.toasterSuccess(data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(data.msg);
+                            }
+                        }
+                    });
+                }
             }
         };
 
-        // 添加按钮
-        $scope.addButtons = function () {
-            if ($scope.currentSelectMenu.id) {
-                $scope.buttonsAoData = {};
-                $scope.buttons.unshift({
-                    'id': null,
-                    'btnName': '',
-                    'btnType': '',
-                    'btnCode': '',
-                    'btnUrl': '',
-                    'btnStatus': '1',
-                    'createTime': null,
-                    'optTime': null,
-                    'menuId': $scope.currentSelectMenu.id,
-                    'isShowTrEdit': true
-                });
-            }
-        };
-
-        /**
-         *
-         * @param item 添加的对象
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.buttons.splice(index, 1);
-            }
-        };
 
         // 页面加载执行的函数
 
-        $scope.initOneLevelMenus();
+        $scope.initRolesData();
     }
 })();

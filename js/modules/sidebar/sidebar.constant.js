@@ -54,6 +54,11 @@
                             "sref": "superAdmin.adminRelationManage",
                             "translate": "sidebar.nav.super_admin.ADMIN_RELATE_ROLE"
                         },
+                        {
+                            "text": "管理员日志",
+                            "sref": "superAdmin.adminLog",
+                            "translate": "sidebar.nav.super_admin.ADMIN_LOG"
+                        },
                     ],
                     "translate": "sidebar.nav.super_admin.ADMIN_AND_ROLE"
                 },
