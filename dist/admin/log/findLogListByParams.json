@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "msg": "Find Success",
+  "data": {
+    "curPage": 1,
+    "pageSize": 20,
+    "totalSize": 2,
+    "totalPage": 0,
+    "list": [
+      {
+        "id": "402883aa62c413b20162c41468be0000",
+        "optUsername": "superadmin",
+        "optUserid": null,
+        "optTime": "2018-04-14 20:14:54",
+        "optDescribe": null,
+        "logType": null,
+        "optIp": "0:0:0:0:0:0:0:1",
+        "optUrl": "/admin/findRootMenuInfo"
+      },
+      {
+        "id": "402883aa62c413b20162c4146c0f0001",
+        "optUsername": "superadmin",
+        "optUserid": null,
+        "optTime": "2018-04-14 20:14:55",
+        "optDescribe": null,
+        "logType": null,
+        "optIp": "0:0:0:0:0:0:0:1",
+        "optUrl": "/admin/findSecMenuInfo"
+      }
+    ]
+  }
+}
