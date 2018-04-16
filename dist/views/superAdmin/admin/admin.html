@@ -2,38 +2,41 @@
    <div class="panel panel-default">
       <div class="panel-wrapper">
          <div class="panel-body">
-            <span class="form-group add-button-class">
+            <span style='margin-left: 15px' class="form-group add-button-class">
                <button class="btn btn-primary" ng-click="addAdmins()" type="button" translate="table.button.add">
-                  新增
                </button>
+               <span class='btn-search'>
+                  <button class="btn btn-green" ng-click="trigerSearch()" type="button" translate="table.button.search">
+                  </button>
+                  <button class="btn btn-warning" ng-click="resetSearch()" type="button" translate="table.button.reset">
+                  </button>
+               </span>
             </span>
             <form class="form-inline pull-right" role="form">
-               从
-               <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeStart">
-                  <input type="text" class="form-control" placeholder="" />
+               <div class="input-group date margin-bottom-10" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeStart">
+                  <input type="text" class="form-control" placeholder="start" />
                   <span class="input-group-addon" style="background:none">
                      <span class="glyphicon glyphicon-calendar"></span>
                   </span>
                </div>
-               至
-               <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeEnd">
-                  <input type="text" class="form-control" placeholder="" />
+               <div class="input-group date margin-bottom-10" datetimepicker options={{dateOptionsYYYMMDD}} ng-model="searchTimeEnd">
+                  <input type="text" class="form-control" placeholder="end" />
                   <span class="input-group-addon" style="background:none">
                      <span class="glyphicon glyphicon-calendar"></span>
                   </span>
                </div>
-               <div style="position: relative" class="form-group">
+               <div style="position: relative;top: 1px;" class="form-group">
                   <span style="position: absolute;left: 4px;top: 6px">
                      <em class="fa fa-search"></em>
                   </span>
-                  <input class="form-control" type="text" ng-model="adminsAoData.userName" placeholder="{{'table.admin.th1' | translate}}">
+                  <input class="form-control margin-bottom-10" type="text" ng-model="adminsAoData.userName" placeholder="{{'table.admin.th1' | translate}}">
                </div>
                <div class="form-group">
-                  <select class="form-control" ng-model="adminsAoData.status" ng-options="option.value as option.label for option in superAdminSelect012.optionsSearch">
+                  <select class="form-control margin-bottom-10" ng-model="adminsAoData.status" ng-options="option.value as option.label for option in superAdminSelect012.optionsSearch">
                   </select>
                </div>
             </form>
-            <div server-data-table items="admins" ao-data="adminsAoData" reload="adminsReload" service-name="superAdminService" service-name-attr="getFindUserInfo" url="false" handle-data="false">
+            <div server-data-table items="admins" ao-data="tempAdminsAoData" reload="adminsReload" service-name="superAdminService" service-name-attr="getFindUserInfo" url="false" handle-data="false">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
@@ -53,7 +56,7 @@
                            <span editable-text="item.password" e-name="password" e-formclass="xeditable-md" onbeforesave="checkPassword($data)" e-form="rowform" e-type="password" e-required="">******</span>
                         </td>
                         <td>
-                           <span>{{ item.createTime.substring(0,10) || '' }}</span>
+                           <span>{{formatTime(item.createTime||'')}}</span>
                         </td>
                         <td>
                            <span editable-select="item.status" e-name="status" e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in superAdminSelect012.options">

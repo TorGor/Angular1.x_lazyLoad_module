@@ -34,27 +34,35 @@
                   <button class="btn btn-primary" ng-click="addSecondLevelMenu()" ng-disabled="!currentSelectMenu.id" type="button" translate="table.button.add">
                      新增
                   </button>
+                  <form class="form-inline pull-right" role="form">
+                     <div style="position: relative" class="form-group">
+                        <span style="position: absolute;left: 4px;top: 6px">
+                           <em class="fa fa-search"></em>
+                        </span>
+                        <input class="form-control" type="text" ng-model="twoLevelMenusSearch" placeholder="{{searchPlaceholder(['table.menu.th2', 'table.menu.th3'])}}">
+                     </div>
+                     <div class="form-group">
+                        <select class="form-control" ng-model="twoLevelMenusAoData.menuStatus" ng-options="option.value as option.label for option in superAdminSelect012.optionsSearch">
+                        </select>
+                     </div>
+                  </form>
                </span>
-               <form class="form-inline pull-right" role="form">
-                  <div style="position: relative" class="form-group">
-                     <span style="position: absolute;left: 4px;top: 6px">
-                        <em class="fa fa-search"></em>
-                     </span>
-                     <input class="form-control" type="text" ng-model="twoLevelMenusSearch" placeholder="{{searchPlaceholder(['table.menu.th2', 'table.menu.th3'])}}">
-                  </div>
-                  <div class="form-group">
-                     <select class="form-control" ng-model="twoLevelMenusAoData.menuStatus" ng-options="option.value as option.label for option in superAdminSelect012.optionsSearch">
-                     </select>
-                  </div>
-               </form>
                <div web-data-table items="twoLevelMenus" ao-data="twoLevelMenusAoData" search="twoLevelMenusSearch" reload="twoLevelMenusShowReload" show-items="twoLevelMenusShow">
                   <table width="100%" class="table table-bordered table-hover bg-white">
                      <thead>
                         <tr class="bg-gray-light text-bold">
-                           <td style="width: 10%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuSortNo">{{'table.menu.th1' | translate}}</td>
-                           <td style="width: 20%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuName">{{'table.menu.th2' | translate}}</td>
-                           <td style="width: 30%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuUrl">{{'table.menu.th3' | translate}}</td>
-                           <td style="width: 13%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuStatus">{{'table.menu.th4' | translate}}</td>
+                           <td style="width: 10%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuSortNo">
+                              {{'table.menu.th1' | translate}}
+                           </td>
+                           <td style="width: 20%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuName">
+                              {{'table.menu.th2' | translate}}
+                           </td>
+                           <td style="width: 30%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuUrl">
+                              {{'table.menu.th3' | translate}}
+                           </td>
+                           <td style="width: 13%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuStatus">
+                              {{'table.menu.th4' | translate}}
+                           </td>
                            <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                         </tr>
                      </thead>

@@ -27,6 +27,27 @@
         $scope.adminsAoData = {
             status: ''
         };
+        $scope.tempAdminsAoData = {
+            status: ''
+        };
+
+        $scope.trigerSearch = function() {
+            $scope.tempAdminsAoData = Object.assign($scope.tempAdminsAoData,$scope.adminsAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            $scope.adminsAoData = {
+                status: ''
+            };
+            var tempData = $scope.tempAdminsAoData;
+            $scope.tempAdminsAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize,
+                status: ''
+            }
+        };
 
         /**
          * 校验密码长度

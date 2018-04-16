@@ -6,13 +6,25 @@
                <button class="btn btn-primary" ng-click="addRoles()" type="button" translate="table.button.add">
                   新增
                </button>
+               <form class="form-inline pull-right add-button-class" role="form">
+                  <div style="position: relative" class="form-group">
+                     <span style="position: absolute;left: 4px;top: 6px">
+                        <em class="fa fa-search"></em>
+                     </span>
+                     <input class="form-control" type="text" ng-model="rolesSearch" placeholder="{{searchPlaceholder(['table.role.th1'])}}">
+                  </div>
+               </form>
             </span>
             <div web-data-table items="roles" ao-data="rolesAoData" search="rolesSearch" reload="rolesAoData" show-items="showRoles">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
-                        <td style="width: 40%" ao-data="rolesAoData" web-data-table-sort="roleName">{{'table.role.th1' | translate}}</td>
-                        <td style="width: 40%" ao-data="rolesAoData" web-data-table-sort="roleStatus">{{'table.role.th2' | translate}}</td>
+                        <td style="width: 40%" ao-data="rolesAoData" web-data-table-sort="roleName">
+                           {{'table.role.th1' | translate}}
+                        </td>
+                        <td style="width: 40%" ao-data="rolesAoData" web-data-table-sort="roleStatus">
+                           {{'table.role.th2' | translate}}
+                        </td>
                         <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>

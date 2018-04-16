@@ -5,25 +5,32 @@
                 <div class="panel-body">
                     <div>
                         <button
-                                class="mb-sm btn btn-primary btn-sm"
-                                ng-click="addOneLevelMenu()"
-                                type="button"
-                                translate="table.button.add"
+                            class="mb-sm btn btn-primary btn-sm"
+                            ng-click="addOneLevelMenu()"
+                            type="button"
+                            translate="table.button.add"
                         >
                             新增
                         </button>
                     </div>
                     <div ng-repeat="oneLevelMenu in oneLevelMenus">
-                        <div class="self-nav-tree-padding"
-                             ng-class="{'bg-gray-light': oneLevelMenu.id == currentSelectMenu.id}"
-                             ng-click="getSecondLevelMenu(oneLevelMenu)"
+                        <div
+                            class="self-nav-tree-padding"
+                            ng-class="{'bg-gray-light': oneLevelMenu.id == currentSelectMenu.id}"
+                            ng-click="getSecondLevelMenu(oneLevelMenu)"
                         >
                             <span>{{oneLevelMenu.menuName}}</span>
                             <span class="self-nav-tree-button">
-                                <button class="btn btn-xs btn-info" ng-click="editOneLevelMenu(oneLevelMenu, $event)" title="Edit">
+                                <button
+                                    class="btn btn-xs btn-info" ng-click="editOneLevelMenu(oneLevelMenu, $event)"
+                                    title="Edit"
+                                >
                                     <em class="fa fa-pencil"></em>
                                 </button>
-                                <button class="btn btn-xs btn-danger" ng-click="deleteOneLevelMenu(oneLevelMenu, $event)" title="remove">
+                                <button
+                                    class="btn btn-xs btn-danger" ng-click="deleteOneLevelMenu(oneLevelMenu, $event)"
+                                    title="remove"
+                                >
                                     <em class="fa fa-trash"></em>
                                 </button>
                             </span>
@@ -40,77 +47,120 @@
                 <div class="panel-body">
                     <span class="form-group add-button-class">
                         <button
-                                class="btn btn-primary"
-                                ng-click="addSecondLevelMenu()"
-                                ng-disabled="!currentSelectMenu.id"
-                                type="button"
-                                translate="table.button.add"
+                            class="btn btn-primary"
+                            ng-click="addSecondLevelMenu()"
+                            ng-disabled="!currentSelectMenu.id"
+                            type="button"
+                            translate="table.button.add"
                         >
                             新增
                         </button>
-                    </span>
-                    <form class="form-inline pull-right" role="form">
-                        <div style="position: relative" class="form-group">
-                            <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                            <input class="form-control" type="text" ng-model="twoLevelMenusSearch" placeholder="{{searchPlaceholder(['table.menu.th2', 'table.menu.th3'])}}">
-                        </div>
-                        <div class="form-group">
-                            <select
+                        <form class="form-inline pull-right" role="form">
+                            <div style="position: relative" class="form-group">
+                                <span style="position: absolute;left: 4px;top: 6px"><em
+                                    class="fa fa-search"
+                                ></em></span>
+                                <input
+                                    class="form-control" type="text" ng-model="twoLevelMenusSearch"
+                                    placeholder="{{searchPlaceholder(['table.menu.th2', 'table.menu.th3'])}}"
+                                >
+                            </div>
+                            <div class="form-group">
+                                <select
                                     class="form-control"
                                     ng-model="twoLevelMenusAoData.menuStatus"
                                     ng-options="option.value as option.label for option in superAdminSelect012.optionsSearch"
-                            >
-                            </select>
-                        </div>
-                    </form>
+                                >
+                                </select>
+                            </div>
+                        </form>
+                    </span>
                     <div
-                            web-data-table
-                            items="twoLevelMenus"
-                            ao-data="twoLevelMenusAoData"
-                            search="twoLevelMenusSearch"
-                            reload="twoLevelMenusShowReload"
-                            show-items="twoLevelMenusShow"
+                        web-data-table
+                        items="twoLevelMenus"
+                        ao-data="twoLevelMenusAoData"
+                        search="twoLevelMenusSearch"
+                        reload="twoLevelMenusShowReload"
+                        show-items="twoLevelMenusShow"
                     >
                         <table width="100%" class="table table-bordered table-hover bg-white">
                             <thead>
-                                <tr class="bg-gray-light text-bold">
-                                    <td style="width: 10%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuSortNo">{{'table.menu.th1' | translate}}</td>
-                                    <td style="width: 20%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuName">{{'table.menu.th2' | translate}}</td>
-                                    <td style="width: 30%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuUrl">{{'table.menu.th3' | translate}}</td>
-                                    <td style="width: 13%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuStatus">{{'table.menu.th4' | translate}}</td>
-                                    <td style="width: 17%">{{'table.button.operation' | translate}}</td>
-                                </tr>
+                            <tr class="bg-gray-light text-bold">
+                                <td style="width: 10%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuSortNo">
+                                    {{'table.menu.th1' | translate}}
+                                </td>
+                                <td style="width: 20%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuName">
+                                    {{'table.menu.th2' | translate}}
+                                </td>
+                                <td style="width: 30%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuUrl">
+                                    {{'table.menu.th3' | translate}}
+                                </td>
+                                <td style="width: 13%" ao-data="twoLevelMenusAoData" web-data-table-sort="menuStatus">
+                                    {{'table.menu.th4' | translate}}
+                                </td>
+                                <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                            </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="item in twoLevelMenusShow">
                                 <td>
-                                    <span editable-text="item.menuSortNo" e-name="menuSortNo" e-formclass="xeditable-xs" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.menuSortNo || '' }}</span>
+                                    <span
+                                        editable-text="item.menuSortNo" e-name="menuSortNo" e-formclass="xeditable-xs"
+                                        onbeforesave="checkRequiredData($data)" e-form="rowform" e-required=""
+                                    >{{ item.menuSortNo || '' }}</span>
                                 </td>
                                 <td>
-                                    <span editable-text="item.menuName" e-name="menuName" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.menuName || '' }}</span>
+                                    <span
+                                        editable-text="item.menuName" e-name="menuName" e-formclass="xeditable-sm"
+                                        onbeforesave="checkRequiredData($data)" e-form="rowform" e-required=""
+                                    >{{ item.menuName || '' }}</span>
                                 </td>
                                 <td>
-                                    <span editable-text="item.menuUrl" e-name="menuUrl" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.menuUrl || '' }}</span>
+                                    <span
+                                        editable-text="item.menuUrl" e-name="menuUrl" e-formclass="xeditable-md"
+                                        onbeforesave="checkRequiredData($data)" e-form="rowform" e-required=""
+                                    >{{ item.menuUrl || '' }}</span>
                                 </td>
                                 <td>
-                                    <span editable-select="item.menuStatus" e-name="menuStatus"  e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in superAdminSelect012.options">
+                                    <span
+                                        editable-select="item.menuStatus" e-name="menuStatus" e-form="rowform"
+                                        onbeforesave="checkRequiredData($data)"
+                                        e-ng-options="option.value as option.label for option in superAdminSelect012.options"
+                                    >
                                         <span ng-bind-html="filter012OptionsValue(item.menuStatus)"></span>
                                     </span>
                                 </td>
                                 <td style="white-space: nowrap;">
-                                    <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveSecondLevelMenu(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
-                                        <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
+                                    <form
+                                        class="form-buttons form-inline" editable-form name="rowform"
+                                        onaftersave="saveSecondLevelMenu(item, $data)" ng-show="rowform.$visible"
+                                        shown="item.id == null"
+                                    >
+                                        <button
+                                            class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
+                                            title="{{'table.button.save' | translate}}"
+                                        >
                                             <em class="fa fa-save"></em>
                                         </button>
-                                        <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSave(item,$index)" title="{{'table.button.cancel' | translate}}">
+                                        <button
+                                            class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
+                                            ng-click="rowform.$cancel();cancelSave(item,$index)"
+                                            title="{{'table.button.cancel' | translate}}"
+                                        >
                                             <em class="fa fa-times"></em>
                                         </button>
                                     </form>
                                     <div class="buttons" ng-show="!rowform.$visible">
-                                        <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                        <button
+                                            class="btn btn-sm btn-info" ng-click="rowform.$show()"
+                                            title="{{'table.button.edit' | translate}}"
+                                        >
                                             <em class="fa fa-pencil"></em>
                                         </button>
-                                        <button class="btn btn-sm btn-danger" ng-click="deleteSecondLevelMenu(item)" title="{{'table.button.delete' | translate}}">
+                                        <button
+                                            class="btn btn-sm btn-danger" ng-click="deleteSecondLevelMenu(item)"
+                                            title="{{'table.button.delete' | translate}}"
+                                        >
                                             <em class="fa fa-trash"></em>
                                         </button>
                                     </div>
