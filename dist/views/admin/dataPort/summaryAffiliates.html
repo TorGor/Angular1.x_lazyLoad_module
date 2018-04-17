@@ -1,0 +1,95 @@
+<div class="row">
+   <div class="panel panel-default">
+      <div class="panel-wrapper">
+         <div class="panel-body">
+            <span class="form-group add-button-class no-block">
+
+            </span>
+            <form class="form-inline pull-right add-button-class" role="form">
+               <div style="position: relative" class="form-group">
+                  <span style="position: absolute;left: 4px;top: 6px">
+                     <em class="fa fa-search"></em>
+                  </span>
+                  <input class="form-control" type="text" ng-model="summaryAffiliatesSearch" placeholder="{{searchPlaceholder(['table.summaryAffiliates.th1', 'table.summaryAffiliates.th2', 'table.summaryAffiliates.th3'])}}">
+               </div>
+            </form>
+            <div class='clearfix'></div>
+            <div web-data-table items="summaryAffiliates" ao-data="summaryAffiliatesAoData" search="summaryAffiliatesSearch" reload="summaryAffiliatesReload" show-items="showSummaryAffiliates">
+               <table width="100%" class="table table-bordered table-hover bg-white">
+                  <thead>
+                     <tr class="bg-gray-light text-bold">
+                        <td style="width: 10%">
+                           {{'table.summaryAffiliates.th1' | translate}}
+                        </td>
+                        <td style="width: 10%">
+                           {{'table.summaryAffiliates.th2' | translate}}
+                        </td>
+                        <td style="width: 10%">
+                           {{'table.summaryAffiliates.th3' | translate}}
+                        </td>
+                        <td style="width: 10%">
+                           {{'table.summaryAffiliates.th4' | translate}}
+                        </td>
+                        <td style="width: 10%">
+                           {{'table.summaryAffiliates.th5' | translate}}
+                        </td>
+                        <td style="width: 10%">
+                           {{'table.summaryAffiliates.th6' | translate}}
+                        </td>
+                        <td style="width: 10%">
+                           {{'table.summaryAffiliates.th7' | translate}}
+                        </td>
+                        <td style="width: 10%">
+                           {{'table.summaryAffiliates.th8' | translate}}
+                        </td>
+                        <td style="width: 10%">
+                           {{'table.summaryAffiliates.th9' | translate}}
+                        </td>
+                        <td style="width: 10%">
+                           {{'table.summaryAffiliates.th10' | translate}}
+                        </td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr ng-repeat="item in showSummaryAffiliates">
+                        <td>
+                           <span>{{ item.bigwin}}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.coupon}}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.deposit}}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.rebate}}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.withdraw}}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.balances.AG}}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.balances.BBIN}}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.balances.FS}}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.balances.MAIN}}</span>
+                        </td>
+                        <td>
+                           <span>{{ item.balances.PT}}</span>
+                        </td>
+                     </tr>
+                     <tr ng-show="showSummaryAffiliates.length==0">
+                        <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

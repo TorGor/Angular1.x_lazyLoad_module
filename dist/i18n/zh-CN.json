@@ -449,6 +449,18 @@
       "th6": "isDeleted",
       "th7": "Create At",
       "th8": "Account No"
+    },
+    "summaryAffiliates": {
+      "th1": "bigwin",
+      "th2": "coupon",
+      "th3": "deposit",
+      "th4": "rebate",
+      "th5": "withdraw",
+      "th6": "AG",
+      "th7": "BBIN",
+      "th8": "FS",
+      "th9": "MAIN",
+      "th10": "PT"
     }
   },
   "panel_tile": {

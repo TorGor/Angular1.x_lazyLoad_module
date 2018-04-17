@@ -445,6 +445,14 @@
                 templateUrl: RouteHelpersProvider.basepath('admin/bankCards/userBankCards.html'),
                 permission: 'users'
             })
+
+            .state('admin.summaryAffiliates', {
+                url: '/dataPort/summaryAffiliates',
+                title: 'summary affiliates',
+                controller: 'summaryAffiliatesController',
+                templateUrl: RouteHelpersProvider.basepath('admin/dataPort/summaryAffiliates.html'),
+                permission: 'users'
+            })
             
             //new route name will be append here
             

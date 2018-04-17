@@ -41,10 +41,15 @@
 
         // 页面加载执行的函数
 
+        $scope.username = '';
+
         try {
             var urlParams = $scope.getUrlParams();
             if(urlParams.user_id){
                 $scope.initBankCardsData(urlParams.user_id);
+            }
+            if(urlParams._username){
+                $scope.username = urlParams._username;
             }
         }catch (e){
             console.error(e)
