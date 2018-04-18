@@ -106,14 +106,8 @@
                                                 $rootScope.URL[URLobj[module]] = {};
                                                 tempButtonUrl[module].map(function(buttonItem) {
                                                     if (buttonItem.btnType == 1) {
-                                                        if(module == 'affiliates'){
-                                                            if (buttonItem.btnUrl.indexOf('Cards') !== -1) {
-                                                                $rootScope.URL[URLobj[module]].GETCARDS = buttonItem.btnUrl;
-                                                            } else if (buttonItem.btnUrl.indexOf('Summary') !== -1) {
-                                                                $rootScope.URL[URLobj[module]].GETPAY = buttonItem.btnUrl;
-                                                            } else {
-                                                                $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
-                                                            }
+                                                        if(['users','affiliates'].indexOf(module) !== -1 && typeof buttonItem.btnName =='string' && buttonItem.btnName.indexOf('Select')!==-1) {
+                                                            $rootScope.URL[URLobj[module]][buttonItem.btnName.toUpperCase()] = buttonItem.btnUrl;
                                                         }else{
                                                             if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
                                                                 $rootScope.URL[URLobj[module]].GETAUDIT = buttonItem.btnUrl;
@@ -435,22 +429,6 @@
                 title: 'bankCards Manage',
                 controller: 'BankCardsController',
                 templateUrl: RouteHelpersProvider.basepath('admin/bankCards/bankCards.html'),
-                permission: 'users'
-            })
-
-            .state('admin.bankCardsUser', {
-                url: '/bankCards/user',
-                title: 'user bankCards',
-                controller: 'UserBankCardsController',
-                templateUrl: RouteHelpersProvider.basepath('admin/bankCards/userBankCards.html'),
-                permission: 'users'
-            })
-
-            .state('admin.summaryAffiliates', {
-                url: '/dataPort/summaryAffiliates',
-                title: 'summary affiliates',
-                controller: 'summaryAffiliatesController',
-                templateUrl: RouteHelpersProvider.basepath('admin/dataPort/summaryAffiliates.html'),
                 permission: 'users'
             })
             

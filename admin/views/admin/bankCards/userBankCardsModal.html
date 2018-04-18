@@ -1,0 +1,91 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{'银行卡'}}</h3>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="">
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <span class="form-group add-button-class no-block">
+                </span>
+                    <form class="form-inline pull-right add-button-class" role="form">
+                        <div style="position: relative" class="form-group">
+                            <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
+                            <input class="form-control" type="text" ng-model="userBankCardsSearch" placeholder="{{searchPlaceholder(['table.bankCards.th2', 'table.bankCards.th3'])}}">
+                        </div>
+                    </form>
+                    <div class='clearfix'></div>
+                    <div
+                        web-data-table
+                        items="userBankCards"
+                        ao-data="userBankCardsAoData"
+                        search="userBankCardsSearch"
+                        reload="userBankCardsReload"
+                        show-items="showUserBankCards"
+                    >
+                        <table width="100%" class="table table-bordered table-hover bg-white">
+                            <thead>
+                            <tr class="bg-gray-light text-bold">
+                                <td style="width: 14%">
+                                    {{'table.bankCards.th2' | translate}}
+                                </td>
+                                <td style="width: 20%">
+                                    {{'table.bankCards.th8' | translate}}
+                                </td>
+                                <td style="width: 8%">
+                                    {{'table.bankCards.th3' | translate}}
+                                </td>
+                                <td style="width: 13%">
+                                    {{'table.bankCards.th4' | translate}}
+                                </td>
+                                <td style="width: 8%">
+                                    {{'table.bankCards.th5' | translate}}
+                                </td>
+                                <td style="width: 8%">
+                                    {{'table.bankCards.th6' | translate}}
+                                </td>
+                                <td style="width: 18%">
+                                    {{'table.bankCards.th7' | translate}}
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in showUserBankCards">
+                                <td>
+                                    <span>{{ item.account.name || '' }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ item.account.number || '' }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ item.bank || '' }}</span>
+                                </td>
+                                <td>
+                                    <span>{{ item.hasWithdrew?'Yes':'No'}}</span>
+                                </td>
+                                <td>
+                                    <span>{{ item.type || ''}}</span>
+                                </td>
+                                <td>
+                                    <span>{{ item.isDeleted?'Yes':'No'}}</span>
+                                </td>
+                                <td>
+                                    <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="showUserBankCards.length==0">
+                                <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
+</div>

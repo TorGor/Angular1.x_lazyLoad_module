@@ -208,7 +208,7 @@
                                 <span>{{item.name || ''}}</span>
                             </td>
                             <td>
-                                <span>{{item.gender || ''}}</span>
+                                <span>{{showOptionsValue(item.gender, genderOptions)}}</span>
                             </td>
                             <td>
                                 <span>{{item.locale || ''}}</span>
@@ -223,19 +223,19 @@
                                 <span>{{item.domains.user || ''}}</span>
                             </td>
                             <td>
-                                <span>{{item.otp || ''}}</span>
+                                <span>{{item.otp}}</span>
                             </td>
                             <td>
-                                <span>{{item.plan.default || ''}}</span>
+                                <span>{{item.plan.code || ''}}</span>
                             </td>
                             <td>
                                 <span>{{item.verifications.name || ''}}</span>
                             </td>
                             <td>
-                                <span>{{item.isLocked || ''}}</span>
+                                <span>{{item.isLocked}}</span>
                             </td>
                             <td>
-                                <span>{{item.isApproved || ''}}</span>
+                                <span>{{item.isApproved}}</span>
                             </td>
                             <td style="white-space: nowrap;">
                                 <div class="btn-group" uib-dropdown="dropdown">
@@ -245,8 +245,8 @@
                                         <em class="fa fa-eye"></em>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <li><a ng-click='openNewTab(item,"admin.bankCardsUser")'>银行卡</a></li>
-                                        <li><a ng-click='openNewTab(item,"admin.summaryAffiliates")'>报表-金额</a></li>
+                                        <li><a ng-click='openNewTab(item,"bankCardsUser")'>银行卡</a></li>
+                                        <li><a ng-click='openNewTab(item,"summaryAffiliates")'>报表-金额</a></li>
                                         <li><a ng-click='openNewTab(item,"admin.usersManage")'>客户</a></li>
                                         <li><a ng-click='openNewTab(item,"admin.ordersManage")'>充值记录</a></li>
                                         <li><a ng-click='openNewTab(item,"admin.withdrawsManage")'>提款记录</a></li>

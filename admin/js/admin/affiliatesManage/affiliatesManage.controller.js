@@ -71,7 +71,7 @@
             }
         ];
 
-        $scope.affiliatesManageUrl = $scope.URL.AFFILIATESMANAGE.GET
+        $scope.affiliatesManageUrl = $scope.URL.AFFILIATESMANAGE.GET;
 
         // 原始的数据
         $scope.affiliatesManage = [];
@@ -190,6 +190,64 @@
         };
 
         $scope.openNewTab = function(item,state) {
+            if(state === 'bankCardsUser'){
+                adminService.getReq($rootScope.URL.AFFILIATESMANAGE.CARDSSELECT+'/'+item.userId, {}, {}).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            var modalInstance = $uibModal.open({
+                                animation: true,
+                                ariaLabelledBy: 'modal-title',
+                                ariaDescribedBy: 'modal-body',
+                                templateUrl: '/views/admin/bankCards/userBankCardsModal.html',
+                                controller: 'UserBankCardsModalController',
+                                size: 'lg',
+                                scope:$scope,
+                                resolve: {
+                                    modalItem: res.data,
+                                }
+                            });
+                            modalInstance.result.then(function (data) {
+
+                            }, function (data) {
+
+                            });
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+                return;
+            }
+            if(state === 'summaryAffiliates'){
+                adminService.getReq($rootScope.URL.AFFILIATESMANAGE.SUMMARYSELECT+'/'+item.userId, {}, {}).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            var modalInstance = $uibModal.open({
+                                animation: true,
+                                ariaLabelledBy: 'modal-title',
+                                ariaDescribedBy: 'modal-body',
+                                templateUrl: '/views/admin/dataPort/summaryAffiliatesModal.html',
+                                controller: 'summaryAffiliatesModalController',
+                                size: 'lg',
+                                scope:$scope,
+                                resolve: {
+                                    modalItem: angular.copy(res.data.data),
+                                }
+                            });
+                            modalInstance.result.then(function (data) {
+
+                            }, function (data) {
+
+                            });
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+                return;
+            }
             var url = window.location.pathname+$rootScope.$state.href(state)+'?_username='+(item.username||'')+'&user_id='+(item.userId||'');
             window.open(url,'_blank');
         }
