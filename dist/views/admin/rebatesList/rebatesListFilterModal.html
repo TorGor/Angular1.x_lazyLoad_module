@@ -1,0 +1,95 @@
+<div class="modal-header">
+   <h4 class="modal-title">{{'过滤'+'rebates详情'}}</h4>
+</div>
+
+<div class="modal-body">
+   <div class="row">
+      <div class="">
+         <div class="panel-wrapper">
+            <div class='panel-body'>
+               <div server-data-table items='rebatesList' ao-data='tempRebatesListAoData' reload='rebatesListReload' service-name='adminService' service-name-attr='getReq' url='rebatesListUrl' handle-data='false'>
+                  <table width='100%' class='table table-bordered table-hover bg-white'>
+                     <thead>
+                        <tr class='bg-gray-light text-bold'>
+                           <td style='width: 13%'>
+                              {{'table.rebatesList.th5' | translate}}
+                           </td>
+                           <td style='width: 13%'>
+                              {{'table.rebatesList.th1' | translate}}
+                           </td>
+                           <td style='width: 25%'>
+                              {{'table.rebatesList.th2' | translate}}
+                           </td>
+                           <!--<td style='width: 10%'>-->
+                           <!--{{'table.rebatesList.th3' | translate}}-->
+                           <!--</td>-->
+                           <td style='width: 13%'>
+                              {{'table.rebatesList.th4' | translate}}
+                           </td>
+                           <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='userId'>-->
+                           <!--{{'table.rebatesList.th6' | translate}}-->
+                           <!--</td>-->
+                           <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='affiliateId'>-->
+                           <!--{{'table.rebatesList.th7' | translate}}-->
+                           <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='product'>-->
+                           <!--{{'table.rebatesList.th1' | translate}}-->
+                           <!--</td>-->
+                           <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='from'>-->
+                           <!--{{'table.rebatesList.th2' | translate}}-->
+                           <!--</td>-->
+                           <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='to'>-->
+                           <!--{{'table.rebatesList.th3' | translate}}-->
+                           <!--</td>-->
+                           <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='bonus'>-->
+                           <!--{{'table.rebatesList.th4' | translate}}-->
+                           <!--</td>-->
+                           <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='username'>-->
+                           <!--{{'table.rebatesList.th5' | translate}}-->
+                           <!--</td>-->
+                           <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='userId'>-->
+                           <!--{{'table.rebatesList.th6' | translate}}-->
+                           <!--</td>-->
+                           <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='affiliateId'>-->
+                           <!--{{'table.rebatesList.th7' | translate}}-->
+                           </td>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat='item in rebatesList'>
+                           <td>
+                              <span>{{item.user.username || ''}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.product || ''}}</span>
+                           </td>
+                           <td>
+                              <span>{{formatTime(item.period.from || '')+(item.period.to?' ~ ':'')+formatTime(item.period.to || '')}}</span>
+                           </td>
+                           <!--<td>-->
+                           <!--<span>{{item.period.to.substr(0, 19) || ''}}</span>-->
+                           <!--</td>-->
+                           <td>
+                              <span>{{item.bonus || ''}}</span>
+                           </td>
+                           <!--<td>-->
+                           <!--<span>{{item.user.userId || ''}}</span>-->
+                           <!--</td>-->
+                           <!--<td>-->
+                           <!--<span>{{item.user.affiliateId || ''}}</span>-->
+                           <!--</td>-->
+                        </tr>
+                        <tr ng-show='rebatesList.length==0'>
+                           <td colspan='20' class=''>{{'table.no_date' | translate}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal-footer">
+   <button class="btn btn-primary" ng-click="closeModal()">OK</button>
+</div>

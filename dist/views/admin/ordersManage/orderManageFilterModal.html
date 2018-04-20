@@ -1,0 +1,69 @@
+<div class="modal-header">
+   <h3 class="modal-title">{{"过滤"+'手动充值'}}</h3>
+</div>
+
+<div class="modal-body">
+   <div class="row">
+      <div class="">
+         <div class="panel-wrapper">
+            <div class="panel-body">
+               <div server-data-table items="ordersManage" ao-data="tempOrdersManageAoData" reload="ordersManageReload" service-name="adminService" service-name-attr="getReq" url="ordersManageUrl" handle-data="false">
+                  <table width="100%" class="table table-bordered table-hover bg-white">
+                     <thead>
+                        <tr class="bg-gray-light text-bold">
+                           <td>
+                              {{'table.ordersManage.th6' | translate}}
+                           </td>
+                           <td style="width: 15%" ao-data="ordersManageAoData" server-data-table-sort="amount">
+                              {{'table.ordersManage.th1' | translate}}
+                           </td>
+                           <td style="width: 15%" ao-data="ordersManageAoData" server-data-table-sort="currency">
+                              {{'table.ordersManage.th2' | translate}}
+                           </td>
+                           <td style="width: 15%" ao-data="ordersManageAoData" server-data-table-sort="destination">
+                              {{'table.ordersManage.th3' | translate}}
+                           </td>
+                           <td style="width: 15%" ao-data="ordersManageAoData" server-data-table-sort="method_code">
+                              {{'table.ordersManage.th4' | translate}}
+                           </td>
+                           <td style="width: 15%" ao-data="ordersManageAoData" server-data-table-sort="status">
+                              {{'table.ordersManage.th5' | translate}}
+                           </td>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="item in ordersManage">
+                           <td>
+                              <span>{{item.user.username}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.amount}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.currency}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.destination}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.method_code}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.status}}</span>
+                           </td>
+                        </tr>
+                        <tr ng-show="ordersManage.length==0">
+                           <td colspan='20' class="">{{'table.no_date' | translate}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal-footer">
+   <button class="btn btn-default" type="button" ng-click="closeModal()">{{'table.button.cancel' | translate}}</button>
+</div>

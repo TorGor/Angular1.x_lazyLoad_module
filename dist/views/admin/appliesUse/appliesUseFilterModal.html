@@ -1,0 +1,93 @@
+<div class="modal-header">
+   <h3 class="modal-title">{{'过滤'+'优惠券使用审核'}}</h3>
+</div>
+
+<div class="modal-body">
+   <div class="row">
+      <div class="">
+         <div class="panel-wrapper">
+            <div class="panel-body">
+               <div server-data-table items="appliesUse" ao-data="tempAppliesUseAoData" reload="appliesUseReload" service-name="adminService" service-name-attr="getReq" url="appliesUseUrl" handle-data="false">
+                  <table width="100%" class="table table-bordered table-hover bg-white">
+                     <thead>
+                        <tr class="bg-gray-light text-bold">
+                           <td style="width: 8%">
+                              {{'module.user' | translate}}
+                           </td>
+                           <td style="width: 8%">
+                              {{'table.appliesUse.th1' | translate}}
+                           </td>
+                           <td style="width: 8%">
+                              {{'table.appliesUse.th2' | translate}}
+                           </td>
+                           <td style="width: 8%">
+                              {{'table.appliesUse.th3' | translate}}
+                           </td>
+                           <td style="width: 8%">
+                              {{'table.appliesUse.th4' | translate}}
+                           </td>
+                           <td style="width: 8%">
+                              {{'table.appliesUse.th5' | translate}}
+                           </td>
+                           <td style="width: 8%">
+                              {{'table.appliesUse.th6' | translate}}
+                           </td>
+                           <td style="width: 8%">
+                              {{'table.appliesUse.th7' | translate}}
+                           </td>
+                           <td style="width: 10%">
+                              {{'table.appliesUse.th8' | translate}}
+                           </td>
+                           <td style="width: 16%">
+                              {{'table.appliesUse.th9' | translate}}
+                           </td>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="item in appliesUse">
+                           <td>
+                              <span>{{item.user.username}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.bets}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.bonus}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.brand}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.coupon}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.principal}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.product}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.wallet}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.status}}</span>
+                           </td>
+                           <td>
+                              <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
+                           </td>
+                        </tr>
+                        <tr ng-show="appliesUse.length==0">
+                           <td colspan='20' class="">{{'table.no_date' | translate}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal-footer">
+   <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
+</div>

@@ -225,6 +225,7 @@
                                 controller: 'UserBankCardsModalController',
                                 size: 'lg',
                                 scope:$scope,
+                                windowClass: 'full-screen-modal-window',
                                 resolve: {
                                     modalItem: res.data,
                                 }
@@ -239,6 +240,7 @@
                         }
                     }
                 });
+                return;
             }
             if(state === 'summaryAffiliates'){
                 adminService.getReq($rootScope.URL.AFFILIATESMANAGE.SELECTSUMMARY+'/'+item.userId, {}, {}).then(function (res) {
@@ -253,6 +255,7 @@
                                 controller: 'summaryAffiliatesModalController',
                                 size: 'lg',
                                 scope:$scope,
+                                windowClass: 'full-screen-modal-window',
                                 resolve: {
                                     modalItem: angular.copy(res.data.data),
                                 }
@@ -266,6 +269,117 @@
                             $rootScope.alertErrorMsg(res.data.msg);
                         }
                     }
+                });
+                return;
+            }
+            if(state === 'usersManage'){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/usersManage/userManageFilterEditModal.html',
+                    controller: 'usersManageFilterModalController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            affiliate_id:item.userId
+                        },
+                    }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
+                });
+            }
+            if(state === 'ordersManage'){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/ordersManage/orderManageFilterModal.html',
+                    controller: 'OrderManageFilterModalController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            affiliate_id:item.userId
+                        },
+                    }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
+                });
+            }
+            if(state === 'withdrawsManage'){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/withdrawsManage/withdrawsManageFilterModal.html',
+                    controller: 'WithdrawsManageFilterModalController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            affiliate_id:item.userId
+                        },
+                    }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
+                });
+            }
+            if(state === 'rebatesList'){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/rebatesList/rebatesListFilterModal.html',
+                    controller: 'RebatesListFilterModalController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            affiliate_id:item.userId
+                        },
+                    }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
+                });
+            }
+            if(state === 'appliesUse'){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/appliesUse/appliesUseFilterModal.html',
+                    controller: 'AppliesUseFilterModalController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            affiliate_id:item.userId
+                        },
+                    }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
                 });
             }
             // var url = window.location.pathname+$rootScope.$state.href(state)+'?_username='+(item.username||'')+'&user_id='+(item.userId||'');

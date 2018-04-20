@@ -1,0 +1,119 @@
+<div class="modal-header">
+   <h3 class="modal-title">{{'过滤'+'用户'}}</h3>
+</div>
+
+<div class="modal-body">
+   <div class="row">
+      <div class="">
+         <div class="panel-wrapper">
+            <div class="panel-body">
+               <div server-data-table items="usersManage" ao-data="tempUsersManageAoData" reload="usersManageReload" service-name="adminService" service-name-attr="getReq" url="usersManageUrl" handle-data="false">
+                  <table width="100%" class="table table-bordered table-hover bg-white">
+                     <thead>
+                        <tr class="bg-gray-light text-bold">
+                           <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                              {{'table.usersManage.th1' | translate}}
+                           </td>
+                           <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="userId">
+                              {{'table.usersManage.th2' | translate}}
+                           </td>
+                           <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="affiliateId">
+                              {{'table.usersManage.th3' | translate}}
+                           </td>
+                           <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="currency">
+                              {{'table.usersManage.th4' | translate}}
+                           </td>
+                           <td style="width: 7%">
+                              {{'table.usersManage.th5' | translate}}
+                           </td>
+                           <td style="width: 7%">
+                              {{'table.usersManage.th6' | translate}}
+                           </td>
+                           <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="timezone">
+                              {{'table.usersManage.th7' | translate}}
+                           </td>
+                           <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="email">
+                              {{'table.usersManage.th8' | translate}}
+                           </td>
+                           <td style="width: 7%">
+                              {{'table.usersManage.th9' | translate}}
+                           </td>
+                           <td style="width: 7%">
+                              {{'table.usersManage.th10' | translate}}
+                           </td>
+                           <td style="width: 7%">
+                              {{'table.usersManage.th11' | translate}}
+                           </td>
+                           <td style="width: 7%">
+                              {{'table.usersManage.th12' | translate}}
+                           </td>
+                           <td style="width: 7%">
+                              {{'table.usersManage.th13' | translate}}
+                           </td>
+                           <td style="width: 7%">
+                              {{'table.usersManage.th14' | translate}}
+                           </td>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="item in usersManage">
+                           <td>
+                              <span>{{item.username || ''}}</span>
+                           </td>
+                           <td>
+                              <span>{{(item.userId || '').substr(0,6)+'...'}}</span>
+                           </td>
+                           <td>
+                              <span>{{(item.affiliateId || '').substr(0,6)+'...'}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.currency || ''}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.country.iso || ''}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.rank.code || ''}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.timezone || ''}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.email || ''}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.financial.name || ''}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.verifications.identity ?'Yes':'No'}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.verifications.name ?'Yes':'No'}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.verifications.phone ?'Yes':'No'}}</span>
+                           </td>
+                           <td>
+                              <span>{{item.otp?'Yes':'No'}}</span>
+                           </td>
+                           <td>
+                              <span>{{showOptionsValue(item.gender, genderOptions)}}</span>
+                           </td>
+                        </tr>
+                        <tr ng-show="usersManage.length==0">
+                           <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal-footer">
+   <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}
+   </button>
+</div>
+
