@@ -1,0 +1,89 @@
+<div class="modal-header">
+   <h3 class="modal-title">{{'过滤'+'游戏记录'}}</h3>
+</div>
+
+<div class="modal-body">
+   <div class="row">
+      <div class="">
+         <div class="panel-wrapper">
+            <div class="panel-body">
+               <div server-data-table items="gameRecords" ao-data="tempGameRecordsAoData" reload="gameRecordsReload" service-name="adminService" service-name-attr="getReq" url="gameRecordsUrl" handle-data="false">
+                  <table width="100%" class="table table-bordered table-hover bg-white">
+                     <thead>
+                        <tr class="bg-gray-light text-bold">
+                           <td style="width: 10%">
+                              {{'table.gameRecords.th8' | translate}}
+                           </td>
+                           <td style="width: 10%">
+                              {{'table.gameRecords.th3' | translate}}
+                           </td>
+                           <td style="width: 10%" ao-data="tempGameRecordsAoData" server-data-table-sort="payout">
+                              {{'table.gameRecords.th4' | translate}}
+                           </td>
+                           <td style="width: 10%" ao-data="tempGameRecordsAoData" server-data-table-sort="bet">
+                              {{'table.gameRecords.th1' | translate}}
+                           </td>
+                           <td style="width: 10%">
+                              {{'table.gameRecords.th2' | translate}}
+                           </td>
+                           <td style="width: 10%">
+                              {{'table.gameRecords.th6' | translate}}
+                           </td>
+                           <td style="width: 10%">
+                              {{'table.gameRecords.th7' | translate}}
+                           </td>
+                           <td style="width: 7%">
+                              {{'table.gameRecords.th9' | translate}}
+                           </td>
+                           <td style="width: 14%" ao-data="tempGameRecordsAoData" server-data-table-sort="play_time">
+                              {{'table.gameRecords.th5' | translate}}
+                           </td>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr ng-repeat="item in gameRecords">
+                           <td>
+                              <span>{{ item.user && item.user.username || '' }}</span>
+                           </td>
+                           <td>
+                              <span>{{showArrayName(item.game&&item.game.name||'')}}</span>
+                           </td>
+                           <td>
+                              <span>{{ item.payout || '' }}</span>
+                           </td>
+                           <td>
+                              <span>{{ item.bet || '' }}</span>
+                           </td>
+                           <td>
+                              <span>{{ item.brand || '' }}</span>
+                           </td>
+                           <td>
+                              <span>{{ item.product || '' }}</span>
+                           </td>
+                           <td>
+                              <span>{{ item.round || '' }}</span>
+                           </td>
+                           <td>
+                              <span>{{ item.wallet || '' }}</span>
+                           </td>
+                           <td>
+                              <span>{{formatTime(item.playAt || '')}}</span>
+                           </td>
+                        </tr>
+                        <tr ng-show="gameRecords.length==0">
+                           <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal-footer">
+   <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}
+   </button>
+</div>
+

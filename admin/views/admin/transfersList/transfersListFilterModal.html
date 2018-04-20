@@ -1,0 +1,101 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{'过滤'+'转账记录'}}</h3>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="">
+            <div class="panel-wrapper">
+                <div class='panel-body'>
+                    <div
+                        server-data-table
+                        items='transfersList'
+                        ao-data='tempTransfersListAoData'
+                        reload='transfersListReload'
+                        service-name='adminService'
+                        service-name-attr='getReq'
+                        url='transfersListUrl'
+                        handle-data='false'
+                    >
+                        <table width='100%' class='table table-bordered table-hover bg-white'>
+                            <thead>
+                            <tr class='bg-gray-light text-bold'>
+
+                                <td style='width: 13%'>
+                                    {{'user' | translate}}
+                                </td>
+                                <td style='width: 10%'>
+                                    {{'table.transfersList.th1' | translate}}
+                                </td>
+                                <td style='width: 7%' ao-data='tempTransfersListAoData' server-data-table-sort='amount'>
+                                    {{'table.transfersList.th2' | translate}}
+                                </td>
+                                <td style='width: 8%'>
+                                    {{'table.transfersList.th4' | translate}}
+                                </td>
+                                <td style='width: 8%'>
+                                    {{'table.transfersList.th5' | translate}}
+                                </td>
+                                <!--<td style='width: 10%'>-->
+                                <!--{{'table.transfersList.th7' | translate}}-->
+                                <!--</td>-->
+                                <!--<td style='width: 10%'>-->
+                                <!--{{'table.transfersList.th8' | translate}}-->
+                                <!--</td>-->
+                                <td style='width: 7%'>
+                                    {{'table.transfersList.th9' | translate}}
+                                </td>
+                                <td style='width: 15%'>
+                                    {{'table.transfersList.th10' | translate}}
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat='item in transfersList'>
+                                <td>
+                                    <span>{{item.user.username || ''}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.coupon || ''}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.amount || ''}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.wallets.source || ''}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.wallets.destination || ''}}</span>
+                                </td>
+                                <!--<td>-->
+                                <!--<span>{{item.user.userId || ''}}</span>-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                <!--<span>{{item.user.affiliateId || ''}}</span>-->
+                                <!--</td>-->
+                                <td>
+                                    <span>{{item.result || ''}}</span>
+                                </td>
+                                <td>
+                                    <span>{{formatTime(item.timestamps.createdAt || '')}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show='transfersList.length==0'>
+                                <td colspan='9' class=''>{{'table.no_date' | translate}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button
+        class="btn btn-default" type="button" ng-click="cancelModal()"
+    >{{'table.button.cancel' | translate}}
+    </button>
+</div>
+

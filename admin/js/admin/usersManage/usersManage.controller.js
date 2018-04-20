@@ -180,8 +180,163 @@
                 });
                 return;
             }
-            var url = window.location.pathname+$rootScope.$state.href(state)+'?_username='+(item.username||'')+'&user_id='+(item.userId||'');
-            window.open(url,'_blank');
+            if(state === 'transactionsDetail'){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/transactionsDetail/transactionsDetailFilterModal.html',
+                    controller: 'TransactionsDetailFilterController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            user_id:item.userId,
+                            timezone:item.timezone,
+                        },
+                    }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
+                });
+            }
+            if(state === 'ordersManage'){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/ordersManage/orderManageFilterModal.html',
+                    controller: 'OrderManageFilterModalController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            user_id:item.userId
+                        },
+                    }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
+                });
+            }
+            if(state === 'withdrawsManage'){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/withdrawsManage/withdrawsManageFilterModal.html',
+                    controller: 'WithdrawsManageFilterModalController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            user_id:item.userId
+                        },
+                    }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
+                });
+            }
+            if(state === 'transfersList'){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/transfersList/transfersListFilterModal.html',
+                    controller: 'TransfersListFilterModalController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            user_id:item.userId
+                        },
+                    }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
+                });
+            }
+            if(state === 'gameRecords'){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/gameRecords/gameRecordsFilterModal.html',
+                    controller: 'GameRecordsFilterModalController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            user_id:item.userId
+                        },
+                    }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
+                });
+            }
+            if(state === 'rebatesList'){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/rebatesList/rebatesListFilterModal.html',
+                    controller: 'RebatesListFilterModalController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            user_id:item.userId
+                        },
+                    }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
+                });
+            }
+            if(state === 'appliesUse'){
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/appliesUse/appliesUseFilterModal.html',
+                    controller: 'AppliesUseFilterModalController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            user_id:item.userId
+                        },
+                    }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
+                });
+            }
+            // var url = window.location.pathname+$rootScope.$state.href(state)+'?_username='+(item.username||'')+'&user_id='+(item.userId||'');
+            // window.open(url,'_blank');
         }
 
         // 页面加载执行

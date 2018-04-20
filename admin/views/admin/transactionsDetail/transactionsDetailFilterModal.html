@@ -1,0 +1,95 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{'过滤'+'资金明细'}}</h3>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="">
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <div
+                        server-data-table
+                        items="transactionsDetail"
+                        ao-data="tempTransactionsDetailAoData"
+                        reload="transactionsDetailReload"
+                        service-name="adminService"
+                        service-name-attr="getReq"
+                        url="transactionsUrl"
+                        handle-data="false"
+                    >
+                        <table width="100%" class="table table-bordered table-hover bg-white">
+                            <thead>
+                            <tr class="bg-gray-light text-bold">
+                                <td style="width: 10%">
+                                    {{'table.transactionsDetail.th1' | translate}}
+                                </td>
+                                <td style="width: 6%">
+                                    {{'table.transactionsDetail.th2' | translate}}
+                                </td>
+                                <td style="width: 6%">
+                                    {{'table.transactionsDetail.th3' | translate}}
+                                </td>
+                                <td style="width: 6%">
+                                    {{'table.transactionsDetail.th4' | translate}}
+                                </td>
+                                <td style="width: 6%" ao-data="tempTransactionsDetailAoData" server-data-table-sort="amount">
+                                    {{'table.transactionsDetail.th5' | translate}}
+                                </td>
+                                <td style="width: 6%">
+                                    {{'table.transactionsDetail.th6' | translate}}
+                                </td>
+                                <td style="width: 10%">
+                                    {{'table.transactionsDetail.th7' | translate}}
+                                </td>
+                                <td style="width: 13%">
+                                    {{'table.transactionsDetail.th8' | translate}}
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in transactionsDetail">
+                                <td>
+                                    <span>{{item.user && item.user.username || ''}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.service}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.walletCode}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.preBalance}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.amount}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.postBalance}}</span>
+                                </td>
+                                <td>
+                                    <span ng-if='showDescriptionDetail(item.description)&&showDescriptionDetail(item.description).length>16' uib-popover="{{ showDescriptionDetail(item.description) }}" popover-trigger="'mouseenter'">{{showDescriptionDetail(item.description).substr(0,16)+'...'}}</span>
+                                    <span ng-if='showDescriptionDetail(item.description).length<16'>{{showDescriptionDetail(item.description)}}</span>
+                                </td>
+                                <td>
+                                    <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="transactionsDetail.length==0">
+                                <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button
+        class="btn btn-default" type="button" ng-click="cancelModal()"
+    >{{'table.button.cancel' | translate}}
+    </button>
+</div>
+
