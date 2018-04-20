@@ -106,8 +106,18 @@
                                                 $rootScope.URL[URLobj[module]] = {};
                                                 tempButtonUrl[module].map(function(buttonItem) {
                                                     if (buttonItem.btnType == 1) {
-                                                        if(['users','affiliates'].indexOf(module) !== -1 && typeof buttonItem.btnName =='string' && buttonItem.btnName.indexOf('Select')!==-1) {
-                                                            $rootScope.URL[URLobj[module]][buttonItem.btnName.toUpperCase()] = buttonItem.btnUrl;
+                                                        if(['users','affiliates'].indexOf(module) !== -1 && typeof buttonItem.btnName =='string' && buttonItem.btnName.indexOf('select')!==-1) {
+                                                            if (buttonItem.btnUrl.toLowerCase().indexOf('cards') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].SELECTCARDS = buttonItem.btnUrl;
+                                                            } else if (buttonItem.btnUrl.toLowerCase().indexOf('summary') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].SELECTSUMMARY = buttonItem.btnUrl;
+                                                            } else if (buttonItem.btnUrl.toLowerCase().indexOf('Review') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].GETREVIEW = buttonItem.btnUrl;
+                                                            } else if (buttonItem.btnUrl.toLowerCase().indexOf('Detail') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
+                                                            } else {
+                                                                $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
+                                                            }
                                                         }else{
                                                             if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
                                                                 $rootScope.URL[URLobj[module]].GETAUDIT = buttonItem.btnUrl;

@@ -238,6 +238,13 @@
                                 <span>{{item.isApproved}}</span>
                             </td>
                             <td style="white-space: nowrap;">
+                                <button
+                                    class="btn btn-sm btn-info"
+                                    ng-show="validPower('AFFILIATESMANAGE', ['PATCH'])" ng-click="showAffiliatesModal(item,3)"
+                                    title="{{'table.button.edit' | translate}}"
+                                >
+                                    <em class="fa fa-pencil"></em>
+                                </button>
                                 <div class="btn-group" uib-dropdown="dropdown">
                                     <button
                                         class="btn btn-sm btn-green" uib-dropdown-toggle=""
@@ -245,6 +252,7 @@
                                         <em class="fa fa-eye"></em>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <li><a ng-click='showAffiliatesModal(item,1)'>资料</a></li>
                                         <li><a ng-click='openNewTab(item,"bankCardsUser")'>银行卡</a></li>
                                         <li><a ng-click='openNewTab(item,"summaryAffiliates")'>报表-金额</a></li>
                                         <li><a ng-click='openNewTab(item,"admin.usersManage")'>客户</a></li>

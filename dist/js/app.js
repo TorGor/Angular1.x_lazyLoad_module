@@ -61,6 +61,18 @@
     'use strict';
 
     angular
+        .module('app.lazyload', []);
+})();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.loadingbar', []);
+})();
+(function() {
+    'use strict';
+
+    angular
         .module('app.preloader', []);
 })();
 
@@ -71,18 +83,6 @@
         .module('app.routes', [
             'app.lazyload'
         ]);
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.lazyload', []);
-})();
-(function() {
-    'use strict';
-
-    angular
-        .module('app.loadingbar', []);
 })();
 (function() {
     'use strict';
@@ -100,17 +100,17 @@
     'use strict';
 
     angular
+        .module('app.sidebar', []);
+})();
+(function() {
+    'use strict';
+
+    angular
         .module('app.utils', [
           'app.colors'
           ]);
 })();
 
-(function() {
-    'use strict';
-
-    angular
-        .module('app.sidebar', []);
-})();
 (function() {
     'use strict';
 
@@ -794,184 +794,6 @@
     'use strict';
 
     angular
-        .module('app.preloader')
-        .directive('preloader', preloader);
-
-    preloader.$inject = ['$animate', '$timeout', '$q'];
-    function preloader ($animate, $timeout, $q) {
-
-        var directive = {
-            restrict: 'EAC',
-            template: 
-              '<div class="preloader-progress">' +
-                  '<div class="preloader-progress-bar" ' +
-                       'ng-style="{width: loadCounter + \'%\'}"></div>' +
-              '</div>'
-            ,
-            link: link
-        };
-        return directive;
-
-        ///////
-
-        function link(scope, el) {
-
-          scope.loadCounter = 0;
-
-          var counter  = 0,
-              timeout;
-
-          // disables scrollbar
-          angular.element('body').css('overflow', 'hidden');
-          // ensure class is present for styling
-          el.addClass('preloader');
-
-          appReady().then(endCounter);
-
-          timeout = $timeout(startCounter);
-
-          ///////
-
-          function startCounter() {
-
-            var remaining = 100 - counter;
-            counter = counter + (0.015 * Math.pow(1 - Math.sqrt(remaining), 2));
-
-            scope.loadCounter = parseInt(counter, 10);
-
-            timeout = $timeout(startCounter, 20);
-          }
-
-          function endCounter() {
-
-            $timeout.cancel(timeout);
-
-            scope.loadCounter = 100;
-
-            $timeout(function(){
-              // animate preloader hiding
-              $animate.addClass(el, 'preloader-hidden');
-              // retore scrollbar
-              angular.element('body').css('overflow', '');
-            }, 300);
-          }
-
-          function appReady() {
-            var deferred = $q.defer();
-            var viewsLoaded = 0;
-            // if this doesn't sync with the real app ready
-            // a custom event must be used instead
-            var off = scope.$on('$viewContentLoaded', function () {
-              viewsLoaded ++;
-              console.log(viewsLoaded,'viewsLoaded')
-              // we know there are at least two views to be loaded 
-              // before the app is ready (1-index.html 2-app*.html)
-              if ( viewsLoaded === 2) {
-                // with resolve this fires only once
-                $timeout(function(){
-                  deferred.resolve();
-                }, 1000);
-
-                off();
-              }
-
-            });
-
-            return deferred.promise;
-          }
-
-        } //link
-    }
-
-})();
-/** =========================================================
- * Module: helpers.js
- * Provides helper functions for routes definition
- ========================================================= */
-
-(function() {
-
-    angular
-        .module('app.routes')
-        .provider('RouteHelpers', RouteHelpersProvider);
-
-    RouteHelpersProvider.$inject = ['APP_REQUIRES'];
-    function RouteHelpersProvider(APP_REQUIRES) {
-
-        /* jshint validthis:true */
-        return {
-        // provider access level
-            basepath: basepath,
-            resolveFor: resolveFor,
-            // controller access level
-            $get: function() {
-                return {
-                    basepath: basepath,
-                    resolveFor: resolveFor
-                };
-            }
-        };
-
-        // Set here the base of the relative path
-        // for all app views
-        function basepath(uri) {
-            return 'views/' + uri;
-        }
-
-        // Generates a resolve object by passing script names
-        // previously configured in constant.APP_REQUIRES
-        function resolveFor() {
-            var _args = arguments;
-            return {
-                deps: ['$ocLazyLoad', '$q', function ($ocLazyLoad, $q) {
-                    // Creates a promise chain for each argument
-                    var promise = $q.when(1); // empty promise
-                    for (var i = 0, len = _args.length; i < len; i++) {
-                        promise = andThen(_args[i]);
-                    }
-                    return promise;
-
-                    // creates promise to chain dynamically
-                    function andThen(_arg) {
-                        // also support a function that returns a promise
-                        if (typeof _arg === 'function') { return promise.then(_arg) }
-                        else { return promise.then(function() {
-                            // if is a module, pass the name. If not, pass the array
-                            var whatToLoad = getRequired(_arg);
-                            // simple error check
-                            if (!whatToLoad) return $.error('Route resolve: Bad resource name [' + _arg + ']');
-                            // finally, return a promise
-                            return $ocLazyLoad.load(whatToLoad);
-                        }); }
-                    }
-                    // check and returns required data
-                    // analyze module items with the form [name: '', files: []]
-                    // and also simple array of script files (for not angular js)
-                    function getRequired(name) {
-                        if (APP_REQUIRES.modules) {
-                            for (var m in APP_REQUIRES.modules) {
-                                if (APP_REQUIRES.modules[m].name && APP_REQUIRES.modules[m].name === name) {
-                                    return APP_REQUIRES.modules[m];
-                                }
-                            }
-                        }
-                        return APP_REQUIRES.scripts && APP_REQUIRES.scripts[name];
-                    }
-
-                }]
-            };
-        } // resolveFor
-
-    }
-
-
-})();
-
-
-(function() {
-    'use strict';
-
-    angular
         .module('app.lazyload')
         .config(lazyloadConfig);
 
@@ -1336,6 +1158,184 @@
 
 })();
 (function() {
+    'use strict';
+
+    angular
+        .module('app.preloader')
+        .directive('preloader', preloader);
+
+    preloader.$inject = ['$animate', '$timeout', '$q'];
+    function preloader ($animate, $timeout, $q) {
+
+        var directive = {
+            restrict: 'EAC',
+            template: 
+              '<div class="preloader-progress">' +
+                  '<div class="preloader-progress-bar" ' +
+                       'ng-style="{width: loadCounter + \'%\'}"></div>' +
+              '</div>'
+            ,
+            link: link
+        };
+        return directive;
+
+        ///////
+
+        function link(scope, el) {
+
+          scope.loadCounter = 0;
+
+          var counter  = 0,
+              timeout;
+
+          // disables scrollbar
+          angular.element('body').css('overflow', 'hidden');
+          // ensure class is present for styling
+          el.addClass('preloader');
+
+          appReady().then(endCounter);
+
+          timeout = $timeout(startCounter);
+
+          ///////
+
+          function startCounter() {
+
+            var remaining = 100 - counter;
+            counter = counter + (0.015 * Math.pow(1 - Math.sqrt(remaining), 2));
+
+            scope.loadCounter = parseInt(counter, 10);
+
+            timeout = $timeout(startCounter, 20);
+          }
+
+          function endCounter() {
+
+            $timeout.cancel(timeout);
+
+            scope.loadCounter = 100;
+
+            $timeout(function(){
+              // animate preloader hiding
+              $animate.addClass(el, 'preloader-hidden');
+              // retore scrollbar
+              angular.element('body').css('overflow', '');
+            }, 300);
+          }
+
+          function appReady() {
+            var deferred = $q.defer();
+            var viewsLoaded = 0;
+            // if this doesn't sync with the real app ready
+            // a custom event must be used instead
+            var off = scope.$on('$viewContentLoaded', function () {
+              viewsLoaded ++;
+              console.log(viewsLoaded,'viewsLoaded')
+              // we know there are at least two views to be loaded 
+              // before the app is ready (1-index.html 2-app*.html)
+              if ( viewsLoaded === 2) {
+                // with resolve this fires only once
+                $timeout(function(){
+                  deferred.resolve();
+                }, 1000);
+
+                off();
+              }
+
+            });
+
+            return deferred.promise;
+          }
+
+        } //link
+    }
+
+})();
+/** =========================================================
+ * Module: helpers.js
+ * Provides helper functions for routes definition
+ ========================================================= */
+
+(function() {
+
+    angular
+        .module('app.routes')
+        .provider('RouteHelpers', RouteHelpersProvider);
+
+    RouteHelpersProvider.$inject = ['APP_REQUIRES'];
+    function RouteHelpersProvider(APP_REQUIRES) {
+
+        /* jshint validthis:true */
+        return {
+        // provider access level
+            basepath: basepath,
+            resolveFor: resolveFor,
+            // controller access level
+            $get: function() {
+                return {
+                    basepath: basepath,
+                    resolveFor: resolveFor
+                };
+            }
+        };
+
+        // Set here the base of the relative path
+        // for all app views
+        function basepath(uri) {
+            return 'views/' + uri;
+        }
+
+        // Generates a resolve object by passing script names
+        // previously configured in constant.APP_REQUIRES
+        function resolveFor() {
+            var _args = arguments;
+            return {
+                deps: ['$ocLazyLoad', '$q', function ($ocLazyLoad, $q) {
+                    // Creates a promise chain for each argument
+                    var promise = $q.when(1); // empty promise
+                    for (var i = 0, len = _args.length; i < len; i++) {
+                        promise = andThen(_args[i]);
+                    }
+                    return promise;
+
+                    // creates promise to chain dynamically
+                    function andThen(_arg) {
+                        // also support a function that returns a promise
+                        if (typeof _arg === 'function') { return promise.then(_arg) }
+                        else { return promise.then(function() {
+                            // if is a module, pass the name. If not, pass the array
+                            var whatToLoad = getRequired(_arg);
+                            // simple error check
+                            if (!whatToLoad) return $.error('Route resolve: Bad resource name [' + _arg + ']');
+                            // finally, return a promise
+                            return $ocLazyLoad.load(whatToLoad);
+                        }); }
+                    }
+                    // check and returns required data
+                    // analyze module items with the form [name: '', files: []]
+                    // and also simple array of script files (for not angular js)
+                    function getRequired(name) {
+                        if (APP_REQUIRES.modules) {
+                            for (var m in APP_REQUIRES.modules) {
+                                if (APP_REQUIRES.modules[m].name && APP_REQUIRES.modules[m].name === name) {
+                                    return APP_REQUIRES.modules[m];
+                                }
+                            }
+                        }
+                        return APP_REQUIRES.scripts && APP_REQUIRES.scripts[name];
+                    }
+
+                }]
+            };
+        } // resolveFor
+
+    }
+
+
+})();
+
+
+(function() {
 
 
     angular
@@ -1493,6 +1493,557 @@
 
     }
 })();
+(function() {
+    'use strict';
+
+    angular
+        .module('app.sidebar')
+        .constant('SidebarMenuData', {
+            superUser: [
+                {
+                    "text": "菜单管理",
+                    "sref": "#",
+                    "icon": "glyphicon glyphicon-th-large",
+                    "submenu": [
+                        {
+                            "text": "菜单维护",
+                            "sref": "superAdmin.menuManage",
+                            "translate": "sidebar.nav.super_admin.MENU_MAINTAIN"
+                        },
+                        {
+                            "text": "按钮维护",
+                            "sref": "superAdmin.buttonManage",
+                            "translate": "sidebar.nav.super_admin.BUTTON_MAINTAIN"
+                        },
+                    ],
+                    "translate": "sidebar.nav.super_admin.MENU_MANAGE"
+                },{
+                    "text": "角色维护",
+                    "sref": "#",
+                    "icon": "glyphicon glyphicon-pawn",
+                    "submenu": [
+                        {
+                            "text": "角色信息维护",
+                            "sref": "superAdmin.roleInfoManage",
+                            "translate": "sidebar.nav.super_admin.ROLE_INFO_MAINTAIN"
+                        },
+                        {
+                            "text": "角色关联菜单",
+                            "sref": "superAdmin.roleRelationManage",
+                            "translate": "sidebar.nav.super_admin.ROLE_RELATE_MENU"
+                        },
+                    ],
+                    "translate": "sidebar.nav.super_admin.ROLE_MAINTAIN"
+                },{
+                    "text": "管理员和角色",
+                    "sref": "#",
+                    "icon": "glyphicon glyphicon-tower",
+                    "submenu": [
+                        {
+                            "text": "管理员信息维护",
+                            "sref": "superAdmin.adminInfoManage",
+                            "translate": "sidebar.nav.super_admin.ADMIN_INFO"
+                        },
+                        {
+                            "text": "管理员关联角色",
+                            "sref": "superAdmin.adminRelationManage",
+                            "translate": "sidebar.nav.super_admin.ADMIN_RELATE_ROLE"
+                        },
+                        {
+                            "text": "管理员日志",
+                            "sref": "superAdmin.adminLog",
+                            "translate": "sidebar.nav.super_admin.ADMIN_LOG"
+                        },
+                    ],
+                    "translate": "sidebar.nav.super_admin.ADMIN_AND_ROLE"
+                },
+            ],
+            admin: [
+                {
+                    "text": "本地语言",
+                    "sref": "admin.localeLanguage",
+                    "module": "locales",
+                },
+                {
+                    "text": "国家管理",
+                    "sref": "admin.countriesManage",
+                    "module": "countries",
+                },
+                {
+                    "text": "财务明细",
+                    "sref": "admin.transactionsDetail",
+                    "module": "transactions",
+                },
+                {
+                    "text": "货币管理",
+                    "sref": "admin.currenciesManage",
+                    "module": "currencies",
+                },
+                {
+                    "text": "银行黑名单",
+                    "sref": "admin.blackLists",
+                    "module": "blacklists",
+                },
+                {
+                    "text": "用户等级",
+                    "sref": "admin.userLevel",
+                    "module": "ranks",
+                },
+                {
+                    "text": "充值管理",
+                    "sref": "admin.ordersManage",
+                    "module": "orders",
+                },
+                {
+                    "text": "支付渠道",
+                    "sref": "admin.paymentMethods",
+                    "module": "methods",
+                },
+                {
+                    "text": "优惠券使用",
+                    "sref": "admin.appliesUse",
+                    "module": "applies",
+                },
+                {
+                    "text": "游戏品牌",
+                    "sref": "admin.gameBrands",
+                    "module": "brands",
+                },
+                {
+                    "text": "游戏种类",
+                    "sref": "admin.gameCategories",
+                    "module": "categories",
+                },
+                {
+                    "text": "优惠券管理",
+                    "sref": "admin.couponsManage",
+                    "module": "coupons",
+                },
+                {
+                    "text": "游戏管理",
+                    "sref": "admin.gamesManage",
+                    "module": "games",
+                },
+                {
+                    "text": "游戏产品",
+                    "sref": "admin.gamesProducts",
+                    "module": "products",
+                },
+                {
+                    "text": "psp管理",
+                    "sref": "admin.pspsManage",
+                    "module": "psps",
+                },
+                {
+                    "text": "提款管理",
+                    "sref": "admin.withdrawsManage",
+                    "module": "withdraws",
+                },
+                {
+                    "text": "优惠活动",
+                    "sref": "admin.promotionsManage",
+                    "module": "promotions",
+                },
+                {
+                    "text": "返水列表",
+                    "sref": "admin.rebatesList",
+                    "module": "rebates",
+                },
+                {
+                    "text": "救济金列表",
+                    "sref": "admin.reliefsList",
+                    "module": "reliefs",
+                },
+                {
+                    "text": "转账列表",
+                    "sref": "admin.transfersList",
+                    "module": "transfers",
+                },
+                {
+                    "text": "游戏记录",
+                    "sref": "admin.gameRecords",
+                    "module": "records",
+                },
+                {
+                    "text": "用户管理",
+                    "sref": "admin.usersManage",
+                    "module": "users",
+                },
+                {
+                    "text": "钱包管理",
+                    "sref": "admin.walletsManage",
+                    "module": "wallets",
+                },
+                {
+                    "text": "千百倍",
+                    "sref": "admin.bigwinsManage",
+                    "module": "bigwins",
+                },
+                {
+                    "text": "域名管理",
+                    "sref": "admin.domainsManage",
+                    "module": "domains",
+                },
+                {
+                    "text": "代理管理",
+                    "sref": "admin.affiliatesManage",
+                    "module": "affiliates",
+                },
+                {
+                    "text": "代理计划",
+                    "sref": "admin.affiliatesPlans",
+                    "module": "plans",
+                },
+                {
+                    "text": "银行卡搜索",
+                    "sref": "admin.bankCards",
+                    "module": "cards",
+                }//new sidebar name will be append here
+            
+            
+            ]
+
+        });
+
+})();
+/**=========================================================
+ * Module: sidebar-menu.js
+ * Handle sidebar collapsible elements
+ =========================================================*/
+
+(function () {
+    'use strict';
+
+    angular
+        .module('app.sidebar')
+        .controller('SidebarController', SidebarController);
+
+    SidebarController.$inject = ['$rootScope', '$scope', '$state', 'SidebarMenuData', 'Utils', 'EVN'];
+
+    function SidebarController($rootScope, $scope, $state, SidebarMenuData, Utils, EVN) {
+
+        activate();
+
+        ////////////////
+
+        function activate() {
+            var collapseList = [];
+
+            // demo: when switch from collapse to hover, close all items
+            var watchOff1 = $rootScope.$watch('app.layout.asideHover', function (oldVal, newVal) {
+                if (newVal === false && oldVal === true) {
+                    closeAllBut(-1);
+                }
+            });
+
+            $scope.menuItems = [];
+
+            if (window.location.pathname.indexOf('superAdmin') !== -1) {
+                $scope.menuItems = SidebarMenuData.superUser;
+            } else {
+                if(window.userInfo&&window.userInfo.menu){
+                    $scope.menuItems = window.userInfo.menu;
+                }else{
+                    console.error('server error')
+                }
+            }
+
+            // Handle sidebar and collapse items
+            // ----------------------------------
+
+            $scope.getMenuItemPropClasses = function (item) {
+                return (item.heading ? 'nav-heading' : '') +
+                    (isActive(item) ? ' active' : '');
+            };
+
+            $scope.addCollapse = function ($index, item) {
+                collapseList[$index] = $rootScope.app.layout.asideHover ? true : !isActive(item);
+            };
+
+            $scope.isCollapse = function ($index) {
+                return (collapseList[$index]);
+            };
+
+            $scope.toggleCollapse = function ($index, isParentItem) {
+
+                // collapsed sidebar doesn't toggle drodopwn
+                if (Utils.isSidebarCollapsed() || $rootScope.app.layout.asideHover) return true;
+
+                // make sure the item index exists
+                if (angular.isDefined(collapseList[$index])) {
+                    if (!$scope.lastEventFromChild) {
+                        collapseList[$index] = !collapseList[$index];
+                        closeAllBut($index);
+                    }
+                }
+                else if (isParentItem) {
+                    closeAllBut(-1);
+                }
+
+                $scope.lastEventFromChild = isChild($index);
+
+                return true;
+
+            };
+
+            // Controller helpers
+            // -----------------------------------
+
+            // Check item and children active state
+            function isActive(item) {
+
+                if (!item) return;
+
+                if (!item.sref || item.sref === '#') {
+                    var foundActive = false;
+                    angular.forEach(item.submenu, function (value) {
+                        if (isActive(value)) foundActive = true;
+                    });
+                    return foundActive;
+                }
+                else
+                    return $state.is(item.sref) || $state.includes(item.sref);
+            }
+
+            function closeAllBut(index) {
+                index += '';
+                for (var i in collapseList) {
+                    if (index < 0 || index.indexOf(i) < 0)
+                        collapseList[i] = true;
+                }
+            }
+
+            function isChild($index) {
+                /*jshint -W018*/
+                return (typeof $index === 'string') && !($index.indexOf('-') < 0);
+            }
+
+            $scope.$on('$destroy', function () {
+                watchOff1();
+            });
+
+        } // activate
+    }
+
+})();
+
+/**=========================================================
+ * Module: sidebar.js
+ * Wraps the sidebar and handles collapsed state
+ =========================================================*/
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.sidebar')
+        .directive('sidebar', sidebar);
+
+    sidebar.$inject = ['$rootScope', '$timeout', '$window', 'Utils'];
+    function sidebar ($rootScope, $timeout, $window, Utils) {
+        var $win = angular.element($window);
+        var directive = {
+            // bindToController: true,
+            // controller: Controller,
+            // controllerAs: 'vm',
+            link: link,
+            restrict: 'EA',
+            template: '<nav class="sidebar" ng-transclude></nav>',
+            transclude: true,
+            replace: true
+            // scope: {}
+        };
+        return directive;
+
+        function link(scope, element, attrs) {
+
+          var currentState = $rootScope.$state.current.name;
+          var $sidebar = element;
+
+          var eventName = Utils.isTouch() ? 'click' : 'mouseenter' ;
+          var subNav = $();
+
+          $sidebar.on( eventName, '.nav > li', function() {
+
+            if( Utils.isSidebarCollapsed() || $rootScope.app.layout.asideHover ) {
+
+              subNav.trigger('mouseleave');
+              subNav = toggleMenuItem( $(this), $sidebar);
+
+              // Used to detect click and touch events outside the sidebar
+              sidebarAddBackdrop();
+
+            }
+
+          });
+
+          var eventOff1 = scope.$on('closeSidebarMenu', function() {
+            removeFloatingNav();
+          });
+
+          // Normalize state when resize to mobile
+          $win.on('resize.sidebar', function() {
+            if( ! Utils.isMobile() )
+          	asideToggleOff();
+          });
+
+          // Adjustment on route changes
+          var eventOff2 = $rootScope.$on('$stateChangeStart', function(event, toState) {
+            currentState = toState.name;
+            // Hide sidebar automatically on mobile
+            asideToggleOff();
+
+            $rootScope.$broadcast('closeSidebarMenu');
+          });
+
+      	  // Autoclose when click outside the sidebar
+          if ( angular.isDefined(attrs.sidebarAnyclickClose) ) {
+
+            var wrapper = $('.wrapper');
+            var sbclickEvent = 'click.sidebar';
+
+            var watchOff1 = $rootScope.$watch('app.asideToggled', watchExternalClicks);
+
+          }
+
+          //////
+
+          function watchExternalClicks(newVal) {
+            // if sidebar becomes visible
+            if ( newVal === true ) {
+              $timeout(function(){ // render after current digest cycle
+                wrapper.on(sbclickEvent, function(e){
+                  // if not child of sidebar
+                  if( ! $(e.target).parents('.aside').length ) {
+                    asideToggleOff();
+                  }
+                });
+              });
+            }
+            else {
+              // dettach event
+              wrapper.off(sbclickEvent);
+            }
+          }
+
+          function asideToggleOff() {
+            $rootScope.app.asideToggled = false;
+            if(!scope.$$phase) scope.$apply(); // anti-pattern but sometimes necessary
+      	  }
+
+          scope.$on('$destroy', function() {
+            // detach scope events
+            eventOff1();
+            eventOff2();
+            watchOff1();
+            // detach dom events
+            $sidebar.off(eventName);
+            $win.off('resize.sidebar');
+            wrapper.off(sbclickEvent);
+          });
+
+        }
+
+        ///////
+
+        function sidebarAddBackdrop() {
+          var $backdrop = $('<div/>', { 'class': 'dropdown-backdrop'} );
+          $backdrop.insertAfter('.aside-inner').on('click mouseenter', function () {
+            removeFloatingNav();
+          });
+        }
+
+        // Open the collapse sidebar submenu items when on touch devices
+        // - desktop only opens on hover
+        function toggleTouchItem($element){
+          $element
+            .siblings('li')
+            .removeClass('open')
+            .end()
+            .toggleClass('open');
+        }
+
+        // Handles hover to open items under collapsed menu
+        // -----------------------------------
+        function toggleMenuItem($listItem, $sidebar) {
+
+          removeFloatingNav();
+
+          var ul = $listItem.children('ul');
+
+          if( !ul.length ) return $();
+          if( $listItem.hasClass('open') ) {
+            toggleTouchItem($listItem);
+            return $();
+          }
+
+          var $aside = $('.aside');
+          var $asideInner = $('.aside-inner'); // for top offset calculation
+          // float aside uses extra padding on aside
+          var mar = parseInt( $asideInner.css('padding-top'), 0) + parseInt( $aside.css('padding-top'), 0);
+          var subNav = ul.clone().appendTo( $aside );
+
+          toggleTouchItem($listItem);
+
+          var itemTop = ($listItem.position().top + mar) - $sidebar.scrollTop();
+          var vwHeight = $win.height();
+
+          subNav
+            .addClass('nav-floating')
+            .css({
+              position: $rootScope.app.layout.isFixed ? 'fixed' : 'absolute',
+              top:      itemTop,
+              bottom:   (subNav.outerHeight(true) + itemTop > vwHeight) ? 0 : 'auto'
+            });
+
+          subNav.on('mouseleave', function() {
+            toggleTouchItem($listItem);
+            subNav.remove();
+          });
+
+          return subNav;
+        }
+
+        function removeFloatingNav() {
+          $('.dropdown-backdrop').remove();
+          $('.sidebar-subnav.nav-floating').remove();
+          $('.sidebar li.open').removeClass('open');
+        }
+    }
+
+
+})();
+
+
+(function() {
+    'use strict';
+
+    angular
+        .module('app.sidebar')
+        .controller('UserBlockController', UserBlockController);
+
+    UserBlockController.$inject = ['$scope'];
+    function UserBlockController($scope) {
+
+        // activate();
+        //
+        // ////////////////
+        //
+        // function activate() {
+        //
+        //   $scope.userBlockVisible = true;
+        //
+        //   var detach = $scope.$on('toggleUserBlock', function(/*event, args*/) {
+        //
+        //     $scope.userBlockVisible = ! $scope.userBlockVisible;
+        //
+        //   });
+        //
+        //   $scope.$on('$destroy', detach);
+        // }
+    }
+})();
+
 /**=========================================================
  * Module: animate-enabled.js
  * Enable or disables ngAnimate for element with directive
@@ -2243,554 +2794,3 @@
     }
 
 })(angular);
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.sidebar')
-        .constant('SidebarMenuData', {
-            superUser: [
-                {
-                    "text": "菜单管理",
-                    "sref": "#",
-                    "icon": "glyphicon glyphicon-th-large",
-                    "submenu": [
-                        {
-                            "text": "菜单维护",
-                            "sref": "superAdmin.menuManage",
-                            "translate": "sidebar.nav.super_admin.MENU_MAINTAIN"
-                        },
-                        {
-                            "text": "按钮维护",
-                            "sref": "superAdmin.buttonManage",
-                            "translate": "sidebar.nav.super_admin.BUTTON_MAINTAIN"
-                        },
-                    ],
-                    "translate": "sidebar.nav.super_admin.MENU_MANAGE"
-                },{
-                    "text": "角色维护",
-                    "sref": "#",
-                    "icon": "glyphicon glyphicon-pawn",
-                    "submenu": [
-                        {
-                            "text": "角色信息维护",
-                            "sref": "superAdmin.roleInfoManage",
-                            "translate": "sidebar.nav.super_admin.ROLE_INFO_MAINTAIN"
-                        },
-                        {
-                            "text": "角色关联菜单",
-                            "sref": "superAdmin.roleRelationManage",
-                            "translate": "sidebar.nav.super_admin.ROLE_RELATE_MENU"
-                        },
-                    ],
-                    "translate": "sidebar.nav.super_admin.ROLE_MAINTAIN"
-                },{
-                    "text": "管理员和角色",
-                    "sref": "#",
-                    "icon": "glyphicon glyphicon-tower",
-                    "submenu": [
-                        {
-                            "text": "管理员信息维护",
-                            "sref": "superAdmin.adminInfoManage",
-                            "translate": "sidebar.nav.super_admin.ADMIN_INFO"
-                        },
-                        {
-                            "text": "管理员关联角色",
-                            "sref": "superAdmin.adminRelationManage",
-                            "translate": "sidebar.nav.super_admin.ADMIN_RELATE_ROLE"
-                        },
-                        {
-                            "text": "管理员日志",
-                            "sref": "superAdmin.adminLog",
-                            "translate": "sidebar.nav.super_admin.ADMIN_LOG"
-                        },
-                    ],
-                    "translate": "sidebar.nav.super_admin.ADMIN_AND_ROLE"
-                },
-            ],
-            admin: [
-                {
-                    "text": "本地语言",
-                    "sref": "admin.localeLanguage",
-                    "module": "locales",
-                },
-                {
-                    "text": "国家管理",
-                    "sref": "admin.countriesManage",
-                    "module": "countries",
-                },
-                {
-                    "text": "财务明细",
-                    "sref": "admin.transactionsDetail",
-                    "module": "transactions",
-                },
-                {
-                    "text": "货币管理",
-                    "sref": "admin.currenciesManage",
-                    "module": "currencies",
-                },
-                {
-                    "text": "银行黑名单",
-                    "sref": "admin.blackLists",
-                    "module": "blacklists",
-                },
-                {
-                    "text": "用户等级",
-                    "sref": "admin.userLevel",
-                    "module": "ranks",
-                },
-                {
-                    "text": "充值管理",
-                    "sref": "admin.ordersManage",
-                    "module": "orders",
-                },
-                {
-                    "text": "支付渠道",
-                    "sref": "admin.paymentMethods",
-                    "module": "methods",
-                },
-                {
-                    "text": "优惠券使用",
-                    "sref": "admin.appliesUse",
-                    "module": "applies",
-                },
-                {
-                    "text": "游戏品牌",
-                    "sref": "admin.gameBrands",
-                    "module": "brands",
-                },
-                {
-                    "text": "游戏种类",
-                    "sref": "admin.gameCategories",
-                    "module": "categories",
-                },
-                {
-                    "text": "优惠券管理",
-                    "sref": "admin.couponsManage",
-                    "module": "coupons",
-                },
-                {
-                    "text": "游戏管理",
-                    "sref": "admin.gamesManage",
-                    "module": "games",
-                },
-                {
-                    "text": "游戏产品",
-                    "sref": "admin.gamesProducts",
-                    "module": "products",
-                },
-                {
-                    "text": "psp管理",
-                    "sref": "admin.pspsManage",
-                    "module": "psps",
-                },
-                {
-                    "text": "提款管理",
-                    "sref": "admin.withdrawsManage",
-                    "module": "withdraws",
-                },
-                {
-                    "text": "优惠活动",
-                    "sref": "admin.promotionsManage",
-                    "module": "promotions",
-                },
-                {
-                    "text": "返水列表",
-                    "sref": "admin.rebatesList",
-                    "module": "rebates",
-                },
-                {
-                    "text": "救济金列表",
-                    "sref": "admin.reliefsList",
-                    "module": "reliefs",
-                },
-                {
-                    "text": "转账列表",
-                    "sref": "admin.transfersList",
-                    "module": "transfers",
-                },
-                {
-                    "text": "游戏记录",
-                    "sref": "admin.gameRecords",
-                    "module": "records",
-                },
-                {
-                    "text": "用户管理",
-                    "sref": "admin.usersManage",
-                    "module": "users",
-                },
-                {
-                    "text": "钱包管理",
-                    "sref": "admin.walletsManage",
-                    "module": "wallets",
-                },
-                {
-                    "text": "千百倍",
-                    "sref": "admin.bigwinsManage",
-                    "module": "bigwins",
-                },
-                {
-                    "text": "域名管理",
-                    "sref": "admin.domainsManage",
-                    "module": "domains",
-                },
-                {
-                    "text": "代理管理",
-                    "sref": "admin.affiliatesManage",
-                    "module": "affiliates",
-                },
-                {
-                    "text": "代理计划",
-                    "sref": "admin.affiliatesPlans",
-                    "module": "plans",
-                },
-                {
-                    "text": "银行卡搜索",
-                    "sref": "admin.bankCards",
-                    "module": "cards",
-                }//new sidebar name will be append here
-            
-            
-            ]
-
-        });
-
-})();
-/**=========================================================
- * Module: sidebar-menu.js
- * Handle sidebar collapsible elements
- =========================================================*/
-
-(function () {
-    'use strict';
-
-    angular
-        .module('app.sidebar')
-        .controller('SidebarController', SidebarController);
-
-    SidebarController.$inject = ['$rootScope', '$scope', '$state', 'SidebarMenuData', 'Utils', 'EVN'];
-
-    function SidebarController($rootScope, $scope, $state, SidebarMenuData, Utils, EVN) {
-
-        activate();
-
-        ////////////////
-
-        function activate() {
-            var collapseList = [];
-
-            // demo: when switch from collapse to hover, close all items
-            var watchOff1 = $rootScope.$watch('app.layout.asideHover', function (oldVal, newVal) {
-                if (newVal === false && oldVal === true) {
-                    closeAllBut(-1);
-                }
-            });
-
-            $scope.menuItems = [];
-
-            if (window.location.pathname.indexOf('superAdmin') !== -1) {
-                $scope.menuItems = SidebarMenuData.superUser;
-            } else {
-                if(window.userInfo&&window.userInfo.menu){
-                    $scope.menuItems = window.userInfo.menu;
-                }else{
-                    console.error('server error')
-                }
-            }
-
-            // Handle sidebar and collapse items
-            // ----------------------------------
-
-            $scope.getMenuItemPropClasses = function (item) {
-                return (item.heading ? 'nav-heading' : '') +
-                    (isActive(item) ? ' active' : '');
-            };
-
-            $scope.addCollapse = function ($index, item) {
-                collapseList[$index] = $rootScope.app.layout.asideHover ? true : !isActive(item);
-            };
-
-            $scope.isCollapse = function ($index) {
-                return (collapseList[$index]);
-            };
-
-            $scope.toggleCollapse = function ($index, isParentItem) {
-
-                // collapsed sidebar doesn't toggle drodopwn
-                if (Utils.isSidebarCollapsed() || $rootScope.app.layout.asideHover) return true;
-
-                // make sure the item index exists
-                if (angular.isDefined(collapseList[$index])) {
-                    if (!$scope.lastEventFromChild) {
-                        collapseList[$index] = !collapseList[$index];
-                        closeAllBut($index);
-                    }
-                }
-                else if (isParentItem) {
-                    closeAllBut(-1);
-                }
-
-                $scope.lastEventFromChild = isChild($index);
-
-                return true;
-
-            };
-
-            // Controller helpers
-            // -----------------------------------
-
-            // Check item and children active state
-            function isActive(item) {
-
-                if (!item) return;
-
-                if (!item.sref || item.sref === '#') {
-                    var foundActive = false;
-                    angular.forEach(item.submenu, function (value) {
-                        if (isActive(value)) foundActive = true;
-                    });
-                    return foundActive;
-                }
-                else
-                    return $state.is(item.sref) || $state.includes(item.sref);
-            }
-
-            function closeAllBut(index) {
-                index += '';
-                for (var i in collapseList) {
-                    if (index < 0 || index.indexOf(i) < 0)
-                        collapseList[i] = true;
-                }
-            }
-
-            function isChild($index) {
-                /*jshint -W018*/
-                return (typeof $index === 'string') && !($index.indexOf('-') < 0);
-            }
-
-            $scope.$on('$destroy', function () {
-                watchOff1();
-            });
-
-        } // activate
-    }
-
-})();
-
-/**=========================================================
- * Module: sidebar.js
- * Wraps the sidebar and handles collapsed state
- =========================================================*/
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.sidebar')
-        .directive('sidebar', sidebar);
-
-    sidebar.$inject = ['$rootScope', '$timeout', '$window', 'Utils'];
-    function sidebar ($rootScope, $timeout, $window, Utils) {
-        var $win = angular.element($window);
-        var directive = {
-            // bindToController: true,
-            // controller: Controller,
-            // controllerAs: 'vm',
-            link: link,
-            restrict: 'EA',
-            template: '<nav class="sidebar" ng-transclude></nav>',
-            transclude: true,
-            replace: true
-            // scope: {}
-        };
-        return directive;
-
-        function link(scope, element, attrs) {
-
-          var currentState = $rootScope.$state.current.name;
-          var $sidebar = element;
-
-          var eventName = Utils.isTouch() ? 'click' : 'mouseenter' ;
-          var subNav = $();
-
-          $sidebar.on( eventName, '.nav > li', function() {
-
-            if( Utils.isSidebarCollapsed() || $rootScope.app.layout.asideHover ) {
-
-              subNav.trigger('mouseleave');
-              subNav = toggleMenuItem( $(this), $sidebar);
-
-              // Used to detect click and touch events outside the sidebar
-              sidebarAddBackdrop();
-
-            }
-
-          });
-
-          var eventOff1 = scope.$on('closeSidebarMenu', function() {
-            removeFloatingNav();
-          });
-
-          // Normalize state when resize to mobile
-          $win.on('resize.sidebar', function() {
-            if( ! Utils.isMobile() )
-          	asideToggleOff();
-          });
-
-          // Adjustment on route changes
-          var eventOff2 = $rootScope.$on('$stateChangeStart', function(event, toState) {
-            currentState = toState.name;
-            // Hide sidebar automatically on mobile
-            asideToggleOff();
-
-            $rootScope.$broadcast('closeSidebarMenu');
-          });
-
-      	  // Autoclose when click outside the sidebar
-          if ( angular.isDefined(attrs.sidebarAnyclickClose) ) {
-
-            var wrapper = $('.wrapper');
-            var sbclickEvent = 'click.sidebar';
-
-            var watchOff1 = $rootScope.$watch('app.asideToggled', watchExternalClicks);
-
-          }
-
-          //////
-
-          function watchExternalClicks(newVal) {
-            // if sidebar becomes visible
-            if ( newVal === true ) {
-              $timeout(function(){ // render after current digest cycle
-                wrapper.on(sbclickEvent, function(e){
-                  // if not child of sidebar
-                  if( ! $(e.target).parents('.aside').length ) {
-                    asideToggleOff();
-                  }
-                });
-              });
-            }
-            else {
-              // dettach event
-              wrapper.off(sbclickEvent);
-            }
-          }
-
-          function asideToggleOff() {
-            $rootScope.app.asideToggled = false;
-            if(!scope.$$phase) scope.$apply(); // anti-pattern but sometimes necessary
-      	  }
-
-          scope.$on('$destroy', function() {
-            // detach scope events
-            eventOff1();
-            eventOff2();
-            watchOff1();
-            // detach dom events
-            $sidebar.off(eventName);
-            $win.off('resize.sidebar');
-            wrapper.off(sbclickEvent);
-          });
-
-        }
-
-        ///////
-
-        function sidebarAddBackdrop() {
-          var $backdrop = $('<div/>', { 'class': 'dropdown-backdrop'} );
-          $backdrop.insertAfter('.aside-inner').on('click mouseenter', function () {
-            removeFloatingNav();
-          });
-        }
-
-        // Open the collapse sidebar submenu items when on touch devices
-        // - desktop only opens on hover
-        function toggleTouchItem($element){
-          $element
-            .siblings('li')
-            .removeClass('open')
-            .end()
-            .toggleClass('open');
-        }
-
-        // Handles hover to open items under collapsed menu
-        // -----------------------------------
-        function toggleMenuItem($listItem, $sidebar) {
-
-          removeFloatingNav();
-
-          var ul = $listItem.children('ul');
-
-          if( !ul.length ) return $();
-          if( $listItem.hasClass('open') ) {
-            toggleTouchItem($listItem);
-            return $();
-          }
-
-          var $aside = $('.aside');
-          var $asideInner = $('.aside-inner'); // for top offset calculation
-          // float aside uses extra padding on aside
-          var mar = parseInt( $asideInner.css('padding-top'), 0) + parseInt( $aside.css('padding-top'), 0);
-          var subNav = ul.clone().appendTo( $aside );
-
-          toggleTouchItem($listItem);
-
-          var itemTop = ($listItem.position().top + mar) - $sidebar.scrollTop();
-          var vwHeight = $win.height();
-
-          subNav
-            .addClass('nav-floating')
-            .css({
-              position: $rootScope.app.layout.isFixed ? 'fixed' : 'absolute',
-              top:      itemTop,
-              bottom:   (subNav.outerHeight(true) + itemTop > vwHeight) ? 0 : 'auto'
-            });
-
-          subNav.on('mouseleave', function() {
-            toggleTouchItem($listItem);
-            subNav.remove();
-          });
-
-          return subNav;
-        }
-
-        function removeFloatingNav() {
-          $('.dropdown-backdrop').remove();
-          $('.sidebar-subnav.nav-floating').remove();
-          $('.sidebar li.open').removeClass('open');
-        }
-    }
-
-
-})();
-
-
-(function() {
-    'use strict';
-
-    angular
-        .module('app.sidebar')
-        .controller('UserBlockController', UserBlockController);
-
-    UserBlockController.$inject = ['$scope'];
-    function UserBlockController($scope) {
-
-        // activate();
-        //
-        // ////////////////
-        //
-        // function activate() {
-        //
-        //   $scope.userBlockVisible = true;
-        //
-        //   var detach = $scope.$on('toggleUserBlock', function(/*event, args*/) {
-        //
-        //     $scope.userBlockVisible = ! $scope.userBlockVisible;
-        //
-        //   });
-        //
-        //   $scope.$on('$destroy', detach);
-        // }
-    }
-})();

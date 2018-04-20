@@ -1,0 +1,174 @@
+<div class="modal-header">
+   <h3 class="modal-title">{{showEditStatus(edit)+'代理列表'}}</h3>
+</div>
+
+<div class="modal-body">
+   <div class="row">
+      <div class="">
+         <div class="panel-wrapper">
+            <div class="panel-body">
+               <form class="form-horizontal" name='myForm'>
+                  <legend class="text-center">概况</legend>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">username</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.username" name='username' ng-disabled='!hasPower||edit==3' class="form-control" type="text" placeholder="username">
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">name</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.name" name='name' ng-disabled='!hasPower' class="form-control" type="text" placeholder="name">
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">gender</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input value='{{showOptionsValue(modalItem.gender, genderOptions)}}' name='gender' ng-disabled='!hasPower||edit==3' class="form-control" type="text" placeholder="gender">
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">email</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.email" name='email' ng-disabled='!hasPower||edit==3' class="form-control" type="text" placeholder="email">
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">timezone</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.timezone" name='timezone' ng-disabled='!hasPower||edit==3' class="form-control" type="text" placeholder="email">
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">locale</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.locale" name='locale' ng-disabled='!hasPower||edit==3' class="form-control" type="text" placeholder="locale">
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">currency</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.currency" name='currency' ng-disabled='!hasPower||edit==3' class="form-control" type="text" placeholder="currency">
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">dom affiliate</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.domains.affiliate" name='domainsAffiliate' ng-disabled='!hasPower||edit==3' class="form-control" type="text" placeholder="domains affiliate">
+                        </span>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">dom user</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.domains.user" name='domainsUser' ng-disabled='!hasPower||edit==3' class="form-control" type="text" placeholder="domains user">
+                        </span>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">plan</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.plan.code" name='planCode' ng-disabled='!hasPower||edit==3' class="form-control" type="text" placeholder="plan code">
+                        </span>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">otp</label>
+                     <div class="col-lg-8 col-md-6">
+                        <ui-select ng-model="modalItem.otp" theme="bootstrap" ng-disabled='!hasPower||edit==3' search-enabled="false">
+                           <ui-select-match placeholder="choose is otp">
+                              <span ng-bind="$select.selected.label"></span>
+                           </ui-select-match>
+                           <ui-select-choices repeat="item.value as item in booleanOptons">
+                              <span ng-bind="item.label"></span>
+                           </ui-select-choices>
+                        </ui-select>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">verifi identity</label>
+                     <div class="col-lg-8 col-md-6">
+                        <ui-select ng-model="modalItem.verifications.identity" theme="bootstrap" ng-disabled='!hasPower||edit==3' search-enabled="false">
+                           <ui-select-match placeholder="choose is verifications identity">
+                              <span ng-bind="$select.selected.label"></span>
+                           </ui-select-match>
+                           <ui-select-choices repeat="item.value as item in booleanOptons">
+                              <span ng-bind="item.label"></span>
+                           </ui-select-choices>
+                        </ui-select>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">isApproved</label>
+                     <div class="col-lg-8 col-md-6">
+                        <ui-select ng-model="modalItem.isApproved" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
+                           <ui-select-match placeholder="choose is approved">
+                              <span ng-bind="$select.selected.label"></span>
+                           </ui-select-match>
+                           <ui-select-choices repeat="item.value as item in booleanOptons">
+                              <span ng-bind="item.label"></span>
+                           </ui-select-choices>
+                        </ui-select>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">isLocked</label>
+                     <div class="col-lg-8 col-md-6">
+                        <ui-select ng-model="modalItem.isLocked" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
+                           <ui-select-match placeholder="choose is locked">
+                              <span ng-bind="$select.selected.label"></span>
+                           </ui-select-match>
+                           <ui-select-choices repeat="item.value as item in booleanOptons">
+                              <span ng-bind="item.label"></span>
+                           </ui-select-choices>
+                        </ui-select>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">verifi phone</label>
+                     <div class="col-lg-8 col-md-6">
+                        <ui-select ng-model="modalItem.verifications.phone" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
+                           <ui-select-match placeholder="choose is verifications phone">
+                              <span ng-bind="$select.selected.label"></span>
+                           </ui-select-match>
+                           <ui-select-choices repeat="item.value as item in booleanOptons">
+                              <span ng-bind="item.label"></span>
+                           </ui-select-choices>
+                        </ui-select>
+                     </div>
+                  </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">verifi name</label>
+                     <div class="col-lg-8 col-md-6">
+                        <ui-select ng-model="modalItem.verifications.name" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
+                           <ui-select-match placeholder="choose is verifications name">
+                              <span ng-bind="$select.selected.label"></span>
+                           </ui-select-match>
+                           <ui-select-choices repeat="item.value as item in booleanOptons">
+                              <span ng-bind="item.label"></span>
+                           </ui-select-choices>
+                        </ui-select>
+                     </div>
+                  </div>
+                  <div ng-show='edit==3' class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">phone</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input ng-model="modalItem.phone" name='phone' ng-disabled='!hasPower' class="form-control" type="text" placeholder="+13900000000">
+                     </div>
+                  </div>
+               </form>
+               <div class='clearfix'></div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal-footer">
+   <button class="btn btn-primary" type="button" ng-show="hasPower" ng-click="confirmModal()">
+      {{'table.button.save' | translate}}
+   </button>
+   <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}
+   </button>
+</div>
+

@@ -166,6 +166,28 @@
             }
         };
 
+        $scope.showAffiliatesModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/affiliatesManage/affiliatesManageModal.html',
+                controller: 'affiliatesManageModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower:$scope.validPower("AFFILIATESMANAGE", ["PATCH"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initAffiliatesManageData();
+            }, function (data) {
+
+            });
+        };
+
         // 恢复affiliatesManage
         /**
          * @param affiliatesManage AFFILIATESMANAGETITLE数据对象
@@ -191,7 +213,7 @@
 
         $scope.openNewTab = function(item,state) {
             if(state === 'bankCardsUser'){
-                adminService.getReq($rootScope.URL.AFFILIATESMANAGE.CARDSSELECT+'/'+item.userId, {}, {}).then(function (res) {
+                adminService.getReq($rootScope.URL.AFFILIATESMANAGE.SELECTCARDS+'/'+item.userId, {}, {}).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -217,10 +239,9 @@
                         }
                     }
                 });
-                return;
             }
             if(state === 'summaryAffiliates'){
-                adminService.getReq($rootScope.URL.AFFILIATESMANAGE.SUMMARYSELECT+'/'+item.userId, {}, {}).then(function (res) {
+                adminService.getReq($rootScope.URL.AFFILIATESMANAGE.SELECTSUMMARY+'/'+item.userId, {}, {}).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -246,10 +267,9 @@
                         }
                     }
                 });
-                return;
             }
-            var url = window.location.pathname+$rootScope.$state.href(state)+'?_username='+(item.username||'')+'&user_id='+(item.userId||'');
-            window.open(url,'_blank');
+            // var url = window.location.pathname+$rootScope.$state.href(state)+'?_username='+(item.username||'')+'&user_id='+(item.userId||'');
+            // window.open(url,'_blank');
         }
 
         // 页面加载执行的函数
