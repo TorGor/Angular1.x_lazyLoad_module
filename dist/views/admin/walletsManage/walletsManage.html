@@ -91,7 +91,7 @@
                            <button class="btn btn-sm btn-danger" ng-show="!checkIsDelete(item)&&validPower('WALLETSMANAGE', ['DELETE'])" ng-click="deleteWalletsManage(item)" title="{{'table.button.delete' | translate}}">
                               <em class="fa fa-trash"></em>
                            </button>
-                           <button class="btn btn-sm btn-green" ng-show="checkIsDelete(item)&&validPower('WALLETSMANAGE', ['PUT'])" ng-click="recoverWalletsManage(item)" title="{{'table.button.recover' | translate}}">
+                           <button class="btn btn-sm btn-warning" ng-show="checkIsDelete(item)&&validPower('WALLETSMANAGE', ['PUT'])" ng-click="recoverWalletsManage(item)" title="{{'table.button.recover' | translate}}">
                               <em class="fa fa-rotate-left"></em>
                            </button>
                            <button class="btn btn-sm btn-green" ng-click="showWalletsManageModal(item,1)" title="{{'table.button.detail' | translate}}">

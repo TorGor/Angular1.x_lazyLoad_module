@@ -94,7 +94,7 @@
                            <button class="btn btn-sm btn-danger" ng-show="!checkIsDelete(item)&&validPower('BLACKLISTS', ['DELETE'])" ng-click="deleteBlackLists(item)" title="{{'table.button.delete' | translate}}">
                               <em class="fa fa-trash"></em>
                            </button>
-                           <button class="btn btn-sm btn-green" ng-show="checkIsDelete(item)&&validPower('BLACKLISTS', ['PUT'])" ng-click="recoverBlackLists(item)" title="{{'table.button.recover' | translate}}">
+                           <button class="btn btn-sm btn-warning" ng-show="checkIsDelete(item)&&validPower('BLACKLISTS', ['PUT'])" ng-click="recoverBlackLists(item)" title="{{'table.button.recover' | translate}}">
                               <em class="fa fa-rotate-left"></em>
                            </button>
                         </td>

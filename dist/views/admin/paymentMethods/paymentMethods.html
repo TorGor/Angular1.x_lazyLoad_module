@@ -79,7 +79,7 @@
                            <button class="btn btn-sm btn-danger" ng-show="!checkIsDelete(item)&&validPower('PAYMENTMETHODS', ['DELETE'])" ng-click="deletePaymentMethods(item)" title="{{'table.button.delete' | translate}}">
                               <em class="fa fa-trash"></em>
                            </button>
-                           <button class="btn btn-sm btn-green" ng-show="checkIsDelete(item)&&validPower('PAYMENTMETHODS', ['PUT'])" ng-click="recoverPaymentMethods(item)" title="{{'table.button.recover' | translate}}">
+                           <button class="btn btn-sm btn-warning" ng-show="checkIsDelete(item)&&validPower('PAYMENTMETHODS', ['PUT'])" ng-click="recoverPaymentMethods(item)" title="{{'table.button.recover' | translate}}">
                               <em class="fa fa-rotate-left"></em>
                            </button>
                            <button class="btn btn-sm btn-green" ng-click="showEditMethodsNameModal(item,1)" title="{{'table.button.detail' | translate}}">

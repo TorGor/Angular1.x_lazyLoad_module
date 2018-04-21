@@ -115,7 +115,7 @@
                                     <em class="fa fa-trash"></em>
                                 </button>
                                 <button
-                                    class="btn btn-sm btn-green" ng-show="item.isDeleted&&validPower('AFFILIATESPLANS', ['PUT'])"
+                                    class="btn btn-sm btn-warning" ng-show="item.isDeleted&&validPower('AFFILIATESPLANS', ['PUT'])"
                                     ng-click="recoverAffiliatesPlans(item)"
                                     title="{{'table.button.recover' | translate}}"
                                 >
