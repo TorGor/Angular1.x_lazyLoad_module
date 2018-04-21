@@ -105,6 +105,9 @@
     }
 
     function camelCaseKeysToUnderscore(obj) {
+
+        var newName;
+
         if (typeof(obj) != 'object') return obj;
 
         for (var oldName in obj) {

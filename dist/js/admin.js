@@ -104,14 +104,14 @@
 (function() {
 
     angular
-        .module('admin.domainsManage', [
+        .module('admin.summaryAffiliates', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.summaryAffiliates', [
+        .module('admin.domainsManage', [
             'app.core',
         ]);
 })();
@@ -146,14 +146,14 @@
 (function() {
 
     angular
-        .module('admin.localeLanguage', [
+        .module('admin.gamesProducts', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.gamesProducts', [
+        .module('admin.localeLanguage', [
             'app.core',
         ]);
 })();
@@ -188,14 +188,14 @@
 (function() {
 
     angular
-        .module('admin.reliefsList', [
+        .module('admin.rebatesList', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.rebatesList', [
+        .module('admin.reliefsList', [
             'app.core',
         ]);
 })();
@@ -417,6 +417,9 @@
     }
 
     function camelCaseKeysToUnderscore(obj) {
+
+        var newName;
+
         if (typeof(obj) != 'object') return obj;
 
         for (var oldName in obj) {
@@ -516,8 +519,10 @@
                         page: 1,
                         pageSize: 25
                     };
-                    if($scope.searchkey){
+                    if($scope.searchkey && typeof value !== 'object'){
                         temAoData[$scope.searchkey] = value||'';
+                    }else{
+                        window.Object.assign(temAoData,value)
                     }
                     adminService.getReq($scope.url,temAoData,{},{_loading:false}).then(function (data){
                         var result = data.data && data.data.data;
@@ -535,7 +540,7 @@
                                     $scope.allItems.push(tempObj)
                                     if($scope.initPlaceholder&&$scope.allItems[0]){
                                         $scope.searchValue.select = $scope.allItems[0];
-                                        $($element).find('.ui-select-search').val($scope.initPlaceholder);
+                                        $($element).find('.ui-select-search').val($scope.searchValue.select['_label']);
                                         $scope.initPlaceholder = false;
                                     }
                                 })
@@ -551,8 +556,43 @@
                     $($element).find('.ui-select-search').val($model)
                 };
 
+                function camelCaseKeysToUnderscore(obj) {
+
+                    var newName;
+
+                    if (typeof(obj) != 'object') return obj;
+
+                    for (var oldName in obj) {
+
+                        // Camel to underscore
+                        newName = oldName.replace(/([a-z0-9][A-Z])/g, function ($1) {
+                            return $1.toLowerCase().substr(0, 1) + '_' + $1.toLowerCase().substr(1);
+                        });
+
+                        // Only process if names are different
+                        if (newName != oldName) {
+                            // Check for the old property name to avoid a ReferenceError in strict mode.
+                            if (obj.hasOwnProperty(oldName)) {
+                                obj[newName] = obj[oldName];
+                                delete obj[oldName];
+                            }
+                        }
+
+                        // Recursion
+                        if (typeof(obj[newName]) == 'object') {
+                            obj[newName] = camelCaseKeysToUnderscore(obj[newName]);
+                        }
+
+                    }
+                    return obj;
+                }
+
                 if($scope.initPlaceholder){
-                    $scope.searchDataFromServer($scope.initPlaceholder)
+                    if($scope.outputkey){
+                        $scope.searchDataFromServer(camelCaseKeysToUnderscore({
+                            [$scope.outputkey]:$scope.initPlaceholder
+                        }))
+                    }
                 }
 
                 $scope.$watch('outputValue',function(newValue, oldValue) {
@@ -1805,17 +1845,17 @@
 
         $scope.urlUsername = '';
 
-        try {
-            var urlParams = $scope.getUrlParams();
-            if(urlParams._username){
-                $scope.urlUsername = urlParams._username;
-            }
-            if(urlParams.user_id){
-                $scope.tempAppliesUseAoData.user_id = urlParams.user_id;
-            }
-        }catch (e){
-            console.error(e)
-        }
+        // try {
+        //     var urlParams = $scope.getUrlParams();
+        //     if(urlParams._username){
+        //         $scope.urlUsername = urlParams._username;
+        //     }
+        //     if(urlParams.user_id){
+        //         $scope.tempAppliesUseAoData.user_id = urlParams.user_id;
+        //     }
+        // }catch (e){
+        //     console.error(e)
+        // }
     }
 })();
 
@@ -3581,6 +3621,44 @@
 (function() {
 
     angular
+        .module('admin.summaryAffiliates')
+        .controller('summaryAffiliatesModalController', summaryAffiliatesModalController);
+
+    summaryAffiliatesModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'adminService',
+        'modalItem'
+    ];
+
+    function summaryAffiliatesModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        adminService,
+        modalItem
+    ) {
+
+        // 初始化table数据
+        $scope.initSummaryAffiliatesData = function () {
+            $scope.modalItem = modalItem;
+            console.log($scope.modalItem)
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initSummaryAffiliatesData();
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.domainsManage')
         .controller('DomainsManageController', DomainsManageController);
 
@@ -3791,44 +3869,6 @@
 
         $scope.initMethodsNameModalData();
 
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.summaryAffiliates')
-        .controller('summaryAffiliatesModalController', summaryAffiliatesModalController);
-
-    summaryAffiliatesModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'adminService',
-        'modalItem'
-    ];
-
-    function summaryAffiliatesModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        adminService,
-        modalItem
-    ) {
-
-        // 初始化table数据
-        $scope.initSummaryAffiliatesData = function () {
-            $scope.modalItem = modalItem;
-            console.log($scope.modalItem)
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initSummaryAffiliatesData();
     }
 })();
 
@@ -4992,17 +5032,17 @@
 
         $scope.urlUsername = '';
 
-        try {
-            var urlParams = $scope.getUrlParams();
-            if(urlParams._username){
-                $scope.urlUsername = urlParams._username;
-            }
-            if(urlParams.user_id){
-                $scope.tempGameRecordsAoData.user_id = urlParams.user_id;
-            }
-        }catch (e){
-            console.error(e)
-        }
+        // try {
+        //     var urlParams = $scope.getUrlParams();
+        //     if(urlParams._username){
+        //         $scope.urlUsername = urlParams._username;
+        //     }
+        //     if(urlParams.user_id){
+        //         $scope.tempGameRecordsAoData.user_id = urlParams.user_id;
+        //     }
+        // }catch (e){
+        //     console.error(e)
+        // }
 
     }
 })();
@@ -5589,212 +5629,6 @@
 (function() {
 
     angular
-        .module('admin.localeLanguage')
-        .controller('LocaleLanguageController', LocaleLanguageController);
-
-    LocaleLanguageController.$inject = [
-        '$scope',
-        '$uibModal',
-        '$rootScope',
-        'adminService',
-        '$translate'
-    ];
-
-    function LocaleLanguageController(
-        $scope,
-        $uibModal,
-        $rootScope,
-        adminService,
-        $translate
-    ) {
-
-        // 原始的数据
-        $scope.localeLanguage = [];
-
-        $scope.supportedOptions = [
-            {
-                value:'0',
-                label:$translate.instant('table.localeLanguage.th3ShowFalse')
-            },
-            {
-                value:'1',
-                label:$translate.instant('table.localeLanguage.th3ShowTrue')
-            }
-        ];
-
-        // 过滤出来的数据
-        $scope.showLocaleLanguage = [];
-        $scope.localeLanguageReload = 1;
-        $scope.localeLanguageAoData = {};
-        $scope.localeLanguageSearch = '';
-
-        // 初始化table数据
-        $scope.initLocaleLanguageData = function () {
-            //$scope.localeLanguage = [];
-            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.localeLanguage = angular.copy(res.data.data);
-                        $scope.localeLanguage.forEach(function (localeLanguageItem, localeLanguageIndex) {
-                            localeLanguageItem.supported = localeLanguageItem.supported ? '1' : '0';
-                        });
-                        $scope.localeLanguageReload++;
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-
-        $scope.showLocaleLanguageModal = function (item,edit) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/localeLanguage/localeLanguageModal.html',
-                controller: 'localeLanguageModalController',
-                size: 'lg',
-                scope:$scope,
-                resolve: {
-                    edit:edit,
-                    modalItem: item,
-                    hasPower:$scope.validPower("LOCALELANGUAGE", ["PATCH", "POST"]) && edit !== 1,
-                }
-            });
-            modalInstance.result.then(function (data) {
-                $scope.initLocaleLanguageData();
-            }, function (data) {
-
-            });
-        };
-
-
-        // 删除localeLanguage
-        /**
-         * @param localeLanguage 本地语言数据对象
-         * @return null
-         */
-        $scope.deleteLocaleLanguage = function (localeLanguage) {
-            if (localeLanguage.code) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.LOCALELANGUAGE.DELETE+'/'+localeLanguage.code, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initLocaleLanguageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        /**
-         *
-         * @param item 添加的本地语言
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.localeLanguage.splice(index, 1);
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initLocaleLanguageData();
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.localeLanguage')
-        .controller('localeLanguageModalController', localeLanguageModalController);
-
-    localeLanguageModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        '$translate',
-        'adminService',
-        'hasPower',
-        'edit',
-        'modalItem'
-    ];
-
-    function localeLanguageModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        $translate,
-        adminService,
-        hasPower,
-        edit,
-        modalItem
-    ) {
-
-        $scope.edit = edit;
-        $scope.hasPower = hasPower;
-        $scope.modalItem = angular.copy(modalItem);
-
-        // 初始化table数据
-        $scope.initMethodsNameModalData = function () {
-            if(edit==2){
-                $scope.modalItem.supported = $scope.supportedOptions[1].value
-            }
-        };
-
-        //$rootScope.toasterSuccess(res.data.msg);;
-        $scope.confirmModal = function () {
-            var tempData = angular.copy($scope.modalItem);
-            if (edit==2) {
-                adminService.postReq($rootScope.URL.LOCALELANGUAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('OK');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (edit==3) {
-                adminService.patchReq($rootScope.URL.LOCALELANGUAGE.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('OK');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initMethodsNameModalData();
-
-    }
-})();
-
-(function() {
-
-    angular
         .module('admin.gamesProducts')
         .controller('GamesProductsController', GamesProductsController);
 
@@ -6118,6 +5952,212 @@
 
         $scope.cancelModal = function () {
             $uibModalInstance.dismiss({});
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initMethodsNameModalData();
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.localeLanguage')
+        .controller('LocaleLanguageController', LocaleLanguageController);
+
+    LocaleLanguageController.$inject = [
+        '$scope',
+        '$uibModal',
+        '$rootScope',
+        'adminService',
+        '$translate'
+    ];
+
+    function LocaleLanguageController(
+        $scope,
+        $uibModal,
+        $rootScope,
+        adminService,
+        $translate
+    ) {
+
+        // 原始的数据
+        $scope.localeLanguage = [];
+
+        $scope.supportedOptions = [
+            {
+                value:'0',
+                label:$translate.instant('table.localeLanguage.th3ShowFalse')
+            },
+            {
+                value:'1',
+                label:$translate.instant('table.localeLanguage.th3ShowTrue')
+            }
+        ];
+
+        // 过滤出来的数据
+        $scope.showLocaleLanguage = [];
+        $scope.localeLanguageReload = 1;
+        $scope.localeLanguageAoData = {};
+        $scope.localeLanguageSearch = '';
+
+        // 初始化table数据
+        $scope.initLocaleLanguageData = function () {
+            //$scope.localeLanguage = [];
+            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.localeLanguage = angular.copy(res.data.data);
+                        $scope.localeLanguage.forEach(function (localeLanguageItem, localeLanguageIndex) {
+                            localeLanguageItem.supported = localeLanguageItem.supported ? '1' : '0';
+                        });
+                        $scope.localeLanguageReload++;
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        $scope.showLocaleLanguageModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/localeLanguage/localeLanguageModal.html',
+                controller: 'localeLanguageModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower:$scope.validPower("LOCALELANGUAGE", ["PATCH", "POST"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initLocaleLanguageData();
+            }, function (data) {
+
+            });
+        };
+
+
+        // 删除localeLanguage
+        /**
+         * @param localeLanguage 本地语言数据对象
+         * @return null
+         */
+        $scope.deleteLocaleLanguage = function (localeLanguage) {
+            if (localeLanguage.code) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.LOCALELANGUAGE.DELETE+'/'+localeLanguage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initLocaleLanguageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        /**
+         *
+         * @param item 添加的本地语言
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.localeLanguage.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initLocaleLanguageData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.localeLanguage')
+        .controller('localeLanguageModalController', localeLanguageModalController);
+
+    localeLanguageModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        '$translate',
+        'adminService',
+        'hasPower',
+        'edit',
+        'modalItem'
+    ];
+
+    function localeLanguageModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        $translate,
+        adminService,
+        hasPower,
+        edit,
+        modalItem
+    ) {
+
+        $scope.edit = edit;
+        $scope.hasPower = hasPower;
+        $scope.modalItem = angular.copy(modalItem);
+
+        // 初始化table数据
+        $scope.initMethodsNameModalData = function () {
+            if(edit==2){
+                $scope.modalItem.supported = $scope.supportedOptions[1].value
+            }
+        };
+
+        //$rootScope.toasterSuccess(res.data.msg);;
+        $scope.confirmModal = function () {
+            var tempData = angular.copy($scope.modalItem);
+            if (edit==2) {
+                adminService.postReq($rootScope.URL.LOCALELANGUAGE.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (edit==3) {
+                adminService.patchReq($rootScope.URL.LOCALELANGUAGE.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
         };
 
         // 页面加载执行的函数
@@ -6501,17 +6541,17 @@
 
         $scope.urlUsername = '';
 
-        try {
-            var urlParams = $scope.getUrlParams();
-            if(urlParams._username){
-                $scope.urlUsername = urlParams._username;
-            }
-            if(urlParams.user_id){
-                $scope.tempOrdersManageAoData.user_id = urlParams.user_id;
-            }
-        }catch (e){
-            console.error(e)
-        }
+        // try {
+        //     var urlParams = $scope.getUrlParams();
+        //     if(urlParams._username){
+        //         $scope.urlUsername = urlParams._username;
+        //     }
+        //     if(urlParams.user_id){
+        //         $scope.tempOrdersManageAoData.user_id = urlParams.user_id;
+        //     }
+        // }catch (e){
+        //     console.error(e)
+        // }
 
     }
 })();
@@ -8094,77 +8134,6 @@
 (function() {
 
     angular
-        .module('admin.reliefsList')
-        .controller('ReliefsListController', ReliefsListController);
-
-    ReliefsListController.$inject = [
-        '$scope',
-        '$uibModal',
-        '$rootScope',
-        'adminService'
-    ];
-
-    function ReliefsListController(
-        $scope,
-        $uibModal,
-        $rootScope,
-        adminService
-    ) {
-
-        $scope.reliefsListUrl = $rootScope.URL.RELIEFSLIST.GET;
-
-        // 原始的数据
-        $scope.reliefsList = [];
-        $scope.reliefsListReload = 1;
-        $scope.reliefsListAoData = {};
-        $scope.tempReliefsListAoData = {};
-
-        $scope.trigerSearch = function() {
-            $scope.tempReliefsListAoData = Object.assign($scope.tempReliefsListAoData,$scope.reliefsListAoData)
-        };
-
-        $scope.resetSearch = function() {
-            $scope.reliefsListAoData = {};
-            $scope.searchTimeStart = undefined
-            $scope.searchTimeEnd = undefined
-            var tempData = $scope.tempReliefsListAoData;
-            $scope.tempReliefsListAoData = {
-                page:tempData.page,
-                pageSize:tempData.pageSize
-            }
-        };
-
-        // 初始化table数据
-        $scope.initReliefsListData = function () {
-            $scope.reliefsListReload++;
-        };
-
-        // 页面加载执行的函数
-
-        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.searchTimeStart) {
-                    $scope.reliefsListAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.reliefsListAoData.start_time) {
-                        delete $scope.reliefsListAoData.start_time;
-                    }
-                }
-                if ($scope.searchTimeEnd) {
-                    $scope.reliefsListAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.reliefsListAoData.end_time) {
-                        delete $scope.reliefsListAoData.end_time;
-                    }
-                }
-            }
-        });
-    }
-})();
-
-(function() {
-
-    angular
         .module('admin.rebatesList')
         .controller('RebatesListController', RebatesListController);
 
@@ -8253,17 +8222,17 @@
 
         $scope.urlUsername = '';
 
-        try {
-            var urlParams = $scope.getUrlParams();
-            if(urlParams._username){
-                $scope.urlUsername = urlParams._username;
-            }
-            if(urlParams.user_id){
-                $scope.tempRebatesListAoData.user_id = urlParams.user_id;
-            }
-        }catch (e){
-            console.error(e)
-        }
+        // try {
+        //     var urlParams = $scope.getUrlParams();
+        //     if(urlParams._username){
+        //         $scope.urlUsername = urlParams._username;
+        //     }
+        //     if(urlParams.user_id){
+        //         $scope.tempRebatesListAoData.user_id = urlParams.user_id;
+        //     }
+        // }catch (e){
+        //     console.error(e)
+        // }
     }
 })();
 
@@ -8340,6 +8309,77 @@
             $uibModalInstance.dismiss('cancel');
         };
 
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.reliefsList')
+        .controller('ReliefsListController', ReliefsListController);
+
+    ReliefsListController.$inject = [
+        '$scope',
+        '$uibModal',
+        '$rootScope',
+        'adminService'
+    ];
+
+    function ReliefsListController(
+        $scope,
+        $uibModal,
+        $rootScope,
+        adminService
+    ) {
+
+        $scope.reliefsListUrl = $rootScope.URL.RELIEFSLIST.GET;
+
+        // 原始的数据
+        $scope.reliefsList = [];
+        $scope.reliefsListReload = 1;
+        $scope.reliefsListAoData = {};
+        $scope.tempReliefsListAoData = {};
+
+        $scope.trigerSearch = function() {
+            $scope.tempReliefsListAoData = Object.assign($scope.tempReliefsListAoData,$scope.reliefsListAoData)
+        };
+
+        $scope.resetSearch = function() {
+            $scope.reliefsListAoData = {};
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            var tempData = $scope.tempReliefsListAoData;
+            $scope.tempReliefsListAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+        };
+
+        // 初始化table数据
+        $scope.initReliefsListData = function () {
+            $scope.reliefsListReload++;
+        };
+
+        // 页面加载执行的函数
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.reliefsListAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.reliefsListAoData.start_time) {
+                        delete $scope.reliefsListAoData.start_time;
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.reliefsListAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.reliefsListAoData.end_time) {
+                        delete $scope.reliefsListAoData.end_time;
+                    }
+                }
+            }
+        });
     }
 })();
 
@@ -8534,17 +8574,17 @@
             }
         });
 
-        try {
-            var urlParams = $scope.getUrlParams();
-            if(urlParams._username){
-                $scope.urlUsername = urlParams._username;
-            }
-            if(urlParams.user_id){
-                $scope.tempTransactionsDetailAoData.user_id = urlParams.user_id;
-            }
-        }catch (e){
-            console.error(e)
-        }
+        // try {
+        //     var urlParams = $scope.getUrlParams();
+        //     if(urlParams._username){
+        //         $scope.urlUsername = urlParams._username;
+        //     }
+        //     if(urlParams.user_id){
+        //         $scope.tempTransactionsDetailAoData.user_id = urlParams.user_id;
+        //     }
+        // }catch (e){
+        //     console.error(e)
+        // }
 
 
     }
@@ -8746,17 +8786,17 @@
 
         $scope.urlUsername = '';
 
-        try {
-            var urlParams = $scope.getUrlParams();
-            if(urlParams._username){
-                $scope.urlUsername = urlParams._username;
-            }
-            if(urlParams.user_id){
-                $scope.tempTransfersListAoData.user_id = urlParams.user_id;
-            }
-        }catch (e){
-            console.error(e)
-        }
+        // try {
+        //     var urlParams = $scope.getUrlParams();
+        //     if(urlParams._username){
+        //         $scope.urlUsername = urlParams._username;
+        //     }
+        //     if(urlParams.user_id){
+        //         $scope.tempTransfersListAoData.user_id = urlParams.user_id;
+        //     }
+        // }catch (e){
+        //     console.error(e)
+        // }
     }
 })();
 
@@ -10404,15 +10444,15 @@
 
         // 页面加载执行
 
-        try {
-            var urlParams = $scope.getUrlParams();
-            if(urlParams.user_id){
-                $scope.tempUsersManageAoData.affiliate_id = urlParams.user_id;
-                $scope.usersManageAoData.affiliate_id = urlParams.user_id;
-            }
-        }catch (e){
-            console.error(e)
-        }
+        // try {
+        //     var urlParams = $scope.getUrlParams();
+        //     if(urlParams.user_id){
+        //         $scope.tempUsersManageAoData.affiliate_id = urlParams.user_id;
+        //         $scope.usersManageAoData.affiliate_id = urlParams.user_id;
+        //     }
+        // }catch (e){
+        //     console.error(e)
+        // }
 
     }
 })();
@@ -11087,17 +11127,17 @@
 
         $scope.urlUsername = '';
 
-        try {
-            var urlParams = $scope.getUrlParams();
-            if(urlParams._username){
-                $scope.urlUsername = urlParams._username;
-            }
-            if(urlParams.user_id){
-                $scope.tempWithdrawsManageAoData.user_id = urlParams.user_id;
-            }
-        }catch (e){
-            console.error(e)
-        }
+        // try {
+        //     var urlParams = $scope.getUrlParams();
+        //     if(urlParams._username){
+        //         $scope.urlUsername = urlParams._username;
+        //     }
+        //     if(urlParams.user_id){
+        //         $scope.tempWithdrawsManageAoData.user_id = urlParams.user_id;
+        //     }
+        // }catch (e){
+        //     console.error(e)
+        // }
     }
 })();
 
