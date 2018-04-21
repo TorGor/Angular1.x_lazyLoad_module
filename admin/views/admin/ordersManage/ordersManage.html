@@ -38,7 +38,7 @@
                     <div class="col-lg-3 col-md-6 margin-bottom-10">
                         <input-select
                             inputkey='username'
-                            outputkey='userId'
+                            outputkey='affiliateId'
                             input-placeholder='affiliate'
                             searchkey='username'
                             min-length='3'
@@ -180,7 +180,7 @@
                                 <div class="buttons">
                                     <button
                                         class="btn btn-sm btn-info" ng-show='validPower("ORDERSMANAGE", ["POST"])&&item.status!=="finished"' ng-click="manualOrdersManage(item)"
-                                        title="{{'table.button.save' | translate}}"
+                                        title="充值手动到账"
                                     >
                                         <em class="fa fa-save"></em>
                                     </button>
