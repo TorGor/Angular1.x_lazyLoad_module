@@ -67,7 +67,7 @@
                                     <span>{{item.postBalance}}</span>
                                 </td>
                                 <td>
-                                    <span uib-popover="{{ showDescriptionDetail(item.description) }}" popover-trigger="'mouseenter'">{{'table.button.detail' | translate}}</span>
+                                    <span uib-tooltip-html="showDescriptionDetail(item.description)">{{'table.button.detail' | translate}}</span>
                                 </td>
                                 <td>
                                     <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>

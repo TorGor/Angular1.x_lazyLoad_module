@@ -41,7 +41,7 @@
             if (typeof data == 'object') {
                 window.Object.keys(data).map(function (item) {
                     if(typeof data[item] == 'string'){
-                        tempStr = tempStr + $translate.instant(item) + ':' + data[item] + '\n'
+                        tempStr = tempStr + '<span style="width: 180px;text-align: left">'+$translate.instant(item)+'</span>'  + ':' + data[item] + '</br>'
                     }
                 })
             }
