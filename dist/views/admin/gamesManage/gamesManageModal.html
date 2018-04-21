@@ -110,7 +110,7 @@
                   <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
                      <label class="col-lg-4 col-md-6 control-label">lines</label>
                      <div class="col-lg-8 col-md-6">
-                        <input ng-model="gamesItem.lines" ng-disabled='!hasPower' class="form-control" type="number" placeholder="game lines">
+                        <input ng-model="gamesItem.lines" ng-disabled='!hasPower||gamesItem.productCode!=="SLOTS"' class="form-control" type="number" placeholder="game lines">
                      </div>
                   </div>
                   <div class="clearfix"></div>
