@@ -209,6 +209,9 @@
                             <td style="width: 8%">
                                 {{'table.bigwinsManage.th10' | translate}}
                             </td>
+                            <td style="width: 12%">
+                                {{'createAt' | translate}}
+                            </td>
                             <td style="width: 6%" ng-show='validPower("BIGWINSMANAGE", ["POSTAUDIT"])&&item.status.status!=="succeed"'>{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
@@ -243,6 +246,9 @@
                             </td>
                             <td>
                                 <span>{{item.status}}</span>
+                            </td>
+                            <td>
+                                <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
                             </td>
                             <td style="white-space: nowrap;" ng-show='validPower("BIGWINSMANAGE", ["POSTAUDIT"])&&item.status.status!=="succeed"'>
                                 <div class="buttons">

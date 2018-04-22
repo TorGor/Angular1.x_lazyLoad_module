@@ -102,16 +102,7 @@
                            {{'table.affiliatesManage.th2' | translate}}
                         </td>
                         <td style="width: 8%">
-                           {{'table.affiliatesManage.th3' | translate}}
-                        </td>
-                        <td style="width: 8%">
                            {{'table.affiliatesManage.th4' | translate}}
-                        </td>
-                        <td style="width: 8%">
-                           {{'table.affiliatesManage.th5' | translate}}
-                        </td>
-                        <td style="width: 8%">
-                           {{'table.affiliatesManage.th6' | translate}}
                         </td>
                         <td style="width: 8%">
                            {{'table.affiliatesManage.th7' | translate}}
@@ -123,13 +114,16 @@
                            {{'table.affiliatesManage.th9' | translate}}
                         </td>
                         <td style="width: 8%">
-                           {{'table.affiliatesManage.th10' | translate}}
-                        </td>
-                        <td style="width: 8%">
                            {{'table.affiliatesManage.th11' | translate}}
                         </td>
                         <td style="width: 8%">
                            {{'table.affiliatesManage.th12' | translate}}
+                        </td>
+                        <td style="width: 7%">
+                           {{'verifications' | translate}}
+                        </td>
+                        <td style='width: 16%'>
+                           {{'createAt' | translate}}
                         </td>
                         <td style="width: 8%">{{'table.button.operation' | translate}}</td>
                      </tr>
@@ -143,34 +137,28 @@
                            <span>{{item.name || ''}}</span>
                         </td>
                         <td>
-                           <span>{{showOptionsValue(item.gender, genderOptions)}}</span>
-                        </td>
-                        <td>
                            <span>{{item.locale || ''}}</span>
-                        </td>
-                        <td>
-                           <span>{{item.email || ''}}</span>
-                        </td>
-                        <td>
-                           <span>{{item.currency || ''}}</span>
                         </td>
                         <td>
                            <span>{{item.domains.user || ''}}</span>
                         </td>
                         <td>
-                           <span>{{item.otp}}</span>
+                           <span>{{item.otp?'Yes':'No'}}</span>
                         </td>
                         <td>
                            <span>{{item.plan.code || ''}}</span>
                         </td>
                         <td>
-                           <span>{{item.verifications.name || ''}}</span>
+                           <span>{{item.isLocked?'Yes':'No'}}</span>
                         </td>
                         <td>
-                           <span>{{item.isLocked}}</span>
+                           <span>{{item.isApproved?'Yes':'No'}}</span>
                         </td>
                         <td>
-                           <span>{{item.isApproved}}</span>
+                           <span uib-tooltip-html="showDescriptionDetail(item.verifications)">{{'table.button.detail' | translate}}</span>
+                        </td>
+                        <td>
+                           <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
                         </td>
                         <td style="white-space: nowrap;">
                            <button class="btn btn-sm btn-info" ng-show="validPower('AFFILIATESMANAGE', ['PATCH'])" ng-click="showAffiliatesModal(item,3)" title="{{'table.button.edit' | translate}}">

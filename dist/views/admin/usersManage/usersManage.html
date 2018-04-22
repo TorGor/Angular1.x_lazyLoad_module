@@ -123,19 +123,16 @@
                            {{'table.usersManage.th9' | translate}}
                         </td>
                         <td style="width: 7%">
-                           {{'table.usersManage.th10' | translate}}
-                        </td>
-                        <td style="width: 7%">
-                           {{'table.usersManage.th11' | translate}}
-                        </td>
-                        <td style="width: 7%">
-                           {{'table.usersManage.th12' | translate}}
+                           {{'verifications' | translate}}
                         </td>
                         <td style="width: 7%">
                            {{'table.usersManage.th13' | translate}}
                         </td>
                         <td style="width: 7%">
                            {{'table.usersManage.th14' | translate}}
+                        </td>
+                        <td style='width: 16%'>
+                           {{'createAt' | translate}}
                         </td>
                         <td style="width: 17%">{{'table.button.operation' | translate}}</td>
                      </tr>
@@ -170,19 +167,16 @@
                            <span>{{item.financial.name || ''}}</span>
                         </td>
                         <td>
-                           <span>{{item.verifications.identity ?'Yes':'No'}}</span>
-                        </td>
-                        <td>
-                           <span>{{item.verifications.name ?'Yes':'No'}}</span>
-                        </td>
-                        <td>
-                           <span>{{item.verifications.phone ?'Yes':'No'}}</span>
+                           <span uib-tooltip-html="showDescriptionDetail(item.verifications)">{{'table.button.detail' | translate}}</span>
                         </td>
                         <td>
                            <span>{{item.otp?'Yes':'No'}}</span>
                         </td>
                         <td>
                            <span>{{showOptionsValue(item.gender, genderOptions)}}</span>
+                        </td>
+                        <td>
+                           <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
                         </td>
                         <td style="white-space: nowrap;">
                            <button class="btn btn-sm btn-info" ng-show="validPower('USERSMANAGE', ['PATCH'])" ng-click="showEditUserManageModal(item,3)" title="{{'table.button.edit' | translate}}">
@@ -221,7 +215,7 @@
                         </td>
                      </tr>
                      <tr ng-show="usersManage.length==0">
-                        <td colspan="15" class="">{{'table.no_date' | translate}}</td>
+                        <td colspan="20" class="">{{'table.no_date' | translate}}</td>
                      </tr>
                   </tbody>
                </table>

@@ -181,6 +181,7 @@
                             ariaDescribedBy: 'modal-body',
                             templateUrl: '/views/admin/ordersManage/orderDetailModal.html',
                             controller: 'OrderDetailModalController',
+                            scope:$scope,
                             resolve: {
                                 orderDetail: res.data.data
                             },

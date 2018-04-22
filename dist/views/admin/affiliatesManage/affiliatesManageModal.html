@@ -156,6 +156,12 @@
                         <input ng-model="modalItem.phone" name='phone' ng-disabled='!hasPower' class="form-control" type="text" placeholder="+13900000000">
                      </div>
                   </div>
+                  <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                     <label class="col-lg-4 col-md-6 control-label">{{'createAt' | translate}}</label>
+                     <div class="col-lg-8 col-md-6">
+                        <input value="{{formatTime(modalItem.timestamps && modalItem.timestamps.createdAt||'')}}" name='createdAt' ng-disabled='true' class="form-control" type="text" placeholder="createdAt">
+                     </div>
+                  </div>
                </form>
                <div class='clearfix'></div>
             </div>

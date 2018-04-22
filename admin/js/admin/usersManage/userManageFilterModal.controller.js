@@ -58,6 +58,18 @@
             $uibModalInstance.dismiss('cancel');
         };
 
+        $scope.showDescriptionDetail = function (data) {
+            var tempStr = '';
+            if (typeof data == 'object') {
+                window.Object.keys(data).map(function (item) {
+                    if(typeof data[item] == 'boolean'){
+                        tempStr = tempStr + '<span style="width: 180px;text-align: left">'+$translate.instant(item)+'</span>'  + ':' + (data[item]?'Yes':'No') + '</br>'
+                    }
+                })
+            }
+            return tempStr;
+        };
+
         // 页面加载执行的函数
 
     }

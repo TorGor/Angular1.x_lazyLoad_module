@@ -34,9 +34,12 @@
       }
     }
   },
-  "module": {
-    "user": "用户"
-  },
+  "user":"用户",
+  "createAt":"创建时间",
+  "verifications":"验证",
+  "phone":"手机",
+  "name":"姓名",
+  "identity":"身份",
   "table": {
     "common": {
       "per_page": "每页",
@@ -386,9 +389,6 @@
       "th7": "时区",
       "th8": "邮件",
       "th9": "财务",
-      "th10": "验证身份",
-      "th11": "验证名称",
-      "th12": "验证手机",
       "th13": "手机令牌",
       "th14": "性别"
     },
@@ -407,14 +407,10 @@
     "affiliatesManage": {
       "th1": "Username",
       "th2": "Name",
-      "th3": "Gender",
       "th4": "Locale",
-      "th5": "Email",
-      "th6": "Currency",
       "th7": "Domains User",
       "th8": "OTP",
       "th9": "Plan Code",
-      "th10": "Verifications Name",
       "th11": "isLocked",
       "th12": "isApproved"
     },

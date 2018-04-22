@@ -47,10 +47,10 @@
                <table width='100%' class='table table-bordered table-hover bg-white'>
                   <thead>
                      <tr class='bg-gray-light text-bold'>
-                        <td style='width: 13%'>
+                        <td style='width: 10%'>
                            {{'table.rebatesList.th5' | translate}}
                         </td>
-                        <td style='width: 13%'>
+                        <td style='width: 10%'>
                            {{'table.rebatesList.th1' | translate}}
                         </td>
                         <td style='width: 25%'>
@@ -59,8 +59,11 @@
                         <!--<td style='width: 10%'>-->
                         <!--{{'table.rebatesList.th3' | translate}}-->
                         <!--</td>-->
-                        <td style='width: 13%'>
+                        <td style='width: 8%'>
                            {{'table.rebatesList.th4' | translate}}
+                        </td>
+                        <td style='width: 13%'>
+                           {{'createAt' | translate}}
                         </td>
                         <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='userId'>-->
                         <!--{{'table.rebatesList.th6' | translate}}-->
@@ -87,7 +90,7 @@
                         <!--</td>-->
                         <!--<td style='width: 13%' ao-data='rebatesListAoData' server-data-table-sort='affiliateId'>-->
                         <!--{{'table.rebatesList.th7' | translate}}-->
-                        </td>
+                        <!--</td>-->
                         <td style='width: 10%'>{{'table.button.operation' | translate}}</td>
                      </tr>
                   </thead>
@@ -107,6 +110,9 @@
                         <!--</td>-->
                         <td>
                            <span>{{item.bonus || ''}}</span>
+                        </td>
+                        <td>
+                           <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
                         </td>
                         <!--<td>-->
                         <!--<span>{{item.user.userId || ''}}</span>-->

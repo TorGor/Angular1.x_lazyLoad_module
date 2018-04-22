@@ -34,9 +34,12 @@
             }
         }
     },
-    "module":{
-        "user":"user"
-    },
+    "user":"user",
+    "createAt":"Create At",
+    "verifications":"verifications",
+    "phone":"phone",
+    "name":"name",
+    "identity":"identity",
     "table": {
         "common": {
             "per_page": "Per page",
@@ -386,9 +389,6 @@
             "th7": "Timezone",
             "th8": "Email",
             "th9": "Financial",
-            "th10": "Verifi Identity",
-            "th11": "Verifi Name",
-            "th12": "Verifi Phone",
             "th13": "OTP",
             "th14": "Sex"
         },
@@ -407,14 +407,10 @@
         "affiliatesManage": {
             "th1": "Username",
             "th2": "Name",
-            "th3": "Gender",
             "th4": "Locale",
-            "th5": "Email",
-            "th6": "Currency",
             "th7": "Domains User",
             "th8": "OTP",
             "th9": "Plan Code",
-            "th10": "Verifications Name",
             "th11": "isLocked",
             "th12": "isApproved"
         },

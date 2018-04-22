@@ -8,6 +8,7 @@
         '$scope',
         '$uibModal',
         '$state',
+        '$translate',
         '$rootScope',
         'adminService'
     ];
@@ -16,6 +17,7 @@
         $scope,
         $uibModal,
         $state,
+        $translate,
         $rootScope,
         adminService
     ) {
@@ -339,7 +341,19 @@
             }
             // var url = window.location.pathname+$rootScope.$state.href(state)+'?_username='+(item.username||'')+'&user_id='+(item.userId||'');
             // window.open(url,'_blank');
-        }
+        };
+
+        $scope.showDescriptionDetail = function (data) {
+            var tempStr = '';
+            if (typeof data == 'object') {
+                window.Object.keys(data).map(function (item) {
+                    if(typeof data[item] == 'boolean'){
+                        tempStr = tempStr + '<span style="width: 180px;text-align: left">'+$translate.instant(item)+'</span>'  + ':' + (data[item]?'Yes':'No') + '</br>'
+                    }
+                })
+            }
+            return tempStr;
+        };
 
         // 页面加载执行
 

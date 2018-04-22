@@ -55,6 +55,7 @@
                 ariaDescribedBy: 'modal-body',
                 templateUrl: '/views/admin/rebatesList/rebatesDetailModal.html',
                 controller: 'RebatesDetailModalController',
+                scope:$scope,
                 resolve: {
                     rebatesDetail: item
                 },
