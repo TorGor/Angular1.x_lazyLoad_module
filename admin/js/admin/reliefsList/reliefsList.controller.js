@@ -27,7 +27,8 @@
         $scope.tempReliefsListAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempReliefsListAoData = Object.assign($scope.tempReliefsListAoData,$scope.reliefsListAoData)
+            $scope.tempReliefsListAoData = Object.assign($scope.tempReliefsListAoData,$scope.reliefsListAoData);
+            $scope.reliefsListReload++;
         };
 
         $scope.resetSearch = function() {
@@ -38,7 +39,8 @@
             $scope.tempReliefsListAoData = {
                 page:tempData.page,
                 pageSize:tempData.pageSize
-            }
+            };
+            $scope.reliefsListReload++;
         };
 
         // 初始化table数据

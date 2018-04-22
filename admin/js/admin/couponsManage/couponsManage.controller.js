@@ -227,7 +227,8 @@
         };
 
         $scope.trigerSearch = function() {
-            $scope.tempCouponsManageAoData = Object.assign($scope.tempCouponsManageAoData,$scope.couponsManageAoData)
+            $scope.tempCouponsManageAoData = Object.assign($scope.tempCouponsManageAoData,$scope.couponsManageAoData);
+            $scope.couponsManageReload++;
         };
 
         $scope.resetSearch = function() {
@@ -236,7 +237,8 @@
             $scope.tempCouponsManageAoData = {
                 page:tempData.page,
                 pageSize:tempData.pageSize
-            }
+            };
+            $scope.couponsManageReload++;
         };
 
         // 初始化table数据

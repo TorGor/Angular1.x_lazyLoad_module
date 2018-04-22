@@ -65,6 +65,7 @@
 
         $scope.trigerSearch = function() {
             $scope.tempBlackListsAoData = Object.assign($scope.tempBlackListsAoData,$scope.blackListsAoData)
+            $scope.blackListsReload++;
         };
 
         $scope.resetSearch = function() {
@@ -74,6 +75,7 @@
                 page:tempData.page,
                 pageSize:tempData.pageSize
             }
+            $scope.blackListsReload++;
         };
 
         $scope.blackListsUrl = $rootScope.URL.BLACKLISTS.GET;

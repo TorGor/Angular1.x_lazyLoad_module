@@ -85,17 +85,19 @@
                 return;
             }
             $scope.tempAffiliatesManageAoData = Object.assign($scope.tempAffiliatesManageAoData,$scope.affiliatesManageAoData)
+            $scope.affiliatesManageReload++
         };
 
         $scope.resetSearch = function() {
             $scope.affiliatesManageAoData = {};
-            $scope.searchTimeStart = undefined
-            $scope.searchTimeEnd = undefined
+            $scope.searchTimeStart = undefined;
+            $scope.searchTimeEnd = undefined;
             var tempData = $scope.tempAffiliatesManageAoData;
             $scope.tempAffiliatesManageAoData = {
                 page:tempData.page,
                 pageSize:tempData.pageSize
-            }
+            };
+            $scope.affiliatesManageReload++
         };
 
         // 初始化table数据

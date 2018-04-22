@@ -92,7 +92,8 @@
         $scope.ordersManageAoData.method = ''
 
         $scope.trigerSearch = function() {
-            $scope.tempOrdersManageAoData = Object.assign($scope.tempOrdersManageAoData,$scope.ordersManageAoData)
+            $scope.tempOrdersManageAoData = Object.assign($scope.tempOrdersManageAoData,$scope.ordersManageAoData);
+            $scope.ordersManageReload++;
         };
 
         $scope.resetSearch = function() {
@@ -109,7 +110,8 @@
             $scope.tempOrdersManageAoData = {
                 page:tempData.page,
                 pageSize:tempData.pageSize
-            }
+            };
+            $scope.ordersManageReload++;
         };
 
         $scope.initOrdersManageData = function() {

@@ -141,6 +141,7 @@
 
         $scope.trigerSearch = function() {
             $scope.tempAppliesUseAoData = Object.assign($scope.tempAppliesUseAoData,$scope.appliesUseAoData)
+            $scope.appliesUseReload++;
         };
 
         $scope.resetSearch = function() {
@@ -156,6 +157,7 @@
                 page:tempData.page,
                 pageSize:tempData.pageSize
             }
+            $scope.appliesUseReload++;
         };
 
         // 初始化table数据

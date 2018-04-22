@@ -157,7 +157,8 @@
         };
 
         $scope.trigerSearch = function() {
-            $scope.tempPromotionsManageAoData = Object.assign($scope.tempPromotionsManageAoData,$scope.promotionsManageAoData)
+            $scope.tempPromotionsManageAoData = Object.assign($scope.tempPromotionsManageAoData,$scope.promotionsManageAoData);
+            $scope.promotionsManageReload++;
         };
 
         $scope.resetSearch = function() {
@@ -171,7 +172,8 @@
             $scope.tempPromotionsManageAoData = {
                 page:tempData.page,
                 pageSize:tempData.pageSize
-            }
+            };
+            $scope.promotionsManageReload++;
         };
 
 

@@ -74,7 +74,8 @@
         $scope.tempBigwinsManageAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempBigwinsManageAoData = Object.assign($scope.tempBigwinsManageAoData,$scope.bigwinsManageAoData)
+            $scope.tempBigwinsManageAoData = Object.assign($scope.tempBigwinsManageAoData,$scope.bigwinsManageAoData);
+            $scope.bigwinsManageReload++;
         };
 
         $scope.resetSearch = function() {
@@ -85,7 +86,8 @@
             $scope.tempBigwinsManageAoData = {
                 page:tempData.page,
                 pageSize:tempData.pageSize
-            }
+            };
+            $scope.bigwinsManageReload++;
         };
 
         // 初始化table数据

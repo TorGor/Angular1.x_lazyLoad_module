@@ -23,7 +23,8 @@
         $scope.adminsLogAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempAdminsLogAoData = Object.assign($scope.tempAdminsLogAoData,$scope.adminsLogAoData)
+            $scope.tempAdminsLogAoData = Object.assign($scope.tempAdminsLogAoData,$scope.adminsLogAoData);
+            $scope.adminsLogReload++;
         };
 
         $scope.resetSearch = function() {
@@ -34,7 +35,8 @@
             $scope.tempAdminsLogAoData = {
                 page:tempData.page,
                 pageSize:tempData.pageSize
-            }
+            };
+            $scope.adminsLogReload++;
         };
 
         $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {

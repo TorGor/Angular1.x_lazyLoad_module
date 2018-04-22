@@ -34,6 +34,7 @@
                 }
             }
             $scope.tempBankCardsAoData = Object.assign($scope.tempBankCardsAoData,$scope.bankCardsAoData)
+            $scope.bankCardsReload++;
         };
 
         $scope.resetSearch = function() {
@@ -43,6 +44,7 @@
                 page:tempData.page,
                 pageSize:tempData.pageSize
             }
+            $scope.bankCardsReload++;
         };
 
         // 初始化table数据

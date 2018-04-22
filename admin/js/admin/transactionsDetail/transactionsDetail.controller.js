@@ -126,7 +126,8 @@
                 $rootScope.alertErrorMsg('Formatting error,The right example +00:00');
                 return;
             }
-            $scope.tempTransactionsDetailAoData = Object.assign($scope.tempTransactionsDetailAoData,$scope.transactionsDetailAoData)
+            $scope.tempTransactionsDetailAoData = Object.assign($scope.tempTransactionsDetailAoData,$scope.transactionsDetailAoData);
+            $scope.transactionsDetailReload++;
         };
 
         $scope.resetSearch = function() {
@@ -152,7 +153,8 @@
                 max_amount: '',
                 wallet_code: '',
                 timezone: "+00:00"
-            }
+            };
+            $scope.transactionsDetailReload++;
         };
 
         $scope.advancedSearch = false;

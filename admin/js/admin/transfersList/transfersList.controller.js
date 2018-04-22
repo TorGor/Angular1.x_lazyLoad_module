@@ -33,7 +33,8 @@
         $scope.tempTransfersListAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempTransfersListAoData = Object.assign($scope.tempTransfersListAoData,$scope.transfersListAoData)
+            $scope.tempTransfersListAoData = Object.assign($scope.tempTransfersListAoData,$scope.transfersListAoData);
+            $scope.transfersListReload++;
         };
 
         $scope.resetSearch = function() {
@@ -49,7 +50,8 @@
             $scope.tempTransfersListAoData = {
                 page:tempData.page,
                 pageSize:tempData.pageSize
-            }
+            };
+            $scope.transfersListReload++;
         };
 
         // 初始化table数据

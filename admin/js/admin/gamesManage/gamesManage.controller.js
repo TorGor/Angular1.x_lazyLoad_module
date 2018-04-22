@@ -149,7 +149,8 @@
                 $rootScope.alertErrorMsg('min name char length 3');
                 return;
             }
-            $scope.tempGamesManageAoData = Object.assign($scope.tempGamesManageAoData,$scope.gamesManageAoData)
+            $scope.tempGamesManageAoData = Object.assign($scope.tempGamesManageAoData,$scope.gamesManageAoData);
+            $scope.gamesManageReload++;
         };
 
         $scope.resetSearch = function() {
@@ -161,7 +162,8 @@
             $scope.tempGamesManageAoData = {
                 page:tempData.page,
                 pageSize:tempData.pageSize
-            }
+            };
+            $scope.gamesManageReload++;
         };
 
         // 初始化table数据

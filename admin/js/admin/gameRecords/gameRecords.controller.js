@@ -83,7 +83,8 @@
         $scope.tempGameRecordsAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempGameRecordsAoData = Object.assign($scope.tempGameRecordsAoData,$scope.gameRecordsAoData)
+            $scope.tempGameRecordsAoData = Object.assign($scope.tempGameRecordsAoData,$scope.gameRecordsAoData);
+            $scope.gameRecordsReload++;
         };
 
         $scope.resetSearch = function() {
@@ -98,7 +99,8 @@
             $scope.tempGameRecordsAoData = {
                 page:tempData.page,
                 pageSize:tempData.pageSize
-            }
+            };
+            $scope.gameRecordsReload++;
         };
 
         // 初始化table数据

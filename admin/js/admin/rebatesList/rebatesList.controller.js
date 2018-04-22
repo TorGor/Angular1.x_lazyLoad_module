@@ -26,7 +26,8 @@
         $scope.tempRebatesListAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempRebatesListAoData = Object.assign($scope.tempRebatesListAoData,$scope.rebatesListAoData)
+            $scope.tempRebatesListAoData = Object.assign($scope.tempRebatesListAoData,$scope.rebatesListAoData);
+            $scope.rebatesListReload++;
         };
 
         $scope.resetSearch = function() {
@@ -37,7 +38,8 @@
             $scope.tempRebatesListAoData = {
                 page:tempData.page,
                 pageSize:tempData.pageSize
-            }
+            };
+            $scope.rebatesListReload++;
         };
 
         // 初始化table数据

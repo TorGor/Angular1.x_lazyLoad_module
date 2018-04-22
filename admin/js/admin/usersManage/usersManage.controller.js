@@ -109,6 +109,7 @@
                 return;
             }
             $scope.tempUsersManageAoData = Object.assign($scope.tempUsersManageAoData,$scope.usersManageAoData)
+            $scope.usersManageReload++;
         };
 
         $scope.resetSearch = function() {
@@ -119,7 +120,8 @@
             $scope.tempUsersManageAoData = {
                 page:tempData.page,
                 pageSize:tempData.pageSize
-            }
+            };
+            $scope.usersManageReload++;
         };
 
         // 初始化table数据

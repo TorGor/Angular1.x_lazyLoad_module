@@ -32,7 +32,8 @@
         };
 
         $scope.trigerSearch = function() {
-            $scope.tempAdminsAoData = Object.assign($scope.tempAdminsAoData,$scope.adminsAoData)
+            $scope.tempAdminsAoData = Object.assign($scope.tempAdminsAoData,$scope.adminsAoData);
+            $scope.adminsReload++;
         };
 
         $scope.resetSearch = function() {
@@ -46,7 +47,8 @@
                 page:tempData.page,
                 pageSize:tempData.pageSize,
                 status: ''
-            }
+            };
+            $scope.adminsReload++;
         };
 
         /**

@@ -92,7 +92,8 @@
         $scope.tempWithdrawsManageAoData = {};
 
         $scope.trigerSearch = function() {
-            $scope.tempWithdrawsManageAoData = Object.assign($scope.tempWithdrawsManageAoData,$scope.withdrawsManageAoData)
+            $scope.tempWithdrawsManageAoData = Object.assign($scope.tempWithdrawsManageAoData,$scope.withdrawsManageAoData);
+            $scope.withdrawsManageReload++;
         };
 
         $scope.resetSearch = function() {
@@ -107,7 +108,8 @@
             $scope.tempWithdrawsManageAoData = {
                 page:tempData.page,
                 pageSize:tempData.pageSize
-            }
+            };
+            $scope.withdrawsManageReload++;
         };
 
         // 初始化table数据
