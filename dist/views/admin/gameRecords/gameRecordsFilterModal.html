@@ -15,6 +15,9 @@
                               {{'table.gameRecords.th8' | translate}}
                            </td>
                            <td style="width: 10%">
+                              {{'table.gameRecords.th10' | translate}}
+                           </td>
+                           <td style="width: 10%">
                               {{'table.gameRecords.th3' | translate}}
                            </td>
                            <td style="width: 10%" ao-data="tempGameRecordsAoData" server-data-table-sort="payout">
@@ -35,7 +38,7 @@
                            <td style="width: 7%">
                               {{'table.gameRecords.th9' | translate}}
                            </td>
-                           <td style="width: 14%" ao-data="tempGameRecordsAoData" server-data-table-sort="play_time">
+                           <td style="width: 10%" ao-data="tempGameRecordsAoData" server-data-table-sort="play_time">
                               {{'table.gameRecords.th5' | translate}}
                            </td>
                         </tr>
@@ -44,6 +47,9 @@
                         <tr ng-repeat="item in gameRecords">
                            <td>
                               <span>{{ item.user && item.user.username || '' }}</span>
+                           </td>
+                           <td>
+                              <span>{{ item.user && item.user.affiliate || '' }}</span>
                            </td>
                            <td>
                               <span>{{showArrayName(item.game&&item.game.name||'')}}</span>

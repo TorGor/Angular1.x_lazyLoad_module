@@ -18,7 +18,7 @@
         $translate
     ) {
 
-        var client = new Pusher('aobo-tech');
+        var client = new Pusher('78546555ea941f0a68b8');
         var pusher = $pusher(client);
 
         $timeout(function () {

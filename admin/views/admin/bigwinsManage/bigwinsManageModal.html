@@ -9,26 +9,30 @@
                 <div class="panel-body">
                     <legend class='text-center'>审核</legend>
                     <form class="form-horizontal" name="myForm">
-                        <label class='col-lg-4 col-md-6 control-label'>结果</label>
-                        <div class='col-lg-8 col-md-6'>
-                            <ui-select
-                                ng-model="item.result"
-                                theme="bootstrap"
-                                search-enabled="false">
-                                <ui-select-match placeholder="choose result">
-                                    <span ng-bind="$select.selected.label"></span>
-                                </ui-select-match>
-                                <ui-select-choices repeat="item.value as item in resultOptions">
-                                    <span ng-bind="item.label"></span>
-                                </ui-select-choices>
-                            </ui-select>
+                        <div class='col-xs-12 margin-bottom-10'>
+                            <label class='col-lg-4 col-md-4 control-label'>结果</label>
+                            <div class='col-lg-6 col-md-8'>
+                                <ui-select
+                                    ng-model="item.result"
+                                    theme="bootstrap"
+                                    search-enabled="false">
+                                    <ui-select-match placeholder="choose result">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in resultOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
                         </div>
                         <div class='clearfix'></div>
-                        <label class='col-lg-4 col-md-6 control-label'>建议</label>
-                        <div class='col-lg-8 col-md-6'>
-                            <input
-                                ng-model='item.comment' class='form-control' type='text'
-                            >
+                        <div class='col-xs-12 margin-bottom-10'>
+                            <label class='col-lg-4 col-md-4 control-label'>建议</label>
+                            <div class='col-lg-6 col-md-8'>
+                                <input
+                                    ng-model='item.comment' class='form-control' type='text'
+                                >
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -38,6 +42,6 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-show='validPower("BIGWINSMANAGE", ["POSTAUDIT"])' ng-disabled="!item.comment" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
+    <button class="btn btn-primary" type="button" ng-disabled="!item.comment" ng-click="confirmModal()">{{'table.button.save' | translate}}</button>
     <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}</button>
 </div>

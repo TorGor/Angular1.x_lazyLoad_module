@@ -10,7 +10,6 @@
         '$uibModalInstance',
         'adminService',
         'modalItem',
-        'id',
         '$translate'
     ];
 
@@ -20,7 +19,6 @@
         $uibModalInstance,
         adminService,
         modalItem,
-        id,
         $translate
     ) {
 
@@ -46,9 +44,8 @@
 
         $scope.confirmModal = function () {
             var tempData = angular.copy($scope.item);
-            tempData.adminId = modalItem.adminId;
-            tempData.adminId = modalItem.adminId;
-            adminService.postReq($rootScope.URL.BIGWINSMANAGE.POSTAUDIT+'/'+id+'/'+modalItem.id, {}, tempData).then(function (res) {
+            tempData.adminId = modalItem.data.adminId;
+            adminService.postReq($rootScope.URL.BIGWINSMANAGE.POSTAUDIT+'/'+modalItem._itemId+'/'+modalItem.data.id, {}, tempData).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $uibModalInstance.close('success');

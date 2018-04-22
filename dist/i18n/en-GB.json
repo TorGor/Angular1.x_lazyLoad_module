@@ -361,7 +361,8 @@
             "th6": "Product",
             "th7": "Round",
             "th8": "Username",
-            "th9": "Wallet"
+            "th9": "Wallet",
+            "th10": "Affiliate"
         },
         "walletsManage": {
             "th1": "Code",

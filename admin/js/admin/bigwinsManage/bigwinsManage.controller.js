@@ -102,6 +102,10 @@
             adminService.getReq($rootScope.URL.BIGWINSMANAGE.GETAUDIT + '/' + item.id, {admin_id:window.userInfo.adminId || ''}, {}).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     console.log(res.data.data)
+                    var tempData = {
+                        data: res.data.data,
+                        _itemId:item.id
+                    };
                     if (res.data.success) {
                         var modalInstance = $uibModal.open({
                             animation: true,
@@ -110,8 +114,7 @@
                             templateUrl: '/views/admin/bigwinsManage/bigwinsManageModal.html',
                             controller: 'bigwinsManageModalController',
                             resolve: {
-                                modalItem: res.data.data,
-                                id: item.id,
+                                modalItem: tempData,
                             },
                             size: 'lg',
                         });
