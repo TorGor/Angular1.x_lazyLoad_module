@@ -160,16 +160,10 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                            <td style="width: 7%" >
                                 {{'table.usersManage.th1' | translate}}
                             </td>
-                            <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="userId">
-                                {{'table.usersManage.th2' | translate}}
-                            </td>
-                            <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="affiliateId">
-                                {{'table.usersManage.th3' | translate}}
-                            </td>
-                            <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="currency">
+                            <td style="width: 7%">
                                 {{'table.usersManage.th4' | translate}}
                             </td>
                             <td style="width: 7%">
@@ -178,10 +172,10 @@
                             <td style="width: 7%">
                                 {{'table.usersManage.th6' | translate}}
                             </td>
-                            <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="timezone">
+                            <td style="width: 7%" >
                                 {{'table.usersManage.th7' | translate}}
                             </td>
-                            <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="email">
+                            <td style="width: 7%">
                                 {{'table.usersManage.th8' | translate}}
                             </td>
                             <td style="width: 7%">
@@ -206,12 +200,6 @@
                         <tr ng-repeat="item in usersManage">
                             <td>
                                 <span>{{item.username || ''}}</span>
-                            </td>
-                            <td>
-                                <span>{{(item.userId || '').substr(0,6)+'...'}}</span>
-                            </td>
-                            <td>
-                                <span>{{(item.affiliateId || '').substr(0,6)+'...'}}</span>
                             </td>
                             <td>
                                 <span>{{item.currency || ''}}</span>

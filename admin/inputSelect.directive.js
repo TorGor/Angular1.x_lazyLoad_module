@@ -45,10 +45,6 @@
 
                 $scope.allItems = [];
 
-                if(!$scope.outputValue){
-                    $scope.outputValue = ''
-                }
-
                 if(!$scope.outputkey){
                     $scope.outputkey = ''
                 }
@@ -60,7 +56,7 @@
                 }
 
                 $scope.searchValue = {};
-
+                $scope.once = true;
                 $scope.inputStatu=$scope.inputStatu||false;
                 $scope.searchDataFromServer = function (value) {
                     var temAoData = {
@@ -86,11 +82,12 @@
                                     }
                                     tempObj['_value']=dataItem[$scope.outputkey]||'';
                                     $scope.allItems.push(tempObj)
-                                    if($scope.initPlaceholder&&$scope.allItems[0]){
+                                    if($scope.once&&$scope.allItems[0]){
                                         $scope.searchValue.select = $scope.allItems[0];
                                         $($element).find('.ui-select-search').val($scope.searchValue.select['_label']);
                                         $scope.initPlaceholder = false;
                                     }
+                                    $scope.once = false;
                                 })
                             }
                         }else{
@@ -104,43 +101,19 @@
                     $($element).find('.ui-select-search').val($model)
                 };
 
-                function camelCaseKeysToUnderscore(obj) {
-
-                    var newName;
-
-                    if (typeof(obj) != 'object') return obj;
-
-                    for (var oldName in obj) {
-
-                        // Camel to underscore
-                        newName = oldName.replace(/([a-z0-9][A-Z])/g, function ($1) {
-                            return $1.toLowerCase().substr(0, 1) + '_' + $1.toLowerCase().substr(1);
-                        });
-
-                        // Only process if names are different
-                        if (newName != oldName) {
-                            // Check for the old property name to avoid a ReferenceError in strict mode.
-                            if (obj.hasOwnProperty(oldName)) {
-                                obj[newName] = obj[oldName];
-                                delete obj[oldName];
-                            }
-                        }
-
-                        // Recursion
-                        if (typeof(obj[newName]) == 'object') {
-                            obj[newName] = camelCaseKeysToUnderscore(obj[newName]);
-                        }
-
+                if(!$scope.outputValue){
+                    $scope.outputValue = ''
+                }else {
+                    if($scope.outputkey=='affiliateId'){
+                        $scope.searchDataFromServer({
+                            'affiliate_id':$scope.outputValue
+                        })
+                    }else if($scope.outputkey=='userId'){
+                        $scope.searchDataFromServer({
+                            'username':$scope.initPlaceholder
+                        })
                     }
-                    return obj;
-                }
-
-                if($scope.initPlaceholder){
-                    if($scope.outputkey){
-                        $scope.searchDataFromServer(camelCaseKeysToUnderscore({
-                            [$scope.outputkey]:$scope.initPlaceholder
-                        }))
-                    }
+                    console.log($scope.outputValue,'$scope.outputValue')
                 }
 
                 $scope.$watch('outputValue',function(newValue, oldValue) {
@@ -172,10 +145,6 @@
                             $scope.searchDataFromServer(tempvalue);
                         }, 300);
                     });
-                    $($element).find('.ui-select-search').bind('focus',function(e) {
-                        var tempvalue = e.target.value;
-                        $scope.searchDataFromServer(tempvalue);
-                    })
                 },10)
             }
         }

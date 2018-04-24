@@ -6,6 +6,126 @@
     <div class="row">
         <div class="">
             <div class="panel-wrapper">
+                <span style='margin-left: 15px' class="form-group add-button-class">
+                    <span class='btn-search'>
+                        <button
+                            class="btn btn-green"
+                            ng-click="trigerSearch()"
+                            type="button"
+                            translate="table.button.search"
+                        >
+                        </button>
+                        <button
+                            class="btn btn-warning"
+                            ng-click="resetSearch()"
+                            type="button"
+                            translate="table.button.reset"
+                        >
+                        </button>
+                    </span>
+                </span>
+                <div class="clearfix"></div>
+                <form class="form-horizontal" role="form">
+                    <div class="col-lg-3 col-md-6 margin-bottom-10">
+                        <input-select
+                            inputkey='username'
+                            outputkey='userId'
+                            init-placeholder='{{urlUsername}}'
+                            input-placeholder='username'
+                            searchkey='username'
+                            min-length='3'
+                            output-value='ordersManageAoData.user_id'
+                            url='{{URL.USERSMANAGE.GET}}'
+                        >
+                        </input-select>
+                    </div>
+                    <div class="col-lg-3 col-md-6 margin-bottom-10">
+                        <input-select
+                            inputkey='username'
+                            outputkey='affiliateId'
+                            input-placeholder='affiliate'
+                            searchkey='username'
+                            min-length='3'
+                            output-value='ordersManageAoData.affiliate_id'
+                            url='{{URL.USERSMANAGE.GET}}'
+                        >
+                        </input-select>
+                    </div>
+                    <div class="col-lg-3 col-md-6 margin-bottom-10">
+                        <input
+                            class="form-control"
+                            type="text"
+                            ng-model="ordersManageAoData.min_amount"
+                            placeholder="{{'min ' + ('table.ordersManage.th1' | translate)}}"
+                        >
+                    </div>
+                    <div class="col-lg-3 col-md-6 margin-bottom-10">
+                        <input
+                            class="form-control"
+                            type="text"
+                            ng-model="ordersManageAoData.max_amount"
+                            placeholder="{{'max ' + ('table.ordersManage.th1' | translate)}}"
+                        >
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <ui-select
+                            ng-model="search.method"
+                            theme="bootstrap"
+                            multiple
+                            close-on-select="false"
+                            search-enabled="false"
+                        >
+                            <ui-select-match placeholder='choose method'>
+                                <span>{{$item.label}}</span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item.value as item in methodOptions">
+                                <span ng-bind="item.label"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                        <ui-select
+                            ng-model="search.wallet"
+                            theme="bootstrap"
+                            multiple
+                            close-on-select="false"
+                            search-enabled="false"
+                        >
+                            <ui-select-match placeholder='choose wallet'>
+                                <span>{{$item.label}}</span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item.value as item in walletOptions">
+                                <span ng-bind="item.label"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="col-lg-3 col-md-6 margin-bottom-10">
+                        <div
+                            class="input-group date"
+                            datetimepicker
+                            options={{dateOptionsYYYMMDDHHmmss}}
+                            ng-model="searchTimeStart"
+                        >
+                            <input type="text" class="form-control" placeholder="start" />
+                            <span class="input-group-addon" style="background:none">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 margin-bottom-10">
+                        <div
+                            class="input-group date"
+                            datetimepicker
+                            options={{dateOptionsYYYMMDDHHmmss}}
+                            ng-model="searchTimeEnd"
+                        >
+                            <input type="text" class="form-control" placeholder="end" />
+                            <span class="input-group-addon" style="background:none">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </form>
                 <div class="panel-body">
                     <div
                         server-data-table
@@ -23,24 +143,25 @@
                                 <td style="width: 10%">
                                     {{'table.ordersManage.th6' | translate}}
                                 </td>
-                                <td style="width: 10%" ao-data="tempOrdersManageAoData" server-data-table-sort="amount">
+                                <td style="width: 10%" ao-data="ordersManageAoData" server-data-table-sort="amount">
                                     {{'table.ordersManage.th1' | translate}}
                                 </td>
-                                <td style="width: 10%" ao-data="tempOrdersManageAoData" server-data-table-sort="currency">
+                                <td style="width: 10%" ao-data="ordersManageAoData" server-data-table-sort="currency">
                                     {{'table.ordersManage.th2' | translate}}
                                 </td>
-                                <td style="width: 10%" ao-data="tempOrdersManageAoData" server-data-table-sort="destination">
+                                <td style="width: 10%" ao-data="ordersManageAoData" server-data-table-sort="destination">
                                     {{'table.ordersManage.th3' | translate}}
                                 </td>
-                                <td style="width: 10%" ao-data="tempOrdersManageAoData" server-data-table-sort="method_code">
+                                <td style="width: 10%" ao-data="ordersManageAoData" server-data-table-sort="method_code">
                                     {{'table.ordersManage.th4' | translate}}
                                 </td>
-                                <td style="width: 10%" ao-data="tempOrdersManageAoData" server-data-table-sort="status">
+                                <td style="width: 10%" ao-data="ordersManageAoData" server-data-table-sort="status">
                                     {{'table.ordersManage.th5' | translate}}
                                 </td>
                                 <td style="width: 14%">
                                     {{'createAt' | translate}}
                                 </td>
+                                <td style="width: 10%">{{'table.button.operation' | translate}}</td>
                             </tr>
                             </thead>
                             <tbody>

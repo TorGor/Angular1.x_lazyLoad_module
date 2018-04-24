@@ -22,8 +22,6 @@
         adminService
     ) {
 
-        $scope.urlUsername = '';
-
         $scope.serviceOptions = [
             {
                 label:'all',
@@ -190,6 +188,9 @@
                 }
             }
         });
+
+        $scope.urlUsername = '';
+
 
         // try {
         //     var urlParams = $scope.getUrlParams();

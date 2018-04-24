@@ -7,20 +7,103 @@
       <div class="">
          <div class="panel-wrapper">
             <div class="panel-body">
+               <span style='margin-left: 15px' class="form-group add-button-class">
+                  <span class='btn-search'>
+                     <button class="btn btn-green" ng-click="trigerSearch()" type="button" translate="table.button.search">
+                     </button>
+                     <button class="btn btn-warning" ng-click="resetSearch()" type="button" translate="table.button.reset">
+                     </button>
+                  </span>
+               </span>
+               <div class='clearfix'></div>
+               <form class="form-horizontal" role="form">
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input class="form-control" type="text" ng-model="usersManageAoData.username" placeholder="username min 3 char">
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input class="form-control" type="text" ng-model="usersManageAoData.affiliate_id" placeholder="affiliate id">
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input class="form-control" type="text" ng-model="usersManageAoData.email" placeholder="email">
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input class="form-control" type="text" ng-model="usersManageAoData.rank" placeholder="rank">
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input class="form-control" type="text" ng-model="usersManageAoData.financial_group" placeholder="financial group">
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input class="form-control" type="text" ng-model="usersManageAoData.phone" placeholder="phone eg. +8613900000000">
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input class="form-control" type="text" ng-model="usersManageAoData.name" placeholder="name">
+                  </div>
+                  <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                     <ui-select ng-model="usersManageAoData.name_verified" theme="bootstrap" search-enabled="false">
+                        <ui-select-match placeholder='choose name verified'>
+                           <span>{{$select.selected.label}}</span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item.value as item in booleanOptons">
+                           <span ng-bind="item.label"></span>
+                        </ui-select-choices>
+                     </ui-select>
+                  </div>
+                  <div class='clearfix'></div>
+                  <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                     <ui-select ng-model="usersManageAoData.otp" theme="bootstrap" search-enabled="false">
+                        <ui-select-match placeholder='choose otp'>
+                           <span>{{$select.selected.label}}</span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item.value as item in booleanOptons">
+                           <span ng-bind="item.label"></span>
+                        </ui-select-choices>
+                     </ui-select>
+                  </div>
+                  <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                     <ui-select ng-model="usersManageAoData.gender" theme="bootstrap" search-enabled="false">
+                        <ui-select-match placeholder='choose gender'>
+                           <span>{{$select.selected.label}}</span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item.value as item in genderOptions">
+                           <span ng-bind="item.label"></span>
+                        </ui-select-choices>
+                     </ui-select>
+                  </div>
+                  <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                     <ui-select ng-model="usersManageAoData.currency" theme="bootstrap" search-enabled="false">
+                        <ui-select-match placeholder='choose currency'>
+                           <span>{{$select.selected.label}}</span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item.value as item in currencyOptions">
+                           <span ng-bind="item.label"></span>
+                        </ui-select-choices>
+                     </ui-select>
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDDHHmmss}} ng-model="searchTimeStart">
+                        <input type="text" class="form-control" placeholder="start" />
+                        <span class="input-group-addon" style="background:none">
+                           <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                     </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDDHHmmss}} ng-model="searchTimeEnd">
+                        <input type="text" class="form-control" placeholder="end" />
+                        <span class="input-group-addon" style="background:none">
+                           <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                     </div>
+                  </div>
+               </form>
                <div server-data-table items="usersManage" ao-data="tempUsersManageAoData" reload="usersManageReload" service-name="adminService" service-name-attr="getReq" url="usersManageUrl" handle-data="false">
                   <table width="100%" class="table table-bordered table-hover bg-white">
                      <thead>
                         <tr class="bg-gray-light text-bold">
-                           <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="username">
+                           <td style="width: 7%">
                               {{'table.usersManage.th1' | translate}}
                            </td>
-                           <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="userId">
-                              {{'table.usersManage.th2' | translate}}
-                           </td>
-                           <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="affiliateId">
-                              {{'table.usersManage.th3' | translate}}
-                           </td>
-                           <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="currency">
+                           <td style="width: 7%">
                               {{'table.usersManage.th4' | translate}}
                            </td>
                            <td style="width: 7%">
@@ -29,10 +112,10 @@
                            <td style="width: 7%">
                               {{'table.usersManage.th6' | translate}}
                            </td>
-                           <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="timezone">
+                           <td style="width: 7%">
                               {{'table.usersManage.th7' | translate}}
                            </td>
-                           <td style="width: 7%" ao-data="usersManageAoData" server-data-table-sort="email">
+                           <td style="width: 7%">
                               {{'table.usersManage.th8' | translate}}
                            </td>
                            <td style="width: 7%">
@@ -56,12 +139,6 @@
                         <tr ng-repeat="item in usersManage">
                            <td>
                               <span>{{item.username || ''}}</span>
-                           </td>
-                           <td>
-                              <span>{{(item.userId || '').substr(0,6)+'...'}}</span>
-                           </td>
-                           <td>
-                              <span>{{(item.affiliateId || '').substr(0,6)+'...'}}</span>
                            </td>
                            <td>
                               <span>{{item.currency || ''}}</span>

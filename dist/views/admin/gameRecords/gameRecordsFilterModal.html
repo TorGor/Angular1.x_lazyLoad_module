@@ -7,6 +7,77 @@
       <div class="">
          <div class="panel-wrapper">
             <div class="panel-body">
+               <span style='margin-left: 15px' class="form-group add-button-class">
+                  <span class='btn-search'>
+                     <button class="btn btn-green" ng-click="trigerSearch()" type="button" translate="table.button.search">
+                     </button>
+                     <button class="btn btn-warning" ng-click="resetSearch()" type="button" translate="table.button.reset">
+                     </button>
+                  </span>
+               </span>
+               <div class="clearfix"></div>
+               <form class="form-horizontal" role="form">
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input-select inputkey='username' outputkey='userId' init-placeholder='{{urlUsername}}' input-placeholder="{{'table.transactionsDetail.th1' | translate}}" searchkey='username' min-length='3' output-value='gameRecordsAoData.user_id' url='{{URL.USERSMANAGE.GET}}'>
+                     </input-select>
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input-select inputkey='username' outputkey='affiliateId' input-placeholder="{{'table.transactionsDetail.th2' | translate}}" searchkey='username' min-length='3' output-value='gameRecordsAoData.affiliate_id' url='{{URL.USERSMANAGE.GET}}'>
+                     </input-select>
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input-select inputkey='name' outputkey='id' input-placeholder="game name" searchkey='keyword' min-length='3' output-value='gameRecordsAoData.game_id' url='{{URL.GAMESMANAGE.GET}}'>
+                     </input-select>
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input class="form-control" type="text" ng-model="gameRecordsAoData.min_bet" placeholder="{{'min ' + ('table.gameRecords.th1' | translate)}}">
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input class="form-control" type="text" ng-model="gameRecordsAoData.max_bet" placeholder="{{'max ' + ('table.gameRecords.th1' | translate)}}">
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input class="form-control" type="text" ng-model="gameRecordsAoData.min_payout" placeholder="{{'min ' + ('table.gameRecords.th4' | translate)}}">
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input class="form-control" type="text" ng-model="gameRecordsAoData.max_payout" placeholder="{{'max ' + ('table.gameRecords.th4' | translate)}}">
+                  </div>
+                  <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                     <ui-select ng-model="search.products" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
+                        <ui-select-match placeholder='choose products'>
+                           <span>{{$item.label}}</span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item.value as item in productSearchOptions">
+                           <span ng-bind="item.label"></span>
+                        </ui-select-choices>
+                     </ui-select>
+                  </div>
+                  <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                     <ui-select ng-model="search.brands" theme="bootstrap" multiple close-on-select="false" search-enabled="false">
+                        <ui-select-match placeholder='choose brands'>
+                           <span>{{$item.label}}</span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item.value as item in brandOptions">
+                           <span ng-bind="item.label"></span>
+                        </ui-select-choices>
+                     </ui-select>
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDDHHmmss}} ng-model="searchTimeStart">
+                        <input type="text" class="form-control" placeholder="start" />
+                        <span class="input-group-addon" style="background:none">
+                           <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                     </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDDHHmmss}} ng-model="searchTimeEnd">
+                        <input type="text" class="form-control" placeholder="end" />
+                        <span class="input-group-addon" style="background:none">
+                           <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                     </div>
+                  </div>
+               </form>
                <div server-data-table items="gameRecords" ao-data="tempGameRecordsAoData" reload="gameRecordsReload" service-name="adminService" service-name-attr="getReq" url="gameRecordsUrl" handle-data="false">
                   <table width="100%" class="table table-bordered table-hover bg-white">
                      <thead>
@@ -20,10 +91,10 @@
                            <td style="width: 10%">
                               {{'table.gameRecords.th3' | translate}}
                            </td>
-                           <td style="width: 10%" ao-data="tempGameRecordsAoData" server-data-table-sort="payout">
+                           <td style="width: 10%" ao-data="gameRecordsAoData" server-data-table-sort="payout">
                               {{'table.gameRecords.th4' | translate}}
                            </td>
-                           <td style="width: 10%" ao-data="tempGameRecordsAoData" server-data-table-sort="bet">
+                           <td style="width: 10%" ao-data="gameRecordsAoData" server-data-table-sort="bet">
                               {{'table.gameRecords.th1' | translate}}
                            </td>
                            <td style="width: 10%">
@@ -38,7 +109,7 @@
                            <td style="width: 7%">
                               {{'table.gameRecords.th9' | translate}}
                            </td>
-                           <td style="width: 10%" ao-data="tempGameRecordsAoData" server-data-table-sort="play_time">
+                           <td style="width: 10%" ao-data="gameRecordsAoData" server-data-table-sort="play_time">
                               {{'table.gameRecords.th5' | translate}}
                            </td>
                         </tr>

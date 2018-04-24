@@ -7,6 +7,47 @@
       <div class="">
          <div class="panel-wrapper">
             <div class='panel-body'>
+               <span style='margin-left: 15px' class="form-group add-button-class">
+                  <span class='btn-search'>
+                     <button class="btn btn-green" ng-click="trigerSearch()" type="button" translate="table.button.search">
+                     </button>
+                     <button class="btn btn-warning" ng-click="resetSearch()" type="button" translate="table.button.reset">
+                     </button>
+                  </span>
+               </span>
+               <div class='clearfix'></div>
+               <form class='form-horizontal' role='form'>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input-select inputkey='username' outputkey='userId' init-placeholder='{{urlUsername}}' input-placeholder="{{'table.transactionsDetail.th1' | translate}}" searchkey='username' min-length='3' output-value='rebatesListAoData.user_id' url='{{URL.USERSMANAGE.GET}}'>
+                     </input-select>
+                  </div>
+                  <div class="col-lg-3 col-md-6 margin-bottom-10">
+                     <input-select inputkey='username' outputkey='affiliateId' input-placeholder="{{'table.transactionsDetail.th2' | translate}}" searchkey='username' min-length='3' output-value='rebatesListAoData.affiliate_id' url='{{URL.USERSMANAGE.GET}}'>
+                     </input-select>
+                  </div>
+                  <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                     <input class='form-control' type='number' ng-model='rebatesListAoData.min_amount' placeholder="{{'min ' + ('table.rebatesList.th4' | translate)}}">
+                  </div>
+                  <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                     <input class='form-control' type='number' ng-model='rebatesListAoData.max_amount' placeholder="{{'max ' + ('table.rebatesList.th4' | translate)}}">
+                  </div>
+                  <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                     <div class='input-group date' datetimepicker options='{{dateOptionsYYYMMDDHHmmss}}' ng-model='searchTimeStart'>
+                        <input type='text' class='form-control' placeholder='start' />
+                        <span class='input-group-addon' style='background:none'>
+                           <span class='glyphicon glyphicon-calendar'></span>
+                        </span>
+                     </div>
+                  </div>
+                  <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                     <div class='input-group date' datetimepicker options='{{dateOptionsYYYMMDDHHmmss}}' ng-model='searchTimeEnd'>
+                        <input type='text' class='form-control' placeholder='end' />
+                        <span class='input-group-addon' style='background:none'>
+                           <span class='glyphicon glyphicon-calendar'></span>
+                        </span>
+                     </div>
+                  </div>
+               </form>
                <div server-data-table items='rebatesList' ao-data='tempRebatesListAoData' reload='rebatesListReload' service-name='adminService' service-name-attr='getReq' url='rebatesListUrl' handle-data='false'>
                   <table width='100%' class='table table-bordered table-hover bg-white'>
                      <thead>

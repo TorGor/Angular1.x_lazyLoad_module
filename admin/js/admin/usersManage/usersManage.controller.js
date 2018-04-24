@@ -197,6 +197,7 @@
                     resolve: {
                         filter: {
                             user_id:item.userId,
+                            username:item.username,
                             timezone:item.timezone,
                         },
                     }
@@ -219,6 +220,7 @@
                     scope:$scope,
                     resolve: {
                         filter: {
+                            username:item.username,
                             user_id:item.userId
                         },
                     }
@@ -241,6 +243,7 @@
                     scope:$scope,
                     resolve: {
                         filter: {
+                            username:item.username,
                             user_id:item.userId
                         },
                     }
@@ -263,6 +266,7 @@
                     scope:$scope,
                     resolve: {
                         filter: {
+                            username:item.username,
                             user_id:item.userId
                         },
                     }
@@ -285,6 +289,7 @@
                     scope:$scope,
                     resolve: {
                         filter: {
+                            username:item.username,
                             user_id:item.userId
                         },
                     }
@@ -307,6 +312,7 @@
                     scope:$scope,
                     resolve: {
                         filter: {
+                            username:item.username,
                             user_id:item.userId
                         },
                     }
@@ -329,6 +335,7 @@
                     scope:$scope,
                     resolve: {
                         filter: {
+                            username:item.username,
                             user_id:item.userId
                         },
                     }

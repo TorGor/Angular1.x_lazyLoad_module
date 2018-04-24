@@ -7,6 +7,139 @@
         <div class="">
             <div class="panel-wrapper">
                 <div class="panel-body">
+                    <div class="row" style="margin-bottom: 15px">
+                        <form class="form-horizontal" role="form" style="height: 45px;width: 100%">
+                            <div class="col-lg-3 col-md-6 margin-bottom-10 pull-right">
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    ng-model="transactionsDetailAoData.timezone"
+                                    placeholder="timezone">
+                            </div>
+                            <div class="col-lg-6 col-md-6 margin-bottom-10 form-group pull-right text-right">
+                                <button
+                                    class="btn btn-primary"
+                                    ng-click="switchAdvancedSearch()"
+                                    type="button"
+                                    translate="table.button.advance_search"
+                                >
+                                </button>
+                                <button
+                                    class="btn btn-green"
+                                    ng-click="trigerSearch()"
+                                    type="button"
+                                    translate="table.button.search"
+                                >
+                                </button>
+                                <button
+                                    class="btn btn-warning"
+                                    ng-click="resetSearch()"
+                                    type="button"
+                                    translate="table.button.reset"
+                                >
+                                </button>
+                            </div>
+                        </form>
+                        <div class="clearfix"></div>
+                        <form class="form-horizontal" role="form" ng-show="advancedSearch">
+                            <div class="col-lg-3 col-md-6 margin-bottom-10">
+                                <input-select
+                                    inputkey='username'
+                                    outputkey='userId'
+                                    init-placeholder='{{urlUsername}}'
+                                    input-placeholder="{{('table.transactionsDetail.th1' | translate)}}"
+                                    searchkey='username'
+                                    min-length='3'
+                                    output-value='transactionsDetailAoData.user_id'
+                                    url='{{URL.USERSMANAGE.GET}}'
+                                >
+                                </input-select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 margin-bottom-10">
+                                <input-select
+                                    inputkey='username'
+                                    outputkey='affiliateId'
+                                    input-placeholder="{{'table.transactionsDetail.th2' | translate}}"
+                                    searchkey='username'
+                                    min-length='3'
+                                    output-value='transactionsDetailAoData.affiliate_id'
+                                    url='{{URL.USERSMANAGE.GET}}'
+                                >
+                                </input-select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 margin-bottom-10">
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    style="width: 100%"
+                                    ng-model="transactionsDetailAoData.service_id"
+                                    placeholder="{{'server id'}}">
+                            </div>
+                            <div class="col-lg-3 col-md-6 margin-bottom-10">
+                                <ui-select
+                                    ng-model="transactionsDetailAoData.wallet"
+                                    theme="bootstrap"
+                                    search-enabled="false">
+                                    <ui-select-match placeholder="{{'table.transactionsDetail.th3' | translate}}">
+                                        <span>{{$select.selected.label}}</span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in walletOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-lg-3 col-md-6 margin-bottom-10">
+                                <ui-select
+                                    ng-model="transactionsDetailAoData.service"
+                                    theme="bootstrap"
+                                    search-enabled="false">
+                                    <ui-select-match placeholder="{{'table.transactionsDetail.th4' | translate}}">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in serviceOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            <div class="col-lg-3 col-md-6 margin-bottom-10">
+                                <input
+                                    class="form-control"
+                                    type="number"
+                                    ng-model="transactionsDetailAoData.min_amount"
+                                    placeholder="{{'min ' + ('table.transactionsDetail.th5' | translate)}}">
+                            </div>
+                            <div class="col-lg-3 col-md-6 margin-bottom-10">
+                                <input
+                                    class="form-control"
+                                    type="number"
+                                    ng-model="transactionsDetailAoData.max_amount"
+                                    placeholder="{{'max ' + ('table.transactionsDetail.th5' | translate)}}">
+                            </div>
+                            <div class="col-lg-3 col-md-6 margin-bottom-10">
+                                <div class="input-group date"
+                                     datetimepicker
+                                     options={{dateOptionsYYYMMDDHHmmss}}
+                                     ng-model="searchTimeStart">
+                                    <input type="text" class="form-control" placeholder="start"/>
+                                    <span class="input-group-addon" style="background:none">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 margin-bottom-10">
+                                <div class="input-group date"
+                                     datetimepicker
+                                     options={{dateOptionsYYYMMDDHHmmss}}
+                                     ng-model="searchTimeEnd">
+                                    <input type="text" class="form-control" placeholder="end"/>
+                                    <span class="input-group-addon" style="background:none">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <div
                         server-data-table
                         items="transactionsDetail"
@@ -32,7 +165,7 @@
                                 <td style="width: 6%">
                                     {{'table.transactionsDetail.th4' | translate}}
                                 </td>
-                                <td style="width: 6%" ao-data="tempTransactionsDetailAoData" server-data-table-sort="amount">
+                                <td style="width: 6%" ao-data="transactionsDetailAoData" server-data-table-sort="amount">
                                     {{'table.transactionsDetail.th5' | translate}}
                                 </td>
                                 <td style="width: 6%">
