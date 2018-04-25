@@ -31,7 +31,6 @@
 
         // 初始化table数据
         $scope.initMediaCategoriesData = function () {
-            $scope.mediaCategories = [];
             adminService.getReq($rootScope.URL.MEDIACATEGORIES.GET, {}, {}).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {

@@ -155,7 +155,8 @@
                 }
             });
             var tempData = {
-                path:$scope.modalItem.path
+                path:$scope.modalItem.path,
+                name:angular.copy($scope.methodsNameModal)
             };
             if(tempData.name && tempData.name.length){
                 var tempObj = {};

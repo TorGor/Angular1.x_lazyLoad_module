@@ -12,7 +12,7 @@
                   <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
                      <label class="col-lg-4 col-md-6 control-label">{{'path' | translate}}</label>
                      <div class="col-lg-8 col-md-6">
-                        <input ng-model="modalItem.path" name='path' ng-pattern='/^[A-Za-Z0-9_-]{1,40}$/' ng-disabled='!hasPower||edit==3' required class="form-control" type="text" placeholder="number string _ -">
+                        <input ng-model="modalItem.path" name='path' ng-disabled='!hasPower||edit==3' required class="form-control" type="text" placeholder="number string _ -">
                         <span class='text-danger valid-error' ng-show="myForm.path.$dirty&&myForm.path.$invalid">
                            {{'number string _ -'}}
                         </span>
@@ -22,7 +22,7 @@
                </form>
                <div class='clearfix'></div>
                <legend class="text-center">{{'name' | translate}}</legend>
-               <span class="form-group add-button-class">
+               <span class="form-group add-button-class no-block">
                   <button ng-show="hasPower" class="btn btn-primary" ng-click="addMethodsNameModal()" type="button" translate="table.button.add">
                   </button>
                </span>
