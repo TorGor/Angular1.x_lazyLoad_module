@@ -149,6 +149,46 @@
                      </div>
                   </div>
                   <div class="clearfix"></div>
+                  <legend class="text-center">
+                     备注信息
+                  </legend>
+                  <form class="form-inline pull-right add-button-class" role="form">
+                     <div style="position: relative" class="form-group">
+                        <span style="position: absolute;left: 4px;top: 6px">
+                           <em class="fa fa-search"></em>
+                        </span>
+                        <input class="form-control" type="text" ng-model="methodsNameModalSearch" placeholder="{{searchPlaceholder(['comment'])}}">
+                     </div>
+                  </form>
+                  <div web-data-table items="methodsNameModal" ao-data="methodsNameModalAoData" search="methodsNameModalSearch" reload="methodsNameModalReload" show-items="showMethodsNameModal">
+                     <table width="100%" class="table table-bordered table-hover bg-white">
+                        <thead>
+                           <tr class="bg-gray-light text-bold">
+                              <td style="width: 40%">
+                                 {{'comment' | translate}}
+                              </td>
+                              <td style="width: 40%">
+                                 {{'createAt' | translate}}
+                              </td>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr ng-repeat="item in showMethodsNameModal">
+                              <td>
+                                 <span>
+                                    {{item.comment}}
+                                 </span>
+                              </td>
+                              <td>
+                                 <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
+                              </td>
+                           </tr>
+                           <tr ng-show="showMethodsNameModal.length==0">
+                              <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
                </form>
             </div>
          </div>
