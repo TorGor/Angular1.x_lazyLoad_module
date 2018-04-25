@@ -9,30 +9,26 @@
                         type="button"
                         translate="table.button.add"
                     >
-                        新增
                     </button>
                 </span>
                 <form class="form-inline pull-right add-button-class" role="form">
                     <div style="position: relative" class="form-group">
                         <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                        <input class="form-control" type="text" ng-model="mediaFilesSearch" placeholder="{{searchPlaceholder(['table.mediaFiles.th1', 'table.mediaFiles.th2', 'table.mediaFiles.th3'])}}">
+                        <input
+                            class="form-control" type="text" ng-model="mediaFilesSearch"
+                            placeholder="{{searchPlaceholder(['table.mediaFiles.th1', 'table.mediaFiles.th2', 'table.mediaFiles.th3'])}}"
+                        >
                     </div>
                 </form>
                 <div
-                        server-data-table
-                        items="mediaFiles"
-                        ao-data="mediaFilesAoData"
-                        reload="mediaFilesReload"
-                        service-name="adminService"
-                        service-name-attr="getReq"
-                        url="mediaFilesUrl"
-                        handle-data="false"
-                        web-data-table
-                        items="mediaFiles"
-                        ao-data="mediaFilesAoData"
-                        search="mediaFilesSearch"
-                        reload="mediaFilesReload"
-                        show-items="showMediaFiles"
+                    server-data-table
+                    items="mediaFiles"
+                    ao-data="tempMediaFilesAoData"
+                    reload="mediaFilesReload"
+                    service-name="adminService"
+                    service-name-attr="getReq"
+                    url="mediaFilesUrl"
+                    handle-data="false"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
@@ -50,50 +46,18 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in showMediaFiles">
+                        <tr ng-repeat="item in mediaFiles">
                             <td>
-                                <span editable-text="item.code" e-name="code" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.code || '' }}</span>
                             </td>
                             <td>
-                                <span editable-text="item.name" e-name="name" e-formclass="xeditable-md"
-                                      onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.name || '' }}</span>
                             </td>
                             <td>
-                                    <span editable-select="item.roleStatus" e-name="roleStatus" e-form="rowform"
-                                          onbeforesave="checkRequiredData($data)"
-                                          e-ng-options="option.value as option.label for option in adminSelect012.options">
-                                        <span ng-bind-html="filter012OptionsValue(item.roleStatus)"></span>
-                                    </span>
+                                <span>{{}}</span>
                             </td>
-                            <td style="white-space: nowrap;">
-                                <form class="form-buttons form-inline" editable-form name="rowform"
-                                      onaftersave="saveMediaFiles(item, $data)" ng-show="rowform.$visible"
-                                      shown="validIsNew(item._id)">
-                                    <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
-                                            title="{{'table.button.save' | translate}}">
-                                        <em class="fa fa-save"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting"
-                                            ng-click="rowform.$cancel();cancelSave(item,$index)"
-                                            title="{{'table.button.cancel' | translate}}">
-                                        <em class="fa fa-times"></em>
-                                    </button>
-                                </form>
-                                <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-sm btn-info" ng-click="rowform.$show()"
-                                            title="{{'table.button.edit' | translate}}">
-                                        <em class="fa fa-pencil"></em>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" ng-click="deleteMediaFiles(item)"
-                                            title="{{'table.button.delete' | translate}}">
-                                        <em class="fa fa-trash"></em>
-                                    </button>
-                                </div>
-                            </td>
+
                         </tr>
-                        <tr ng-show="showMediaFiles.length==0">
-                            <td colspan="4" class="">{{'table.no_date' | translate}}</td>
+                        <tr ng-show="mediaFiles.length==0">
+                            <td colspan="20" class="">{{'table.no_date' | translate}}</td>
                         </tr>
                         </tbody>
                     </table>

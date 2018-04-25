@@ -18,6 +18,8 @@
         adminService
     ) {
 
+        $scope.mediaFilesUrl = $rootScope.URL.MEDIAFILES.GET;
+
         // 原始的数据
         $scope.mediaFiles = [];
 
@@ -25,24 +27,12 @@
         $scope.showMediaFiles = [];
         $scope.mediaFilesReload = 1;
         $scope.mediaFilesAoData = {};
+        $scope.tempMediaFilesAoData = {};
         $scope.mediaFilesSearch = '';
 
         // 初始化table数据
         $scope.initMediaFilesData = function () {
-            $scope.mediaFiles = [];
-            adminService.getReq($rootScope.URL.MEDIAFILES.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.mediaFiles = angular.copy(res.data.data);
-                        $scope.mediaFiles.forEach(function (mediaFilesItem, mediaFilesIndex) {
-                            mediaFilesItem._id = mediaFilesIndex +1;
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
+            $scope.mediaFilesReload++;
         };
 
 
@@ -132,7 +122,5 @@
         };
 
         // 页面加载执行的函数
-
-        $scope.initMediaFilesData();
     }
 })();

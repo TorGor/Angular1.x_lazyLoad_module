@@ -241,18 +241,18 @@
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                         <li><a ng-click='showAffiliatesModal(item,1)'>资料</a></li>
-                                        <li><a ng-click='openNewTab(item,"bankCardsUser")'>银行卡</a></li>
-                                        <li><a ng-click='openNewTab(item,"summaryAffiliates")'>报表-金额</a></li>
+                                        <li><a ng-show='validPower("AFFILIATESMANAGE", ["SELECTCARDS"])' ng-click='openNewTab(item,"bankCardsUser")'>银行卡</a></li>
+                                        <li><a ng-show='validPower("AFFILIATESMANAGE", ["SELECTSUMMARY"])' ng-click='openNewTab(item,"summaryAffiliates")'>报表-金额</a></li>
                                         <!--<li><a ng-click='openNewTab(item,"admin.usersManage")'>客户</a></li>-->
                                         <!--<li><a ng-click='openNewTab(item,"admin.ordersManage")'>充值记录</a></li>-->
                                         <!--<li><a ng-click='openNewTab(item,"admin.withdrawsManage")'>提款记录</a></li>-->
                                         <!--<li><a ng-click='openNewTab(item,"admin.rebatesList")'>返水记录</a></li>-->
                                         <!--<li><a ng-click='openNewTab(item,"admin.appliesUse")'>优惠券使用记录</a></li>-->
-                                        <li><a ng-click='openNewTab(item,"usersManage")'>客户</a></li>
-                                        <li><a ng-click='openNewTab(item,"ordersManage")'>充值记录</a></li>
-                                        <li><a ng-click='openNewTab(item,"withdrawsManage")'>提款记录</a></li>
-                                        <li><a ng-click='openNewTab(item,"rebatesList")'>返水记录</a></li>
-                                        <li><a ng-click='openNewTab(item,"appliesUse")'>优惠券使用记录</a></li>
+                                        <li><a ng-show='validPower("USERSMANAGE", ["GET"])' ng-click='openNewTab(item,"usersManage")'>客户</a></li>
+                                        <li><a ng-show='validPower("ORDERSMANAGE", ["GET"])' ng-click='openNewTab(item,"ordersManage")'>充值记录</a></li>
+                                        <li><a ng-show='validPower("WITHDRAWSMANAGE", ["GET"])' ng-click='openNewTab(item,"withdrawsManage")'>提款记录</a></li>
+                                        <li><a ng-show='validPower("REBATESLIST", ["GET"])' ng-click='openNewTab(item,"rebatesList")'>返水记录</a></li>
+                                        <li><a ng-show='validPower("APPLIESUSE", ["GET"])' ng-click='openNewTab(item,"appliesUse")'>优惠券使用记录</a></li>
                                     </ul>
                                 </div>
                             </td>
