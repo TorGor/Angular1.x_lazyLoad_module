@@ -7,10 +7,154 @@
         <div class="">
             <div class="panel-wrapper">
                 <div class="panel-body">
-                    <form class="form-horizontal" >
+                    <form class="form-horizontal">
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">{{'name' |
-                                translate}}</label>
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'username' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input
+                                    ng-model="modalItem.username" name='username' ng-disabled='true'
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="username"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'currency' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input
+                                    ng-model="modalItem.currency" name='currency' ng-disabled='true'
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="currency"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'gender' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input
+                                    value='{{showOptionsValue(modalItem.gender, genderOptions)}}' name='gender' ng-disabled='true'
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="gender"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'email' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input
+                                    ng-model="modalItem.email" name='email' ng-disabled='true'
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="email"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'locale' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input
+                                    ng-model="modalItem.locale" name='locale' ng-disabled='true'
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="locale"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'country' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input
+                                    ng-model="modalItem.country.iso" name='country' ng-disabled='true'
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="country"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'domain' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input
+                                    ng-model="modalItem.domain" name='domain' ng-disabled='true'
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="domain"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'financial' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input
+                                    ng-model="modalItem.financial.name" name='financial' ng-disabled='true'
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="financial"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'otp' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input
+                                    value='{{modalItem.otp?"Yes":"No"}}' name='otp' ng-disabled='true'
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="otp"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'rank' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input
+                                    ng-model='modalItem.rank.code' name='rank' ng-disabled='true'
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="rank"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'timezone' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input
+                                    ng-model='modalItem.timezone' name='timezone' ng-disabled='true'
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="timezone"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'otp' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <input
+                                    value='{{modalItem.verifications.identity?"Yes":"No"}}' name='identity' ng-disabled='true'
+                                    class="form-control"
+                                    type="text"
+                                    placeholder="identity"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'name' | translate}}</label>
                             <div class="col-lg-8 col-md-6">
                                 <input
                                     ng-model="modalItem.name" name='name' ng-disabled='!hasPower'
@@ -21,8 +165,8 @@
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">{{'phone' |
-                                translate}}</label>
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'phone' | translate}}</label>
                             <div class="col-lg-8 col-md-6">
                                 <input
                                     ng-model="modalItem.phone" name='phone' ng-disabled='!hasPower'
@@ -33,11 +177,11 @@
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">{{'table.usersManage.th11' |
+                            <label class="col-lg-4 col-md-6 control-label">{{'nameVerified' |
                                 translate}}</label>
                             <div class="col-lg-8 col-md-6">
                                 <ui-select
-                                    ng-model="modalItem.nameVerified"
+                                    ng-model="modalItem.verifications.name"
                                     theme="bootstrap"
                                     ng-disabled='!hasPower'
                                     search-enabled="false"
@@ -52,11 +196,11 @@
                             </div>
                         </div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">{{'table.usersManage.th12' |
+                            <label class="col-lg-4 col-md-6 control-label">{{'phoneVerified' |
                                 translate}}</label>
                             <div class="col-lg-8 col-md-6">
                                 <ui-select
-                                    ng-model="modalItem.phoneVerified"
+                                    ng-model="modalItem.verifications.phone"
                                     theme="bootstrap"
                                     ng-disabled='!hasPower'
                                     search-enabled="false"

@@ -160,20 +160,6 @@
 (function() {
 
     angular
-        .module('admin.ordersManage', [
-            'app.core',
-        ]);
-})();
-(function() {
-
-    angular
-        .module('admin.promotionsManage', [
-            'app.core',
-        ]);
-})();
-(function() {
-
-    angular
         .module('admin.paymentMethods', [
             'app.core',
         ]);
@@ -181,7 +167,21 @@
 (function() {
 
     angular
+        .module('admin.ordersManage', [
+            'app.core',
+        ]);
+})();
+(function() {
+
+    angular
         .module('admin.pspsManage', [
+            'app.core',
+        ]);
+})();
+(function() {
+
+    angular
+        .module('admin.promotionsManage', [
             'app.core',
         ]);
 })();
@@ -2184,6 +2184,75 @@
             }
         };
 
+        // 页面加载执行的函数
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.bankCards')
+        .controller('BankCardsFilterModalController', BankCardsFilterModalController);
+
+    BankCardsFilterModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'filter',
+        'adminService'
+    ];
+
+    function BankCardsFilterModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        filter,
+        adminService
+    ) {
+
+        // 原始的数据
+        $scope.bankCards = [];
+        $scope.bankCardsReload = 1;
+        $scope.bankCardsAoData = {};
+        $scope.tempBankCardsAoData = {};
+
+        // $scope.bankCardsUrl = $rootScope.URL.USERSMANAGE.SELECTCARDS;
+        $scope.bankCardsUrl = $rootScope.URL.BANKCARDS.GET;
+
+        $scope.trigerSearch = function() {
+            if($scope.bankCardsAoData.account_number){
+                if($scope.bankCardsAoData.account_number.length<3||$scope.bankCardsAoData.account_number.length>20){
+                    $rootScope.alertErrorMsg('account number length should between 3 and 20');
+                    return;
+                }
+            }
+            $scope.tempBankCardsAoData = Object.assign($scope.tempBankCardsAoData,$scope.bankCardsAoData)
+            $scope.bankCardsReload++;
+        };
+
+        $scope.resetSearch = function() {
+            $scope.bankCardsAoData = {};
+            var tempData = $scope.tempBankCardsAoData;
+            $scope.tempBankCardsAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+            $scope.bankCardsReload++;
+        };
+
+        // 初始化table数据
+        $scope.initBankCardsData = function () {
+            $scope.bankCardsReload++;
+        };
+
+        $scope.filter = filter;
+
+        $scope.bankCardsAoData = window.Object.assign($scope.bankCardsAoData, $scope.filter)
+        $scope.tempBankCardsAoData = window.Object.assign($scope.tempBankCardsAoData, $scope.filter)
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
         // 页面加载执行的函数
     }
 })();
@@ -6493,6 +6562,455 @@
 (function() {
 
     angular
+        .module('admin.paymentMethods')
+        .controller('PaymentMethodsController', PaymentMethodsController);
+
+    PaymentMethodsController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModal',
+        'adminService'
+    ];
+
+    function PaymentMethodsController(
+        $scope,
+        $rootScope,
+        $uibModal,
+        adminService
+    ) {
+
+        $scope.localesOptions = [];
+
+        $scope.initLocalesOptionsData = function () {
+            $scope.localesOptions = [];
+            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.localesOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.currencyOptions = [];
+
+        $scope.initCurrenciesManageData = function () {
+            $scope.currencyOptions = [];
+            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.name||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.currencyOptions.push(tempObj)
+                                }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.typeOptions = [
+            {
+                label:'pc',
+                value:'pc'
+            },
+            {
+                label:'mobile',
+                value:'mobile'
+            },
+            {
+                label:'both',
+                value:'both'
+            }
+        ];
+
+        $scope.disabledOptions = [
+            {
+                label:'YES',
+                value:'1'
+            },
+            {
+                label:'No',
+                value:'0'
+            }
+        ];
+
+        $scope.showEditMethodsNameModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/paymentMethods/paymentMethodsNameModal.html',
+                controller: 'PaymentMethodsNameModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower: $scope.validPower('PAYMENTMETHODS', ['POST', 'PATCH']) && edit!==1
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initPaymentMethodsData();
+            }, function (data) {
+
+            });
+        };
+
+        $scope.showEditMethodsDetail = function (item) {
+            adminService.getReq($rootScope.URL.PAYMENTMETHODS.GETDETAIL + '/' + item.code, {}, {}).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        var modalInstance = $uibModal.open({
+                            animation: true,
+                            ariaLabelledBy: 'modal-title',
+                            ariaDescribedBy: 'modal-body',
+                            templateUrl: '/views/admin/paymentMethods/paymentMethodsNameModal.html',
+                            controller: 'PaymentMethodsNameModalController',
+                            size: 'lg',
+                            scope:$scope,
+                            resolve: {
+                                edit:1,
+                                modalItem: res.data.data,
+                                hasPower: false
+                            }
+                        });
+                        modalInstance.result.then(function (data) {
+                            $scope.initPaymentMethodsData();
+                        }, function (data) {
+
+                        });
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        // 原始的数据
+        $scope.paymentMethods = [];
+
+        // 过滤出来的数据
+        $scope.showPaymentMethods = [];
+        $scope.paymentMethodsReload = 1;
+        $scope.paymentMethodsAoData = {};
+        $scope.paymentMethodsSearch = '';
+
+        // 初始化table数据
+        $scope.initPaymentMethodsData = function () {
+            //$scope.paymentMethods = [];
+            adminService.getReq($rootScope.URL.PAYMENTMETHODS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.paymentMethods = angular.copy(res.data.data);
+                        $scope.paymentMethods.forEach(function (paymentMethodsItem, paymentMethodsIndex) {
+                            paymentMethodsItem.min = paymentMethodsItem['range'] && paymentMethodsItem['range'].min || '';
+                            paymentMethodsItem.max = paymentMethodsItem['range'] && paymentMethodsItem['range'].max || '';
+                            paymentMethodsItem.disabled = paymentMethodsItem.disabled ? '1' : '0';
+                        });
+                        $scope.paymentMethodsReload++;
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        // 删除paymentMethods
+        /**
+         * @param paymentMethods PAYMENTMETHODSTITLE数据对象
+         * @return null
+         */
+        $scope.deletePaymentMethods = function (paymentMethods) {
+            if (!$scope.validIsNew(paymentMethods.id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.PAYMENTMETHODS.DELETE+'/'+paymentMethods.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initPaymentMethodsData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 恢复paymentMethods
+        /**
+         * @param paymentMethods PAYMENTMETHODSTITLE数据对象
+         * @return null
+         */
+        $scope.recoverPaymentMethods = function (paymentMethods) {
+            if (!$scope.validIsNew(paymentMethods.id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.putReq($rootScope.URL.PAYMENTMETHODS.PUT+'/'+paymentMethods.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initPaymentMethodsData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                }, 'recover');
+            }
+        };
+
+
+        $scope.checkPaymentMethodsMinMax = function(data) {
+            var temp = parseFloat(data);
+            if(!data || temp<0.01 || temp>100000){
+                return false;
+            }
+            return true;
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initPaymentMethodsData();
+
+        if($scope.validPower('PAYMENTMETHODS', ['POST', 'PATCH'])){
+
+            $scope.initCurrenciesManageData();
+
+            $scope.initLocalesOptionsData();
+        }
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.paymentMethods')
+        .controller('PaymentMethodsNameModalController', PaymentMethodsNameModalController);
+
+    PaymentMethodsNameModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        '$translate',
+        'adminService',
+        'hasPower',
+        'edit',
+        'modalItem'
+    ];
+
+    function PaymentMethodsNameModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        $translate,
+        adminService,
+        hasPower,
+        edit,
+        modalItem
+    ) {
+
+        $scope.hasPower = hasPower;
+
+        $scope.edit = edit;
+
+        $scope.modalItem = angular.copy(modalItem);
+
+        // 原始的数据
+        $scope.methodsNameModal = [];
+
+        // 过滤出来的数据
+        $scope.showMethodsNameModal = [];
+        $scope.methodsNameModalReload = 1;
+        $scope.methodsNameModalAoData = {};
+        $scope.methodsNameModalSearch = '';
+
+        // 初始化table数据
+        $scope.initMethodsNameModalData = function () {
+            if(edit == 2){
+                $scope.modalItem = {
+                    "code": "",
+                    "currency": $scope.currencyOptions[0].value,
+                    "min": '',
+                    "max": '',
+                    "disabled": $scope.disabledOptions[1].value,
+                    "type": $scope.typeOptions[0].value,
+                    "name": []
+                }
+            }else{
+                if($scope.modalItem['name']&&$scope.modalItem['name'].length){
+                    $scope.methodsNameModal = $scope.modalItem['name'];
+                    $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
+                        methodsNameItem.id = methodsNameIndex + 1;
+                    })
+                }
+            }
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param methodsNameModal 渠道名称数据对象
+         * @param data
+         */
+
+        $scope.saveMethodsNameModal = function (methodsNameModal, data) {
+            $scope.methodsNameModal.forEach(function (methodsNameModalItem) {
+                if(methodsNameModalItem.id == methodsNameModal.id){
+                    window.Object.assign(methodsNameModalItem, data);
+                    if($scope.validIsNew(methodsNameModalItem.id)){
+                        methodsNameModalItem.id = window.parseInt(methodsNameModalItem.id, 10)
+                        $scope.methodsNameModalReload ++
+                    }
+                }
+            });
+        };
+
+        // 删除rebatesModal
+        /**
+         * @param methodsNameModal 渠道名称数据对象
+         * @param index 位置
+         * @return null
+         */
+        $scope.deleteMethodsNameModal = function (methodsNameModal, index) {
+            $scope.methodsNameModal.splice(index, 1)
+        };
+
+        // 添加按钮
+        $scope.addMethodsNameModal = function () {
+            $scope.methodsNameModalAoData = {};
+            $scope.methodsNameModalSearch = '';
+            $scope.methodsNameModal.unshift({
+                'id': ($scope.methodsNameModal.length+1) + 'null',
+                "locale": $scope.localesOptions[0] ? $scope.localesOptions[0].value : '',
+                "value": ''
+            });
+        };
+
+        /**
+         *
+         * @param modalItem 添加的渠道名称
+         * @param index 添加的index
+         */
+
+        $scope.cancelSaveModal = function (item, index) {
+            if ($scope.validIsNew(item.id)) {
+                $scope.methodsNameModal.splice(index, 1);
+            }
+        };
+
+        $scope.confirmModal = function () {
+            if(window.parseFloat($scope.modalItem.min||'')>window.parseFloat($scope.modalItem.max||'')){
+                $rootScope.alertErrorMsg('min should less than max');
+                return '';
+            }
+            if($scope.methodsNameModal && $scope.methodsNameModal.length){
+                var tempObj = {};
+                var sameKey = false;
+                $scope.methodsNameModal.map(function(nameItem) {
+                    if(tempObj[nameItem.locale]){
+                        sameKey = true
+                    }
+                    tempObj[nameItem.locale] = nameItem.value
+                });
+                if(sameKey){
+                    $rootScope.alertErrorMsg('you set same local,just remove one');
+                    return '';
+                }
+            }
+            $scope.methodsNameModal = $scope.methodsNameModal.filter(function (methodsNameItem) {
+                return !$scope.validIsNew(methodsNameItem.id);
+            });
+            $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
+                if(methodsNameItem.id){
+                    delete methodsNameItem.id;
+                }
+            });
+            var tempData = angular.copy($scope.modalItem);
+            if($scope.methodsNameModal && $scope.methodsNameModal.length){
+                var tempObj = {};
+                var sameKey = false;
+                $scope.methodsNameModal.map(function(nameItem) {
+                    if(tempObj[nameItem.locale]){
+                        sameKey = true
+                    }
+                    tempObj[nameItem.locale] = nameItem.value
+                });
+                if(sameKey){
+                    $rootScope.alertErrorMsg('you set same local,just remove one');
+                    return '';
+                }
+                tempData.name = angular.copy(tempObj)
+            }else{
+                tempData.name = {}
+            }
+            if(edit ==2){
+                adminService.postReq($rootScope.URL.PAYMENTMETHODS.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }else if(edit == 3){
+                adminService.patchReq($rootScope.URL.PAYMENTMETHODS.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss({});
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initMethodsNameModalData();
+
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.ordersManage')
         .controller('OrderAddModalController', OrderAddModalController);
 
@@ -7009,6 +7527,365 @@
         // }catch (e){
         //     console.error(e)
         // }
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.pspsManage')
+        .controller('PspsManageController', PspsManageController);
+
+    PspsManageController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModal',
+        'adminService'
+    ];
+
+    function PspsManageController(
+        $scope,
+        $rootScope,
+        $uibModal,
+        adminService
+    ) {
+
+        $scope.activatedOptions = [
+            {
+                label:'Yes',
+                value:true
+            },
+            {
+                label:'No',
+                value:false
+            }
+        ];
+
+        $scope.methodsOptions = [];
+
+        $scope.initMethodsOptions = function() {
+            $scope.methodsOptions = [];
+            adminService.getReq($rootScope.URL.PAYMENTMETHODS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.paymentMethods = angular.copy(res.data.data);
+                        $scope.paymentMethods.forEach(function (paymentMethodsItem, paymentMethodsIndex) {
+                            if(!paymentMethodsItem.disabled){
+                                var temp = {};
+                                temp.label = $scope.showArrayName(paymentMethodsItem.name);
+                                temp.value = paymentMethodsItem.code;
+                                if(!$scope.checkIsDelete(paymentMethodsItem)){
+                                    $scope.methodsOptions.push(temp)
+                                }
+                            }
+                        });
+                        console.log($scope.paymentMethods)
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        // 原始的数据
+        $scope.pspsManage = [];
+
+        // 过滤出来的数据
+        $scope.showPspsManage = [];
+        $scope.pspsManageReload = 1;
+        $scope.pspsManageAoData = {};
+        $scope.pspsManageSearch = '';
+
+        // 初始化table数据
+        $scope.initPspsManageData = function () {
+            //$scope.pspsManage = [];
+            adminService.getReq($rootScope.URL.PSPSMANAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.pspsManage = angular.copy(res.data.data);
+                        $scope.pspsManage.forEach(function (pspsManageItem, pspsManageIndex) {
+                            pspsManageItem.id = pspsManageIndex +1;
+                        });
+                        $scope.pspsManageReload++;
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        /**
+         * 展示methods弹窗
+         * @param item
+         */
+
+        $scope.showPspsMethodsModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/pspsManage/pspsMethodsModal.html',
+                controller: 'pspsMethodsModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit: edit,
+                    modalItem: item,
+                    hasPower:$scope.hasPower&&edit!==1
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initPspsManageData();
+            }, function (data) {
+            });
+        };
+
+
+        // 删除pspsManage
+        /**
+         * @param pspsManage PSPSMANAGETITLE数据对象
+         * @return null
+         */
+        $scope.deletePspsManage = function (pspsManage) {
+            if (!$scope.validIsNew(pspsManage._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.PSPSMANAGE.DELETE+'/'+pspsManage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initPspsManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 恢复pspsManage
+        /**
+         * @param pspsManage PSPSMANAGETITLE数据对象
+         * @return null
+         */
+        $scope.recoverPspsManage = function (pspsManage) {
+            if (!$scope.validIsNew(pspsManage._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.putReq($rootScope.URL.PSPSMANAGE.DELETE+'/'+pspsManage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initPspsManageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        $scope.hasPower = $scope.validPower("PSPSMANAGE", ["PATCH", "POST"])
+
+        // 页面加载执行的函数
+
+        $scope.initPspsManageData();
+
+        if($scope.hasPower){
+
+            $scope.initMethodsOptions()
+
+        }
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.pspsManage')
+        .controller('pspsMethodsModalController', pspsMethodsModalController);
+
+    pspsMethodsModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        '$translate',
+        'adminService',
+        'hasPower',
+        'edit',
+        'modalItem'
+    ];
+
+    function pspsMethodsModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        $translate,
+        adminService,
+        hasPower,
+        edit,
+        modalItem
+    ) {
+
+        $scope.hasPower = hasPower;
+        $scope.edit = edit;
+        $scope.modalItem = modalItem;
+
+        // 原始的数据
+        $scope.pspsMethodsModal = [];
+
+        // 过滤出来的数据
+        $scope.showPspsMethodsModal = [];
+        $scope.pspsMethodsModalReload = 1;
+        $scope.pspsMethodsModalAoData = {};
+        $scope.pspsMethodsModalSearch = '';
+
+        // 初始化table数据
+        $scope.initPspsMethodsModalData = function () {
+            $scope.pspsMethodsModal = [];
+            if(edit==2){
+                $scope.modalItem = {
+                    code: '',
+                    gateway: '',
+                    account: '',
+                    api_key: '',
+                    activated: $scope.activatedOptions[0].value,
+                    methods: []
+                }
+            }else{
+                if(modalItem['methods'].length){
+                    $scope.pspsMethodsModal = modalItem['methods'];
+                    $scope.pspsMethodsModal.forEach(function (pspsMethodsItem, pspsMethodsIndex) {
+                        pspsMethodsItem.id = pspsMethodsIndex + 1;
+                        if(pspsMethodsItem['extra_setting'] && pspsMethodsItem['extra_setting']['bank'] && window.Array.isArray(pspsMethodsItem['extra_setting']['bank'])){
+                            pspsMethodsItem['extra_setting']['bank'] = pspsMethodsItem['extra_setting']['bank'].join(',')
+                        }else{
+                            pspsMethodsItem['extra_setting'] = {};
+                            pspsMethodsItem['extra_setting']['bank'] = '';
+                        }
+                    })
+                }
+            }
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param pspsMethodsModal 渠道名称数据对象
+         * @param data
+         */
+
+        $scope.savePspsMethodsModal = function (pspsMethodsModal, data) {
+            $scope.pspsMethodsModal.forEach(function (pspsMethodsModalItem) {
+                if(pspsMethodsModalItem.id == pspsMethodsModal.id){
+                    pspsMethodsModalItem['code'] = data.code || '';
+                    pspsMethodsModalItem['rate'] = data.rate || '';
+                    pspsMethodsModalItem['extra_setting'] = {};
+                    pspsMethodsModalItem['extra_setting']['bank'] = data['extra_setting.bank'] || '';
+                    if($scope.validIsNew(pspsMethodsModalItem.id)){
+                        pspsMethodsModalItem.id = window.parseInt(pspsMethodsModalItem.id, 10)
+                        $scope.pspsMethodsModalReload ++
+                    }
+                }
+            });
+        };
+
+        // 删除rebatesModal
+        /**
+         * @param pspsMethodsModal 渠道名称数据对象
+         * @param index 位置
+         * @return null
+         */
+        $scope.deletePspsMethodsModal = function (pspsMethodsModal, index) {
+            $scope.pspsMethodsModal.splice(index, 1)
+        };
+
+        console.log($scope.methodsOptions)
+
+        // 添加按钮
+        $scope.addPspsMethodsModal = function () {
+            $scope.pspsMethodsModalAoData = {};
+            $scope.pspsMethodsModalSearch = '';
+            $scope.pspsMethodsModal.unshift({
+                'id': ($scope.pspsMethodsModal.length+1) + 'null',
+                "code": $scope.methodsOptions[0] ? $scope.methodsOptions[0].value : '',
+                "rate": '',
+                "extra_setting": {
+                    "bank":''
+                }
+            });
+        };
+
+        /**
+         *
+         * @param modalItem 添加的渠道名称
+         * @param index 添加的index
+         */
+
+        $scope.cancelSaveModal = function (modalItem, index) {
+            if ($scope.validIsNew(modalItem.id)) {
+                $scope.pspsMethodsModal.splice(index, 1);
+            }
+        };
+
+        $scope.confirmModal = function () {
+            var tempPspsMethod = angular.copy($scope.pspsMethodsModal);
+            tempPspsMethod = tempPspsMethod.filter(function (pspsMethodsItem) {
+                return !$scope.validIsNew(pspsMethodsItem.id);
+            });
+            tempPspsMethod.forEach(function (pspsMethodsItem, pspsMethodsIndex) {
+                if(pspsMethodsItem.id){
+                    delete pspsMethodsItem.id;
+                }
+                if(pspsMethodsItem['extra_setting'] && pspsMethodsItem['extra_setting']['bank']){
+                    pspsMethodsItem['extra_setting']['bank'] = pspsMethodsItem['extra_setting']['bank'].split(',');
+                    if(pspsMethodsItem['extra_setting']['bank'].length === 0){
+                        delete pspsMethodsItem['extra_setting'];
+                    }
+                }
+            });
+            var tempData = angular.copy($scope.modalItem);
+            tempData.methods = tempPspsMethod;
+            if(edit==2){
+                adminService.postReq($rootScope.URL.PSPSMANAGE.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }else if(edit==3){
+                adminService.patchReq($rootScope.URL.PSPSMANAGE.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initPspsMethodsModalData();
 
     }
 })();
@@ -7778,814 +8655,6 @@
                 }
             }
         });
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.paymentMethods')
-        .controller('PaymentMethodsController', PaymentMethodsController);
-
-    PaymentMethodsController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModal',
-        'adminService'
-    ];
-
-    function PaymentMethodsController(
-        $scope,
-        $rootScope,
-        $uibModal,
-        adminService
-    ) {
-
-        $scope.localesOptions = [];
-
-        $scope.initLocalesOptionsData = function () {
-            $scope.localesOptions = [];
-            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        if(window.Array.isArray(res.data.data)){
-                            res.data.data.map(function (objItem) {
-                                var tempObj ={
-                                    label:objItem.name||'',
-                                    value:objItem.code||''
-                                };
-                                if(objItem.supported){
-                                    $scope.localesOptions.push(tempObj)
-                                }
-                            })
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.currencyOptions = [];
-
-        $scope.initCurrenciesManageData = function () {
-            $scope.currencyOptions = [];
-            adminService.getReq($rootScope.URL.CURRENCIESMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        if(window.Array.isArray(res.data.data)){
-                            res.data.data.map(function (objItem) {
-                                var tempObj ={
-                                    label:objItem.name||'',
-                                    value:objItem.code||''
-                                };
-                                if(objItem.supported){
-                                    $scope.currencyOptions.push(tempObj)
-                                }
-                            })
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.typeOptions = [
-            {
-                label:'pc',
-                value:'pc'
-            },
-            {
-                label:'mobile',
-                value:'mobile'
-            },
-            {
-                label:'both',
-                value:'both'
-            }
-        ];
-
-        $scope.disabledOptions = [
-            {
-                label:'YES',
-                value:'1'
-            },
-            {
-                label:'No',
-                value:'0'
-            }
-        ];
-
-        $scope.showEditMethodsNameModal = function (item,edit) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/paymentMethods/paymentMethodsNameModal.html',
-                controller: 'PaymentMethodsNameModalController',
-                size: 'lg',
-                scope:$scope,
-                resolve: {
-                    edit:edit,
-                    modalItem: item,
-                    hasPower: $scope.validPower('PAYMENTMETHODS', ['POST', 'PATCH']) && edit!==1
-                }
-            });
-            modalInstance.result.then(function (data) {
-                $scope.initPaymentMethodsData();
-            }, function (data) {
-
-            });
-        };
-
-        $scope.showEditMethodsDetail = function (item) {
-            adminService.getReq($rootScope.URL.PAYMENTMETHODS.GETDETAIL + '/' + item.code, {}, {}).then(function (res) {
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        var modalInstance = $uibModal.open({
-                            animation: true,
-                            ariaLabelledBy: 'modal-title',
-                            ariaDescribedBy: 'modal-body',
-                            templateUrl: '/views/admin/paymentMethods/paymentMethodsNameModal.html',
-                            controller: 'PaymentMethodsNameModalController',
-                            size: 'lg',
-                            scope:$scope,
-                            resolve: {
-                                edit:1,
-                                modalItem: res.data.data,
-                                hasPower: false
-                            }
-                        });
-                        modalInstance.result.then(function (data) {
-                            $scope.initPaymentMethodsData();
-                        }, function (data) {
-
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        // 原始的数据
-        $scope.paymentMethods = [];
-
-        // 过滤出来的数据
-        $scope.showPaymentMethods = [];
-        $scope.paymentMethodsReload = 1;
-        $scope.paymentMethodsAoData = {};
-        $scope.paymentMethodsSearch = '';
-
-        // 初始化table数据
-        $scope.initPaymentMethodsData = function () {
-            //$scope.paymentMethods = [];
-            adminService.getReq($rootScope.URL.PAYMENTMETHODS.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.paymentMethods = angular.copy(res.data.data);
-                        $scope.paymentMethods.forEach(function (paymentMethodsItem, paymentMethodsIndex) {
-                            paymentMethodsItem.min = paymentMethodsItem['range'] && paymentMethodsItem['range'].min || '';
-                            paymentMethodsItem.max = paymentMethodsItem['range'] && paymentMethodsItem['range'].max || '';
-                            paymentMethodsItem.disabled = paymentMethodsItem.disabled ? '1' : '0';
-                        });
-                        $scope.paymentMethodsReload++;
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        // 删除paymentMethods
-        /**
-         * @param paymentMethods PAYMENTMETHODSTITLE数据对象
-         * @return null
-         */
-        $scope.deletePaymentMethods = function (paymentMethods) {
-            if (!$scope.validIsNew(paymentMethods.id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.PAYMENTMETHODS.DELETE+'/'+paymentMethods.code, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initPaymentMethodsData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 恢复paymentMethods
-        /**
-         * @param paymentMethods PAYMENTMETHODSTITLE数据对象
-         * @return null
-         */
-        $scope.recoverPaymentMethods = function (paymentMethods) {
-            if (!$scope.validIsNew(paymentMethods.id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.putReq($rootScope.URL.PAYMENTMETHODS.PUT+'/'+paymentMethods.code, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initPaymentMethodsData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                }, 'recover');
-            }
-        };
-
-
-        $scope.checkPaymentMethodsMinMax = function(data) {
-            var temp = parseFloat(data);
-            if(!data || temp<0.01 || temp>100000){
-                return false;
-            }
-            return true;
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initPaymentMethodsData();
-
-        if($scope.validPower('PAYMENTMETHODS', ['POST', 'PATCH'])){
-
-            $scope.initCurrenciesManageData();
-
-            $scope.initLocalesOptionsData();
-        }
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.paymentMethods')
-        .controller('PaymentMethodsNameModalController', PaymentMethodsNameModalController);
-
-    PaymentMethodsNameModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        '$translate',
-        'adminService',
-        'hasPower',
-        'edit',
-        'modalItem'
-    ];
-
-    function PaymentMethodsNameModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        $translate,
-        adminService,
-        hasPower,
-        edit,
-        modalItem
-    ) {
-
-        $scope.hasPower = hasPower;
-
-        $scope.edit = edit;
-
-        $scope.modalItem = angular.copy(modalItem);
-
-        // 原始的数据
-        $scope.methodsNameModal = [];
-
-        // 过滤出来的数据
-        $scope.showMethodsNameModal = [];
-        $scope.methodsNameModalReload = 1;
-        $scope.methodsNameModalAoData = {};
-        $scope.methodsNameModalSearch = '';
-
-        // 初始化table数据
-        $scope.initMethodsNameModalData = function () {
-            if(edit == 2){
-                $scope.modalItem = {
-                    "code": "",
-                    "currency": $scope.currencyOptions[0].value,
-                    "min": '',
-                    "max": '',
-                    "disabled": $scope.disabledOptions[1].value,
-                    "type": $scope.typeOptions[0].value,
-                    "name": []
-                }
-            }else{
-                if($scope.modalItem['name']&&$scope.modalItem['name'].length){
-                    $scope.methodsNameModal = $scope.modalItem['name'];
-                    $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
-                        methodsNameItem.id = methodsNameIndex + 1;
-                    })
-                }
-            }
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param methodsNameModal 渠道名称数据对象
-         * @param data
-         */
-
-        $scope.saveMethodsNameModal = function (methodsNameModal, data) {
-            $scope.methodsNameModal.forEach(function (methodsNameModalItem) {
-                if(methodsNameModalItem.id == methodsNameModal.id){
-                    window.Object.assign(methodsNameModalItem, data);
-                    if($scope.validIsNew(methodsNameModalItem.id)){
-                        methodsNameModalItem.id = window.parseInt(methodsNameModalItem.id, 10)
-                        $scope.methodsNameModalReload ++
-                    }
-                }
-            });
-        };
-
-        // 删除rebatesModal
-        /**
-         * @param methodsNameModal 渠道名称数据对象
-         * @param index 位置
-         * @return null
-         */
-        $scope.deleteMethodsNameModal = function (methodsNameModal, index) {
-            $scope.methodsNameModal.splice(index, 1)
-        };
-
-        // 添加按钮
-        $scope.addMethodsNameModal = function () {
-            $scope.methodsNameModalAoData = {};
-            $scope.methodsNameModalSearch = '';
-            $scope.methodsNameModal.unshift({
-                'id': ($scope.methodsNameModal.length+1) + 'null',
-                "locale": $scope.localesOptions[0] ? $scope.localesOptions[0].value : '',
-                "value": ''
-            });
-        };
-
-        /**
-         *
-         * @param modalItem 添加的渠道名称
-         * @param index 添加的index
-         */
-
-        $scope.cancelSaveModal = function (item, index) {
-            if ($scope.validIsNew(item.id)) {
-                $scope.methodsNameModal.splice(index, 1);
-            }
-        };
-
-        $scope.confirmModal = function () {
-            if(window.parseFloat($scope.modalItem.min||'')>window.parseFloat($scope.modalItem.max||'')){
-                $rootScope.alertErrorMsg('min should less than max');
-                return '';
-            }
-            if($scope.methodsNameModal && $scope.methodsNameModal.length){
-                var tempObj = {};
-                var sameKey = false;
-                $scope.methodsNameModal.map(function(nameItem) {
-                    if(tempObj[nameItem.locale]){
-                        sameKey = true
-                    }
-                    tempObj[nameItem.locale] = nameItem.value
-                });
-                if(sameKey){
-                    $rootScope.alertErrorMsg('you set same local,just remove one');
-                    return '';
-                }
-            }
-            $scope.methodsNameModal = $scope.methodsNameModal.filter(function (methodsNameItem) {
-                return !$scope.validIsNew(methodsNameItem.id);
-            });
-            $scope.methodsNameModal.forEach(function (methodsNameItem, methodsNameIndex) {
-                if(methodsNameItem.id){
-                    delete methodsNameItem.id;
-                }
-            });
-            var tempData = angular.copy($scope.modalItem);
-            if($scope.methodsNameModal && $scope.methodsNameModal.length){
-                var tempObj = {};
-                var sameKey = false;
-                $scope.methodsNameModal.map(function(nameItem) {
-                    if(tempObj[nameItem.locale]){
-                        sameKey = true
-                    }
-                    tempObj[nameItem.locale] = nameItem.value
-                });
-                if(sameKey){
-                    $rootScope.alertErrorMsg('you set same local,just remove one');
-                    return '';
-                }
-                tempData.name = angular.copy(tempObj)
-            }else{
-                tempData.name = {}
-            }
-            if(edit ==2){
-                adminService.postReq($rootScope.URL.PAYMENTMETHODS.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('OK');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }else if(edit == 3){
-                adminService.patchReq($rootScope.URL.PAYMENTMETHODS.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('OK');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss({});
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initMethodsNameModalData();
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.pspsManage')
-        .controller('PspsManageController', PspsManageController);
-
-    PspsManageController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModal',
-        'adminService'
-    ];
-
-    function PspsManageController(
-        $scope,
-        $rootScope,
-        $uibModal,
-        adminService
-    ) {
-
-        $scope.activatedOptions = [
-            {
-                label:'Yes',
-                value:true
-            },
-            {
-                label:'No',
-                value:false
-            }
-        ];
-
-        $scope.methodsOptions = [];
-
-        $scope.initMethodsOptions = function() {
-            $scope.methodsOptions = [];
-            adminService.getReq($rootScope.URL.PAYMENTMETHODS.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.paymentMethods = angular.copy(res.data.data);
-                        $scope.paymentMethods.forEach(function (paymentMethodsItem, paymentMethodsIndex) {
-                            if(!paymentMethodsItem.disabled){
-                                var temp = {};
-                                temp.label = $scope.showArrayName(paymentMethodsItem.name);
-                                temp.value = paymentMethodsItem.code;
-                                if(!$scope.checkIsDelete(paymentMethodsItem)){
-                                    $scope.methodsOptions.push(temp)
-                                }
-                            }
-                        });
-                        console.log($scope.paymentMethods)
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        // 原始的数据
-        $scope.pspsManage = [];
-
-        // 过滤出来的数据
-        $scope.showPspsManage = [];
-        $scope.pspsManageReload = 1;
-        $scope.pspsManageAoData = {};
-        $scope.pspsManageSearch = '';
-
-        // 初始化table数据
-        $scope.initPspsManageData = function () {
-            //$scope.pspsManage = [];
-            adminService.getReq($rootScope.URL.PSPSMANAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.pspsManage = angular.copy(res.data.data);
-                        $scope.pspsManage.forEach(function (pspsManageItem, pspsManageIndex) {
-                            pspsManageItem.id = pspsManageIndex +1;
-                        });
-                        $scope.pspsManageReload++;
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        /**
-         * 展示methods弹窗
-         * @param item
-         */
-
-        $scope.showPspsMethodsModal = function (item,edit) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/pspsManage/pspsMethodsModal.html',
-                controller: 'pspsMethodsModalController',
-                size: 'lg',
-                scope:$scope,
-                resolve: {
-                    edit: edit,
-                    modalItem: item,
-                    hasPower:$scope.hasPower&&edit!==1
-                }
-            });
-            modalInstance.result.then(function (data) {
-                $scope.initPspsManageData();
-            }, function (data) {
-            });
-        };
-
-
-        // 删除pspsManage
-        /**
-         * @param pspsManage PSPSMANAGETITLE数据对象
-         * @return null
-         */
-        $scope.deletePspsManage = function (pspsManage) {
-            if (!$scope.validIsNew(pspsManage._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.PSPSMANAGE.DELETE+'/'+pspsManage.code, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initPspsManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 恢复pspsManage
-        /**
-         * @param pspsManage PSPSMANAGETITLE数据对象
-         * @return null
-         */
-        $scope.recoverPspsManage = function (pspsManage) {
-            if (!$scope.validIsNew(pspsManage._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.putReq($rootScope.URL.PSPSMANAGE.DELETE+'/'+pspsManage.code, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initPspsManageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        $scope.hasPower = $scope.validPower("PSPSMANAGE", ["PATCH", "POST"])
-
-        // 页面加载执行的函数
-
-        $scope.initPspsManageData();
-
-        if($scope.hasPower){
-
-            $scope.initMethodsOptions()
-
-        }
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.pspsManage')
-        .controller('pspsMethodsModalController', pspsMethodsModalController);
-
-    pspsMethodsModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        '$translate',
-        'adminService',
-        'hasPower',
-        'edit',
-        'modalItem'
-    ];
-
-    function pspsMethodsModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        $translate,
-        adminService,
-        hasPower,
-        edit,
-        modalItem
-    ) {
-
-        $scope.hasPower = hasPower;
-        $scope.edit = edit;
-        $scope.modalItem = modalItem;
-
-        // 原始的数据
-        $scope.pspsMethodsModal = [];
-
-        // 过滤出来的数据
-        $scope.showPspsMethodsModal = [];
-        $scope.pspsMethodsModalReload = 1;
-        $scope.pspsMethodsModalAoData = {};
-        $scope.pspsMethodsModalSearch = '';
-
-        // 初始化table数据
-        $scope.initPspsMethodsModalData = function () {
-            $scope.pspsMethodsModal = [];
-            if(edit==2){
-                $scope.modalItem = {
-                    code: '',
-                    gateway: '',
-                    account: '',
-                    api_key: '',
-                    activated: $scope.activatedOptions[0].value,
-                    methods: []
-                }
-            }else{
-                if(modalItem['methods'].length){
-                    $scope.pspsMethodsModal = modalItem['methods'];
-                    $scope.pspsMethodsModal.forEach(function (pspsMethodsItem, pspsMethodsIndex) {
-                        pspsMethodsItem.id = pspsMethodsIndex + 1;
-                        if(pspsMethodsItem['extra_setting'] && pspsMethodsItem['extra_setting']['bank'] && window.Array.isArray(pspsMethodsItem['extra_setting']['bank'])){
-                            pspsMethodsItem['extra_setting']['bank'] = pspsMethodsItem['extra_setting']['bank'].join(',')
-                        }else{
-                            pspsMethodsItem['extra_setting'] = {};
-                            pspsMethodsItem['extra_setting']['bank'] = '';
-                        }
-                    })
-                }
-            }
-        };
-
-
-        // 保存
-        /**
-         *
-         * @param pspsMethodsModal 渠道名称数据对象
-         * @param data
-         */
-
-        $scope.savePspsMethodsModal = function (pspsMethodsModal, data) {
-            $scope.pspsMethodsModal.forEach(function (pspsMethodsModalItem) {
-                if(pspsMethodsModalItem.id == pspsMethodsModal.id){
-                    pspsMethodsModalItem['code'] = data.code || '';
-                    pspsMethodsModalItem['rate'] = data.rate || '';
-                    pspsMethodsModalItem['extra_setting'] = {};
-                    pspsMethodsModalItem['extra_setting']['bank'] = data['extra_setting.bank'] || '';
-                    if($scope.validIsNew(pspsMethodsModalItem.id)){
-                        pspsMethodsModalItem.id = window.parseInt(pspsMethodsModalItem.id, 10)
-                        $scope.pspsMethodsModalReload ++
-                    }
-                }
-            });
-        };
-
-        // 删除rebatesModal
-        /**
-         * @param pspsMethodsModal 渠道名称数据对象
-         * @param index 位置
-         * @return null
-         */
-        $scope.deletePspsMethodsModal = function (pspsMethodsModal, index) {
-            $scope.pspsMethodsModal.splice(index, 1)
-        };
-
-        console.log($scope.methodsOptions)
-
-        // 添加按钮
-        $scope.addPspsMethodsModal = function () {
-            $scope.pspsMethodsModalAoData = {};
-            $scope.pspsMethodsModalSearch = '';
-            $scope.pspsMethodsModal.unshift({
-                'id': ($scope.pspsMethodsModal.length+1) + 'null',
-                "code": $scope.methodsOptions[0] ? $scope.methodsOptions[0].value : '',
-                "rate": '',
-                "extra_setting": {
-                    "bank":''
-                }
-            });
-        };
-
-        /**
-         *
-         * @param modalItem 添加的渠道名称
-         * @param index 添加的index
-         */
-
-        $scope.cancelSaveModal = function (modalItem, index) {
-            if ($scope.validIsNew(modalItem.id)) {
-                $scope.pspsMethodsModal.splice(index, 1);
-            }
-        };
-
-        $scope.confirmModal = function () {
-            var tempPspsMethod = angular.copy($scope.pspsMethodsModal);
-            tempPspsMethod = tempPspsMethod.filter(function (pspsMethodsItem) {
-                return !$scope.validIsNew(pspsMethodsItem.id);
-            });
-            tempPspsMethod.forEach(function (pspsMethodsItem, pspsMethodsIndex) {
-                if(pspsMethodsItem.id){
-                    delete pspsMethodsItem.id;
-                }
-                if(pspsMethodsItem['extra_setting'] && pspsMethodsItem['extra_setting']['bank']){
-                    pspsMethodsItem['extra_setting']['bank'] = pspsMethodsItem['extra_setting']['bank'].split(',');
-                    if(pspsMethodsItem['extra_setting']['bank'].length === 0){
-                        delete pspsMethodsItem['extra_setting'];
-                    }
-                }
-            });
-            var tempData = angular.copy($scope.modalItem);
-            tempData.methods = tempPspsMethod;
-            if(edit==2){
-                adminService.postReq($rootScope.URL.PSPSMANAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('OK');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }else if(edit==3){
-                adminService.patchReq($rootScope.URL.PSPSMANAGE.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('OK');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initPspsMethodsModalData();
 
     }
 })();
@@ -10951,17 +11020,7 @@
 
         // 初始化table数据
         $scope.initMethodsNameModalData = function () {
-            if(edit==3){
-                $scope.modalItem = {
-                    name:modalItem.username || '',
-                    nameVerified:modalItem.verifications.name,
-                    phone:modalItem.phone||'',
-                    phoneVerified:modalItem.verifications.phone,
-                    locked:modalItem.locked,
-                }
-            }else{
-                $scope.modalItem = {};
-            }
+            $scope.modalItem = modalItem
         };
 
         //$rootScope.toasterSuccess(res.data.msg);;
@@ -10972,7 +11031,13 @@
                     return;
                 }
             }
-            var tempData = angular.copy($scope.modalItem);
+            var tempData = {
+                name:$scope.modalItem.name || '',
+                nameVerified:$scope.modalItem.verifications.name,
+                phone:$scope.modalItem.phone||'',
+                phoneVerified:$scope.modalItem.verifications.phone,
+                locked:$scope.modalItem.locked,
+            };
             if (edit==3) {
                 adminService.patchReq($rootScope.URL.USERSMANAGE.PATCH+'/'+$scope.userId, {}, tempData).then(function (res) {
                     console.log(res);
@@ -11158,31 +11223,25 @@
         
         $scope.openNewTab = function(item,state) {
             if(['bankCardsUser'].indexOf(state) !== -1){
-                adminService.getReq($rootScope.URL.USERSMANAGE.CARDSSELECT, {user_id:item.userId}, {}).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            var modalInstance = $uibModal.open({
-                                animation: true,
-                                ariaLabelledBy: 'modal-title',
-                                ariaDescribedBy: 'modal-body',
-                                templateUrl: '/views/admin/bankCards/userBankCardsModal.html',
-                                controller: 'UserBankCardsModalController',
-                                size: 'lg',
-                                scope:$scope,
-                                resolve: {
-                                    modalItem: angular.copy(res.data),
-                                }
-                            });
-                            modalInstance.result.then(function (data) {
-
-                            }, function (data) {
-
-                            });
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/bankCards/bankCardsFilterModal.html',
+                    controller: 'BankCardsFilterModalController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            user_id:item.userId
+                        },
                     }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
                 });
                 return;
             }

@@ -33,17 +33,7 @@
 
         // 初始化table数据
         $scope.initMethodsNameModalData = function () {
-            if(edit==3){
-                $scope.modalItem = {
-                    name:modalItem.username || '',
-                    nameVerified:modalItem.verifications.name,
-                    phone:modalItem.phone||'',
-                    phoneVerified:modalItem.verifications.phone,
-                    locked:modalItem.locked,
-                }
-            }else{
-                $scope.modalItem = {};
-            }
+            $scope.modalItem = modalItem
         };
 
         //$rootScope.toasterSuccess(res.data.msg);;
@@ -54,7 +44,13 @@
                     return;
                 }
             }
-            var tempData = angular.copy($scope.modalItem);
+            var tempData = {
+                name:$scope.modalItem.name || '',
+                nameVerified:$scope.modalItem.verifications.name,
+                phone:$scope.modalItem.phone||'',
+                phoneVerified:$scope.modalItem.verifications.phone,
+                locked:$scope.modalItem.locked,
+            };
             if (edit==3) {
                 adminService.patchReq($rootScope.URL.USERSMANAGE.PATCH+'/'+$scope.userId, {}, tempData).then(function (res) {
                     console.log(res);

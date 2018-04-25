@@ -156,31 +156,25 @@
         
         $scope.openNewTab = function(item,state) {
             if(['bankCardsUser'].indexOf(state) !== -1){
-                adminService.getReq($rootScope.URL.USERSMANAGE.CARDSSELECT, {user_id:item.userId}, {}).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            var modalInstance = $uibModal.open({
-                                animation: true,
-                                ariaLabelledBy: 'modal-title',
-                                ariaDescribedBy: 'modal-body',
-                                templateUrl: '/views/admin/bankCards/userBankCardsModal.html',
-                                controller: 'UserBankCardsModalController',
-                                size: 'lg',
-                                scope:$scope,
-                                resolve: {
-                                    modalItem: angular.copy(res.data),
-                                }
-                            });
-                            modalInstance.result.then(function (data) {
-
-                            }, function (data) {
-
-                            });
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/admin/bankCards/bankCardsFilterModal.html',
+                    controller: 'BankCardsFilterModalController',
+                    size: 'lg',
+                    windowClass: 'full-screen-modal-window',
+                    scope:$scope,
+                    resolve: {
+                        filter: {
+                            user_id:item.userId
+                        },
                     }
+                });
+                modalInstance.result.then(function (data) {
+
+                }, function (data) {
+
                 });
                 return;
             }

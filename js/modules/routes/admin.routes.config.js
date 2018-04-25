@@ -111,11 +111,7 @@
                                                                 $rootScope.URL[URLobj[module]].SELECTCARDS = buttonItem.btnUrl;
                                                             } else if (buttonItem.btnUrl.toLowerCase().indexOf('summary') !== -1) {
                                                                 $rootScope.URL[URLobj[module]].SELECTSUMMARY = buttonItem.btnUrl;
-                                                            } else if (buttonItem.btnUrl.toLowerCase().indexOf('Review') !== -1) {
-                                                                $rootScope.URL[URLobj[module]].GETREVIEW = buttonItem.btnUrl;
-                                                            } else if (buttonItem.btnUrl.toLowerCase().indexOf('Detail') !== -1) {
-                                                                $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
-                                                            } else {
+                                                            }else {
                                                                 $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
                                                             }
                                                         }else{
@@ -127,6 +123,8 @@
                                                                 $rootScope.URL[URLobj[module]].GETREVIEW = buttonItem.btnUrl;
                                                             } else if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
                                                                 $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
+                                                            } else if (buttonItem.btnUrl.indexOf('Commonts') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].GETCOMMONTS = buttonItem.btnUrl;
                                                             } else {
                                                                 $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
                                                             }
@@ -151,9 +149,15 @@
                                                             } else {
                                                                 $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
                                                             }
-                                                        }  else if (module == 'bigwins') {
+                                                        } else if (module == 'bigwins') {
                                                             if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
                                                                 $rootScope.URL[URLobj[module]].POSTAUDIT = buttonItem.btnUrl;
+                                                            } else {
+                                                                $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                            }
+                                                        } else if (module == 'users') {
+                                                            if (buttonItem.btnUrl.indexOf('Commonts') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].POSTCOMMONTS = buttonItem.btnUrl;
                                                             } else {
                                                                 $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
                                                             }
