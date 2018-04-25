@@ -246,6 +246,8 @@
                 if(arr[0]){
                     return arr[0].value || ''
                 }
+            }else if(typeof arr === 'object'){
+                return arr[locale] || ''
             }
             return '';
         };

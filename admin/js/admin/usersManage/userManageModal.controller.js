@@ -47,19 +47,42 @@
 
         // 初始化table数据
         $scope.initUserCommentModalData = function () {
-
+            adminService.getReq($rootScope.URL.USERSMANAGE.GETCOMMENTS+'/'+modalItem.userId, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.userCommentModal = angular.copy(res.data.data);
+                        $scope.userCommentModalReload++;
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
         };
 
 
         // 保存
         /**
          *
-         * @param userCommentModal 渠道名称数据对象
-         * @param data
+         * @param comment 结论
          */
 
-        $scope.saveuserCommentModal = function (userCommentModal, data) {
-
+        $scope.saveUserCommentModal = function (comment) {
+            var tempData = {
+                comment: comment,
+                admin_id: window.userInfo && window.userInfo.adminId || ''
+            };
+            adminService.postReq($rootScope.URL.USERSMANAGE.POSTCOMMENTS+'/'+modalItem.userId, {}, tempData).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $rootScope.toasterSuccess(res.data.msg);
+                        $scope.initUserCommentModalData();
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
         };
 
         //$rootScope.toasterSuccess(res.data.msg);;
@@ -78,7 +101,7 @@
                 locked:$scope.modalItem.locked,
             };
             if (edit==3) {
-                adminService.patchReq($rootScope.URL.USERSMANAGE.PATCH+'/'+$scope.userId, {}, tempData).then(function (res) {
+                adminService.patchReq($rootScope.URL.USERSMANAGE.PATCH+'/'+modalItem.userId, {}, tempData).then(function (res) {
                     console.log(res);
                     if (typeof res.data.success === 'boolean') {
                         if (res.data.success) {
@@ -100,6 +123,10 @@
         // 页面加载执行的函数
 
         $scope.initMethodsNameModalData();
+
+        if($scope.validPower("USERSMANAGE", ["GETCOMMONTS"])){
+            $scope.initUserCommentModalData();
+        }
 
     }
 })();

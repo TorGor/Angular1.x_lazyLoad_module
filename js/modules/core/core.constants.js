@@ -50,6 +50,8 @@
                 affiliates: 'AFFILIATESMANAGE',
                 plans: 'AFFILIATESPLANS',
                 cards: 'BANKCARDS',
+                mediaCategories: 'MEDIACATEGORIES',
+                media: 'MEDIAFILES',
             }
         });
 })();

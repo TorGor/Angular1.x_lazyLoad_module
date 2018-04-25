@@ -34,6 +34,8 @@
 			'admin.affiliatesManage',
 			'admin.affiliatesPlans',
 			'admin.bankCards',
+			'admin.mediaCategories',
+			'admin.mediaFiles',
 			//new module name will be append here
 
         ]);

@@ -124,7 +124,7 @@
                                                             } else if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
                                                                 $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
                                                             } else if (buttonItem.btnUrl.indexOf('Comments') !== -1) {
-                                                                $rootScope.URL[URLobj[module]].GETCOMMONTS = buttonItem.btnUrl;
+                                                                $rootScope.URL[URLobj[module]].GETCOMMENTS = buttonItem.btnUrl;
                                                             } else {
                                                                 $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
                                                             }
@@ -156,8 +156,8 @@
                                                                 $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
                                                             }
                                                         } else if (module == 'users') {
-                                                            if (buttonItem.btnUrl.indexOf('Commonts') !== -1) {
-                                                                $rootScope.URL[URLobj[module]].POSTCOMMONTS = buttonItem.btnUrl;
+                                                            if (buttonItem.btnUrl.indexOf('Comments') !== -1) {
+                                                                $rootScope.URL[URLobj[module]].POSTCOMMENTS = buttonItem.btnUrl;
                                                             } else {
                                                                 $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
                                                             }
@@ -446,7 +446,25 @@
                 permission: 'users'
             })
             
+            .state('admin.mediaCategories', {
+                url: '/mediaCategories/manage',
+                title: 'mediaCategories Manage',
+                controller: 'MediaCategoriesController',
+                templateUrl: RouteHelpersProvider.basepath('admin/mediaCategories/mediaCategories.html'),
+                permission: 'mediaCategories'
+            })
+            
+            .state('admin.mediaFiles', {
+                url: '/mediaFiles/manage',
+                title: 'mediaFiles Manage',
+                controller: 'MediaFilesController',
+                templateUrl: RouteHelpersProvider.basepath('admin/mediaFiles/mediaFiles.html'),
+                permission: 'media'
+            })
+            
             //new route name will be append here
+            
+            
             
             
             // Single Page Routes

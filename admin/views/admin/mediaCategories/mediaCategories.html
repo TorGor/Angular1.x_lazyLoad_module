@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-wrapper">
+            <div class="panel-body">
+                <span class="form-group add-button-class no-block">
+                    <button
+                        class="btn btn-primary"
+                        ng-click="showMediaCategoriesModal({},2)"
+                        ng-show='validPower("MEDIACATEGORIES", ["POST"])'
+                        type="button"
+                        translate="table.button.add"
+                    >
+                    </button>
+                </span>
+                <form class="form-inline pull-right add-button-class" role="form">
+                    <div style="position: relative" class="form-group">
+                        <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
+                        <input class="form-control" type="text" ng-model="mediaCategoriesSearch" placeholder="{{searchPlaceholder(['path'])}}">
+                    </div>
+                </form>
+                <div
+                    web-data-table
+                    items="mediaCategories"
+                    ao-data="mediaCategoriesAoData"
+                    search="mediaCategoriesSearch"
+                    reload="mediaCategoriesReload"
+                    show-items="showMediaCategories"
+                >
+                    <table width="100%" class="table table-bordered table-hover bg-white">
+                        <thead>
+                        <tr class="bg-gray-light text-bold">
+                            <td style="width: 40%">
+                                {{'path' | translate}}
+                            </td>
+                            <td style="width: 40%">
+                                {{'name' | translate}}
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in showMediaCategories">
+                            <td>
+                                <span>{{item.path}}</span>
+                            </td>
+                            <td>
+                                <span>{{showArrayName(item.name)}}</span>
+                            </td>
+                        </tr>
+                        <tr ng-show="showMediaCategories.length==0">
+                            <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

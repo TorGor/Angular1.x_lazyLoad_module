@@ -203,7 +203,19 @@
                     "text": "银行卡搜索",
                     "sref": "admin.bankCards",
                     "module": "cards",
+                },
+                {
+                    "text": "媒体目录",
+                    "sref": "admin.mediaCategories",
+                    "module": "mediaCategories",
+                },
+                {
+                    "text": "媒体文件",
+                    "sref": "admin.mediaFiles",
+                    "module": "media",
                 }//new sidebar name will be append here
+            
+            
             
             
             ]
