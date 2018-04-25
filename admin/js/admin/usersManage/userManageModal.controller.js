@@ -36,6 +36,32 @@
             $scope.modalItem = modalItem
         };
 
+        // 原始的数据
+        $scope.userCommentModal = [];
+
+        // 过滤出来的数据
+        $scope.showuserCommentModal = [];
+        $scope.userCommentModalReload = 1;
+        $scope.userCommentModalAoData = {};
+        $scope.userCommentModalSearch = '';
+
+        // 初始化table数据
+        $scope.initUserCommentModalData = function () {
+
+        };
+
+
+        // 保存
+        /**
+         *
+         * @param userCommentModal 渠道名称数据对象
+         * @param data
+         */
+
+        $scope.saveuserCommentModal = function (userCommentModal, data) {
+
+        };
+
         //$rootScope.toasterSuccess(res.data.msg);;
         $scope.confirmModal = function () {
             if($scope.modalItem.name){

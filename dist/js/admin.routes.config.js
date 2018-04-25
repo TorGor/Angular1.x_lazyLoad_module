@@ -123,7 +123,7 @@
                                                                 $rootScope.URL[URLobj[module]].GETREVIEW = buttonItem.btnUrl;
                                                             } else if (buttonItem.btnUrl.indexOf('Detail') !== -1) {
                                                                 $rootScope.URL[URLobj[module]].GETDETAIL = buttonItem.btnUrl;
-                                                            } else if (buttonItem.btnUrl.indexOf('Commonts') !== -1) {
+                                                            } else if (buttonItem.btnUrl.indexOf('Comments') !== -1) {
                                                                 $rootScope.URL[URLobj[module]].GETCOMMONTS = buttonItem.btnUrl;
                                                             } else {
                                                                 $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;

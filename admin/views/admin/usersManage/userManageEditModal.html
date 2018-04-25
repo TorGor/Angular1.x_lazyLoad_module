@@ -241,18 +241,18 @@
                             <div style="position: relative" class="form-group">
                                 <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
                                 <input
-                                    class="form-control" type="text" ng-model="methodsNameModalSearch"
+                                    class="form-control" type="text" ng-model="userCommentModalSearch"
                                     placeholder="{{searchPlaceholder(['comment'])}}"
                                 >
                             </div>
                         </form>
                         <div
                             web-data-table
-                            items="methodsNameModal"
-                            ao-data="methodsNameModalAoData"
-                            search="methodsNameModalSearch"
-                            reload="methodsNameModalReload"
-                            show-items="showMethodsNameModal"
+                            items="userCommentModal"
+                            ao-data="userCommentModalAoData"
+                            search="userCommentModalSearch"
+                            reload="userCommentModalReload"
+                            show-items="showUserCommentModal"
                         >
                             <table width="100%" class="table table-bordered table-hover bg-white">
                                 <thead>
@@ -266,7 +266,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="item in showMethodsNameModal">
+                                <tr ng-repeat="item in showuserCommentModal">
                                     <td>
                                         <span>
                                             {{item.comment}}
@@ -276,7 +276,7 @@
                                         <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
                                     </td>
                                 </tr>
-                                <tr ng-show="showMethodsNameModal.length==0">
+                                <tr ng-show="showuserCommentModal.length==0">
                                     <td colspan="20"
                                         class="">{{'table.no_date' | translate}}</td>
                                 </tr>
