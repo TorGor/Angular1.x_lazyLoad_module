@@ -12,7 +12,7 @@
                      <label class="col-lg-4 col-md-6 control-label">
                         {{'category' | translate}}</label>
                      <div class="col-lg-8 col-md-6">
-                        <ui-select ng-model="modalItem.category" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
+                        <ui-select ng-model="modalItem.category" theme="bootstrap" ng-disabled='!hasPower' on-select='initFilesTypes()' search-enabled="false">
                            <ui-select-match placeholder="choose category">
                               <span ng-bind="$select.selected.label"></span>
                            </ui-select-match>
@@ -25,6 +25,20 @@
                </form>
                <div class='clearfix'></div>
                <legend class="text-center">{{'file' | translate}}</legend>
+               <div ng-show='modalItem.category=="menu"' class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                  <div class="col-lg-8 col-md-6">
+                     <ui-select ng-model="modalItem.locale" theme="bootstrap" ng-disabled='!hasPower' search-enabled="false">
+                        <ui-select-match placeholder="choose locale">
+                           <span ng-bind="$select.selected.label"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item.value as item in localesOptions">
+                           <span ng-bind="item.label"></span>
+                        </ui-select-choices>
+                     </ui-select>
+                  </div>
+               </div>
+               <button ng-show='modalItem.category=="menu"' class="btn btn-primary" ng-click="addMenuMediaFilesType()" type="button" translate="table.button.add">
+               </button>
                <div>
                   <table width="100%" class="table table-bordered table-hover bg-white">
                      <thead>
@@ -65,7 +79,7 @@
 </div>
 
 <div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-disabled='myForm.$invalid' ng-show="hasPower" ng-click="confirmModal()">{{'table.button.save' | translate}}
+   <button class="btn btn-primary" type="button" ng-disabled='myForm.$invalid||uploadStatus' ng-show="hasPower" ng-click="confirmModal()">{{'table.button.save' | translate}}
    </button>
    <button class="btn btn-default" type="button" ng-click="cancelModal()">{{'table.button.cancel' | translate}}
    </button>

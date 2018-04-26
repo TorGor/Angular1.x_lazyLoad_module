@@ -162,14 +162,14 @@
 (function() {
 
     angular
-        .module('admin.mediaFiles', [
+        .module('admin.mediaCategories', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.mediaCategories', [
+        .module('admin.mediaFiles', [
             'app.core',
         ]);
 })();
@@ -211,14 +211,14 @@
 (function() {
 
     angular
-        .module('admin.reliefsList', [
+        .module('admin.transactionsDetail', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.transactionsDetail', [
+        .module('admin.reliefsList', [
             'app.core',
         ]);
 })();
@@ -6585,278 +6585,6 @@
 (function() {
 
     angular
-        .module('admin.mediaFiles')
-        .controller('MediaFilesController', MediaFilesController);
-
-    MediaFilesController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModal',
-        'adminService'
-    ];
-
-    function MediaFilesController(
-        $scope,
-        $rootScope,
-        $uibModal,
-        adminService
-    ) {
-
-        $scope.mediaFilesUrl = $rootScope.URL.MEDIAFILES.GET;
-
-        $scope.statusOptions = [
-            {
-                label:'pending',
-                value:'pending'
-            },
-            {
-                label:'processing',
-                value:'processing'
-            },
-            {
-                label:'failed',
-                value:'failed'
-            },
-            {
-                label:'finished',
-                value:'finished'
-            }
-        ];
-
-        // 原始的数据
-        $scope.mediaFiles = [];
-
-        // 过滤出来的数据
-        $scope.showMediaFiles = [];
-        $scope.mediaFilesReload = 1;
-        $scope.mediaFilesAoData = {};
-        $scope.tempMediaFilesAoData = {};
-        $scope.mediaFilesSearch = '';
-
-        // 初始化table数据
-        $scope.initMediaFilesData = function () {
-            $scope.mediaFilesReload++;
-        };
-
-
-        $scope.showMediaFilesModal = function (item,edit) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/mediaFiles/mediaFilesModal.html',
-                controller: 'mediaFilesModalController',
-                size: 'lg',
-                scope:$scope,
-                resolve: {
-                    edit:edit,
-                    modalItem: item,
-                    hasPower:$scope.validPower("MEDIAFILES", ["POST"]) && edit !== 1,
-                }
-            });
-            modalInstance.result.then(function (data) {
-                $scope.initMediaCategoriesData();
-            }, function (data) {
-
-            });
-        };
-
-        // 保存
-        /**
-         *
-         * @param mediaFiles MEDIAFILESTITLE数据对象
-         * @param item
-         */
-
-        $scope.saveMediaFiles = function (mediaFiles, item) {
-            var tempData = angular.extend({}, mediaFiles, item);
-            if ($scope.validIsNew(tempData._id)) {
-                delete tempData._id;
-                adminService.postReq($rootScope.URL.MEDIAFILES.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initMediaFilesData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(tempData._id) && mediaFiles.id) {
-                delete tempData._id;
-                adminService.patchReq($rootScope.URL.MEDIAFILES.PATCH+'/'+mediaFiles.id, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initMediaFilesData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
-        // 删除mediaFiles
-        /**
-         * @param mediaFiles MEDIAFILESTITLE数据对象
-         * @return null
-         */
-        $scope.deleteMediaFiles = function (mediaFiles) {
-            $rootScope.alertConfirm(function () {
-                adminService.deleteReq($rootScope.URL.MEDIAFILES.DELETE+'/'+mediaFiles.name, {}, {}).then(function (res) {
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initMediaFilesData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                            return '';
-                        }
-                    }
-                });
-            });
-        };
-
-        // 恢复mediaFiles
-        /**
-         * @param mediaFiles MEDIAFILESTITLE数据对象
-         * @return null
-         */
-        $scope.recoverMediaFiles = function (mediaFiles) {
-            if (!$scope.validIsNew(mediaFiles._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.MEDIAFILES.PUT+'/'+mediaFiles.id, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initMediaFilesData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                }, 'recover');
-            }
-        };
-
-        // 页面加载执行的函数
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.mediaFiles')
-        .controller('mediaFilesModalController', mediaFilesModalController);
-
-    mediaFilesModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        '$translate',
-        'adminService',
-        'hasPower',
-        'edit',
-        'modalItem'
-    ];
-
-    function mediaFilesModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        $translate,
-        adminService,
-        hasPower,
-        edit,
-        modalItem
-    ) {
-
-        $scope.edit = edit;
-        $scope.hasPower = hasPower;
-        $scope.modalItem = angular.copy(modalItem);
-        // accept="image/jpg,image/png,image/bmp,image/jpeg"
-        $scope.filesTypes = [
-            {
-                key:'card',
-                file:'',
-                tip:'392x220 png',
-                type:'image/png'
-            },
-            {
-                key:'icon',
-                file:'',
-                tip:'128x128 png',
-                type:'image/png'
-            }
-        ];
-
-        // 初始化table数据
-        $scope.initMethodsNameModalData = function () {
-
-        };
-
-        $scope.categoryOptions = [];
-
-        $scope.initCategoryOptions = function(){
-            adminService.getReq($rootScope.URL.MEDIACATEGORIES.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        if(window.Array.isArray(res.data.data)){
-                            res.data.data.map(function (objItem) {
-                                var tempObj ={
-                                    label:objItem.path||'',
-                                    value:objItem.path||''
-                                };
-                                $scope.categoryOptions.push(tempObj)
-                                console.log($scope.categoryOptions,1111)
-                            })
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        //$rootScope.toasterSuccess(res.data.msg);;
-        $scope.confirmModal = function () {
-            console.log($scope.filesTypes,999)
-            return;
-            Upload.upload({
-                url: $rootScope.URL.MEDIAFILES.POST,
-                data: {file: file, 'category': $scope.modalItem.category}
-            }).then(function (resp) {
-                console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-            }, function (resp) {
-                console.log('Error status: ' + resp.status);
-            }, function (evt) {
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-            });
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initMethodsNameModalData();
-
-        $scope.initCategoryOptions();
-
-    }
-})();
-
-(function() {
-
-    angular
         .module('admin.mediaCategories')
         .controller('MediaCategoriesController', MediaCategoriesController);
 
@@ -7126,6 +6854,390 @@
         // 页面加载执行的函数
 
         $scope.initMethodsNameModalData();
+
+        $scope.initLocalesOptionsData();
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.mediaFiles')
+        .controller('MediaFilesController', MediaFilesController);
+
+    MediaFilesController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModal',
+        'adminService'
+    ];
+
+    function MediaFilesController(
+        $scope,
+        $rootScope,
+        $uibModal,
+        adminService
+    ) {
+
+        $scope.mediaFilesUrl = $rootScope.URL.MEDIAFILES.GET;
+
+        $scope.statusOptions = [
+            {
+                label:'pending',
+                value:'pending'
+            },
+            {
+                label:'processing',
+                value:'processing'
+            },
+            {
+                label:'failed',
+                value:'failed'
+            },
+            {
+                label:'finished',
+                value:'finished'
+            }
+        ];
+
+        // 原始的数据
+        $scope.mediaFiles = [];
+
+        // 过滤出来的数据
+        $scope.showMediaFiles = [];
+        $scope.mediaFilesReload = 1;
+        $scope.mediaFilesAoData = {};
+        $scope.tempMediaFilesAoData = {};
+        $scope.mediaFilesSearch = '';
+
+        // 初始化table数据
+        $scope.initMediaFilesData = function () {
+            $scope.mediaFilesReload++;
+        };
+
+
+        $scope.showMediaFilesModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/mediaFiles/mediaFilesModal.html',
+                controller: 'mediaFilesModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower:$scope.validPower("MEDIAFILES", ["POST"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initMediaCategoriesData();
+            }, function (data) {
+
+            });
+        };
+
+        // 保存
+        /**
+         *
+         * @param mediaFiles MEDIAFILESTITLE数据对象
+         * @param item
+         */
+
+        $scope.saveMediaFiles = function (mediaFiles, item) {
+            var tempData = angular.extend({}, mediaFiles, item);
+            if ($scope.validIsNew(tempData._id)) {
+                delete tempData._id;
+                adminService.postReq($rootScope.URL.MEDIAFILES.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initMediaFilesData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (!$scope.validIsNew(tempData._id) && mediaFiles.id) {
+                delete tempData._id;
+                adminService.patchReq($rootScope.URL.MEDIAFILES.PATCH+'/'+mediaFiles.id, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initMediaFilesData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+        };
+
+        // 删除mediaFiles
+        /**
+         * @param mediaFiles MEDIAFILESTITLE数据对象
+         * @return null
+         */
+        $scope.deleteMediaFiles = function (mediaFiles) {
+            $rootScope.alertConfirm(function () {
+                adminService.deleteReq($rootScope.URL.MEDIAFILES.DELETE+'/'+mediaFiles.name, {}, {}).then(function (res) {
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initMediaFilesData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                            return '';
+                        }
+                    }
+                });
+            });
+        };
+
+        // 恢复mediaFiles
+        /**
+         * @param mediaFiles MEDIAFILESTITLE数据对象
+         * @return null
+         */
+        $scope.recoverMediaFiles = function (mediaFiles) {
+            if (!$scope.validIsNew(mediaFiles._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.MEDIAFILES.PUT+'/'+mediaFiles.id, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initMediaFilesData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                }, 'recover');
+            }
+        };
+
+        // 页面加载执行的函数
+    }
+})();
+
+(function () {
+
+    angular
+        .module('admin.mediaFiles')
+        .controller('mediaFilesModalController', mediaFilesModalController);
+
+    mediaFilesModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        '$translate',
+        'Upload',
+        'adminService',
+        'hasPower',
+        'edit',
+        'modalItem'
+    ];
+
+    function mediaFilesModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        $translate,
+        Upload,
+        adminService,
+        hasPower,
+        edit,
+        modalItem
+    ) {
+
+        $scope.uploadStatus=false;
+        $scope.edit = edit;
+        $scope.hasPower = hasPower;
+        $scope.modalItem = angular.copy(modalItem);
+        $scope.modalItem.category = '';
+        $scope.modalItem.locale = '';
+
+        // accept="image/jpg,image/png,image/bmp,image/jpeg"
+        $scope.filesTypesOptions = {
+            'game': [
+                        {
+                            key: 'card',
+                            file: '',
+                            tip: '392x220 png',
+                            type: 'image/png'
+                        },
+                        {
+                            key: 'icon',
+                            file: '',
+                            tip: '128x128 png',
+                            type: 'image/png'
+                        }
+                    ],
+            'spot': [
+                        {
+                            key: 'spot',
+                            file: '',
+                            tip: '1600x740 jpg',
+                            type: 'image/jpg'
+                        },
+                        {
+                            key: 'blur',
+                            file: '',
+                            tip: '2560x770 jpg',
+                            type: 'image/jpg'
+                        }
+                    ],
+            'menu': [
+                        {
+                            key: 'bg',
+                            file: '',
+                            tip: '716x550 jpg',
+                            type: 'image/jpg'
+                        },
+                        {
+                            key: 'collection',
+                            file: '',
+                            tip: '196x330 jpg png',
+                            type: 'image/jpg,image/png'
+                        }
+                    ],
+            'promotion': [
+                        {
+                            key: '1060',
+                            file: '',
+                            tip: '2120x160 jpg',
+                            type: 'image/jpg'
+                        },
+                        {
+                            key: '919',
+                            file: '',
+                            tip: '1838x320 jpg',
+                            type: 'image/jpg'
+                        },
+                        {
+                            key: '749',
+                            file: '',
+                            tip: '196x330',
+                            type: '1498x320 jpg'
+                        }
+                    ],
+        };
+
+        $scope.localesOptions = [];
+
+        $scope.initLocalesOptionsData = function () {
+            $scope.localesOptions = [];
+            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                if(objItem.supported){
+                                    $scope.localesOptions.push(tempObj)
+                                }
+                            })
+                        }
+                        $scope.modalItem.locale = $scope.localesOptions[0]&&$scope.localesOptions[0].code;
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.addMenuMediaFilesType = function(){
+            console.log($scope.modalItem.locale)
+            if($scope.modalItem.locale){
+                $scope.filesTypes.push({
+                    key: $scope.modalItem.locale,
+                    file: '',
+                    tip: '285x170 png',
+                    type: 'image/png'
+                })
+            }
+        };
+
+        // 初始化table数据
+        $scope.initFilesTypes = function () {
+            $scope.filesTypes = angular.copy($scope.filesTypesOptions[$scope.modalItem.category])
+        };
+
+        $scope.categoryOptions = [];
+
+        $scope.initCategoryOptions = function () {
+            adminService.getReq($rootScope.URL.MEDIACATEGORIES.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if (window.Array.isArray(res.data.data)) {
+                            res.data.data.map(function (objItem) {
+                                var tempObj = {
+                                    label: objItem.path || '',
+                                    value: objItem.path || ''
+                                };
+                                $scope.categoryOptions.push(tempObj);
+                                $scope.initFilesTypes();
+                            })
+                        }
+                        $scope.modalItem.category = $scope.categoryOptions[0].value;
+                        $scope.initFilesTypes();
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        //$rootScope.toasterSuccess(res.data.msg);;
+        $scope.confirmModal = function () {
+            var requireVaild = false;
+            var tempdata = [];
+            $scope.filesTypes.forEach(function (item) {
+                var tempObj = {
+                    [item.key]:item.file
+                };
+                if(item.file === ''){
+                    requireVaild = true
+                }else{
+                    tempdata.push(tempObj)
+                }
+            });
+            if(requireVaild&&['game','promotion'].indexOf($scope.modalItem.category)!==-1){
+                $rootScope.alertErrorMsg('image should upload at same time');
+                return;
+            }
+            Upload.upload({
+                url: $rootScope.URL.MEDIAFILES.POST,
+                data: {image: tempdata, 'category': $scope.modalItem.category}
+            }).then(function (resp) {
+                $scope.uploadStatus=true;
+                console.log('Success uploaded Response: ' + resp);
+            }, function (resp) {
+                $scope.uploadStatus=true;
+                console.log('Error status: ' + resp.status);
+            }, function (evt) {
+                $scope.uploadStatus=true;
+            });
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initCategoryOptions();
 
         $scope.initLocalesOptionsData();
 
@@ -9493,79 +9605,6 @@
 (function() {
 
     angular
-        .module('admin.reliefsList')
-        .controller('ReliefsListController', ReliefsListController);
-
-    ReliefsListController.$inject = [
-        '$scope',
-        '$uibModal',
-        '$rootScope',
-        'adminService'
-    ];
-
-    function ReliefsListController(
-        $scope,
-        $uibModal,
-        $rootScope,
-        adminService
-    ) {
-
-        $scope.reliefsListUrl = $rootScope.URL.RELIEFSLIST.GET;
-
-        // 原始的数据
-        $scope.reliefsList = [];
-        $scope.reliefsListReload = 1;
-        $scope.reliefsListAoData = {};
-        $scope.tempReliefsListAoData = {};
-
-        $scope.trigerSearch = function() {
-            $scope.tempReliefsListAoData = Object.assign($scope.tempReliefsListAoData,$scope.reliefsListAoData);
-            $scope.reliefsListReload++;
-        };
-
-        $scope.resetSearch = function() {
-            $scope.reliefsListAoData = {};
-            $scope.searchTimeStart = undefined
-            $scope.searchTimeEnd = undefined
-            var tempData = $scope.tempReliefsListAoData;
-            $scope.tempReliefsListAoData = {
-                page:tempData.page,
-                pageSize:tempData.pageSize
-            };
-            $scope.reliefsListReload++;
-        };
-
-        // 初始化table数据
-        $scope.initReliefsListData = function () {
-            $scope.reliefsListReload++;
-        };
-
-        // 页面加载执行的函数
-
-        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.searchTimeStart) {
-                    $scope.reliefsListAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.reliefsListAoData.start_time) {
-                        delete $scope.reliefsListAoData.start_time;
-                    }
-                }
-                if ($scope.searchTimeEnd) {
-                    $scope.reliefsListAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.reliefsListAoData.end_time) {
-                        delete $scope.reliefsListAoData.end_time;
-                    }
-                }
-            }
-        });
-    }
-})();
-
-(function() {
-
-    angular
         .module('admin.transactionsDetail')
         .controller('TransactionsDetailController', TransactionsDetailController);
 
@@ -9981,6 +10020,79 @@
 
         //页面加载运行的函数
 
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.reliefsList')
+        .controller('ReliefsListController', ReliefsListController);
+
+    ReliefsListController.$inject = [
+        '$scope',
+        '$uibModal',
+        '$rootScope',
+        'adminService'
+    ];
+
+    function ReliefsListController(
+        $scope,
+        $uibModal,
+        $rootScope,
+        adminService
+    ) {
+
+        $scope.reliefsListUrl = $rootScope.URL.RELIEFSLIST.GET;
+
+        // 原始的数据
+        $scope.reliefsList = [];
+        $scope.reliefsListReload = 1;
+        $scope.reliefsListAoData = {};
+        $scope.tempReliefsListAoData = {};
+
+        $scope.trigerSearch = function() {
+            $scope.tempReliefsListAoData = Object.assign($scope.tempReliefsListAoData,$scope.reliefsListAoData);
+            $scope.reliefsListReload++;
+        };
+
+        $scope.resetSearch = function() {
+            $scope.reliefsListAoData = {};
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            var tempData = $scope.tempReliefsListAoData;
+            $scope.tempReliefsListAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            };
+            $scope.reliefsListReload++;
+        };
+
+        // 初始化table数据
+        $scope.initReliefsListData = function () {
+            $scope.reliefsListReload++;
+        };
+
+        // 页面加载执行的函数
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.reliefsListAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.reliefsListAoData.start_time) {
+                        delete $scope.reliefsListAoData.start_time;
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.reliefsListAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.reliefsListAoData.end_time) {
+                        delete $scope.reliefsListAoData.end_time;
+                    }
+                }
+            }
+        });
     }
 })();
 
