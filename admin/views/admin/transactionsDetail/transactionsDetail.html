@@ -58,7 +58,7 @@
                                 searchkey='username'
                                 min-length='3'
                                 output-value='transactionsDetailAoData.affiliate_id'
-                                url='{{URL.USERSMANAGE.GET}}'
+                                url='{{URL.AFFILIATESMANAGE.GET}}'
                             >
                             </input-select>
                         </div>
@@ -72,7 +72,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 margin-bottom-10">
                             <ui-select
-                                ng-model="transactionsDetailAoData.wallet"
+                                ng-model="transactionsDetailAoData.wallet_code"
                                 theme="bootstrap"
                                 search-enabled="false">
                                 <ui-select-match placeholder="{{'table.transactionsDetail.th3' | translate}}">

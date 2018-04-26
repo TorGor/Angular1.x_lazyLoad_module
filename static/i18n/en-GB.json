@@ -443,8 +443,8 @@
             "th10": "Status"
         },
         "affiliatesManage": {
-            "th1": "Username",
-            "th2": "Name",
+            "th1": "Affiliate",
+            "th2": "Real Name",
             "th4": "Locale",
             "th7": "Domains User",
             "th8": "OTP",

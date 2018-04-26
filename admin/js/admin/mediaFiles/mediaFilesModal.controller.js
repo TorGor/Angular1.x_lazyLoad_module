@@ -174,24 +174,23 @@
         //$rootScope.toasterSuccess(res.data.msg);;
         $scope.confirmModal = function () {
             var requireVaild = false;
-            var tempdata = [];
+            var tempObj = {
+                'category': $scope.modalItem.category
+            };
             $scope.filesTypes.forEach(function (item) {
-                var tempObj = {
-                    [item.key]:item.file
-                };
                 if(item.file === ''){
                     requireVaild = true
                 }else{
-                    tempdata.push(tempObj)
+                    tempObj[item.key] = item.file
                 }
             });
             if(requireVaild&&['game','promotion'].indexOf($scope.modalItem.category)!==-1){
-                $rootScope.alertErrorMsg('image should upload at same time');
+                $rootScope.alertErrorMsg('image should upload at one time');
                 return;
             }
             Upload.upload({
                 url: $rootScope.URL.MEDIAFILES.POST,
-                data: {image: tempdata, 'category': $scope.modalItem.category}
+                data: tempObj
             }).then(function (resp) {
                 $scope.uploadStatus=true;
                 console.log('Success uploaded Response: ' + resp);

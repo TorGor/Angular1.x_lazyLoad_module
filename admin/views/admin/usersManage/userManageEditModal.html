@@ -280,12 +280,12 @@
                             </table>
                         </div>
                         <div class='clearfix'></div>
-                        <div class="form-group" ng-show='validPower("USERSMANAGE", ["POSTCOMMENTS"])'>
+                        <div class="form-group" ng-show='validPower("USERSMANAGE", ["POSTCOMMENTS"])&&edit===1'>
                             <div class="col-sm-12">
                                 <div class="input-group">
                                     <input class="form-control" ng-model='tempComment' type="text">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" ng-click='saveUserCommentModal()' type="button">{{contactTranslateArr(['table.button.add','comment'])}}</button>
+                                        <button class="btn btn-primary" ng-click='saveUserCommentModal()' type="button">{{contactTranslateArr(['table.button.add','comment'])}}</button>
                                     </span>
                                 </div>
                             </div>

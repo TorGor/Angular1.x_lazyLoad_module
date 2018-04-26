@@ -26,8 +26,7 @@
         $scope.bankCardsAoData = {};
         $scope.tempBankCardsAoData = {};
 
-        // $scope.bankCardsUrl = $rootScope.URL.USERSMANAGE.SELECTCARDS;
-        $scope.bankCardsUrl = $rootScope.URL.BANKCARDS.GET;
+        $scope.bankCardsUrl = $rootScope.URL.USERSMANAGE.SELECTCARDS;
 
         $scope.trigerSearch = function() {
             if($scope.bankCardsAoData.account_number){

@@ -437,8 +437,8 @@
       "th10": "Status"
     },
     "affiliatesManage": {
-      "th1": "Username",
-      "th2": "Name",
+      "th1": "代理",
+      "th2": "用户名",
       "th4": "Locale",
       "th7": "Domains User",
       "th8": "OTP",
