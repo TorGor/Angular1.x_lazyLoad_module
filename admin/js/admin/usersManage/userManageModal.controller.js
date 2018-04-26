@@ -40,7 +40,7 @@
         $scope.userCommentModal = [];
 
         // 过滤出来的数据
-        $scope.showuserCommentModal = [];
+        $scope.showUserCommentModal = [];
         $scope.userCommentModalReload = 1;
         $scope.userCommentModalAoData = {};
         $scope.userCommentModalSearch = '';
@@ -48,11 +48,11 @@
         // 初始化table数据
         $scope.initUserCommentModalData = function () {
             adminService.getReq($rootScope.URL.USERSMANAGE.GETCOMMENTS+'/'+modalItem.userId, {}, {}).then(function (res) {
-                console.log(res);
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         $scope.userCommentModal = angular.copy(res.data.data);
                         $scope.userCommentModalReload++;
+                        console.log($scope.userCommentModal)
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);
                     }
@@ -61,17 +61,14 @@
         };
 
 
+        $scope.tempComment = '';
         // 保存
-        /**
-         *
-         * @param comment 结论
-         */
-
-        $scope.saveUserCommentModal = function (comment) {
+        $scope.saveUserCommentModal = function () {
             var tempData = {
-                comment: comment,
+                comment: $scope.tempComment,
                 admin_id: window.userInfo && window.userInfo.adminId || ''
             };
+            $scope.tempComment = '';
             adminService.postReq($rootScope.URL.USERSMANAGE.POSTCOMMENTS+'/'+modalItem.userId, {}, tempData).then(function (res) {
                 console.log(res);
                 if (typeof res.data.success === 'boolean') {
@@ -124,7 +121,7 @@
 
         $scope.initMethodsNameModalData();
 
-        if($scope.validPower("USERSMANAGE", ["GETCOMMONTS"])){
+        if($scope.validPower("USERSMANAGE", ["GETCOMMENTS"])){
             $scope.initUserCommentModalData();
         }
 

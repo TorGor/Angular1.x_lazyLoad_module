@@ -39,6 +39,10 @@
   "verifications":"验证",
   "phone":"手机",
   "name":"名称",
+  "category":"种类",
+  "path":"路径",
+  "status":"状态",
+  "comment":"备注",
   "identity":"身份",
   "table": {
     "common": {

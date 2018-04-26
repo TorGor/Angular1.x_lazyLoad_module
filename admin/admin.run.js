@@ -60,6 +60,13 @@
             }
         );
 
+        $rootScope.socketMessages = [
+            {
+                title:'dsdas',
+                content:'内容'
+            }
+        ];
+
         $timeout(function () {
             // $rootScope.toasterInfo('info test')
         },3000);

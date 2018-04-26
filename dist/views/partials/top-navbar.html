@@ -29,7 +29,7 @@
       </ul>
       <!-- START Right Navbar-->
       <ul class="nav navbar-nav navbar-right">
-         <!-- START Alert menu-->
+         <!-- START username-->
          <li class="dropdown dropdown-list" uib-dropdown="">
             <a uib-dropdown-toggle="">
                <em class="icon-user"></em>
@@ -59,6 +59,35 @@
                            </div>
                            <div class="media-box-body clearfix">
                               <p style='line-height: 15px' class="m0">logout out</p>
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+                  <!-- END list group-->
+               </li>
+            </ul>
+            <!-- END Dropdown menu-->
+         </li>
+         <!-- END username-->
+         <!-- START Alert menu-->
+         <li class="dropdown dropdown-list" uib-dropdown="">
+            <a uib-dropdown-toggle="">
+               <em class="icon-bell"></em>
+               <div class="label " ng-class='{true:"label-danger",false:""}[socketMessages.length>10]'>{{socketMessages.length}}</div>
+            </a>
+            <!-- START Dropdown menu-->
+            <ul class="dropdown-menu animated flipInX">
+               <li>
+                  <!-- START list group-->
+                  <div class="list-group">
+                     <!-- list item-->
+                     <a class="list-group-item" ng-repeat='item in socketMessages'>
+                        <div class="media-box">
+                           <div class="media-box-body clearfix">
+                              <p class="m0">{{item.title}}</p>
+                              <p class="m0 text-muted">
+                                 <small>{{item.content}}</small>
+                              </p>
                            </div>
                         </div>
                      </a>

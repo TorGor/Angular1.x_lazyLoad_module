@@ -54,6 +54,7 @@
                     'vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js'
                 ],
                 'filestyle': ['vendor/bootstrap-filestyle/src/bootstrap-filestyle.js'],
+                'ngFileUploadShim': ['vendor/ng-file-upload-shim/ng-file-upload.min.js'],
                 'morris': [
                     'vendor/raphael/raphael.js',
                     'vendor/morris.js/morris.js',

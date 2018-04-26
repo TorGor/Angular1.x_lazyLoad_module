@@ -1,0 +1,86 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{showEditStatus(edit)+'媒体文件'}}</h3>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <div class="">
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'category' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                    ng-model="modalItem.category"
+                                    theme="bootstrap"
+                                    ng-disabled='!hasPower'
+                                    search-enabled="false"
+                                >
+                                    <ui-select-match placeholder="choose category">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in categoryOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                    </form>
+                    <div class='clearfix'></div>
+                    <legend class="text-center">{{'file' | translate}}</legend>
+                    <div>
+                        <table width="100%" class="table table-bordered table-hover bg-white">
+                            <thead>
+                            <tr class="bg-gray-light text-bold">
+                                <td style="width: 30%">
+                                    {{'key' | translate}}
+                                </td>
+                                <td style="width: 70%">
+                                    {{'image' | translate}}
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in filesTypes">
+                                <td>
+                                    <span>
+                                        {{item.key}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm icon-white"
+                                            ngf-accept="item.type"
+                                            ngf-select ng-model="item.file"
+                                            style="margin-left: 20px">
+                                        <i class="glyphicon glyphicon-cloud-upload"></i>
+                                        {{item.tip}}
+                                    </button>
+                                    <span>{{ item.file && item.file.name || '' }}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="filesTypes.length==0">
+                                <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button
+        class="btn btn-primary" type="button" ng-disabled='myForm.$invalid' ng-show="hasPower"
+        ng-click="confirmModal()"
+    >{{'table.button.save' | translate}}
+    </button>
+    <button
+        class="btn btn-default" type="button" ng-click="cancelModal()"
+    >{{'table.button.cancel' | translate}}
+    </button>
+</div>
+

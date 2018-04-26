@@ -20,6 +20,25 @@
 
         $scope.mediaFilesUrl = $rootScope.URL.MEDIAFILES.GET;
 
+        $scope.statusOptions = [
+            {
+                label:'pending',
+                value:'pending'
+            },
+            {
+                label:'processing',
+                value:'processing'
+            },
+            {
+                label:'failed',
+                value:'failed'
+            },
+            {
+                label:'finished',
+                value:'finished'
+            }
+        ];
+
         // 原始的数据
         $scope.mediaFiles = [];
 
@@ -35,6 +54,28 @@
             $scope.mediaFilesReload++;
         };
 
+
+        $scope.showMediaFilesModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/mediaFiles/mediaFilesModal.html',
+                controller: 'mediaFilesModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower:$scope.validPower("MEDIAFILES", ["POST"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initMediaCategoriesData();
+            }, function (data) {
+
+            });
+        };
 
         // 保存
         /**
@@ -81,21 +122,19 @@
          * @return null
          */
         $scope.deleteMediaFiles = function (mediaFiles) {
-            if (!$scope.validIsNew(mediaFiles._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.MEDIAFILES.DELETE+'/'+mediaFiles.id, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initMediaFilesData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
+            $rootScope.alertConfirm(function () {
+                adminService.deleteReq($rootScope.URL.MEDIAFILES.DELETE+'/'+mediaFiles.name, {}, {}).then(function (res) {
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initMediaFilesData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                            return '';
                         }
-                    });
+                    }
                 });
-            }
+            });
         };
 
         // 恢复mediaFiles

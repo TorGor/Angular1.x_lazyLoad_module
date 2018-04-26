@@ -2,24 +2,71 @@
     <div class="panel panel-default">
         <div class="panel-wrapper">
             <div class="panel-body">
-                <span class="form-group add-button-class">
-                    <button
-                        class="btn btn-primary"
-                        ng-click="addMediaFiles()"
-                        type="button"
-                        translate="table.button.add"
-                    >
-                    </button>
-                </span>
-                <form class="form-inline pull-right add-button-class" role="form">
-                    <div style="position: relative" class="form-group">
-                        <span style="position: absolute;left: 4px;top: 6px"><em class="fa fa-search"></em></span>
-                        <input
-                            class="form-control" type="text" ng-model="mediaFilesSearch"
-                            placeholder="{{searchPlaceholder(['table.mediaFiles.th1', 'table.mediaFiles.th2', 'table.mediaFiles.th3'])}}"
-                        >
+                <div class="row" style="margin-bottom: 10px">
+                    <div class="col-xs-12">
+                        <span class="form-group add-button-class">
+                            <button
+                                class="btn btn-primary"
+                                ng-click="showMediaFilesModal({},2)"
+                                ng-show='validPower("MEDIAFILES", ["POST"])'
+                                type="button"
+                                translate="table.button.add"
+                            >
+                            </button>
+                            <span class='btn-search'>
+                                <button
+                                    class="btn btn-green"
+                                    ng-click="trigerSearch()"
+                                    type="button"
+                                    translate="table.button.search"
+                                >
+                                </button>
+                                <button
+                                    class="btn btn-warning"
+                                    ng-click="resetSearch()"
+                                    type="button"
+                                    translate="table.button.reset"
+                                >
+                                </button>
+                            </span>
+                        </span>
+                        <div class='clearfix'></div>
+                        <form style="width: 675px" class="form-horizontal pull-right" role="form">
+                            <div class="col-lg-4 col-md-4">
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    ng-model="mediaFilesAoData.category"
+                                    placeholder="{{'category' | translate}}"
+                                >
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    ng-model="mediaFilesAoData.name"
+                                    placeholder="{{'name' | translate}}"
+                                >
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <ui-select
+                                    ng-model="mediaFilesAoData.status"
+                                    theme="bootstrap"
+                                    search-enabled="false"
+                                >
+                                    <ui-select-match placeholder="{{'status' | translate}}">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in statusOptions">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </form>
                     </div>
-                </form>
+
+                </div>
+                <div class="clearfix"></div>
                 <div
                     server-data-table
                     items="mediaFiles"
@@ -33,28 +80,41 @@
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                         <tr class="bg-gray-light text-bold">
-                            <td style="width: 40%" ao-data="mediaFilesAoData" web-data-table-sort="roleName">
-                                {{'table.mediaFiles.th1' | translate}}
+                            <td style="width: 15%">
+                                {{'category' | translate}}
                             </td>
-                            <td style="width: 40%" ao-data="mediaFilesAoData" web-data-table-sort="roleName">
-                                {{'table.mediaFiles.th1' | translate}}
+                            <td style="width: 50%">
+                                {{'name' | translate}}
                             </td>
-                            <td style="width: 40%" ao-data="mediaFilesAoData" web-data-table-sort="roleStatus">
-                                {{'table.mediaFiles.th2' | translate}}
+                            <td style="width: 15%">
+                                {{'status' | translate}}
                             </td>
-                            <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                            <td ng-show='validPower("MEDIAFILES", ["DELETE"])' style="width: 10%">{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="item in mediaFiles">
                             <td>
+                                {{item.category}}
                             </td>
                             <td>
+                                {{item.name}}
                             </td>
                             <td>
-                                <span>{{}}</span>
+                                {{item.status}}
                             </td>
-
+                            <td
+                                style="white-space: nowrap;" ng-show='validPower("MEDIAFILES", ["DELETE"])'
+                            >
+                                <button
+                                    class="btn btn-sm btn-danger"
+                                    ng-show='validPower("MEDIAFILES", ["DELETE"])'
+                                    ng-click="deleteMediaFiles(item)"
+                                    title="{{'table.button.delete' | translate}}"
+                                >
+                                    <em class="fa fa-trash"></em>
+                                </button>
+                            </td>
                         </tr>
                         <tr ng-show="mediaFiles.length==0">
                             <td colspan="20" class="">{{'table.no_date' | translate}}</td>

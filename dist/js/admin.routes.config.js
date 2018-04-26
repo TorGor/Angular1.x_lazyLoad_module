@@ -459,6 +459,7 @@
                 title: 'mediaFiles Manage',
                 controller: 'MediaFilesController',
                 templateUrl: RouteHelpersProvider.basepath('admin/mediaFiles/mediaFiles.html'),
+                resolve: RouteHelpersProvider.resolveFor('ngFileUploadShim'),
                 permission: 'media'
             })
             

@@ -39,6 +39,10 @@
     "verifications":"verifications",
     "phone":"phone",
     "name":"name",
+    "category":"category",
+    "path":"path",
+    "status":"status",
+    "comment":"comment",
     "identity":"identity",
     "table": {
         "common": {

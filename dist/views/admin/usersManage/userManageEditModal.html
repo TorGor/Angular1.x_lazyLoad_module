@@ -152,28 +152,20 @@
                   <legend class="text-center">
                      备注信息
                   </legend>
-                  <form class="form-inline pull-right add-button-class" role="form">
-                     <div style="position: relative" class="form-group">
-                        <span style="position: absolute;left: 4px;top: 6px">
-                           <em class="fa fa-search"></em>
-                        </span>
-                        <input class="form-control" type="text" ng-model="userCommentModalSearch" placeholder="{{searchPlaceholder(['comment'])}}">
-                     </div>
-                  </form>
                   <div web-data-table items="userCommentModal" ao-data="userCommentModalAoData" search="userCommentModalSearch" reload="userCommentModalReload" show-items="showUserCommentModal">
                      <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
                            <tr class="bg-gray-light text-bold">
-                              <td style="width: 40%">
+                              <td style="width: 70%">
                                  {{'comment' | translate}}
                               </td>
-                              <td style="width: 40%">
+                              <td style="width: 30%">
                                  {{'createAt' | translate}}
                               </td>
                            </tr>
                         </thead>
                         <tbody>
-                           <tr ng-repeat="item in showuserCommentModal">
+                           <tr ng-repeat="item in showUserCommentModal">
                               <td>
                                  <span>
                                     {{item.comment}}
@@ -183,11 +175,23 @@
                                  <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
                               </td>
                            </tr>
-                           <tr ng-show="showuserCommentModal.length==0">
-                              <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                           <tr ng-show="showUserCommentModal.length==0">
+                              <td colspan="20" class="">{{'table.no_date' | translate}}
+                              </td>
                            </tr>
                         </tbody>
                      </table>
+                  </div>
+                  <div class='clearfix'></div>
+                  <div class="form-group" ng-show='validPower("USERSMANAGE", ["POSTCOMMENTS"])'>
+                     <div class="col-sm-12">
+                        <div class="input-group">
+                           <input class="form-control" ng-model='tempComment' type="text">
+                           <span class="input-group-btn">
+                              <button class="btn btn-default" ng-click='saveUserCommentModal()' type="button">{{contactTranslateArr(['table.button.add','comment'])}}</button>
+                           </span>
+                        </div>
+                     </div>
                   </div>
                </form>
             </div>

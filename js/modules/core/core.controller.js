@@ -21,6 +21,8 @@
         toaster
     ) {
 
+        var locale = window.localStorage.getItem('NG_TRANSLATE_LANG_KEY')||((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en-GB');
+
         /**
          *
          * @param value 0-禁用；1-启用；2-删除；
@@ -87,6 +89,21 @@
                 return $translate.instant(param);
             }
             return ' search all';
+        };
+
+        var contactStr = locale.indexOf('zh')===-1?' ':'';
+
+        $scope.contactTranslateArr = function(param) {
+            if (window.Array.isArray(param)) {
+                var tempArr = param.map(function(item) {
+                    return $translate.instant(item);
+                });
+                return tempArr.join(contactStr);
+            }
+            if (typeof param === 'string') {
+                return $translate.instant(param);
+            }
+            return '';
         };
 
         // 判断是否是一个新添加的
@@ -232,8 +249,6 @@
             locale: $rootScope.language.selected || 'en',
             format: 'YYYY-MM-DD HH:mm:ss'
         };
-
-        var locale = window.localStorage.getItem('NG_TRANSLATE_LANG_KEY')||((window.navigator.language || window.navigator.language).indexOf('zh-CN') !== -1 ? 'zh-CN' : 'en-GB');
 
         $rootScope.showArrayName = function(arr) {
             if(window.Array.isArray(arr)){
