@@ -78,6 +78,7 @@
     "timezone":"timezone",
     "isApproved":"isApproved",
     "isLocked":"isLocked",
+    "server":"server",
     "table": {
         "common": {
             "per_page": "Per page",
