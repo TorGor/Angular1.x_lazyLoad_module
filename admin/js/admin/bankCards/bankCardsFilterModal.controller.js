@@ -26,8 +26,6 @@
         $scope.bankCardsAoData = {};
         $scope.tempBankCardsAoData = {};
 
-        $scope.bankCardsUrl = $rootScope.URL.USERSMANAGE.SELECTCARDS;
-
         $scope.trigerSearch = function() {
             if($scope.bankCardsAoData.account_number){
                 if($scope.bankCardsAoData.account_number.length<3||$scope.bankCardsAoData.account_number.length>20){
@@ -56,8 +54,7 @@
 
         $scope.filter = filter;
 
-        $scope.bankCardsAoData = window.Object.assign($scope.bankCardsAoData, $scope.filter)
-        $scope.tempBankCardsAoData = window.Object.assign($scope.tempBankCardsAoData, $scope.filter)
+        $scope.bankCardsUrl = $rootScope.URL.USERSMANAGE.SELECTCARDS+'/'+$scope.filter.user_id||'';
 
         $scope.cancelModal = function () {
             $uibModalInstance.dismiss('cancel');
