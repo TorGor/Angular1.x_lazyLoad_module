@@ -174,9 +174,7 @@
         //$rootScope.toasterSuccess(res.data.msg);;
         $scope.confirmModal = function () {
             var requireVaild = false;
-            var tempObj = {
-                'category': $scope.modalItem.category
-            };
+            var tempObj = {};
             $scope.filesTypes.forEach(function (item) {
                 if(item.file === ''){
                     requireVaild = true
@@ -190,7 +188,7 @@
             }
             Upload.upload({
                 url: $rootScope.URL.MEDIAFILES.POST,
-                data: tempObj
+                data: {'category': $scope.modalItem.category,'image':tempObj}
             }).then(function (resp) {
                 $scope.uploadStatus=true;
                 console.log('Success uploaded Response: ' + resp);
