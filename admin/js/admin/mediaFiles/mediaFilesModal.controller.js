@@ -191,8 +191,10 @@
                 data: {'category': $scope.modalItem.category,'image':tempObj}
             }).then(function (resp) {
                 $scope.uploadStatus=true;
+                $uibModalInstance.close('OK');
                 console.log('Success uploaded Response: ' + resp);
             }, function (resp) {
+                $uibModalInstance.close('OK');
                 $scope.uploadStatus=true;
                 console.log('Error status: ' + resp.status);
             }, function (evt) {
