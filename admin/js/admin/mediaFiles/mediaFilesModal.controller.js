@@ -194,8 +194,8 @@
                 $uibModalInstance.close('OK');
                 console.log('Success uploaded Response: ' + resp);
             }, function (resp) {
-                $uibModalInstance.close('OK');
                 $scope.uploadStatus=true;
+                $rootScope.alertErrorMsg(resp.data&&resp.data.msg||'upload error');
                 console.log('Error status: ' + resp.status);
             }, function (evt) {
                 $scope.uploadStatus=true;
