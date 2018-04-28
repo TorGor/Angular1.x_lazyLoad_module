@@ -85,7 +85,7 @@
                 }
             });
             modalInstance.result.then(function (data) {
-                $scope.initMediaCategoriesData();
+                $scope.initMediaFilesData();
             }, function (data) {
 
             });
