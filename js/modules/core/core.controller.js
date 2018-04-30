@@ -230,7 +230,22 @@
         };
 
         $rootScope.alertErrorMsg = function (msg) {
-            SweetAlert.error($translate.instant('alert_confirm.error'), msg);
+            if(msg === 'Please Login First'){
+                SweetAlert.swal({
+                    title: $translate.instant('alert_confirm.title'),
+                    text: msg,
+                    type: 'warning',
+                    showCancelButton: false,
+                    confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
+                    closeOnConfirm: true
+                }, function(yes) {
+                    if (yes) {
+                        window.location.href='/login.html'
+                    }
+                });
+            }else{
+                SweetAlert.error($translate.instant('alert_confirm.error'), msg);
+            }
         };
 
 

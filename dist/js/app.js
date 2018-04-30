@@ -225,8 +225,8 @@
             debug: true,
             // suffix: '.json',
             suffix: '',
-            server: '',
-             // server: 'http://193.112.155.213',
+            // server: '',
+             server: 'http://193.112.155.213',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             //server: 'http://holyplace.ngrok.xiaomiqiu.cn',
             URLOBJ:{
@@ -495,7 +495,22 @@
         };
 
         $rootScope.alertErrorMsg = function (msg) {
-            SweetAlert.error($translate.instant('alert_confirm.error'), msg);
+            if(msg === 'Please Login First'){
+                SweetAlert.swal({
+                    title: $translate.instant('alert_confirm.title'),
+                    text: msg,
+                    type: 'warning',
+                    showCancelButton: false,
+                    confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
+                    closeOnConfirm: true
+                }, function(yes) {
+                    if (yes) {
+                        window.location.href='/login.html'
+                    }
+                });
+            }else{
+                SweetAlert.error($translate.instant('alert_confirm.error'), msg);
+            }
         };
 
 
@@ -2328,10 +2343,10 @@
         .directive('serverDataTable', serverDataTable)
         .directive('serverDataTableSort', serverDataTableSort);
 
-    serverDataTable.$inject = ['$injector','$timeout'];
+    serverDataTable.$inject = ['$injector','$timeout','$rootScope'];
 
     /* @ngInject */
-    function serverDataTable($injector,$timeout) {
+    function serverDataTable($injector,$timeout,$rootScope) {
         return {
             restrict: 'AE',
             transclude: true,
@@ -2453,6 +2468,9 @@
                                 $scope.pageMessage.count= 0;
                                 $scope.pageTotle=1;
                                 $scope.items=[];
+                            }
+                            if(data.success && data.success === false){
+                                $rootScope.alertErrorMsg(data.msg||'')
                             }
                         });
                     }else{

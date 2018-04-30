@@ -11,10 +11,10 @@
         .directive('serverDataTable', serverDataTable)
         .directive('serverDataTableSort', serverDataTableSort);
 
-    serverDataTable.$inject = ['$injector','$timeout'];
+    serverDataTable.$inject = ['$injector','$timeout','$rootScope'];
 
     /* @ngInject */
-    function serverDataTable($injector,$timeout) {
+    function serverDataTable($injector,$timeout,$rootScope) {
         return {
             restrict: 'AE',
             transclude: true,
@@ -136,6 +136,9 @@
                                 $scope.pageMessage.count= 0;
                                 $scope.pageTotle=1;
                                 $scope.items=[];
+                            }
+                            if(data.success && data.success === false){
+                                $rootScope.alertErrorMsg(data.msg||'')
                             }
                         });
                     }else{

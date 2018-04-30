@@ -95,8 +95,8 @@
                         {
                             key: '749',
                             file: '',
-                            tip: '196x330',
-                            type: '1498x320 jpg'
+                            tip: '1498x320 jpg',
+                            type: 'image/jpg'
                         }
                     ],
         };
