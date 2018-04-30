@@ -11,11 +11,11 @@
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
                             <label class="col-lg-4 col-md-6 control-label">标语</label>
                             <div class="col-lg-8 col-md-6">
-                                <input ng-model="promotionsItem.banner" name='banner' ng-pattern='/(.*?(jpg|jpeg|png))/' ng-disabled='!hasPower' class="form-control" type="text"
-                                       placeholder="end with *.jpg, *.png, *.jpeg">
+                                <input ng-model="promotionsItem.banner" ng-click='showChooseFileModal(promotionsItem.banner)' name='banner' ng-disabled='!hasPower' class="form-control" type="text"
+                                       placeholder="choose image" required>
                                 <span class='text-danger valid-error'
                                       ng-show="myForm.banner.$dirty&&myForm.banner.$invalid">
-                                {{'end with *.jpg, *.png, *.jpeg'}}
+                                {{checkRequiredData()}}
                             </span>
                             </div>
                         </div>

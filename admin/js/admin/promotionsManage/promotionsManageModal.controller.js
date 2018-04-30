@@ -303,6 +303,30 @@
             $uibModalInstance.dismiss('cancel');
         };
 
+        $scope.showChooseFileModal  = function(name){
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/mediaFiles/mediaFilesChooseName.html',
+                controller: 'mediaFilesChooseNameModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    filter:{
+                        category:'promotion',
+                        name:name||'',
+                        status:'finished'
+                    }
+                }
+            });
+            modalInstance.result.then(function(data) {
+                $scope.promotionsItem.banner = data;
+                modalInstance = null;
+            }, function(data) {
+                modalInstance = null;
+            });
+        };
 
         $scope.confirmModal = function () {
             if($scope.promotionsItem.title.length == 0){

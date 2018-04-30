@@ -204,7 +204,7 @@
 
 
         $scope.showEditGamesManageModal = function (game,edit) {
-            var modalInstance = $uibModal.open({
+            var modalInstanceGameModal = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
@@ -218,9 +218,11 @@
                     hasPower:$scope.hasPower && edit!==1
                 }
             });
-            modalInstance.result.then(function(data) {
-                $scope.initGamesManageData()
+            modalInstanceGameModal.result.then(function(data) {
+                $scope.initGamesManageData();
+                modalInstanceGameModal = null;
             }, function(data) {
+                modalInstanceGameModal = null;
             });
         };
 

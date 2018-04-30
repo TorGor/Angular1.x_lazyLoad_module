@@ -89,7 +89,7 @@
                             <td style="width: 15%">
                                 {{'status' | translate}}
                             </td>
-                            <td ng-show='validPower("MEDIAFILES", ["DELETE"])' style="width: 10%">{{'table.button.operation' | translate}}</td>
+                            <td style="width: 10%">{{'table.button.operation' | translate}}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -103,9 +103,14 @@
                             <td>
                                 {{item.status}}
                             </td>
-                            <td
-                                style="white-space: nowrap;" ng-show='validPower("MEDIAFILES", ["DELETE"])'
-                            >
+                            <td>
+                                <button
+                                    class="btn btn-sm btn-info"
+                                    ng-click="showMediaFilesViewModal(item)"
+                                    title="{{'table.button.detail' | translate}}"
+                                >
+                                    <em class="fa fa-eye"></em>
+                                </button>
                                 <button
                                     class="btn btn-sm btn-danger"
                                     ng-show='validPower("MEDIAFILES", ["DELETE"])'

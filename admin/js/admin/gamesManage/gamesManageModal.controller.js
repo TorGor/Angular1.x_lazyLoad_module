@@ -12,6 +12,7 @@
         'gamesItem',
         'edit',
         'hasPower',
+        '$uibModal',
         '$translate'
     ];
 
@@ -23,6 +24,7 @@
         gamesItem,
         edit,
         hasPower,
+        $uibModal,
         $translate
     ) {
 
@@ -58,6 +60,31 @@
                 isRecommend: ''
             };
         }
+
+        $scope.showChooseFileModal  = function(name){
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/mediaFiles/mediaFilesChooseName.html',
+                controller: 'mediaFilesChooseNameModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    filter:{
+                        category:'game',
+                        name:name||'',
+                        status:'finished'
+                    }
+                }
+            });
+            modalInstance.result.then(function(data) {
+                $scope.gamesItem.image = data;
+                modalInstance = null;
+            }, function(data) {
+                modalInstance = null;
+            });
+        };
 
         /**
          * 点击复选框

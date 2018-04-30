@@ -1,22 +1,30 @@
-(function() {
+(function () {
 
     angular
         .module('admin.mediaFiles')
-        .controller('MediaFilesController', MediaFilesController);
+        .controller('mediaFilesChooseNameModalController', mediaFilesChooseNameModalController);
 
-    MediaFilesController.$inject = [
+    mediaFilesChooseNameModalController.$inject = [
         '$scope',
         '$rootScope',
+        '$uibModalInstance',
         '$uibModal',
-        'adminService'
+        '$translate',
+        'adminService',
+        'filter'
     ];
 
-    function MediaFilesController(
+    function mediaFilesChooseNameModalController(
         $scope,
         $rootScope,
+        $uibModalInstance,
         $uibModal,
-        adminService
+        $translate,
+        adminService,
+        filter
     ) {
+
+        $scope.filter = angular.copy(filter);
 
         $scope.mediaFilesUrl = $rootScope.URL.MEDIAFILES.GET;
 
@@ -69,30 +77,12 @@
         };
 
 
-        $scope.showMediaFilesModal = function (item,edit) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/mediaFiles/mediaFilesModal.html',
-                controller: 'mediaFilesModalController',
-                size: 'lg',
-                scope:$scope,
-                resolve: {
-                    edit:edit,
-                    modalItem: item,
-                    hasPower:$scope.validPower("MEDIAFILES", ["POST"]) && edit !== 1,
-                }
-            });
-            modalInstance.result.then(function (data) {
-                $scope.initMediaFilesData();
-            }, function (data) {
-
-            });
+        $scope.chooseMediaFiles = function (item) {
+            $uibModalInstance.close(item.name);
         };
 
         $scope.showMediaFilesViewModal = function (item) {
-            var modalInstance = $uibModal.open({
+            var modalInstanceShowFile = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
@@ -104,33 +94,21 @@
                     modalItem: item,
                 }
             });
-            modalInstance.result.then(function (data) {
+            modalInstanceShowFile.result.then(function (data) {
+                modalInstanceShowFile = null;
             }, function (data) {
-
+                modalInstanceShowFile = null;
             });
         };
 
-        // 删除mediaFiles
-        /**
-         * @param mediaFiles MEDIAFILESTITLE数据对象
-         * @return null
-         */
-        $scope.deleteMediaFiles = function (mediaFiles) {
-            $rootScope.alertConfirm(function () {
-                adminService.deleteReq($rootScope.URL.MEDIAFILES.DELETE+'/'+mediaFiles.name, {}, {}).then(function (res) {
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initMediaFilesData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                            return '';
-                        }
-                    }
-                });
-            });
+        $scope.cancelModalChooseFileModal = function () {
+            $uibModalInstance.dismiss('cancel');
         };
 
         // 页面加载执行的函数
+
+        $scope.mediaFilesAoData = window.Object.assign($scope.mediaFilesAoData, $scope.filter);
+        $scope.tempMediaFilesAoData = window.Object.assign($scope.tempMediaFilesAoData, $scope.filter);;
+
     }
 })();

@@ -235,8 +235,10 @@
                     title: $translate.instant('alert_confirm.title'),
                     text: msg,
                     type: 'warning',
-                    showCancelButton: false,
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55',
                     confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
+                    cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
                     closeOnConfirm: true
                 }, function(yes) {
                     if (yes) {
