@@ -15,20 +15,28 @@
                <div class="col-lg-3 col-md-6 margin-bottom-10">
                   <input class="form-control" type="text" ng-model="adminsLogAoData.optUsername" placeholder="{{'table.adminLog.th1' | translate}}">
                </div>
+
                <div class="col-lg-3 col-md-6 margin-bottom-10">
-                  <input class="form-control" type="text" ng-model="adminsLogAoData.optUserid" placeholder="{{'table.adminLog.th2' | translate}}">
+                  <input class="form-control" type="text" ng-model="adminsLogAoData.optUrl" placeholder="{{'table.adminLog.th2' | translate}}">
                </div>
                <div class="col-lg-3 col-md-6 margin-bottom-10">
-                  <input class="form-control" type="text" ng-model="adminsLogAoData.optUrl" placeholder="{{'table.adminLog.th3' | translate}}">
+                  <input class="form-control" type="text" ng-model="adminsLogAoData.optIp" placeholder="{{'table.adminLog.th3' | translate}}">
                </div>
                <div class="col-lg-3 col-md-6 margin-bottom-10">
-                  <input class="form-control" type="text" ng-model="adminsLogAoData.optIp" placeholder="{{'table.adminLog.th4' | translate}}">
+                  <input class="form-control" type="text" ng-model="adminsLogAoData.optParams" placeholder="{{'table.adminLog.th4' | translate}}">
+               </div>
+               <div class='col-lg-3 col-md-6 margin-bottom-10'>
+                  <ui-select ng-model="adminsLogAoData.methodType" theme="bootstrap" search-enabled="false">
+                     <ui-select-match placeholder="{{'table.adminLog.th5' | translate}}">
+                        <span>{{$select.selected.label}}</span>
+                     </ui-select-match>
+                     <ui-select-choices repeat="item.value as item in methodTypeOptions">
+                        <span ng-bind="item.label"></span>
+                     </ui-select-choices>
+                  </ui-select>
                </div>
                <div class="col-lg-3 col-md-6 margin-bottom-10">
-                  <input class="form-control" type="text" ng-model="adminsLogAoData.logType" placeholder="{{'table.adminLog.th5' | translate}}">
-               </div>
-               <div class="col-lg-3 col-md-6 margin-bottom-10">
-                  <input class="form-control" type="text" ng-model="adminsLogAoData.optDescribe" placeholder="{{'table.adminLog.th7' | translate}}">
+                  <input class="form-control" type="text" ng-model="adminsLogAoData.logType" placeholder="{{'table.adminLog.th6' | translate}}">
                </div>
                <div class="col-lg-3 col-md-6 margin-bottom-10">
                   <div class="input-group date" datetimepicker options={{dateOptionsYYYMMDDHHmmss}} ng-model="searchTimeStart">
@@ -52,12 +60,12 @@
                   <thead>
                      <tr class="bg-gray-light text-bold">
                         <td style="width: 12%">{{'table.adminLog.th1' | translate}}</td>
-                        <td style="width: 12%">{{'table.adminLog.th2' | translate}}</td>
+                        <td style="width: 20%">{{'table.adminLog.th2' | translate}}</td>
                         <td style="width: 12%">{{'table.adminLog.th3' | translate}}</td>
-                        <td style="width: 12%">{{'table.adminLog.th4' | translate}}</td>
-                        <td style="width: 12%">{{'table.adminLog.th5' | translate}}</td>
-                        <td style="width: 12%">{{'table.adminLog.th6' | translate}}</td>
-                        <td style="width: 12%">{{'table.adminLog.th7' | translate}}</td>
+                        <td style="width: 7%">{{'table.adminLog.th4' | translate}}</td>
+                        <td style="width: 7%">{{'table.adminLog.th5' | translate}}</td>
+                        <td style="width: 7%">{{'table.adminLog.th6' | translate}}</td>
+                        <td style="width: 18%">{{'table.adminLog.th7' | translate}}</td>
                      </tr>
                   </thead>
                   <tbody>
@@ -66,22 +74,22 @@
                            <span>{{item.optUsername}}</span>
                         </td>
                         <td>
-                           <span>{{item.optUserid}}</span>
-                        </td>
-                        <td>
                            <span>{{item.optUrl}}</span>
                         </td>
                         <td>
                            <span>{{item.optIp}}</span>
                         </td>
                         <td>
+                           <span uib-tooltip-html="showDescriptionDetail(item.optParams)">{{'table.button.detail' | translate}}</span>
+                        </td>
+                        <td>
+                           <span>{{item.methodType}}</span>
+                        </td>
+                        <td>
                            <span>{{item.logType}}</span>
                         </td>
                         <td>
                            <span>{{formatTime(item.optTime||'')}}</span>
-                        </td>
-                        <td>
-                           <span>{{item.optDescribe}}</span>
                         </td>
                      </tr>
                      <tr ng-show="adminsLog.length==0">

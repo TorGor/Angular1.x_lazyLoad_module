@@ -126,12 +126,12 @@
         },
         "adminLog": {
             "th1": "Username",
-            "th2": "User ID",
-            "th3": "optUrl",
-            "th4": "optIp",
-            "th5": "logType",
-            "th6": "optTime",
-            "th7": "optDescribe"
+            "th2": "optUrl",
+            "th3": "optIp",
+            "th4": "opt Params",
+            "th5": "Method Type",
+            "th6": "logType",
+            "th7": "optTime"
         },
         "localeLanguage": {
             "th1": "Code",

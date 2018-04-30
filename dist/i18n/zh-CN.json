@@ -118,13 +118,13 @@
       "th4": "状态"
     },
     "adminLog": {
-      "th1": "Username",
-      "th2": "User ID",
-      "th3": "optUrl",
-      "th4": "optIp",
-      "th5": "logType",
-      "th6": "optTime",
-      "th7": "optDescribe"
+      "th1": "用户",
+      "th2": "地址",
+      "th3": "IP",
+      "th4": "参数",
+      "th5": "方法",
+      "th6": "日志类型",
+      "th7": "时间"
     },
     "localeLanguage": {
       "th1": "代码",

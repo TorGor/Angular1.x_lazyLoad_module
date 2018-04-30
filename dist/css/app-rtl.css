@@ -10609,6 +10609,9 @@ body .jvectormap-zoomout {
 .table span {
   word-break: break-all;
 }
+.tooltip .tooltip-inner {
+  text-align: right;
+}
 .editable-controls .editable-input.ng-invalid-required {
   border: 1px solid #a94442;
 }
