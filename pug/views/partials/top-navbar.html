@@ -73,7 +73,7 @@
          <li class="dropdown dropdown-list" uib-dropdown="">
             <a uib-dropdown-toggle="">
                <em class="icon-bell"></em>
-               <div class="label " ng-class='{true:"label-danger",false:""}[socketMessages.length>10]'>{{socketMessages.length}}</div>
+               <div class="label" ng-show='socketMessages.length>0' ng-class='{true:"label-danger",false:""}[socketMessages.length>10]'>{{socketMessages.length}}</div>
             </a>
             <!-- START Dropdown menu-->
             <ul class="dropdown-menu animated flipInX">
@@ -84,9 +84,12 @@
                      <a class="list-group-item" ng-repeat='item in socketMessages'>
                         <div class="media-box">
                            <div class="media-box-body clearfix">
-                              <p class="m0">{{item.title}}</p>
+                               <button ng-click='socketMessagesHandelClick(item)' style='position: absolute;right: 6px;border-radius: 50%' class='btn btn-xs btn-green'>
+                                  <em class='fa fa-check'></em>
+                               </button>
+                              <p class="m0">{{item.pusherTitle}}</p>
                               <p class="m0 text-muted">
-                                 <small>{{item.content}}</small>
+                                 <small>{{item.pusherMsg}}</small>
                               </p>
                            </div>
                         </div>

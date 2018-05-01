@@ -8,6 +8,7 @@
         '$pusher',
         '$rootScope',
         '$timeout',
+        'adminService',
         '$translate'
     ];
 
@@ -15,6 +16,7 @@
         $pusher,
         $rootScope,
         $timeout,
+        adminService,
         $translate
     ) {
         // var client = new Pusher('78546555ea941f0a68b8');
@@ -23,53 +25,117 @@
             encrypted: true
         });
         var pusher = $pusher(client);
+
+
         var aoboTech = pusher.subscribe('aobo-tech');
-        aoboTech.bind('summary.success[failed]',
-            function(data) {
-                console.log(data)
+        ['summary.success','summary.failed','log.failed','media.upload.success','media.upload.failed','media.delete.success','media.delete.failed'].forEach(function (Event) {
+            aoboTech.bind(Event,function(data) {
+                    $rootScope.socketMessages.push(window.Object.assign(data,{
+                        pusherType:'aobo-tech',
+                        pusherEvent:Event,
+                        pusherTitle:data.name||'',
+                        pusherMsg:(data.param||data.error||'').toString(),
+                    }));
+                }
+            );
+        });
+
+        function aoboWithdrawContent(data) {
+            var tempStr = '';
+            if(typeof data == 'object'){
+                var tempObj = angular.copy(data);
+                if(tempObj.id){
+                   delete tempObj.id
+                }
+                return window.Object.keys(tempObj).map(function (item) {
+                    tempStr = item + ':' + tempObj[item].toString()+','
+                })
+            }else if(typeof data == 'string'){
+                return data;
             }
-        );
-        aoboTech.bind('summary.success[failed]',
-            function(data) {
-                console.log(data)
-            }
-        );
-        aoboTech.bind('log.failed',
-            function(data) {
-                console.log(data)
-            }
-        );
-        aoboTech.bind('media.upload.success',
-            function(data) {
-                console.log(data)
-            }
-        );
-        aoboTech.bind('media.upload.failed',
-            function(data) {
-                console.log(data)
-            }
-        );
-        aoboTech.bind('media.delete.success',
-            function(data) {
-                console.log(data)
-            }
-        );
-        aoboTech.bind('media.delete.failed',
-            function(data) {
-                console.log(data)
-            }
-        );
+            return '';
+        }
+
+        var aoboWithdraw = pusher.subscribe('aobo-withdraw');
+        ['withdraw.created','withdraw.declined','withdraw.approved','withdraw.paid'].forEach(function (Event) {
+            aoboWithdraw.bind(Event,function(data) {
+                    $rootScope.socketMessages.push(window.Object.assign(data,{
+                        pusherType:'aobo-withdraw',
+                        pusherEvent:Event,
+                        pusherTitle:Event||'',
+                        pusherMsg:aoboWithdrawContent(data),
+                    }));
+                }
+            );
+        });
+
+        var aoboCoupon = pusher.subscribe('aobo-coupon');
+        ['coupon.applied','coupon.failed'].forEach(function (Event) {
+            aoboCoupon.bind(Event,function(data) {
+                    $rootScope.socketMessages.push(window.Object.assign(data,{
+                        pusherType:'aobo-coupon',
+                        pusherEvent:Event,
+                        pusherTitle:Event||'',
+                        pusherMsg:aoboWithdrawContent(data),
+                    }));
+                }
+            );
+        });
+
+        var aoboDeposit = pusher.subscribe('aobo-deposit');
+        ['deposit.failed'].forEach(function (Event) {
+            aoboDeposit.bind(Event,function(data) {
+                    $rootScope.socketMessages.push(window.Object.assign(data,{
+                        pusherType:'aobo-deposit',
+                        pusherEvent:Event,
+                        pusherTitle:Event||'',
+                        pusherMsg:aoboWithdrawContent(data),
+                    }));
+                }
+            );
+        });
+
+        var aoboBigwin = pusher.subscribe('aobo-bigwin');
+        ['bigwin.created','bigwin.failed'].forEach(function (Event) {
+            aoboBigwin.bind(Event,function(data) {
+                    $rootScope.socketMessages.push(window.Object.assign(data,{
+                        pusherType:'aobo-bigwin',
+                        pusherEvent:Event,
+                        pusherTitle:Event||'',
+                        pusherMsg:aoboWithdrawContent(data),
+                    }));
+                }
+            );
+        });
 
         $rootScope.socketMessages = [
             {
-                title:'dsdas',
-                content:'内容'
+                pusherType:'aobo-tech',
+                pusherEvent:'summary.success',
+                pusherTitle:'标题',
+                pusherMsg:'summary.success',
             }
         ];
 
-        $timeout(function () {
-            // $rootScope.toasterInfo('info test')
-        },3000);
+        $rootScope.socketMessagesHandelClick = function(item){
+            var tempData = {
+                "userId": window.userInfo.adminId || "",
+                "username": window.userInfo.username || "",
+                "pusherMsg":item.pusherMsg||"",
+                "pusherType":item.pusherType||"",
+                "pusherEvent":item.pusherEvent||""
+            };
+            adminService.postReq('/admin/savePusher', {}, tempData).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $rootScope.toasterSuccess(res.data.msg);
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                        return '';
+                    }
+                }
+            });
+        };
 
         $rootScope.adminSelect012 = {
             // 0-禁用；1-启用；

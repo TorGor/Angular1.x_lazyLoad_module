@@ -14,6 +14,8 @@
         $translate
     ) {
 
+        $rootScope.socketMessages = [];
+
         $rootScope.superAdminSelect012 = {
             // 0-禁用；1-启用；
             options: [
