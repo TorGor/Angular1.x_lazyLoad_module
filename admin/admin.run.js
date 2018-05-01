@@ -47,9 +47,10 @@
                 if(tempObj.id){
                    delete tempObj.id
                 }
-                return window.Object.keys(tempObj).map(function (item) {
-                    tempStr = item + ':' + tempObj[item].toString()+','
-                })
+                window.Object.keys(tempObj).map(function (item) {
+                    tempStr = tempStr + item + ':' + tempObj[item].toString()+','
+                });
+                return tempStr;
             }else if(typeof data == 'string'){
                 return data;
             }
