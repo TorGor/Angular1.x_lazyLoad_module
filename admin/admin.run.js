@@ -117,7 +117,7 @@
             }
         ];
 
-        $rootScope.socketMessagesHandelClick = function(item){
+        $rootScope.socketMessagesHandelClick = function(item,index){
             var tempData = {
                 "userId": window.userInfo.adminId || "",
                 "username": window.userInfo.username || "",
@@ -128,6 +128,7 @@
             adminService.postReq('/admin/savePusher', {}, tempData).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
+                        $rootScope.socketMessages.splice(index,1);
                         $rootScope.toasterSuccess(res.data.msg);
                     } else {
                         $rootScope.alertErrorMsg(res.data.msg);

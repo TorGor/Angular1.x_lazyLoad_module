@@ -232,12 +232,12 @@
         $rootScope.alertErrorMsg = function (msg) {
             if(msg === 'Please Login First'){
                 SweetAlert.swal({
-                    title: $translate.instant('alert_confirm.title'),
+                    title: $translate.instant('login'),
                     text: msg,
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#DD6B55',
-                    confirmButtonText: $translate.instant('alert_confirm.confirmButtonText'),
+                    confirmButtonText: $translate.instant('login'),
                     cancelButtonText: $translate.instant('alert_confirm.cancelButtonText'),
                     closeOnConfirm: true
                 }, function(yes) {
