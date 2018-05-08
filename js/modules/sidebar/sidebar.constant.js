@@ -213,6 +213,42 @@
                     "text": "媒体文件",
                     "sref": "admin.mediaFiles",
                     "module": "media",
+                },
+                // superAdmin 模块
+                {
+                    "text": "菜单维护",
+                    "sref": "admin.menuManage",
+                    "module": "manageMenu",
+                },
+                {
+                    "text": "按钮维护",
+                    "sref": "admin.buttonManage",
+                    "module": "manageButton",
+                },
+                {
+                    "text": "角色信息维护",
+                    "sref": "admin.roleInfoManage",
+                    "module": "manageRole",
+                },
+                {
+                    "text": "角色关联菜单",
+                    "sref": "admin.roleRelationManage",
+                    "module": "manageRoleMenu",
+                },
+                {
+                    "text": "管理员维护",
+                    "sref": "admin.adminInfoManage",
+                    "module": "manageAdminUser",
+                },
+                {
+                    "text": "管理员关联角色",
+                    "sref": "admin.adminRelationManage",
+                    "module": "manageAdminRole",
+                },
+                {
+                    "text": "管理员日志",
+                    "sref": "admin.adminLog",
+                    "module": "manageOptLog",
                 }//new sidebar name will be append here
             
             

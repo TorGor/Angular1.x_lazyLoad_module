@@ -245,6 +245,66 @@
                 permission: 'transactions'
             })
 
+            // superAdmin router start
+
+            .state('admin.menuManage', {
+                url: '/menu/manage',
+                title: 'Menu Manage',
+                controller: 'SuperAdminMenuController',
+                templateUrl: RouteHelpersProvider.basepath('admin/menu/menu.html'),
+                permission: 'manageMenu'
+            })
+
+            .state('admin.buttonManage', {
+                url: '/button/manage',
+                title: 'Button Manage',
+                templateUrl: RouteHelpersProvider.basepath('admin/button/button.html'),
+                controller: 'SuperAdminButtonController',
+                permission: 'manageButton'
+            })
+
+            .state('admin.roleInfoManage', {
+                url: '/role/manage',
+                title: 'Role Manage',
+                templateUrl: RouteHelpersProvider.basepath('admin/role/role.html'),
+                controller: 'SuperAdminRoleController',
+                permission: 'manageRole'
+            })
+
+            .state('admin.roleRelationManage', {
+                url: '/roleRelation/manage',
+                title: 'RoleRelation Manage',
+                templateUrl: RouteHelpersProvider.basepath('admin/role/roleRelation.html'),
+                controller: 'SuperAdminRoleRelationController',
+                permission: 'manageRoleMenu'
+            })
+
+            .state('admin.adminInfoManage', {
+                url: '/superAdmin/manage',
+                title: 'Admin Manage',
+                templateUrl: RouteHelpersProvider.basepath('admin/admin/admin.html'),
+                controller: 'SuperAdminAdminController',
+                permission: 'manageAdminUser'
+            })
+
+            .state('admin.adminLog', {
+                url: '/superAdmin/log',
+                title: 'Admin Manage',
+                templateUrl: RouteHelpersProvider.basepath('admin/admin/adminLog.html'),
+                controller: 'SuperAdminAdminLogController',
+                permission: 'manageOptLog'
+            })
+
+            .state('admin.adminRelationManage', {
+                url: '/adminRelation/manage',
+                title: 'AdminRelation Manage',
+                templateUrl: RouteHelpersProvider.basepath('admin/admin/adminRelation.html'),
+                controller: 'SuperAdminAdminRelationController',
+                permission: 'manageAdminRole'
+            })
+
+            // superAdmin router end
+
             //.state('admin.transactionsDetailSearch', {
             //    url: '/transactionsDetail/manage/:_username/:user_id',
             //    title: 'transactionsDetail Manage',

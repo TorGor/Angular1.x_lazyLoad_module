@@ -36,6 +36,10 @@
 			'admin.bankCards',
 			'admin.mediaCategories',
 			'admin.mediaFiles',
+			'admin.admin',
+			'admin.button',
+			'admin.menu',
+			'admin.role',
 			//new module name will be append here
 
         ]);

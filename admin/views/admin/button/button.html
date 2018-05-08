@@ -1,0 +1,110 @@
+<div class="row">
+    <div class="col-md-3 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <div ng-repeat="oneLevelMenu in oneLevelMenus">
+                        <div class="self-nav-tree-padding" ng-click="oneLevelMenu.showSecond=!oneLevelMenu.showSecond" >
+                            <em ng-class="oneLevelMenu.showSecond?'icon-minus':'icon-plus'" ></em>
+                            <span>{{oneLevelMenu.menuName}}</span>
+                        </div>
+                        <div ng-show="oneLevelMenu.showSecond">
+                            <div
+                                ng-repeat="secondLevelMenu in oneLevelMenu['secondLevelMenus']">
+                                <div
+                                    class="self-second-level-padding"
+                                    ng-click="getSecondLevelButtons(secondLevelMenu, $event)"
+                                    ng-class="{'active': secondLevelMenu.id == currentSelectMenu.id}"
+                                >
+                                    <em class="glyphicon glyphicon-file"></em>
+                                    <span>{{secondLevelMenu.menuName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-wrapper">
+                <div class="panel-body">
+                    <span class="form-group add-button-class">
+                        <button
+                                class="btn btn-primary"
+                                ng-click="addButtons()"
+                                ng-disabled="!currentSelectMenu.id"
+                                type="button"
+                                translate="table.button.add"
+                        >
+                            新增
+                        </button>
+                    </span>
+                    <div
+                            web-data-table
+                            items="buttons"
+                            ao-data="buttonsAoData"
+                            search="buttonsSearch"
+                            reload="buttonsReload"
+                            show-items="showButtons"
+                    >
+                        <table width="100%" class="table table-bordered table-hover bg-white">
+                            <thead>
+                                <tr class="bg-gray-light text-bold">
+                                    <td style="width: 18%" ao-data="buttonsAoData" web-data-table-sort="btnName">{{'table.button_manage.th1' | translate}}</td>
+                                    <td style="width: 18%" ao-data="buttonsAoData" web-data-table-sort="btnType">{{'table.button_manage.th2' | translate}}</td>
+                                    <td style="width: 30%" ao-data="buttonsAoData" web-data-table-sort="btnUrl">{{'table.button_manage.th3' | translate}}</td>
+                                    <td style="width: 13%" ao-data="buttonsAoData" web-data-table-sort="btnStatus">{{'table.button_manage.th4' | translate}}</td>
+                                    <td style="width: 17%">{{'table.button.operation' | translate}}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in showButtons">
+                                <td>
+                                    <span editable-text="item.btnName" e-name="btnName" e-formclass="xeditable-sm" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.btnName || '' }}</span>
+                                </td>
+                                <td>
+                                    <span editable-select="item.btnType" e-name="btnType"  e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in buttonsOptions">
+                                        {{ showBtnType(item.btnType)}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span editable-text="item.btnUrl" e-name="btnUrl" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.btnUrl || '' }}</span>
+                                </td>
+                                <td>
+                                    <span editable-select="item.btnStatus" e-name="btnStatus"  e-form="rowform" onbeforesave="checkRequiredData($data)" e-ng-options="option.value as option.label for option in superAdminSelect012.options">
+                                        <span ng-bind-html="filter012OptionsValue(item.btnStatus)"></span>
+                                    </span>
+                                </td>
+                                <td style="white-space: nowrap;">
+                                    <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveButton(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
+                                        <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
+                                            <em class="fa fa-save"></em>
+                                        </button>
+                                        <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSave(item,$index)" title="{{'table.button.cancel' | translate}}">
+                                            <em class="fa fa-times"></em>
+                                        </button>
+                                    </form>
+                                    <div class="buttons" ng-show="!rowform.$visible">
+                                        <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                            <em class="fa fa-pencil"></em>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" ng-click="deleteButton(item)" title="{{'table.button.delete' | translate}}">
+                                            <em class="fa fa-trash"></em>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr ng-show="showButtons.length==0">
+                                <td colspan="5" class="">{{'table.no_date' | translate}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

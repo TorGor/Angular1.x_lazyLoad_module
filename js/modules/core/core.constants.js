@@ -17,8 +17,8 @@
             debug: true,
             // suffix: '.json',
             suffix: '',
-            server: '',
-             // server: 'http://193.112.155.213',
+            // server: '',
+             server: 'http://193.112.155.213',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             //server: 'http://holyplace.ngrok.xiaomiqiu.cn',
             URLOBJ:{
@@ -51,7 +51,13 @@
                 plans: 'AFFILIATESPLANS',
                 cards: 'BANKCARDS',
                 mediaCategories: 'MEDIACATEGORIES',
-                media: 'MEDIAFILES',
+                manageMenu: 'MANAGEMENU',
+                manageButton: 'MANAGEBUTTON',
+                manageRole: 'MANAGEROLE',
+                manageRoleMenu: 'MANAGEROLEMENU',
+                manageAdminUser: 'MANAGEADMINUSER',
+                manageAdminRole: 'MANAGEADMINROLE',
+                manageOptLog: 'MANAGEOPTLOG',
             }
         });
 })();

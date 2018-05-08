@@ -66,7 +66,8 @@
         $scope.saveUserCommentModal = function () {
             var tempData = {
                 comment: $scope.tempComment,
-                admin_id: window.userInfo && window.userInfo.adminId || ''
+                admin_id: window.userInfo && window.userInfo.adminId || '',
+                adminname: window.userInfo && window.userInfo.username || '',
             };
             $scope.tempComment = '';
             adminService.postReq($rootScope.URL.USERSMANAGE.POSTCOMMENTS+'/'+modalItem.userId, {}, tempData).then(function (res) {
