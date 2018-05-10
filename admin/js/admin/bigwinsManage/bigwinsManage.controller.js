@@ -101,7 +101,7 @@
                 $rootScope.alertErrorMsg('server data error');
                 return;
             }
-            adminService.getReq($rootScope.URL.BIGWINSMANAGE.GETAUDIT + '/' + item.id, {admin_id:window.userInfo.adminId || ''}, {}).then(function (res) {
+            adminService.getReq($rootScope.URL.BIGWINSMANAGE.GETAUDIT + '/' + item.id, {admin_id:(window.userInfo.adminId || ''),adminname: (window.userInfo && window.userInfo.username || ''),}, {}).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     console.log(res.data.data)
                     var tempData = {

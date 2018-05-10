@@ -45,6 +45,7 @@
         $scope.confirmModal = function () {
             var tempData = angular.copy($scope.item);
             tempData.adminId = modalItem.data.adminId;
+            tempData.adminname=window.userInfo && window.userInfo.username || '',
             adminService.postReq($rootScope.URL.BIGWINSMANAGE.POSTAUDIT+'/'+modalItem._itemId+'/'+modalItem.data.id, {}, tempData).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {

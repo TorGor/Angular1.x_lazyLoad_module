@@ -68,7 +68,7 @@
                     'menuSortNo': $scope.oneLevelMenusModal.menuSortNo,
                     'parentId': 'root',
                 };
-                superAdminService.postUpdateMenuInfo({}, tempUpdateOneLevelMenus, function (data) {
+                superAdminService.postReq({}, tempUpdateOneLevelMenus, function (data) {
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.oneLevelMenusModal = {};

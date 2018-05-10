@@ -101,7 +101,8 @@
             var approveData = {
                 adminId: $scope.withdrawsDetail.adminId,
                 result: $scope.withdrawsDetail.result,
-                comment: $scope.withdrawsDetail.comment
+                comment: $scope.withdrawsDetail.comment,
+                adminname: window.userInfo && window.userInfo.username || '',
             };
             var tempUrl = $rootScope.URL.WITHDRAWSMANAGE && $rootScope.URL.WITHDRAWSMANAGE['POST'+$scope.approve.toUpperCase()];
             adminService.postReq(tempUrl+'/'+$scope.itemId+'/'+withdrawsDetail.id, {}, approveData).then(function (res) {

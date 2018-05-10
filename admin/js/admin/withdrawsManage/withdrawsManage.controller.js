@@ -163,7 +163,7 @@
             }
             console.log(approve,'approve')
             var tempUrl = $rootScope.URL.WITHDRAWSMANAGE && $rootScope.URL.WITHDRAWSMANAGE['GET'+approve.toUpperCase()];
-            adminService.getReq(tempUrl + '/' + item.id, {admin_id:window.userInfo.adminId || ''}, {}).then(function (res) {
+            adminService.getReq(tempUrl + '/' + item.id, {admin_id:(window.userInfo.adminId || ''),adminname: (window.userInfo && window.userInfo.username || ''),}, {}).then(function (res) {
                 if (typeof res.data.success === 'boolean') {
                     if (res.data.success) {
                         var tempData = angular.copy(res.data.data);

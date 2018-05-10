@@ -113,7 +113,7 @@
             if (!tempData.id) {
                 delete tempData.id;
             }
-            superAdminService.postSaveMenuInfo({}, tempData, function (data) {
+            superAdminService.postReq('',{}, tempData, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -168,7 +168,7 @@
             $event.stopPropagation();
             if (oneLevelMenu.id) {
                 $rootScope.alertConfirm(function () {
-                    superAdminService.getDeleteMenuInfoById({ 'id': oneLevelMenu.id }, {}, function (data) {
+                    superAdminService.deleteReq({ 'id': oneLevelMenu.id }, {}, function (data) {
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
@@ -192,7 +192,7 @@
             console.log(secondLevelMenu, 'secondLevelMenu');
             if (secondLevelMenu.id) {
                 $rootScope.alertConfirm(function () {
-                    superAdminService.getDeleteSecondMenuInfoById({ 'id': secondLevelMenu.id }, {}, function (data) {
+                    superAdminService.deleteReq({ 'id': secondLevelMenu.id }, {}, function (data) {
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
@@ -209,7 +209,7 @@
 
         // 初始化一级菜单
         $scope.initOneLevelMenus = function () {
-            superAdminService.getFindRootMenuInfo({}, {}, function (data) {
+            superAdminService.getReq({}, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
