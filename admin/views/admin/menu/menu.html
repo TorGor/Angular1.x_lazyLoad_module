@@ -8,9 +8,9 @@
                             class="mb-sm btn btn-primary btn-sm"
                             ng-click="addOneLevelMenu()"
                             type="button"
+                            ng-show='validPower("MANAGEMENU", "LEFTPOST")'
                             translate="table.button.add"
                         >
-                            新增
                         </button>
                     </div>
                     <div ng-repeat="oneLevelMenu in oneLevelMenus">
@@ -22,13 +22,17 @@
                             <span>{{oneLevelMenu.menuName}}</span>
                             <span class="self-nav-tree-button">
                                 <button
-                                    class="btn btn-xs btn-info" ng-click="editOneLevelMenu(oneLevelMenu, $event)"
+                                    class="btn btn-xs btn-info"
+                                    ng-show='validPower("MANAGEMENU", "LEFTPATCH")'
+                                    ng-click="editOneLevelMenu(oneLevelMenu, $event)"
                                     title="Edit"
                                 >
                                     <em class="fa fa-pencil"></em>
                                 </button>
                                 <button
-                                    class="btn btn-xs btn-danger" ng-click="deleteOneLevelMenu(oneLevelMenu, $event)"
+                                    class="btn btn-xs btn-danger"
+                                    ng-show='validPower("MANAGEMENU", "LEFTDELETE")'
+                                    ng-click="deleteOneLevelMenu(oneLevelMenu, $event)"
                                     title="remove"
                                 >
                                     <em class="fa fa-trash"></em>
@@ -50,6 +54,7 @@
                             class="btn btn-primary"
                             ng-click="addSecondLevelMenu()"
                             ng-disabled="!currentSelectMenu.id"
+                            ng-show='validPower("MANAGEMENU", "RIGHTPOST")'
                             type="button"
                             translate="table.button.add"
                         >
@@ -137,7 +142,7 @@
                                         shown="item.id == null"
                                     >
                                         <button
-                                            class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
+                                            class="btn btn-sm btn-info" ng-show='validPower("MANAGEMENU", ["RIGHTPOST", "RIGHPATCH"])' type="submit" ng-disabled="rowform.$waiting"
                                             title="{{'table.button.save' | translate}}"
                                         >
                                             <em class="fa fa-save"></em>
@@ -152,13 +157,16 @@
                                     </form>
                                     <div class="buttons" ng-show="!rowform.$visible">
                                         <button
-                                            class="btn btn-sm btn-info" ng-click="rowform.$show()"
+                                            class="btn btn-sm btn-info"
+                                            ng-show='validPower("MANAGEMENU", "RIGHTPATCH")' ng-click="rowform.$show()"
                                             title="{{'table.button.edit' | translate}}"
                                         >
                                             <em class="fa fa-pencil"></em>
                                         </button>
                                         <button
-                                            class="btn btn-sm btn-danger" ng-click="deleteSecondLevelMenu(item)"
+                                            class="btn btn-sm btn-danger"
+                                            ng-show='validPower("MANAGEMENU", "RIGHTDELETE")'
+                                            ng-click="deleteSecondLevelMenu(item)"
                                             title="{{'table.button.delete' | translate}}"
                                         >
                                             <em class="fa fa-trash"></em>

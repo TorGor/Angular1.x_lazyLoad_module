@@ -140,7 +140,7 @@
     superAdminService.$inject = ['$http', 'EVN', '$q'];
 
     /* @ngInject */
-    function adminService($http, EVN, $q) {
+    function superAdminService($http, EVN, $q) {
         return {
 
             // 所有get请求

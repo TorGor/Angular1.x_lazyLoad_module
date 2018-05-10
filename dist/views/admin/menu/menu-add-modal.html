@@ -33,6 +33,6 @@
 </div>
 
 <div class="modal-footer">
-   <button class="btn btn-primary" type="button" ng-disabled="!oneLevelMenusModal.menuName || !oneLevelMenusModal.menuSortNo || !oneLevelMenusModal.menuStatus" ng-click="confirm()">{{'table.button.save' | translate}}</button>
+   <button class="btn btn-primary" type="button" ng-show='validPower("MANAGEMENU", ["LEFTPOST", "LEFTPATCH"])' ng-disabled="!oneLevelMenusModal.menuName || !oneLevelMenusModal.menuSortNo || !oneLevelMenusModal.menuStatus" ng-click="confirm()">{{'table.button.save' | translate}}</button>
    <button class="btn btn-default" type="button" ng-click="cancel()">{{'table.button.cancel' | translate}}</button>
 </div>

@@ -46,7 +46,7 @@
                     'menuSortNo': $scope.oneLevelMenusModal.menuSortNo || '',
                     'parentId': 'root',
                 };
-                superAdminService.postSaveMenuInfo({}, tempAddOneLevelMenus, function (data) {
+                superAdminService.postReq($rootScope.URL.MANAGEMENU.LEFTPOST, {}, tempAddOneLevelMenus, function (data) {
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.oneLevelMenusModal = {};
@@ -68,7 +68,7 @@
                     'menuSortNo': $scope.oneLevelMenusModal.menuSortNo,
                     'parentId': 'root',
                 };
-                superAdminService.postReq({}, tempUpdateOneLevelMenus, function (data) {
+                superAdminService.patchReq($rootScope.URL.MANAGEMENU.LEFTPATCH,{}, tempUpdateOneLevelMenus, function (data) {
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.oneLevelMenusModal = {};

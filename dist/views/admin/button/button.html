@@ -27,8 +27,7 @@
          <div class="panel-wrapper">
             <div class="panel-body">
                <span class="form-group add-button-class">
-                  <button class="btn btn-primary" ng-click="addButtons()" ng-disabled="!currentSelectMenu.id" type="button" translate="table.button.add">
-                     新增
+                  <button class="btn btn-primary" ng-click="addButtons()" ng-disabled="!currentSelectMenu.id" ng-show='validPower("MANAGEBUTTON", "RIGHTPOST")' type="button" translate="table.button.add">
                   </button>
                </span>
                <div web-data-table items="buttons" ao-data="buttonsAoData" search="buttonsSearch" reload="buttonsReload" show-items="showButtons">
@@ -62,7 +61,7 @@
                            </td>
                            <td style="white-space: nowrap;">
                               <form class="form-buttons form-inline" editable-form name="rowform" onaftersave="saveButton(item, $data)" ng-show="rowform.$visible" shown="item.id == null">
-                                 <button class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
+                                 <button class="btn btn-sm btn-info" ng-show='validPower("MANAGEBUTTON", "RIGHTPOST")' type="submit" ng-disabled="rowform.$waiting" title="{{'table.button.save' | translate}}">
                                     <em class="fa fa-save"></em>
                                  </button>
                                  <button class="btn btn-sm btn-default" type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();cancelSave(item,$index)" title="{{'table.button.cancel' | translate}}">
@@ -70,10 +69,10 @@
                                  </button>
                               </form>
                               <div class="buttons" ng-show="!rowform.$visible">
-                                 <button class="btn btn-sm btn-info" ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
+                                 <button class="btn btn-sm btn-info" ng-show='validPower("MANAGEBUTTON", "RIGHTPATCH")' ng-click="rowform.$show()" title="{{'table.button.edit' | translate}}">
                                     <em class="fa fa-pencil"></em>
                                  </button>
-                                 <button class="btn btn-sm btn-danger" ng-click="deleteButton(item)" title="{{'table.button.delete' | translate}}">
+                                 <button class="btn btn-sm btn-danger" ng-show='validPower("MANAGEBUTTON", "RIGHTDELETE")' ng-click="deleteButton(item)" title="{{'table.button.delete' | translate}}">
                                     <em class="fa fa-trash"></em>
                                  </button>
                               </div>

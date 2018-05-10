@@ -124,7 +124,7 @@
                 "username": window.userInfo.username || "",
                 "pusherMsg":item.pusherMsg||"",
                 "pusherType":item.pusherType||"",
-                "pusherEvent":item.pusherEvent||""
+                "pusherEvent":item.pusherEvent||"",
             };
             adminService.postReq('/admin/savePusher', {}, tempData).then(function (res) {
                 if (typeof res.data.success === 'boolean') {

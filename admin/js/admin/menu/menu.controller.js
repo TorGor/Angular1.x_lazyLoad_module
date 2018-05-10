@@ -66,6 +66,9 @@
          * @return null
          */
         $scope.getSecondLevelMenu = function (oneLevelMenu) {
+            if(!$scope.validPower("MANAGEMENU", ["RIGHTGET"])){
+                return '';
+            }
             $scope.twoLevelMenus = [];
             $scope.currentSelectMenu = angular.copy(oneLevelMenu);
             if ($scope.currentSelectMenu['showSecond'] !== undefined) {
@@ -82,7 +85,7 @@
             if (oneLevelMenu.id) {
                 oneLevelMenu['showSecond'] = !oneLevelMenu['showSecond'];
                 $scope.twoLevelMenus = [];
-                superAdminService.getFindSecMenuInfo({ 'parentid': oneLevelMenu.id, 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
+                superAdminService.getReq($rootScope.URL.MANAGEMENU.RIGHTGET, { 'parentid': oneLevelMenu.id, 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -111,19 +114,38 @@
             console.log(item, 'secondLevelMenuItem');
             var tempData = angular.extend({}, secondLevelMenu, item);
             if (!tempData.id) {
-                delete tempData.id;
-            }
-            superAdminService.postReq('',{}, tempData, function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.getSecondLevelMenu($scope.currentSelectMenu);
-                        $rootScope.toasterSuccess(data.msg);
-                    } else {
-                        $rootScope.alertErrorMsg(data.msg);
-                    }
+                if(!$scope.validPower("MANAGEMENU", ["RIGHTPOST"])){
+                    return '';
                 }
-            });
+                delete tempData.id;
+                superAdminService.postReq($rootScope.URL.MANAGEMENU.RIGHTPOST, {}, tempData, function (data) {
+                    console.log(data);
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.getSecondLevelMenu($scope.currentSelectMenu);
+                            $rootScope.toasterSuccess(data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            }else{
+                if(!$scope.validPower("MANAGEMENU", ["RIGHTPATCH"])){
+                    return '';
+                }
+                superAdminService.patchReq($rootScope.URL.MANAGEMENU.RIGHTPATCH, {}, tempData, function (data) {
+                    console.log(data);
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.getSecondLevelMenu($scope.currentSelectMenu);
+                            $rootScope.toasterSuccess(data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            }
+
             return '';
         };
 
@@ -164,11 +186,14 @@
          * @return null
          */
         $scope.deleteOneLevelMenu = function (oneLevelMenu, $event) {
+            if(!$scope.validPower("MANAGEMENU", ["LEFTDELETE"])){
+                return '';
+            }
             console.log(oneLevelMenu, 'oneLevelMenu');
             $event.stopPropagation();
             if (oneLevelMenu.id) {
                 $rootScope.alertConfirm(function () {
-                    superAdminService.deleteReq({ 'id': oneLevelMenu.id }, {}, function (data) {
+                    superAdminService.deleteReq($rootScope.URL.MANAGEMENU.LEFTDELETE, { 'id': oneLevelMenu.id }, {}, function (data) {
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
@@ -189,10 +214,13 @@
          * @return null
          */
         $scope.deleteSecondLevelMenu = function (secondLevelMenu) {
+            if(!$scope.validPower("MANAGEMENU", ["RIGHTDELETE"])){
+                return '';
+            }
             console.log(secondLevelMenu, 'secondLevelMenu');
             if (secondLevelMenu.id) {
                 $rootScope.alertConfirm(function () {
-                    superAdminService.deleteReq({ 'id': secondLevelMenu.id }, {}, function (data) {
+                    superAdminService.deleteReq($rootScope.URL.MANAGEMENU.RIGHTDELETE, { 'id': secondLevelMenu.id }, {}, function (data) {
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
@@ -209,7 +237,10 @@
 
         // 初始化一级菜单
         $scope.initOneLevelMenus = function () {
-            superAdminService.getReq({}, {}, function (data) {
+            if(!$scope.validPower("MANAGEMENU", ["LEFTGET"])){
+                return '';
+            }
+            superAdminService.getReq($rootScope.URL.MANAGEMENU.LEFTGET, {}, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {

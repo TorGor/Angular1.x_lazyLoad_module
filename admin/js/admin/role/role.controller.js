@@ -28,8 +28,11 @@
 
         // 初始化table数据
         $scope.initRolesData = function () {
+            if(!$scope.validPower("MANAGEROLE", ["GET"])){
+                return '';
+            }
             $scope.roles = [];
-            superAdminService.getFindPageRoleInfo({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
+            superAdminService.getReq($rootScope.URL.MANAGEROLE.GET,{ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -51,8 +54,11 @@
         $scope.saveRole = function (role, item) {
             var tempData = angular.extend({}, role, item);
             if (!tempData.id) {
+                if(!$scope.validPower("MANAGEROLE", ["POST"])){
+                    return '';
+                }
                 delete tempData.id;
-                superAdminService.postSaveRoleInfo({}, tempData, function (data) {
+                superAdminService.postReq($rootScope.URL.MANAGEROLE.POST, {}, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -64,7 +70,10 @@
                     }
                 });
             } else if (tempData.id) {
-                superAdminService.postUpdateRoleInfo({}, tempData, function (data) {
+                if(!$scope.validPower("MANAGEROLE", ["PATCH"])){
+                    return '';
+                }
+                superAdminService.patchReq($rootScope.URL.MANAGEROLE.PATCH, {}, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -85,9 +94,12 @@
          * @return null
          */
         $scope.deleteRole = function (role) {
+            if(!$scope.validPower("MANAGEROLE", ["DELETE"])){
+                return '';
+            }
             if (role.id) {
                 $rootScope.alertConfirm(function () {
-                    superAdminService.getDeleteRoleInfoById({ id: role.id }, {}, function (data) {
+                    superAdminService.deleteReq($rootScope.URL.MANAGEROLE.DELETE, { id: role.id }, {}, function (data) {
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
                                 $scope.initRolesData();

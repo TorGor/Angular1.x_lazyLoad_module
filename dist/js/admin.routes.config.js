@@ -114,6 +114,16 @@
                                                             }else {
                                                                 $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
                                                             }
+                                                        }else if(['manageMenu', 'manageButton', 'manageRoleMenu', 'manageAdminRole'].indexOf(module) !== -1){
+                                                            if(buttonItem.btnName.indexOf('left')!==-1){
+                                                                $rootScope.URL[URLobj[module]].LEFTGET = buttonItem.btnUrl;
+                                                            }else if(buttonItem.btnName.indexOf('mid')!==-1){
+                                                                $rootScope.URL[URLobj[module]].MIDTGET = buttonItem.btnUrl;
+                                                            }else if(buttonItem.btnName.indexOf('right')!==-1){
+                                                                $rootScope.URL[URLobj[module]].RIGHTGET = buttonItem.btnUrl;
+                                                            }else{
+                                                                $rootScope.URL[URLobj[module]].GET = buttonItem.btnUrl;
+                                                            }
                                                         }else{
                                                             if (buttonItem.btnUrl.indexOf('Audit') !== -1) {
                                                                 $rootScope.URL[URLobj[module]].GETAUDIT = buttonItem.btnUrl;
@@ -161,18 +171,64 @@
                                                             } else {
                                                                 $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
                                                             }
+                                                        } else if(['manageMenu', 'manageButton', 'manageRoleMenu', 'manageAdminRole'].indexOf(module) !== -1){
+                                                            if(buttonItem.btnName.indexOf('left')!==-1){
+                                                                $rootScope.URL[URLobj[module]].LEFTPOST = buttonItem.btnUrl;
+                                                            }else if(buttonItem.btnName.indexOf('mid')!==-1){
+                                                                $rootScope.URL[URLobj[module]].MIDPOST = buttonItem.btnUrl;
+                                                            }else if(buttonItem.btnName.indexOf('right')!==-1){
+                                                                $rootScope.URL[URLobj[module]].RIGHTPOST = buttonItem.btnUrl;
+                                                            }else{
+                                                                $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
+                                                            }
                                                         } else {
                                                             $rootScope.URL[URLobj[module]].POST = buttonItem.btnUrl;
                                                         }
                                                     }
                                                     if (buttonItem.btnType == 3) {
-                                                        $rootScope.URL[URLobj[module]].PATCH = buttonItem.btnUrl;
+                                                        if(['manageMenu', 'manageButton', 'manageRoleMenu', 'manageAdminRole'].indexOf(module) !== -1){
+                                                            if(buttonItem.btnName.indexOf('left')!==-1){
+                                                                $rootScope.URL[URLobj[module]].LEFTPATCH = buttonItem.btnUrl;
+                                                            }else if(buttonItem.btnName.indexOf('mid')!==-1){
+                                                                $rootScope.URL[URLobj[module]].MIDPATCH = buttonItem.btnUrl;
+                                                            }else if(buttonItem.btnName.indexOf('right')!==-1){
+                                                                $rootScope.URL[URLobj[module]].RIGHTPATCH = buttonItem.btnUrl;
+                                                            }else{
+                                                                $rootScope.URL[URLobj[module]].PATCH = buttonItem.btnUrl;
+                                                            }
+                                                        }else{
+                                                            $rootScope.URL[URLobj[module]].PATCH = buttonItem.btnUrl;
+                                                        }
                                                     }
                                                     if (buttonItem.btnType == 4) {
-                                                        $rootScope.URL[URLobj[module]].DELETE = buttonItem.btnUrl;
+                                                        if(['manageMenu', 'manageButton', 'manageRoleMenu', 'manageAdminRole'].indexOf(module) !== -1){
+                                                            if(buttonItem.btnName.indexOf('left')!==-1){
+                                                                $rootScope.URL[URLobj[module]].LEFTDELETE = buttonItem.btnUrl;
+                                                            }else if(buttonItem.btnName.indexOf('mid')!==-1){
+                                                                $rootScope.URL[URLobj[module]].MIDDELETE = buttonItem.btnUrl;
+                                                            }else if(buttonItem.btnName.indexOf('right')!==-1){
+                                                                $rootScope.URL[URLobj[module]].RIGHTDELETE = buttonItem.btnUrl;
+                                                            }else{
+                                                                $rootScope.URL[URLobj[module]].DELETE = buttonItem.btnUrl;
+                                                            }
+                                                        }else{
+                                                            $rootScope.URL[URLobj[module]].DELETE = buttonItem.btnUrl;
+                                                        }
                                                     }
                                                     if (buttonItem.btnType == 5) {
-                                                        $rootScope.URL[URLobj[module]].PUT = buttonItem.btnUrl;
+                                                        if(['manageMenu', 'manageButton', 'manageRoleMenu', 'manageAdminRole'].indexOf(module) !== -1){
+                                                            if(buttonItem.btnName.indexOf('left')!==-1){
+                                                                $rootScope.URL[URLobj[module]].LEFTPUT = buttonItem.btnUrl;
+                                                            }else if(buttonItem.btnName.indexOf('mid')!==-1){
+                                                                $rootScope.URL[URLobj[module]].MIDPUT = buttonItem.btnUrl;
+                                                            }else if(buttonItem.btnName.indexOf('right')!==-1){
+                                                                $rootScope.URL[URLobj[module]].RIGHTPUT = buttonItem.btnUrl;
+                                                            }else{
+                                                                $rootScope.URL[URLobj[module]].PUT = buttonItem.btnUrl;
+                                                            }
+                                                        }else{
+                                                            $rootScope.URL[URLobj[module]].PUT = buttonItem.btnUrl;
+                                                        }
                                                     }
                                                 });
                                             }

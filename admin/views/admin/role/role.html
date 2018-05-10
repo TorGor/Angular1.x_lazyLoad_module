@@ -6,10 +6,10 @@
                     <button
                         class="btn btn-primary"
                         ng-click="addRoles()"
+                        ng-show='validPower("MANAGEROLE", "POST")'
                         type="button"
                         translate="table.button.add"
                     >
-                        新增
                     </button>
                     <form class="form-inline pull-right add-button-class" role="form">
                         <div style="position: relative" class="form-group">
@@ -65,7 +65,7 @@
                                     shown="item.id == null"
                                 >
                                     <button
-                                        class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
+                                        class="btn btn-sm btn-info" ng-show='validPower("MANAGEROLE", "POST")' type="submit" ng-disabled="rowform.$waiting"
                                         title="{{'table.button.save' | translate}}"
                                     >
                                         <em class="fa fa-save"></em>
@@ -80,13 +80,13 @@
                                 </form>
                                 <div class="buttons" ng-show="!rowform.$visible">
                                     <button
-                                        class="btn btn-sm btn-info" ng-click="rowform.$show()"
+                                        class="btn btn-sm btn-info" ng-show='validPower("MANAGEROLE", "PATCH")' ng-click="rowform.$show()"
                                         title="{{'table.button.edit' | translate}}"
                                     >
                                         <em class="fa fa-pencil"></em>
                                     </button>
                                     <button
-                                        class="btn btn-sm btn-danger" ng-click="deleteRole(item)"
+                                        class="btn btn-sm btn-danger" ng-show='validPower("MANAGEROLE", "DELETE")' ng-click="deleteRole(item)"
                                         title="{{'table.button.delete' | translate}}"
                                     >
                                         <em class="fa fa-trash"></em>

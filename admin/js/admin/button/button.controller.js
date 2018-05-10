@@ -72,7 +72,10 @@
 
         // 初始化一级菜单
         $scope.initOneLevelMenus = function () {
-            superAdminService.getFindAllMenuInfo({}, {}, function (data) {
+            if(!$scope.validPower("MANAGEBUTTON", ["LEFTGET"])){
+                return '';
+            }
+            superAdminService.getReq($rootScope.URL.MANAGEBUTTON.LEFTGET,{}, {}, function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -113,12 +116,15 @@
             if ($event) {
                 $event.stopPropagation();
             }
+            if(!$scope.validPower("MANAGEBUTTON", ["RIGHTGET"])){
+                return '';
+            }
             $scope.buttons = [];
             console.log(secondLevelMenu, 'getSecondLevelButtons');
             $scope.currentSelectMenu = angular.copy(secondLevelMenu);
             if (secondLevelMenu.id) {
                 $scope.buttons = [];
-                superAdminService.getFindButtonInfoByMenuId({ 'menuId': secondLevelMenu.id }, {}, function (data) {
+                superAdminService.getReq($rootScope.URL.MANAGEBUTTON.RIGHTGET,{ 'menuId': secondLevelMenu.id }, {}, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -140,8 +146,11 @@
         $scope.saveButton = function (button, item) {
             var tempData = angular.extend({}, button, item);
             if (!tempData.id) {
+                if(!$scope.validPower("MANAGEBUTTON", ["RIGHTPOST"])){
+                    return '';
+                }
                 delete tempData.id;
-                superAdminService.postSaveButtonInfo({}, tempData, function (data) {
+                superAdminService.postReq($rootScope.URL.MANAGEBUTTON.RIGHTPOST,{}, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -153,7 +162,10 @@
                     }
                 });
             } else if (tempData.id) {
-                superAdminService.postUpdateButtonInfo({}, tempData, function (data) {
+                if(!$scope.validPower("MANAGEBUTTON", ["RIGHTPATCH"])){
+                    return '';
+                }
+                superAdminService.patchReq($rootScope.URL.MANAGEBUTTON.RIGHTPATCH,{}, tempData, function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -174,9 +186,12 @@
          * @return null
          */
         $scope.deleteButton = function (button) {
+            if(!$scope.validPower("MANAGEBUTTON", ["RIGHTDELETE"])){
+                return '';
+            }
             if (button.id) {
                 $rootScope.alertConfirm(function () {
-                    superAdminService.getDeleteButtonInfoById({ id: button.id }, {}, function (data) {
+                    superAdminService.deleteReq($rootScope.URL.MANAGEBUTTON.RIGHTDELETE,{ id: button.id }, {}, function (data) {
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
                                 $scope.getSecondLevelButtons($scope.currentSelectMenu);
