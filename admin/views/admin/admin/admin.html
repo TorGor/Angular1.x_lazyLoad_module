@@ -6,6 +6,7 @@
                     <button
                         class="btn btn-primary"
                         ng-click="addAdmins()"
+                        ng-show='validPower("MANAGEADMINUSER", "POST")'
                         type="button"
                         translate="table.button.add"
                     >
@@ -74,8 +75,8 @@
                     ao-data="tempAdminsAoData"
                     reload="adminsReload"
                     service-name="superAdminService"
-                    service-name-attr="getFindUserInfo"
-                    url="false"
+                    service-name-attr="getReq"
+                    url="URL.MANAGEADMINUSER.GET"
                     handle-data="false"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
@@ -121,7 +122,10 @@
                                     shown="item.id == null"
                                 >
                                     <button
-                                        class="btn btn-sm btn-info" type="submit" ng-disabled="rowform.$waiting"
+                                        class="btn btn-sm btn-info"
+                                        ng-show='validPower("MANAGEADMINUSER", "POST")'
+                                        type="submit"
+                                        ng-disabled="rowform.$waiting"
                                         title="{{'table.button.save' | translate}}"
                                     >
                                         <em class="fa fa-save"></em>
@@ -136,13 +140,17 @@
                                 </form>
                                 <div class="buttons" ng-show="!rowform.$visible">
                                     <button
-                                        class="btn btn-sm btn-info" ng-click="rowform.$show()"
+                                        class="btn btn-sm btn-info"
+                                        ng-show='validPower("MANAGEADMINUSER", "PATCH")'
+                                        ng-click="rowform.$show()"
                                         title="{{'table.button.edit' | translate}}"
                                     >
                                         <em class="fa fa-pencil"></em>
                                     </button>
                                     <button
-                                        class="btn btn-sm btn-danger" ng-click="deleteAdmin(item)"
+                                        class="btn btn-sm btn-danger"
+                                        ng-show='validPower("MANAGEADMINUSER", "DELETE")'
+                                        ng-click="deleteAdmin(item)"
                                         title="{{'table.button.delete' | translate}}"
                                     >
                                         <em class="fa fa-trash"></em>

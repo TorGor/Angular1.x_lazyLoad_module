@@ -119,7 +119,7 @@
                 });
                 $scope.ServerPaging=function(){
                     var temAoData=angular.copy($scope.aoData);
-                    if($scope.url){
+                    if($scope.serviceName !== 'superAdminService'){
                         service[$scope.serviceNameAttr]($scope.url,temAoData,{}).then(function (data){
                             var result = data.data && data.data.data;
                             console.log(result, 'result')
@@ -142,7 +142,7 @@
                             }
                         });
                     }else{
-                        service[$scope.serviceNameAttr](temAoData,{}).$promise.then(function (data){
+                        service[$scope.serviceNameAttr]($scope.url,temAoData,{}).then(function (data){
                             console.log(data, '----ServerPaging')
                             if(data.data && data.data.draw && $scope.pageMessage.draw){
                                 if(parseInt($scope.pageMessage.draw)<=parseInt(data.data.draw)){

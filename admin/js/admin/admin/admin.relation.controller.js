@@ -27,7 +27,7 @@
         $scope.roleMenuAndBtn = [];
 
         $scope.initRolesData = function () {
-            superAdminService.getFindRoleInfoList({ 'pageSize': 100, 'curPage': 1 }, {}, function (data) {
+            superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.MIDGET, { 'pageSize': 100, 'curPage': 1 }, {}).then(function (data) {
                 console.log(data, 'initRolesData');
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -40,7 +40,7 @@
         };
 
         $scope.initAdminsData = function (userName) {
-            superAdminService.getFindUserInfo({ 'pageSize': 100, 'curPage': 1, 'status': 1, 'userName': userName || '' }, {}, function (data) {
+            superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.LEFTGET, { 'pageSize': 100, 'curPage': 1, 'status': 1, 'userName': userName || '' }, {}).then(function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -66,7 +66,7 @@
         $scope.getRoleMenuAndBtn = function (id) {
             $scope.roleMenuAndBtn = [];
             if (id) {
-                superAdminService.getFindRoleMenuByRoleId({ 'roleId': id }, {}, function (data) {
+                superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.RIGHTGET, { 'roleId': id }, {}).then(function (data) {
                     console.log(data, 'getRoleMenuAndBtn');
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -100,7 +100,7 @@
             if ($scope.currentAdmin.id) {
                 var tempData = angular.copy($scope.currentAdmin);
                 tempData.roleId = role.id;
-                superAdminService.postUpdateUserInfo({}, tempData, function (data) {
+                superAdminService.patchReq($rootScope.URL.MANAGEADMINROLE.MIDPATCH, {}, tempData).then(function (data) {
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $rootScope.toasterSuccess(data.msg);

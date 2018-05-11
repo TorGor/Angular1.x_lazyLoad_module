@@ -97,8 +97,11 @@
         $scope.saveAdmin = function (admin, item) {
             var tempData = angular.extend({}, admin, item);
             if (!tempData.id) {
+                if(!$scope.validPower("MANAGEADMINUSER", ["POST"])){
+                    return '';
+                }
                 delete tempData.id;
-                superAdminService.postSaveUserInfo({}, tempData, function (data) {
+                superAdminService.postReq($rootScope.URL.MANAGEADMINUSER.POST, {}, tempData).then(function (data) {
                     console.log(data);
                     $scope.adminsReload++;
                     if (typeof data.success === 'boolean') {
@@ -110,7 +113,10 @@
                     }
                 });
             } else if (tempData.id) {
-                superAdminService.postUpdateUserInfo({}, tempData, function (data) {
+                if(!$scope.validPower("MANAGEADMINUSER", ["PATCH"])){
+                    return '';
+                }
+                superAdminService.patchReq($rootScope.URL.MANAGEADMINUSER.PATCH, {}, tempData).then(function (data) {
                     console.log(data);
                     $scope.adminsReload++;
                     if (typeof data.success === 'boolean') {
@@ -132,9 +138,12 @@
          * @return null
          */
         $scope.deleteAdmin = function (admin) {
+            if(!$scope.validPower("MANAGEADMINUSER", ["DELETE"])){
+                return '';
+            }
             if (admin.id) {
                 $rootScope.alertConfirm(function () {
-                    superAdminService.getDeleteUserById({ id: admin.id }, {}, function (data) {
+                    superAdminService.deleteReq($rootScope.URL.MANAGEADMINUSER.DELETE, { id: admin.id }, {}).then(function (data) {
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
                                 $rootScope.toasterSuccess(data.msg);
