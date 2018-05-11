@@ -75,7 +75,7 @@
             if(!$scope.validPower("MANAGEBUTTON", ["LEFTGET"])){
                 return '';
             }
-            superAdminService.getReq($rootScope.URL.MANAGEBUTTON.LEFTGET,{}, {}, function (data) {
+            superAdminService.getReq($rootScope.URL.MANAGEBUTTON.LEFTGET,{}, {}).then(function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -119,16 +119,17 @@
             if(!$scope.validPower("MANAGEBUTTON", ["RIGHTGET"])){
                 return '';
             }
-            $scope.buttons = [];
+            // $scope.buttons = [];
             console.log(secondLevelMenu, 'getSecondLevelButtons');
             $scope.currentSelectMenu = angular.copy(secondLevelMenu);
             if (secondLevelMenu.id) {
-                $scope.buttons = [];
-                superAdminService.getReq($rootScope.URL.MANAGEBUTTON.RIGHTGET,{ 'menuId': secondLevelMenu.id }, {}, function (data) {
+                // $scope.buttons = [];
+                superAdminService.getReq($rootScope.URL.MANAGEBUTTON.RIGHTGET,{ 'menuId': secondLevelMenu.id }, {}).then(function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             $scope.buttons = angular.copy(data.data);
+                            $scope.buttonsReload++;
                         } else {
                             $rootScope.alertErrorMsg(data.msg);
                         }
@@ -150,7 +151,7 @@
                     return '';
                 }
                 delete tempData.id;
-                superAdminService.postReq($rootScope.URL.MANAGEBUTTON.RIGHTPOST,{}, tempData, function (data) {
+                superAdminService.postReq($rootScope.URL.MANAGEBUTTON.RIGHTPOST,{}, tempData).then(function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -165,7 +166,7 @@
                 if(!$scope.validPower("MANAGEBUTTON", ["RIGHTPATCH"])){
                     return '';
                 }
-                superAdminService.patchReq($rootScope.URL.MANAGEBUTTON.RIGHTPATCH,{}, tempData, function (data) {
+                superAdminService.patchReq($rootScope.URL.MANAGEBUTTON.RIGHTPATCH,{}, tempData).then(function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -191,7 +192,7 @@
             }
             if (button.id) {
                 $rootScope.alertConfirm(function () {
-                    superAdminService.deleteReq($rootScope.URL.MANAGEBUTTON.RIGHTDELETE,{ id: button.id }, {}, function (data) {
+                    superAdminService.deleteReq($rootScope.URL.MANAGEBUTTON.RIGHTDELETE,{ id: button.id }, {}).then(function (data) {
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
                                 $scope.getSecondLevelButtons($scope.currentSelectMenu);

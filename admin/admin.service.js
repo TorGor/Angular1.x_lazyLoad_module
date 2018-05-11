@@ -182,8 +182,7 @@
                     method: 'POST',
                     url: EVN.debug ? (EVN.server + url + EVN.suffix) : url,
                     params: params||{},
-                    headers: header||{},
-                    // data: data||{}
+                    data: data||{}
                 }).then(function (data) {
                     deferred.resolve(data.data)
                 },function () {
@@ -206,8 +205,8 @@
                     method: 'PATCH',
                     url: EVN.debug ? (EVN.server + url + EVN.suffix) : url,
                     params: params||{},
-                    headers: header||{},
-                    // data: data||{}
+                    // headers: header||{},
+                    data: data||{}
                 }).then(function (data) {
                     deferred.resolve(data.data)
                 },function () {
@@ -230,8 +229,8 @@
                     method: 'PUT',
                     url: EVN.debug ? (EVN.server + url + EVN.suffix) : url,
                     params: params||{},
-                    headers: header||{},
-                    // data: data||{}
+                    // headers: header||{},
+                    data: data||{}
                 }).then(function (data) {
                     deferred.resolve(data.data)
                 },function () {
@@ -254,7 +253,7 @@
                     method: 'DELETE',
                     url: EVN.debug ? (EVN.server + url + EVN.suffix) : url,
                     params: params||{},
-                    headers: header||{},
+                    // headers: header||{},
                     // data: data||{}
                 }).then(function (data) {
                     deferred.resolve(data.data)

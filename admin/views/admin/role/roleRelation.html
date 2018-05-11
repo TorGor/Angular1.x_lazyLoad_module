@@ -65,7 +65,7 @@
                     <div ng-repeat="button in buttons">
                         <div style="margin: 0" class="checkbox c-checkbox self-nav-tree-padding">
                             <label>
-                                <input type="checkbox" ng-click="handelClickButton(button, $event)" ng-model="button.checked">
+                                <input ng-show='validPower("MANAGEROLEMENU", ["RIGHTPOST", "RIGHTDELETE"])' type="checkbox" ng-click="handelClickButton(button, $event)" ng-model="button.checked">
                                 <span class="fa fa-check"></span>{{button.btnName}}</label>
                         </div>
                         <div class="clearfix"></div>

@@ -31,12 +31,12 @@
             if(!$scope.validPower("MANAGEROLE", ["GET"])){
                 return '';
             }
-            $scope.roles = [];
-            superAdminService.getReq($rootScope.URL.MANAGEROLE.GET,{ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
+            superAdminService.getReq($rootScope.URL.MANAGEROLE.GET,{ 'pageSize': 50, 'curPage': 1 }, {}).then(function (data) {
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
                         $scope.roles = angular.copy(data.data.list);
+                        $scope.rolesReload++;
                     } else {
                         $rootScope.alertErrorMsg(data.msg);
                     }
@@ -58,7 +58,7 @@
                     return '';
                 }
                 delete tempData.id;
-                superAdminService.postReq($rootScope.URL.MANAGEROLE.POST, {}, tempData, function (data) {
+                superAdminService.postReq($rootScope.URL.MANAGEROLE.POST, {}, tempData).then(function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -73,7 +73,7 @@
                 if(!$scope.validPower("MANAGEROLE", ["PATCH"])){
                     return '';
                 }
-                superAdminService.patchReq($rootScope.URL.MANAGEROLE.PATCH, {}, tempData, function (data) {
+                superAdminService.patchReq($rootScope.URL.MANAGEROLE.PATCH, {}, tempData).then(function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -99,7 +99,7 @@
             }
             if (role.id) {
                 $rootScope.alertConfirm(function () {
-                    superAdminService.deleteReq($rootScope.URL.MANAGEROLE.DELETE, { id: role.id }, {}, function (data) {
+                    superAdminService.deleteReq($rootScope.URL.MANAGEROLE.DELETE, { id: role.id }, {}).then(function (data) {
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
                                 $scope.initRolesData();

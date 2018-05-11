@@ -33,7 +33,10 @@
         $scope.getRoleRelationById = function (role, isClick) {
             $scope.currentRole = angular.copy(role);
             if (role.id) {
-                superAdminService.getFindMenuByRoleId({ 'roleId': role.id }, {}, function (data) {
+                if(!$scope.validPower("MANAGEROLEMENU", ["MIDGET"])){
+                    return '';
+                }
+                superAdminService.getReq($rootScope.URL.MANAGEROLEMENU.MIDGET, { 'roleId': role.id }, {}).then(function (data) {
                     console.log(data, 'getRoleRelationById');
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -74,7 +77,10 @@
 
         // 初始化role数据
         $scope.initRolesData = function () {
-            superAdminService.getFindRoleInfoList({ 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
+            if(!$scope.validPower("MANAGEROLEMENU", ["LEFTGET"])){
+                return '';
+            }
+            superAdminService.getReq($rootScope.URL.MANAGEROLEMENU.LEFTGET, { 'pageSize': 50, 'curPage': 1 }, {}).then(function (data) {
                 console.log(data, 'initRolesData');
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
@@ -106,10 +112,13 @@
             $scope.currentSecondLevelMenu = angular.copy(secondLevelMenu);
             if (secondLevelMenu.id) {
                 $scope.buttons = [];
-                superAdminService.getFindButtonInfoList({
+                if(!$scope.validPower("MANAGEROLEMENU", ["RIGHTGET"])){
+                    return '';
+                }
+                superAdminService.getReq($rootScope.URL.MANAGEROLEMENU.RIGHTGET, {
                     'roleId': $scope.currentRole.id,
                     'menuId': secondLevelMenu.id
-                }, {}, function (data) {
+                }, {}).then(function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -136,11 +145,14 @@
             if (button.id) {
                 console.log(button, 'button');
                 if (button.checked) {
-                    superAdminService.postAddRoleAndMenuAndBtn({}, {
+                    if(!$scope.validPower("MANAGEROLEMENU", ["RIGHTPOST"])){
+                        return '';
+                    }
+                    superAdminService.postReq($rootScope.URL.MANAGEROLEMENU.RIGHTPOST, {}, {
                         'roleId': $scope.currentRole.id,
                         'btnId': button.id,
                         'menuId': $scope.currentSecondLevelMenu.id
-                    }, function (data) {
+                    }).then(function (data) {
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
@@ -153,11 +165,14 @@
                         }
                     });
                 } else {
-                    superAdminService.getDeleteRoleAndMenuAndBtn({
+                    if(!$scope.validPower("MANAGEROLEMENU", ["RIGHTDELETE"])){
+                        return '';
+                    }
+                    superAdminService.deleteReq($rootScope.URL.MANAGEROLEMENU.RIGHTDELETE, {
                         'roleId': $scope.currentRole.id,
                         'btnId': button.id,
                         'menuId': $scope.currentSecondLevelMenu.id
-                    }, {}, function (data) {
+                    }, {}).then(function (data) {
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {

@@ -84,13 +84,14 @@
             });
             if (oneLevelMenu.id) {
                 oneLevelMenu['showSecond'] = !oneLevelMenu['showSecond'];
-                $scope.twoLevelMenus = [];
-                superAdminService.getReq($rootScope.URL.MANAGEMENU.RIGHTGET, { 'parentid': oneLevelMenu.id, 'pageSize': 50, 'curPage': 1 }, {}, function (data) {
+                // $scope.twoLevelMenus = [];
+                superAdminService.getReq($rootScope.URL.MANAGEMENU.RIGHTGET, { 'parentid': oneLevelMenu.id, 'pageSize': 50, 'curPage': 1 }, {}).then(function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             oneLevelMenu['secondLevelMenus'] = angular.copy(data.data.list);
                             $scope.twoLevelMenus = angular.copy(data.data.list);
+                            $scope.twoLevelMenusShowReload++;
                             $scope.twoLevelMenusAoData = {
                                 menuName: '',
                                 menuStatus: ''
@@ -118,7 +119,7 @@
                     return '';
                 }
                 delete tempData.id;
-                superAdminService.postReq($rootScope.URL.MANAGEMENU.RIGHTPOST, {}, tempData, function (data) {
+                superAdminService.postReq($rootScope.URL.MANAGEMENU.RIGHTPOST, {}, tempData).then(function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -133,7 +134,7 @@
                 if(!$scope.validPower("MANAGEMENU", ["RIGHTPATCH"])){
                     return '';
                 }
-                superAdminService.patchReq($rootScope.URL.MANAGEMENU.RIGHTPATCH, {}, tempData, function (data) {
+                superAdminService.patchReq($rootScope.URL.MANAGEMENU.RIGHTPATCH, {}, tempData).then(function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
@@ -240,8 +241,7 @@
             if(!$scope.validPower("MANAGEMENU", ["LEFTGET"])){
                 return '';
             }
-            superAdminService.getReq($rootScope.URL.MANAGEMENU.LEFTGET, {}, {}, function (data) {
-                console.log(data);
+            superAdminService.getReq($rootScope.URL.MANAGEMENU.LEFTGET, {}, {}).then(function (data) {
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
                         var tempData = data.data;

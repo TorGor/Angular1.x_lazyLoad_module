@@ -118,7 +118,7 @@
                                                             if(buttonItem.btnName.indexOf('left')!==-1){
                                                                 $rootScope.URL[URLobj[module]].LEFTGET = buttonItem.btnUrl;
                                                             }else if(buttonItem.btnName.indexOf('mid')!==-1){
-                                                                $rootScope.URL[URLobj[module]].MIDTGET = buttonItem.btnUrl;
+                                                                $rootScope.URL[URLobj[module]].MIDGET = buttonItem.btnUrl;
                                                             }else if(buttonItem.btnName.indexOf('right')!==-1){
                                                                 $rootScope.URL[URLobj[module]].RIGHTGET = buttonItem.btnUrl;
                                                             }else{
