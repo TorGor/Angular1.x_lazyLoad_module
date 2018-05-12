@@ -35,6 +35,7 @@
                 console.log(data);
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
+                        $scope.showRoles = [];
                         $scope.roles = angular.copy(data.data.list);
                         $scope.rolesReload++;
                     } else {

@@ -64,6 +64,8 @@
                 }
                 if(str.length<6 || str.length>16){
                     return 'password length should be between 6 and 16!';
+                }else{
+                    return true;
                 }
             }
             return 'password should be string';

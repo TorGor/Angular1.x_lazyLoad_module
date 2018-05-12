@@ -84,14 +84,14 @@
             });
             if (oneLevelMenu.id) {
                 oneLevelMenu['showSecond'] = !oneLevelMenu['showSecond'];
-                // $scope.twoLevelMenus = [];
+                $scope.twoLevelMenus = [];
                 superAdminService.getReq($rootScope.URL.MANAGEMENU.RIGHTGET, { 'parentid': oneLevelMenu.id, 'pageSize': 50, 'curPage': 1 }, {}).then(function (data) {
                     console.log(data);
                     if (typeof data.success === 'boolean') {
                         if (data.success) {
                             oneLevelMenu['secondLevelMenus'] = angular.copy(data.data.list);
                             $scope.twoLevelMenus = angular.copy(data.data.list);
-                            $scope.twoLevelMenusShowReload++;
+                            // $scope.twoLevelMenusShowReload++;
                             $scope.twoLevelMenusAoData = {
                                 menuName: '',
                                 menuStatus: ''
@@ -194,7 +194,7 @@
             $event.stopPropagation();
             if (oneLevelMenu.id) {
                 $rootScope.alertConfirm(function () {
-                    superAdminService.deleteReq($rootScope.URL.MANAGEMENU.LEFTDELETE, { 'id': oneLevelMenu.id }, {}, function (data) {
+                    superAdminService.deleteReq($rootScope.URL.MANAGEMENU.LEFTDELETE, { 'id': oneLevelMenu.id }, {}).then(function (data) {
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
@@ -221,7 +221,7 @@
             console.log(secondLevelMenu, 'secondLevelMenu');
             if (secondLevelMenu.id) {
                 $rootScope.alertConfirm(function () {
-                    superAdminService.deleteReq($rootScope.URL.MANAGEMENU.RIGHTDELETE, { 'id': secondLevelMenu.id }, {}, function (data) {
+                    superAdminService.deleteReq($rootScope.URL.MANAGEMENU.RIGHTDELETE, { 'id': secondLevelMenu.id }, {}).then(function (data) {
                         console.log(data);
                         if (typeof data.success === 'boolean') {
                             if (data.success) {
@@ -241,6 +241,7 @@
             if(!$scope.validPower("MANAGEMENU", ["LEFTGET"])){
                 return '';
             }
+            $scope.oneLevelMenus = [];
             superAdminService.getReq($rootScope.URL.MANAGEMENU.LEFTGET, {}, {}).then(function (data) {
                 if (typeof data.success === 'boolean') {
                     if (data.success) {
