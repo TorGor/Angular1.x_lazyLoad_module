@@ -77,14 +77,14 @@
                     $scope.adminsAoData.start = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.adminsAoData.start) {
-                        delete $scope.adminsAoData.start;
+                        $scope.adminsAoData.start = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.adminsAoData.end = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.adminsAoData.end) {
-                        delete $scope.adminsAoData.end;
+                        $scope.adminsAoData.end = '';
                     }
                 }
             }
@@ -157,6 +157,13 @@
                     });
                 });
             }
+        };
+
+        $scope.changePasswordNull = function(arr) {
+            arr.forEach(function (adminItem, adminIndex) {
+                adminItem.password = '';
+            });
+            return arr;
         };
 
         // 添加按钮

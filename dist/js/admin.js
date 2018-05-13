@@ -47,14 +47,14 @@
 (function() {
 
     angular
-        .module('admin.admin', [
+        .module('admin.affiliatesManage', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.affiliatesManage', [
+        .module('admin.admin', [
             'app.core',
         ]);
 })();
@@ -68,14 +68,14 @@
 (function() {
 
     angular
-        .module('admin.bankCards', [
+        .module('admin.appliesUse', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.appliesUse', [
+        .module('admin.bankCards', [
             'app.core',
         ]);
 })();
@@ -1155,448 +1155,6 @@
 
 (function() {
 
-
-    angular
-        .module('admin.admin')
-        .controller('SuperAdminAdminController', SuperAdminAdminController);
-
-    SuperAdminAdminController.$inject = [
-        '$scope',
-        '$rootScope',
-        'superAdminService'
-    ];
-
-    function SuperAdminAdminController(
-        $scope,
-        $rootScope,
-        superAdminService
-    ) {
-
-        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
-
-        // 原始的二级数据
-        $scope.admins = [];
-
-        // 过滤出来的二级数据
-        $scope.adminsReload = 1;
-        $scope.adminsAoData = {
-            status: ''
-        };
-        $scope.tempAdminsAoData = {
-            status: ''
-        };
-
-        $scope.trigerSearch = function() {
-            $scope.tempAdminsAoData = Object.assign($scope.tempAdminsAoData,$scope.adminsAoData);
-            $scope.adminsReload++;
-        };
-
-        $scope.resetSearch = function() {
-            $scope.searchTimeStart = undefined
-            $scope.searchTimeEnd = undefined
-            $scope.adminsAoData = {
-                status: ''
-            };
-            var tempData = $scope.tempAdminsAoData;
-            $scope.tempAdminsAoData = {
-                page:tempData.page,
-                pageSize:tempData.pageSize,
-                status: ''
-            };
-            $scope.adminsReload++;
-        };
-
-        /**
-         * 校验密码长度
-         *
-         * @param {any} str 字符串
-         */
-        $scope.checkPassword = function(str) {
-            if (typeof str === 'string') {
-                var tempStr = $scope.checkRequiredData(str);
-                if(typeof tempStr === 'string' && tempStr.length){
-                    return tempStr;
-                }
-                if(str.length<6 || str.length>16){
-                    return 'password length should be between 6 and 16!';
-                }else{
-                    return true;
-                }
-            }
-            return 'password should be string';
-        };
-
-        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.searchTimeStart) {
-                    $scope.adminsAoData.start = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.adminsAoData.start) {
-                        delete $scope.adminsAoData.start;
-                    }
-                }
-                if ($scope.searchTimeEnd) {
-                    $scope.adminsAoData.end = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.adminsAoData.end) {
-                        delete $scope.adminsAoData.end;
-                    }
-                }
-            }
-        });
-
-        // 保存管理员
-        /**
-         * @param admin 管理员对象
-         * @param item 显示输入的数据对象
-         * @return null
-         */
-        $scope.saveAdmin = function (admin, item) {
-            var tempData = angular.extend({}, admin, item);
-            if (!tempData.id) {
-                if(!$scope.validPower("MANAGEADMINUSER", ["POST"])){
-                    return '';
-                }
-                delete tempData.id;
-                superAdminService.postReq($rootScope.URL.MANAGEADMINUSER.POST, {}, tempData).then(function (data) {
-                    console.log(data);
-                    $scope.adminsReload++;
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $rootScope.toasterSuccess(data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            } else if (tempData.id) {
-                if(!$scope.validPower("MANAGEADMINUSER", ["PATCH"])){
-                    return '';
-                }
-                superAdminService.patchReq($rootScope.URL.MANAGEADMINUSER.PATCH, {}, tempData).then(function (data) {
-                    console.log(data);
-                    $scope.adminsReload++;
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $rootScope.toasterSuccess(data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-
-        };
-
-        // 删除admin
-        /**
-         * @param admin 管理员数据对象
-         * @return null
-         */
-        $scope.deleteAdmin = function (admin) {
-            if(!$scope.validPower("MANAGEADMINUSER", ["DELETE"])){
-                return '';
-            }
-            if (admin.id) {
-                $rootScope.alertConfirm(function () {
-                    superAdminService.deleteReq($rootScope.URL.MANAGEADMINUSER.DELETE, { id: admin.id }, {}).then(function (data) {
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
-                                $rootScope.toasterSuccess(data.msg);
-                                $scope.adminsReload++;
-                            } else {
-                                $rootScope.alertErrorMsg(data.msg);
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 添加按钮
-        $scope.addAdmins = function () {
-            $scope.admins.unshift({
-                'id': null,
-                'username': '',
-                'password': '',
-                'status': '1',
-                'level': null,
-                'createTime': null,
-                'optTime': null,
-                'roleId': null,
-                'isShowTrEdit': true
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的对象
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.admins.splice(index, 1);
-            }
-        };
-
-        // 页面加载执行的函数
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.admin')
-        .controller('SuperAdminAdminRelationController', SuperAdminAdminRelationController);
-
-    SuperAdminAdminRelationController.$inject = [
-        '$scope',
-        '$rootScope',
-        'superAdminService',
-        '$timeout'
-    ];
-
-    function SuperAdminAdminRelationController(
-        $scope,
-        $rootScope,
-        superAdminService,
-        $timeout
-    ) {
-
-        $scope.roles = [];
-
-        $scope.admins = [];
-
-        $scope.currentAdmin = {};
-
-        $scope.roleMenuAndBtn = [];
-
-        $scope.initRolesData = function () {
-            superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.MIDGET, { 'pageSize': 100, 'curPage': 1 }, {}).then(function (data) {
-                console.log(data, 'initRolesData');
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.roles = angular.copy(data.data);
-                    } else {
-                        $rootScope.alertErrorMsg(data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.initAdminsData = function (userName) {
-            superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.LEFTGET, { 'pageSize': 100, 'curPage': 1, 'status': 1, 'userName': userName || '' }, {}).then(function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.admins = angular.copy(data.data.list);
-                        if (!$scope.currentAdmin.id) {
-                            if ($scope.admins.length > 0) {
-                                $scope.currentAdmin = angular.copy($scope.admins[0]);
-                                $scope.getRoleMenuAndBtn($scope.currentAdmin.roleId);
-                            }
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(data.msg);
-                    }
-                }
-            });
-        };
-
-        // 获取用户的menu和button
-        /**
-         * @param id 角色对象的id
-         * @return null
-         */
-        $scope.getRoleMenuAndBtn = function (id) {
-            $scope.roleMenuAndBtn = [];
-            if (id) {
-                superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.RIGHTGET, { 'roleId': id }, {}).then(function (data) {
-                    console.log(data, 'getRoleMenuAndBtn');
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $scope.roleMenuAndBtn = angular.copy(data.data);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            }else{
-
-            }
-        };
-
-        // 获取用户的menu和button
-        /**
-         * @param admin 管理员对象
-         * @return null
-         */
-        $scope.setCurrentAdmin = function (admin) {
-            $scope.currentAdmin = angular.copy(admin);
-            $scope.getRoleMenuAndBtn(admin.roleId);
-        };
-
-        // 设置用户的roleId
-        /**
-         * @param role 角色对象
-         * @return null
-         */
-        $scope.setAdminRoleId = function (role) {
-            if ($scope.currentAdmin.id) {
-                var tempData = angular.copy($scope.currentAdmin);
-                tempData.roleId = role.id;
-                superAdminService.patchReq($rootScope.URL.MANAGEADMINROLE.MIDPATCH, {}, tempData).then(function (data) {
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $rootScope.toasterSuccess(data.msg);
-                            $scope.currentAdmin.roleId = role.id;
-                            $scope.admins.forEach(function (admin) {
-                                if (admin.id == $scope.currentAdmin.id) {
-                                    admin.roleId = role.id;
-                                }
-                            });
-                            $scope.getRoleMenuAndBtn(role.id);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            } else {
-                $rootScope.alertErrorMsg('select admin first!');
-                return;
-            }
-        };
-
-        var timer = null;
-
-        $scope.$watch('userName', function (newValue, oldValue) {
-            if (newValue != oldValue) {
-                if (timer) {
-                    $timeout.cancel(timer);
-                }
-                timer = $timeout(function() {
-                    $scope.initAdminsData($scope.userName);
-                }, 200);
-            }
-        });
-
-        // 页面加载执行的函数
-
-        $scope.initRolesData();
-
-        $scope.initAdminsData();
-    }
-})();
-
-(function() {
-
-
-    angular
-        .module('admin.admin')
-        .controller('SuperAdminAdminLogController', SuperAdminAdminLogController);
-
-    SuperAdminAdminLogController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$translate',
-        'superAdminService'
-    ];
-
-    function SuperAdminAdminLogController(
-        $scope,
-        $rootScope,
-        $translate,
-        superAdminService
-    ) {
-
-        $scope.methodTypeOptions = [
-            {
-                label:'All',
-                value:''
-            },
-            {
-                label:'GET',
-                value:'GET'
-            },
-            {
-                label:'POST',
-                value:'POST'
-            },
-            {
-                label:'PATCH',
-                value:'PATCH'
-            },
-            {
-                label:'DELETE',
-                value:'DELETE'
-            },
-            {
-                label:'PUT',
-                value:'PUT'
-            },
-        ];
-
-        $scope.adminsLog = [];
-        $scope.adminsLogReload = 1;
-        $scope.tempAdminsLogAoData = {};
-        $scope.adminsLogAoData = {};
-
-        $scope.trigerSearch = function() {
-            $scope.tempAdminsLogAoData = Object.assign($scope.tempAdminsLogAoData,$scope.adminsLogAoData);
-            $scope.adminsLogReload++;
-        };
-
-        $scope.resetSearch = function() {
-            $scope.adminsLogAoData = {};
-            $scope.searchTimeStart = undefined
-            $scope.searchTimeEnd = undefined
-            var tempData = $scope.tempAdminsLogAoData;
-            $scope.tempAdminsLogAoData = {
-                page:tempData.page,
-                pageSize:tempData.pageSize
-            };
-            $scope.adminsLogReload++;
-        };
-
-        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.searchTimeStart) {
-                    $scope.adminsLogAoData.beginTime = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.adminsLogAoData.beginTime) {
-                        delete $scope.adminsLogAoData.beginTime;
-                    }
-                }
-                if ($scope.searchTimeEnd) {
-                    $scope.adminsLogAoData.endTime = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.adminsLogAoData.endTime) {
-                        delete $scope.adminsLogAoData.endTime;
-                    }
-                }
-            }
-        });
-
-        $scope.showDescriptionDetail = function (data) {
-            var tempStr = '';
-            var tempObj = JSON.parse(data);
-            if (typeof tempObj == 'object') {
-                window.Object.keys(tempObj).map(function (item) {
-                    tempStr = tempStr + '<span style="max-width: 180px;text-align: left">'+$translate.instant(item)+'</span>'  + ':' + tempObj[item].toString() + '</br>'
-                })
-            }
-            return tempStr;
-        };
-
-
-        // 页面加载执行的函数
-    }
-})();
-
-(function() {
-
     angular
         .module('admin.affiliatesManage')
         .controller('AffiliatesManageController', AffiliatesManageController);
@@ -2090,6 +1648,455 @@
 
 (function() {
 
+
+    angular
+        .module('admin.admin')
+        .controller('SuperAdminAdminController', SuperAdminAdminController);
+
+    SuperAdminAdminController.$inject = [
+        '$scope',
+        '$rootScope',
+        'superAdminService'
+    ];
+
+    function SuperAdminAdminController(
+        $scope,
+        $rootScope,
+        superAdminService
+    ) {
+
+        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
+
+        // 原始的二级数据
+        $scope.admins = [];
+
+        // 过滤出来的二级数据
+        $scope.adminsReload = 1;
+        $scope.adminsAoData = {
+            status: ''
+        };
+        $scope.tempAdminsAoData = {
+            status: ''
+        };
+
+        $scope.trigerSearch = function() {
+            $scope.tempAdminsAoData = Object.assign($scope.tempAdminsAoData,$scope.adminsAoData);
+            $scope.adminsReload++;
+        };
+
+        $scope.resetSearch = function() {
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            $scope.adminsAoData = {
+                status: ''
+            };
+            var tempData = $scope.tempAdminsAoData;
+            $scope.tempAdminsAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize,
+                status: ''
+            };
+            $scope.adminsReload++;
+        };
+
+        /**
+         * 校验密码长度
+         *
+         * @param {any} str 字符串
+         */
+        $scope.checkPassword = function(str) {
+            if (typeof str === 'string') {
+                var tempStr = $scope.checkRequiredData(str);
+                if(typeof tempStr === 'string' && tempStr.length){
+                    return tempStr;
+                }
+                if(str.length<6 || str.length>16){
+                    return 'password length should be between 6 and 16!';
+                }else{
+                    return true;
+                }
+            }
+            return 'password should be string';
+        };
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.adminsAoData.start = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.adminsAoData.start) {
+                        $scope.adminsAoData.start = '';
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.adminsAoData.end = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.adminsAoData.end) {
+                        $scope.adminsAoData.end = '';
+                    }
+                }
+            }
+        });
+
+        // 保存管理员
+        /**
+         * @param admin 管理员对象
+         * @param item 显示输入的数据对象
+         * @return null
+         */
+        $scope.saveAdmin = function (admin, item) {
+            var tempData = angular.extend({}, admin, item);
+            if (!tempData.id) {
+                if(!$scope.validPower("MANAGEADMINUSER", ["POST"])){
+                    return '';
+                }
+                delete tempData.id;
+                superAdminService.postReq($rootScope.URL.MANAGEADMINUSER.POST, {}, tempData).then(function (data) {
+                    console.log(data);
+                    $scope.adminsReload++;
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $rootScope.toasterSuccess(data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            } else if (tempData.id) {
+                if(!$scope.validPower("MANAGEADMINUSER", ["PATCH"])){
+                    return '';
+                }
+                superAdminService.patchReq($rootScope.URL.MANAGEADMINUSER.PATCH, {}, tempData).then(function (data) {
+                    console.log(data);
+                    $scope.adminsReload++;
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $rootScope.toasterSuccess(data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+
+        };
+
+        // 删除admin
+        /**
+         * @param admin 管理员数据对象
+         * @return null
+         */
+        $scope.deleteAdmin = function (admin) {
+            if(!$scope.validPower("MANAGEADMINUSER", ["DELETE"])){
+                return '';
+            }
+            if (admin.id) {
+                $rootScope.alertConfirm(function () {
+                    superAdminService.deleteReq($rootScope.URL.MANAGEADMINUSER.DELETE, { id: admin.id }, {}).then(function (data) {
+                        if (typeof data.success === 'boolean') {
+                            if (data.success) {
+                                $rootScope.toasterSuccess(data.msg);
+                                $scope.adminsReload++;
+                            } else {
+                                $rootScope.alertErrorMsg(data.msg);
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        $scope.changePasswordNull = function(arr) {
+            arr.forEach(function (adminItem, adminIndex) {
+                adminItem.password = '';
+            });
+            return arr;
+        };
+
+        // 添加按钮
+        $scope.addAdmins = function () {
+            $scope.admins.unshift({
+                'id': null,
+                'username': '',
+                'password': '',
+                'status': '1',
+                'level': null,
+                'createTime': null,
+                'optTime': null,
+                'roleId': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的对象
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.admins.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.admin')
+        .controller('SuperAdminAdminRelationController', SuperAdminAdminRelationController);
+
+    SuperAdminAdminRelationController.$inject = [
+        '$scope',
+        '$rootScope',
+        'superAdminService',
+        '$timeout'
+    ];
+
+    function SuperAdminAdminRelationController(
+        $scope,
+        $rootScope,
+        superAdminService,
+        $timeout
+    ) {
+
+        $scope.roles = [];
+
+        $scope.admins = [];
+
+        $scope.currentAdmin = {};
+
+        $scope.roleMenuAndBtn = [];
+
+        $scope.initRolesData = function () {
+            superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.MIDGET, { 'pageSize': 100, 'curPage': 1 }, {}).then(function (data) {
+                console.log(data, 'initRolesData');
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+                        $scope.roles = angular.copy(data.data);
+                    } else {
+                        $rootScope.alertErrorMsg(data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.initAdminsData = function (userName) {
+            superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.LEFTGET, { 'pageSize': 100, 'curPage': 1, 'status': 1, 'userName': userName || '' }, {}).then(function (data) {
+                console.log(data);
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+                        $scope.admins = angular.copy(data.data.list);
+                        if (!$scope.currentAdmin.id) {
+                            if ($scope.admins.length > 0) {
+                                $scope.currentAdmin = angular.copy($scope.admins[0]);
+                                $scope.getRoleMenuAndBtn($scope.currentAdmin.roleId);
+                            }
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(data.msg);
+                    }
+                }
+            });
+        };
+
+        // 获取用户的menu和button
+        /**
+         * @param id 角色对象的id
+         * @return null
+         */
+        $scope.getRoleMenuAndBtn = function (id) {
+            $scope.roleMenuAndBtn = [];
+            if (id) {
+                superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.RIGHTGET, { 'roleId': id }, {}).then(function (data) {
+                    console.log(data, 'getRoleMenuAndBtn');
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.roleMenuAndBtn = angular.copy(data.data);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            }else{
+
+            }
+        };
+
+        // 获取用户的menu和button
+        /**
+         * @param admin 管理员对象
+         * @return null
+         */
+        $scope.setCurrentAdmin = function (admin) {
+            $scope.currentAdmin = angular.copy(admin);
+            $scope.getRoleMenuAndBtn(admin.roleId);
+        };
+
+        // 设置用户的roleId
+        /**
+         * @param role 角色对象
+         * @return null
+         */
+        $scope.setAdminRoleId = function (role) {
+            if ($scope.currentAdmin.id) {
+                var tempData = angular.copy($scope.currentAdmin);
+                tempData.roleId = role.id;
+                superAdminService.patchReq($rootScope.URL.MANAGEADMINROLE.MIDPATCH, {}, tempData).then(function (data) {
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $rootScope.toasterSuccess(data.msg);
+                            $scope.currentAdmin.roleId = role.id;
+                            $scope.admins.forEach(function (admin) {
+                                if (admin.id == $scope.currentAdmin.id) {
+                                    admin.roleId = role.id;
+                                }
+                            });
+                            $scope.getRoleMenuAndBtn(role.id);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            } else {
+                $rootScope.alertErrorMsg('select admin first!');
+                return;
+            }
+        };
+
+        var timer = null;
+
+        $scope.$watch('userName', function (newValue, oldValue) {
+            if (newValue != oldValue) {
+                if (timer) {
+                    $timeout.cancel(timer);
+                }
+                timer = $timeout(function() {
+                    $scope.initAdminsData($scope.userName);
+                }, 200);
+            }
+        });
+
+        // 页面加载执行的函数
+
+        $scope.initRolesData();
+
+        $scope.initAdminsData();
+    }
+})();
+
+(function() {
+
+
+    angular
+        .module('admin.admin')
+        .controller('SuperAdminAdminLogController', SuperAdminAdminLogController);
+
+    SuperAdminAdminLogController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$translate',
+        'superAdminService'
+    ];
+
+    function SuperAdminAdminLogController(
+        $scope,
+        $rootScope,
+        $translate,
+        superAdminService
+    ) {
+
+        $scope.methodTypeOptions = [
+            {
+                label:'All',
+                value:''
+            },
+            {
+                label:'GET',
+                value:'GET'
+            },
+            {
+                label:'POST',
+                value:'POST'
+            },
+            {
+                label:'PATCH',
+                value:'PATCH'
+            },
+            {
+                label:'DELETE',
+                value:'DELETE'
+            },
+            {
+                label:'PUT',
+                value:'PUT'
+            },
+        ];
+
+        $scope.adminsLog = [];
+        $scope.adminsLogReload = 1;
+        $scope.tempAdminsLogAoData = {};
+        $scope.adminsLogAoData = {};
+
+        $scope.trigerSearch = function() {
+            $scope.tempAdminsLogAoData = Object.assign($scope.tempAdminsLogAoData,$scope.adminsLogAoData);
+            $scope.adminsLogReload++;
+        };
+
+        $scope.resetSearch = function() {
+            $scope.adminsLogAoData = {};
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            var tempData = $scope.tempAdminsLogAoData;
+            $scope.tempAdminsLogAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            };
+            $scope.adminsLogReload++;
+        };
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.adminsLogAoData.beginTime = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.adminsLogAoData.beginTime) {
+                        $scope.adminsLogAoData.beginTime = '';
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.adminsLogAoData.endTime = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.adminsLogAoData.endTime) {
+                        $scope.adminsLogAoData.endTime = '';
+                    }
+                }
+            }
+        });
+
+        $scope.showDescriptionDetail = function (data) {
+            var tempStr = '';
+            var tempObj = JSON.parse(data);
+            if (typeof tempObj == 'object') {
+                window.Object.keys(tempObj).map(function (item) {
+                    tempStr = tempStr + '<span style="max-width: 180px;text-align: left">'+$translate.instant(item)+'</span>'  + ':' + tempObj[item].toString() + '</br>'
+                })
+            }
+            return tempStr;
+        };
+
+
+        // 页面加载执行的函数
+    }
+})();
+
+(function() {
+
     angular
         .module('admin.affiliatesPlans')
         .controller('AffiliatesPlansController', AffiliatesPlansController);
@@ -2413,259 +2420,6 @@
 
         $scope.initMethodsNameModalData();
 
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.bankCards')
-        .controller('BankCardsController', BankCardsController);
-
-    BankCardsController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModal',
-        'adminService'
-    ];
-
-    function BankCardsController(
-        $scope,
-        $rootScope,
-        $uibModal,
-        adminService
-    ) {
-
-        // 原始的数据
-        $scope.bankCards = [];
-        $scope.bankCardsReload = 1;
-        $scope.bankCardsAoData = {};
-        $scope.tempBankCardsAoData = {};
-
-        $scope.bankCardsUrl = $rootScope.URL.BANKCARDS.GET;
-
-        $scope.trigerSearch = function() {
-            if($scope.bankCardsAoData.account_number){
-                if($scope.bankCardsAoData.account_number.length<3||$scope.bankCardsAoData.account_number.length>20){
-                    $rootScope.alertErrorMsg('account number length should between 3 and 20');
-                    return;
-                }
-            }
-            $scope.tempBankCardsAoData = Object.assign($scope.tempBankCardsAoData,$scope.bankCardsAoData)
-            $scope.bankCardsReload++;
-        };
-
-        $scope.resetSearch = function() {
-            $scope.bankCardsAoData = {};
-            var tempData = $scope.tempBankCardsAoData;
-            $scope.tempBankCardsAoData = {
-                page:tempData.page,
-                pageSize:tempData.pageSize
-            }
-            $scope.bankCardsReload++;
-        };
-
-        // 初始化table数据
-        $scope.initBankCardsData = function () {
-            $scope.bankCardsReload++;
-        };
-
-        // 保存
-        /**
-         *
-         * @param bankCards BANKCARDSTITLE数据对象
-         * @param item
-         */
-
-        $scope.saveBankCards = function (bankCards, item) {
-            var tempData = angular.extend({}, bankCards, item);
-            if ($scope.validIsNew(tempData._id)) {
-                delete tempData._id;
-                adminService.postReq($rootScope.URL.BANKCARDS.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initBankCardsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (!$scope.validIsNew(tempData._id) && bankCards.id) {
-                delete tempData._id;
-                adminService.patchReq($rootScope.URL.BANKCARDS.PATCH+'/'+bankCards.id, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $scope.initBankCardsData();
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-        };
-
-        // 删除bankCards
-        /**
-         * @param bankCards BANKCARDSTITLE数据对象
-         * @return null
-         */
-        $scope.deleteBankCards = function (bankCards) {
-            if (!$scope.validIsNew(bankCards._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.BANKCARDS.DELETE+'/'+bankCards.id, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initBankCardsData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 恢复bankCards
-        /**
-         * @param bankCards BANKCARDSTITLE数据对象
-         * @return null
-         */
-        $scope.recoverBankCards = function (bankCards) {
-            if (!$scope.validIsNew(bankCards._id)) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.BANKCARDS.PUT+'/'+bankCards.id, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initBankCardsData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                                return '';
-                            }
-                        }
-                    });
-                }, 'recover');
-            }
-        };
-
-        // 页面加载执行的函数
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.bankCards')
-        .controller('BankCardsFilterModalController', BankCardsFilterModalController);
-
-    BankCardsFilterModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'filter',
-        'adminService'
-    ];
-
-    function BankCardsFilterModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        filter,
-        adminService
-    ) {
-
-        // 原始的数据
-        $scope.bankCards = [];
-        $scope.bankCardsReload = 1;
-        $scope.bankCardsAoData = {};
-        $scope.tempBankCardsAoData = {};
-
-        $scope.trigerSearch = function() {
-            if($scope.bankCardsAoData.account_number){
-                if($scope.bankCardsAoData.account_number.length<3||$scope.bankCardsAoData.account_number.length>20){
-                    $rootScope.alertErrorMsg('account number length should between 3 and 20');
-                    return;
-                }
-            }
-            $scope.tempBankCardsAoData = Object.assign($scope.tempBankCardsAoData,$scope.bankCardsAoData)
-            $scope.bankCardsReload++;
-        };
-
-        $scope.resetSearch = function() {
-            $scope.bankCardsAoData = {};
-            var tempData = $scope.tempBankCardsAoData;
-            $scope.tempBankCardsAoData = {
-                page:tempData.page,
-                pageSize:tempData.pageSize
-            }
-            $scope.bankCardsReload++;
-        };
-
-        // 初始化table数据
-        $scope.initBankCardsData = function () {
-            $scope.bankCardsReload++;
-        };
-
-        $scope.filter = filter;
-
-        $scope.bankCardsUrl = $rootScope.URL.USERSMANAGE.SELECTCARDS+'/'+$scope.filter.user_id||'';
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-        // 页面加载执行的函数
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.bankCards')
-        .controller('UserBankCardsModalController', UserBankCardsModalController);
-
-    UserBankCardsModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        '$translate',
-        'adminService',
-        'modalItem'
-    ];
-
-    function UserBankCardsModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        $translate,
-        adminService,
-        modalItem
-    ) {
-
-        // 原始的数据
-        $scope.userBankCards = [];
-        $scope.showUserBankCards = [];
-        $scope.userBankCardsReload = 1;
-        $scope.userBankCardsAoData = {};
-        $scope.userBankCardsSearch = '';
-
-        // 初始化table数据
-        $scope.initBankCardsData = function () {
-            $scope.userBankCards = modalItem.data
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-        $scope.initBankCardsData();
     }
 })();
 
@@ -3255,6 +3009,259 @@
 (function() {
 
     angular
+        .module('admin.bankCards')
+        .controller('BankCardsController', BankCardsController);
+
+    BankCardsController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModal',
+        'adminService'
+    ];
+
+    function BankCardsController(
+        $scope,
+        $rootScope,
+        $uibModal,
+        adminService
+    ) {
+
+        // 原始的数据
+        $scope.bankCards = [];
+        $scope.bankCardsReload = 1;
+        $scope.bankCardsAoData = {};
+        $scope.tempBankCardsAoData = {};
+
+        $scope.bankCardsUrl = $rootScope.URL.BANKCARDS.GET;
+
+        $scope.trigerSearch = function() {
+            if($scope.bankCardsAoData.account_number){
+                if($scope.bankCardsAoData.account_number.length<3||$scope.bankCardsAoData.account_number.length>20){
+                    $rootScope.alertErrorMsg('account number length should between 3 and 20');
+                    return;
+                }
+            }
+            $scope.tempBankCardsAoData = Object.assign($scope.tempBankCardsAoData,$scope.bankCardsAoData)
+            $scope.bankCardsReload++;
+        };
+
+        $scope.resetSearch = function() {
+            $scope.bankCardsAoData = {};
+            var tempData = $scope.tempBankCardsAoData;
+            $scope.tempBankCardsAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+            $scope.bankCardsReload++;
+        };
+
+        // 初始化table数据
+        $scope.initBankCardsData = function () {
+            $scope.bankCardsReload++;
+        };
+
+        // 保存
+        /**
+         *
+         * @param bankCards BANKCARDSTITLE数据对象
+         * @param item
+         */
+
+        $scope.saveBankCards = function (bankCards, item) {
+            var tempData = angular.extend({}, bankCards, item);
+            if ($scope.validIsNew(tempData._id)) {
+                delete tempData._id;
+                adminService.postReq($rootScope.URL.BANKCARDS.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initBankCardsData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (!$scope.validIsNew(tempData._id) && bankCards.id) {
+                delete tempData._id;
+                adminService.patchReq($rootScope.URL.BANKCARDS.PATCH+'/'+bankCards.id, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $scope.initBankCardsData();
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+        };
+
+        // 删除bankCards
+        /**
+         * @param bankCards BANKCARDSTITLE数据对象
+         * @return null
+         */
+        $scope.deleteBankCards = function (bankCards) {
+            if (!$scope.validIsNew(bankCards._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.BANKCARDS.DELETE+'/'+bankCards.id, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initBankCardsData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 恢复bankCards
+        /**
+         * @param bankCards BANKCARDSTITLE数据对象
+         * @return null
+         */
+        $scope.recoverBankCards = function (bankCards) {
+            if (!$scope.validIsNew(bankCards._id)) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.BANKCARDS.PUT+'/'+bankCards.id, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initBankCardsData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                                return '';
+                            }
+                        }
+                    });
+                }, 'recover');
+            }
+        };
+
+        // 页面加载执行的函数
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.bankCards')
+        .controller('BankCardsFilterModalController', BankCardsFilterModalController);
+
+    BankCardsFilterModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'filter',
+        'adminService'
+    ];
+
+    function BankCardsFilterModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        filter,
+        adminService
+    ) {
+
+        // 原始的数据
+        $scope.bankCards = [];
+        $scope.bankCardsReload = 1;
+        $scope.bankCardsAoData = {};
+        $scope.tempBankCardsAoData = {};
+
+        $scope.trigerSearch = function() {
+            if($scope.bankCardsAoData.account_number){
+                if($scope.bankCardsAoData.account_number.length<3||$scope.bankCardsAoData.account_number.length>20){
+                    $rootScope.alertErrorMsg('account number length should between 3 and 20');
+                    return;
+                }
+            }
+            $scope.tempBankCardsAoData = Object.assign($scope.tempBankCardsAoData,$scope.bankCardsAoData)
+            $scope.bankCardsReload++;
+        };
+
+        $scope.resetSearch = function() {
+            $scope.bankCardsAoData = {};
+            var tempData = $scope.tempBankCardsAoData;
+            $scope.tempBankCardsAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            }
+            $scope.bankCardsReload++;
+        };
+
+        // 初始化table数据
+        $scope.initBankCardsData = function () {
+            $scope.bankCardsReload++;
+        };
+
+        $scope.filter = filter;
+
+        $scope.bankCardsUrl = $rootScope.URL.USERSMANAGE.SELECTCARDS+'/'+$scope.filter.user_id||'';
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+        // 页面加载执行的函数
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.bankCards')
+        .controller('UserBankCardsModalController', UserBankCardsModalController);
+
+    UserBankCardsModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        '$translate',
+        'adminService',
+        'modalItem'
+    ];
+
+    function UserBankCardsModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        $translate,
+        adminService,
+        modalItem
+    ) {
+
+        // 原始的数据
+        $scope.userBankCards = [];
+        $scope.showUserBankCards = [];
+        $scope.userBankCardsReload = 1;
+        $scope.userBankCardsAoData = {};
+        $scope.userBankCardsSearch = '';
+
+        // 初始化table数据
+        $scope.initBankCardsData = function () {
+            $scope.userBankCards = modalItem.data
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+        $scope.initBankCardsData();
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.bigwinsManage')
         .controller('BigwinsManageController', BigwinsManageController);
 
@@ -3395,14 +3402,14 @@
                     $scope.bigwinsManageAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.bigwinsManageAoData.start_time) {
-                        delete $scope.bigwinsManageAoData.start_time;
+                        $scope.bigwinsManageAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.bigwinsManageAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.bigwinsManageAoData.end_time) {
-                        delete $scope.bigwinsManageAoData.end_time;
+                        $scope.bigwinsManageAoData.end_time = '';
                     }
                 }
             }
@@ -6471,14 +6478,14 @@
                     $scope.gameRecordsAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.gameRecordsAoData.start_time) {
-                        delete $scope.gameRecordsAoData.start_time;
+                        $scope.gameRecordsAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.gameRecordsAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.gameRecordsAoData.end_time) {
-                        delete $scope.gameRecordsAoData.end_time;
+                        $scope.gameRecordsAoData.end_time = '';
                     }
                 }
             }
@@ -6636,14 +6643,14 @@
                     $scope.gameRecordsAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.gameRecordsAoData.start_time) {
-                        delete $scope.gameRecordsAoData.start_time;
+                        $scope.gameRecordsAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.gameRecordsAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.gameRecordsAoData.end_time) {
-                        delete $scope.gameRecordsAoData.end_time;
+                        $scope.gameRecordsAoData.end_time = '';
                     }
                 }
             }
@@ -9186,14 +9193,14 @@
                     $scope.ordersManageAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.ordersManageAoData.start_time) {
-                        delete $scope.ordersManageAoData.start_time;
+                        $scope.ordersManageAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.ordersManageAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.ordersManageAoData.end_time) {
-                        delete $scope.ordersManageAoData.end_time;
+                        $scope.ordersManageAoData.end_time = '';
                     }
                 }
             }
@@ -9445,14 +9452,14 @@
                     $scope.ordersManageAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.ordersManageAoData.start_time) {
-                        delete $scope.ordersManageAoData.start_time;
+                        $scope.ordersManageAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.ordersManageAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.ordersManageAoData.end_time) {
-                        delete $scope.ordersManageAoData.end_time;
+                        $scope.ordersManageAoData.end_time = '';
                     }
                 }
             }
@@ -11162,14 +11169,14 @@
                     $scope.rebatesListAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.rebatesListAoData.start_time) {
-                        delete $scope.rebatesListAoData.start_time;
+                        $scope.rebatesListAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.rebatesListAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.rebatesListAoData.end_time) {
-                        delete $scope.rebatesListAoData.end_time;
+                        $scope.rebatesListAoData.end_time = '';
                     }
                 }
             }
@@ -11310,14 +11317,14 @@
                     $scope.rebatesListAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.rebatesListAoData.start_time) {
-                        delete $scope.rebatesListAoData.start_time;
+                        $scope.rebatesListAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.rebatesListAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.rebatesListAoData.end_time) {
-                        delete $scope.rebatesListAoData.end_time;
+                        $scope.rebatesListAoData.end_time = '';
                     }
                 }
             }
@@ -11399,14 +11406,14 @@
                     $scope.reliefsListAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.reliefsListAoData.start_time) {
-                        delete $scope.reliefsListAoData.start_time;
+                        $scope.reliefsListAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.reliefsListAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.reliefsListAoData.end_time) {
-                        delete $scope.reliefsListAoData.end_time;
+                        $scope.reliefsListAoData.end_time = '';
                     }
                 }
             }
@@ -11945,14 +11952,14 @@
                     $scope.transactionsDetailAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.transactionsDetailAoData.start_time) {
-                        delete $scope.transactionsDetailAoData.start_time;
+                        $scope.transactionsDetailAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.transactionsDetailAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.transactionsDetailAoData.end_time) {
-                        delete $scope.transactionsDetailAoData.end_time;
+                        $scope.transactionsDetailAoData.end_time = '';
                     }
                 }
             }
@@ -12155,14 +12162,14 @@
                     $scope.transactionsDetailAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.transactionsDetailAoData.start_time) {
-                        delete $scope.transactionsDetailAoData.start_time;
+                        $scope.transactionsDetailAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.transactionsDetailAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.transactionsDetailAoData.end_time) {
-                        delete $scope.transactionsDetailAoData.end_time;
+                        $scope.transactionsDetailAoData.end_time = '';
                     }
                 }
             }
@@ -12300,14 +12307,14 @@
                     $scope.transfersListAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.transfersListAoData.start_time) {
-                        delete $scope.transfersListAoData.start_time;
+                        $scope.transfersListAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.transfersListAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.transfersListAoData.end_time) {
-                        delete $scope.transfersListAoData.end_time;
+                        $scope.transfersListAoData.end_time = '';
                     }
                 }
             }
@@ -12451,14 +12458,14 @@
                     $scope.transfersListAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.transfersListAoData.start_time) {
-                        delete $scope.transfersListAoData.start_time;
+                        $scope.transfersListAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.transfersListAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.transfersListAoData.end_time) {
-                        delete $scope.transfersListAoData.end_time;
+                        $scope.transfersListAoData.end_time = '';
                     }
                 }
             }
@@ -13723,14 +13730,14 @@
                     $scope.usersManageAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.usersManageAoData.start_time) {
-                        delete $scope.usersManageAoData.start_time;
+                        $scope.usersManageAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.usersManageAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.usersManageAoData.end_time) {
-                        delete $scope.usersManageAoData.end_time;
+                        $scope.usersManageAoData.end_time = '';
                     }
                 }
             }
@@ -14036,14 +14043,14 @@
                     $scope.usersManageAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.usersManageAoData.start_time) {
-                        delete $scope.usersManageAoData.start_time;
+                        $scope.usersManageAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.usersManageAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.usersManageAoData.end_time) {
-                        delete $scope.usersManageAoData.end_time;
+                        $scope.usersManageAoData.end_time = '';
                     }
                 }
             }
@@ -14923,14 +14930,14 @@
                     $scope.withdrawsManageAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.withdrawsManageAoData.start_time) {
-                        delete $scope.withdrawsManageAoData.start_time;
+                        $scope.withdrawsManageAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.withdrawsManageAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.withdrawsManageAoData.end_time) {
-                        delete $scope.withdrawsManageAoData.end_time;
+                        $scope.withdrawsManageAoData.end_time = '';
                     }
                 }
             }
@@ -15290,14 +15297,14 @@
                     $scope.withdrawsManageAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.withdrawsManageAoData.start_time) {
-                        delete $scope.withdrawsManageAoData.start_time;
+                        $scope.withdrawsManageAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.withdrawsManageAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.withdrawsManageAoData.end_time) {
-                        delete $scope.withdrawsManageAoData.end_time;
+                        $scope.withdrawsManageAoData.end_time = '';
                     }
                 }
             }

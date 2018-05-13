@@ -81,14 +81,14 @@
                     $scope.rebatesListAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.rebatesListAoData.start_time) {
-                        delete $scope.rebatesListAoData.start_time;
+                        $scope.rebatesListAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.rebatesListAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.rebatesListAoData.end_time) {
-                        delete $scope.rebatesListAoData.end_time;
+                        $scope.rebatesListAoData.end_time = '';
                     }
                 }
             }

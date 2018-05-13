@@ -112,14 +112,14 @@
                     $scope.transfersListAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.transfersListAoData.start_time) {
-                        delete $scope.transfersListAoData.start_time;
+                        $scope.transfersListAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.transfersListAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.transfersListAoData.end_time) {
-                        delete $scope.transfersListAoData.end_time;
+                        $scope.transfersListAoData.end_time = '';
                     }
                 }
             }

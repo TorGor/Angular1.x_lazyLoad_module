@@ -126,14 +126,14 @@
                     $scope.gameRecordsAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.gameRecordsAoData.start_time) {
-                        delete $scope.gameRecordsAoData.start_time;
+                        $scope.gameRecordsAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.gameRecordsAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.gameRecordsAoData.end_time) {
-                        delete $scope.gameRecordsAoData.end_time;
+                        $scope.gameRecordsAoData.end_time = '';
                     }
                 }
             }

@@ -141,14 +141,14 @@
                     $scope.bigwinsManageAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.bigwinsManageAoData.start_time) {
-                        delete $scope.bigwinsManageAoData.start_time;
+                        $scope.bigwinsManageAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.bigwinsManageAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.bigwinsManageAoData.end_time) {
-                        delete $scope.bigwinsManageAoData.end_time;
+                        $scope.bigwinsManageAoData.end_time = '';
                     }
                 }
             }

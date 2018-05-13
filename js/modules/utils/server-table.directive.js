@@ -148,14 +148,21 @@
                                 if(parseInt($scope.pageMessage.draw)<=parseInt(data.data.draw)){
                                     $scope.pageMessage.count=angular.copy(data.data.totalSize);
                                     $scope.pageTotle=angular.copy(data.data.totalPage);
-                                    $scope.items=angular.copy(data.data.list);
+                                    if($scope.handleData){
+                                        $scope.items=angular.copy($scope.handleData(data.data.list));
+                                    }else{
+                                        $scope.items=angular.copy(data.data.list);
+                                    }
                                 }
                             }else{
                                 $scope.pageMessage.draw=angular.copy(data.data.draw||1);
                                 $scope.pageMessage.count=angular.copy(data.data.totalSize);
                                 $scope.pageTotle=angular.copy(data.data.totalPage);
-                                $scope.items=angular.copy(data.data.list);
-                                console.log($scope.pageMessage,'$scope.pageMessage')
+                                if($scope.handleData){
+                                    $scope.items=angular.copy($scope.handleData(data.data.list));
+                                }else{
+                                    $scope.items=angular.copy(data.data.list);
+                                }
                             }
                         });
                     }

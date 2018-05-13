@@ -56,14 +56,14 @@
                     $scope.reliefsListAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.reliefsListAoData.start_time) {
-                        delete $scope.reliefsListAoData.start_time;
+                        $scope.reliefsListAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.reliefsListAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.reliefsListAoData.end_time) {
-                        delete $scope.reliefsListAoData.end_time;
+                        $scope.reliefsListAoData.end_time = '';
                     }
                 }
             }

@@ -36,7 +36,7 @@
                   </select>
                </div>
             </form>
-            <div server-data-table items="admins" ao-data="tempAdminsAoData" reload="adminsReload" service-name="superAdminService" service-name-attr="getReq" url="URL.MANAGEADMINUSER.GET" handle-data="false">
+            <div server-data-table items="admins" ao-data="tempAdminsAoData" reload="adminsReload" service-name="superAdminService" service-name-attr="getReq" url="URL.MANAGEADMINUSER.GET" handle-data="changePasswordNull">
                <table width="100%" class="table table-bordered table-hover bg-white">
                   <thead>
                      <tr class="bg-gray-light text-bold">
@@ -53,7 +53,7 @@
                            <span editable-text="item.username" e-name="username" e-formclass="xeditable-md" onbeforesave="checkRequiredData($data)" e-form="rowform" e-required="">{{ item.username || '' }}</span>
                         </td>
                         <td>
-                           <span editable-text="item.password" e-name="password" e-formclass="xeditable-md" onbeforesave="checkPassword($data)" e-form="rowform" e-type="password" e-required="">******</span>
+                           <span style='color: #656565' editable-text="item.password" e-name="password" e-formclass="xeditable-md" onbeforesave="checkPassword($data)" e-form="rowform" e-type="password" e-required="">******</span>
                         </td>
                         <td>
                            <span>{{formatTime(item.createTime||'')}}</span>

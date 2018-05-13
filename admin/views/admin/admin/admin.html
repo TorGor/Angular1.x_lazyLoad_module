@@ -77,7 +77,7 @@
                     service-name="superAdminService"
                     service-name-attr="getReq"
                     url="URL.MANAGEADMINUSER.GET"
-                    handle-data="false"
+                    handle-data="changePasswordNull"
                 >
                     <table width="100%" class="table table-bordered table-hover bg-white">
                         <thead>
@@ -98,7 +98,7 @@
                                 >{{ item.username || '' }}</span>
                             </td>
                             <td>
-                                <span
+                                <span style='color: #656565'
                                     editable-text="item.password" e-name="password" e-formclass="xeditable-md"
                                     onbeforesave="checkPassword($data)" e-form="rowform" e-type="password" e-required=""
                                 >******</span>

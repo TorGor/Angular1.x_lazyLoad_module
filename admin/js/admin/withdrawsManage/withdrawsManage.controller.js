@@ -203,14 +203,14 @@
                     $scope.withdrawsManageAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.withdrawsManageAoData.start_time) {
-                        delete $scope.withdrawsManageAoData.start_time;
+                        $scope.withdrawsManageAoData.start_time = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.withdrawsManageAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.withdrawsManageAoData.end_time) {
-                        delete $scope.withdrawsManageAoData.end_time;
+                        $scope.withdrawsManageAoData.end_time = '';
                     }
                 }
             }

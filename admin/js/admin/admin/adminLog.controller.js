@@ -74,14 +74,14 @@
                     $scope.adminsLogAoData.beginTime = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.adminsLogAoData.beginTime) {
-                        delete $scope.adminsLogAoData.beginTime;
+                        $scope.adminsLogAoData.beginTime = '';
                     }
                 }
                 if ($scope.searchTimeEnd) {
                     $scope.adminsLogAoData.endTime = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
                 } else {
                     if ($scope.adminsLogAoData.endTime) {
-                        delete $scope.adminsLogAoData.endTime;
+                        $scope.adminsLogAoData.endTime = '';
                     }
                 }
             }
