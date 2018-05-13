@@ -46,25 +46,33 @@
                             });
                             $scope.oneLevelMenus = angular.copy($scope.oneLevelMenus);
                             $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
-                                oneLevelMenusItem.showSecond = true;
+                                oneLevelMenusItem.showSecond = false;
                                 oneLevelMenusItem.secondLevelMenus = angular.copy(allMenus.filter(function (allMenusItem) {
                                     return allMenusItem.parentId == oneLevelMenusItem.id;
                                 }));
                             });
                             console.log($scope.oneLevelMenus, '$scope.oneLevelMenus');
-                            if (isClick) {
-                                $scope.buttons = [];
-                                $scope.currentSecondLevelMenu = {};
-                            } else {
-                                if (!$scope.currentSecondLevelMenu.id) {
-                                    for (var i = 0, j = $scope.oneLevelMenus.length; i < j; i++) {
-                                        if ($scope.oneLevelMenus[i]['secondLevelMenus'][0]) {
-                                            $scope.oneLevelMenus[i]['showSecond'] = true;
-                                            $scope.currentSecondLevelMenu = angular.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
-                                            $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
-                                            break;
-                                        }
-                                    }
+                            // if (isClick) {
+                            //     $scope.buttons = [];
+                            //     $scope.currentSecondLevelMenu = {};
+                            // } else {
+                            //     if (!$scope.currentSecondLevelMenu.id) {
+                            //         for (var i = 0, j = $scope.oneLevelMenus.length; i < j; i++) {
+                            //             if ($scope.oneLevelMenus[i]['secondLevelMenus'][0]) {
+                            //                 $scope.oneLevelMenus[i]['showSecond'] = true;
+                            //                 $scope.currentSecondLevelMenu = angular.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
+                            //                 $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
+                            //                 break;
+                            //             }
+                            //         }
+                            //     }
+                            // }
+                            for (var i = 0, j = $scope.oneLevelMenus.length; i < j; i++) {
+                                if ($scope.oneLevelMenus[i]['secondLevelMenus'][0]) {
+                                    $scope.oneLevelMenus[i]['showSecond'] = true;
+                                    $scope.currentSecondLevelMenu = angular.copy($scope.oneLevelMenus[i]['secondLevelMenus'][0]);
+                                    $scope.getSecondLevelButtons($scope.currentSecondLevelMenu);
+                                    break;
                                 }
                             }
                         } else {
