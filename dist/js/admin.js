@@ -47,14 +47,14 @@
 (function() {
 
     angular
-        .module('admin.affiliatesManage', [
+        .module('admin.admin', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.admin', [
+        .module('admin.affiliatesManage', [
             'app.core',
         ]);
 })();
@@ -75,14 +75,14 @@
 (function() {
 
     angular
-        .module('admin.bankCards', [
+        .module('admin.bigwinsManage', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.bigwinsManage', [
+        .module('admin.bankCards', [
             'app.core',
         ]);
 })();
@@ -167,14 +167,14 @@
 (function() {
 
     angular
-        .module('admin.gamesProducts', [
+        .module('admin.localeLanguage', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.localeLanguage', [
+        .module('admin.gamesProducts', [
             'app.core',
         ]);
 })();
@@ -188,14 +188,14 @@
 (function() {
 
     angular
-        .module('admin.mediaFiles', [
+        .module('admin.menu', [
             'app.core',
         ]);
 })();
 (function() {
 
     angular
-        .module('admin.menu', [
+        .module('admin.mediaFiles', [
             'app.core',
         ]);
 })();
@@ -1155,6 +1155,455 @@
 
 (function() {
 
+
+    angular
+        .module('admin.admin')
+        .controller('SuperAdminAdminController', SuperAdminAdminController);
+
+    SuperAdminAdminController.$inject = [
+        '$scope',
+        '$rootScope',
+        'superAdminService'
+    ];
+
+    function SuperAdminAdminController(
+        $scope,
+        $rootScope,
+        superAdminService
+    ) {
+
+        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
+
+        // 原始的二级数据
+        $scope.admins = [];
+
+        // 过滤出来的二级数据
+        $scope.adminsReload = 1;
+        $scope.adminsAoData = {
+            status: ''
+        };
+        $scope.tempAdminsAoData = {
+            status: ''
+        };
+
+        $scope.trigerSearch = function() {
+            $scope.tempAdminsAoData = Object.assign($scope.tempAdminsAoData,$scope.adminsAoData);
+            $scope.adminsReload++;
+        };
+
+        $scope.resetSearch = function() {
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            $scope.adminsAoData = {
+                status: ''
+            };
+            var tempData = $scope.tempAdminsAoData;
+            $scope.tempAdminsAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize,
+                status: ''
+            };
+            $scope.adminsReload++;
+        };
+
+        /**
+         * 校验密码长度
+         *
+         * @param {any} str 字符串
+         */
+        $scope.checkPassword = function(str) {
+            if (typeof str === 'string') {
+                var tempStr = $scope.checkRequiredData(str);
+                if(typeof tempStr === 'string' && tempStr.length){
+                    return tempStr;
+                }
+                if(str.length<6 || str.length>16){
+                    return 'password length should be between 6 and 16!';
+                }else{
+                    return true;
+                }
+            }
+            return 'password should be string';
+        };
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.adminsAoData.start = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.adminsAoData.start) {
+                        $scope.adminsAoData.start = '';
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.adminsAoData.end = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.adminsAoData.end) {
+                        $scope.adminsAoData.end = '';
+                    }
+                }
+            }
+        });
+
+        // 保存管理员
+        /**
+         * @param admin 管理员对象
+         * @param item 显示输入的数据对象
+         * @return null
+         */
+        $scope.saveAdmin = function (admin, item) {
+            var tempData = angular.extend({}, admin, item);
+            if (!tempData.id) {
+                if(!$scope.validPower("MANAGEADMINUSER", ["POST"])){
+                    return '';
+                }
+                delete tempData.id;
+                superAdminService.postReq($rootScope.URL.MANAGEADMINUSER.POST, {}, tempData).then(function (data) {
+                    console.log(data);
+                    $scope.adminsReload++;
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $rootScope.toasterSuccess(data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            } else if (tempData.id) {
+                if(!$scope.validPower("MANAGEADMINUSER", ["PATCH"])){
+                    return '';
+                }
+                superAdminService.patchReq($rootScope.URL.MANAGEADMINUSER.PATCH, {}, tempData).then(function (data) {
+                    console.log(data);
+                    $scope.adminsReload++;
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $rootScope.toasterSuccess(data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            }
+            return '';
+
+        };
+
+        // 删除admin
+        /**
+         * @param admin 管理员数据对象
+         * @return null
+         */
+        $scope.deleteAdmin = function (admin) {
+            if(!$scope.validPower("MANAGEADMINUSER", ["DELETE"])){
+                return '';
+            }
+            if (admin.id) {
+                $rootScope.alertConfirm(function () {
+                    superAdminService.deleteReq($rootScope.URL.MANAGEADMINUSER.DELETE, { id: admin.id }, {}).then(function (data) {
+                        if (typeof data.success === 'boolean') {
+                            if (data.success) {
+                                $rootScope.toasterSuccess(data.msg);
+                                $scope.adminsReload++;
+                            } else {
+                                $rootScope.alertErrorMsg(data.msg);
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        $scope.changePasswordNull = function(arr) {
+            arr.forEach(function (adminItem, adminIndex) {
+                adminItem.password = '';
+            });
+            return arr;
+        };
+
+        // 添加按钮
+        $scope.addAdmins = function () {
+            $scope.admins.unshift({
+                'id': null,
+                'username': '',
+                'password': '',
+                'status': '1',
+                'level': null,
+                'createTime': null,
+                'optTime': null,
+                'roleId': null,
+                'isShowTrEdit': true
+            });
+        };
+
+        /**
+         *
+         * @param item 添加的对象
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.admins.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.admin')
+        .controller('SuperAdminAdminRelationController', SuperAdminAdminRelationController);
+
+    SuperAdminAdminRelationController.$inject = [
+        '$scope',
+        '$rootScope',
+        'superAdminService',
+        '$timeout'
+    ];
+
+    function SuperAdminAdminRelationController(
+        $scope,
+        $rootScope,
+        superAdminService,
+        $timeout
+    ) {
+
+        $scope.roles = [];
+
+        $scope.admins = [];
+
+        $scope.currentAdmin = {};
+
+        $scope.roleMenuAndBtn = [];
+
+        $scope.initRolesData = function () {
+            superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.MIDGET, { 'pageSize': 100, 'curPage': 1 }, {}).then(function (data) {
+                console.log(data, 'initRolesData');
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+                        $scope.roles = angular.copy(data.data);
+                    } else {
+                        $rootScope.alertErrorMsg(data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.initAdminsData = function (userName) {
+            superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.LEFTGET, { 'pageSize': 100, 'curPage': 1, 'status': 1, 'userName': userName || '' }, {}).then(function (data) {
+                console.log(data);
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+                        $scope.admins = angular.copy(data.data.list);
+                        if (!$scope.currentAdmin.id) {
+                            if ($scope.admins.length > 0) {
+                                $scope.currentAdmin = angular.copy($scope.admins[0]);
+                                $scope.getRoleMenuAndBtn($scope.currentAdmin.roleId);
+                            }
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(data.msg);
+                    }
+                }
+            });
+        };
+
+        // 获取用户的menu和button
+        /**
+         * @param id 角色对象的id
+         * @return null
+         */
+        $scope.getRoleMenuAndBtn = function (id) {
+            $scope.roleMenuAndBtn = [];
+            if (id) {
+                superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.RIGHTGET, { 'roleId': id }, {}).then(function (data) {
+                    console.log(data, 'getRoleMenuAndBtn');
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.roleMenuAndBtn = angular.copy(data.data);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            }else{
+
+            }
+        };
+
+        // 获取用户的menu和button
+        /**
+         * @param admin 管理员对象
+         * @return null
+         */
+        $scope.setCurrentAdmin = function (admin) {
+            $scope.currentAdmin = angular.copy(admin);
+            $scope.getRoleMenuAndBtn(admin.roleId);
+        };
+
+        // 设置用户的roleId
+        /**
+         * @param role 角色对象
+         * @return null
+         */
+        $scope.setAdminRoleId = function (role) {
+            if ($scope.currentAdmin.id) {
+                var tempData = angular.copy($scope.currentAdmin);
+                tempData.roleId = role.id;
+                superAdminService.patchReq($rootScope.URL.MANAGEADMINROLE.MIDPATCH, {}, tempData).then(function (data) {
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $rootScope.toasterSuccess(data.msg);
+                            $scope.currentAdmin.roleId = role.id;
+                            $scope.admins.forEach(function (admin) {
+                                if (admin.id == $scope.currentAdmin.id) {
+                                    admin.roleId = role.id;
+                                }
+                            });
+                            $scope.getRoleMenuAndBtn(role.id);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            } else {
+                $rootScope.alertErrorMsg('select admin first!');
+                return;
+            }
+        };
+
+        var timer = null;
+
+        $scope.$watch('userName', function (newValue, oldValue) {
+            if (newValue != oldValue) {
+                if (timer) {
+                    $timeout.cancel(timer);
+                }
+                timer = $timeout(function() {
+                    $scope.initAdminsData($scope.userName);
+                }, 200);
+            }
+        });
+
+        // 页面加载执行的函数
+
+        $scope.initRolesData();
+
+        $scope.initAdminsData();
+    }
+})();
+
+(function() {
+
+
+    angular
+        .module('admin.admin')
+        .controller('SuperAdminAdminLogController', SuperAdminAdminLogController);
+
+    SuperAdminAdminLogController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$translate',
+        'superAdminService'
+    ];
+
+    function SuperAdminAdminLogController(
+        $scope,
+        $rootScope,
+        $translate,
+        superAdminService
+    ) {
+
+        $scope.methodTypeOptions = [
+            {
+                label:'All',
+                value:''
+            },
+            {
+                label:'GET',
+                value:'GET'
+            },
+            {
+                label:'POST',
+                value:'POST'
+            },
+            {
+                label:'PATCH',
+                value:'PATCH'
+            },
+            {
+                label:'DELETE',
+                value:'DELETE'
+            },
+            {
+                label:'PUT',
+                value:'PUT'
+            },
+        ];
+
+        $scope.adminsLog = [];
+        $scope.adminsLogReload = 1;
+        $scope.tempAdminsLogAoData = {};
+        $scope.adminsLogAoData = {};
+
+        $scope.trigerSearch = function() {
+            $scope.tempAdminsLogAoData = Object.assign($scope.tempAdminsLogAoData,$scope.adminsLogAoData);
+            $scope.adminsLogReload++;
+        };
+
+        $scope.resetSearch = function() {
+            $scope.adminsLogAoData = {};
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            var tempData = $scope.tempAdminsLogAoData;
+            $scope.tempAdminsLogAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            };
+            $scope.adminsLogReload++;
+        };
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.adminsLogAoData.beginTime = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.adminsLogAoData.beginTime) {
+                        $scope.adminsLogAoData.beginTime = '';
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.adminsLogAoData.endTime = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.adminsLogAoData.endTime) {
+                        $scope.adminsLogAoData.endTime = '';
+                    }
+                }
+            }
+        });
+
+        $scope.showDescriptionDetail = function (data) {
+            var tempStr = '';
+            var tempObj = JSON.parse(data);
+            if (typeof tempObj == 'object') {
+                window.Object.keys(tempObj).map(function (item) {
+                    tempStr = tempStr + '<span style="max-width: 180px;text-align: left">'+$translate.instant(item)+'</span>'  + ':' + tempObj[item].toString() + '</br>'
+                })
+            }
+            return tempStr;
+        };
+
+
+        // 页面加载执行的函数
+    }
+})();
+
+(function() {
+
     angular
         .module('admin.affiliatesManage')
         .controller('AffiliatesManageController', AffiliatesManageController);
@@ -1643,455 +2092,6 @@
 
         $scope.initMethodsNameModalData();
 
-    }
-})();
-
-(function() {
-
-
-    angular
-        .module('admin.admin')
-        .controller('SuperAdminAdminController', SuperAdminAdminController);
-
-    SuperAdminAdminController.$inject = [
-        '$scope',
-        '$rootScope',
-        'superAdminService'
-    ];
-
-    function SuperAdminAdminController(
-        $scope,
-        $rootScope,
-        superAdminService
-    ) {
-
-        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
-
-        // 原始的二级数据
-        $scope.admins = [];
-
-        // 过滤出来的二级数据
-        $scope.adminsReload = 1;
-        $scope.adminsAoData = {
-            status: ''
-        };
-        $scope.tempAdminsAoData = {
-            status: ''
-        };
-
-        $scope.trigerSearch = function() {
-            $scope.tempAdminsAoData = Object.assign($scope.tempAdminsAoData,$scope.adminsAoData);
-            $scope.adminsReload++;
-        };
-
-        $scope.resetSearch = function() {
-            $scope.searchTimeStart = undefined
-            $scope.searchTimeEnd = undefined
-            $scope.adminsAoData = {
-                status: ''
-            };
-            var tempData = $scope.tempAdminsAoData;
-            $scope.tempAdminsAoData = {
-                page:tempData.page,
-                pageSize:tempData.pageSize,
-                status: ''
-            };
-            $scope.adminsReload++;
-        };
-
-        /**
-         * 校验密码长度
-         *
-         * @param {any} str 字符串
-         */
-        $scope.checkPassword = function(str) {
-            if (typeof str === 'string') {
-                var tempStr = $scope.checkRequiredData(str);
-                if(typeof tempStr === 'string' && tempStr.length){
-                    return tempStr;
-                }
-                if(str.length<6 || str.length>16){
-                    return 'password length should be between 6 and 16!';
-                }else{
-                    return true;
-                }
-            }
-            return 'password should be string';
-        };
-
-        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.searchTimeStart) {
-                    $scope.adminsAoData.start = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.adminsAoData.start) {
-                        $scope.adminsAoData.start = '';
-                    }
-                }
-                if ($scope.searchTimeEnd) {
-                    $scope.adminsAoData.end = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.adminsAoData.end) {
-                        $scope.adminsAoData.end = '';
-                    }
-                }
-            }
-        });
-
-        // 保存管理员
-        /**
-         * @param admin 管理员对象
-         * @param item 显示输入的数据对象
-         * @return null
-         */
-        $scope.saveAdmin = function (admin, item) {
-            var tempData = angular.extend({}, admin, item);
-            if (!tempData.id) {
-                if(!$scope.validPower("MANAGEADMINUSER", ["POST"])){
-                    return '';
-                }
-                delete tempData.id;
-                superAdminService.postReq($rootScope.URL.MANAGEADMINUSER.POST, {}, tempData).then(function (data) {
-                    console.log(data);
-                    $scope.adminsReload++;
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $rootScope.toasterSuccess(data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            } else if (tempData.id) {
-                if(!$scope.validPower("MANAGEADMINUSER", ["PATCH"])){
-                    return '';
-                }
-                superAdminService.patchReq($rootScope.URL.MANAGEADMINUSER.PATCH, {}, tempData).then(function (data) {
-                    console.log(data);
-                    $scope.adminsReload++;
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $rootScope.toasterSuccess(data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            }
-            return '';
-
-        };
-
-        // 删除admin
-        /**
-         * @param admin 管理员数据对象
-         * @return null
-         */
-        $scope.deleteAdmin = function (admin) {
-            if(!$scope.validPower("MANAGEADMINUSER", ["DELETE"])){
-                return '';
-            }
-            if (admin.id) {
-                $rootScope.alertConfirm(function () {
-                    superAdminService.deleteReq($rootScope.URL.MANAGEADMINUSER.DELETE, { id: admin.id }, {}).then(function (data) {
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
-                                $rootScope.toasterSuccess(data.msg);
-                                $scope.adminsReload++;
-                            } else {
-                                $rootScope.alertErrorMsg(data.msg);
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        $scope.changePasswordNull = function(arr) {
-            arr.forEach(function (adminItem, adminIndex) {
-                adminItem.password = '';
-            });
-            return arr;
-        };
-
-        // 添加按钮
-        $scope.addAdmins = function () {
-            $scope.admins.unshift({
-                'id': null,
-                'username': '',
-                'password': '',
-                'status': '1',
-                'level': null,
-                'createTime': null,
-                'optTime': null,
-                'roleId': null,
-                'isShowTrEdit': true
-            });
-        };
-
-        /**
-         *
-         * @param item 添加的对象
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.admins.splice(index, 1);
-            }
-        };
-
-        // 页面加载执行的函数
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.admin')
-        .controller('SuperAdminAdminRelationController', SuperAdminAdminRelationController);
-
-    SuperAdminAdminRelationController.$inject = [
-        '$scope',
-        '$rootScope',
-        'superAdminService',
-        '$timeout'
-    ];
-
-    function SuperAdminAdminRelationController(
-        $scope,
-        $rootScope,
-        superAdminService,
-        $timeout
-    ) {
-
-        $scope.roles = [];
-
-        $scope.admins = [];
-
-        $scope.currentAdmin = {};
-
-        $scope.roleMenuAndBtn = [];
-
-        $scope.initRolesData = function () {
-            superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.MIDGET, { 'pageSize': 100, 'curPage': 1 }, {}).then(function (data) {
-                console.log(data, 'initRolesData');
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.roles = angular.copy(data.data);
-                    } else {
-                        $rootScope.alertErrorMsg(data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.initAdminsData = function (userName) {
-            superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.LEFTGET, { 'pageSize': 100, 'curPage': 1, 'status': 1, 'userName': userName || '' }, {}).then(function (data) {
-                console.log(data);
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        $scope.admins = angular.copy(data.data.list);
-                        if (!$scope.currentAdmin.id) {
-                            if ($scope.admins.length > 0) {
-                                $scope.currentAdmin = angular.copy($scope.admins[0]);
-                                $scope.getRoleMenuAndBtn($scope.currentAdmin.roleId);
-                            }
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(data.msg);
-                    }
-                }
-            });
-        };
-
-        // 获取用户的menu和button
-        /**
-         * @param id 角色对象的id
-         * @return null
-         */
-        $scope.getRoleMenuAndBtn = function (id) {
-            $scope.roleMenuAndBtn = [];
-            if (id) {
-                superAdminService.getReq($rootScope.URL.MANAGEADMINROLE.RIGHTGET, { 'roleId': id }, {}).then(function (data) {
-                    console.log(data, 'getRoleMenuAndBtn');
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $scope.roleMenuAndBtn = angular.copy(data.data);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            }else{
-
-            }
-        };
-
-        // 获取用户的menu和button
-        /**
-         * @param admin 管理员对象
-         * @return null
-         */
-        $scope.setCurrentAdmin = function (admin) {
-            $scope.currentAdmin = angular.copy(admin);
-            $scope.getRoleMenuAndBtn(admin.roleId);
-        };
-
-        // 设置用户的roleId
-        /**
-         * @param role 角色对象
-         * @return null
-         */
-        $scope.setAdminRoleId = function (role) {
-            if ($scope.currentAdmin.id) {
-                var tempData = angular.copy($scope.currentAdmin);
-                tempData.roleId = role.id;
-                superAdminService.patchReq($rootScope.URL.MANAGEADMINROLE.MIDPATCH, {}, tempData).then(function (data) {
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $rootScope.toasterSuccess(data.msg);
-                            $scope.currentAdmin.roleId = role.id;
-                            $scope.admins.forEach(function (admin) {
-                                if (admin.id == $scope.currentAdmin.id) {
-                                    admin.roleId = role.id;
-                                }
-                            });
-                            $scope.getRoleMenuAndBtn(role.id);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            } else {
-                $rootScope.alertErrorMsg('select admin first!');
-                return;
-            }
-        };
-
-        var timer = null;
-
-        $scope.$watch('userName', function (newValue, oldValue) {
-            if (newValue != oldValue) {
-                if (timer) {
-                    $timeout.cancel(timer);
-                }
-                timer = $timeout(function() {
-                    $scope.initAdminsData($scope.userName);
-                }, 200);
-            }
-        });
-
-        // 页面加载执行的函数
-
-        $scope.initRolesData();
-
-        $scope.initAdminsData();
-    }
-})();
-
-(function() {
-
-
-    angular
-        .module('admin.admin')
-        .controller('SuperAdminAdminLogController', SuperAdminAdminLogController);
-
-    SuperAdminAdminLogController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$translate',
-        'superAdminService'
-    ];
-
-    function SuperAdminAdminLogController(
-        $scope,
-        $rootScope,
-        $translate,
-        superAdminService
-    ) {
-
-        $scope.methodTypeOptions = [
-            {
-                label:'All',
-                value:''
-            },
-            {
-                label:'GET',
-                value:'GET'
-            },
-            {
-                label:'POST',
-                value:'POST'
-            },
-            {
-                label:'PATCH',
-                value:'PATCH'
-            },
-            {
-                label:'DELETE',
-                value:'DELETE'
-            },
-            {
-                label:'PUT',
-                value:'PUT'
-            },
-        ];
-
-        $scope.adminsLog = [];
-        $scope.adminsLogReload = 1;
-        $scope.tempAdminsLogAoData = {};
-        $scope.adminsLogAoData = {};
-
-        $scope.trigerSearch = function() {
-            $scope.tempAdminsLogAoData = Object.assign($scope.tempAdminsLogAoData,$scope.adminsLogAoData);
-            $scope.adminsLogReload++;
-        };
-
-        $scope.resetSearch = function() {
-            $scope.adminsLogAoData = {};
-            $scope.searchTimeStart = undefined
-            $scope.searchTimeEnd = undefined
-            var tempData = $scope.tempAdminsLogAoData;
-            $scope.tempAdminsLogAoData = {
-                page:tempData.page,
-                pageSize:tempData.pageSize
-            };
-            $scope.adminsLogReload++;
-        };
-
-        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.searchTimeStart) {
-                    $scope.adminsLogAoData.beginTime = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.adminsLogAoData.beginTime) {
-                        $scope.adminsLogAoData.beginTime = '';
-                    }
-                }
-                if ($scope.searchTimeEnd) {
-                    $scope.adminsLogAoData.endTime = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.adminsLogAoData.endTime) {
-                        $scope.adminsLogAoData.endTime = '';
-                    }
-                }
-            }
-        });
-
-        $scope.showDescriptionDetail = function (data) {
-            var tempStr = '';
-            var tempObj = JSON.parse(data);
-            if (typeof tempObj == 'object') {
-                window.Object.keys(tempObj).map(function (item) {
-                    tempStr = tempStr + '<span style="max-width: 180px;text-align: left">'+$translate.instant(item)+'</span>'  + ':' + tempObj[item].toString() + '</br>'
-                })
-            }
-            return tempStr;
-        };
-
-
-        // 页面加载执行的函数
     }
 })();
 
@@ -3009,6 +3009,234 @@
 (function() {
 
     angular
+        .module('admin.bigwinsManage')
+        .controller('BigwinsManageController', BigwinsManageController);
+
+    BigwinsManageController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModal',
+        'adminService'
+    ];
+
+    function BigwinsManageController(
+        $scope,
+        $rootScope,
+        $uibModal,
+        adminService
+    ) {
+
+        $scope.brandOptions = [];
+
+        $scope.initBrandOptionsData = function () {
+            $scope.brandOptions = [];
+            adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                var tempObj ={
+                                    label:objItem.code||'',
+                                    value:objItem.code||''
+                                };
+                                $scope.brandOptions.push(tempObj)
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.statusOptions = [
+            {
+                label:'pending',
+                value:'pending'
+            },
+            {
+                label:'approved',
+                value:'approved'
+            },
+            {
+                label:'reviewing',
+                value:'reviewing'
+            },
+            {
+                label:'succeed',
+                value:'succeed'
+            },
+            {
+                label:'revoked',
+                value:'revoked'
+            }
+        ];
+
+        $scope.bigwinsManageUrl = $rootScope.URL.BIGWINSMANAGE.GET;
+
+        // 原始的数据
+        $scope.bigwinsManage = [];
+        $scope.bigwinsManageReload = 1;
+        $scope.bigwinsManageAoData = {};
+        $scope.tempBigwinsManageAoData = {};
+
+        $scope.trigerSearch = function() {
+            $scope.tempBigwinsManageAoData = Object.assign($scope.tempBigwinsManageAoData,$scope.bigwinsManageAoData);
+            $scope.bigwinsManageReload++;
+        };
+
+        $scope.resetSearch = function() {
+            $scope.bigwinsManageAoData = {};
+            $scope.searchTimeStart = undefined
+            $scope.searchTimeEnd = undefined
+            var tempData = $scope.tempBigwinsManageAoData;
+            $scope.tempBigwinsManageAoData = {
+                page:tempData.page,
+                pageSize:tempData.pageSize
+            };
+            $scope.bigwinsManageReload++;
+        };
+
+        // 初始化table数据
+        $scope.initBigwinsManageData = function () {
+            $scope.bigwinsManageReload++;
+        };
+
+
+        $scope.auditBigwinsManage = function (item) {
+            if(!item.id){
+                $rootScope.alertErrorMsg('server data error');
+                return;
+            }
+            adminService.getReq($rootScope.URL.BIGWINSMANAGE.GETAUDIT + '/' + item.id, {admin_id:(window.userInfo.adminId || ''),adminname: (window.userInfo && window.userInfo.username || ''),}, {}).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    console.log(res.data.data)
+                    var tempData = {
+                        data: res.data.data,
+                        _itemId:item.id
+                    };
+                    if (res.data.success) {
+                        var modalInstance = $uibModal.open({
+                            animation: true,
+                            ariaLabelledBy: 'modal-title',
+                            ariaDescribedBy: 'modal-body',
+                            templateUrl: '/views/admin/bigwinsManage/bigwinsManageModal.html',
+                            controller: 'bigwinsManageModalController',
+                            resolve: {
+                                modalItem: tempData,
+                            },
+                            size: 'lg',
+                        });
+                        modalInstance.result.then(function(data) {
+                            $scope.initBigwinsManageData();
+                        }, function(data) {
+                        });
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initBrandOptionsData();
+
+        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+                if ($scope.searchTimeStart) {
+                    $scope.bigwinsManageAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.bigwinsManageAoData.start_time) {
+                        $scope.bigwinsManageAoData.start_time = '';
+                    }
+                }
+                if ($scope.searchTimeEnd) {
+                    $scope.bigwinsManageAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
+                } else {
+                    if ($scope.bigwinsManageAoData.end_time) {
+                        $scope.bigwinsManageAoData.end_time = '';
+                    }
+                }
+            }
+        });
+
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.bigwinsManage')
+        .controller('bigwinsManageModalController', bigwinsManageModalController);
+
+    bigwinsManageModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'adminService',
+        'modalItem',
+        '$translate'
+    ];
+
+    function bigwinsManageModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        adminService,
+        modalItem,
+        $translate
+    ) {
+
+        $scope.resultOptions = [
+            {
+                label:'pending',
+                value:'pending'
+            },
+            {
+                label:'approved',
+                value:'approved'
+            },
+            {
+                label:'declined',
+                value:'declined'
+            },
+        ];
+
+        $scope.item = {
+            result:$scope.resultOptions[0].value,
+            comment:''
+        };
+
+        $scope.confirmModal = function () {
+            var tempData = angular.copy($scope.item);
+            tempData.adminId = modalItem.data.adminId;
+            tempData.adminname=window.userInfo && window.userInfo.username || '',
+            adminService.postReq($rootScope.URL.BIGWINSMANAGE.POSTAUDIT+'/'+modalItem._itemId+'/'+modalItem.data.id, {}, tempData).then(function (res) {
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $uibModalInstance.close('success');
+                        $rootScope.toasterSuccess(res.data.msg);
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.bankCards')
         .controller('BankCardsController', BankCardsController);
 
@@ -3256,234 +3484,6 @@
 
         // 页面加载执行的函数
         $scope.initBankCardsData();
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.bigwinsManage')
-        .controller('BigwinsManageController', BigwinsManageController);
-
-    BigwinsManageController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModal',
-        'adminService'
-    ];
-
-    function BigwinsManageController(
-        $scope,
-        $rootScope,
-        $uibModal,
-        adminService
-    ) {
-
-        $scope.brandOptions = [];
-
-        $scope.initBrandOptionsData = function () {
-            $scope.brandOptions = [];
-            adminService.getReq($rootScope.URL.GAMEBRANDS.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        if(window.Array.isArray(res.data.data)){
-                            res.data.data.map(function (objItem) {
-                                var tempObj ={
-                                    label:objItem.code||'',
-                                    value:objItem.code||''
-                                };
-                                $scope.brandOptions.push(tempObj)
-                            })
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.statusOptions = [
-            {
-                label:'pending',
-                value:'pending'
-            },
-            {
-                label:'approved',
-                value:'approved'
-            },
-            {
-                label:'reviewing',
-                value:'reviewing'
-            },
-            {
-                label:'succeed',
-                value:'succeed'
-            },
-            {
-                label:'revoked',
-                value:'revoked'
-            }
-        ];
-
-        $scope.bigwinsManageUrl = $rootScope.URL.BIGWINSMANAGE.GET;
-
-        // 原始的数据
-        $scope.bigwinsManage = [];
-        $scope.bigwinsManageReload = 1;
-        $scope.bigwinsManageAoData = {};
-        $scope.tempBigwinsManageAoData = {};
-
-        $scope.trigerSearch = function() {
-            $scope.tempBigwinsManageAoData = Object.assign($scope.tempBigwinsManageAoData,$scope.bigwinsManageAoData);
-            $scope.bigwinsManageReload++;
-        };
-
-        $scope.resetSearch = function() {
-            $scope.bigwinsManageAoData = {};
-            $scope.searchTimeStart = undefined
-            $scope.searchTimeEnd = undefined
-            var tempData = $scope.tempBigwinsManageAoData;
-            $scope.tempBigwinsManageAoData = {
-                page:tempData.page,
-                pageSize:tempData.pageSize
-            };
-            $scope.bigwinsManageReload++;
-        };
-
-        // 初始化table数据
-        $scope.initBigwinsManageData = function () {
-            $scope.bigwinsManageReload++;
-        };
-
-
-        $scope.auditBigwinsManage = function (item) {
-            if(!item.id){
-                $rootScope.alertErrorMsg('server data error');
-                return;
-            }
-            adminService.getReq($rootScope.URL.BIGWINSMANAGE.GETAUDIT + '/' + item.id, {admin_id:(window.userInfo.adminId || ''),adminname: (window.userInfo && window.userInfo.username || ''),}, {}).then(function (res) {
-                if (typeof res.data.success === 'boolean') {
-                    console.log(res.data.data)
-                    var tempData = {
-                        data: res.data.data,
-                        _itemId:item.id
-                    };
-                    if (res.data.success) {
-                        var modalInstance = $uibModal.open({
-                            animation: true,
-                            ariaLabelledBy: 'modal-title',
-                            ariaDescribedBy: 'modal-body',
-                            templateUrl: '/views/admin/bigwinsManage/bigwinsManageModal.html',
-                            controller: 'bigwinsManageModalController',
-                            resolve: {
-                                modalItem: tempData,
-                            },
-                            size: 'lg',
-                        });
-                        modalInstance.result.then(function(data) {
-                            $scope.initBigwinsManageData();
-                        }, function(data) {
-                        });
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initBrandOptionsData();
-
-        $scope.$watch('searchTimeStart+searchTimeEnd', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.searchTimeStart) {
-                    $scope.bigwinsManageAoData.start_time = $scope.searchTimeStart.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.bigwinsManageAoData.start_time) {
-                        $scope.bigwinsManageAoData.start_time = '';
-                    }
-                }
-                if ($scope.searchTimeEnd) {
-                    $scope.bigwinsManageAoData.end_time = $scope.searchTimeEnd.utc().format($rootScope.dateOptionsYYYMMDDHHmmss.format);
-                } else {
-                    if ($scope.bigwinsManageAoData.end_time) {
-                        $scope.bigwinsManageAoData.end_time = '';
-                    }
-                }
-            }
-        });
-
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.bigwinsManage')
-        .controller('bigwinsManageModalController', bigwinsManageModalController);
-
-    bigwinsManageModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'adminService',
-        'modalItem',
-        '$translate'
-    ];
-
-    function bigwinsManageModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        adminService,
-        modalItem,
-        $translate
-    ) {
-
-        $scope.resultOptions = [
-            {
-                label:'pending',
-                value:'pending'
-            },
-            {
-                label:'approved',
-                value:'approved'
-            },
-            {
-                label:'declined',
-                value:'declined'
-            },
-        ];
-
-        $scope.item = {
-            result:$scope.resultOptions[0].value,
-            comment:''
-        };
-
-        $scope.confirmModal = function () {
-            var tempData = angular.copy($scope.item);
-            tempData.adminId = modalItem.data.adminId;
-            tempData.adminname=window.userInfo && window.userInfo.username || '',
-            adminService.postReq($rootScope.URL.BIGWINSMANAGE.POSTAUDIT+'/'+modalItem._itemId+'/'+modalItem.data.id, {}, tempData).then(function (res) {
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $uibModalInstance.close('success');
-                        $rootScope.toasterSuccess(res.data.msg);
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-
     }
 })();
 
@@ -7253,6 +7253,212 @@
 (function() {
 
     angular
+        .module('admin.localeLanguage')
+        .controller('LocaleLanguageController', LocaleLanguageController);
+
+    LocaleLanguageController.$inject = [
+        '$scope',
+        '$uibModal',
+        '$rootScope',
+        'adminService',
+        '$translate'
+    ];
+
+    function LocaleLanguageController(
+        $scope,
+        $uibModal,
+        $rootScope,
+        adminService,
+        $translate
+    ) {
+
+        // 原始的数据
+        $scope.localeLanguage = [];
+
+        $scope.supportedOptions = [
+            {
+                value:'0',
+                label:$translate.instant('table.localeLanguage.th3ShowFalse')
+            },
+            {
+                value:'1',
+                label:$translate.instant('table.localeLanguage.th3ShowTrue')
+            }
+        ];
+
+        // 过滤出来的数据
+        $scope.showLocaleLanguage = [];
+        $scope.localeLanguageReload = 1;
+        $scope.localeLanguageAoData = {};
+        $scope.localeLanguageSearch = '';
+
+        // 初始化table数据
+        $scope.initLocaleLanguageData = function () {
+            //$scope.localeLanguage = [];
+            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        $scope.localeLanguage = angular.copy(res.data.data);
+                        $scope.localeLanguage.forEach(function (localeLanguageItem, localeLanguageIndex) {
+                            localeLanguageItem.supported = localeLanguageItem.supported ? '1' : '0';
+                        });
+                        $scope.localeLanguageReload++;
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
+
+        $scope.showLocaleLanguageModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/localeLanguage/localeLanguageModal.html',
+                controller: 'localeLanguageModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    hasPower:$scope.validPower("LOCALELANGUAGE", ["PATCH", "POST"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initLocaleLanguageData();
+            }, function (data) {
+
+            });
+        };
+
+
+        // 删除localeLanguage
+        /**
+         * @param localeLanguage 本地语言数据对象
+         * @return null
+         */
+        $scope.deleteLocaleLanguage = function (localeLanguage) {
+            if (localeLanguage.code) {
+                $rootScope.alertConfirm(function () {
+                    adminService.deleteReq($rootScope.URL.LOCALELANGUAGE.DELETE+'/'+localeLanguage.code, {}, {}).then(function (res) {
+                        if (typeof res.data.success === 'boolean') {
+                            if (res.data.success) {
+                                $scope.initLocaleLanguageData();
+                                $rootScope.toasterSuccess(res.data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(res.data.msg);
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        /**
+         *
+         * @param item 添加的本地语言
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.localeLanguage.splice(index, 1);
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initLocaleLanguageData();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.localeLanguage')
+        .controller('localeLanguageModalController', localeLanguageModalController);
+
+    localeLanguageModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        '$translate',
+        'adminService',
+        'hasPower',
+        'edit',
+        'modalItem'
+    ];
+
+    function localeLanguageModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        $translate,
+        adminService,
+        hasPower,
+        edit,
+        modalItem
+    ) {
+
+        $scope.edit = edit;
+        $scope.hasPower = hasPower;
+        $scope.modalItem = angular.copy(modalItem);
+
+        // 初始化table数据
+        $scope.initMethodsNameModalData = function () {
+            if(edit==2){
+                $scope.modalItem.supported = $scope.supportedOptions[1].value
+            }
+        };
+
+        //$rootScope.toasterSuccess(res.data.msg);;
+        $scope.confirmModal = function () {
+            var tempData = angular.copy($scope.modalItem);
+            if (edit==2) {
+                adminService.postReq($rootScope.URL.LOCALELANGUAGE.POST, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            } else if (edit==3) {
+                adminService.patchReq($rootScope.URL.LOCALELANGUAGE.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
+                    console.log(res);
+                    if (typeof res.data.success === 'boolean') {
+                        if (res.data.success) {
+                            $uibModalInstance.close('OK');
+                            $rootScope.toasterSuccess(res.data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(res.data.msg);
+                        }
+                    }
+                });
+            }
+
+        };
+
+        $scope.cancelModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initMethodsNameModalData();
+
+    }
+})();
+
+(function() {
+
+    angular
         .module('admin.gamesProducts')
         .controller('GamesProductsController', GamesProductsController);
 
@@ -7588,212 +7794,6 @@
 (function() {
 
     angular
-        .module('admin.localeLanguage')
-        .controller('LocaleLanguageController', LocaleLanguageController);
-
-    LocaleLanguageController.$inject = [
-        '$scope',
-        '$uibModal',
-        '$rootScope',
-        'adminService',
-        '$translate'
-    ];
-
-    function LocaleLanguageController(
-        $scope,
-        $uibModal,
-        $rootScope,
-        adminService,
-        $translate
-    ) {
-
-        // 原始的数据
-        $scope.localeLanguage = [];
-
-        $scope.supportedOptions = [
-            {
-                value:'0',
-                label:$translate.instant('table.localeLanguage.th3ShowFalse')
-            },
-            {
-                value:'1',
-                label:$translate.instant('table.localeLanguage.th3ShowTrue')
-            }
-        ];
-
-        // 过滤出来的数据
-        $scope.showLocaleLanguage = [];
-        $scope.localeLanguageReload = 1;
-        $scope.localeLanguageAoData = {};
-        $scope.localeLanguageSearch = '';
-
-        // 初始化table数据
-        $scope.initLocaleLanguageData = function () {
-            //$scope.localeLanguage = [];
-            adminService.getReq($rootScope.URL.LOCALELANGUAGE.GET, {}, {}).then(function (res) {
-                console.log(res);
-                if (typeof res.data.success === 'boolean') {
-                    if (res.data.success) {
-                        $scope.localeLanguage = angular.copy(res.data.data);
-                        $scope.localeLanguage.forEach(function (localeLanguageItem, localeLanguageIndex) {
-                            localeLanguageItem.supported = localeLanguageItem.supported ? '1' : '0';
-                        });
-                        $scope.localeLanguageReload++;
-                    } else {
-                        $rootScope.alertErrorMsg(res.data.msg);
-                    }
-                }
-            });
-        };
-
-
-        $scope.showLocaleLanguageModal = function (item,edit) {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/admin/localeLanguage/localeLanguageModal.html',
-                controller: 'localeLanguageModalController',
-                size: 'lg',
-                scope:$scope,
-                resolve: {
-                    edit:edit,
-                    modalItem: item,
-                    hasPower:$scope.validPower("LOCALELANGUAGE", ["PATCH", "POST"]) && edit !== 1,
-                }
-            });
-            modalInstance.result.then(function (data) {
-                $scope.initLocaleLanguageData();
-            }, function (data) {
-
-            });
-        };
-
-
-        // 删除localeLanguage
-        /**
-         * @param localeLanguage 本地语言数据对象
-         * @return null
-         */
-        $scope.deleteLocaleLanguage = function (localeLanguage) {
-            if (localeLanguage.code) {
-                $rootScope.alertConfirm(function () {
-                    adminService.deleteReq($rootScope.URL.LOCALELANGUAGE.DELETE+'/'+localeLanguage.code, {}, {}).then(function (res) {
-                        if (typeof res.data.success === 'boolean') {
-                            if (res.data.success) {
-                                $scope.initLocaleLanguageData();
-                                $rootScope.toasterSuccess(res.data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(res.data.msg);
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        /**
-         *
-         * @param item 添加的本地语言
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.localeLanguage.splice(index, 1);
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initLocaleLanguageData();
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.localeLanguage')
-        .controller('localeLanguageModalController', localeLanguageModalController);
-
-    localeLanguageModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        '$translate',
-        'adminService',
-        'hasPower',
-        'edit',
-        'modalItem'
-    ];
-
-    function localeLanguageModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        $translate,
-        adminService,
-        hasPower,
-        edit,
-        modalItem
-    ) {
-
-        $scope.edit = edit;
-        $scope.hasPower = hasPower;
-        $scope.modalItem = angular.copy(modalItem);
-
-        // 初始化table数据
-        $scope.initMethodsNameModalData = function () {
-            if(edit==2){
-                $scope.modalItem.supported = $scope.supportedOptions[1].value
-            }
-        };
-
-        //$rootScope.toasterSuccess(res.data.msg);;
-        $scope.confirmModal = function () {
-            var tempData = angular.copy($scope.modalItem);
-            if (edit==2) {
-                adminService.postReq($rootScope.URL.LOCALELANGUAGE.POST, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('OK');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            } else if (edit==3) {
-                adminService.patchReq($rootScope.URL.LOCALELANGUAGE.PATCH+'/'+tempData.code, {}, tempData).then(function (res) {
-                    console.log(res);
-                    if (typeof res.data.success === 'boolean') {
-                        if (res.data.success) {
-                            $uibModalInstance.close('OK');
-                            $rootScope.toasterSuccess(res.data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(res.data.msg);
-                        }
-                    }
-                });
-            }
-
-        };
-
-        $scope.cancelModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initMethodsNameModalData();
-
-    }
-})();
-
-(function() {
-
-    angular
         .module('admin.mediaCategories')
         .controller('MediaCategoriesController', MediaCategoriesController);
 
@@ -8066,6 +8066,398 @@
 
         $scope.initLocalesOptionsData();
 
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.menu')
+        .controller('SuperAdminMenuController', SuperAdminMenuController);
+
+    SuperAdminMenuController.$inject = [
+        '$scope',
+        '$rootScope',
+        'superAdminService',
+        '$sce',
+        '$uibModal'
+    ];
+
+    function SuperAdminMenuController(
+        $scope,
+        $rootScope,
+        superAdminService,
+        $sce,
+        $uibModal
+    ) {
+
+        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
+
+        $scope.oneLevelMenus = [];
+
+        // 原始的二级数据
+        $scope.twoLevelMenus = [];
+
+        // 过滤出来的二级数据
+        $scope.twoLevelMenusShow = [];
+        $scope.twoLevelMenusShowReload = 1;
+        $scope.twoLevelMenusAoData = {
+            menuStatus: ''
+        };
+
+        $scope.currentSelectMenu = {};
+
+        // 添加一级菜单
+        $scope.addOneLevelMenu = function () {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/superAdmin/menu/menu-add-modal.html',
+                controller: 'OneLevelMenusModalController',
+                resolve: {
+                    modalData: function () {
+                        return {};
+                    },
+                    isAdd: true
+                }
+            });
+            modalInstance.result.then(function (data) {
+                if (data === 'neededUploadOneLevelMenus') {
+                    $scope.initOneLevelMenus();
+                }
+            }, function (cancel) {
+
+            });
+        };
+
+        // 获取二级菜单,初始化列表数据
+        /**
+         * @param oneLevelMenu 一级菜单对象
+         * @return null
+         */
+        $scope.getSecondLevelMenu = function (oneLevelMenu) {
+            if(!$scope.validPower("MANAGEMENU", ["RIGHTGET"])){
+                return '';
+            }
+            $scope.twoLevelMenus = [];
+            $scope.currentSelectMenu = angular.copy(oneLevelMenu);
+            if ($scope.currentSelectMenu['showSecond'] !== undefined) {
+                delete $scope.currentSelectMenu['showSecond'];
+            }
+            if (oneLevelMenu['showSecond']) {
+                oneLevelMenu['showSecond'] = false;
+                return;
+            }
+            console.log(oneLevelMenu, 'oneLevelMenu');
+            $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
+                oneLevelMenusItem['showSecond'] = false;
+            });
+            if (oneLevelMenu.id) {
+                oneLevelMenu['showSecond'] = !oneLevelMenu['showSecond'];
+                $scope.twoLevelMenus = [];
+                superAdminService.getReq($rootScope.URL.MANAGEMENU.RIGHTGET, { 'parentid': oneLevelMenu.id, 'pageSize': 50, 'curPage': 1 }, {}).then(function (data) {
+                    console.log(data);
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            oneLevelMenu['secondLevelMenus'] = angular.copy(data.data.list);
+                            $scope.twoLevelMenus = angular.copy(data.data.list);
+                            // $scope.twoLevelMenusShowReload++;
+                            $scope.twoLevelMenusAoData = {
+                                menuName: '',
+                                menuStatus: ''
+                            };
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            }
+        };
+
+        // 保存二级菜单
+        /**
+         * @param secondLevelMenu 二级菜单对象
+         * @param item 输入的对象
+         * @return null
+         */
+        $scope.saveSecondLevelMenu = function (secondLevelMenu, item) {
+            console.log(secondLevelMenu, 'secondLevelMenu');
+            console.log(item, 'secondLevelMenuItem');
+            var tempData = angular.extend({}, secondLevelMenu, item);
+            if (!tempData.id) {
+                if(!$scope.validPower("MANAGEMENU", ["RIGHTPOST"])){
+                    return '';
+                }
+                delete tempData.id;
+                superAdminService.postReq($rootScope.URL.MANAGEMENU.RIGHTPOST, {}, tempData).then(function (data) {
+                    console.log(data);
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.getSecondLevelMenu($scope.currentSelectMenu);
+                            $rootScope.toasterSuccess(data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            }else{
+                if(!$scope.validPower("MANAGEMENU", ["RIGHTPATCH"])){
+                    return '';
+                }
+                superAdminService.patchReq($rootScope.URL.MANAGEMENU.RIGHTPATCH, {}, tempData).then(function (data) {
+                    console.log(data);
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.getSecondLevelMenu($scope.currentSelectMenu);
+                            $rootScope.toasterSuccess(data.msg);
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            }
+
+            return '';
+        };
+
+        // 添加二级菜单
+        $scope.addSecondLevelMenu = function () {
+            if ($scope.currentSelectMenu.id) {
+                $scope.twoLevelMenusAoData = {};
+                $scope.twoLevelMenus.unshift({
+                    'id': null,
+                    'menuName': '',
+                    'menuCode': '',
+                    'menuType': null,
+                    'menuStatus': '1',
+                    'menuUrl': '',
+                    'menuSortNo': 0,
+                    'parentId': $scope.currentSelectMenu.id,
+                    'isShowTrEdit': true
+                });
+            }
+        };
+
+        /**
+         *
+         * @param item 添加的对象
+         * @param index 添加的index
+         */
+
+        $scope.cancelSave = function (item, index) {
+            if (item.id == null) {
+                $scope.twoLevelMenus.splice(index, 1);
+            }
+        };
+
+        // 删除一级菜单
+        /**
+         * @param oneLevelMenu 一级菜单对象
+         * @param $event 事件对象
+         * @return null
+         */
+        $scope.deleteOneLevelMenu = function (oneLevelMenu, $event) {
+            if(!$scope.validPower("MANAGEMENU", ["LEFTDELETE"])){
+                return '';
+            }
+            console.log(oneLevelMenu, 'oneLevelMenu');
+            $event.stopPropagation();
+            if (oneLevelMenu.id) {
+                $rootScope.alertConfirm(function () {
+                    superAdminService.deleteReq($rootScope.URL.MANAGEMENU.LEFTDELETE, { 'id': oneLevelMenu.id }, {}).then(function (data) {
+                        console.log(data);
+                        if (typeof data.success === 'boolean') {
+                            if (data.success) {
+                                $scope.initOneLevelMenus();
+                                $rootScope.toasterSuccess(data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(data.msg);
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 删除二级菜单
+        /**
+         * @param secondLevelMenu 二级菜单对象
+         * @return null
+         */
+        $scope.deleteSecondLevelMenu = function (secondLevelMenu) {
+            if(!$scope.validPower("MANAGEMENU", ["RIGHTDELETE"])){
+                return '';
+            }
+            console.log(secondLevelMenu, 'secondLevelMenu');
+            if (secondLevelMenu.id) {
+                $rootScope.alertConfirm(function () {
+                    superAdminService.deleteReq($rootScope.URL.MANAGEMENU.RIGHTDELETE, { 'id': secondLevelMenu.id }, {}).then(function (data) {
+                        console.log(data);
+                        if (typeof data.success === 'boolean') {
+                            if (data.success) {
+                                $scope.getSecondLevelMenu($scope.currentSelectMenu);
+                                $rootScope.toasterSuccess(data.msg);
+                            } else {
+                                $rootScope.alertErrorMsg(data.msg);
+                            }
+                        }
+                    });
+                });
+            }
+        };
+
+        // 初始化一级菜单
+        $scope.initOneLevelMenus = function () {
+            if(!$scope.validPower("MANAGEMENU", ["LEFTGET"])){
+                return '';
+            }
+            $scope.oneLevelMenus = [];
+            superAdminService.getReq($rootScope.URL.MANAGEMENU.LEFTGET, {}, {}).then(function (data) {
+                if (typeof data.success === 'boolean') {
+                    if (data.success) {
+                        var tempData = data.data;
+                        tempData.forEach(function (oneLevelMenusItem) {
+                            oneLevelMenusItem['secondLevelMenus'] = [];
+                            oneLevelMenusItem['showSecond'] = false;
+                        });
+                        $scope.oneLevelMenus = angular.copy(data.data);
+                        if ($scope.oneLevelMenus[0]) {
+                            $scope.currentSelectMenu = angular.copy($scope.oneLevelMenus[0]);
+                            $scope.getSecondLevelMenu($scope.currentSelectMenu);
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(data.msg);
+                    }
+                }
+            });
+        };
+
+        // 编辑一级菜单
+        /**
+         * @param oneLevelMenu 一级菜单对象
+         * @return null
+         */
+        $scope.editOneLevelMenu = function (oneLevelMenu, $event) {
+            console.log(oneLevelMenu, 'editOneLevelMenu');
+            $event.stopPropagation();
+            if (oneLevelMenu.id) {
+                var modalInstance = $uibModal.open({
+                    animation: true,
+                    ariaLabelledBy: 'modal-title',
+                    ariaDescribedBy: 'modal-body',
+                    templateUrl: '/views/superAdmin/menu/menu-add-modal.html',
+                    controller: 'OneLevelMenusModalController',
+                    resolve: {
+                        modalData: function () {
+                            return oneLevelMenu;
+                        },
+                        isAdd: false
+                    }
+                });
+                modalInstance.result.then(function (data) {
+                    if (data === 'neededUploadOneLevelMenus') {
+                        $scope.initOneLevelMenus();
+                    }
+                }, function (cancel) {
+
+                });
+            }
+        };
+
+        // 页面加载执行的函数
+
+        $scope.initOneLevelMenus();
+    }
+})();
+
+(function() {
+
+    angular
+        .module('admin.menu')
+        .controller('OneLevelMenusModalController', OneLevelMenusModalController);
+
+    OneLevelMenusModalController.$inject = [
+        '$scope',
+        '$rootScope',
+        '$uibModalInstance',
+        'modalData',
+        'isAdd',
+        'superAdminService'
+    ];
+
+    function OneLevelMenusModalController(
+        $scope,
+        $rootScope,
+        $uibModalInstance,
+        modalData,
+        isAdd,
+        superAdminService
+    ) {
+
+        $scope.oneLevelMenusModal = {};
+
+        $scope.isAdd = isAdd;
+
+        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
+
+        if (isAdd) {
+            $scope.oneLevelMenusModal['menuStatus'] = '1';
+        } else {
+            $scope.oneLevelMenusModal = angular.copy(modalData);
+        }
+
+        $scope.confirm = function () {
+            if (isAdd) {
+                var tempAddOneLevelMenus = {
+                    // "id": "1",
+                    'menuName': $scope.oneLevelMenusModal.menuName || '',
+                    'menuCode': '',
+                    'menuType': '',
+                    'menuStatus': $scope.oneLevelMenusModal.menuStatus,
+                    'menuUrl': '',
+                    'menuSortNo': $scope.oneLevelMenusModal.menuSortNo || '',
+                    'parentId': 'root',
+                };
+                superAdminService.postReq($rootScope.URL.MANAGEMENU.LEFTPOST, {}, tempAddOneLevelMenus).then(function (data) {
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.oneLevelMenusModal = {};
+                            $rootScope.toasterSuccess(data.msg);
+                            $uibModalInstance.close('neededUploadOneLevelMenus');
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            } else {
+                var tempUpdateOneLevelMenus = {
+                    'id': $scope.oneLevelMenusModal.id,
+                    'menuName': $scope.oneLevelMenusModal.menuName || '',
+                    'menuCode': $scope.oneLevelMenusModal.menuCode || '',
+                    'menuType': $scope.oneLevelMenusModal.menuType,
+                    'menuStatus': $scope.oneLevelMenusModal.menuStatus,
+                    'menuUrl': $scope.oneLevelMenusModal.menuUrl,
+                    'menuSortNo': $scope.oneLevelMenusModal.menuSortNo,
+                    'parentId': 'root',
+                };
+                superAdminService.patchReq($rootScope.URL.MANAGEMENU.LEFTPATCH,{}, tempUpdateOneLevelMenus).then(function (data) {
+                    if (typeof data.success === 'boolean') {
+                        if (data.success) {
+                            $scope.oneLevelMenusModal = {};
+                            $rootScope.toasterSuccess(data.msg);
+                            $uibModalInstance.close('neededUploadOneLevelMenus');
+                        } else {
+                            $rootScope.alertErrorMsg(data.msg);
+                        }
+                    }
+                });
+            }
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
     }
 })();
 
@@ -8570,398 +8962,6 @@
 
         // 页面加载执行的函数
 
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.menu')
-        .controller('SuperAdminMenuController', SuperAdminMenuController);
-
-    SuperAdminMenuController.$inject = [
-        '$scope',
-        '$rootScope',
-        'superAdminService',
-        '$sce',
-        '$uibModal'
-    ];
-
-    function SuperAdminMenuController(
-        $scope,
-        $rootScope,
-        superAdminService,
-        $sce,
-        $uibModal
-    ) {
-
-        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
-
-        $scope.oneLevelMenus = [];
-
-        // 原始的二级数据
-        $scope.twoLevelMenus = [];
-
-        // 过滤出来的二级数据
-        $scope.twoLevelMenusShow = [];
-        $scope.twoLevelMenusShowReload = 1;
-        $scope.twoLevelMenusAoData = {
-            menuStatus: ''
-        };
-
-        $scope.currentSelectMenu = {};
-
-        // 添加一级菜单
-        $scope.addOneLevelMenu = function () {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: '/views/superAdmin/menu/menu-add-modal.html',
-                controller: 'OneLevelMenusModalController',
-                resolve: {
-                    modalData: function () {
-                        return {};
-                    },
-                    isAdd: true
-                }
-            });
-            modalInstance.result.then(function (data) {
-                if (data === 'neededUploadOneLevelMenus') {
-                    $scope.initOneLevelMenus();
-                }
-            }, function (cancel) {
-
-            });
-        };
-
-        // 获取二级菜单,初始化列表数据
-        /**
-         * @param oneLevelMenu 一级菜单对象
-         * @return null
-         */
-        $scope.getSecondLevelMenu = function (oneLevelMenu) {
-            if(!$scope.validPower("MANAGEMENU", ["RIGHTGET"])){
-                return '';
-            }
-            $scope.twoLevelMenus = [];
-            $scope.currentSelectMenu = angular.copy(oneLevelMenu);
-            if ($scope.currentSelectMenu['showSecond'] !== undefined) {
-                delete $scope.currentSelectMenu['showSecond'];
-            }
-            if (oneLevelMenu['showSecond']) {
-                oneLevelMenu['showSecond'] = false;
-                return;
-            }
-            console.log(oneLevelMenu, 'oneLevelMenu');
-            $scope.oneLevelMenus.forEach(function (oneLevelMenusItem) {
-                oneLevelMenusItem['showSecond'] = false;
-            });
-            if (oneLevelMenu.id) {
-                oneLevelMenu['showSecond'] = !oneLevelMenu['showSecond'];
-                $scope.twoLevelMenus = [];
-                superAdminService.getReq($rootScope.URL.MANAGEMENU.RIGHTGET, { 'parentid': oneLevelMenu.id, 'pageSize': 50, 'curPage': 1 }, {}).then(function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            oneLevelMenu['secondLevelMenus'] = angular.copy(data.data.list);
-                            $scope.twoLevelMenus = angular.copy(data.data.list);
-                            // $scope.twoLevelMenusShowReload++;
-                            $scope.twoLevelMenusAoData = {
-                                menuName: '',
-                                menuStatus: ''
-                            };
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            }
-        };
-
-        // 保存二级菜单
-        /**
-         * @param secondLevelMenu 二级菜单对象
-         * @param item 输入的对象
-         * @return null
-         */
-        $scope.saveSecondLevelMenu = function (secondLevelMenu, item) {
-            console.log(secondLevelMenu, 'secondLevelMenu');
-            console.log(item, 'secondLevelMenuItem');
-            var tempData = angular.extend({}, secondLevelMenu, item);
-            if (!tempData.id) {
-                if(!$scope.validPower("MANAGEMENU", ["RIGHTPOST"])){
-                    return '';
-                }
-                delete tempData.id;
-                superAdminService.postReq($rootScope.URL.MANAGEMENU.RIGHTPOST, {}, tempData).then(function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $scope.getSecondLevelMenu($scope.currentSelectMenu);
-                            $rootScope.toasterSuccess(data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            }else{
-                if(!$scope.validPower("MANAGEMENU", ["RIGHTPATCH"])){
-                    return '';
-                }
-                superAdminService.patchReq($rootScope.URL.MANAGEMENU.RIGHTPATCH, {}, tempData).then(function (data) {
-                    console.log(data);
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $scope.getSecondLevelMenu($scope.currentSelectMenu);
-                            $rootScope.toasterSuccess(data.msg);
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            }
-
-            return '';
-        };
-
-        // 添加二级菜单
-        $scope.addSecondLevelMenu = function () {
-            if ($scope.currentSelectMenu.id) {
-                $scope.twoLevelMenusAoData = {};
-                $scope.twoLevelMenus.unshift({
-                    'id': null,
-                    'menuName': '',
-                    'menuCode': '',
-                    'menuType': null,
-                    'menuStatus': '1',
-                    'menuUrl': '',
-                    'menuSortNo': 0,
-                    'parentId': $scope.currentSelectMenu.id,
-                    'isShowTrEdit': true
-                });
-            }
-        };
-
-        /**
-         *
-         * @param item 添加的对象
-         * @param index 添加的index
-         */
-
-        $scope.cancelSave = function (item, index) {
-            if (item.id == null) {
-                $scope.twoLevelMenus.splice(index, 1);
-            }
-        };
-
-        // 删除一级菜单
-        /**
-         * @param oneLevelMenu 一级菜单对象
-         * @param $event 事件对象
-         * @return null
-         */
-        $scope.deleteOneLevelMenu = function (oneLevelMenu, $event) {
-            if(!$scope.validPower("MANAGEMENU", ["LEFTDELETE"])){
-                return '';
-            }
-            console.log(oneLevelMenu, 'oneLevelMenu');
-            $event.stopPropagation();
-            if (oneLevelMenu.id) {
-                $rootScope.alertConfirm(function () {
-                    superAdminService.deleteReq($rootScope.URL.MANAGEMENU.LEFTDELETE, { 'id': oneLevelMenu.id }, {}).then(function (data) {
-                        console.log(data);
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
-                                $scope.initOneLevelMenus();
-                                $rootScope.toasterSuccess(data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(data.msg);
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 删除二级菜单
-        /**
-         * @param secondLevelMenu 二级菜单对象
-         * @return null
-         */
-        $scope.deleteSecondLevelMenu = function (secondLevelMenu) {
-            if(!$scope.validPower("MANAGEMENU", ["RIGHTDELETE"])){
-                return '';
-            }
-            console.log(secondLevelMenu, 'secondLevelMenu');
-            if (secondLevelMenu.id) {
-                $rootScope.alertConfirm(function () {
-                    superAdminService.deleteReq($rootScope.URL.MANAGEMENU.RIGHTDELETE, { 'id': secondLevelMenu.id }, {}).then(function (data) {
-                        console.log(data);
-                        if (typeof data.success === 'boolean') {
-                            if (data.success) {
-                                $scope.getSecondLevelMenu($scope.currentSelectMenu);
-                                $rootScope.toasterSuccess(data.msg);
-                            } else {
-                                $rootScope.alertErrorMsg(data.msg);
-                            }
-                        }
-                    });
-                });
-            }
-        };
-
-        // 初始化一级菜单
-        $scope.initOneLevelMenus = function () {
-            if(!$scope.validPower("MANAGEMENU", ["LEFTGET"])){
-                return '';
-            }
-            $scope.oneLevelMenus = [];
-            superAdminService.getReq($rootScope.URL.MANAGEMENU.LEFTGET, {}, {}).then(function (data) {
-                if (typeof data.success === 'boolean') {
-                    if (data.success) {
-                        var tempData = data.data;
-                        tempData.forEach(function (oneLevelMenusItem) {
-                            oneLevelMenusItem['secondLevelMenus'] = [];
-                            oneLevelMenusItem['showSecond'] = false;
-                        });
-                        $scope.oneLevelMenus = angular.copy(data.data);
-                        if ($scope.oneLevelMenus[0]) {
-                            $scope.currentSelectMenu = angular.copy($scope.oneLevelMenus[0]);
-                            $scope.getSecondLevelMenu($scope.currentSelectMenu);
-                        }
-                    } else {
-                        $rootScope.alertErrorMsg(data.msg);
-                    }
-                }
-            });
-        };
-
-        // 编辑一级菜单
-        /**
-         * @param oneLevelMenu 一级菜单对象
-         * @return null
-         */
-        $scope.editOneLevelMenu = function (oneLevelMenu, $event) {
-            console.log(oneLevelMenu, 'editOneLevelMenu');
-            $event.stopPropagation();
-            if (oneLevelMenu.id) {
-                var modalInstance = $uibModal.open({
-                    animation: true,
-                    ariaLabelledBy: 'modal-title',
-                    ariaDescribedBy: 'modal-body',
-                    templateUrl: '/views/superAdmin/menu/menu-add-modal.html',
-                    controller: 'OneLevelMenusModalController',
-                    resolve: {
-                        modalData: function () {
-                            return oneLevelMenu;
-                        },
-                        isAdd: false
-                    }
-                });
-                modalInstance.result.then(function (data) {
-                    if (data === 'neededUploadOneLevelMenus') {
-                        $scope.initOneLevelMenus();
-                    }
-                }, function (cancel) {
-
-                });
-            }
-        };
-
-        // 页面加载执行的函数
-
-        $scope.initOneLevelMenus();
-    }
-})();
-
-(function() {
-
-    angular
-        .module('admin.menu')
-        .controller('OneLevelMenusModalController', OneLevelMenusModalController);
-
-    OneLevelMenusModalController.$inject = [
-        '$scope',
-        '$rootScope',
-        '$uibModalInstance',
-        'modalData',
-        'isAdd',
-        'superAdminService'
-    ];
-
-    function OneLevelMenusModalController(
-        $scope,
-        $rootScope,
-        $uibModalInstance,
-        modalData,
-        isAdd,
-        superAdminService
-    ) {
-
-        $scope.oneLevelMenusModal = {};
-
-        $scope.isAdd = isAdd;
-
-        $scope.superAdminSelect012 = $rootScope.superAdminSelect012;
-
-        if (isAdd) {
-            $scope.oneLevelMenusModal['menuStatus'] = '1';
-        } else {
-            $scope.oneLevelMenusModal = angular.copy(modalData);
-        }
-
-        $scope.confirm = function () {
-            if (isAdd) {
-                var tempAddOneLevelMenus = {
-                    // "id": "1",
-                    'menuName': $scope.oneLevelMenusModal.menuName || '',
-                    'menuCode': '',
-                    'menuType': '',
-                    'menuStatus': $scope.oneLevelMenusModal.menuStatus,
-                    'menuUrl': '',
-                    'menuSortNo': $scope.oneLevelMenusModal.menuSortNo || '',
-                    'parentId': 'root',
-                };
-                superAdminService.postReq($rootScope.URL.MANAGEMENU.LEFTPOST, {}, tempAddOneLevelMenus).then(function (data) {
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $scope.oneLevelMenusModal = {};
-                            $rootScope.toasterSuccess(data.msg);
-                            $uibModalInstance.close('neededUploadOneLevelMenus');
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            } else {
-                var tempUpdateOneLevelMenus = {
-                    'id': $scope.oneLevelMenusModal.id,
-                    'menuName': $scope.oneLevelMenusModal.menuName || '',
-                    'menuCode': $scope.oneLevelMenusModal.menuCode || '',
-                    'menuType': $scope.oneLevelMenusModal.menuType,
-                    'menuStatus': $scope.oneLevelMenusModal.menuStatus,
-                    'menuUrl': $scope.oneLevelMenusModal.menuUrl,
-                    'menuSortNo': $scope.oneLevelMenusModal.menuSortNo,
-                    'parentId': 'root',
-                };
-                superAdminService.patchReq($rootScope.URL.MANAGEMENU.LEFTPATCH,{}, tempUpdateOneLevelMenus).then(function (data) {
-                    if (typeof data.success === 'boolean') {
-                        if (data.success) {
-                            $scope.oneLevelMenusModal = {};
-                            $rootScope.toasterSuccess(data.msg);
-                            $uibModalInstance.close('neededUploadOneLevelMenus');
-                        } else {
-                            $rootScope.alertErrorMsg(data.msg);
-                        }
-                    }
-                });
-            }
-        };
-
-        $scope.cancel = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
     }
 })();
 

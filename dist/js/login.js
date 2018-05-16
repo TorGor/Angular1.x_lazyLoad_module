@@ -26,10 +26,6 @@
         // place the message if something goes wrong
         $scope.authMsg = '';
 
-        $timeout(function () {
-            $scope.$apply()
-        },300)
-
         $scope.login = function () {
             $scope.authMsg = '';
             if ($scope.loginForm.$valid) {
