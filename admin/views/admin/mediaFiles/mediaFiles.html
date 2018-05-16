@@ -83,11 +83,14 @@
                             <td style="width: 15%">
                                 {{'category' | translate}}
                             </td>
-                            <td style="width: 50%">
+                            <td style="width: 30%">
                                 {{'name' | translate}}
                             </td>
                             <td style="width: 15%">
                                 {{'status' | translate}}
+                            </td>
+                            <td style="width: 18%">
+                                {{'createAt' | translate}}
                             </td>
                             <td style="width: 10%">{{'table.button.operation' | translate}}</td>
                         </tr>
@@ -102,6 +105,9 @@
                             </td>
                             <td>
                                 {{item.status}}
+                            </td>
+                            <td>
+                                <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
                             </td>
                             <td>
                                 <button

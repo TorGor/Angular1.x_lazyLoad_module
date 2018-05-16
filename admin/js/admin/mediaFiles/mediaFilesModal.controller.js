@@ -13,6 +13,7 @@
         'adminService',
         'hasPower',
         'edit',
+        'isGame',
         'modalItem'
     ];
 
@@ -25,11 +26,13 @@
         adminService,
         hasPower,
         edit,
+        isGame,
         modalItem
     ) {
 
         $scope.uploadStatus=false;
         $scope.edit = edit;
+        $scope.isGame = isGame;
         $scope.hasPower = hasPower;
         $scope.modalItem = angular.copy(modalItem);
         $scope.modalItem.category = '';
@@ -208,9 +211,23 @@
 
         // 页面加载执行的函数
 
-        $scope.initCategoryOptions();
+        if($scope.isGame){
 
-        $scope.initLocalesOptionsData();
+            $scope.modalItem.category = 'game';
+
+            $scope.categoryOptions.push({
+                label:'game',
+                value:'game'
+            });
+
+            $scope.initFilesTypes();
+
+        }else{
+
+            $scope.initCategoryOptions();
+
+            $scope.initLocalesOptionsData();
+        }
 
     }
 })();

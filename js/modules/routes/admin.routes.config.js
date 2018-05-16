@@ -438,6 +438,7 @@
                 title: 'gamesManage Manage',
                 controller: 'GamesManageController',
                 templateUrl: RouteHelpersProvider.basepath('admin/gamesManage/gamesManage.html'),
+                resolve: RouteHelpersProvider.resolveFor('ngFileUploadShim'),
                 permission: 'games'
             })
             

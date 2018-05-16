@@ -76,6 +76,29 @@
             $scope.mediaFilesReload++;
         };
 
+        $scope.showMediaFilesModal = function (item,edit) {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: '/views/admin/mediaFiles/mediaFilesModal.html',
+                controller: 'mediaFilesModalController',
+                size: 'lg',
+                scope:$scope,
+                resolve: {
+                    edit:edit,
+                    modalItem: item,
+                    isGame: true,
+                    hasPower:$scope.validPower("MEDIAFILES", ["POST"]) && edit !== 1,
+                }
+            });
+            modalInstance.result.then(function (data) {
+                $scope.initMediaFilesData();
+            }, function (data) {
+
+            });
+        };
+
 
         $scope.chooseMediaFiles = function (item) {
             $uibModalInstance.close(item.name);

@@ -81,6 +81,7 @@
                 resolve: {
                     edit:edit,
                     modalItem: item,
+                    isGame: false,
                     hasPower:$scope.validPower("MEDIAFILES", ["POST"]) && edit !== 1,
                 }
             });

@@ -15,7 +15,7 @@
                                 <ui-select
                                     ng-model="modalItem.category"
                                     theme="bootstrap"
-                                    ng-disabled='!hasPower'
+                                    ng-disabled='!hasPower||isGame'
                                     on-select='initFilesTypes()'
                                     search-enabled="false"
                                 >

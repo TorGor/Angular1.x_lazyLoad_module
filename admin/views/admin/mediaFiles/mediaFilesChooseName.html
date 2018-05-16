@@ -11,6 +11,13 @@
                         <div class="row" style="margin-bottom: 10px">
                             <div class="col-xs-12">
                                 <span class="form-group add-button-class">
+                                    <button
+                                        class="btn btn-primary"
+                                        ng-click="showMediaFilesModal({},2)"
+                                        ng-show='validPower("MEDIAFILES", ["POST"])'
+                                        type="button"
+                                        translate="table.button.add"
+                                    >
                                     </button>
                                     <span class='btn-search'>
                                         <button
@@ -20,13 +27,13 @@
                                             translate="table.button.search"
                                         >
                                         </button>
-                                        <button
-                                            class="btn btn-warning"
-                                            ng-click="resetSearch()"
-                                            type="button"
-                                            translate="table.button.reset"
-                                        >
-                                        </button>
+                                        <!--<button-->
+                                        <!--class="btn btn-warning"-->
+                                        <!--ng-click="resetSearch()"-->
+                                        <!--type="button"-->
+                                        <!--translate="table.button.reset"-->
+                                        <!--&gt;-->
+                                        <!--</button>-->
                                     </span>
                                 </span>
                                 <div class='clearfix'></div>
@@ -82,11 +89,14 @@
                                     <td style="width: 15%">
                                         {{'category' | translate}}
                                     </td>
-                                    <td style="width: 50%">
+                                    <td style="width: 30%">
                                         {{'name' | translate}}
                                     </td>
                                     <td style="width: 15%">
                                         {{'status' | translate}}
+                                    </td>
+                                    <td style="width: 18%">
+                                        {{'createAt' | translate}}
                                     </td>
                                     <td style="width: 10%">{{'table.button.operation' | translate}}</td>
                                 </tr>
@@ -101,6 +111,9 @@
                                     </td>
                                     <td>
                                         {{item.status}}
+                                    </td>
+                                    <td>
+                                        <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
                                     </td>
                                     <td>
                                         <button
