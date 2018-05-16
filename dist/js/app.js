@@ -226,7 +226,7 @@
             // suffix: '.json',
             suffix: '',
             server: '',
-             // server: 'http://193.112.155.213:8081',
+             // server: 'http://193.112.155.213:80',
             // server: 'http://madmin.ngrok.xiaomiqiu.cn',
             //server: 'http://holyplace.ngrok.xiaomiqiu.cn',
             URLOBJ:{
@@ -259,6 +259,7 @@
                 plans: 'AFFILIATESPLANS',
                 cards: 'BANKCARDS',
                 mediaCategories: 'MEDIACATEGORIES',
+                media: 'MEDIAFILES',
                 manageMenu: 'MANAGEMENU',
                 manageButton: 'MANAGEBUTTON',
                 manageRole: 'MANAGEROLE',
