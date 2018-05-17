@@ -119,18 +119,6 @@
                         </div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
                             <label class="col-lg-4 col-md-6 control-label">
-                                {{'rank' | translate}}</label>
-                            <div class="col-lg-8 col-md-6">
-                                <input
-                                    ng-model='modalItem.rank.code' name='rank' ng-disabled='true'
-                                    class="form-control"
-                                    type="text"
-                                    placeholder="rank"
-                                >
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
-                            <label class="col-lg-4 col-md-6 control-label">
                                 {{'timezone' | translate}}</label>
                             <div class="col-lg-8 col-md-6">
                                 <input
@@ -197,6 +185,26 @@
                                 </ui-select>
                             </div>
                         </div>
+                        <div class='clearfix'></div>
+                        <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
+                            <label class="col-lg-4 col-md-6 control-label">
+                                {{'rank' | translate}}</label>
+                            <div class="col-lg-8 col-md-6">
+                                <ui-select
+                                    ng-model="modalItem.rank.code"
+                                    theme="bootstrap"
+                                    ng-disabled='!hasPower'
+                                    search-enabled="false"
+                                >
+                                    <ui-select-match placeholder="choose name verified">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in rankOptons">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
                         <div class="form-group col-lg-6 col-md-12 margin-bottom-20">
                             <label class="col-lg-4 col-md-6 control-label">{{'phoneVerified' |
                                 translate}}</label>
@@ -250,7 +258,10 @@
                             <table width="100%" class="table table-bordered table-hover bg-white">
                                 <thead>
                                 <tr class="bg-gray-light text-bold">
-                                    <td style="width: 70%">
+                                    <td style="width: 20%">
+                                        {{'user' | translate}}
+                                    </td>
+                                    <td style="width: 50%">
                                         {{'comment' | translate}}
                                     </td>
                                     <td style="width: 30%">
@@ -260,6 +271,11 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="item in showUserCommentModal">
+                                    <td>
+                                        <span>
+                                            {{item.adminName}}
+                                        </span>
+                                    </td>
                                     <td>
                                         <span>
                                             {{item.comment}}

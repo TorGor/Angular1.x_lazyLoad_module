@@ -45,6 +45,35 @@
         $scope.userCommentModalAoData = {};
         $scope.userCommentModalSearch = '';
 
+        $scope.rankOptons = [];
+
+        $scope.initRankOptions = function () {
+            $scope.rankOptons = [];
+            adminService.getReq($rootScope.URL.USERLEVEL.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if(window.Array.isArray(res.data.data)){
+                            res.data.data.map(function (objItem) {
+                                if(objItem.isDeleted === false){
+                                    var tempObj ={
+                                        label:objItem.code||'',
+                                        value:objItem.code||''
+                                    };
+                                    $scope.rankOptons.push(tempObj)
+                                }
+                                // if(objItem.supported){
+                                //     $scope.brandOptions.push(tempObj)
+                                // }
+                            })
+                        }
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
         // 初始化table数据
         $scope.initUserCommentModalData = function () {
             adminService.getReq($rootScope.URL.USERSMANAGE.GETCOMMENTS+'/'+modalItem.userId, {}, {}).then(function (res) {
@@ -125,6 +154,8 @@
         if($scope.validPower("USERSMANAGE", ["GETCOMMENTS"])){
             $scope.initUserCommentModalData();
         }
+
+        $scope.initRankOptions();
 
     }
 })();

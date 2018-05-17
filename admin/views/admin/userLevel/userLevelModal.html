@@ -27,7 +27,7 @@
                             <label class="col-lg-4 col-md-6 control-label">等级</label>
                             <div class="col-lg-8 col-md-6">
                                 <input
-                                    ng-model="modalItem.level" name='level' ng-pattern='/^[1-9][0-9]*?$/' ng-disabled='!hasPower' class="form-control" type="text"
+                                    ng-model="modalItem.level" name='level' ng-pattern='/^[0-9][0-9]*?$/' ng-disabled='!hasPower' class="form-control" type="text"
                                     placeholder="integer number"
                                 >
                                 <span
@@ -57,9 +57,9 @@
                             <!--</div>-->
                         <!--</div>-->
                         <div class='clearfix'></div>
-                        <legend class="text-center">条件</legend>
+                        <legend ng-hide='modalItem.code=="DEFAULT"' class="text-center">条件</legend>
                         <form></form>
-                        <div class="">
+                        <div ng-hide='modalItem.code=="DEFAULT"' class="">
                             <span class="form-group add-button-class no-block">
                                 <button
                                     ng-show='hasPower'
@@ -213,9 +213,9 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <legend class="text-center">处理</legend>
+                        <legend ng-hide='modalItem.code=="DEFAULT"' class="text-center">处理</legend>
                         <form></form>
-                        <div class="">
+                        <div ng-hide='modalItem.code=="DEFAULT"' class="">
                             <span class="form-group add-button-class no-block">
                                 <button
                                     ng-show='hasPower'

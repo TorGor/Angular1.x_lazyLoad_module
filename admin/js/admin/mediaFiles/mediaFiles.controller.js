@@ -20,6 +20,8 @@
 
         $scope.mediaFilesUrl = $rootScope.URL.MEDIAFILES.GET;
 
+        $scope.categoryOptionsSearch = [];
+
         $scope.statusOptions = [
             {
                 label:'pending',
@@ -92,6 +94,31 @@
             });
         };
 
+        $scope.initCategoryOptionsSearch = function () {
+            adminService.getReq($rootScope.URL.MEDIACATEGORIES.GET, {}, {}).then(function (res) {
+                console.log(res);
+                if (typeof res.data.success === 'boolean') {
+                    if (res.data.success) {
+                        if (window.Array.isArray(res.data.data)) {
+                            res.data.data.map(function (objItem) {
+                                var tempObj = {
+                                    label: objItem.path || '',
+                                    value: objItem.path || ''
+                                };
+                                $scope.categoryOptionsSearch.push(tempObj);
+                            })
+                        }
+                        $scope.categoryOptionsSearch.unshift({
+                            label:'全部',
+                            value:''
+                        });
+                    } else {
+                        $rootScope.alertErrorMsg(res.data.msg);
+                    }
+                }
+            });
+        };
+
         $scope.showMediaFilesViewModal = function (item) {
             var modalInstance = $uibModal.open({
                 animation: true,
@@ -133,5 +160,7 @@
         };
 
         // 页面加载执行的函数
+
+        $scope.initCategoryOptionsSearch()
     }
 })();

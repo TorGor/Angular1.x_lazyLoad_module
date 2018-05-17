@@ -33,12 +33,18 @@
                         <div class='clearfix'></div>
                         <form style="width: 675px" class="form-horizontal pull-right" role="form">
                             <div class="col-lg-4 col-md-4">
-                                <input
-                                    class="form-control"
-                                    type="text"
+                                <ui-select
                                     ng-model="mediaFilesAoData.category"
-                                    placeholder="{{'category' | translate}}"
+                                    theme="bootstrap"
+                                    search-enabled="false"
                                 >
+                                    <ui-select-match placeholder="{{'category' | translate}}">
+                                        <span ng-bind="$select.selected.label"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in categoryOptionsSearch">
+                                        <span ng-bind="item.label"></span>
+                                    </ui-select-choices>
+                                </ui-select>
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <input

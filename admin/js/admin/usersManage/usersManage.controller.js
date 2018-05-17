@@ -48,7 +48,6 @@
             });
         };
 
-
         $scope.genderOptions = [
             {
                 label:'male',
