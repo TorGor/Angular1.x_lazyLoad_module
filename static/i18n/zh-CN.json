@@ -72,6 +72,14 @@
   "ranks":"等级",
   "affiliates":"代理",
   "plans":"计划",
+  "overview":"概览",
+  "gender":"性别",
+  "email":"邮箱",
+  "timezone":"时区",
+  "isApproved":"批准",
+  "isLocked":"锁定",
+  "server":"服务",
+  "total":"合计",
   "table": {
     "common": {
       "per_page": "每页",

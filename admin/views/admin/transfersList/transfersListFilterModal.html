@@ -157,11 +157,11 @@
                                 <td style='width: 13%'>
                                     {{'user' | translate}}
                                 </td>
-                                <td style='width: 10%'>
-                                    {{'table.transfersList.th1' | translate}}
-                                </td>
                                 <td style='width: 7%' ao-data='transfersListAoData' server-data-table-sort='amount'>
                                     {{'table.transfersList.th2' | translate}}
+                                </td>
+                                <td style='width: 10%'>
+                                    {{'table.transfersList.th1' | translate}}
                                 </td>
                                 <td style='width: 8%'>
                                     {{'table.transfersList.th4' | translate}}
@@ -189,10 +189,10 @@
                                     <span>{{item.user.username || ''}}</span>
                                 </td>
                                 <td>
-                                    <span>{{item.coupon || ''}}</span>
+                                    <span>{{item.amount || ''}}</span>
                                 </td>
                                 <td>
-                                    <span>{{item.amount || ''}}</span>
+                                    <span>{{item.coupon || ''}}</span>
                                 </td>
                                 <td>
                                     <span>{{item.wallets.source || ''}}</span>
@@ -215,6 +215,10 @@
                             </tr>
                             <tr ng-show='transfersList.length==0'>
                                 <td colspan='9' class=''>{{'table.no_date' | translate}}</td>
+                            </tr>
+                            <tr ng-show="transfersList.length!==0">
+                                <td colspan='1' class="">{{'total' | translate}}</td>
+                                <td colspan='20' class="">{{calculateTotal(transfersList, 'amount')}}</td>
                             </tr>
                             </tbody>
                         </table>

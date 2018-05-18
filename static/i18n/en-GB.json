@@ -79,6 +79,7 @@
     "isApproved":"isApproved",
     "isLocked":"isLocked",
     "server":"server",
+    "total":"total",
     "table": {
         "common": {
             "per_page": "Per page",

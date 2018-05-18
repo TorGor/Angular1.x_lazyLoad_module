@@ -102,6 +102,9 @@
                            {{'table.bigwinsManage.th1' | translate}}
                         </td>
                         <td style="width: 8%">
+                           {{'table.bigwinsManage.th5' | translate}}
+                        </td>
+                        <td style="width: 8%">
                            {{'table.bigwinsManage.th2' | translate}}
                         </td>
                         <td style="width: 8%" ao-data="bigwinsManageAoData" server-data-table-sort="times">
@@ -109,9 +112,6 @@
                         </td>
                         <td style="width: 8%">
                            {{'table.bigwinsManage.th4' | translate}}
-                        </td>
-                        <td style="width: 8%">
-                           {{'table.bigwinsManage.th5' | translate}}
                         </td>
                         <td style="width: 8%">
                            {{'table.bigwinsManage.th6' | translate}}
@@ -140,6 +140,9 @@
                            <span>{{item.user.username}}</span>
                         </td>
                         <td>
+                           <span>{{item.bonus}}</span>
+                        </td>
+                        <td>
                            <span>{{showArrayName(item.game.name)}}</span>
                         </td>
                         <td>
@@ -147,9 +150,6 @@
                         </td>
                         <td>
                            <span>{{item.bet}}</span>
-                        </td>
-                        <td>
-                           <span>{{item.bonus}}</span>
                         </td>
                         <td>
                            <span>{{item.win}}</span>
@@ -179,6 +179,10 @@
                      </tr>
                      <tr ng-show="bigwinsManage.length==0">
                         <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                     </tr>
+                     <tr ng-show="bigwinsManage.length!==0">
+                        <td colspan='1' class="">{{'total' | translate}}</td>
+                        <td colspan='20' class="">{{calculateTotal(bigwinsManage, 'bonus')}}</td>
                      </tr>
                   </tbody>
                </table>

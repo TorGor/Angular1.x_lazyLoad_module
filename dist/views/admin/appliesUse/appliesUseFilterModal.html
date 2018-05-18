@@ -88,10 +88,10 @@
                               {{'user' | translate}}
                            </td>
                            <td style="width: 8%">
-                              {{'table.appliesUse.th1' | translate}}
+                              {{'table.appliesUse.th2' | translate}}
                            </td>
                            <td style="width: 8%">
-                              {{'table.appliesUse.th2' | translate}}
+                              {{'table.appliesUse.th1' | translate}}
                            </td>
                            <td style="width: 8%">
                               {{'table.appliesUse.th3' | translate}}
@@ -122,10 +122,10 @@
                               <span>{{item.user.username}}</span>
                            </td>
                            <td>
-                              <span>{{item.bets}}</span>
+                              <span>{{item.bonus}}</span>
                            </td>
                            <td>
-                              <span>{{item.bonus}}</span>
+                              <span>{{item.bets}}</span>
                            </td>
                            <td>
                               <span>{{item.brand}}</span>
@@ -151,6 +151,10 @@
                         </tr>
                         <tr ng-show="appliesUse.length==0">
                            <td colspan='20' class="">{{'table.no_date' | translate}}</td>
+                        </tr>
+                        <tr ng-show="appliesUse.length!==0">
+                           <td colspan='1' class="">{{'total' | translate}}</td>
+                           <td colspan='20' class="">{{calculateTotal(appliesUse, 'bonus')}}</td>
                         </tr>
                      </tbody>
                   </table>

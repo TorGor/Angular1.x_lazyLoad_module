@@ -156,6 +156,9 @@
                                 <td style="width: 10%">
                                     {{'table.transactionsDetail.th1' | translate}}
                                 </td>
+                                <td style="width: 6%" ao-data="transactionsDetailAoData" server-data-table-sort="amount">
+                                    {{'table.transactionsDetail.th5' | translate}}
+                                </td>
                                 <td style="width: 6%">
                                     {{'server' | translate}}
                                 </td>
@@ -164,9 +167,6 @@
                                 </td>
                                 <td style="width: 6%">
                                     {{'table.transactionsDetail.th4' | translate}}
-                                </td>
-                                <td style="width: 6%" ao-data="transactionsDetailAoData" server-data-table-sort="amount">
-                                    {{'table.transactionsDetail.th5' | translate}}
                                 </td>
                                 <td style="width: 6%">
                                     {{'table.transactionsDetail.th6' | translate}}
@@ -185,6 +185,9 @@
                                     <span>{{item.user && item.user.username || ''}}</span>
                                 </td>
                                 <td>
+                                    <span>{{item.amount}}</span>
+                                </td>
+                                <td>
                                     <span>{{item.service}}</span>
                                 </td>
                                 <td>
@@ -192,9 +195,6 @@
                                 </td>
                                 <td>
                                     <span>{{item.preBalance}}</span>
-                                </td>
-                                <td>
-                                    <span>{{item.amount}}</span>
                                 </td>
                                 <td>
                                     <span>{{item.postBalance}}</span>
@@ -208,6 +208,10 @@
                             </tr>
                             <tr ng-show="transactionsDetail.length==0">
                                 <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                            </tr>
+                            <tr ng-show="transactionsDetail.length!==0">
+                                <td colspan='1' class="">{{'total' | translate}}</td>
+                                <td colspan='20' class="">{{calculateTotal(transactionsDetail, 'amount')}}</td>
                             </tr>
                             </tbody>
                         </table>

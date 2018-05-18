@@ -42,6 +42,27 @@
             }
         };
 
+        /**
+         *计算总价
+         * @param arr
+         * @param key
+         */
+
+        $rootScope.calculateTotal = function (arr,key) {
+            var total = 0;
+            var keyArr = key.split('.');
+            if(window.Array.isArray(arr)){
+                arr.forEach(function (item) {
+                    var target = item;
+                    keyArr.map(function (keyItem) {
+                        target = target[keyItem]||0
+                    })
+                    total = total + window.parseFloat(target)
+                })
+            }
+            return window.parseFloat(total).toFixed(2)
+        }
+
         var EDITOBJ = {
             '1':'查看',
             '2':'添加',

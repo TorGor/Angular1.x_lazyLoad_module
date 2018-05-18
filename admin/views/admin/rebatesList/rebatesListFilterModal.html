@@ -111,6 +111,9 @@
                                 <td style='width: 10%'>
                                     {{'table.rebatesList.th5' | translate}}
                                 </td>
+                                <td style='width: 8%'>
+                                    {{'table.rebatesList.th4' | translate}}
+                                </td>
                                 <td style='width: 10%'>
                                     {{'table.rebatesList.th1' | translate}}
                                 </td>
@@ -120,9 +123,6 @@
                                 <!--<td style='width: 10%'>-->
                                 <!--{{'table.rebatesList.th3' | translate}}-->
                                 <!--</td>-->
-                                <td style='width: 8%'>
-                                    {{'table.rebatesList.th4' | translate}}
-                                </td>
                                 <td style='width: 13%'>
                                     {{'createAt' | translate}}
                                 </td>
@@ -160,6 +160,9 @@
                                     <span>{{item.user.username || ''}}</span>
                                 </td>
                                 <td>
+                                    <span>{{item.bonus || ''}}</span>
+                                </td>
+                                <td>
                                     <span>{{item.product || ''}}</span>
                                 </td>
                                 <td>
@@ -168,9 +171,6 @@
                                 <!--<td>-->
                                 <!--<span>{{item.period.to.substr(0, 19) || ''}}</span>-->
                                 <!--</td>-->
-                                <td>
-                                    <span>{{item.bonus || ''}}</span>
-                                </td>
                                 <td>
                                     <span>{{formatTime(item.timestamps && item.timestamps.createdAt||'')}}</span>
                                 </td>
@@ -183,6 +183,10 @@
                             </tr>
                             <tr ng-show='rebatesList.length==0'>
                                 <td colspan='20' class=''>{{'table.no_date' | translate}}</td>
+                            </tr>
+                            <tr ng-show="rebatesList.length!==0">
+                                <td colspan='1' class="">{{'total' | translate}}</td>
+                                <td colspan='20' class="">{{calculateTotal(rebatesList, 'bonus')}}</td>
                             </tr>
                             </tbody>
                         </table>

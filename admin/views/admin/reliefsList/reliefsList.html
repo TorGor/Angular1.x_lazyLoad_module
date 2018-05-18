@@ -112,11 +112,11 @@
                             <td style="width: 8%">
                                 {{'table.reliefsList.th9' | translate}}
                             </td>
-                            <td style="width: 8%">
-                                {{'table.reliefsList.th1' | translate}}
-                            </td>
                             <td style="width: 8%" ao-data="reliefsListAoData" server-data-table-sort="amount">
                                 {{'table.reliefsList.th2' | translate}}
+                            </td>
+                            <td style="width: 8%">
+                                {{'table.reliefsList.th1' | translate}}
                             </td>
                             <td style="width: 8%">
                                 {{'table.reliefsList.th3' | translate}}
@@ -150,10 +150,10 @@
                                 <span>{{item.user.username || ''}}</span>
                             </td>
                             <td>
-                                <span>{{item.product || ''}}</span>
+                                <span>{{item.amount}}</span>
                             </td>
                             <td>
-                                <span>{{item.amount}}</span>
+                                <span>{{item.product || ''}}</span>
                             </td>
                             <td>
                                 <span>{{item.details.balance }}</span>
@@ -182,6 +182,10 @@
                         </tr>
                         <tr ng-show="reliefsList.length==0">
                             <td colspan="20" class="">{{'table.no_date' | translate}}</td>
+                        </tr>
+                        <tr ng-show="reliefsList.length!==0">
+                            <td colspan='1' class="">{{'total' | translate}}</td>
+                            <td colspan='20' class="">{{calculateTotal(reliefsList, 'amount')}}</td>
                         </tr>
                         </tbody>
                     </table>

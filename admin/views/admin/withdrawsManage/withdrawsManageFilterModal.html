@@ -207,6 +207,10 @@
                             <tr ng-show="withdrawsManage.length==0">
                                 <td colspan="20" class="">{{'table.no_date' | translate}}</td>
                             </tr>
+                            <tr ng-show="withdrawsManage.length!==0">
+                                <td colspan='1' class="">{{'total' | translate}}</td>
+                                <td colspan='20' class="">{{calculateTotal(withdrawsManage, 'amount')}}</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
